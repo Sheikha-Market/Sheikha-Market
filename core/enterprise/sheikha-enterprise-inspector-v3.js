@@ -1,7 +1,10 @@
 'use strict';
 
 const path = require('path');
-const { collectControlTowerStatus } = require('./sheikha-enterprise-control-tower-v1');
+const {
+  collectControlTowerStatus,
+  refreshGitSnapshot
+} = require('./sheikha-enterprise-control-tower-v1');
 const { getEnterpriseState } = require('./sheikha-enterprise-orchestrator-v1');
 const { status: getExecutivePlatformStatus } = require('../executive-platform/sheikha-executive-platform-v2');
 const { status: getLifeFabricStatus } = require('../life-fabric/sheikha-technical-life-operating-ecosystem-v1');
@@ -180,6 +183,14 @@ function getEnterpriseInspectorSnapshot(options = {}) {
   return snapshot;
 }
 
+async function getFreshEnterpriseInspectorSnapshot(options = {}) {
+  await refreshGitSnapshot();
+  return getEnterpriseInspectorSnapshot({
+    force: true,
+    input: options.input || {}
+  });
+}
+
 function summarizeDiagnostics(groups = []) {
   const summary = { errors: 0, warnings: 0, information: 0, total: 0 };
 
@@ -287,7 +298,9 @@ function collectEnterpriseInspector(input = {}) {
     runtime: controlTower.runtime,
     git: {
       ...controlTower.git,
-      clean: changedFiles.length === 0,
+      clean: controlTower.git.refreshStatus === 'READY'
+        ? changedFiles.length === 0
+        : null,
       changedFileCount: changedFiles.length
     },
     workspace: extension.workspace,
@@ -501,6 +514,7 @@ function compactInspectorContext(snapshot = {}) {
 module.exports = {
   collectEnterpriseInspector,
   compactInspectorContext,
+  getFreshEnterpriseInspectorSnapshot,
   getEnterpriseInspectorSnapshot,
   sanitizeExtensionContext,
   summarizeDiagnostics,

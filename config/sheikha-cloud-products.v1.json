@@ -1,0 +1,88 @@
+{
+  "schema": "SHEIKHA_CLOUD_PRODUCT_SCOPE_V1",
+  "brand": "SHEIKHA",
+  "projectId": "sheikha-marketplace",
+  "projectNumber": "952025946298",
+  "scope": "REQUESTED_CATALOG_NOT_COMPLETE_GOOGLE_CATALOG",
+  "categories": [
+    {"id":"management","title":"الإدارة والهوية","referenceHeading":"Management","acceptance":"عزل المستأجرين واختبار الصلاحيات وسجل تغييرات قابل للمراجعة.","products":[
+      ["APIs & Services","دليل الخدمات"],["Google Auth Platform","الهوية والتفويض"],["Billing","ضبط التكلفة"],["IAM & Admin","إدارة الوصول"],["Organizations","المؤسسات"],["Google Cloud Setup","تأسيس البيئات"],["Admin for Gemini","إدارة اشتراكات الذكاء"],["Cloud Hub","مركز السحابة"]
+    ]},
+    {"id":"compute","title":"الحوسبة","referenceHeading":"Compute","acceptance":"اختبار العزل وحصص الموارد والتوقف والاستعادة تحت حمل مقاس.","products":[
+      ["Compute Engine","الحوسبة الافتراضية"],["Kubernetes Engine","إدارة الحاويات"],["VMware Engine","ربط البيئات الافتراضية"],["Cluster Director","العناقيد العلمية"],["Batch","المهام الدفعية"],["License Manager","إدارة التراخيص"],["Workload Manager","إدارة أحمال العمل"],["Red Hat OpenShift","الحاويات الهجينة"]
+    ]},
+    {"id":"storage","title":"التخزين","referenceHeading":"Storage","acceptance":"اختبار سلامة المحتوى والاستعادة وعزل المسارات والحذف وفق سياسة الاحتفاظ.","products":[
+      ["Cloud Storage","خزنة الأصول"],["Filestore","الملفات المشتركة"],["Backup and DR","الاستعادة والتعافي"],["Storage Transfer","نقل الأصول"],["Parallelstore","التخزين المتوازي"],["Managed Lustre","ملفات الحوسبة العلمية"],["NetApp Volumes","وحدات التخزين المؤسسية"]
+    ]},
+    {"id":"analytics","title":"البيانات والتحليلات","referenceHeading":"Analytics","acceptance":"اختبار جودة البيانات وصلاحيات الاستعلام وقابلية إعادة النتائج وحدود التكلفة.","products":[
+      ["BigQuery","مستودع التحليلات"],["Pub/Sub","ناقل الأحداث"],["Dataflow","تدفق البيانات"],["Managed Airflow","تنسيق مسارات البيانات"],["Managed Apache Spark","المعالجة الموزعة"],["Managed Service for Apache Kafka","تدفق الأحداث"],["Alteryx Designer Cloud","تهيئة البيانات المرئية"],["Data Fusion","خطوط البيانات"],["Looker","ذكاء الأعمال"],["Healthcare","البيانات الصحية"],["Elastic Cloud","البحث التحليلي"],["Databricks","مختبر البيانات"],["Earth Engine","تحليلات الأرض"],["Confluent Cloud","ربط تدفقات المؤسسات"],["Lakehouse","بحيرة المعرفة"],["Data Studio","تقارير الأعمال"],["Datastream","مزامنة التغييرات"],["Knowledge Catalog","فهرس المعرفة"]
+    ]},
+    {"id":"networking","title":"الشبكات","referenceHeading":"Networking","acceptance":"اختبار تجزئة الشبكة والسياسات وسلوك الانقطاع دون تغيير شبكة الإنتاج.","products":[
+      ["VPC Network","الشبكة الخاصة"],["Network Services","خدمات الشبكات"],["Network Connectivity","ربط الشبكات"],["Network Security","أمن الشبكات"],["Network Intelligence","رصد الشبكات"],["Network Service Tiers","فئات الاتصال"],["Spectrum Access System","إدارة الطيف"],["Telecom Network Automation","تنسيق الاتصالات"],["Cloud Number Registry","سجل الأرقام"]
+    ]},
+    {"id":"distributed","title":"الحوسبة الطرفية","referenceHeading":"Distributed Cloud","acceptance":"اختبار العمل دون اتصال والمزامنة وحدود التحكم في العتاد.","products":[
+      ["GDC connected","الطرف المتصل"],["Appliances","عقدة النقل الطرفية"]
+    ]},
+    {"id":"serverless","title":"تشغيل التطبيقات","referenceHeading":"Serverless","acceptance":"اختبار صحة التطبيق وحدود الطلبات والتراجع قبل أي نشر خارجي.","products":[
+      ["Cloud Run","تشغيل الخدمات"],["Cloud Run functions","وظائف الأحداث"],["App Engine","منصة التطبيقات"],["API Gateway","بوابة الواجهات"],["Endpoints","عقود الواجهات"]
+    ]},
+    {"id":"databases","title":"قواعد البيانات","referenceHeading":"Databases","acceptance":"اختبار المعاملات وترحيل المخطط والنسخ والاستعادة وعزل المستأجرين.","products":[
+      ["Database Center","مركز قواعد البيانات"],["AlloyDB for PostgreSQL","البيانات العلائقية المتقدمة"],["Cloud SQL","قواعد البيانات العلائقية"],["Datastore","مخزن الوثائق"],["Firestore","الوثائق المتزامنة"],["Spanner","المعاملات الموزعة"],["Bigtable","الجداول واسعة النطاق"],["Memorystore","ذاكرة البيانات"],["Database Migration","ترحيل البيانات"],["MongoDB Atlas","ربط الوثائق الموزعة"],["Neo4j Aura","معرفة العلاقات"],["Redis Cloud","ربط الذاكرة السريعة"],["Databases","دليل قواعد البيانات"],["Oracle AI Database@Google Cloud","ربط البيانات المؤسسية"]
+    ]},
+    {"id":"observability","title":"الرصد","referenceHeading":"Observability","acceptance":"اختبار جمع القياسات وتنقيح الأسرار ودقة التنبيه وحدود الاحتفاظ.","products":[
+      ["Logging","سجل التشغيل"],["Monitoring","واتش"],["Error Reporting","رصد الأعطال"],["Trace","تتبع الطلبات"]
+    ]},
+    {"id":"operations","title":"التشغيل","referenceHeading":"Operations","acceptance":"اختبار دورة الإصدار والتراجع وربط كل قرار بأدلة قياس حديثة.","products":[
+      ["Profiler","تحليل الأداء"],["Capacity Planner","تخطيط السعة"],["App Lifecycle Manager","دورة التطبيق"],["App Hub","سجل التطبيقات"]
+    ]},
+    {"id":"security","title":"الأمن والضوابط","referenceHeading":"Security","acceptance":"اختبار الرفض الافتراضي ومراجعة الصلاحيات؛ لا تعني النتيجة شهادة امتثال.","products":[
+      ["Security","الحارس"],["Compliance","مراجعة الضوابط"]
+    ]},
+    {"id":"development","title":"بناء التطبيقات","referenceHeading":"App Development","acceptance":"بناء تطبيق تجريبي واختبار مدخلاته ونشره في بيئة اختبار معزولة فقط.","products":[
+      ["App Design Center","فوندري التصميم"],["Firebase","تطبيقات الويب والجوال"],["Gemini Code Assist","مساعد البرمجة"]
+    ]},
+    {"id":"delivery","title":"خطوط البناء والتسليم","referenceHeading":"CI/CD","acceptance":"بناء قابل للتكرار وفحص المخرجات والتبعيات وبوابة مراجعة قبل التسليم.","products":[
+      ["Cloud Build","خط البناء"],["Secure Source Manager","مستودع المصدر الآمن"],["Source Repositories","مستودعات الشيفرة"],["Artifact Registry","سجل المخرجات"],["Cloud Deploy","تسليم الإصدارات"],["GitLab","ربط دورة التطوير"]
+    ]},
+    {"id":"ai","title":"الذكاء والمعرفة","referenceHeading":"Artificial Intelligence","acceptance":"اختبار منفعة المخرجات وحقوق المدخلات وحجب الأسرار والميزانية قبل استدعاء المزود.","products":[
+      ["Translation","الترجمة"],["Document AI","فهم المستندات"],["AI Commerce Search","البحث التجاري"],["Talent Solution","مطابقة المواهب"],["AI Edge Portal","مختبر الذكاء الطرفي"],["Modernization Hub","تحديث التطبيقات"],["Agent Platform","منصة الوكلاء"],["AI Applications","تطبيقات المعرفة"],["CCAI Platform","مركز المحادثات"],["Discovery Engine","اكتشاف المعرفة"],["Gemini Enterprise","مساعد العمل"],["Gemini Notebook Enterprise","دفتر المعرفة"],["Speech","الصوت والنطق"],["Vertex AI Vision","البصيرة المرئية"]
+    ]},
+    {"id":"integration","title":"التكامل","referenceHeading":"Integration Services","acceptance":"اختبار العقود وإعادة المحاولة ومنع تكرار الأثر وحدود التفويض لكل موصل.","products":[
+      ["Cloud Scheduler","جدولة الإنتاج"],["Cloud Tasks","طابور الأعمال"],["Workflows","مسارات العمل"],["Eventarc","توجيه الأحداث"],["Application Integration","ربط التطبيقات"],["Integration Connectors","الموصلات"],["Developer Connect","ربط المصادر"],["Apigee","إدارة الواجهات"]
+    ]},
+    {"id":"tools","title":"الأدوات والتحسين","referenceHeading":"Tools","acceptance":"اختبار حدود الأدوات وإثبات الأثر محليًا مع بقاء التنفيذ الخارجي خاضعًا للمراجعة.","products":[
+      ["Identity Platform","هوية العملاء"],["Deployment Manager","قوالب البنية"],["Service Catalog","كتالوج الحلول"],["Active Assist","اقتراحات التحسين"],["Carbon Footprint","قياس الأثر البيئي"],["Splunk Cloud","ربط التحليلات التشغيلية"],["Cloud Assist Investigations","تحليل الحوادث"],["Cloud Workstations","مساحة التطوير"],["Fault Injection","اختبار المرونة"],["Infrastructure Manager","إدارة البنية"],["Migration Center","مركز الترحيل"],["Service Health","حالة الخدمات"]
+    ]},
+    {"id":"web3","title":"السجلات الموزعة","referenceHeading":"Web3","acceptance":"اختبارات في شبكة تجريبية بلا أموال أو نشر عقود قبل الموافقة المستقلة.","products":[
+      ["Blockchain Node Engine","عقد السجل الموزع"],["Blockchain RPC","بوابة السجل الموزع"]
+    ]},
+    {"id":"collaboration","title":"المكان والتعاون","referenceHeading":"Other Google products","acceptance":"اختبار نطاقات التفويض وحقوق البيانات وحدود المشاركة والإلغاء.","products":[
+      ["Google Maps Platform","خدمات المكان"],["Google Earth","منظور الأرض"],["Google Workspace","مساحة العمل"]
+    ]}
+  ],
+  "candidates": {
+    "Cloud Storage": ["core/foundry/sheikha-visual-foundry.cjs", "tests/sheikha-visual-foundry.test.cjs"],
+    "Cloud Scheduler": ["tools/media/install-visual-foundry-user.cjs", "tests/sheikha-visual-foundry.test.cjs"],
+    "Monitoring": ["core/foundry/sheikha-visual-foundry.cjs", "tests/sheikha-visual-foundry.test.cjs"],
+    "App Design Center": ["core/review/r5-review.js", "tests/sheikha-r5-review-browser.test.cjs"],
+    "Agent Platform": ["core/providers/provider-registry.js", "core/providers/gemini/index.js"],
+    "Cloud Hub": ["core/sheikha-cloud-root.js", "tests/sheikha-cloud-v1.test.js"]
+  },
+  "serviceBindings": {
+    "Cloud Storage":"storage.googleapis.com",
+    "BigQuery":"bigquery.googleapis.com",
+    "Cloud Run":"run.googleapis.com",
+    "Cloud SQL":"sqladmin.googleapis.com",
+    "Compute Engine":"compute.googleapis.com",
+    "Kubernetes Engine":"container.googleapis.com",
+    "Pub/Sub":"pubsub.googleapis.com",
+    "Cloud Scheduler":"cloudscheduler.googleapis.com"
+  },
+  "firstPilot": ["APIs & Services", "Google Auth Platform", "Cloud Storage", "BigQuery", "Cloud Scheduler", "Monitoring"],
+  "sources": [
+    {"purpose":"كتالوج مرجعي، وليس إثبات تكافؤ منتجات شيخة","url":"https://cloud.google.com/products"},
+    {"purpose":"واجهة الجرد للقراءة فقط وصلاحياتها","url":"https://docs.cloud.google.com/service-usage/docs/reference/rest/v1/services/list"},
+    {"purpose":"ضوابط استخدام العلامة وعدم الإيحاء بعلاقة غير قائمة","url":"https://about.google/brand-resource-center/guidance/"},
+    {"purpose":"مسار استكشاف الشراكات، لا إثبات قبول أو اتفاقية","url":"https://cloud.google.com/partners"}
+  ]
+}

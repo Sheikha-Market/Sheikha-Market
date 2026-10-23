@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_NATIVE_TPM2B_PUBLIC_TPMT_PUBLIC_AK_NAME_BINDING_V1",
+  "status": "OFFLINE_RSA_ECC_PUBLIC_PARSER_AND_NAME_BINDER_IMPLEMENTED_REAL_AK_EXPORT_REQUIRED",
+  "supportedTypes": ["RSA", "ECC"],
+  "objectNameFormula": "UINT16_BE(nameAlg) || HASH_nameAlg(TPMT_PUBLIC_marshaled_bytes)",
+  "boundaries": {
+    "objectNameAndQualifiedNameDistinct": true,
+    "qualifiedSignerNotAssumedEqualToObjectName": true,
+    "governanceEnrollmentRequiredForQualifiedNameTrust": true,
+    "tpmResidencyProvenByPublicArea": false,
+    "noTpmDeviceAccess": true
+  }
+}

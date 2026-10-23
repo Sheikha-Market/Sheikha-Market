@@ -1,0 +1,264 @@
+{
+  "timestamp": "2026-10-13T01:32:26.313Z",
+  "status": "LOCAL_EXECUTION_AND_NINE_TESTS_PASSED",
+  "tests": {
+    "exitCode": 0,
+    "output": "✔ integrated probes separate limited evidence from full OS readiness (7.127272ms)\n✔ client flags cannot enable deployment, services or devices (0.32796ms)\n✔ synthetic samples have provenance and linked content digests (0.150209ms)\n✔ stale measurements become visible without restarting services (0.114449ms)\n✔ replay, wrong units, bad values and client approval fail closed (0.201371ms)\n✔ innovation proposes multiple candidates without approving deployment (0.165552ms)\n✔ method catalog produces bounded plans without conclusions or authority (0.124267ms)\n✔ client approval and unknown methods are rejected (0.112676ms)\n✔ statistics describe samples without causal claims (0.348411ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 26.090397\n"
+  },
+  "execution": {
+    "milliseconds": 16.248175,
+    "result": {
+      "system": "SHEIKHA_OS_INTEGRATED_V1",
+      "status": "LOCAL_SPECIFICATION_AND_PROBES_VERIFIED",
+      "source": "sheikha-language/foundations/sheikha-os-integrated-v1.shk",
+      "sourceSha256": "c35b2103564ed40d4dcffe68560acb783c5de21c1208f2f60a10c486b329ec21",
+      "layers": [
+        {
+          "id": "boot",
+          "properties": {
+            "الدور": "إقلاع_UEFI_وتسليم_التحكم",
+            "معيار_الإثبات": "boot_artifact_integrity",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "kernel",
+          "properties": {
+            "الدور": "ذاكرة_ومقاطعات_وتوقيت_وعزل",
+            "معيار_الإثبات": "kernel_runtime_safety",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "scheduler",
+          "properties": {
+            "الدور": "جدولة_وميزانية_ومنع_تجويع",
+            "معيار_الإثبات": "scheduling",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "hal",
+          "properties": {
+            "الدور": "تعريفات_أجهزة_ومعايرة_وحدود",
+            "معيار_الإثبات": "hardware_drivers",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "storage",
+          "properties": {
+            "الدور": "ملفات_دائمة_وتعاف_وصلاحيات",
+            "معيار_الإثبات": "persistent_storage",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "network",
+          "properties": {
+            "الدور": "شبكة_ومصادقة_وتشفير",
+            "معيار_الإثبات": "network_stack",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "security",
+          "properties": {
+            "الدور": "أقل_صلاحية_وفصل_وتدقيق",
+            "معيار_الإثبات": "security_isolation",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "packages",
+          "properties": {
+            "الدور": "حزم_موقعة_وترقية_وتراجع",
+            "معيار_الإثبات": "package_management",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "language",
+          "properties": {
+            "الدور": "مترجم_شيخة_وآلة_افتراضية",
+            "معيار_الإثبات": "language_runtime",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "desktop",
+          "properties": {
+            "الدور": "واجهة_عربية_وتطبيقات_وإتاحة",
+            "معيار_الإثبات": "desktop",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "research",
+          "properties": {
+            "الدور": "منهجيات_وتجارب_ومراجعة",
+            "معيار_الإثبات": "research_planning",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "watch",
+          "properties": {
+            "الدور": "قياس_وسجل_ورصد_تقادم",
+            "معيار_الإثبات": "local_monitoring",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "evidence",
+          "properties": {
+            "الدور": "بصمات_محتوى_وفحص_ادعاءات",
+            "معيار_الإثبات": "independent_evidence",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "governance",
+          "properties": {
+            "الدور": "تفويض_منفصل_ولائحة_تغيير",
+            "معيار_الإثبات": "governance",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "migration",
+          "properties": {
+            "الدور": "ترحيل_خدمات_وتكافؤ_سلوك",
+            "معيار_الإثبات": "service_migration",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        },
+        {
+          "id": "recovery",
+          "properties": {
+            "الدور": "نسخ_واستعادة_واختبار_تعاف",
+            "معيار_الإثبات": "recovery",
+            "الحالة": "DESIGN_CONTRACT",
+            "الاعتماد_الإنتاجي": "UNKNOWN"
+          }
+        }
+      ],
+      "probes": {
+        "bootArtifactIntegrity": true,
+        "recordedVmBootStatus": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+        "bootExecutedThisSession": false,
+        "languageExecution": "VERIFIED_DRY_RUN",
+        "methodProfiles": 11,
+        "methodRequirementsPresent": true,
+        "monitorStaleData": "STALE_DATA"
+      },
+      "unverified": [
+        {
+          "id": "boot",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "kernel",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "scheduler",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "hal",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "storage",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "network",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "security",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "packages",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "desktop",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "evidence",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "governance",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "migration",
+          "fullCapability": "UNKNOWN"
+        },
+        {
+          "id": "recovery",
+          "fullCapability": "UNKNOWN"
+        }
+      ],
+      "policy": {
+        "authorityGranted": false,
+        "productionEnabled": false,
+        "networkOperations": false,
+        "physicalActuation": false,
+        "serviceControl": false,
+        "independentShariaApproval": "UNKNOWN",
+        "legalCompliance": "UNKNOWN"
+      },
+      "allScientificMethodsActivated": false,
+      "linuxReplacementReady": false,
+      "hostRuntime": "Node.js"
+    }
+  },
+  "comparison": {
+    "savedSpecificationSourceHashMatches": true
+  },
+  "sources": {
+    "sheikha-language/foundations/sheikha-os-integrated-v1.shk": "c35b2103564ed40d4dcffe68560acb783c5de21c1208f2f60a10c486b329ec21",
+    "core/os/sheikha-os-integration-v1.cjs": "0f63d65a75ecfef232fbb81b7e0036f340e52ee4ae0fbcda94b9f1193e2022c1",
+    "core/research/sheikha-research-brain-v1.cjs": "9361674c5d3d219731f8bb6d46b75e5ff53fa2c38bb7bbe28e234081d2af06c5",
+    "core/innovation/sheikha-portfolio-monitor-v1.cjs": "4421148fb61f1d0a2fbcc66314826d719ce40f71e9db9d9be7eb967ca8f8d76e",
+    "tests/sheikha-os-integration-v1.test.cjs": "93d56b022b77effc86fa1d9c8e4a5ac35344b1adc8aba5c95338205c0e090e77",
+    "tests/sheikha-research-brain-v1.test.cjs": "376dd6698b248ad71ae95c5ed9a6db4ccff68bbbef633adc0f8f8b57940b04a3",
+    "tests/sheikha-portfolio-monitor-v1.test.cjs": "facae63d297a8f35d0a0c359d6f937dde5b3fff2cceea0e1d340d67e3cc32872"
+  },
+  "feasibility": {
+    "localPrototype": "DEMONSTRATED",
+    "completeOsReplacement": "NOT_DEMONSTRATED",
+    "physicalMonitoring": "NOT_TESTED",
+    "continuousOperation": "NOT_TESTED",
+    "financialFeasibility": "UNKNOWN_COST_AND_REVENUE_DATA_REQUIRED",
+    "performanceBenchmark": "NOT_ESTABLISHED_SINGLE_LOCAL_RUN"
+  },
+  "scope": {
+    "newBoot": false,
+    "servicesModified": false,
+    "physicalActuation": false,
+    "independentCertification": false
+  }
+}

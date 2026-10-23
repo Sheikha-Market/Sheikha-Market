@@ -1,0 +1,170 @@
+{
+  "system": "SHEIKHA_PLATFORM_CAPABILITIES_V1",
+  "profiles": [
+    {
+      "id": "development",
+      "status": "LOCAL_HOST_AND_LIMITED_X64_VM",
+      "requirements": [
+        "local_toolchain",
+        "bounded_probes"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "laptops",
+      "status": "PROPOSED",
+      "requirements": [
+        "device_drivers",
+        "desktop",
+        "power_management",
+        "application_compatibility"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "mobile",
+      "status": "PROPOSED",
+      "requirements": [
+        "arm64_port",
+        "device_drivers",
+        "battery_management",
+        "mobile_security"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "datacenters_hpc",
+      "status": "PROPOSED",
+      "requirements": [
+        "network_stack",
+        "storage",
+        "resource_isolation",
+        "distributed_jobs",
+        "fault_recovery"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "industrial_labs",
+      "status": "PROPOSED",
+      "requirements": [
+        "qualified_io",
+        "calibration",
+        "real_time_measurements",
+        "site_safety"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "robotics",
+      "status": "PROPOSED",
+      "requirements": [
+        "qualified_sensors",
+        "independent_stop",
+        "motion_limits",
+        "simulation_and_field_tests"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "public_administration",
+      "status": "PROPOSED",
+      "requirements": [
+        "identity_and_roles",
+        "privacy",
+        "data_residency_review",
+        "audit",
+        "service_continuity"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "maritime_navigation",
+      "status": "RESEARCH_ONLY",
+      "requirements": [
+        "qualified_navigation_inputs",
+        "redundancy",
+        "timing",
+        "independent_safety_review"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "aviation",
+      "status": "RESEARCH_ONLY",
+      "requirements": [
+        "deterministic_control",
+        "fault_containment",
+        "hardware_qualification",
+        "independent_airworthiness_review"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "space_satellites",
+      "status": "RESEARCH_ONLY",
+      "requirements": [
+        "radiation_and_thermal_qualification",
+        "limited_power",
+        "communications",
+        "fault_tolerance"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    },
+    {
+      "id": "defense_support",
+      "status": "RESEARCH_ONLY",
+      "requirements": [
+        "authorized_non_weapon_scope",
+        "access_control",
+        "system_specific_review"
+      ],
+      "physicalDeploymentVerified": false,
+      "fullOsSupportVerified": false
+    }
+  ],
+  "nativeEvidence": {
+    "architecture": "x86_64",
+    "status": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+    "artifactIntegrity": true,
+    "newBoot": false
+  },
+  "architecture": {
+    "layers": [
+      "platform_contract",
+      "kernel_and_hal",
+      "device_adapters",
+      "bounded_services",
+      "isolated_ai",
+      "versioned_integration_gateway",
+      "evidence_and_governance"
+    ],
+    "aiPlacement": "ISOLATED_SERVICE_WITH_BOUNDED_KERNEL_INTERFACE",
+    "criticalControl": "REQUIRES_PLATFORM_SPECIFIC_DETERMINISTIC_AND_INDEPENDENT_SAFETY_DESIGN",
+    "proposedIntegrationEnvelope": [
+      "schema_version",
+      "source_id",
+      "timestamp",
+      "units",
+      "quality",
+      "sequence",
+      "authorization_scope"
+    ],
+    "integrationImplementedForAllPlatforms": false
+  },
+  "universalCompatibility": false,
+  "agiOrAsiVerified": false,
+  "networkConnectionsOpened": false,
+  "deviceCommandsSent": false,
+  "productionEnabled": false
+}

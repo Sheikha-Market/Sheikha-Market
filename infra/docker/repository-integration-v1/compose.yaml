@@ -1,0 +1,26 @@
+services:
+  sheikha-repository-inspector:
+    image: sheikha/repository-inspector:local-v1
+    build:
+      context: ../../..
+      dockerfile: infra/docker/repository-integration-v1/Dockerfile
+      args:
+        NODE_IMAGE: ${SHEIKHA_NODE_IMAGE:-node:22-bookworm-slim}
+    network_mode: none
+    read_only: true
+    user: "1000:1000"
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 64
+    mem_limit: 256m
+    cpus: 1
+    volumes:
+      - type: bind
+        source: ../../..
+        target: /workspace
+        read_only: true
+        bind:
+          create_host_path: false
+    logging:
+      driver: none
+    restart: "no"

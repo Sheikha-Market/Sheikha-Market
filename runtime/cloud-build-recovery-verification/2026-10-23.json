@@ -1,0 +1,214 @@
+{
+  "schema": "SHEIKHA_CLEAN_BUILD_RECOVERY_REVIEW_V1",
+  "recordedDate": "2026-10-23",
+  "scope": "LOCAL_BUILD_AND_READ_ONLY_PROVIDER_OBSERVATIONS",
+  "productionHold": true,
+  "productionReady": false,
+  "requestedDeployment": {
+    "googleCloudRegion": "me-central2",
+    "secondaryProvider": "Hostinger",
+    "allowRegionalFallback": false
+  },
+  "changes": {
+    "iam": false,
+    "dns": false,
+    "cloudRun": false,
+    "hostinger": false,
+    "cloudBuildSubmit": false
+  },
+  "localBuild": {
+    "tag": "localhost/sheikha-main-portal:context-repair-final-20261023",
+    "id": "7b0653edefcced19c36d2f8eacdc07c011f8bd90b508b524520b05749fbd9584",
+    "context": "/tmp/SHEIKHA_CLOUD_CONTEXT_V1_3st8v7ad",
+    "sourceFiles": 2880,
+    "sourceBytes": 75610730,
+    "uploadFilesIncludingManifest": 2881,
+    "uploadBytesIncludingManifest": 76523320,
+    "uploadDroppedFiles": [],
+    "snapshotSha256": "172657084ce6401e4022fd87eb8cf8ec4f040f19e3cde99c5ab760842526d361",
+    "literalLocalImportsResolved": 1024
+  },
+  "smoke": {
+    "schema": "SHEIKHA_CONTAINER_BOOT_SMOKE_V1",
+    "status": "PASS",
+    "checks": [
+      {
+        "path": "/api/health",
+        "status": 200,
+        "healthStatus": "ok"
+      },
+      {
+        "path": "/api/research/agi-asi-science-fabric/status",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/research/agi-asi-science-fabric/evidence",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/research/agi-asi-science-fabric/cycle",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/research/agi-asi-science-fabric/experiments",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/research/agi-asi-science-fabric/curriculum",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/intelligence/integration-fabric/status",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/intelligence/integration-fabric/units",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/intelligence/integration-fabric/topology",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/intelligence/integration-fabric/sdk-fabric-mcp-map",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/intelligence/integration-fabric/coverage",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/sdk-fabric-mcp/integration/status",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/sdk-fabric-mcp/integration/catalog",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/sdk-fabric-mcp/integration/connector-profiles",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/sdk-fabric-mcp/integration/customer-environments",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/sdk-fabric-mcp/integration/root-neural-governance",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/sdk-fabric-mcp/integration/coverage",
+        "method": "GET",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "path": "/api/virtual-customer",
+        "method": "GET",
+        "status": 404,
+        "expected": 404
+      },
+      {
+        "path": "/api/virtual-customer/login",
+        "method": "POST",
+        "status": 404,
+        "expected": 404
+      }
+    ],
+    "productionReady": false,
+    "snapshot": {
+      "files": 2880,
+      "sha256": "172657084ce6401e4022fd87eb8cf8ec4f040f19e3cde99c5ab760842526d361"
+    },
+    "serverExitCode": 0,
+    "missingModules": []
+  },
+  "tests": {
+    "context": 16,
+    "virtualAccounts": 8,
+    "optionalStatusRoutes": 12,
+    "failed": 0,
+    "skipped": 0
+  },
+  "providerObservations": {
+    "priorBuild": {
+      "id": "a22f83bf-75b6-4ad9-a145-b69a8f1fff73",
+      "status": "SUCCESS",
+      "imageRegion": "us-central1",
+      "imageDigest": "sha256:e047f53970d9b83aa7241a70f09b8aad44526a3d9129134269f6efa7d18534ab",
+      "serviceAccount": "952025946298-compute@developer.gserviceaccount.com"
+    },
+    "iam": {
+      "project": "sheikha-marketplace",
+      "role": "roles/artifactregistry.writer",
+      "present": true,
+      "changed": false
+    },
+    "dammamRegistry": {
+      "project": "sheikha-marketplace",
+      "location": "me-central2",
+      "listedRepositories": 0
+    },
+    "dammamCloudRun": {
+      "status": "BLOCKED",
+      "reason": "LOCATION_POLICY_VIOLATED",
+      "service": "run.googleapis.com",
+      "location": "me-central2"
+    },
+    "hostinger": {
+      "operation": "hosting_websites_list",
+      "filterDomain": "sheikha",
+      "status": "UNVERIFIED",
+      "reason": "TOOL_CALL_TIMEOUT_300_SECONDS"
+    }
+  },
+  "dependencyAudit": {
+    "source": "npm ci output for final dependency layer",
+    "total": 29,
+    "moderate": 17,
+    "high": 11,
+    "critical": 1,
+    "fullAdvisoryTriagePerformed": false
+  },
+  "residualRisks": [
+    "Dammam regional account access is blocked; billing/eligibility not inspected or changed.",
+    "No Artifact Registry repository was returned in me-central2.",
+    "Hostinger target site, account readiness and deployment state remain unverified.",
+    "Dependency advisories require separate triage before production approval.",
+    "No new-spend budget was specified.",
+    "The root broken node symlink is preserved; use a newly staged context, not a direct root upload.",
+    "Static imports plus selected HTTP paths are not exhaustive coverage of all engines or dynamic assets.",
+    "The staged snapshot is immutable evidence of this test, not the current dirty worktree."
+  ]
+}

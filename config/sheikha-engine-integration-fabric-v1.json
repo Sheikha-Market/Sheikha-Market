@@ -1,0 +1,77 @@
+{
+  "system": "SHEIKHA_ENGINE_INTEGRATION_FABRIC_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "gateway": "sheikha.integration",
+  "mode": "READINESS_FIRST_FAIL_CLOSED",
+  "accessStates": [
+    "READ",
+    "WRITE",
+    "AUTH_REQUIRED",
+    "BLOCKED",
+    "NOT_CONFIGURED"
+  ],
+  "governance": {
+    "noLiveExternalClaimWithoutEvidence": true,
+    "noSecretMutation": true,
+    "noProductionMutation": true,
+    "noPayment": true,
+    "noContract": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "externalWriteDefault": "BLOCKED",
+    "highImpactWriteRequiresHumanApproval": true,
+    "allExternalCallsAuditable": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "channelPolicy": {
+    "INTERNAL_SERVICE": {
+      "readState": "READ",
+      "writeState": "BLOCKED",
+      "claim": "LOCAL_SOURCE_ONLY"
+    },
+    "SDK": {
+      "readState": "READ",
+      "writeState": "BLOCKED",
+      "claim": "LOCAL_SDK_CONTRACT_READY"
+    },
+    "MCP": {
+      "readState": "READ",
+      "writeState": "BLOCKED",
+      "claim": "LOCAL_MCP_CONTRACT_READY"
+    },
+    "EXTERNAL_CONNECTOR": {
+      "readState": "NOT_CONFIGURED",
+      "writeState": "BLOCKED",
+      "claim": "READINESS_ONLY"
+    }
+  },
+  "domainConnectorProfiles": {
+    "identity": [],
+    "marketplace": ["CONN-001", "CONN-002", "CONN-005", "CONN-006"],
+    "commerce": ["CONN-005", "CONN-006"],
+    "logistics": ["CONN-005", "CONN-007", "CONN-008", "CONN-009", "CONN-010"],
+    "enterprise": ["CONN-005", "CONN-006", "CONN-011"],
+    "knowledge": ["CONN-001", "CONN-002", "CONN-003", "CONN-004"],
+    "developer": ["CONN-011", "CONN-012", "CONN-013"],
+    "operations": ["CONN-011", "CONN-012", "CONN-013"],
+    "governance": ["CONN-001", "CONN-002", "CONN-003"],
+    "native": ["CONN-009", "CONN-012"],
+    "integration": [
+      "CONN-001", "CONN-002", "CONN-003", "CONN-004",
+      "CONN-005", "CONN-006", "CONN-007", "CONN-008",
+      "CONN-009", "CONN-010", "CONN-011", "CONN-012", "CONN-013"
+    ],
+    "platform": ["CONN-011", "CONN-012", "CONN-013"]
+  },
+  "evidenceSources": {
+    "masterEngines": "config/sheikha-master-engine-registry-v1.json",
+    "connectorProfiles": "runtime/sdk-fabric-mcp-integration/v1/registries/connector-profile-registry.json",
+    "sdkMcpReport": "runtime/sdk-fabric-mcp-integration/v1/sheikha-sdk-fabric-mcp-integration-v1-report.json",
+    "mcpGatewayReport": "runtime/sheikha-mcp-gateway-v2/v1/sheikha-mcp-gateway-v2-report.json",
+    "mcpToolCatalog": "runtime/sdk-fabric-mcp-integration/v1/registries/mcp-tool-catalog.json",
+    "enterpriseConnectors": "runtime/enterprise-connector-fabric-v1/v1/registries/enterprise-connectors.json",
+    "connectorGovernance": "runtime/enterprise-connector-fabric-v1/v1/registries/connector-governance-policy.json",
+    "connectorBindings": "runtime/enterprise-connector-fabric-v1/v1/registries/connector-bindings.json"
+  }
+}

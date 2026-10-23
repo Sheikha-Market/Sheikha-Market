@@ -1,0 +1,3151 @@
+{
+  "system": "SHEIKHA_CONNECTOR_IDENTITY_EVIDENCE_BINDING_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "IDENTITY_SCOPE_EVIDENCE_BEFORE_AUTHORIZATION",
+  "governance": {
+    "defaultDeny": true,
+    "identityRequiredBeforeAuthorization": true,
+    "dataScopeRequiredBeforeAuthorization": true,
+    "permissionScopeRequiredBeforeAuthorization": true,
+    "termsOrContractEvidenceRequired": true,
+    "authorizationEvidenceRequired": true,
+    "humanApprovalRequired": true,
+    "credentialsRequiredWhenProfileRequires": true,
+    "liveEvidenceRequiredBeforeLiveClaim": true,
+    "auditBindingRequiredBeforeLiveClaim": true,
+    "noSecretMaterialInRegistry": true,
+    "noAutomaticPromotion": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "bindings": 33,
+    "identitiesBound": 33,
+    "ownerIdentitiesAssigned": 0,
+    "authorizationEligible": 0,
+    "authorized": 0,
+    "liveVerified": 0,
+    "missingAuthorizationEvidence": 33,
+    "missingHumanApprovalEvidence": 33,
+    "missingTermsOrContractEvidence": 33
+  },
+  "truth": {
+    "localIdentityBindingIsNotExternalOwnershipProof": true,
+    "declaredOwnerRoleIsNotOwnerIdentity": true,
+    "noConnectorAuthorizedWithoutEvidence": true,
+    "noConnectorLiveWithoutEvidence": true,
+    "noAutomaticPromotion": true
+  },
+  "bindings": [
+    {
+      "connectorId": "CONN-001",
+      "connectorIdentity": "urn:sheikha:connector:conn-001",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "OPEN_DATA_PORTALS",
+      "domains": [
+        "marketplace",
+        "knowledge",
+        "governance",
+        "integration"
+      ],
+      "ownerRole": "DATA_STEWARD",
+      "ownerIdentity": null,
+      "credentialRequired": false,
+      "accessGate": "TERMS_AND_LICENSE_REVIEW",
+      "dataScope": [
+        "public_dataset_metadata",
+        "public_dataset_content"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-002",
+      "connectorIdentity": "urn:sheikha:connector:conn-002",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "RESEARCH_DATABASES",
+      "domains": [
+        "marketplace",
+        "knowledge",
+        "governance",
+        "integration"
+      ],
+      "ownerRole": "KNOWLEDGE_DATA_STEWARD",
+      "ownerIdentity": null,
+      "credentialRequired": false,
+      "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+      "dataScope": [
+        "research_metadata",
+        "licensed_or_open_research_content"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-003",
+      "connectorIdentity": "urn:sheikha:connector:conn-003",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "SCIENTIFIC_PUBLICATIONS",
+      "domains": [
+        "knowledge",
+        "governance",
+        "integration"
+      ],
+      "ownerRole": "KNOWLEDGE_RIGHTS_STEWARD",
+      "ownerIdentity": null,
+      "credentialRequired": false,
+      "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+      "dataScope": [
+        "publication_metadata",
+        "citation_data",
+        "licensed_content_if_authorized"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-004",
+      "connectorIdentity": "urn:sheikha:connector:conn-004",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "EDUCATIONAL_PLATFORMS",
+      "domains": [
+        "knowledge",
+        "integration"
+      ],
+      "ownerRole": "EDUCATION_DATA_STEWARD",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+      "dataScope": [
+        "course_metadata",
+        "authorized_learning_records"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-005",
+      "connectorIdentity": "urn:sheikha:connector:conn-005",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "ERP_SYSTEMS",
+      "domains": [
+        "marketplace",
+        "commerce",
+        "logistics",
+        "enterprise",
+        "integration"
+      ],
+      "ownerRole": "ENTERPRISE_SYSTEM_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+      "dataScope": [
+        "authorized_enterprise_master_data",
+        "authorized_transaction_views"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-006",
+      "connectorIdentity": "urn:sheikha:connector:conn-006",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "CRM_SYSTEMS",
+      "domains": [
+        "marketplace",
+        "commerce",
+        "enterprise",
+        "integration"
+      ],
+      "ownerRole": "CRM_DATA_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+      "dataScope": [
+        "authorized_customer_records",
+        "authorized_pipeline_records"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-007",
+      "connectorIdentity": "urn:sheikha:connector:conn-007",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "WMS",
+      "domains": [
+        "logistics",
+        "integration"
+      ],
+      "ownerRole": "WAREHOUSE_SYSTEM_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+      "dataScope": [
+        "authorized_inventory_records",
+        "authorized_warehouse_events"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-008",
+      "connectorIdentity": "urn:sheikha:connector:conn-008",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "TMS",
+      "domains": [
+        "logistics",
+        "integration"
+      ],
+      "ownerRole": "TRANSPORT_SYSTEM_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+      "dataScope": [
+        "authorized_transport_routes",
+        "authorized_shipment_events"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-009",
+      "connectorIdentity": "urn:sheikha:connector:conn-009",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "IOT_PLATFORMS",
+      "domains": [
+        "logistics",
+        "native",
+        "integration"
+      ],
+      "ownerRole": "IOT_SYSTEM_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+      "dataScope": [
+        "authorized_sensor_metadata",
+        "authorized_sensor_observations"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-010",
+      "connectorIdentity": "urn:sheikha:connector:conn-010",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+      "domains": [
+        "logistics",
+        "integration"
+      ],
+      "ownerRole": "GEOSPATIAL_DATA_STEWARD",
+      "ownerIdentity": null,
+      "credentialRequired": false,
+      "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+      "dataScope": [
+        "observation_metadata",
+        "licensed_or_open_observation_data"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-011",
+      "connectorIdentity": "urn:sheikha:connector:conn-011",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "CLOUD_PROVIDERS",
+      "domains": [
+        "enterprise",
+        "developer",
+        "operations",
+        "integration",
+        "platform"
+      ],
+      "ownerRole": "CLOUD_ACCOUNT_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+      "dataScope": [
+        "authorized_account_metadata",
+        "authorized_resource_inventory"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-012",
+      "connectorIdentity": "urn:sheikha:connector:conn-012",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "DATA_CENTERS",
+      "domains": [
+        "developer",
+        "operations",
+        "native",
+        "integration",
+        "platform"
+      ],
+      "ownerRole": "INFRASTRUCTURE_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+      "dataScope": [
+        "authorized_facility_metadata",
+        "authorized_service_inventory"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONN-013",
+      "connectorIdentity": "urn:sheikha:connector:conn-013",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "SUPERCOMPUTING_RESOURCES",
+      "domains": [
+        "developer",
+        "operations",
+        "integration",
+        "platform"
+      ],
+      "ownerRole": "COMPUTE_RESOURCE_OWNER",
+      "ownerIdentity": null,
+      "credentialRequired": true,
+      "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+      "dataScope": [
+        "authorized_allocation_metadata",
+        "authorized_workload_inventory"
+      ],
+      "permissionScope": {
+        "requested": [
+          "READ"
+        ],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "DECLARED_POLICY_SCOPE",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "DECLARED_READINESS_ONLY",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "REQUIRED_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "SAP",
+      "connectorIdentity": "urn:sheikha:connector:sap",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "ORACLE",
+      "connectorIdentity": "urn:sheikha:connector:oracle",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "MICROSOFT_DYNAMICS",
+      "connectorIdentity": "urn:sheikha:connector:microsoft_dynamics",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "ODOO",
+      "connectorIdentity": "urn:sheikha:connector:odoo",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "SALESFORCE",
+      "connectorIdentity": "urn:sheikha:connector:salesforce",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "HUBSPOT",
+      "connectorIdentity": "urn:sheikha:connector:hubspot",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "JIRA",
+      "connectorIdentity": "urn:sheikha:connector:jira",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "CONFLUENCE",
+      "connectorIdentity": "urn:sheikha:connector:confluence",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "GITHUB",
+      "connectorIdentity": "urn:sheikha:connector:github",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "GITLAB",
+      "connectorIdentity": "urn:sheikha:connector:gitlab",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "SHAREPOINT",
+      "connectorIdentity": "urn:sheikha:connector:sharepoint",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "GOOGLE_WORKSPACE",
+      "connectorIdentity": "urn:sheikha:connector:google_workspace",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "MICROSOFT_365",
+      "connectorIdentity": "urn:sheikha:connector:microsoft_365",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "POSTGRESQL",
+      "connectorIdentity": "urn:sheikha:connector:postgresql",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "MYSQL",
+      "connectorIdentity": "urn:sheikha:connector:mysql",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "MONGODB",
+      "connectorIdentity": "urn:sheikha:connector:mongodb",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "REDIS",
+      "connectorIdentity": "urn:sheikha:connector:redis",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "ELASTICSEARCH",
+      "connectorIdentity": "urn:sheikha:connector:elasticsearch",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "NEO4J",
+      "connectorIdentity": "urn:sheikha:connector:neo4j",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    },
+    {
+      "connectorId": "VECTOR_DB",
+      "connectorIdentity": "urn:sheikha:connector:vector_db",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "ownerIdentity": null,
+      "credentialRequired": null,
+      "accessGate": "PROFILE_AND_RIGHTS_BINDING_REQUIRED",
+      "dataScope": [],
+      "permissionScope": {
+        "requested": [],
+        "mutationRequested": []
+      },
+      "evidence": {
+        "identity": {
+          "status": "BOUND_LOCAL_IDENTITY",
+          "evidenceRefs": []
+        },
+        "dataScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "permissionScope": {
+          "status": "PROFILE_BINDING_REQUIRED",
+          "evidenceRefs": []
+        },
+        "termsOrContract": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "authorization": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "humanApproval": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "credential": {
+          "status": "NOT_APPLICABLE_OR_NOT_PROVIDED",
+          "evidenceRefs": []
+        },
+        "liveConnection": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "healthcheck": {
+          "status": "MISSING",
+          "evidenceRefs": []
+        },
+        "auditBinding": {
+          "status": "LOCAL_AUDIT_POLICY_ONLY",
+          "evidenceRefs": []
+        }
+      },
+      "authorization": {
+        "status": "NOT_AUTHORIZED",
+        "grantedBy": null,
+        "grantedAt": null,
+        "expiresAt": null
+      },
+      "live": {
+        "status": "NOT_LIVE",
+        "verifiedAt": null
+      },
+      "authorizationReview": {
+        "eligible": false,
+        "status": "NOT_AUTHORIZED",
+        "missing": [
+          "DATA_SCOPE_DECLARED",
+          "PERMISSION_SCOPE_DECLARED",
+          "TERMS_OR_CONTRACT_EVIDENCE",
+          "AUTHORIZATION_EVIDENCE",
+          "HUMAN_APPROVAL_EVIDENCE"
+        ],
+        "autoPromoted": false
+      },
+      "liveReview": {
+        "eligible": false,
+        "status": "NOT_LIVE",
+        "missing": [
+          "AUTHORIZED",
+          "LIVE_CONNECTION_EVIDENCE",
+          "HEALTHCHECK_EVIDENCE",
+          "AUDIT_BINDING"
+        ],
+        "autoPromoted": false
+      }
+    }
+  ]
+}

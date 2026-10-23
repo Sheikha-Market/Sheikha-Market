@@ -1,0 +1,65 @@
+'use strict';
+
+const CAPABILITIES = Object.freeze([
+  { id:'SHEIKHA_IMAGE_ENGINE', category:'image', state:'ACTIVE', modes:['raster','vector','procedural'] },
+  { id:'SHEIKHA_GRAPHICS_ENGINE', category:'graphics', state:'ACTIVE', modes:['2d','3d','scene-graph'] },
+  { id:'SHEIKHA_VIDEO_ENGINE', category:'video', state:'CONTROL_PLANE_ACTIVE', modes:['frame-sequence','encoding-adapter','streaming-adapter'] },
+  { id:'SHEIKHA_MOTION_GRAPH', category:'motion', state:'ACTIVE', modes:['keyframe','procedural','timeline'] },
+  { id:'SHEIKHA_VECTOR_ENGINE', category:'graphics', state:'ACTIVE', formats:['svg'] },
+  { id:'SHEIKHA_RASTER_ENGINE', category:'image', state:'ACTIVE', formats:['png'] },
+  { id:'SHEIKHA_SCENE_GRAPH', category:'graphics', state:'ACTIVE', coordinateSystems:['cartesian','geodetic'] },
+  { id:'SHEIKHA_GEOMETRY_KERNEL', category:'math', state:'ACTIVE', precision:['float64'] },
+  { id:'SHEIKHA_GPU_COMPUTE_ORCHESTRATOR', category:'compute', state:'ADAPTER_READY', note:'hardware-dependent; no unsupported acceleration claim' },
+  { id:'SHEIKHA_REALTIME_RENDERER', category:'rendering', state:'ADAPTER_READY', pipelines:['rasterization','ray-tracing-adapter'] },
+  { id:'SHEIKHA_XR_FABRIC', category:'xr', state:'CONTROL_PLANE_ACTIVE', modes:['AR','VR','MR','spatial-computing'] },
+  { id:'SHEIKHA_SPATIAL_COMPUTE', category:'xr', state:'ACTIVE', modes:['anchors','poses','spatial-scenes'] },
+  { id:'SHEIKHA_VOLUMETRIC_MEDIA', category:'3d', state:'CONTRACT_READY', modes:['point-cloud','voxel','mesh'] },
+  { id:'SHEIKHA_PHOTOGRAMMETRY_ADAPTER', category:'3d', state:'ADAPTER_READY' },
+  { id:'SHEIKHA_HDR_COLOR_PIPELINE', category:'color', state:'CONTRACT_READY', spaces:['sRGB','Display-P3','Rec.709','Rec.2020'] },
+  { id:'SHEIKHA_MEDIA_STREAMING', category:'video', state:'CONTRACT_READY', modes:['live','recorded','local-first'] },
+  { id:'SHEIKHA_CODEC_GATE', category:'video', state:'ACTIVE', rule:'codec licensing/patent review before commercial distribution' },
+  { id:'SHEIKHA_VISUAL_AI_ROUTER', category:'ai', state:'CONTROL_PLANE_ACTIVE', rule:'provider/model adapter; no claim of a new trained foundation video model' },
+  { id:'SHEIKHA_VISUAL_PROVENANCE', category:'governance', state:'ACTIVE', modes:['sha256','metadata','provider-attribution'] },
+  { id:'SHEIKHA_GARDENS_SPATIAL_TWIN', category:'gardens', state:'ACTIVE', livingBeingsRendered:false },
+  { id:'SHEIKHA_FARMS_SPATIAL_TWIN', category:'farms', state:'ACTIVE', livingBeingsRendered:false },
+  { id:'SHEIKHA_PASTURES_SPATIAL_TWIN', category:'pastures', state:'ACTIVE', livingBeingsRendered:false },
+  { id:'SHEIKHA_EARTH_SKY_SCIENCE_VISUALIZER', category:'science', state:'ACTIVE', boundary:'observed/scientific/parameterized calculations only; no unseen claim' },
+  { id:'SHEIKHA_MATH_VISUALIZATION_ENGINE', category:'math', state:'ACTIVE', domains:['geometry','trigonometry','statistics','coordinates'] }
+]);
+
+const TARGET_PROFILES = Object.freeze({
+  stillImage: {
+    designTargetMax: '16384x16384',
+    verifiedAtActivation: false,
+    formats: ['SVG','PNG'],
+    note: 'maximum practical resolution depends on RAM/GPU and downstream encoder'
+  },
+  video: {
+    designTargets: ['720p','1080p','1440p','4K','8K-offline-adapter'],
+    frameRates: [24,25,30,50,60,90,120],
+    verifiedAtActivation: false,
+    note: 'encoding and realtime performance are hardware/codec dependent'
+  },
+  xr: {
+    designRefreshRatesHz: [72,90,120],
+    verifiedAtActivation: false,
+    note: 'motion-to-photon and headset support require device-specific validation'
+  },
+  geometry: { scalarPrecision:'float64', dimensions:['2D','3D','volumetric'] },
+  color: { channels:['8-bit','10-bit','12-bit','16-bit-path'], verifiedAtActivation:false }
+});
+
+const EXTERNAL_STANDARDS = Object.freeze([
+  { name:'SVG', owner:'W3C ecosystem', role:'external standard', reLicensedBySheikha:false },
+  { name:'WebXR', owner:'W3C ecosystem', role:'external standard', reLicensedBySheikha:false },
+  { name:'OpenXR', owner:'Khronos ecosystem', role:'external standard', reLicensedBySheikha:false },
+  { name:'glTF', owner:'Khronos ecosystem', role:'external standard', reLicensedBySheikha:false },
+  { name:'PNG', owner:'external standard ecosystem', role:'format', reLicensedBySheikha:false },
+  { name:'JPEG', owner:'external standard ecosystem', role:'format', reLicensedBySheikha:false },
+  { name:'H.264/AVC', owner:'external standards/patent holders', role:'optional codec adapter', commercialPatentReviewRequired:true, reLicensedBySheikha:false },
+  { name:'H.265/HEVC', owner:'external standards/patent holders', role:'optional codec adapter', commercialPatentReviewRequired:true, reLicensedBySheikha:false },
+  { name:'AV1', owner:'external codec ecosystem', role:'optional codec adapter', licenseReviewRequired:true, reLicensedBySheikha:false },
+  { name:'VP9/WebM', owner:'external codec ecosystem', role:'optional codec adapter', licenseReviewRequired:true, reLicensedBySheikha:false }
+]);
+
+module.exports = { CAPABILITIES, TARGET_PROFILES, EXTERNAL_STANDARDS };

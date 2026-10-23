@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_MSI_PHYSICAL_BOOT_OBSERVATION_V1",
+  "recordedAt": "2026-08-31",
+  "evidenceMode": "USER_OBSERVATION_BOUND_TO_VERIFIED_USB_ARTIFACT",
+  "artifactBinding": {
+    "usbDevice": "/dev/sda",
+    "usbModel": "TransMemory",
+    "usbSerial": "0022CFF6BD8EC7C083226F59",
+    "imageSha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3",
+    "efiSha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9"
+  },
+  "observedOnPhysicalMsi": {
+    "oneTimeF11BootUsed": true,
+    "sheikhaNativeV2Visible": true,
+    "msiUefiSafeTrialVisible": true,
+    "readOnlyControlledHaltVisible": true,
+    "diskInstallerDisabledVisible": true,
+    "pagingPreparedEnteringNativeKernelVisible": true,
+    "greenPostKernelSuccessBarVisible": true,
+    "serialSuccessMarkerObserved": false,
+    "controlledHaltObserved": true,
+    "hostOperatingSystemRecovered": true
+  },
+  "verifiedClaims": {
+    "physicalUsbFirmwareEnumeration": true,
+    "physicalUefiApplicationExecution": true,
+    "physicalPagingPreparationReached": true,
+    "internalDiskInstallerDisabled": true,
+    "readOnlyTrialBoundaryVisible": true,
+    "postExitBootServicesKernelHandoffVerified": true,
+    "physicalBareMetalBootFullyVerified": true
+  },
+  "status": "PHYSICAL_BARE_METAL_BOOT_1_VERIFIED_SECOND_COLD_BOOT_PENDING",
+  "requiredObservation": "Perform one independent second cold boot with the same USB artifact, then confirm the same text, green success bar, controlled halt, and host recovery.",
+  "safety": {
+    "internalDiskModificationObserved": false,
+    "permanentBootOrderChanged": false,
+    "hostRecoverySuccessful": true
+  },
+  "claimPolicy": "The post-kernel green bar closes the first physical kernel-handoff observation. Final K1 closure still requires a second independent cold boot with the same artifact and safe host recovery."
+}

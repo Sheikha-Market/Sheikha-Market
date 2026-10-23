@@ -1,0 +1,95 @@
+{
+  "schema": "SHEIKHA_FOUNDATION_BINDING_INTEGRATION_INDEX_V1",
+  "identity": {
+    "name": "Sheikha Foundation Binding Integration Index",
+    "arabic": "فهرس تكامل أساس شيخة والجذور والربط",
+    "repository": "sheikha-main-portal",
+    "canonicalRoot": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
+  },
+  "chain": [
+    "repository-root",
+    "sheikha-foundation",
+    "root-registry",
+    "stewardship-registry",
+    "creation-stewardship-binding-registry",
+    "world-domains",
+    "landscape-roots",
+    "existing-implementation-paths"
+  ],
+  "references": {
+    "repositoryRoot": "../../../SHEIKHA_REPOSITORY_ROOT.json",
+    "foundation": "../sheikha-foundation.json",
+    "rootRegistry": "../roots/root-registry.json",
+    "stewardshipRegistry": "../stewardship/creation-stewardship.registry.json",
+    "bindingRegistry": "../bindings/creation-stewardship/binding-registry.json",
+    "world": {
+      "earth": "../world/earth/earth.domain.json",
+      "betweenThem": "../world/between-them/between-them.domain.json",
+      "heavens": "../world/heavens/heavens-observation.domain.json",
+      "universe": "../world/sheikha-universe.domain.json"
+    },
+    "jaziratAlArab": {
+      "landscape": "../geography/arabian-peninsula/arabian-peninsula.landscape.json",
+      "nameSource": "../religion/quran-sunnah/arabia-name-source.reference.json"
+    },
+    "landscapeAnchors": {
+      "gardens": "../../sheikha-landscape/gardens/repository.ref.json",
+      "meadows": "../../sheikha-landscape/meadows/repository.ref.json",
+      "rivers": "../../sheikha-landscape/rivers/repository.ref.json"
+    }
+  },
+  "integrationSemantics": {
+    "foundationDefines": "rules, roots, stewardship and boundaries",
+    "bindingsReference": "existing implementation paths only",
+    "landscapeAnchorsRepresent": "gardens, meadows and rivers",
+    "sourceMove": false,
+    "sourceRename": false,
+    "sourceDuplication": false,
+    "nestedGit": false,
+    "autonomousAuthority": false
+  },
+  "religiousAndCreationBoundaries": {
+    "literalLifeAndDeathBelongsToAllahAlone": true,
+    "earthRevivalOperational": true,
+    "heavensRevivalMetaphorOnly": true,
+    "creationControlClaim": false,
+    "ghaybPrediction": false,
+    "canonicalArabicName": "جزيرة العرب"
+  },
+  "verifiedBindingCounts": {
+    "earth": 12,
+    "betweenThem": 5,
+    "heavens": 6,
+    "gardens": 8,
+    "meadows": 13,
+    "rivers": 14,
+    "totalReferenceBindings": 58
+  },
+  "integrityAnchors": {
+    "SHEIKHA_REPOSITORY_ROOT.json": "8cd51439572743fa3df90256942486a65e42849cc9b48b80c5f204c5479eedad",
+    "foundation/sheikha-foundation/sheikha-foundation.json": "99b3703e495c1e4ac5db9460ff401065f88610170476064dc2a5c66f234b47e6",
+    "foundation/sheikha-foundation/roots/root-registry.json": "308daf2b19e8426bc3454c0ca63c8f09da48f8d6d24b0f7768a3663b958f365d",
+    "foundation/sheikha-foundation/stewardship/creation-stewardship.registry.json": "7d8eee060585ac460aeb610b81f835a950dea3b6cc374306be73e2ffedc32d29",
+    "foundation/sheikha-foundation/bindings/creation-stewardship/binding-registry.json": "8d8d43380bc1e9ddbdfffe9b284978f88c9aba34725db84143f746d8ea8e704b",
+    "foundation/sheikha-foundation/world/earth/earth.domain.json": "c27f932464666c65bef3ea5eb0cbb04c07282a2a2d74102d0f32ccc4a3534ef3",
+    "foundation/sheikha-foundation/world/between-them/between-them.domain.json": "fee65930a12b5f658f0e9340b19231920895bfd08f512ed359e731865768ae5f",
+    "foundation/sheikha-foundation/world/heavens/heavens-observation.domain.json": "8a14d111c071cf7e0852ef4d5c431e2dfd6651825f69f21ed24499096dc1b7fb",
+    "foundation/sheikha-foundation/world/sheikha-universe.domain.json": "139c72a9444a544c71489eb0b0a7419658c59806b2736c44952b8ded465aaa3a",
+    "foundation/sheikha-foundation/geography/arabian-peninsula/arabian-peninsula.landscape.json": "2fa4a377b729eb88212e3b2782d497697c1f7b75130f0b9f556b0ab86ab6d8d1",
+    "foundation/sheikha-foundation/religion/quran-sunnah/arabia-name-source.reference.json": "5037e5c502175dac7cf540262dcb09f058a42c72cc8dce696924cda3223f2422",
+    "foundation/sheikha-landscape/gardens/repository.ref.json": "945dbd01198d86d69b2873f6352eab5a7dfcda9deaad21126a43f483f2427562",
+    "foundation/sheikha-landscape/meadows/repository.ref.json": "60aeeeeec4489095071ae8421713ac920a8fd1c537a9b4d3f302788c2e2b8dc5",
+    "foundation/sheikha-landscape/rivers/repository.ref.json": "764d89ea863868648a71e75e8b106f9da5d3c23ac520c1437fa4f4384c14d6a8"
+  },
+  "governance": {
+    "referenceOnly": true,
+    "noSilentMutation": true,
+    "noNestedRepository": true,
+    "pr31Frozen": true
+  },
+  "pr31": {
+    "targetSha256": "dd9ab8f2a3f45ecdf0cbc19b077c403e41a74b2e0987b4953087f50ad08a6b5a",
+    "consumed": "UNKNOWN_UNTIL_TERMINAL_OUTPUT",
+    "doNotAdvance": true
+  }
+}

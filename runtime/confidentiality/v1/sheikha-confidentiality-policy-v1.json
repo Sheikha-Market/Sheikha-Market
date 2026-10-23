@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "SHEIKHA-CONFIDENTIALITY-DEFAULT-DENY-V1",
+  "system": "SHEIKHA_CONFIDENTIALITY_IP_AND_PRIVACY_FABRIC_V1",
+  "status": "ACTIVE_DEFAULT_DENY",
+  "defaultClassification": "CONFIDENTIAL_RESTRICTED",
+  "scope": [
+    "IDEAS",
+    "PROMPTS_AND_INPUTS",
+    "CONVERSATIONS",
+    "SOURCE_CODE",
+    "DESIGNS",
+    "DOCUMENTS",
+    "DATASETS",
+    "MODELS_AND_WEIGHTS",
+    "COMMERCIAL_INFORMATION",
+    "NON_COMMERCIAL_INFORMATION",
+    "CUSTOMER_AND_PROVIDER_DATA",
+    "SECURITY_AND_OPERATIONAL_EVIDENCE"
+  ],
+  "defaultRestrictions": [
+    "NO_PUBLICATION",
+    "NO_EXTERNAL_DISCLOSURE",
+    "NO_THIRD_PARTY_TRANSFER",
+    "NO_SUBLICENSE",
+    "NO_MODEL_TRAINING",
+    "NO_MARKETING_USE",
+    "NO_PUBLICITY",
+    "NO_REVERSE_ENGINEERING",
+    "NO_DERIVATIVE_COMMERCIALIZATION"
+  ],
+  "allowedPurposeWithoutSeparateDisclosureAuthorization": [
+    "SECURE_STORAGE",
+    "REQUESTED_SERVICE_DELIVERY",
+    "SECURITY_AND_FRAUD_PREVENTION",
+    "LEGAL_RECORD_RETENTION"
+  ],
+  "authorizationPolicy": {
+    "defaultDecision": "DENY",
+    "requiredType": "SHEIKHA_SCOPED_WRITTEN_AUTHORIZATION_V1",
+    "signatureVerificationRequired": true,
+    "trustedVerifierRequired": true,
+    "exactActionBindingRequired": true,
+    "exactResourceAndSha256BindingRequired": true,
+    "granteeBindingRequired": true,
+    "purposeBindingRequired": true,
+    "issuedAtAndExpiryRequired": true,
+    "wildcardsAllowed": false,
+    "implicitOrBundledConsentAllowed": false,
+    "revocable": true
+  },
+  "trainingPolicy": {
+    "default": "NO_TRAINING_ON_CUSTOMER_OR_CONFIDENTIAL_DATA",
+    "separateExplicitOptInRequired": true,
+    "datasetIdAndSha256Required": true,
+    "piiAndSecretReviewRequired": true,
+    "withdrawalAndDeletionProcedureRequired": true
+  },
+  "ipPolicy": {
+    "rightsRemainWithDisclosingRightsHolder": true,
+    "submissionTransfersOwnership": false,
+    "implicitLicenseGranted": false,
+    "workProductOwnershipRequiresSignedOrder": true,
+    "internalIdsAreNotGovernmentRegistrations": true
+  },
+  "privacyPolicy": {
+    "purposeLimitation": true,
+    "dataMinimization": true,
+    "leastPrivilege": true,
+    "retentionScheduleRequired": true,
+    "dataSubjectRightsPreserved": true,
+    "crossBorderTransferReviewRequired": true,
+    "processorRegisterRequired": true
+  },
+  "compelledDisclosurePolicy": {
+    "automaticDisclosureAllowed": false,
+    "decision": "HOLD_FOR_LEGAL_REVIEW",
+    "verifyLegalBasis": true,
+    "notifyRightsHolderWhenLegallyPermitted": true,
+    "minimumNecessaryOnly": true,
+    "auditRequired": true
+  },
+  "claimBoundary": "This is an operational control and contract template policy. Legal enforceability, statutory registrations, and signatures require authorized human and legal action."
+}

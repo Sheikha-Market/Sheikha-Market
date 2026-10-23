@@ -1,0 +1,40 @@
+{
+  "id": "hello-sheikha-v1",
+  "build": "toolchain-YBIoJQ",
+  "timestamp": "2026-10-13T08:43:48.584Z",
+  "status": "BOUNDED_WATCH_THREE_ROUNDS_PASSED",
+  "rounds": 3,
+  "transitions": [],
+  "staleSamplingObserved": false,
+  "samplingIntervalMs": 5000,
+  "scope": "FINITE_LOCAL_EVIDENCE_AND_HTTP_RESPONSE_INSPECTION",
+  "continuousDaemonInstalled": false,
+  "serviceHealthAssessed": false,
+  "automaticInterventionEnabled": false,
+  "signatureAuthenticated": false,
+  "productionReady": false,
+  "liveHttpResponseAssessed": true,
+  "liveResponseStates": [
+    "HTTP_200_OBSERVED",
+    "HTTP_200_OBSERVED",
+    "HTTP_200_OBSERVED"
+  ],
+  "liveResponseTransitions": [],
+  "liveResponseFailureObserved": false,
+  "fullServiceReadinessEstablished": false,
+  "artifacts": [
+    {
+      "file": "round-1.json",
+      "sha256": "bb18b27dd10980d59669bf89d45fd7ad85957541261bb544abddb4d84ebbc42a"
+    },
+    {
+      "file": "round-2.json",
+      "sha256": "557cd0c48c486fe008b465aab52eeb4aa6ff9b8bcddaa762a90fa10ba83286ab"
+    },
+    {
+      "file": "round-3.json",
+      "sha256": "d953ba406f7fddbd90315264668df2b7e3e0fd3fe6f5d4af37afc39335313ba1"
+    }
+  ],
+  "chainHead": "d953ba406f7fddbd90315264668df2b7e3e0fd3fe6f5d4af37afc39335313ba1"
+}

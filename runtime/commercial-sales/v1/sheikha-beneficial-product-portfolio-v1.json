@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_BENEFICIAL_PRODUCT_PORTFOLIO_V1",
+  "asOf": "2026-08-31",
+  "status": "PORTFOLIO_DEFINED_FIRST_CUSTOMER_EXECUTION_REQUIRED",
+  "currentCustomersRecorded": 0,
+  "sequence": [
+    "EXPERIMENT",
+    "STRENGTHEN_INFORMATION_FLOW",
+    "GENERATE_VERIFIED_REVENUE"
+  ],
+  "primaryProducts": [
+    {
+      "id": "SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1",
+      "priceSar": 2500,
+      "deliveryDays": 5,
+      "variableCostAssumptionSar": 500,
+      "contributionAssumptionSar": 2000,
+      "status": "SELL_NOW_CONTROLLED"
+    },
+    {
+      "id": "SHEIKHA_ENERGY_SUPPLY_CHAIN_REPORT_V1",
+      "priceSar": 7500,
+      "variableCostAssumptionSar": 1800,
+      "contributionAssumptionSar": 5700,
+      "status": "SELL_AFTER_DISCOVERY"
+    },
+    {
+      "id": "SHEIKHA_ENTERPRISE_PILOT_30D_V1",
+      "priceSar": 30000,
+      "variableCostAssumptionSar": 9000,
+      "contributionAssumptionSar": 21000,
+      "status": "DESIGN_PARTNER_REQUIRED"
+    },
+    {
+      "id": "SOOQ_SHEIKHA_DEAL_FACILITATION_V1",
+      "successFeeRate": 0.01,
+      "minimumFeeSar": 1500,
+      "status": "CONTRACT_AND_CLOSE_REQUIRED"
+    }
+  ],
+  "secondaryProducts": [
+    {
+      "id": "SHEIKHA_DATA_PROVENANCE_AUDIT_V1",
+      "testPriceSar": 5000,
+      "activationGate": "THREE_QUALIFIED_DEMAND_SIGNALS"
+    },
+    {
+      "id": "SHEIKHA_ARABIC_AI_READINESS_ASSESSMENT_V1",
+      "testPriceSar": 7500,
+      "activationGate": "AUTHORIZED_CUSTOMER_DATASET"
+    },
+    {
+      "id": "SHEIKHA_GOVERNED_ENTERPRISE_CHAT_V1",
+      "activationGate": "THREE_WEEKLY_ACTIVE_CANARY_CUSTOMERS"
+    }
+  ],
+  "shortTermGoals": {
+    "by2026-09-14": {
+      "qualifiedCompanies": 200,
+      "personalizedContacts": 100,
+      "discoveryCalls": 10,
+      "proposals": 5,
+      "paidCustomers": 1
+    },
+    "by2026-09-30": {
+      "minimumCollectedRevenueSar": 2500,
+      "stretchCollectedRevenueSar": 12500,
+      "minimumPaidCustomers": 1,
+      "stretchPaidCustomers": 3
+    },
+    "by2026-11-29": {
+      "paidCustomersRange": [6, 10],
+      "collectedRevenueRangeSar": [32500, 75000],
+      "minimumProposalConversionRate": 0.2
+    }
+  },
+  "planningEconomics": {
+    "notForecastOrGuarantee": true,
+    "monthlyRevenueScenarioSar": 40000,
+    "monthlyVariableCostScenarioSar": 10100,
+    "monthlyContributionScenarioSar": 29900,
+    "fixedCostCapAssumptionSar": 12000,
+    "diagnosticOnlyBreakEvenUnits": 6
+  },
+  "longTermGoals": [
+    {
+      "id": "SHEIKHA_OWN_BASE_MODEL_PROGRAM",
+      "horizonMonthsAfterFunding": [7, 14],
+      "stages": ["LICENSED_CORPUS", "100M", "1B", "7B_DECISION"],
+      "gate": "SCALING_EVIDENCE_BUDGET_AND_COMPUTE_CONTRACT"
+    },
+    {
+      "id": "SHEIKHA_ARABIC_GOVERNANCE_PLATFORM",
+      "horizonMonths": [12, 24],
+      "gate": "THREE_REFERENCE_ENTERPRISE_CUSTOMERS"
+    },
+    {
+      "id": "SHEIKHA_VERIFIED_INDUSTRIAL_INFORMATION_MARKET",
+      "horizonMonths": [18, 36],
+      "gate": "CONSENT_RIGHTS_PROVENANCE_AND_DEMAND"
+    }
+  ],
+  "truthPolicy": [
+    "ZERO_CUSTOMERS_REMAINS_ZERO_UNTIL_SIGNED_AND_PAID",
+    "PLANNING_ASSUMPTIONS_ARE_NOT_FORECASTS",
+    "NO_CUSTOMER_DATA_TRAINING_WITHOUT_SEPARATE_CONSENT",
+    "NO_HIGH_IMPACT_AUTOMATION_WITHOUT_HUMAN_APPROVAL",
+    "BENEFIT_AND_RIGHTS_ARE_REQUIRED"
+  ]
+}

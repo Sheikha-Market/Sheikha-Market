@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_NPM_PRODUCTION_AUDIT_V1",
+  "status": "MEASURED_NPM_AUDIT_EVIDENCE",
+  "measuredAt": "2026-08-11T22:50:00.000Z",
+  "command": "npm audit --omit=dev --json",
+  "externalNetworkUsedDuringMeasurement": true,
+  "externalNetworkUsedByReadinessGate": false,
+  "vulnerabilities": {
+    "low": 2,
+    "moderate": 7,
+    "high": 14,
+    "critical": 0,
+    "total": 23
+  },
+  "automaticFixApplied": false,
+  "forceFixUsed": false,
+  "productionApprovalBlocked": true,
+  "remediation": {
+    "compatiblePublishedFixApplied": false,
+    "unusedDirectDependencyRemoval": {
+      "package": "brace-expansion",
+      "removed": true,
+      "directRuntimeImportsFound": 0,
+      "remainingExposure": "TRANSITIVE",
+      "vulnerabilityCountChanged": false,
+      "verification": [
+        "npm ls --omit=dev --depth=0",
+        "npm run test:node: 167 passed",
+        "npm run lint: passed",
+        "git diff --check: passed"
+      ]
+    },
+    "ws": {
+      "installed": "8.20.0",
+      "auditSuggested": "8.20.1",
+      "registryLatest": "8.20.0",
+      "status": "UPSTREAM_FIX_NOT_PUBLISHED",
+      "installAttemptChangedManifest": false
+    },
+    "highSeverityChains": [
+      "google-gax -> grpc/protobufjs/rimraf/glob",
+      "express-rate-limit -> ip-address",
+      "brace-expansion/minimatch",
+      "ws"
+    ],
+    "breakingOrUnavailableFixes": true,
+    "forceUpgradeAllowed": false
+  },
+  "boundary": "Measured against the npm registry with explicit authorization. No production-ready claim until compatible fixes are published or breaking upgrades pass compatibility review."
+}

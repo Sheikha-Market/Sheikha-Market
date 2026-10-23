@@ -1,0 +1,183 @@
+{
+  "system": "SHEIKHA_UNIFIED_RUNTIME_COMPONENT_REGISTRY_V1",
+  "components": [
+    {
+      "id": "STUDIO",
+      "name": "Sheikha Studio",
+      "category": "experience",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "TRUST_TOOLS",
+      "name": "Sheikha Trust Tools",
+      "category": "trust",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "FIRMWARE",
+      "name": "Sheikha Firmware",
+      "category": "device",
+      "mode": "READ_ONLY_GOVERNED"
+    },
+    {
+      "id": "TPM",
+      "name": "Sheikha TPM",
+      "category": "trust",
+      "mode": "EVIDENCE_BOUND"
+    },
+    {
+      "id": "ARABIC_LANGUAGE",
+      "name": "لغة شيخة العربية",
+      "category": "language",
+      "mode": "LOCAL_RUNTIME"
+    },
+    {
+      "id": "LMM",
+      "name": "Sheikha LMM Orchestrator",
+      "category": "models",
+      "mode": "ORCHESTRATION"
+    },
+    {
+      "id": "FOUNDRY",
+      "name": "Sheikha Foundry",
+      "category": "build",
+      "mode": "CONTROL_PLANE"
+    },
+    {
+      "id": "CLOUD",
+      "name": "Sheikha Cloud",
+      "category": "compute",
+      "mode": "ADAPTER"
+    },
+    {
+      "id": "BARE_METAL",
+      "name": "Sheikha Bare Metal",
+      "category": "compute",
+      "mode": "GOVERNED_ADAPTER"
+    },
+    {
+      "id": "SAAS",
+      "name": "Sheikha SaaS",
+      "category": "commercial",
+      "mode": "CONTROL_PLANE"
+    },
+    {
+      "id": "SYSTEM_BUILDER",
+      "name": "Sheikha System Builder",
+      "category": "build",
+      "mode": "CONTROL_PLANE"
+    },
+    {
+      "id": "GIT_LAB_HUB",
+      "name": "Sheikha Git-Lab Hub",
+      "category": "devtools",
+      "mode": "ADAPTER"
+    },
+    {
+      "id": "SDK",
+      "name": "Sheikha SDK",
+      "category": "devtools",
+      "mode": "ADAPTER"
+    },
+    {
+      "id": "CLI",
+      "name": "Sheikha CLI",
+      "category": "devtools",
+      "mode": "ADAPTER"
+    },
+    {
+      "id": "MCP",
+      "name": "Sheikha MCP",
+      "category": "devtools",
+      "mode": "ADAPTER"
+    },
+    {
+      "id": "PHP",
+      "name": "Sheikha PHP Integration",
+      "category": "devtools",
+      "mode": "ADAPTER"
+    },
+    {
+      "id": "MODEL_SUBSCRIPTIONS",
+      "name": "Model Subscriptions",
+      "category": "models",
+      "mode": "BUDGET_AND_LICENSE_REGISTRY"
+    },
+    {
+      "id": "OBSERVABILITY",
+      "name": "Sheikha Observability",
+      "category": "operations",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "SECURITY_TOOLING",
+      "name": "Sheikha Security Tooling",
+      "category": "security",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "MARKET",
+      "name": "سوق شيخة",
+      "category": "commerce",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "GARDENS",
+      "name": "جنات شيخة",
+      "category": "worldly-engineering",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "FARMS",
+      "name": "مزارع شيخة",
+      "category": "worldly-engineering",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "PASTURES",
+      "name": "مراعي شيخة",
+      "category": "worldly-engineering",
+      "mode": "LOCAL_ADAPTER"
+    },
+    {
+      "id": "RESOURCE_RARITY",
+      "name": "Resource & Rarity Governance",
+      "category": "governance",
+      "mode": "CONTROL_PLANE"
+    },
+    {
+      "id": "DEFENSIVE_EWAR",
+      "name": "Sheikha Defensive EW Resilience",
+      "category": "defense",
+      "mode": "DEFENSIVE_RESILIENCE_ONLY"
+    },
+    {
+      "id": "DRAWING_MOTION",
+      "name": "Drawing / Graphics / Motion 2D-5D",
+      "category": "visual",
+      "mode": "LIVE_SERVICE_8093"
+    },
+    {
+      "id": "POSSIBILITY",
+      "name": "Possibility Realization",
+      "category": "planning",
+      "mode": "LIVE_SERVICE_8094"
+    },
+    {
+      "id": "COMMERCIAL_READINESS",
+      "name": "Commercial Readiness",
+      "category": "commercial",
+      "mode": "LIVE_SERVICE_8095"
+    }
+  ],
+  "boundaries": {
+    "ewarOffensiveActions": false,
+    "jamming": false,
+    "targeting": false,
+    "unauthorizedIntrusion": false,
+    "firmwareWritesDefault": false,
+    "tpmHighImpactDefault": false,
+    "afterlifeSimulation": false,
+    "unseenClaim": false
+  }
+}

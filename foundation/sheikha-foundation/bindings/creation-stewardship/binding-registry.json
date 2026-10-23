@@ -1,0 +1,34 @@
+{
+  "schema": "SHEIKHA_CREATION_STEWARDSHIP_BINDING_REGISTRY_V1",
+  "repository": {
+    "name": "sheikha-main-portal",
+    "canonicalRoot": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
+  },
+  "derivedFrom": {
+    "stage": "SHEIKHA_IMPLEMENTATION_I7_CREATION_STEWARDSHIP_READ_ONLY_VERIFICATION_AND_BINDING_CORRECTED_V2",
+    "scriptSha256": "98d47f39d3a69d6ee221be7751cc29778b1dfb7e6313fe2e11e838acc2c163b1",
+    "verifiedStatusSha256": "3981630d3b09fc4b6868987a0f01d730e0ad6c7b588a5ba96906251863b2acf4"
+  },
+  "bindingMode": "REFERENCE_ONLY",
+  "registries": {
+    "earth": "earth.bindings.json",
+    "betweenThem": "between-them.bindings.json",
+    "heavens": "heavens.bindings.json",
+    "landscape": "landscape.bindings.json"
+  },
+  "governance": {
+    "noSourceMove": true,
+    "noSourceRename": true,
+    "noSourceDuplication": true,
+    "noNestedGit": true,
+    "noAutonomousAuthority": true,
+    "noLiteralHeavensRevivalClaim": true,
+    "noCreationControlClaim": true,
+    "noGhaybPrediction": true
+  },
+  "pr31": {
+    "targetSha256": "dd9ab8f2a3f45ecdf0cbc19b077c403e41a74b2e0987b4953087f50ad08a6b5a",
+    "consumed": "UNKNOWN_UNTIL_TERMINAL_OUTPUT",
+    "doNotAdvance": true
+  }
+}

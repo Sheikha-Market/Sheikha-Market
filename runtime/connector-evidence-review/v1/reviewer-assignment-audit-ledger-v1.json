@@ -1,0 +1,28 @@
+{
+  "registry": "SHEIKHA_REVIEWER_ASSIGNMENT_AUDIT_LEDGER_V1",
+  "status": "ACTIVE_GENESIS_BASELINE",
+  "records": [
+    {
+      "auditId": "assignment-audit-genesis-v1",
+      "eventType": "GENESIS_BASELINE",
+      "observedAt": "2026-10-07T01:45:59+03:00",
+      "source": "LOCAL_TRUSTED_BASELINE",
+      "preStateSha256": null,
+      "postStateSha256": "a599798c04cec3f81c7c7b34a222bb290b7c67816fbec3c2e83f4fa44d9eca22",
+      "preRecordCount": null,
+      "postRecordCount": 0,
+      "assignmentIds": [],
+      "writePlanRef": null,
+      "commitIntentRef": null,
+      "proposalId": null,
+      "ratificationRef": null,
+      "authorizedWriteClaim": false
+    }
+  ],
+  "governance": {
+    "appendOnlyByExplicitAuthorizedWriteFlow": true,
+    "noAutomaticRepair": true,
+    "noAutomaticRollback": true,
+    "principle": "لا ضرر ولا ضرار"
+  }
+}

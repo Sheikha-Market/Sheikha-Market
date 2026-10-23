@@ -2,6 +2,7 @@
 
 const crypto = require('crypto');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const {
@@ -10,8 +11,14 @@ const {
     governanceEnvelope
 } = require('./sheikha-core-self-training');
 
-const ROOT = path.resolve(__dirname, '..', '..');
-const LEARNING_DIR = path.join(ROOT, 'data', 'training');
+const LEARNING_DIR = process.env.SHEIKHA_PRIVATE_TRAINING_DIR ||
+    path.join(
+        os.homedir(),
+        '.local',
+        'share',
+        'sheikha',
+        'private-training-review-v1'
+    );
 const EVENTS_FILE = path.join(LEARNING_DIR, 'sheikha-continuous-learning.ndjson');
 const DAILY_PLAN_FILE = path.join(LEARNING_DIR, 'sheikha-daily-learning-plan.json');
 const LOCAL_TIMEZONE = process.env.SHEIKHA_TIMEZONE || 'Asia/Riyadh';
@@ -73,9 +80,9 @@ const SOURCE_REGISTRY = [
         id: 'chat',
         type: 'live',
         nameAr: 'الشات',
-        enabled: true,
-        trust: 'internal-reviewed',
-        ingestMode: 'record-and-review'
+        enabled: false,
+        trust: 'separate-signed-opt-in-required',
+        ingestMode: 'no-capture-by-default'
     },
     {
         id: 'workspace',
@@ -120,7 +127,11 @@ const SOURCE_REGISTRY = [
 ];
 
 function ensureLearningDir() {
-    fs.mkdirSync(LEARNING_DIR, { recursive: true });
+    fs.mkdirSync(LEARNING_DIR, {
+        recursive: true,
+        mode: 0o700
+    });
+    fs.chmodSync(LEARNING_DIR, 0o700);
 }
 
 function nowIso() {
@@ -147,23 +158,15 @@ function stableId(parts) {
 
 function appendJsonLine(filePath, value) {
     ensureLearningDir();
-    fs.appendFileSync(filePath, `${JSON.stringify(value)}\n`, 'utf8');
-}
-
-function readJsonLines(filePath, limit = 20) {
-    try {
-        if (!fs.existsSync(filePath)) return [];
-        const lines = fs.readFileSync(filePath, 'utf8').trim().split('\n').filter(Boolean);
-        return lines.slice(-Math.max(1, limit)).map((line) => {
-            try {
-                return JSON.parse(line);
-            } catch {
-                return null;
-            }
-        }).filter(Boolean);
-    } catch {
-        return [];
-    }
+    fs.appendFileSync(
+        filePath,
+        `${JSON.stringify(value)}\n`,
+        {
+            encoding: 'utf8',
+            mode: 0o600
+        }
+    );
+    fs.chmodSync(filePath, 0o600);
 }
 
 function countJsonLines(filePath) {
@@ -192,8 +195,9 @@ function buildDailyLearningPlan(input = {}) {
         focus,
         schedule: {
             immediate: [
-                'تسجيل محادثات Sheikha-Core النافعة في طابور التدريب المحكوم',
-                'فحص الخصوصية والأسرار قبل أي حفظ',
+                'عدم تسجيل محادثات Sheikha-Core افتراضيًا',
+                'طلب تفويض تدريب منفصل وموقع قبل أي حفظ',
+                'فحص الخصوصية والأسرار بعد التفويض وقبل الحفظ',
                 'وسم المجال والمصدر والتاريخ'
             ],
             hourly: [
@@ -220,7 +224,15 @@ function buildDailyLearningPlan(input = {}) {
     };
 
     ensureLearningDir();
-    fs.writeFileSync(DAILY_PLAN_FILE, `${JSON.stringify(plan, null, 2)}\n`, 'utf8');
+    fs.writeFileSync(
+        DAILY_PLAN_FILE,
+        `${JSON.stringify(plan, null, 2)}\n`,
+        {
+            encoding: 'utf8',
+            mode: 0o600
+        }
+    );
+    fs.chmodSync(DAILY_PLAN_FILE, 0o600);
     return plan;
 }
 
@@ -259,9 +271,8 @@ function normalizeLearningEvent(input = {}) {
     };
 }
 
-function ingestLearningEvent(input = {}) {
+function ingestLearningEvent(input = {}, options = {}) {
     const event = normalizeLearningEvent(input);
-    appendJsonLine(EVENTS_FILE, event);
 
     const training = recordSelfTrainingSample({
         prompt: `Continuous learning event: ${event.domain}`,
@@ -274,8 +285,29 @@ function ingestLearningEvent(input = {}) {
             domain: event.domain,
             evidenceCount: event.evidence.length,
             flags: event.flags
-        }
-    });
+        },
+        trainingResourceId: input.trainingResourceId,
+        trainingGranteeId: input.trainingGranteeId,
+        rightsHolderId: input.rightsHolderId,
+        trainingPurpose: input.trainingPurpose,
+        trainingAuthorization: input.trainingAuthorization
+    }, options);
+
+    if (!training.success) {
+        return {
+            success: false,
+            status: training.status,
+            stored: false,
+            event: null,
+            selfTraining: null,
+            confidentialityDecision: training.decision,
+            governance: governanceEnvelope(),
+            message: training.message,
+            timestamp: nowIso()
+        };
+    }
+
+    appendJsonLine(EVENTS_FILE, event);
 
     return {
         success: true,
@@ -289,7 +321,7 @@ function ingestLearningEvent(input = {}) {
             createdAt: event.createdAt
         },
         selfTraining: training.record,
-        queueFile: path.relative(ROOT, EVENTS_FILE),
+        queueStorage: 'PRIVATE_DATA_DIR_OUTSIDE_GIT',
         governance: governanceEnvelope(),
         message: 'تم إدخال المعرفة في طابور التعلم المستمر المحكوم، وتحتاج مراجعة بشرية قبل أي ترقية.',
         timestamp: nowIso()
@@ -333,24 +365,38 @@ function runLearningCycle(input = {}) {
         }
     ];
 
-    const ingested = cycleItems.map((item) => ingestLearningEvent(item));
+    const decisions = cycleItems.map(
+        (item) => ingestLearningEvent(item)
+    );
+    const ingested = decisions.filter(
+        (item) => item.success
+    );
+    const blocked = decisions.filter(
+        (item) => !item.success
+    );
+
     return {
-        success: true,
-        status: 'active',
+        success: blocked.length === 0,
+        status: blocked.length
+            ? 'monitoring_no_training'
+            : 'authorized_events_queued_for_review',
         name: 'Sheikha Continuous Learning Cycle',
         nameAr: 'دورة التعلم المستمر لشيخة',
         mode: 'instant-and-daily-governed-learning',
         plan,
         ingested: ingested.map((item) => item.event),
+        blockedCount: blocked.length,
         queues: {
             continuousLearning: {
-                file: path.relative(ROOT, EVENTS_FILE),
+                storage: 'PRIVATE_DATA_DIR_OUTSIDE_GIT',
                 count: countJsonLines(EVENTS_FILE)
             },
             selfTraining: getSelfTrainingStatus()
         },
         governance: governanceEnvelope(),
-        message: 'اكتملت دورة التعلم المستمر: لحظي، يومي، محكوم، وموقوف على المراجعة قبل الترقية.',
+        message: blocked.length
+            ? 'اكتملت المراقبة دون حفظ بيانات تدريب؛ يلزم تفويض تدريب منفصل وموقع ومتحقق منه.'
+            : 'حفظت الأحداث المأذونة في طابور خاص وتحتاج مراجعة بشرية قبل الترقية.',
         timestamp: nowIso()
     };
 }
@@ -358,30 +404,23 @@ function runLearningCycle(input = {}) {
 function getContinuousLearningStatus() {
     return {
         success: true,
-        status: 'active',
+        status: 'guarded_default_deny',
         name: 'Sheikha Continuous Learning Runtime',
         nameAr: 'تشغيل التعلم المستمر لشيخة',
         mode: 'instant-daily-governed-learning',
         queues: {
             continuousLearning: {
-                file: path.relative(ROOT, EVENTS_FILE),
+                storage: 'PRIVATE_DATA_DIR_OUTSIDE_GIT',
                 count: countJsonLines(EVENTS_FILE),
-                recent: readJsonLines(EVENTS_FILE, 5).map((event) => ({
-                    id: event.id,
-                    source: event.source,
-                    domain: event.domain,
-                    status: event.status,
-                    flags: event.flags,
-                    createdAt: event.createdAt
-                }))
+                recentMetadataExposed: false
             },
             selfTraining: getSelfTrainingStatus()
         },
         domains: DOMAINS,
         sources: SOURCE_REGISTRY,
-        dailyPlanFile: path.relative(ROOT, DAILY_PLAN_FILE),
+        dailyPlanStorage: 'PRIVATE_DATA_DIR_OUTSIDE_GIT',
         governance: governanceEnvelope(),
-        message: 'التعلم المستمر مفعّل كطبقة طابور وفحص ومراجعة، لا كتدريب تلقائي غير محكوم.',
+        message: 'التعلم المستمر يراقب ويخطط، لكنه لا يحفظ محادثات أو يدرب نموذجًا دون تفويض مستقل موقع ومتحقق منه.',
         timezone: LOCAL_TIMEZONE,
         timestamp: nowIso()
     };

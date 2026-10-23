@@ -1,0 +1,72 @@
+{
+  "schema": "SHEIKHA_REQUIREMENTS_LIFECYCLE_CONTRACT_V1",
+  "states": [
+    "draft",
+    "review",
+    "approved",
+    "implemented",
+    "verified",
+    "validated",
+    "released",
+    "retired",
+    "rejected"
+  ],
+  "allowedTransitions": [
+    [
+      "draft",
+      "review"
+    ],
+    [
+      "review",
+      "approved"
+    ],
+    [
+      "review",
+      "rejected"
+    ],
+    [
+      "rejected",
+      "draft"
+    ],
+    [
+      "approved",
+      "implemented"
+    ],
+    [
+      "implemented",
+      "verified"
+    ],
+    [
+      "verified",
+      "validated"
+    ],
+    [
+      "verified",
+      "released"
+    ],
+    [
+      "validated",
+      "released"
+    ],
+    [
+      "released",
+      "retired"
+    ]
+  ],
+  "transitionRules": {
+    "approvalRequiresHumanOrGovernedAuthorizedAuthority": true,
+    "criticalApprovalByAutonomousAIAllowed": false,
+    "verificationRequiresEvidenceReference": true,
+    "validationRequiresIntendedUseContext": true,
+    "releaseRequiresApplicableStopGatesClear": true,
+    "releasedRequirementIsHistoricalBaseline": true,
+    "materialChangeCreatesNewVersion": true,
+    "silentMutationOfReleasedRequirementAllowed": false
+  },
+  "changeControl": {
+    "changeRequestIsApproval": false,
+    "approvedChangeIsEffectiveChange": false,
+    "versionRequiredForMaterialChange": true,
+    "impactAnalysisRequiredForCriticalChange": true
+  }
+}

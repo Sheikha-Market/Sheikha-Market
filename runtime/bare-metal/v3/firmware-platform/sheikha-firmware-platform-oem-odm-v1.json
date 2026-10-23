@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_FIRMWARE_PLATFORM_OEM_ODM_V1",
+  "brand": "Sheikha Foundation Firmware Platform",
+  "arabicBrand": "منصة شيخة للبرمجيات الثابتة التأسيسية",
+  "shortName": "SFP",
+  "productClass": "FOUNDATIONAL_PLATFORM_FIRMWARE_AND_OEM_ODM_ENABLEMENT",
+  "status": "DEVELOPMENT_FOUNDATION_ACTIVE",
+  "architectures": ["x86_64", "aarch64", "riscv64"],
+  "compositionModel": [
+    "SHEIKHA_FIRMWARE_CORE",
+    "ARCHITECTURE_ADAPTER",
+    "LICENSED_SILICON_ENABLEMENT_PACKAGE",
+    "NAMED_BOARD_PACKAGE",
+    "OEM_ODM_PRODUCT_CONFIGURATION"
+  ],
+  "productFamilies": [
+    {"id": "SHEIKHA_BOOT_FOUNDATION", "scope": ["UEFI_PI", "PLATFORM_INITIALIZATION", "BOOT_POLICY", "ACPI_SMBIOS", "CAPSULE_UPDATE", "RECOVERY"], "state": "FOUNDATION_PARTIAL"},
+    {"id": "SHEIKHA_MANAGE_FOUNDATION", "scope": ["BMC_CORE", "REDFISH", "MCTP", "PLDM", "SENSORS_TELEMETRY", "REMOTE_CONSOLE", "FLEET_MANAGEMENT"], "state": "ARCHITECTURE_DEFINED"},
+    {"id": "SHEIKHA_TRUST_FOUNDATION", "scope": ["ROOT_OF_TRUST_INTERFACE", "SECURE_BOOT", "MEASURED_BOOT", "TPM_ATTESTATION", "SPDM", "KEY_GOVERNANCE", "ANTI_ROLLBACK"], "state": "ARCHITECTURE_DEFINED"},
+    {"id": "SHEIKHA_FIRMWARE_OPERATIONS", "scope": ["SBOM", "VULNERABILITY_MANAGEMENT", "SIGNING_PIPELINE", "PROVENANCE", "UPDATE_ORCHESTRATION", "ROLLBACK", "RECOVERY"], "state": "ARCHITECTURE_DEFINED"},
+    {"id": "SHEIKHA_EDGE_FOUNDATION", "scope": ["EMBEDDED", "IOT", "EDGE_PLATFORM_FIRMWARE"], "state": "PRODUCT_PLANNED"},
+    {"id": "SHEIKHA_DATACENTER_FOUNDATION", "scope": ["SERVER_FLEETS", "RACK_MANAGEMENT", "BMC_ORCHESTRATION", "TELEMETRY"], "state": "PRODUCT_PLANNED"},
+    {"id": "SHEIKHA_AI_PLATFORM_FIRMWARE", "scope": ["GPU_ACCELERATOR_DISCOVERY", "PLATFORM_MANAGEMENT", "AI_INFRASTRUCTURE_TELEMETRY"], "state": "PRODUCT_PLANNED"},
+    {"id": "SHEIKHA_OPEN_FIRMWARE", "scope": ["OPEN_COMPONENTS", "DEVELOPER_TOOLS", "COMMUNITY_EDITIONS"], "state": "LICENSE_POLICY_REQUIRED"},
+    {"id": "SHEIKHA_PLATFORM_ENGINEERING", "scope": ["SILICON_ENABLEMENT", "BOARD_ENABLEMENT", "OEM_ODM_ADAPTATION", "MANUFACTURING_PROVISIONING", "VALIDATION"], "state": "FOUNDATION_ACTIVE"}
+  ],
+  "deliveryTracks": [
+    {"id": "SFP_BOOTLAB", "purpose": "QEMU development, deterministic images, and conformance evidence"},
+    {"id": "SFP_UEFI_PAYLOAD", "purpose": "Governed UEFI payload and Sheikha kernel handoff"},
+    {"id": "SFP_BOARD_PORT_KIT", "purpose": "Named-board BSP, silicon integration, ACPI, and device enablement"},
+    {"id": "SFP_SECURE_LIFECYCLE", "purpose": "Measured boot, signed update, rollback, recovery, and attestation"},
+    {"id": "SFP_OEM_ODM_PRODUCTION", "purpose": "Manufacturing provisioning, qualification, release, and support"}
+  ],
+  "layers": [
+    "SILICON_ENABLEMENT_LICENSE_BOUNDARY",
+    "BOARD_INITIALIZATION_AND_BSP",
+    "UEFI_SERVICES_AND_PAYLOAD",
+    "SHEIKHA_BOOT_SECURITY_AND_GOVERNANCE",
+    "UPDATE_RECOVERY_AND_ATTESTATION",
+    "OEM_CONFIGURATION_AND_BRANDING",
+    "CI_HARDWARE_LAB_SBOM_AND_VULNERABILITY_RESPONSE"
+  ],
+  "evidenceChain": [
+    "SOURCE",
+    "BUILD_CONTRACT",
+    "TOOLCHAIN_IDENTITY",
+    "SBOM",
+    "ARTIFACT_SHA256",
+    "SIGNING_IDENTITY",
+    "BOARD_AND_SILICON_BINDING",
+    "PHYSICAL_VALIDATION",
+    "RELEASE_AUTHORIZATION",
+    "DEPLOYMENT",
+    "MEASURED_BOOT_AND_ATTESTATION",
+    "OPERATIONAL_EVIDENCE",
+    "RECOVERY_EVIDENCE"
+  ],
+  "aiRole": {
+    "mode": "AI_ASSISTED_FIRMWARE_ENGINEERING_AND_OPERATIONS",
+    "allowed": ["BUILD_LOG_ANALYSIS", "VULNERABILITY_TRIAGE", "CONFIGURATION_VALIDATION", "SBOM_ANALYSIS", "CRASH_AND_POST_ANALYSIS", "TELEMETRY_SUMMARIZATION", "STATIC_SOURCE_ANALYSIS"],
+    "denied": ["AUTONOMOUS_UNBOUNDED_FLASH", "SECURITY_POLICY_OVERRIDE", "PRODUCTION_KEY_ACCESS", "CONSCIOUSNESS_CLAIM", "FUTURE_PREDICTION_CLAIM"]
+  },
+  "editions": {
+    "community": {
+      "name": "Sheikha Foundation Firmware Community",
+      "purpose": ["OPEN_BOARD_ENABLEMENT", "DEVELOPER_SDK_AND_TOOLING", "TEST_EXPANSION", "ECOSYSTEM_BUILDING"],
+      "notDeliberatelyCrippled": true,
+      "releaseRequires": ["OPEN_SOURCE_LICENSE_REVIEW", "SECRET_SCAN", "THIRD_PARTY_PROVENANCE", "COMMUNITY_SUPPORT_BOUNDARY"]
+    },
+    "enterpriseOem": {
+      "name": "Sheikha Foundation Firmware Enterprise/OEM",
+      "adds": ["COMMERCIAL_SUPPORT", "OEM_CUSTOMIZATION", "LICENSED_SILICON_PACKAGES", "MANUFACTURING_PROVISIONING", "PRODUCTION_SIGNING", "FLEET_MANAGEMENT", "SECURITY_LIFECYCLE", "CERTIFICATION_SUPPORT", "LONG_TERM_MAINTENANCE"]
+    }
+  },
+  "sharedGovernanceDecisionContract": "SHEIKHA_UNIFIED_GOVERNANCE_DECISION_CONTRACT_V1",
+  "governanceControlPlane": "SHEIKHA_GOVERNANCE_CONTROL_PLANE_AND_MASTER_AUDIT_V1",
+  "gates": [
+    {"id": "F0", "name": "PRODUCT_AND_RIGHTS_ARCHITECTURE", "required": ["product_contract", "third_party_rights_boundary"], "state": "VERIFIED"},
+    {"id": "F1", "name": "EMULATED_BOOT_FOUNDATION", "required": ["qemu_uefi_boot", "deterministic_artifact"], "state": "VERIFIED"},
+    {"id": "F2", "name": "NAMED_BOARD_PORT_AND_RECOVERY", "required": ["named_board_boot", "board_specific_bsp", "non_destructive_recovery"], "state": "PARTIAL"},
+    {"id": "F3", "name": "SECURE_PLATFORM_LIFECYCLE", "required": ["secure_boot", "measured_boot", "signed_capsule", "rollback_protection"], "state": "BLOCKED"},
+    {"id": "F4", "name": "OS_AND_DEVICE_COMPATIBILITY", "required": ["linux_matrix", "windows_matrix", "acpi_validation", "driver_matrix"], "state": "BLOCKED"},
+    {"id": "F5", "name": "MANUFACTURING_PROVISIONING", "required": ["per_device_identity", "key_ceremony", "factory_test", "traceability"], "state": "BLOCKED"},
+    {"id": "F6", "name": "OEM_ODM_PILOT", "required": ["signed_pilot_agreement", "pilot_board", "acceptance_report"], "state": "BLOCKED"},
+    {"id": "F7", "name": "GLOBAL_PRODUCTION_AND_SUPPORT", "required": ["release_sla", "vulnerability_response", "field_recovery", "regional_support"], "state": "BLOCKED"}
+  ],
+  "claimBoundary": {
+    "independentSheikhaProduct": true,
+    "amibiosOrAptioCodeIncluded": false,
+    "amiTrademarkOwnershipClaimed": false,
+    "fullPlatformFirmwareComplete": false,
+    "oemProductionReady": false,
+    "governmentCertificationClaimed": false
+  }
+}

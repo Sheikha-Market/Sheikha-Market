@@ -1,0 +1,62 @@
+{
+  "recordedAt": "2026-10-12T21:10:16.995Z",
+  "status": "LOCAL_VERIFIED",
+  "verification": {
+    "success": true,
+    "system": "SHEIKHA_MANAGED_LANGUAGE_V1",
+    "status": "LOCAL_RUNTIME_VERIFIED",
+    "hostRuntime": "Node.js",
+    "architecture": [
+      "SOURCE",
+      "LEXER",
+      "PARSER_AST",
+      "TYPECHECK",
+      "IR",
+      "BYTECODE",
+      "GOVERNED_VM"
+    ],
+    "management": {
+      "compile": true,
+      "dryRun": true,
+      "liveAdapters": false,
+      "deployment": false
+    },
+    "governance": {
+      "haltOnViolation": true,
+      "runtimeOptionsClientControlled": false,
+      "strictIsolation": true,
+      "valuesReferenceExecutable": false,
+      "automatedFatwaAllowed": false,
+      "qualifiedReviewRequired": true
+    },
+    "limits": {
+      "maxSourceBytes": 65536
+    },
+    "evidence": {
+      "adapterDryRun": true,
+      "strictIsolation": true,
+      "violations": [],
+      "instructions": 4,
+      "adapterCalls": []
+    },
+    "unverified": {
+      "productionActivation": "UNKNOWN",
+      "nativeSelfHosting": "UNKNOWN",
+      "allSystemsMigration": "UNKNOWN"
+    }
+  },
+  "tests": {
+    "managedLanguage": 9,
+    "vm": 5,
+    "typeChecker": 6,
+    "compiledVm": 5,
+    "totalPassed": 25
+  },
+  "checks": {
+    "javascriptSyntax": true,
+    "pythonSyntax": true,
+    "scopedDiffCheck": true
+  },
+  "deploymentPerformed": false,
+  "serviceRestartPerformed": false
+}

@@ -1,0 +1,161 @@
+{
+  "schema": "SHEIKHA_V35_VERIFICATION_OBSERVATION_V1",
+  "recorded_at_utc": "2026-10-16 22:07:55 UTC",
+  "invocation": "python3 -I -S -B docs/canonical/registry/reviews/2026-10-17-v35-completion/verify_evidence.py",
+  "exit_code": 1,
+  "observation": {
+    "schema": "SHEIKHA_V35_READ_ONLY_VERIFICATION_V1",
+    "status": "EVIDENCE_UNSAFE_OR_MISMATCH",
+    "files": [
+      {
+        "id": "V35.5-manifest",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_5_realistic_scifi_manifest.json",
+        "expected_sha256": "ea455374704e0ba84da6a80f8fa4009dee8a72a550860b0fbb714dfe035b44c8",
+        "actual_sha256": "ea455374704e0ba84da6a80f8fa4009dee8a72a550860b0fbb714dfe035b44c8",
+        "status": "MATCH"
+      },
+      {
+        "id": "V35.5-engine",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_5_realistic_scifi_engine.py",
+        "expected_sha256": "4f345a44f247e7c0697f6a6827c2c010afa8c8bc0ef4bb36537097df70f61304",
+        "actual_sha256": "4f345a44f247e7c0697f6a6827c2c010afa8c8bc0ef4bb36537097df70f61304",
+        "status": "MATCH"
+      },
+      {
+        "id": "V35.6-manifest",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_manifest.json",
+        "expected_sha256": "9626fbcf02957a1f5edc7dff5cc8cb4e50425c1e50fcf21146abab33c09fdbff",
+        "actual_sha256": "9626fbcf02957a1f5edc7dff5cc8cb4e50425c1e50fcf21146abab33c09fdbff",
+        "status": "MATCH"
+      },
+      {
+        "id": "V35.6-engine",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_engine.py",
+        "expected_sha256": "a637510de1fd36ae10c308f453adc6829a3c03893a33a406d38b437b70e6b397",
+        "actual_sha256": "a637510de1fd36ae10c308f453adc6829a3c03893a33a406d38b437b70e6b397",
+        "status": "MATCH"
+      },
+      {
+        "id": "V35.7-manifest",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_manifest.json",
+        "expected_sha256": "3bb0ae97b693f0e7d59bcd59e3ba8c95a9ee6849603d05e44ed8b3794346f093",
+        "actual_sha256": "3bb0ae97b693f0e7d59bcd59e3ba8c95a9ee6849603d05e44ed8b3794346f093",
+        "status": "MATCH"
+      },
+      {
+        "id": "V35.7-engine",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_engine.py",
+        "expected_sha256": "4819c4c73198c8dd29ad090218cdc19f1ac54e6fc648076959b51a07fcbfd72e",
+        "actual_sha256": "4819c4c73198c8dd29ad090218cdc19f1ac54e6fc648076959b51a07fcbfd72e",
+        "status": "MATCH"
+      },
+      {
+        "id": "V35.8-manifest",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_manifest.json",
+        "expected_sha256": "ced63c671ddf7104e2aa65ac3f27be71b64ab690e611fd69cd7d22300ccb5501",
+        "actual_sha256": "ced63c671ddf7104e2aa65ac3f27be71b64ab690e611fd69cd7d22300ccb5501",
+        "status": "MATCH"
+      },
+      {
+        "id": "V35.8-engine",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+        "expected_sha256": "6ffead4269602dfaf4ec05ad77303a3bad35b22be5b6a272930d91586b6b8463",
+        "actual_sha256": "6ffead4269602dfaf4ec05ad77303a3bad35b22be5b6a272930d91586b6b8463",
+        "status": "MATCH"
+      },
+      {
+        "id": "sqlite-main-file",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+        "expected_sha256": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053",
+        "actual_sha256": "e92802b710c14473e7ad52a844158aa6bd67347b3830fda84366948a77a9a813",
+        "status": "MISMATCH"
+      },
+      {
+        "id": "v2-evidence-registry",
+        "path": "/home/sheikha/sheikha_os_ecosystem/04_evidence_integration_hub/sheikha_evidence_v2_specification.json",
+        "expected_sha256": "28c40d2d6c78520ace3ee156f58f1e85fa06e491e2ac0fc5761f041b96d40803",
+        "actual_sha256": "fee9f2cb5f9b1863f4c9bd3ebf42967dac6a339981168ec2eb28863668cb7218",
+        "status": "MISMATCH"
+      },
+      {
+        "id": "V35.9-script",
+        "path": "/home/sheikha/run_sheikha_v35_9_ultimate_master.sh",
+        "expected_sha256": "d9604e99ea1c85e5900eee39ad36c9d0de4057d46c8d46aad41878a42fb7f6a3",
+        "actual_sha256": "d9604e99ea1c85e5900eee39ad36c9d0de4057d46c8d46aad41878a42fb7f6a3",
+        "status": "MATCH"
+      }
+    ],
+    "failures": [
+      {
+        "scope": "sqlite-main-file",
+        "reason": "SHA256_MISMATCH"
+      },
+      {
+        "scope": "v2-evidence-registry",
+        "reason": "SHA256_MISMATCH"
+      }
+    ],
+    "required_file_count": 11,
+    "targetCodeExecuted": false,
+    "databaseConnectionOpened": false,
+    "networkUsed": false,
+    "filesWritten": false,
+    "claimClosurePerformed": false,
+    "claims": [
+      {
+        "id": "V35-E01",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E02",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E03",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E04",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E05",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E06",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E07",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E08",
+        "status": "OPEN_NOT_EVALUATED"
+      },
+      {
+        "id": "V35-E09",
+        "status": "OPEN_NOT_EVALUATED"
+      }
+    ],
+    "limits": [
+      "Baseline authenticity is not established by its own hash.",
+      "Metadata stability observed; no atomic multi-file snapshot is claimed.",
+      "No database integrity or legal, quality, service, or cryptographic capability evaluation."
+    ],
+    "baseline_sha256": "fb6382ec560a7470bd01f5e66d5b86f0f8c8bdac46230f1f1ee52ce9551b0579",
+    "examined_file_count": 11,
+    "matching_file_count": 9
+  },
+  "isolated_tests": {
+    "verifier_behavior_tests_passed": 16,
+    "draft_catalog_tests_passed": 9,
+    "database_used_for_catalog_tests": false,
+    "catalog_validation_uses_existing_local_jsonschema": true,
+    "cross_record_business_rules_implemented": false
+  },
+  "note": "This records one observation; it does not assert a cause for drift or replace the historical baseline.",
+  "verifier_sha256": "4cedf7fb72f45f1751feebcbf7dcdefc89e0f247d7b306051f1a480dff152fd9",
+  "schema_contract_sha256": "abe2ae654fb64eef4cbf45971e7497d58ce50748b34d5a9a7834cf9b811cd5f0"
+}

@@ -2,10 +2,22 @@
 
 const crypto = require('crypto');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
-const ROOT = path.resolve(__dirname, '..', '..');
-const TRAINING_DIR = path.join(ROOT, 'data', 'training');
+const confidentiality = require(
+    '../../runtime/confidentiality/v1/' +
+    'sheikha-confidentiality-gate-v1'
+);
+
+const TRAINING_DIR = process.env.SHEIKHA_PRIVATE_TRAINING_DIR ||
+    path.join(
+        os.homedir(),
+        '.local',
+        'share',
+        'sheikha',
+        'private-training-review-v1'
+    );
 const QUEUE_FILE = path.join(TRAINING_DIR, 'sheikha-core-self-training.ndjson');
 
 const SECRET_PATTERNS = [
@@ -42,10 +54,6 @@ function governanceEnvelope() {
         humanReviewRequired: true,
         trainingPromotionRequiresApproval: true
     };
-}
-
-function ensureTrainingDir() {
-    fs.mkdirSync(TRAINING_DIR, { recursive: true });
 }
 
 function redactSensitiveText(value) {
@@ -95,26 +103,20 @@ function normalizeTrainingSample(input = {}) {
 }
 
 function appendJsonLine(filePath, value) {
-    ensureTrainingDir();
-    fs.appendFileSync(filePath, `${JSON.stringify(value)}\n`, 'utf8');
-}
-
-function readRecentSamples(limit = 5) {
-    try {
-        if (!fs.existsSync(QUEUE_FILE)) {
-            return [];
+    fs.mkdirSync(path.dirname(filePath), {
+        recursive: true,
+        mode: 0o700
+    });
+    fs.chmodSync(path.dirname(filePath), 0o700);
+    fs.appendFileSync(
+        filePath,
+        `${JSON.stringify(value)}\n`,
+        {
+            encoding: 'utf8',
+            mode: 0o600
         }
-        const lines = fs.readFileSync(QUEUE_FILE, 'utf8').trim().split('\n').filter(Boolean);
-        return lines.slice(-Math.max(1, limit)).map((line) => {
-            try {
-                return JSON.parse(line);
-            } catch {
-                return null;
-            }
-        }).filter(Boolean);
-    } catch {
-        return [];
-    }
+    );
+    fs.chmodSync(filePath, 0o600);
 }
 
 function countSamples() {
@@ -128,9 +130,69 @@ function countSamples() {
     }
 }
 
-function recordSelfTrainingSample(input = {}) {
+function buildTrainingResourceBinding(input = {}) {
+    const content = JSON.stringify({
+        prompt: String(input.prompt || input.message || ''),
+        output: String(input.output || input.reply || ''),
+        source: String(input.source || 'sheikha-core-chat'),
+        model: String(input.model || 'Sheikha-Core')
+    });
+    const sha256 = crypto
+        .createHash('sha256')
+        .update(content)
+        .digest('hex');
+
+    return {
+        resourceId: String(
+            input.trainingResourceId ||
+            `TRAINING-SAMPLE-${sha256.slice(0, 24)}`
+        ),
+        sha256
+    };
+}
+
+function recordSelfTrainingSample(input = {}, options = {}) {
+    const binding = buildTrainingResourceBinding(input);
+    const trainingDecision =
+        confidentiality.evaluateConfidentialityAction(
+            {
+                action: 'TRAIN_AI',
+                resourceId: binding.resourceId,
+                resourceSha256: binding.sha256,
+                granteeId: input.trainingGranteeId,
+                rightsHolderId: input.rightsHolderId,
+                purpose: input.trainingPurpose,
+                authorization: input.trainingAuthorization
+            },
+            {
+                now: options.now,
+                trustedAuthorizationVerification:
+                    options.trustedAuthorizationVerification,
+                verifiedAuthorizationSha256:
+                    options.verifiedAuthorizationSha256,
+                verifiedRightsHolderId:
+                    options.verifiedRightsHolderId
+            }
+        );
+
+    if (!trainingDecision.allowed) {
+        return {
+            success: false,
+            status: 'NO_TRAINING_CONFIDENTIAL_BY_DEFAULT',
+            record: null,
+            stored: false,
+            resourceId: binding.resourceId,
+            resourceSha256: binding.sha256,
+            decision: trainingDecision,
+            governance: governanceEnvelope(),
+            message:
+                'لم تحفظ المحادثة للتدريب؛ يلزم تفويض تدريب منفصل وموقع ومتحقق منه.'
+        };
+    }
+
     const sample = normalizeTrainingSample(input);
-    appendJsonLine(QUEUE_FILE, sample);
+    const queueFile = options.queueFile || QUEUE_FILE;
+    appendJsonLine(queueFile, sample);
     return {
         success: true,
         mode: 'governed-human-reviewed-self-training',
@@ -141,7 +203,8 @@ function recordSelfTrainingSample(input = {}) {
             flags: sample.flags,
             createdAt: sample.createdAt
         },
-        queueFile: path.relative(ROOT, QUEUE_FILE),
+        queueStorage: 'PRIVATE_DATA_DIR_OUTSIDE_GIT',
+        confidentialityDecision: trainingDecision,
         governance: governanceEnvelope(),
         message: 'تم تسجيل عينة تدريب ذاتي محكومة وتحتاج مراجعة بشرية قبل أي ترقية.',
         timestamp: new Date().toISOString()
@@ -149,24 +212,20 @@ function recordSelfTrainingSample(input = {}) {
 }
 
 function getSelfTrainingStatus() {
-    const recent = readRecentSamples(5);
+    const queueCount = countSamples();
     return {
         success: true,
-        status: 'active',
+        status: 'guarded_default_deny',
         name: 'Sheikha-Core Governed Self-Training',
         mode: 'governed-human-reviewed-self-training',
-        queueFile: path.relative(ROOT, QUEUE_FILE),
-        queueCount: countSamples(),
-        recent: recent.map((sample) => ({
-            id: sample.id,
-            status: sample.status,
-            source: sample.source,
-            model: sample.model,
-            flags: sample.flags,
-            createdAt: sample.createdAt
-        })),
+        queueStorage: 'PRIVATE_DATA_DIR_OUTSIDE_GIT',
+        queueCount,
+        recentMetadataExposed: false,
+        automaticChatCapture: false,
+        customerDataTrainingAllowedByDefault: false,
+        legacyQueueRequiresPrivacyReview: queueCount > 0,
         lifecycle: [
-            'chat-capture',
+            'separate-signed-training-opt-in',
             'privacy-redaction',
             'sharia-policy-check',
             'human-review',
@@ -174,7 +233,7 @@ function getSelfTrainingStatus() {
             'manual-model-training'
         ],
         governance: governanceEnvelope(),
-        message: 'التدريب الذاتي مفعل كطابور تعلم محكوم، وليس ترقية تلقائية غير مراجعة للنموذج.',
+        message: 'التدريب محجوب افتراضيًا. لا تحفظ محادثة إلا بتفويض تدريب منفصل وموقع ومتحقق منه، ولا توجد ترقية تلقائية للنموذج.',
         timestamp: new Date().toISOString()
     };
 }
@@ -207,5 +266,6 @@ module.exports = {
     getSelfTrainingStatus,
     buildTrainingReviewPlan,
     normalizeTrainingSample,
+    buildTrainingResourceBinding,
     governanceEnvelope
 };

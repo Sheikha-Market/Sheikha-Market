@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_FOUNDATION_FIRMWARE_ROADMAP_V1",
+  "status": "ACTIVE_EVIDENCE_GATED",
+  "objective": "Deliver an original, clean-room, evidence-governed firmware platform for named OEM and ODM products.",
+  "workstreams": [
+    {
+      "id": "W0_PRODUCT_RIGHTS",
+      "outcomes": ["TRADEMARK_CLEARANCE", "STANDARDS_ADOPTION_RIGHTS", "THIRD_PARTY_PROVENANCE", "COMMUNITY_LICENSE_POLICY"],
+      "state": "IN_PROGRESS"
+    },
+    {
+      "id": "W1_BOOT_FOUNDATION",
+      "outcomes": ["UEFI_PI_CORE", "ACPI_SMBIOS", "BOOT_POLICY", "CAPSULE_UPDATE", "RECOVERY"],
+      "state": "FOUNDATION_PARTIAL"
+    },
+    {
+      "id": "W2_MANAGE_FOUNDATION",
+      "outcomes": ["BMC_CORE", "REDFISH", "MCTP", "PLDM", "SENSOR_TELEMETRY", "FLEET_MANAGEMENT"],
+      "state": "ARCHITECTURE_DEFINED"
+    },
+    {
+      "id": "W3_TRUST_FOUNDATION",
+      "outcomes": ["ROOT_OF_TRUST", "SECURE_BOOT", "MEASURED_BOOT", "TPM_SPDM_ATTESTATION", "KEY_GOVERNANCE", "ANTI_ROLLBACK"],
+      "state": "ARCHITECTURE_DEFINED"
+    },
+    {
+      "id": "W4_FIRMWARE_OPERATIONS",
+      "outcomes": ["SBOM", "SIGNING", "PROVENANCE", "VULNERABILITY_RESPONSE", "ROLLOUT", "ROLLBACK", "RECOVERY_EVIDENCE"],
+      "state": "ARCHITECTURE_DEFINED"
+    },
+    {
+      "id": "W5_MULTI_ARCH_SILICON_BOARD",
+      "outcomes": ["X86_64_ADAPTER", "ARM64_ADAPTER", "RISCV64_ADAPTER", "LICENSED_SILICON_PACKAGES", "NAMED_BOARD_PACKAGES"],
+      "state": "X86_64_SEED_ONLY"
+    },
+    {
+      "id": "W6_OEM_ODM_PILOT",
+      "outcomes": ["CUSTOMER_REQUIREMENTS", "PILOT_BOARD", "MANUFACTURING_PROVISIONING", "ACCEPTANCE_REPORT", "SIGNED_RELEASE"],
+      "state": "NOT_STARTED"
+    }
+  ],
+  "milestones": [
+    {"id": "M0", "name": "GOVERNED_DEVELOPMENT_FOUNDATION", "exit": ["F0_VERIFIED", "F1_VERIFIED"], "state": "VERIFIED"},
+    {"id": "M1", "name": "NAMED_REFERENCE_BOARD_PORT", "exit": ["BSP", "ACPI", "RECOVERY", "NON_DESTRUCTIVE_FLASH_LAB"], "state": "PARTIAL"},
+    {"id": "M2", "name": "SECURE_LIFECYCLE", "exit": ["SECURE_MEASURED_BOOT", "SIGNED_UPDATE", "ANTI_ROLLBACK", "KEY_CEREMONY"], "state": "BLOCKED"},
+    {"id": "M3", "name": "MANUFACTURING_PILOT", "exit": ["FACTORY_PROVISIONING", "OS_MATRIX", "FIELD_RECOVERY", "OEM_ACCEPTANCE"], "state": "BLOCKED"},
+    {"id": "M4", "name": "COMMERCIAL_BOARD_FAMILY_RELEASE", "exit": ["F0_TO_F7_VERIFIED_FOR_NAMED_BOARD_FAMILY"], "state": "BLOCKED"}
+  ],
+  "measurementRules": {
+    "completionUnit": "EVIDENCE_BACKED_EXIT_CRITERION",
+    "calendarDateAloneCannotCloseMilestone": true,
+    "architectureRegistrationIsNotImplementation": true,
+    "oneBoardValidationIsNotUniversalCompatibility": true
+  }
+}

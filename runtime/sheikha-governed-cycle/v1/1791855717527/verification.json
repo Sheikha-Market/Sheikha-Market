@@ -1,0 +1,818 @@
+{
+  "timestamp": "2026-10-13T01:41:57.526Z",
+  "status": "BOUNDED_GOVERNED_CYCLE_COMPLETED",
+  "architecture": {
+    "system": "SHEIKHA_OS_INTEGRATED_V1",
+    "status": "LOCAL_SPECIFICATION_AND_PROBES_VERIFIED",
+    "source": "sheikha-language/foundations/sheikha-os-integrated-v1.shk",
+    "sourceSha256": "c35b2103564ed40d4dcffe68560acb783c5de21c1208f2f60a10c486b329ec21",
+    "layers": [
+      {
+        "id": "boot",
+        "properties": {
+          "الدور": "إقلاع_UEFI_وتسليم_التحكم",
+          "معيار_الإثبات": "boot_artifact_integrity",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "kernel",
+        "properties": {
+          "الدور": "ذاكرة_ومقاطعات_وتوقيت_وعزل",
+          "معيار_الإثبات": "kernel_runtime_safety",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "scheduler",
+        "properties": {
+          "الدور": "جدولة_وميزانية_ومنع_تجويع",
+          "معيار_الإثبات": "scheduling",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "hal",
+        "properties": {
+          "الدور": "تعريفات_أجهزة_ومعايرة_وحدود",
+          "معيار_الإثبات": "hardware_drivers",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "storage",
+        "properties": {
+          "الدور": "ملفات_دائمة_وتعاف_وصلاحيات",
+          "معيار_الإثبات": "persistent_storage",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "network",
+        "properties": {
+          "الدور": "شبكة_ومصادقة_وتشفير",
+          "معيار_الإثبات": "network_stack",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "security",
+        "properties": {
+          "الدور": "أقل_صلاحية_وفصل_وتدقيق",
+          "معيار_الإثبات": "security_isolation",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "packages",
+        "properties": {
+          "الدور": "حزم_موقعة_وترقية_وتراجع",
+          "معيار_الإثبات": "package_management",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "language",
+        "properties": {
+          "الدور": "مترجم_شيخة_وآلة_افتراضية",
+          "معيار_الإثبات": "language_runtime",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "desktop",
+        "properties": {
+          "الدور": "واجهة_عربية_وتطبيقات_وإتاحة",
+          "معيار_الإثبات": "desktop",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "research",
+        "properties": {
+          "الدور": "منهجيات_وتجارب_ومراجعة",
+          "معيار_الإثبات": "research_planning",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "watch",
+        "properties": {
+          "الدور": "قياس_وسجل_ورصد_تقادم",
+          "معيار_الإثبات": "local_monitoring",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "evidence",
+        "properties": {
+          "الدور": "بصمات_محتوى_وفحص_ادعاءات",
+          "معيار_الإثبات": "independent_evidence",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "governance",
+        "properties": {
+          "الدور": "تفويض_منفصل_ولائحة_تغيير",
+          "معيار_الإثبات": "governance",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "migration",
+        "properties": {
+          "الدور": "ترحيل_خدمات_وتكافؤ_سلوك",
+          "معيار_الإثبات": "service_migration",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "recovery",
+        "properties": {
+          "الدور": "نسخ_واستعادة_واختبار_تعاف",
+          "معيار_الإثبات": "recovery",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      }
+    ],
+    "probes": {
+      "bootArtifactIntegrity": true,
+      "recordedVmBootStatus": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+      "bootExecutedThisSession": false,
+      "languageExecution": "VERIFIED_DRY_RUN",
+      "methodProfiles": 11,
+      "methodRequirementsPresent": true,
+      "monitorStaleData": "STALE_DATA"
+    },
+    "unverified": [
+      {
+        "id": "boot",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "kernel",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "scheduler",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "hal",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "storage",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "network",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "security",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "packages",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "desktop",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "evidence",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "governance",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "migration",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "recovery",
+        "fullCapability": "UNKNOWN"
+      }
+    ],
+    "policy": {
+      "authorityGranted": false,
+      "productionEnabled": false,
+      "networkOperations": false,
+      "physicalActuation": false,
+      "serviceControl": false,
+      "independentShariaApproval": "UNKNOWN",
+      "legalCompliance": "UNKNOWN"
+    },
+    "allScientificMethodsActivated": false,
+    "linuxReplacementReady": false,
+    "hostRuntime": "Node.js"
+  },
+  "management": {
+    "programs": [
+      {
+        "id": "P1",
+        "name": "Kernel & Foundries"
+      },
+      {
+        "id": "P2",
+        "name": "Commerce & Supply Chains"
+      },
+      {
+        "id": "P3",
+        "name": "Robotics & Intelligence"
+      },
+      {
+        "id": "P4",
+        "name": "Measurement & Telemetry"
+      },
+      {
+        "id": "P5",
+        "name": "Innovation Incubator"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "boot",
+        "acceptance": "boot_artifact_integrity",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "kernel",
+        "acceptance": "kernel_runtime_safety",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "scheduler",
+        "acceptance": "scheduling",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "hal",
+        "acceptance": "hardware_drivers",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "storage",
+        "acceptance": "persistent_storage",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "network",
+        "acceptance": "network_stack",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "security",
+        "acceptance": "security_isolation",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "packages",
+        "acceptance": "package_management",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "language",
+        "acceptance": "language_runtime",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "desktop",
+        "acceptance": "desktop",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "research",
+        "acceptance": "research_planning",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "watch",
+        "acceptance": "local_monitoring",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "evidence",
+        "acceptance": "independent_evidence",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "governance",
+        "acceptance": "governance",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "migration",
+        "acceptance": "service_migration",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      },
+      {
+        "id": "recovery",
+        "acceptance": "recovery",
+        "owner": "UNASSIGNED",
+        "fullQualification": "PENDING_INDEPENDENT_EVIDENCE",
+        "gate": "LOCAL_DESIGN_AND_PROBES_ONLY"
+      }
+    ],
+    "promotionEnabled": false
+  },
+  "research": {
+    "plans": [
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "descriptive",
+        "requirements": [
+          "AUTHORIZED_SAMPLE",
+          "MEASUREMENT_UNITS",
+          "MISSING_DATA_RECORD"
+        ],
+        "analysisStatus": "LOCAL_DESCRIPTIVE_SAMPLE_EXECUTION",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "experimental",
+        "requirements": [
+          "HYPOTHESIS",
+          "COMPARISON_DESIGN",
+          "CONFOUNDERS",
+          "ETHICS_REVIEW_IF_APPLICABLE"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "statistical",
+        "requirements": [
+          "SAMPLING_PLAN",
+          "ASSUMPTIONS",
+          "UNCERTAINTY",
+          "MODEL_DIAGNOSTICS"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "inductive",
+        "requirements": [
+          "OBSERVATIONS",
+          "ALTERNATIVE_PATTERNS",
+          "LIMITED_GENERALIZATION"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "deductive",
+        "requirements": [
+          "PREMISES",
+          "INFERENCE_RULES",
+          "COUNTEREXAMPLE_CHECK"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "comparative",
+        "requirements": [
+          "COMPARABLE_GROUPS",
+          "COMMON_METRICS",
+          "CONTEXT_DIFFERENCES"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "historical",
+        "requirements": [
+          "DATED_SOURCES",
+          "PROVENANCE",
+          "SOURCE_CRITICISM"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "qualitative",
+        "requirements": [
+          "CONSENT",
+          "CODING_PROTOCOL",
+          "REFLEXIVITY",
+          "AUDIT_TRAIL"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "mixed",
+        "requirements": [
+          "QUALITATIVE_PROTOCOL",
+          "QUANTITATIVE_PROTOCOL",
+          "INTEGRATION_PLAN"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "simulation",
+        "requirements": [
+          "MODEL_ASSUMPTIONS",
+          "CALIBRATION",
+          "VALIDATION_DATA",
+          "FAILURE_SCENARIOS"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      },
+      {
+        "status": "LOCAL_RESEARCH_PLAN",
+        "method": "systematic-review",
+        "requirements": [
+          "RESEARCH_QUESTION",
+          "SEARCH_PROTOCOL",
+          "INCLUSION_CRITERIA",
+          "BIAS_ASSESSMENT"
+        ],
+        "analysisStatus": "UNKNOWN",
+        "evidenceIds": [],
+        "steps": [
+          "DEFINE_QUESTION",
+          "REVIEW_AUTHORIZED_SOURCES",
+          "FORM_HYPOTHESIS",
+          "DEFINE_MEASUREMENTS_AND_LIMITS",
+          "DESIGN_METHOD_SPECIFIC_STUDY",
+          "COLLECT_CONSENTED_DATA",
+          "ANALYZE",
+          "CHECK_ALTERNATIVE_EXPLANATIONS",
+          "INDEPENDENT_REVIEW",
+          "REPORT_UNCERTAINTY"
+        ],
+        "sourceValidity": "UNKNOWN",
+        "hypothesis": "REQUIRES_RESEARCHER",
+        "conclusion": "UNKNOWN",
+        "independentReview": "UNKNOWN",
+        "authorityGranted": false,
+        "physicalActuationAllowed": false
+      }
+    ],
+    "executedAnalysis": {
+      "n": 3,
+      "mean": 4,
+      "min": 2,
+      "max": 6,
+      "scope": "DESCRIPTIVE_SAMPLE_ONLY",
+      "causation": "UNKNOWN",
+      "populationInference": "UNKNOWN"
+    },
+    "sampleSource": "SYNTHETIC",
+    "allScientificMethodsExecuted": false
+  },
+  "monitoring": {
+    "mode": "BOUNDED_LOCAL_EXPERIMENT",
+    "guard": "STALE_DATA",
+    "records": [
+      {
+        "data": {
+          "sequence": 0,
+          "tick": 0,
+          "channel": "load",
+          "unit": "kg",
+          "value": 2,
+          "source": "SYNTHETIC_LOCAL_SAMPLE",
+          "calibration": "UNKNOWN",
+          "previousHash": null
+        },
+        "sha256": "febfa04087c522978e15480b0868dafe4ec6012e54dd3ff0413ff58f5412a327"
+      },
+      {
+        "data": {
+          "sequence": 1,
+          "tick": 0,
+          "channel": "load",
+          "unit": "kg",
+          "value": 4,
+          "source": "SYNTHETIC_LOCAL_SAMPLE",
+          "calibration": "UNKNOWN",
+          "previousHash": "febfa04087c522978e15480b0868dafe4ec6012e54dd3ff0413ff58f5412a327"
+        },
+        "sha256": "95ed1ca532a223d809bb61581b993056c293eb58c04b591c832f1c44fa9ec9f6"
+      },
+      {
+        "data": {
+          "sequence": 2,
+          "tick": 0,
+          "channel": "load",
+          "unit": "kg",
+          "value": 6,
+          "source": "SYNTHETIC_LOCAL_SAMPLE",
+          "calibration": "UNKNOWN",
+          "previousHash": "95ed1ca532a223d809bb61581b993056c293eb58c04b591c832f1c44fa9ec9f6"
+        },
+        "sha256": "161e25dccf8bf13c153cd67195865066c4d4e6de6f9292dfe8cc22a1f9739bed"
+      }
+    ],
+    "physicalSensorConnection": "UNKNOWN",
+    "hardwareSafetyEnforcement": "UNKNOWN",
+    "monitor24x7": "UNKNOWN",
+    "servicesStopped": false,
+    "physicalCommandSent": false
+  },
+  "innovation": [
+    {
+      "id": "CANDIDATE_1",
+      "theme": "MEASUREMENT_BASELINE",
+      "status": "PROPOSED_NOT_AUTHORIZED",
+      "problem": "تحسين كفاءة الموارد ضمن برامج شيخة",
+      "metric": "استهلاك الموارد لكل مهمة ناجحة",
+      "method": "REQUIRES_RESEARCHER_SELECTION",
+      "baseline": "UNKNOWN",
+      "independentReview": "UNKNOWN",
+      "productionEnabled": false
+    },
+    {
+      "id": "CANDIDATE_2",
+      "theme": "PROCESS_EFFICIENCY",
+      "status": "PROPOSED_NOT_AUTHORIZED",
+      "problem": "تحسين كفاءة الموارد ضمن برامج شيخة",
+      "metric": "استهلاك الموارد لكل مهمة ناجحة",
+      "method": "REQUIRES_RESEARCHER_SELECTION",
+      "baseline": "UNKNOWN",
+      "independentReview": "UNKNOWN",
+      "productionEnabled": false
+    },
+    {
+      "id": "CANDIDATE_3",
+      "theme": "RESOURCE_REUSE",
+      "status": "PROPOSED_NOT_AUTHORIZED",
+      "problem": "تحسين كفاءة الموارد ضمن برامج شيخة",
+      "metric": "استهلاك الموارد لكل مهمة ناجحة",
+      "method": "REQUIRES_RESEARCHER_SELECTION",
+      "baseline": "UNKNOWN",
+      "independentReview": "UNKNOWN",
+      "productionEnabled": false
+    }
+  ],
+  "tests": {
+    "exitCode": 0,
+    "output": "✔ integrated probes separate limited evidence from full OS readiness (6.567555ms)\n✔ client flags cannot enable deployment, services or devices (0.305976ms)\n✔ synthetic samples have provenance and linked content digests (0.13152ms)\n✔ stale measurements become visible without restarting services (0.093259ms)\n✔ replay, wrong units, bad values and client approval fail closed (0.180459ms)\n✔ innovation proposes multiple candidates without approving deployment (0.149653ms)\n✔ method catalog produces bounded plans without conclusions or authority (0.134521ms)\n✔ client approval and unknown methods are rejected (0.137232ms)\n✔ statistics describe samples without causal claims (0.177242ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 23.117858\n"
+  },
+  "sourceDigests": {
+    "sheikha-language/foundations/sheikha-os-integrated-v1.shk": "c35b2103564ed40d4dcffe68560acb783c5de21c1208f2f60a10c486b329ec21",
+    "core/os/sheikha-os-integration-v1.cjs": "0f63d65a75ecfef232fbb81b7e0036f340e52ee4ae0fbcda94b9f1193e2022c1",
+    "core/research/sheikha-research-brain-v1.cjs": "9361674c5d3d219731f8bb6d46b75e5ff53fa2c38bb7bbe28e234081d2af06c5",
+    "core/research/sheikha-methodology-catalog-v1.json": "48d0589ce4720a333721ec3a473b320e69ec06cd406a4f5cdf661c64705889e4",
+    "core/innovation/sheikha-portfolio-monitor-v1.cjs": "4421148fb61f1d0a2fbcc66314826d719ce40f71e9db9d9be7eb967ca8f8d76e",
+    "tools/environment/sheikha-governed-cycle-v1.cjs": "61657a1377e5cdf0c0224af72f1bfff04bbc43790b2444e9fae3848eef7b2a39",
+    "tests/sheikha-os-integration-v1.test.cjs": "93d56b022b77effc86fa1d9c8e4a5ac35344b1adc8aba5c95338205c0e090e77",
+    "tests/sheikha-research-brain-v1.test.cjs": "376dd6698b248ad71ae95c5ed9a6db4ccff68bbbef633adc0f8f8b57940b04a3",
+    "tests/sheikha-portfolio-monitor-v1.test.cjs": "facae63d297a8f35d0a0c359d6f937dde5b3fff2cceea0e1d340d67e3cc32872"
+  },
+  "governance": {
+    "values": "QURAN_AND_SUNNAH_NO_HARM_REQUESTED_REFERENCE",
+    "independentShariaReview": "UNKNOWN",
+    "legalCertification": "UNKNOWN",
+    "servicesChanged": false,
+    "networkChanged": false,
+    "physicalActuation": false,
+    "authorityGranted": false
+  }
+}

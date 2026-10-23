@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شيخة — AI Router Anywhere</title>
+<meta name="description" content="موجّه شيخة الذكي للتطبيقات ووكلاء البرمجة وبيئات التطوير وSDK وMCP.">
+<style>
+:root{--bg:#07110d;--card:#0d1a15;--line:#21362b;--text:#eef7f1;--muted:#9eb3a7;--gold:#d6b45f;--green:#66d99a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1180px;margin:auto;padding:28px}.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:18px}
+.hero{padding:26px;margin-bottom:18px}.eyebrow{color:var(--green);font-size:12px;letter-spacing:.08em}
+h1{margin:6px 0 10px;font-size:32px}.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.metric{padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.metric strong{display:block;font-size:24px;color:var(--gold)}.card{padding:18px;margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+code{direction:ltr;display:inline-block}.tag{display:inline-block;padding:3px 8px;border:1px solid var(--line);border-radius:999px;margin:2px;font-size:12px}
+.ok{color:var(--green)}.warn{color:var(--gold)}a{color:#9fd4ff}.flows{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.flow{padding:12px;border:1px solid var(--line);border-radius:12px;text-align:center}
+@media(max-width:800px){.grid,.flows{grid-template-columns:1fr 1fr}main{padding:14px}table{font-size:12px}}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+<div class="eyebrow">SHEIKHA AI ROUTER ANYWHERE V1</div>
+<h1>جهاز التوجيه الذكي AI Router في أي مكان</h1>
+<p class="muted">طبقة واحدة محكومة للتطبيقات، ووكلاء البرمجة، وبيئات التطوير، وSDKs، وعملاء MCP — مع فصل الجاهزية عن الاتصال الفعلي والتفويض.</p>
+</section>
+
+<section class="grid">
+<div class="metric"><strong id="surfaceCount">0</strong><span>أسطح تكامل</span></div>
+<div class="metric"><strong id="providerCount">0</strong><span>مسارات مزودين</span></div>
+<div class="metric"><strong id="guideCount">0</strong><span>أدلة إعداد رسمية</span></div>
+<div class="metric"><strong id="liveCount">0</strong><span>اتصالات خارجية حية مثبتة</span></div>
+</section>
+
+<section class="card">
+<h2>مسار التوجيه</h2>
+<div class="flows">
+<div class="flow">Apps</div><div class="flow">Coding Agents</div><div class="flow">IDEs</div><div class="flow">SDKs</div><div class="flow">MCP Clients</div>
+</div>
+<p class="muted">↓ بوابات الهوية والأسرار وتصنيف البيانات والتفويض والتكلفة والسياسة → Router Core → Local / Ramp Router / OpenRouter</p>
+</section>
+
+<section class="card">
+<h2>حالة المزودين</h2>
+<table>
+<thead><tr><th>المسار</th><th>النوع</th><th>الحالة</th><th>البروتوكولات</th><th>المفتاح</th><th>Live claim</th></tr></thead>
+<tbody id="providers"></tbody>
+</table>
+</section>
+
+<section class="card">
+<h2>أدلة الإعداد</h2>
+<table>
+<thead><tr><th>السطح</th><th>المزود</th><th>الدليل</th><th>يغطي</th></tr></thead>
+<tbody id="guides"></tbody>
+</table>
+</section>
+
+<section class="card">
+<h2>ضوابط شيخة</h2>
+<p><span class="tag">No secret exposure</span><span class="tag">No auto install</span><span class="tag">No network fetch</span><span class="tag">No automatic spend</span><span class="tag">No deploy</span><span class="tag">Human review</span></p>
+<p class="muted">وجود ملف تعريف أو مفتاح في البيئة لا يعني أن الاتصال حي أو أن التنفيذ مصرح به.</p>
+</section>
+</main>
+<script>
+(async()=>{
+  const res=await fetch('/site-map/ai-router-anywhere-v1.json',{cache:'no-store'});
+  const data=await res.json();
+  surfaceCount.textContent=data.summary.surfaces;
+  providerCount.textContent=data.summary.providers;
+  guideCount.textContent=data.summary.officialGuides;
+  liveCount.textContent=data.summary.liveExternalConnections;
+  providers.innerHTML=data.providers.map(p=>`<tr>
+    <td><code>${p.id}</code></td>
+    <td>${p.kind}</td>
+    <td class="${p.connectionState==='LOCAL_AVAILABLE'?'ok':'warn'}">${p.connectionState}</td>
+    <td>${p.protocols.map(x=>'<span class="tag">'+x+'</span>').join('')}</td>
+    <td><code>${p.keyEnv||'—'}</code><br><small>${p.keyConfigured?'موجود في البيئة':'غير مضبوط'}</small></td>
+    <td>${p.liveExternalConnectionClaim?'نعم':'لا'}</td>
+  </tr>`).join('');
+  guides.innerHTML=(data.guides||[]).map(g=>`<tr>
+    <td>${g.surface}</td><td>${g.provider}</td>
+    <td><a href="${g.url}" target="_blank" rel="noopener noreferrer">${g.title}</a></td>
+    <td>${g.covers.map(x=>'<span class="tag">'+x+'</span>').join('')}</td>
+  </tr>`).join('');
+})().catch(err=>{document.body.insertAdjacentHTML('beforeend','<pre>'+String(err)+'</pre>')});
+</script>
+</body>
+</html>

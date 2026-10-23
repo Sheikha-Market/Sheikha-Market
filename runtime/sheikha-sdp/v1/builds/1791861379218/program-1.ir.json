@@ -1,0 +1,944 @@
+{
+  "type": "SheikhaIR",
+  "version": "0.2.0",
+  "meta": {
+    "nodes": 11,
+    "generatedAt": "2026-10-13T03:16:19.218Z"
+  },
+  "steps": [
+    {
+      "op": "DIRECTIVE",
+      "name": "بسم_الله",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_BEGIN",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المصدر",
+      "value": "الكتاب_والسنة_الصحيحة",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 32
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الدور",
+      "value": "قيم_غير_تنفيذية",
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 3
+        },
+        "end": {
+          "line": 4,
+          "column": 25
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "السلطة_البرمجية",
+      "value": "لا",
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 3
+        },
+        "end": {
+          "line": 5,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الفتوى_الآلية",
+      "value": "ممنوعة",
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 3
+        },
+        "end": {
+          "line": 6,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المراجعة_الشرعية",
+      "value": "أهل_العلم_المؤهلون",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 3
+        },
+        "end": {
+          "line": 7,
+          "column": 39
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "التحقق_من_المصادر",
+      "value": "واجب",
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 3
+        },
+        "end": {
+          "line": 8,
+          "column": 26
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_END",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_BEGIN",
+      "name": "الروبوت",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "يوجب",
+      "value": "الصدق، العدل، الأمانة، الدليل",
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 3
+        },
+        "end": {
+          "line": 10,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "يمنع",
+      "value": "الضرر، الظلم، الغش، الخداع، الإكراه",
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 3
+        },
+        "end": {
+          "line": 11,
+          "column": 44
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "القرار_العالي_الأثر",
+      "value": "مراجعة_بشرية_ملزمة",
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 3
+        },
+        "end": {
+          "line": 12,
+          "column": 42
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "التنفيذ",
+      "value": "أقل_صلاحية_وموافقة_صريحة",
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 3
+        },
+        "end": {
+          "line": 13,
+          "column": 36
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "الاتصال_بالأجهزة",
+      "value": "ممنوع_في_المحاكاة",
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 3
+        },
+        "end": {
+          "line": 14,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_END",
+      "name": "الروبوت",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "core",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 20,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "core",
+      "key": "الهوية",
+      "value": "SHEIKHA_IDENTITY_V1",
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 3
+        },
+        "end": {
+          "line": 16,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "core",
+      "key": "الدور",
+      "value": "العقود_والقبول_والحوكمة",
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 3
+        },
+        "end": {
+          "line": 17,
+          "column": 33
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "core",
+      "key": "النطاق",
+      "value": "local-foundation",
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 3
+        },
+        "end": {
+          "line": 18,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "core",
+      "key": "التفعيل_الإنتاجي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 3
+        },
+        "end": {
+          "line": 19,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "core",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 20,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "system",
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 1
+        },
+        "end": {
+          "line": 25,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "system",
+      "key": "الهوية",
+      "value": "SHEIKHA_IDENTITY_V1",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 3
+        },
+        "end": {
+          "line": 21,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "system",
+      "key": "الدور",
+      "value": "تنسيق_الوحدات_والحالات",
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 3
+        },
+        "end": {
+          "line": 22,
+          "column": 32
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "system",
+      "key": "النطاق",
+      "value": "local-foundation",
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 3
+        },
+        "end": {
+          "line": 23,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "system",
+      "key": "التفعيل_الإنتاجي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 3
+        },
+        "end": {
+          "line": 24,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "system",
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 1
+        },
+        "end": {
+          "line": 25,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "os",
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 1
+        },
+        "end": {
+          "line": 30,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "os",
+      "key": "الهوية",
+      "value": "SHEIKHA_IDENTITY_V1",
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 3
+        },
+        "end": {
+          "line": 26,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "os",
+      "key": "الدور",
+      "value": "الإقلاع_والإدارة_الأصلية_التجريبية",
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 3
+        },
+        "end": {
+          "line": 27,
+          "column": 44
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "os",
+      "key": "النطاق",
+      "value": "local-foundation",
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 3
+        },
+        "end": {
+          "line": 28,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "os",
+      "key": "التفعيل_الإنتاجي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 3
+        },
+        "end": {
+          "line": 29,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "os",
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 1
+        },
+        "end": {
+          "line": 30,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "cloud",
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 1
+        },
+        "end": {
+          "line": 35,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "cloud",
+      "key": "الهوية",
+      "value": "SHEIKHA_IDENTITY_V1",
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 3
+        },
+        "end": {
+          "line": 31,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "cloud",
+      "key": "الدور",
+      "value": "موارد_سحابية_مخططة",
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 3
+        },
+        "end": {
+          "line": 32,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "cloud",
+      "key": "النطاق",
+      "value": "local-foundation",
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 3
+        },
+        "end": {
+          "line": 33,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "cloud",
+      "key": "التفعيل_الإنتاجي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 3
+        },
+        "end": {
+          "line": 34,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "cloud",
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 1
+        },
+        "end": {
+          "line": 35,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "saas",
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 1
+        },
+        "end": {
+          "line": 40,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "saas",
+      "key": "الهوية",
+      "value": "SHEIKHA_IDENTITY_V1",
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 3
+        },
+        "end": {
+          "line": 36,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "saas",
+      "key": "الدور",
+      "value": "خدمات_مستأجرين_مخططة",
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 3
+        },
+        "end": {
+          "line": 37,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "saas",
+      "key": "النطاق",
+      "value": "local-foundation",
+      "loc": {
+        "start": {
+          "line": 38,
+          "column": 3
+        },
+        "end": {
+          "line": 38,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "saas",
+      "key": "التفعيل_الإنتاجي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 39,
+          "column": 3
+        },
+        "end": {
+          "line": 39,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "saas",
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 1
+        },
+        "end": {
+          "line": 40,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "software",
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 1
+        },
+        "end": {
+          "line": 45,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "software",
+      "key": "الهوية",
+      "value": "SHEIKHA_IDENTITY_V1",
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 3
+        },
+        "end": {
+          "line": 41,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "software",
+      "key": "الدور",
+      "value": "المترجم_والبرمجيات_المحكومة",
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 3
+        },
+        "end": {
+          "line": 42,
+          "column": 37
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "software",
+      "key": "النطاق",
+      "value": "local-foundation",
+      "loc": {
+        "start": {
+          "line": 43,
+          "column": 3
+        },
+        "end": {
+          "line": 43,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "software",
+      "key": "التفعيل_الإنتاجي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 44,
+          "column": 3
+        },
+        "end": {
+          "line": 44,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "software",
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 1
+        },
+        "end": {
+          "line": 45,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "hardware",
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 1
+        },
+        "end": {
+          "line": 50,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "hardware",
+      "key": "الهوية",
+      "value": "SHEIKHA_IDENTITY_V1",
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 3
+        },
+        "end": {
+          "line": 46,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "hardware",
+      "key": "الدور",
+      "value": "عقود_العتاد_والسلامة",
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 3
+        },
+        "end": {
+          "line": 47,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "hardware",
+      "key": "النطاق",
+      "value": "local-foundation",
+      "loc": {
+        "start": {
+          "line": 48,
+          "column": 3
+        },
+        "end": {
+          "line": 48,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "hardware",
+      "key": "التفعيل_الإنتاجي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 49,
+          "column": 3
+        },
+        "end": {
+          "line": 49,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "hardware",
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 1
+        },
+        "end": {
+          "line": 50,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "PROCEDURE_BEGIN",
+      "name": "تأسيس_المنظومة",
+      "loc": {
+        "start": {
+          "line": 50,
+          "column": 1
+        },
+        "end": {
+          "line": 52,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "تأسيس_المنظومة",
+      "command": "اعرض",
+      "argument": "\"SHEIKHA_SYSTEM_FOUNDATION_LOCAL\"",
+      "loc": {
+        "start": {
+          "line": 51,
+          "column": 3
+        },
+        "end": {
+          "line": 51,
+          "column": 41
+        }
+      }
+    },
+    {
+      "op": "PROCEDURE_END",
+      "name": "تأسيس_المنظومة",
+      "loc": {
+        "start": {
+          "line": 50,
+          "column": 1
+        },
+        "end": {
+          "line": 52,
+          "column": 1
+        }
+      }
+    }
+  ]
+}

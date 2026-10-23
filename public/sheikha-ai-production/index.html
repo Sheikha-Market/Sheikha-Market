@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>شيخة | جاهزية الذكاء والإنتاج</title>
+  <meta name="description" content="لوحة شيخة الموثقة لجاهزية الذكاء الصناعي والإنتاج التجاري">
+  <link rel="manifest" href="/manifest.json">
+  <style>
+    :root{color-scheme:dark;--bg:#07100d;--panel:#0d1714;--line:#28463a;--text:#f4f7f5;--muted:#a9b8b1;--gold:#d4af37;--green:#35b878;--red:#e36d6d}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,"Noto Sans Arabic",sans-serif;letter-spacing:0}
+    header{border-bottom:1px solid var(--line);background:#09130f}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+    .top{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:12px}.brand img{width:44px;height:44px;object-fit:contain}.brand b{display:block;font-size:1.2rem}.brand small,.muted{color:var(--muted)}
+    main{padding:28px 0 52px}.headline{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}.headline h1{font-size:clamp(1.65rem,4vw,2.5rem);margin:0 0 8px}.state{border:1px solid var(--gold);color:var(--gold);padding:8px 12px;border-radius:6px;font-weight:700}
+    .metrics,.gates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}.metric strong{display:block;font-size:1.7rem;margin-top:7px}.section{margin-top:28px}.section h2{font-size:1.15rem;margin:0 0 12px}.gate{display:flex;justify-content:space-between;gap:12px;align-items:center}.ok{color:var(--green)}.blocked{color:var(--red)}
+    .flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.step{text-align:center;background:#10211a;border:1px solid var(--line);padding:13px 8px;border-radius:6px;font-size:.86rem}.note{line-height:1.85}.error{border-color:var(--red)}
+    @media(max-width:760px){.top,.headline{align-items:flex-start;flex-direction:column;padding:14px 0}.metrics,.gates{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.state{width:100%;text-align:center}}
+  </style>
+</head>
+<body>
+<header><div class="wrap top"><div class="brand"><img src="/images/logo.svg" alt="شعار شيخة"><div><b>شيخة</b><small>SHEIKHA Global Runtime Platform</small></div></div><small>www.sheikha.top</small></div></header>
+<main class="wrap">
+  <div class="headline"><div><h1>جاهزية الذكاء والإنتاج التجاري</h1><p class="muted">حالة موحدة مبنية على أدلة التشغيل والتقييم والحقوق.</p></div><div class="state" id="status">جار التحقق</div></div>
+  <section class="metrics">
+    <div class="panel metric"><span class="muted">البوابات المجتازة</span><strong id="passed">-</strong></div>
+    <div class="panel metric"><span class="muted">البوابات المحجوبة</span><strong id="blocked">-</strong></div>
+    <div class="panel metric"><span class="muted">النموذج المرشح</span><strong id="model">-</strong></div>
+  </section>
+  <section class="section"><h2>درجات التشغيل</h2><div class="gates" id="tiers"><div class="panel muted">جار تحميل مصفوفة التشغيل</div></div></section>
+  <section class="section"><h2>سياسات التعلم والإنتاج</h2><div class="gates" id="learningModes"><div class="panel muted">جار تحميل السياسات</div></div></section>
+  <section class="section"><h2>مسار القيمة</h2><div class="flow"><div class="step">طلب عربي</div><div class="step">تحقق وحوكمة</div><div class="step">استرجاع وحساب</div><div class="step">نموذج مؤهل</div><div class="step">دليل ومراجعة</div></div></section>
+  <section class="section"><h2>بوابات الإنتاج</h2><div class="gates" id="gates"></div></section>
+  <section class="section panel note"><b>حد الادعاء</b><p id="policy" class="muted">لا يُعلن نموذج ضخم أو تشغيل تجاري قبل اكتمال الأدلة.</p></section>
+</main>
+<script>
+const labels={BRAND_IDENTITY:'الهوية والعلامة',ARABIC_RESPONSE_PATH:'المسار العربي',MODEL_LICENSE:'ترخيص النموذج',MODEL_QUALITY:'جودة النموذج',MODEL_LATENCY:'زمن الاستجابة',MODEL_GPU_RUNTIME:'تشغيل GPU',SECURITY:'الأمان',LOAD_AND_RECOVERY:'التحميل والتعافي',LEGAL_AND_HUMAN_APPROVAL:'الاعتماد القانوني والبشري'};
+fetch('/api/sheikha/ai-governor/federation/v1/commercial-readiness').then(r=>r.json()).then(({data})=>{status.textContent=data.status;passed.textContent=`${data.counts.passed}/${data.counts.total}`;blocked.textContent=data.counts.blocked;model.textContent=data.product.candidateModel||'غير محدد';policy.textContent=data.claimPolicy;gates.innerHTML=Object.entries(data.gates).map(([k,v])=>`<div class="panel gate"><span>${labels[k]||k}</span><b class="${v?'ok':'blocked'}">${v?'مكتمل':'محجوب'}</b></div>`).join('')}).catch(()=>{status.textContent='تعذر قراءة الدليل';status.classList.add('error')});
+const tierLabels={localExperimental:'تجريبي محلي',internalGovernedProduction:'إنتاج داخلي محكوم',distributedCommercialProduction:'إنتاج تجاري موزع'};
+fetch('/api/sheikha/ai-governor/federation/v1/production-tiers').then(r=>r.json()).then(({data})=>{tiers.innerHTML=Object.entries(data.tiers).map(([key,value])=>`<div class="panel gate"><span>${tierLabels[key]||key}</span><b class="${value.status==='READY'?'ok':'blocked'}">${value.status==='READY'?'جاهز':'محجوب'}</b></div>`).join('')}).catch(()=>{tiers.innerHTML='<div class="panel error">تعذر تحميل مصفوفة التشغيل</div>'});
+const modeLabels={LOCAL_RESEARCH:'بحث محلي',INTERNAL_DEVELOPMENT:'تطوير داخلي',CUSTOMER_DEVELOPMENT:'تطوير للعميل',COMMERCIAL_INFERENCE:'استدلال تجاري',EXTERNAL_DISTRIBUTED_TRAINING:'تدريب خارجي موزع',GOVERNED_TEACHING:'تعليم محكوم'};
+fetch('/api/sheikha/ai-governor/federation/v1/learning/policy').then(r=>r.json()).then(({data})=>{learningModes.innerHTML=Object.keys(data.modes).map(key=>`<div class="panel gate"><span>${modeLabels[key]||key}</span><b class="muted">محكوم</b></div>`).join('')}).catch(()=>{learningModes.innerHTML='<div class="panel error">تعذر تحميل سياسات التعلم</div>'});
+</script>
+</body>
+</html>

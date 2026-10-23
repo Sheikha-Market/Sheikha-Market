@@ -1,0 +1,53 @@
+{
+  "schema": "SHEIKHA_ROOT_GOVERNANCE_V1",
+  "rules": [
+    {
+      "id": "ROOT-01",
+      "rule": "every root has identity, purpose, owner/custodian and version"
+    },
+    {
+      "id": "ROOT-02",
+      "rule": "every root belongs to the one canonical sheikha-main-portal Git repository"
+    },
+    {
+      "id": "ROOT-03",
+      "rule": "nested Git repositories are forbidden"
+    },
+    {
+      "id": "ROOT-04",
+      "rule": "irrigation inputs require source, quality state, rights/authority where applicable, and timestamp/version"
+    },
+    {
+      "id": "ROOT-05",
+      "rule": "growth is versioned and evidence-bound; no silent mutation"
+    },
+    {
+      "id": "ROOT-06",
+      "rule": "propagation is authorized derivation, never autonomous self-replication"
+    },
+    {
+      "id": "ROOT-07",
+      "rule": "planting requires parent root, destination, owner, scope and authority"
+    },
+    {
+      "id": "ROOT-08",
+      "rule": "a root cannot grant itself new authority"
+    },
+    {
+      "id": "ROOT-09",
+      "rule": "derived roots remain traceable to parent and version"
+    },
+    {
+      "id": "ROOT-10",
+      "rule": "landscape bindings reference existing modules and do not silently move them"
+    },
+    {
+      "id": "ROOT-11",
+      "rule": "retirement preserves genealogy and evidence"
+    },
+    {
+      "id": "ROOT-12",
+      "rule": "religious, legal, physical and technical claims remain bounded by evidence"
+    }
+  ]
+}

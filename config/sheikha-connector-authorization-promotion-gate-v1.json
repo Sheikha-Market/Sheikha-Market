@@ -1,0 +1,53 @@
+{
+  "system": "SHEIKHA_CONNECTOR_AUTHORIZATION_PROMOTION_GATE_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "PURE_EVALUATION_NO_STATE_MUTATION",
+  "decisions": ["DENY", "REVIEW", "ELIGIBLE"],
+  "targets": ["AUTHORIZATION_REVIEW"],
+  "readOnlyEvaluation": true,
+  "autoGrantAuthorization": false,
+  "autoGrantLive": false,
+  "governance": {
+    "defaultDecision": "REVIEW",
+    "unknownConnectorDecision": "DENY",
+    "mutationRequestDecision": "DENY",
+    "livePromotionDecision": "DENY",
+    "ownerIdentityRequired": true,
+    "profileBindingRequired": true,
+    "termsEvidenceRequired": true,
+    "authorizationEvidenceRequired": true,
+    "humanApprovalEvidenceRequired": true,
+    "evidenceRegistryBindingRequired": true,
+    "evidenceIntegrityRequired": true,
+    "evidenceSignatureRequired": true,
+    "evidenceSignerIdentityRequired": true,
+    "scopeMatchRequired": true,
+    "expiryCheckRequired": true,
+    "noSecretMaterialAccepted": true,
+    "noAutomaticPromotion": true,
+    "noProductionMutation": true,
+    "noPayment": true,
+    "noContract": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "requiredEvidenceKinds": [
+    "TERMS_OR_CONTRACT",
+    "AUTHORIZATION",
+    "HUMAN_APPROVAL"
+  ],
+  "allowedEvaluationOperations": ["READ"],
+  "blockedMutationOperations": [
+    "WRITE",
+    "CREATE",
+    "UPDATE",
+    "DELETE",
+    "EXECUTE"
+  ],
+  "ledgerSource": "runtime/connector-authorization-promotion-gate/v1/authorization-evidence-ledger-v1.json",
+  "identityBindingSource": "public/site-map/connector-identity-evidence-binding-v1.json",
+  "authorityMatrixSource": "public/site-map/connector-authority-capability-matrix-v1.json",
+  "evidenceRegistrySource": "runtime/evidence-registry/sheikha-evidence-registry-v1.js"
+}

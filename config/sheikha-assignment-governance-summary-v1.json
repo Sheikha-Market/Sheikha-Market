@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_ASSIGNMENT_GOVERNANCE_SUMMARY_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "READ_ONLY_END_TO_END_GOVERNANCE_SUMMARY",
+  "stageOrder": [
+    "MASTER_ENGINE_REGISTRY",
+    "ENGINE_HEALTH",
+    "INTEGRATION_FABRIC",
+    "AUTHORITY_MATRIX",
+    "IDENTITY_EVIDENCE_BINDING",
+    "AUTHORIZATION_PROMOTION_GATE",
+    "EVIDENCE_INTAKE_REVIEW",
+    "REVIEWER_AUTHORITY_REGISTRY",
+    "REVIEWER_ASSIGNMENT_PROPOSAL_GATE",
+    "MANUAL_ASSIGNMENT_COMMIT_GATE",
+    "REVIEWER_ASSIGNMENT_WRITE_PLAN",
+    "ASSIGNMENT_AUDIT_DRIFT_GUARD",
+    "RECOVERY_RECONCILIATION_PLAN"
+  ],
+  "governance": {
+    "summaryOnly": true,
+    "noMutation": true,
+    "noAutomaticAuthorization": true,
+    "noAutomaticAssignment": true,
+    "noAutomaticRecovery": true,
+    "verifiedStatusSeparatedFromWorkflowState": true,
+    "nextAllowedActionMustBeNonMutating": true,
+    "principle": "لا ضرر ولا ضرار"
+  }
+}

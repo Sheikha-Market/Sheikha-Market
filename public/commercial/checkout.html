@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <title>طلب خدمة | شيخة</title>
+  <link rel="stylesheet" href="/commercial/assets/sheikha-commercial.css">
+</head>
+<body class="checkout-page">
+  <header class="simple-header"><a href="/commercial/">شيخة / الخدمات</a></header>
+  <main class="checkout-layout">
+    <section>
+      <p class="eyebrow">طلب خدمة</p>
+      <h1>لنبدأ بعمل نافع</h1>
+      <p id="previewNotice" class="trust-note" hidden>معاينة محلية ببيانات تجريبية فقط. ليست قناة بيع منشورة.</p>
+      <p class="trust-note">الطلب للمراجعة، ولا يترتب عليه دفع الآن. يبدأ العمل بعد اعتماد الاتفاق ومتطلبات الدفع.</p>
+      <form id="selfServiceCheckoutForm">
+        <label>الاسم<input name="name" minlength="2" maxlength="160" required></label>
+        <label>المنشأة<input name="company" maxlength="200"></label>
+        <label>البريد الإلكتروني<input name="email" type="email" maxlength="200" required></label>
+        <label>الخدمة
+          <select name="offerId" id="offerId" required disabled>
+            <option value="">جارٍ تحميل الخدمات...</option>
+          </select>
+        </label>
+        <label>وصف الحاجة<textarea name="need" minlength="10" maxlength="2000" rows="5" required></textarea></label>
+        <label class="checkbox-row"><input name="scopeAccepted" type="checkbox" required><span>راجعت المخرجات والمدة والسعر الأساسي المعروض.</span></label>
+        <label class="checkbox-row"><input name="termsAccepted" type="checkbox" required><span>قرأت وأقبل <a href="/commercial/terms.html">الشروط</a> و<a href="/commercial/refund.html">سياسة الاسترداد</a>.</span></label>
+        <label class="checkbox-row"><input name="privacyConsent" type="checkbox" required><span>أوافق على <a href="/commercial/privacy.html">سياسة الخصوصية</a>. لا تشمل الموافقة تدريب النماذج أو النشر.</span></label>
+        <label class="checkbox-row"><input name="paymentObligationAccepted" type="checkbox" required><span>أفهم أن الإجمالي والضريبة والدفع يحددها العرض المعتمد لاحقًا.</span></label>
+        <button class="primary-button" type="submit" disabled>إرسال طلب الخدمة</button>
+        <div id="checkoutResult" class="form-result" role="status" aria-live="polite"></div>
+        <a id="receiptLink" hidden>فتح إيصال الطلب</a>
+      </form>
+    </section>
+    <aside class="checkout-summary" aria-labelledby="summaryTitle">
+      <h2 id="summaryTitle">ملخص الخدمة</h2>
+      <dl><dt>السعر الأساسي</dt><dd id="summaryPrice">غير متاح بعد</dd>
+        <dt>الضريبة والإجمالي</dt><dd>بانتظار مراجعة البائع</dd>
+        <dt>المستحق الآن</dt><dd>٠ ريال</dd>
+        <dt>مدة التسليم</dt><dd id="summaryDelivery">غير متاحة بعد</dd>
+        <dt>دفعات الخدمة</dt><dd id="summaryPayment">غير متاحة بعد</dd></dl>
+      <h3>المخرجات</h3><ul id="summaryDeliverables"></ul>
+      <p class="trust-note">المدة تقديرية وتبدأ بعد الاتفاق واستلام المدخلات اللازمة. بياناتك لا تُستخدم لتدريب النماذج.</p>
+    </aside>
+  </main>
+  <script src="/commercial/assets/sheikha-checkout.js"></script>
+</body>
+</html>

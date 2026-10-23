@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_DISTRIBUTED_GOVERNANCE_PRODUCTION_ACTIVATION_V1",
+  "status": "EXTERNAL_RESOURCES_REQUIRED",
+  "checkedAt": "2026-09-10T13:41:13.532Z",
+  "checks": {
+    "kmsProviderConfigured": false,
+    "kmsKeyIdConfigured": false,
+    "ed25519PublicKeyConfigured": false,
+    "redisTlsConfigured": false,
+    "wormAuditSinkConfigured": false,
+    "externalConnectivityVerified": false,
+    "externalSigningRoundTripVerified": false,
+    "redisAtomicOperationsVerified": false,
+    "wormAppendAndRetentionVerified": false
+  },
+  "providerMetadata": {
+    "kmsProvider": null,
+    "keyIdPresent": false,
+    "publicKeyPresent": false,
+    "redisTlsUrlPresent": false,
+    "wormAuditUriPresent": false
+  },
+  "secretsExposed": false,
+  "commercialDistributedProductionReady": false,
+  "blockers": [
+    "kmsProviderConfigured",
+    "kmsKeyIdConfigured",
+    "ed25519PublicKeyConfigured",
+    "redisTlsConfigured",
+    "wormAuditSinkConfigured",
+    "externalConnectivityVerified",
+    "externalSigningRoundTripVerified",
+    "redisAtomicOperationsVerified",
+    "wormAppendAndRetentionVerified"
+  ],
+  "reportSha256": "c2e5518ffd979e2ab6d13eb2c7641442a30b0b5aa7c5cc792ff1bac69943a71f"
+}

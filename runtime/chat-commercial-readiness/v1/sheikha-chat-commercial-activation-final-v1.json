@@ -1,0 +1,109 @@
+{
+  "system": "SHEIKHA_CHAT_COMMERCIAL_AND_NON_COMMERCIAL_ACTIVATION_V1",
+  "generatedAt": "2026-08-28T21:52:20+03:00",
+  "decision": "ACTIVE_FOR_GOVERNED_COMMERCIAL_AND_NON_COMMERCIAL_OPERATIONS",
+  "scope": {
+    "commercial": [
+      "governed readiness reports",
+      "bounded evidence review",
+      "Arabic SSE chat transport"
+    ],
+    "nonCommercial": [
+      "bounded arithmetic",
+      "internal diagnostics",
+      "governed operational assistance"
+    ],
+    "excluded": [
+      "formal SLA",
+      "unrestricted model-quality certification",
+      "regulatory accreditation",
+      "multi-node availability certification"
+    ]
+  },
+  "runtime": {
+    "localGateway": "online",
+    "localGatewayHealth": "ok",
+    "localGatewayEventLoopP95Ms": 2.86,
+    "productionMainPortal": "online",
+    "productionGateway": "online",
+    "productionGatewayHealth": "ok",
+    "productionMainHealth": true
+  },
+  "publicVerification": {
+    "domains": [
+      "sheikha.top",
+      "api.sheikha.top"
+    ],
+    "tlsVerified": true,
+    "sseComplete": true,
+    "sseSequence": [
+      "ack",
+      "meta",
+      "heartbeat",
+      "token",
+      "done"
+    ],
+    "commercialReadinessRoute": "GOVERNED_COMMERCIAL_READINESS_EVIDENCE_PATH",
+    "commercialReadinessResponseComplete": true,
+    "commercialReadinessModelUsed": false,
+    "commercialReadinessHighImpactActionExecuted": false,
+    "oversizedBodyRejected": true,
+    "rateLimitVerified": true,
+    "forwardedForSpoofBypassPrevented": true,
+    "nonCommercialArithmeticVerified": true,
+    "currentPublicVerificationDate": "2026-08-28",
+    "currentCommercialHttpStatus": 200,
+    "currentCommercialTlsVerified": true,
+    "currentCommercialTotalMs": 1326.775,
+    "currentArithmeticHttpStatus": 200,
+    "currentArithmeticTlsVerified": true,
+    "currentArithmeticTotalMs": 1204.059,
+    "unresolvedOptionalDomain": "public.sheikha.top"
+  },
+  "artifacts": {
+    "productionLiveRuntimeSha256": "29956f4c1c4c74a0fb43545dc645acb8a3af5d5a6715b434a3138c0de28dc726",
+    "productionGatewaySha256": "1c6a5c77c638efc6804fa78b71c55c80e3c5848788c3963a655d6cf52144f0c8",
+    "productionSheikhaNginxSha256": "d2531f6ed29c5e0c1893ac87d78bf9fc8989c39f6c6196b3b44fab160e94c1a3",
+    "productionApiNginxSha256": "7d0166c22b09017e9a79eea78676170520ddcebcf99e1bb4edf892e37e4b34bf"
+  },
+  "verification": {
+    "targetedTestSuites": 7,
+    "targetedTests": 42,
+    "targetedTestsPassed": 42,
+    "syntaxChecksPassed": true,
+    "lintPassed": true,
+    "diffCheckPassed": true,
+    "newScopeSecretScanPassed": true,
+    "nginxConfigPassed": true
+  },
+  "sustainedSmoke": {
+    "status": "VERIFIED",
+    "durationMs": 60000,
+    "requestCount": 24,
+    "passedCount": 24,
+    "failedCount": 0,
+    "healthBeforePassed": true,
+    "healthAfterPassed": true,
+    "latencyP50Ms": 28.716,
+    "latencyP95Ms": 86.424,
+    "latencyMaximumMs": 100.384,
+    "formalSoakTest": false,
+    "contractualSlaEvidence": false
+  },
+  "recoverySmoke": {
+    "status": "VERIFIED",
+    "scope": "local-commercial-gateway-process-restart",
+    "recoveryMs": 2599,
+    "healthAfterRestart": true,
+    "postRecoveryResponseComplete": true,
+    "processListSaved": true,
+    "multiNodeFailoverTested": false,
+    "contractualRecoveryObjectiveCertified": false
+  },
+  "dependencyBoundary": {
+    "publicGatewayThirdPartyProductionPackages": 0,
+    "monolithAuditIsolatedFromPublicChatSurface": true,
+    "monolithAuditFindingsEliminated": false
+  },
+  "claimPolicy": "Commercial readiness is limited to the verified governed routes. No formal SLA, unrestricted model-quality, regulatory, or multi-node claim is made without separate evidence."
+}

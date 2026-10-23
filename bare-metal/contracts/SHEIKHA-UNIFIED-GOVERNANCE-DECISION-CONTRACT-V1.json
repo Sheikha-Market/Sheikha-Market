@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_UNIFIED_GOVERNANCE_DECISION_CONTRACT_V1",
+  "status": "ACTIVE",
+  "purpose": "Provide one evidence-bearing decision envelope for Firmware, Bare Metal, OS, Runtime, AI, Data, and Enterprise control-plane actions.",
+  "referencePolicy": "runtime/islamic-reference-governance/v1/sheikha-quran-sunnah-reference-policy-v1.json",
+  "requiredFields": [
+    "decisionId",
+    "capability",
+    "sourceClass",
+    "derivationStatus",
+    "evidenceProvenance",
+    "riskClass",
+    "decision",
+    "authorization",
+    "recoveryPlan",
+    "auditRecord"
+  ],
+  "enums": {
+    "sourceClass": ["DIRECT_TECHNICAL_EVIDENCE", "ENGINEERING_POLICY", "LEGAL_REQUIREMENT", "ISLAMIC_REFERENCE", "QUALIFIED_HUMAN_JUDGMENT"],
+    "derivationStatus": ["DIRECTLY_VERIFIED", "DERIVED_WITH_PROVENANCE", "DISPUTED_REQUIRES_QUALIFIED_REVIEW", "UNVERIFIED"],
+    "riskClass": ["READ_ONLY", "LOW", "MEDIUM", "HIGH", "CRITICAL"],
+    "decision": ["ALLOW", "DENY", "REQUIRE_HUMAN_REVIEW", "REQUIRE_QUALIFIED_REVIEW"]
+  },
+  "rules": {
+    "UNVERIFIED": "DENY",
+    "DISPUTED_REQUIRES_QUALIFIED_REVIEW": "REQUIRE_QUALIFIED_REVIEW",
+    "HIGH_OR_CRITICAL": "REQUIRE_HUMAN_REVIEW",
+    "MISSING_RECOVERY_FOR_MUTATION": "DENY",
+    "MISSING_EVIDENCE_PROVENANCE": "DENY"
+  },
+  "religiousBoundary": {
+    "textAndSoftwarePolicyAreDistinct": true,
+    "aiIsNotLegislator": true,
+    "aiIsNotAutonomousMufti": true,
+    "religiousClaimRequiresEvidence": true,
+    "derivedRuleRequiresProvenance": true,
+    "disputedFiqhRequiresQualifiedHumanReview": true,
+    "noUnseenKnowledgeClaim": true
+  },
+  "executionBoundary": {
+    "decisionAloneDoesNotExecute": true,
+    "authorizedExecutorRequired": true,
+    "postExecutionVerificationRequired": true,
+    "immutableAuditEvidenceRequired": true
+  }
+}

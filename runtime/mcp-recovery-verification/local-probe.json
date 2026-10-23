@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-22T01:30:27.217Z",
+  "scope": "LOCAL_DEPENDENCY_RECOVERY_AND_STDIO_PROBE_ONLY",
+  "temporaryNodePath": false,
+  "definitionAndPolicyHashesUnchanged": true,
+  "hashes": {
+    "package.json": "145b516f006099249799d672acecf200e344c799b026febdc655093d20b80be4",
+    "package-lock.json": "e2cc354350cd4549fe7256ddae345927c44397b38dbe819cb54c959d612a5613",
+    "mcp-servers/config/federation-allowlist.json": "71fcc5c1577839897597526045d567f445907ad56ba2561b7c5c3829ebe0717e",
+    "mcp-servers/config/policies.json": "efa6e38426ee6561643f5fa4f90cbba770c0e63776413b02a93f4e57907a7f0f",
+    "mcp-servers/config/denylist.json": "14fc9d4765747518b241d3e970ae6e4ef39c85b9897cfe2c1aa44157021bf82b",
+    "tools/preview/sheikha-workspace-preview.cjs": "9940ec9c1526eb431ef4a92c6fb164c70ac38641c8fb2268651f3cf1e527beea",
+    "mcp-servers/sheikha-mcp-readonly-federation.cjs": "b67655c0e57d94921a0756d8d6fc79904a2cc94f4ae7b1ca4f3273cedae6ba88"
+  },
+  "project": {
+    "status": "PASS",
+    "scope": "PROJECT_LOCAL_MCP_BINDINGS_AND_POLICY_ONLY",
+    "bindings": [
+      {
+        "file": ".mcp.json",
+        "aligned": true
+      },
+      {
+        "file": ".cursor/mcp.json",
+        "aligned": true
+      },
+      {
+        "file": ".vscode/mcp.json",
+        "aligned": true
+      },
+      {
+        "file": "config/mcp-servers.template.json",
+        "aligned": true
+      }
+    ],
+    "policySha256": "618f36fb44c648787fd027f12c8088aaf39620d3eae81a5ba8d05b7585f2854d",
+    "admittedTools": [
+      "sheikha_federation_status",
+      "sheikha_runtime_status",
+      "sheikha_jannat_status",
+      "sheikha_catalog_evidence_status",
+      "sheikha_foundry_telecom_simulation",
+      "sheikha_natural_data_process",
+      "sheikha_sensory_interpret",
+      "sheikha_environment_governance_status"
+    ],
+    "globalHostPermissionsVerified": false,
+    "externalChatgptConnectionVerified": false,
+    "independentConnectorsChanged": false,
+    "remediationPerformed": false
+  },
+  "probe": {
+    "status": "PASS",
+    "scope": "DIRECT_LOCAL_STDIO_HANDSHAKE_NOT_APP_RELOAD",
+    "checks": {
+      "policyMatches": true,
+      "catalogMatches": true,
+      "readOnlyCatalog": true,
+      "noMutationDispatch": true,
+      "noImplicitPermissionTransfer": true
+    },
+    "toolCount": 8,
+    "policySha256": "618f36fb44c648787fd027f12c8088aaf39620d3eae81a5ba8d05b7585f2854d",
+    "appSessionDiscoveryVerified": false,
+    "externalChatgptConnectionVerified": false
+  },
+  "productionApproved": false,
+  "physicalCommandsSent": false,
+  "externalProviderCallsMade": false,
+  "cloudConnectionVerified": false
+}

@@ -1,0 +1,252 @@
+{
+  "system": "SHEIKHA_AI_ROUTER_ANYWHERE_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "GOVERNED_READINESS_NO_EXTERNAL_CONNECTION_CLAIM",
+  "verifiedResearchDate": "2026-10-07",
+  "governance": {
+    "defaultDenyExternalActivation": true,
+    "noSecretExposure": true,
+    "noProviderKeyPersistence": true,
+    "noExternalConnectionClaimWithoutEvidence": true,
+    "noAutomaticInstall": true,
+    "noAutomaticNetworkFetch": true,
+    "noAutomaticModelSelectionForHighImpact": true,
+    "noAutomaticSpend": true,
+    "noDeploy": true,
+    "noProduction": true,
+    "noMerge": true,
+    "humanApprovalForHighImpact": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "surfaces": 5,
+    "providers": 3,
+    "externalProviders": 2,
+    "liveExternalConnections": 0,
+    "externalProvidersWithCredentialPresent": 0,
+    "executionAuthoritiesGranted": 0,
+    "officialGuides": 8
+  },
+  "architecture": {
+    "ingress": [
+      "application-adapter",
+      "coding-agent-adapter",
+      "ide-adapter",
+      "sdk-adapter",
+      "mcp-adapter"
+    ],
+    "governanceGates": [
+      "identity-and-tenant",
+      "secret-and-credential-boundary",
+      "data-classification",
+      "authorization-and-rights",
+      "cost-and-quota",
+      "model-capability",
+      "safety-and-policy",
+      "audit-and-observability"
+    ],
+    "routerCore": [
+      "surface-normalizer",
+      "intent-and-task-classifier",
+      "privacy-and-sensitivity-classifier",
+      "model-catalog-resolver",
+      "route-policy-engine",
+      "fallback-planner",
+      "provider-adapter",
+      "usage-metering",
+      "trace-and-audit"
+    ],
+    "egress": [
+      "sheikha-local-runtime",
+      "ramp-router-adapter",
+      "openrouter-adapter"
+    ]
+  },
+  "surfaces": [
+    "applications",
+    "coding-agents",
+    "ides",
+    "sdks",
+    "mcp-clients"
+  ],
+  "providers": [
+    {
+      "id": "sheikha-local",
+      "kind": "LOCAL_INTERNAL",
+      "status": "LOCAL_RUNTIME_AVAILABLE",
+      "baseUrl": null,
+      "protocols": [
+        "SHEIKHA_INTERNAL",
+        "OLLAMA_LOCAL"
+      ],
+      "keyEnv": null,
+      "modelEnv": null,
+      "keyConfigured": false,
+      "modelConfigured": false,
+      "liveExternalConnectionClaim": false,
+      "connectionState": "LOCAL_AVAILABLE",
+      "executionAuthority": "NONE"
+    },
+    {
+      "id": "ramp-router",
+      "kind": "EXTERNAL_ROUTER_PROFILE",
+      "status": "READINESS_ONLY",
+      "baseUrl": "https://api.router.com/v1",
+      "protocols": [
+        "OPENAI_RESPONSES",
+        "ANTHROPIC_MESSAGES"
+      ],
+      "keyEnv": "RAMP_ROUTER_API_KEY",
+      "modelEnv": "RAMP_ROUTER_MODEL",
+      "keyConfigured": false,
+      "modelConfigured": false,
+      "liveExternalConnectionClaim": false,
+      "connectionState": "NOT_CONFIGURED",
+      "executionAuthority": "NONE"
+    },
+    {
+      "id": "openrouter",
+      "kind": "EXTERNAL_ROUTER_PROFILE",
+      "status": "READINESS_ONLY",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "protocols": [
+        "OPENAI_COMPATIBLE",
+        "OPENROUTER_SDK",
+        "OPENROUTER_AGENT_SDK",
+        "MCP"
+      ],
+      "keyEnv": "OPENROUTER_API_KEY",
+      "modelEnv": null,
+      "keyConfigured": false,
+      "modelConfigured": false,
+      "liveExternalConnectionClaim": false,
+      "connectionState": "NOT_CONFIGURED",
+      "executionAuthority": "NONE"
+    }
+  ],
+  "truth": {
+    "readinessDoesNotMeanConnection": true,
+    "credentialPresenceDoesNotMeanAuthorization": true,
+    "noExternalConnectionClaimWithoutEvidence": true,
+    "noExternalExecutionAuthority": true
+  },
+  "guides": [
+    {
+      "id": "ramp-app-connect",
+      "provider": "ramp-router",
+      "surface": "applications",
+      "title": "Connect your app",
+      "official": true,
+      "url": "https://docs.router.com/getting-started/connect",
+      "covers": [
+        "OpenAI SDK",
+        "LangChain",
+        "LangGraph",
+        "Vercel AI SDK",
+        "LlamaIndex",
+        "Pydantic AI"
+      ]
+    },
+    {
+      "id": "ramp-coding-agents",
+      "provider": "ramp-router",
+      "surface": "coding-agents",
+      "title": "Router Quickstart — Coding agents",
+      "official": true,
+      "url": "https://docs.router.com/getting-started/quickstart",
+      "covers": [
+        "Claude Code",
+        "Codex",
+        "OpenCode",
+        "Pi",
+        "Hermes",
+        "Conductor",
+        "Ramp CLI"
+      ]
+    },
+    {
+      "id": "ramp-overview",
+      "provider": "ramp-router",
+      "surface": "sdks",
+      "title": "Router Get started",
+      "official": true,
+      "url": "https://docs.router.com/getting-started",
+      "covers": [
+        "OpenAI Responses-compatible SDKs",
+        "model catalog",
+        "API key"
+      ]
+    },
+    {
+      "id": "openrouter-quickstart",
+      "provider": "openrouter",
+      "surface": "applications",
+      "title": "OpenRouter Quickstart",
+      "official": true,
+      "url": "https://openrouter.ai/docs/quickstart",
+      "covers": [
+        "API",
+        "Client SDKs",
+        "Agent SDK"
+      ]
+    },
+    {
+      "id": "openrouter-client-sdks",
+      "provider": "openrouter",
+      "surface": "sdks",
+      "title": "OpenRouter Client SDKs",
+      "official": true,
+      "url": "https://openrouter.ai/docs/client-sdks/overview",
+      "covers": [
+        "TypeScript",
+        "Python",
+        "Go"
+      ]
+    },
+    {
+      "id": "openrouter-agent-skills",
+      "provider": "openrouter",
+      "surface": "coding-agents",
+      "title": "OpenRouter SDK skills for coding agents",
+      "official": true,
+      "url": "https://openrouter.ai/docs/client-sdks/usage-for-agents",
+      "covers": [
+        "Claude Code",
+        "Cursor",
+        "OpenCode",
+        "GitHub Copilot",
+        "Codex",
+        "Amp",
+        "Roo Code",
+        "Antigravity"
+      ]
+    },
+    {
+      "id": "openrouter-claude-code",
+      "provider": "openrouter",
+      "surface": "ides",
+      "title": "OpenRouter Claude Code integration",
+      "official": true,
+      "url": "https://openrouter.ai/docs/guides/coding-agents/claude-code-integration",
+      "covers": [
+        "Claude Code",
+        "Anthropic Agent SDK"
+      ]
+    },
+    {
+      "id": "openrouter-mcp",
+      "provider": "openrouter",
+      "surface": "mcp-clients",
+      "title": "OpenRouter Developer Platform — MCP Server",
+      "official": true,
+      "url": "https://openrouter.ai/developers",
+      "covers": [
+        "MCP",
+        "Claude Code",
+        "Cursor",
+        "custom MCP clients"
+      ]
+    }
+  ]
+}

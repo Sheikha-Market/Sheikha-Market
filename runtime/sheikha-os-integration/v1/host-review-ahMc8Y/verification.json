@@ -1,0 +1,334 @@
+{
+  "name": "SHEIKHA_OS_RUNTIME_ADAPTER_V1",
+  "ethicalReference": "QURAN_AND_SUNNAH_NO_HARM_USER_DIRECTIVE",
+  "religiousCertificationGranted": false,
+  "host": {
+    "platform": "linux",
+    "architecture": "x64",
+    "kernelRelease": "7.1.1-76070101-generic",
+    "logicalCpuCount": 22,
+    "totalMemoryBytes": 66875146240,
+    "scope": "HOST_OS_REPORTED_RESOURCES_NOT_PHYSICAL_HARDWARE_ATTESTATION"
+  },
+  "systems": [
+    {
+      "id": "linux",
+      "name": "Linux",
+      "runtime": "Node.js",
+      "nativeBuild": "LIMITED_LINUX_ELF_SUBSET_SEPARATE_EVIDENCE",
+      "hostObserved": true,
+      "bytecodeSmokeTestVerified": true,
+      "status": "LOCAL_VM_SMOKE_TEST_VERIFIED",
+      "fullOsCompatibilityVerified": false,
+      "driverActivationVerified": false
+    },
+    {
+      "id": "win32",
+      "name": "Microsoft Windows",
+      "runtime": "Node.js",
+      "nativeBuild": "NOT_TESTED",
+      "hostObserved": false,
+      "bytecodeSmokeTestVerified": false,
+      "status": "PROPOSED_NOT_TESTED_ON_TARGET",
+      "fullOsCompatibilityVerified": false,
+      "driverActivationVerified": false
+    },
+    {
+      "id": "darwin",
+      "name": "Apple macOS",
+      "runtime": "Node.js",
+      "nativeBuild": "NOT_TESTED",
+      "hostObserved": false,
+      "bytecodeSmokeTestVerified": false,
+      "status": "PROPOSED_NOT_TESTED_ON_TARGET",
+      "fullOsCompatibilityVerified": false,
+      "driverActivationVerified": false
+    }
+  ],
+  "probe": {
+    "status": "VERIFIED_DRY_RUN",
+    "success": true,
+    "output": [
+      "\"SHEIKHA_HOST_ADAPTER_OK\""
+    ],
+    "liveAdapterCalls": 0
+  },
+  "softwareAssets": {
+    "components": [
+      {
+        "file": "core/foundation/sheikha-native-environment-status-v1.cjs",
+        "sha256": "3fbc0d0ffcb6380af60123fdf52d25e5f4c5059097d994a13136597634fff3e7",
+        "bytes": 2161,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/integration/gateway.js",
+        "sha256": "2ee26acb8a7211688b86ad242093d79df73e907fe1004f792012209823e3121a",
+        "bytes": 1390,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/integration/registry/registry.js",
+        "sha256": "328c48f2c89f63fc2b694de2fdd7cee8b86e20b1ccdff11cbd829f874dd297b3",
+        "bytes": 623,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/integration/sheikha-component-protocol-v1.cjs",
+        "sha256": "fb02a6880101ae56a0fb1e2d25f60ec7ef3478ee40c824e2b5e099d6ad724211",
+        "bytes": 3646,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/integration/sheikha-electronics-governance-v1.cjs",
+        "sha256": "c02be21d18b072e1ccb0b46f81039724d06d52e28dd9a24f71d2e6d3b858e4e2",
+        "bytes": 2878,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/integration/sheikha-governed-connections-v1.cjs",
+        "sha256": "60b18be55231a6a0fa1670e97471d509518d880cdcf0a5ab8ff9a1cdf3c91477",
+        "bytes": 2879,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/integration/sheikha-os-runtime-adapter-v1.cjs",
+        "sha256": "88411c414f978b84035526a9be2095c2e399e9a1510ea130728937d843d36d4e",
+        "bytes": 2697,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/language/sheikha-language-capabilities-v1.cjs",
+        "sha256": "f658f502b54824c0b3ee9feffef5bde42d4b31f4af35fc3058009dbaf9d4b68a",
+        "bytes": 3730,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/language/sheikha-managed-language-v1.cjs",
+        "sha256": "e28eb2eaadad7bf2c389a30e7179d08966cad2ddd59f1a999841f743e79eb3b5",
+        "bytes": 3129,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-local-service-probe-v1.cjs",
+        "sha256": "517e7754f1566845fcf63f159be60c8a4328dd7a649ae68b043521609aec3b05",
+        "bytes": 1070,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-admission-v1.cjs",
+        "sha256": "af374364d08988004b4a1271b76b9fcb2ebdb8faf5b51e06b0f084587f3eb690",
+        "bytes": 2711,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-component-inventory-v1.cjs",
+        "sha256": "1cae3f6aa1267783930201ce761bb4ac1803bfaf643fd478fe65f4cb15c64e9e",
+        "bytes": 3118,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-legacy-binding-v1.cjs",
+        "sha256": "d603db4a313cba04b96564a29314c94b95a6e7a9d063913d227b3450719bcb70",
+        "bytes": 2635,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-native-linux-v1.cjs",
+        "sha256": "01fb7c342caacd7fb9b62f91b348f1b5dec7664ef6fe5edbfe6cea8ec1835a1b",
+        "bytes": 4774,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-project-v1.cjs",
+        "sha256": "8943ffb84759bd968f2febb36a284339328fc91245f525a7a2c3c54ad5dbfa1b",
+        "bytes": 4337,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-project-verifier-v1.cjs",
+        "sha256": "d6fb2a4532c87717c45907048587cffb887cc08f2660030429bed7d2d4b5d082",
+        "bytes": 3914,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-v1.cjs",
+        "sha256": "73907e6f3370a2565690e3d3b4b1df665c2574f4ef5446b4e8765dbda99ff000",
+        "bytes": 2356,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-verifier-v1.cjs",
+        "sha256": "3fd7f9192842abf7070917713e046d93f5c9830342f1ea624332f01be2923542",
+        "bytes": 3375,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-watch-review-v1.cjs",
+        "sha256": "d05b95b5a825b69830705b36b56a431db83e4a6ce875f74b6401b3afbb5a8c45",
+        "bytes": 3590,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-watch-session-v1.cjs",
+        "sha256": "bbb78c7ecd44d92a67e313eee2be29ba57f920ab42117ed0650355a91326b204",
+        "bytes": 4525,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-sdp-watch-v1.cjs",
+        "sha256": "f8ace5576918c1fbdabfb370a23d3e28f7e36339c9b1df17831a04f2b0f03f82",
+        "bytes": 2539,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-service-journal-review-v1.cjs",
+        "sha256": "794613f7b5ed759d3fed990aed18c473c8b6ae202c6dcec8e32d052e0d78b145",
+        "bytes": 2869,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-service-observation-journal-v1.cjs",
+        "sha256": "ec945269b393c74ea81f6df8275c35b04a2b9b1423261d34189ea7359c536953",
+        "bytes": 2783,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-toolchain-repeatability-v1.cjs",
+        "sha256": "9a5d25e1215fd9881b114065afb56cabab8aa91e203f65636d27128de5c6bed4",
+        "bytes": 2513,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/platform/sheikha-toolchain-verifier-v1.cjs",
+        "sha256": "d2b8fd6a8fe225772b9c502d4b83282dd333076107c9af82baa64102b1741083",
+        "bytes": 4203,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/research/sheikha-methodology-catalog-v1.json",
+        "sha256": "00d3f08a7c64d8c7bb81243016144d022114cbcd7b47f3c60543b2b14187c107",
+        "bytes": 4059,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/research/sheikha-research-brain-v1.cjs",
+        "sha256": "9361674c5d3d219731f8bb6d46b75e5ff53fa2c38bb7bbe28e234081d2af06c5",
+        "bytes": 1981,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/research/sheikha-service-comparative-study-v1.cjs",
+        "sha256": "ee0c076488c3506b45e87f889c8447b2d593fc422de0f47a1b10e6ecb50515ac",
+        "bytes": 2369,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "core/research/sheikha-service-descriptive-study-v1.cjs",
+        "sha256": "b1948d842380b6033e10669f0c666cbd226dcb3ef6f100029517df257fd004d1",
+        "bytes": 1822,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/bytecode-vm.js",
+        "sha256": "ee844e2a9b6e58fb4ecba190270caef08e818a50c0544e3978c57770c1cc143f",
+        "bytes": 3274,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/bytecode.js",
+        "sha256": "cfa5e22cc393a969a36edc148d063ffc1ae7ddad81da0e8608f413a8bb228fe6",
+        "bytes": 2360,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/condition-expressions.js",
+        "sha256": "caff5f736b86fa6fc202551cfd45aa64d2be212dcca015d128cd974e8b32bccb",
+        "bytes": 1703,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/governance.js",
+        "sha256": "027b3e358bb8dd33c68263ea5ce42b2291a51362782f07ad812dc10863b33b0d",
+        "bytes": 9281,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/integer-expressions.js",
+        "sha256": "3d7ce1e0770c94ce458875eded3c2d6cd010d7f7ae6d54b32676e88085263d33",
+        "bytes": 2368,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/ir.js",
+        "sha256": "96a3a3ac691bda0f6418bb116f60eaec94db161864955d0634febaed1a9a6a6a",
+        "bytes": 3693,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/lexer.js",
+        "sha256": "1c04f3bd20742d637b2c23d87ba74deaec02a3cac424c3887e3fb612bfe7a6ad",
+        "bytes": 4519,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/local-production-components.js",
+        "sha256": "2e81d2d5da24655d62a97e1c191a736ee4b7885c8c8506b285853fc0c80ef890",
+        "bytes": 236,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/parser.js",
+        "sha256": "9ffc66411da48fad42dccaaee25b9dd454a56e44517f77f16890dea77f0d6840",
+        "bytes": 8529,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/sandbox-policy.js",
+        "sha256": "d261824568638973e5db2391115b44c73b219e22db895a6f8b2683e63f16ed38",
+        "bytes": 3005,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/type-checker.js",
+        "sha256": "50820ffa4011eccf001bf41043c7a489643295371eb09320e8e32038b1dece76",
+        "bytes": 16752,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "sheikha-language/compiler/vm.js",
+        "sha256": "42c9f0fd8a0277ccadac906b8ef1dd9387fa75f7aba545d309bf0d1b14a39815",
+        "bytes": 15356,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "tools/environment/sheikha-sdp-v1.cjs",
+        "sha256": "98bbc8bdce4ff444805bcd078e827c7432ffaad1222c78ec55334fa2d62d76f2",
+        "bytes": 6758,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      },
+      {
+        "file": "tools/environment/sheikha-toolchain-v1.cjs",
+        "sha256": "5752d3b9d8c1760fb709b616f38ac54cc53748249c5ca8f86aa6ce10c070f65c",
+        "bytes": 3179,
+        "licenseAssessment": "PROJECT_INTERNAL_SCOPE_REQUIRES_DISTRIBUTION_REVIEW"
+      }
+    ],
+    "runtime": {
+      "name": "Node.js",
+      "version": "v25.6.1",
+      "architecture": "x64",
+      "platform": "linux",
+      "licenseReview": "UPSTREAM_RUNTIME_TERMS_SEPARATE_FROM_SHEIKHA"
+    },
+    "licenseBindingPassed": true,
+    "coverage": "LITERAL_COMMONJS_IMPORTS_ONLY_NOT_COMPLETE_SBOM",
+    "hardwareAssetsPurchased": false,
+    "distributionAuthorized": false
+  },
+  "universalCompatibility": false,
+  "hostKernelReplaced": false,
+  "deviceCommandsSent": false,
+  "externalConnectionsOpened": false,
+  "productionAuthorized": false
+}

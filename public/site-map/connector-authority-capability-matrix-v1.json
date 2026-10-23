@@ -1,0 +1,1341 @@
+{
+  "system": "SHEIKHA_CONNECTOR_AUTHORITY_CAPABILITY_MATRIX_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "AVAILABLE_AUTHORIZED_LIVE_SEPARATION",
+  "governance": {
+    "defaultDeny": true,
+    "externalActivationRequiresAuthorization": true,
+    "externalWriteRequiresExplicitAuthorization": true,
+    "highImpactWriteRequiresHumanApproval": true,
+    "noSecretMutation": true,
+    "noProductionMutation": true,
+    "noPayment": true,
+    "noContract": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "noLiveClaimWithoutEvidence": true,
+    "auditRequired": true,
+    "dataScopeRequired": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "channelTypes": 5,
+    "externalProfiles": 13,
+    "enterpriseDeclarations": 20,
+    "connectorCapabilityRecords": 33,
+    "mcpToolsDefined": 46,
+    "liveExternalReads": 0,
+    "externalMutationsAuthorized": 0,
+    "externalMutationsLive": 0,
+    "governancePolicies": 10
+  },
+  "truth": {
+    "availableDoesNotMeanAuthorized": true,
+    "authorizedDoesNotMeanLive": true,
+    "enterpriseConnectorNamesAreDeclarationsOnly": true,
+    "liveExternalReadClaims": 0,
+    "externalMutationAuthority": "NONE"
+  },
+  "operationSummary": {
+    "READ": {
+      "available": 13,
+      "authorized": 0,
+      "live": 0
+    },
+    "WRITE": {
+      "available": 0,
+      "authorized": 0,
+      "live": 0
+    },
+    "CREATE": {
+      "available": 0,
+      "authorized": 0,
+      "live": 0
+    },
+    "UPDATE": {
+      "available": 0,
+      "authorized": 0,
+      "live": 0
+    },
+    "DELETE": {
+      "available": 0,
+      "authorized": 0,
+      "live": 0
+    },
+    "EXECUTE": {
+      "available": 0,
+      "authorized": 0,
+      "live": 0
+    }
+  },
+  "channelCapabilities": [
+    {
+      "id": "INTERNAL_SERVICE",
+      "kind": "INTERNAL_SERVICE",
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": true
+      },
+      "authorized": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "LOCAL_SOURCE_AND_READ_ONLY_INSPECTION"
+    },
+    {
+      "id": "SDK",
+      "kind": "SDK",
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": true
+      },
+      "authorized": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "LOCAL_SDK_CONTRACT_READY_NO_EXTERNAL_EXECUTION_AUTHORITY"
+    },
+    {
+      "id": "MCP",
+      "kind": "MCP",
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": true
+      },
+      "authorized": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "LOCAL_MCP_CONTRACT_READY_TOOL_EXECUTION_REQUIRES_ACTION_AUTHORITY"
+    },
+    {
+      "id": "EXTERNAL_PROFILE",
+      "kind": "EXTERNAL_PROFILE",
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "READINESS_PROFILE_ONLY_REQUIRES_TERMS_CREDENTIALS_OR_AUTHORIZATION"
+    },
+    {
+      "id": "ENTERPRISE_DECLARATION",
+      "kind": "ENTERPRISE_DECLARATION",
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    }
+  ],
+  "connectorCapabilities": [
+    {
+      "id": "CONN-001",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "OPEN_DATA_PORTALS",
+      "domains": [
+        "marketplace",
+        "knowledge",
+        "governance",
+        "integration"
+      ],
+      "accessGate": "TERMS_AND_LICENSE_REVIEW",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "TERMS_OR_RIGHTS_REVIEW_REQUIRED"
+    },
+    {
+      "id": "CONN-002",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "RESEARCH_DATABASES",
+      "domains": [
+        "marketplace",
+        "knowledge",
+        "governance",
+        "integration"
+      ],
+      "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "TERMS_OR_RIGHTS_REVIEW_REQUIRED"
+    },
+    {
+      "id": "CONN-003",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "SCIENTIFIC_PUBLICATIONS",
+      "domains": [
+        "knowledge",
+        "governance",
+        "integration"
+      ],
+      "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "TERMS_OR_RIGHTS_REVIEW_REQUIRED"
+    },
+    {
+      "id": "CONN-004",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "EDUCATIONAL_PLATFORMS",
+      "domains": [
+        "knowledge",
+        "integration"
+      ],
+      "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-005",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "ERP_SYSTEMS",
+      "domains": [
+        "marketplace",
+        "commerce",
+        "logistics",
+        "enterprise",
+        "integration"
+      ],
+      "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-006",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "CRM_SYSTEMS",
+      "domains": [
+        "marketplace",
+        "commerce",
+        "enterprise",
+        "integration"
+      ],
+      "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-007",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "WMS",
+      "domains": [
+        "logistics",
+        "integration"
+      ],
+      "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-008",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "TMS",
+      "domains": [
+        "logistics",
+        "integration"
+      ],
+      "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-009",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "IOT_PLATFORMS",
+      "domains": [
+        "logistics",
+        "native",
+        "integration"
+      ],
+      "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-010",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+      "domains": [
+        "logistics",
+        "integration"
+      ],
+      "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "TERMS_OR_RIGHTS_REVIEW_REQUIRED"
+    },
+    {
+      "id": "CONN-011",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "CLOUD_PROVIDERS",
+      "domains": [
+        "enterprise",
+        "developer",
+        "operations",
+        "integration",
+        "platform"
+      ],
+      "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-012",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "DATA_CENTERS",
+      "domains": [
+        "developer",
+        "operations",
+        "native",
+        "integration",
+        "platform"
+      ],
+      "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "CONN-013",
+      "kind": "EXTERNAL_PROFILE",
+      "category": "SUPERCOMPUTING_RESOURCES",
+      "domains": [
+        "developer",
+        "operations",
+        "integration",
+        "platform"
+      ],
+      "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "available": {
+        "READ": true,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "AUTHORIZATION_AND_CREDENTIAL_REQUIRED"
+    },
+    {
+      "id": "SAP",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "ORACLE",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "MICROSOFT_DYNAMICS",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "ODOO",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "SALESFORCE",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "HUBSPOT",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "JIRA",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "CONFLUENCE",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "GITHUB",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "GITLAB",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "SHAREPOINT",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "GOOGLE_WORKSPACE",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "MICROSOFT_365",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "POSTGRESQL",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "MYSQL",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "MONGODB",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "REDIS",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "ELASTICSEARCH",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "NEO4J",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    },
+    {
+      "id": "VECTOR_DB",
+      "kind": "ENTERPRISE_DECLARATION",
+      "category": "NAMED_ENTERPRISE_CONNECTOR",
+      "domains": [],
+      "available": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "authorized": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "live": {
+        "READ": false,
+        "WRITE": false,
+        "CREATE": false,
+        "UPDATE": false,
+        "DELETE": false,
+        "EXECUTE": false
+      },
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    }
+  ]
+}

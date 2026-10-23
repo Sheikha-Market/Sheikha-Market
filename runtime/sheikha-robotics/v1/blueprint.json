@@ -1,0 +1,233 @@
+{
+  "system": "SHEIKHA_ROBOTICS_FOUNDATION_V1",
+  "classification": "CONFIDENTIAL_LOCAL_DESIGN",
+  "stage": "CONCEPT_AND_DIGITAL_SIMULATION",
+  "referenceEvidence": [
+    {
+      "label": "reference-1",
+      "sha256": "3bb5e1aa54fdca6fd5295aa7642001cbf5c7296b4e428fed20d65a45ea35ba12",
+      "usage": "IDENTITY_AND_ARCHITECTURAL_INSPIRATION_ONLY"
+    },
+    {
+      "label": "reference-2",
+      "sha256": "4b155a83e914f246bd8d7ddb7e91d362d63eb6ba37ab4a2ee1789870ffa11dc0",
+      "usage": "IDENTITY_AND_ARCHITECTURAL_INSPIRATION_ONLY"
+    },
+    {
+      "label": "reference-3",
+      "sha256": "b0609e00c31f78c9578a9d0ca8b407623bf0bdf2639ce8ce764402d42042c265",
+      "usage": "IDENTITY_AND_ARCHITECTURAL_INSPIRATION_ONLY"
+    }
+  ],
+  "identity": {
+    "brand": "SHEIKHA",
+    "palette": [
+      "#041b25",
+      "#086a64",
+      "#d4af37"
+    ],
+    "shape": "MODULAR_INDUSTRIAL_BODY_WITH_VISOR",
+    "livingOrConsciousClaim": false
+  },
+  "families": [
+    {
+      "id": "digital",
+      "purpose": "Mission planning and simulation",
+      "status": "LOCAL_SIMULATOR"
+    },
+    {
+      "id": "mobile",
+      "purpose": "Warehouse inspection and material transport",
+      "status": "CONCEPT",
+      "drive": "WHEELED_MODULAR_BASE",
+      "physicalCapacity": "UNKNOWN"
+    },
+    {
+      "id": "arm",
+      "purpose": "Stationary sorting and inspection",
+      "status": "CONCEPT",
+      "degreesOfFreedom": "UNKNOWN"
+    },
+    {
+      "id": "humanoid",
+      "purpose": "Reference-inspired reception and assistance",
+      "status": "DESIGN_ONLY",
+      "balanceAndFallSafety": "UNKNOWN"
+    }
+  ],
+  "roots": [
+    "IDENTITY_AND_PROVENANCE",
+    "AUTHORIZED_PURPOSE",
+    "BOOK_AND_SUNNAH_VALUES_NON_EXECUTABLE",
+    "EVIDENCE_AND_LEAST_PRIVILEGE",
+    "NO_HARM_AND_QUALIFIED_REVIEW"
+  ],
+  "layers": [
+    {
+      "id": "identity",
+      "function": "Asset lineage, licensing, device identity"
+    },
+    {
+      "id": "governance",
+      "function": "Authorization, privacy, risk review, audit"
+    },
+    {
+      "id": "planner",
+      "function": "Mission plans; advisory AI cannot issue actuator commands"
+    },
+    {
+      "id": "perception",
+      "function": "Camera, depth, IMU and encoder interfaces; devices UNKNOWN"
+    },
+    {
+      "id": "twin",
+      "function": "Digital state and bounded simulation"
+    },
+    {
+      "id": "controller",
+      "function": "Deterministic task state machine"
+    },
+    {
+      "id": "safety",
+      "function": "Independent physical safety controller and assessed safe state"
+    },
+    {
+      "id": "transport",
+      "function": "Authenticated device adapter contract; no live adapter configured"
+    },
+    {
+      "id": "actuation",
+      "function": "Motor/drive/tool interfaces; physical execution disabled"
+    }
+  ],
+  "referenceFunctionMap": {
+    "brain": "planner",
+    "vision": "perception",
+    "hearing": "sensor_events",
+    "insight": "governance_and_review",
+    "heart": "mission_and_power_management",
+    "left_hand": "input_and_material_handling",
+    "right_hand": "output_and_tooling"
+  },
+  "engineering": {
+    "dimensions": "UNKNOWN",
+    "mass": "UNKNOWN",
+    "payload": "UNKNOWN",
+    "speed": "UNKNOWN",
+    "stoppingDistance": "UNKNOWN",
+    "centerOfGravity": "UNKNOWN",
+    "battery": "UNKNOWN",
+    "ipRating": "UNKNOWN",
+    "certification": "UNKNOWN",
+    "manufacturingReleased": false
+  },
+  "integration": {
+    "digitalMode": "SIMULATION_ONLY",
+    "physicalDriverConfigured": false,
+    "required": [
+      "EXACT_DEVICE_ID",
+      "HARDWARE_SPECIFICATION",
+      "RISK_ASSESSMENT",
+      "INDEPENDENT_SAFETY_CHAIN",
+      "CALIBRATED_LIMITS",
+      "AUTHENTICATED_TRANSPORT",
+      "TIME_AND_SEQUENCE_VALIDATION",
+      "EXPLICIT_OPERATION_APPROVAL"
+    ],
+    "transportChoice": "UNKNOWN"
+  },
+  "organization": {
+    "programOwner": "PRIVATE_OWNER_RECORD_REFERENCE_ONLY",
+    "roles": [
+      "SYSTEM_ARCHITECT",
+      "MECHANICAL_ENGINEER",
+      "ELECTRICAL_ENGINEER",
+      "EMBEDDED_ENGINEER",
+      "ROBOTICS_CONTROL_ENGINEER",
+      "SOFTWARE_ENGINEER",
+      "SAFETY_REVIEWER",
+      "QUALITY_AND_TEST",
+      "RELEASE_APPROVER"
+    ],
+    "appointments": "UNKNOWN"
+  },
+  "bom": [
+    {
+      "group": "CHASSIS_AND_COVERS",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "WHEELS_OR_JOINTS",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "MOTORS_AND_DRIVES",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "ENCODERS_AND_IMU",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "CAMERA_AND_DEPTH_SENSOR",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "COMPUTE_MODULE",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "SAFETY_CONTROLLER_AND_ESTOP",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "POWER_AND_BATTERY_PROTECTION",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "WIRING_AND_CONNECTORS",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "TOOL_OR_GRIPPER",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    },
+    {
+      "group": "COMMUNICATION_INTERFACE",
+      "selectedPart": "UNKNOWN",
+      "rating": "UNKNOWN",
+      "supplier": "UNKNOWN"
+    }
+  ],
+  "manufacturingGates": [
+    "MISSION_AND_ENVIRONMENT_APPROVAL",
+    "PARAMETRIC_MECHANICAL_DESIGN",
+    "STRUCTURAL_AND_STABILITY_ANALYSIS",
+    "ELECTRICAL_AND_THERMAL_DESIGN",
+    "SAFETY_REVIEW",
+    "BENCH_TEST_WITHOUT_POWERED_MOTION",
+    "BOUNDED_DEVICE_TRIAL",
+    "RELEASE_REVIEW"
+  ],
+  "physicalRobotExists": "UNKNOWN"
+}

@@ -1,0 +1,3006 @@
+{
+  "system": "SHEIKHA_ENGINE_INTEGRATION_FABRIC_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "gateway": "sheikha.integration",
+  "mode": "READINESS_FIRST_FAIL_CLOSED",
+  "governance": {
+    "noLiveExternalClaimWithoutEvidence": true,
+    "noSecretMutation": true,
+    "noProductionMutation": true,
+    "noPayment": true,
+    "noContract": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "externalWriteDefault": "BLOCKED",
+    "highImpactWriteRequiresHumanApproval": true,
+    "allExternalCallsAuditable": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "engines": 28,
+    "sdkContractReady": true,
+    "mcpContractReady": true,
+    "mcpTools": 46,
+    "enterpriseConnectorNames": 20,
+    "connectorProfiles": 13,
+    "liveExternalConnections": 0,
+    "authRequiredExternal": 9,
+    "notConfiguredExternal": 4,
+    "externalWritesBlocked": 13,
+    "enterpriseBindings": 9,
+    "governancePolicies": 10
+  },
+  "truth": {
+    "connectorProfilesAreReadinessDefinitions": true,
+    "noLiveExternalConnectionClaim": true,
+    "enterpriseConnectorNamesAreDeclarationsOnly": true,
+    "mcpAndSdkAreLocalContractReadiness": true
+  },
+  "engines": [
+    {
+      "engine": "sharia",
+      "domains": [
+        "governance"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 0,
+        "notConfigured": 3,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "agents",
+      "domains": [
+        "governance",
+        "knowledge"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 4,
+        "liveRead": 0,
+        "authRequired": 1,
+        "notConfigured": 3,
+        "writesBlocked": 4
+      }
+    },
+    {
+      "engine": "quran",
+      "domains": [
+        "knowledge",
+        "governance"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 4,
+        "liveRead": 0,
+        "authRequired": 1,
+        "notConfigured": 3,
+        "writesBlocked": 4
+      }
+    },
+    {
+      "engine": "learning",
+      "domains": [
+        "knowledge"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 4,
+        "liveRead": 0,
+        "authRequired": 1,
+        "notConfigured": 3,
+        "writesBlocked": 4
+      }
+    },
+    {
+      "engine": "knowledge",
+      "domains": [
+        "knowledge"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 4,
+        "liveRead": 0,
+        "authRequired": 1,
+        "notConfigured": 3,
+        "writesBlocked": 4
+      }
+    },
+    {
+      "engine": "market",
+      "domains": [
+        "marketplace"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 4,
+        "liveRead": 0,
+        "authRequired": 2,
+        "notConfigured": 2,
+        "writesBlocked": 4
+      }
+    },
+    {
+      "engine": "trade",
+      "domains": [
+        "commerce",
+        "marketplace"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 4,
+        "liveRead": 0,
+        "authRequired": 2,
+        "notConfigured": 2,
+        "writesBlocked": 4
+      }
+    },
+    {
+      "engine": "payments",
+      "domains": [
+        "commerce"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 2,
+        "liveRead": 0,
+        "authRequired": 2,
+        "notConfigured": 0,
+        "writesBlocked": 2
+      }
+    },
+    {
+      "engine": "zakat",
+      "domains": [
+        "governance",
+        "marketplace"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 5,
+        "liveRead": 0,
+        "authRequired": 2,
+        "notConfigured": 3,
+        "writesBlocked": 5
+      }
+    },
+    {
+      "engine": "identity",
+      "domains": [
+        "identity",
+        "commerce"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 2,
+        "liveRead": 0,
+        "authRequired": 2,
+        "notConfigured": 0,
+        "writesBlocked": 2
+      }
+    },
+    {
+      "engine": "security",
+      "domains": [
+        "governance",
+        "operations",
+        "integration"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-007",
+          "category": "WMS",
+          "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-008",
+          "category": "TMS",
+          "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-010",
+          "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+          "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 13,
+        "liveRead": 0,
+        "authRequired": 9,
+        "notConfigured": 4,
+        "writesBlocked": 13
+      }
+    },
+    {
+      "engine": "medical",
+      "domains": [
+        "enterprise"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 3,
+        "notConfigured": 0,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "ai",
+      "domains": [
+        "developer",
+        "platform"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 3,
+        "notConfigured": 0,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "cloud",
+      "domains": [
+        "platform",
+        "operations",
+        "integration"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-007",
+          "category": "WMS",
+          "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-008",
+          "category": "TMS",
+          "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-010",
+          "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+          "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 13,
+        "liveRead": 0,
+        "authRequired": 9,
+        "notConfigured": 4,
+        "writesBlocked": 13
+      }
+    },
+    {
+      "engine": "lmm",
+      "domains": [
+        "developer"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 3,
+        "notConfigured": 0,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "standards",
+      "domains": [
+        "governance",
+        "commerce",
+        "native"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 7,
+        "liveRead": 0,
+        "authRequired": 4,
+        "notConfigured": 3,
+        "writesBlocked": 7
+      }
+    },
+    {
+      "engine": "vision",
+      "domains": [
+        "enterprise"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 3,
+        "notConfigured": 0,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "consulting",
+      "domains": [
+        "enterprise"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 3,
+        "notConfigured": 0,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "sovereign",
+      "domains": [
+        "governance"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 0,
+        "notConfigured": 3,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "live-ai",
+      "domains": [
+        "platform",
+        "knowledge"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 7,
+        "liveRead": 0,
+        "authRequired": 4,
+        "notConfigured": 3,
+        "writesBlocked": 7
+      }
+    },
+    {
+      "engine": "specialized_neural",
+      "domains": [
+        "developer",
+        "native",
+        "marketplace"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 8,
+        "liveRead": 0,
+        "authRequired": 6,
+        "notConfigured": 2,
+        "writesBlocked": 8
+      }
+    },
+    {
+      "engine": "universal_networks",
+      "domains": [
+        "integration",
+        "platform",
+        "logistics",
+        "operations"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-003",
+          "category": "SCIENTIFIC_PUBLICATIONS",
+          "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-004",
+          "category": "EDUCATIONAL_PLATFORMS",
+          "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-007",
+          "category": "WMS",
+          "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-008",
+          "category": "TMS",
+          "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-010",
+          "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+          "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 13,
+        "liveRead": 0,
+        "authRequired": 9,
+        "notConfigured": 4,
+        "writesBlocked": 13
+      }
+    },
+    {
+      "engine": "nextgen_manufacturer",
+      "domains": [
+        "marketplace",
+        "developer"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 7,
+        "liveRead": 0,
+        "authRequired": 5,
+        "notConfigured": 2,
+        "writesBlocked": 7
+      }
+    },
+    {
+      "engine": "industrial_nn",
+      "domains": [
+        "logistics",
+        "marketplace"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-007",
+          "category": "WMS",
+          "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-008",
+          "category": "TMS",
+          "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-010",
+          "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+          "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 8,
+        "liveRead": 0,
+        "authRequired": 5,
+        "notConfigured": 3,
+        "writesBlocked": 8
+      }
+    },
+    {
+      "engine": "energy",
+      "domains": [
+        "marketplace",
+        "logistics"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-007",
+          "category": "WMS",
+          "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-008",
+          "category": "TMS",
+          "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-010",
+          "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+          "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 8,
+        "liveRead": 0,
+        "authRequired": 5,
+        "notConfigured": 3,
+        "writesBlocked": 8
+      }
+    },
+    {
+      "engine": "resources",
+      "domains": [
+        "logistics",
+        "marketplace"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-005",
+          "category": "ERP_SYSTEMS",
+          "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-007",
+          "category": "WMS",
+          "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-008",
+          "category": "TMS",
+          "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-009",
+          "category": "IOT_PLATFORMS",
+          "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-010",
+          "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+          "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-001",
+          "category": "OPEN_DATA_PORTALS",
+          "accessGate": "TERMS_AND_LICENSE_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-002",
+          "category": "RESEARCH_DATABASES",
+          "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+          "credentialRequired": false,
+          "liveConnectionClaim": false,
+          "read": "NOT_CONFIGURED",
+          "write": "BLOCKED",
+          "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+        },
+        {
+          "id": "CONN-006",
+          "category": "CRM_SYSTEMS",
+          "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 8,
+        "liveRead": 0,
+        "authRequired": 5,
+        "notConfigured": 3,
+        "writesBlocked": 8
+      }
+    },
+    {
+      "engine": "production_neural",
+      "domains": [
+        "operations"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 3,
+        "notConfigured": 0,
+        "writesBlocked": 3
+      }
+    },
+    {
+      "engine": "neural-cells",
+      "domains": [
+        "developer"
+      ],
+      "gateway": "sheikha.integration",
+      "channels": {
+        "internalService": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_SOURCE_READY"
+        },
+        "sdk": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "mcp": {
+          "read": "READ",
+          "write": "BLOCKED",
+          "state": "LOCAL_CONTRACT_READY"
+        },
+        "externalConnector": {
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "state": "READINESS_ONLY"
+        }
+      },
+      "externalConnectors": [
+        {
+          "id": "CONN-011",
+          "category": "CLOUD_PROVIDERS",
+          "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-012",
+          "category": "DATA_CENTERS",
+          "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        },
+        {
+          "id": "CONN-013",
+          "category": "SUPERCOMPUTING_RESOURCES",
+          "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+          "credentialRequired": true,
+          "liveConnectionClaim": false,
+          "read": "AUTH_REQUIRED",
+          "write": "BLOCKED",
+          "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+        }
+      ],
+      "summary": {
+        "connectorProfiles": 3,
+        "liveRead": 0,
+        "authRequired": 3,
+        "notConfigured": 0,
+        "writesBlocked": 3
+      }
+    }
+  ],
+  "connectorProfiles": [
+    {
+      "id": "CONN-001",
+      "category": "OPEN_DATA_PORTALS",
+      "integrationMode": "OPEN_DATA_TERMS_REVIEW",
+      "accessGate": "TERMS_AND_LICENSE_REVIEW",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-001",
+        "NGC-008",
+        "NGC-009",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "NOT_CONFIGURED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+      },
+      "domains": [
+        "marketplace",
+        "knowledge",
+        "governance",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-002",
+      "category": "RESEARCH_DATABASES",
+      "integrationMode": "OPEN_OR_LICENSED_RESEARCH_DATA",
+      "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-001",
+        "NGC-006",
+        "NGC-008",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "NOT_CONFIGURED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+      },
+      "domains": [
+        "marketplace",
+        "knowledge",
+        "governance",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-003",
+      "category": "SCIENTIFIC_PUBLICATIONS",
+      "integrationMode": "PUBLICATION_INDEX_OR_LICENSED_ACCESS",
+      "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-001",
+        "NGC-006",
+        "NGC-008",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "NOT_CONFIGURED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+      },
+      "domains": [
+        "knowledge",
+        "governance",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-004",
+      "category": "EDUCATIONAL_PLATFORMS",
+      "integrationMode": "AUTHORIZED_LMS_OR_OPEN_COURSE_DATA",
+      "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-002",
+        "NGC-003",
+        "NGC-006",
+        "NGC-008",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "knowledge",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-005",
+      "category": "ERP_SYSTEMS",
+      "integrationMode": "CUSTOMER_AUTHORIZED_ENTERPRISE_API",
+      "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-003",
+        "NGC-006",
+        "NGC-007",
+        "NGC-009",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "marketplace",
+        "commerce",
+        "logistics",
+        "enterprise",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-006",
+      "category": "CRM_SYSTEMS",
+      "integrationMode": "CUSTOMER_AUTHORIZED_ENTERPRISE_API",
+      "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-003",
+        "NGC-004",
+        "NGC-007",
+        "NGC-009",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "marketplace",
+        "commerce",
+        "enterprise",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-007",
+      "category": "WMS",
+      "integrationMode": "WAREHOUSE_AUTHORIZED_API_OR_FILE_EXCHANGE",
+      "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-002",
+        "NGC-003",
+        "NGC-007",
+        "NGC-009",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "logistics",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-008",
+      "category": "TMS",
+      "integrationMode": "TRANSPORT_AUTHORIZED_API_OR_FEED",
+      "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-002",
+        "NGC-003",
+        "NGC-007",
+        "NGC-009",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "logistics",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-009",
+      "category": "IOT_PLATFORMS",
+      "integrationMode": "CUSTOMER_AUTHORIZED_DEVICE_GATEWAY",
+      "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-002",
+        "NGC-003",
+        "NGC-006",
+        "NGC-007",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "logistics",
+        "native",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-010",
+      "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+      "integrationMode": "OPEN_OBSERVATION_OR_LICENSED_PROVIDER",
+      "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-001",
+        "NGC-006",
+        "NGC-008",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "NOT_CONFIGURED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "READINESS_ONLY_NO_LIVE_CONNECTION_CLAIM"
+      },
+      "domains": [
+        "logistics",
+        "integration"
+      ]
+    },
+    {
+      "id": "CONN-011",
+      "category": "CLOUD_PROVIDERS",
+      "integrationMode": "PROVIDER_ACCOUNT_CONTRACT_AND_BUDGET_GATE",
+      "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-001",
+        "NGC-006",
+        "NGC-007",
+        "NGC-009",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "enterprise",
+        "developer",
+        "operations",
+        "integration",
+        "platform"
+      ]
+    },
+    {
+      "id": "CONN-012",
+      "category": "DATA_CENTERS",
+      "integrationMode": "FACILITY_CONTRACT_OR_CUSTOMER_AUTHORIZED_ENDPOINT",
+      "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-001",
+        "NGC-002",
+        "NGC-006",
+        "NGC-007",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "developer",
+        "operations",
+        "native",
+        "integration",
+        "platform"
+      ]
+    },
+    {
+      "id": "CONN-013",
+      "category": "SUPERCOMPUTING_RESOURCES",
+      "integrationMode": "HPC_GPU_PROVIDER_CONTRACT_AND_ALLOCATION_GATE",
+      "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": [
+        "NGC-001",
+        "NGC-002",
+        "NGC-006",
+        "NGC-007",
+        "NGC-010"
+      ],
+      "access": {
+        "read": "AUTH_REQUIRED",
+        "write": "BLOCKED",
+        "live": false,
+        "reason": "CREDENTIAL_AND_AUTHORIZATION_REQUIRED"
+      },
+      "domains": [
+        "developer",
+        "operations",
+        "integration",
+        "platform"
+      ]
+    }
+  ],
+  "evidence": {
+    "sdkMcp": {
+      "system": "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
+      "status": "ACTIVE",
+      "score": 100
+    },
+    "mcpGateway": {
+      "system": "SHEIKHA_MCP_GATEWAY_V2",
+      "status": "ACTIVE",
+      "score": 100
+    },
+    "enterpriseConnectorFabric": {
+      "registry": "SHEIKHA_ENTERPRISE_CONNECTORS_V1",
+      "status": "ACTIVE"
+    }
+  }
+}

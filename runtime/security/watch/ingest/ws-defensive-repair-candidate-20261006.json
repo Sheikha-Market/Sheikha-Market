@@ -1,0 +1,97 @@
+{
+  "system": "SHEIKHA_DEFENSIVE_REPAIR_CANDIDATE_V1",
+  "createdAt": "2026-10-06T03:22:00+03:00",
+  "updatedAt": "2026-10-06T03:22:00+03:00",
+  "component": "ws",
+  "currentLockedVersion": "8.20.0",
+  "advisoryIds": [
+    "GHSA-58qx-3vcg-4xpx",
+    "GHSA-96hv-2xvq-fx4p"
+  ],
+  "applicability": "AFFECTED_RUNTIME_COMPONENT_PUBLIC_HOST_ROUTE_CONFIGURED",
+  "compromised": false,
+  "exploitationEvidenceForSheikha": false,
+  "runtimeConfirmed": true,
+  "runtimeExposure": {
+    "processName": "sheikha-main-portal",
+    "entrypoint": "server.js",
+    "backendListener": "127.0.0.1:8080",
+    "websocketServerCreated": true,
+    "hostPublicRouteConfigured": true,
+    "haproxyFrontend": "*:80",
+    "haproxyPath": "/ws",
+    "haproxyBackend": "127.0.0.1:8080",
+    "internetEdgeReachability": "NETWORK_EDGE_NOT_PROBED",
+    "httpsOnObservedFrontend": false,
+    "observedMitigations": [
+      "backend_loopback_binding",
+      "maxPayload_64KiB",
+      "maxClients_100",
+      "perMessageDeflate_false",
+      "application_level_payload_and_rate_controls"
+    ]
+  },
+  "evidence": [
+    {
+      "type": "LOCKFILE",
+      "path": "package-lock.json",
+      "version": "8.20.0"
+    },
+    {
+      "type": "RUNTIME_RESOLUTION",
+      "path": "node_modules/ws/package.json",
+      "version": "8.20.0"
+    },
+    {
+      "type": "LIVE_ENTRYPOINT",
+      "path": "server.js",
+      "observation": "top-level require('ws')"
+    },
+    {
+      "type": "LIVE_SERVER_INIT",
+      "path": "server.js",
+      "observation": "initializeWebSocket(httpServer) creates WebSocket.Server"
+    },
+    {
+      "type": "HOST_PROXY_ROUTE",
+      "path": "/etc/haproxy/haproxy.cfg",
+      "observation": "frontend *:80; ACL /ws -> ws_backend -> 127.0.0.1:8080"
+    },
+    {
+      "type": "ADVISORY",
+      "id": "GHSA-58qx-3vcg-4xpx",
+      "patchedVersion": "8.20.1"
+    },
+    {
+      "type": "ADVISORY",
+      "id": "GHSA-96hv-2xvq-fx4p",
+      "patchedVersion": "8.21.0"
+    }
+  ],
+  "repairCandidate": {
+    "minimumFixedVersion": "8.21.0",
+    "preferredConservativeVersion": "8.21.3",
+    "latestObservedVersion": "8.22.0",
+    "preferredRationale": "8.21.3 stays on the 8.21 maintenance line and includes subsequent bug fixes; 8.22.0 adds a new feature and therefore has a wider change surface.",
+    "pinStrategy": "EXACT_PIN_CANDIDATE",
+    "proposedExactPin": "8.21.3",
+    "mode": "CANDIDATE_ONLY",
+    "install": false,
+    "packageMutation": false,
+    "lockfileMutation": false,
+    "gitWrite": false,
+    "ciRerun": false,
+    "restart": false,
+    "deploy": false,
+    "production": false
+  },
+  "nextEvidenceNeeded": [
+    "Perform focused compatibility review of ws 8.21.3 against Sheikha WebSocket server options before any mutation.",
+    "Under separate authorization only: change exact pin, regenerate lockfile, and inspect resulting dependency diff.",
+    "Use a fresh isolated verification scope for WebSocket startup/limits after any authorized dependency change.",
+    "Restart only in a separately authorized non-production window; do not reuse consumed verification scopes.",
+    "Verify external network-edge reachability separately if authorized; no active probe has been performed."
+  ],
+  "authorityGate": "SEPARATE_EXPLICIT_AUTHORIZATION_REQUIRED_FOR_DEPENDENCY_CHANGE",
+  "rerunAllowed": false
+}

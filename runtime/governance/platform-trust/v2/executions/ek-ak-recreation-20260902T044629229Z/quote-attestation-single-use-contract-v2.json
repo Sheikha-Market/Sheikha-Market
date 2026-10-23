@@ -1,0 +1,55 @@
+{
+  "system": "SHEIKHA_SINGLE_USE_TPM_QUOTE_ATTESTATION_AUTHORIZATION_CONTRACT_V2",
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "device": "/dev/tpmrm0",
+  "activationResultSha256": "47dd91fc4efbc9717d7a2aecf01069333de8e8e35bca6bb2b2aecd4160b71126",
+  "artifactBindings": {
+    "akContext": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ak.ctx",
+      "sha256": "7f438b00dfdc9936aedaa50566dea5abbd1772f639ba0e68cad40332d9496561"
+    },
+    "akPublicPem": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ak.pem",
+      "sha256": "edc8b36db4616e8937d72da2eadc472257c22e28bac3cd42bf3ae845b883ed71"
+    },
+    "akName": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ak.name",
+      "sha256": "fac0fcc899f684e917cfbd74c5922c4fed7fa42236bffd4a2d392994863f27c6"
+    },
+    "akAuth": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/secrets/ak.auth.bin",
+      "sha256": "f565562bcb1d48dd93ba01a48d027752d78eb1a65a4e52e89906c7601fa8b9fa"
+    }
+  },
+  "nonce": "6f7c001e08851d0b90ebafb4f5114b894652a455205467cd47d9b0ba284af1e7",
+  "pcrSelection": "sha256:0,2,4,7",
+  "signatureScheme": "ecdsa",
+  "hashAlgorithm": "sha256",
+  "expiresAt": "2026-09-02T05:57:49.420Z",
+  "allowedCommands": [
+    "tpm2_quote"
+  ],
+  "maximumQuoteCalls": 1,
+  "verificationRequired": [
+    "NONCE_MATCH",
+    "AK_SIGNATURE_VALID",
+    "TPMS_ATTEST_VALID",
+    "PCR_DIGEST_CONSISTENT"
+  ],
+  "forbidden": [
+    "TPM_CLEAR",
+    "PERSISTENT_HANDLE_CREATION",
+    "NV_WRITE",
+    "PCR_EXTEND",
+    "FIRMWARE_CHANGE",
+    "SECURE_BOOT_CHANGE",
+    "NETWORK_ACCESS",
+    "SECOND_QUOTE_ATTEMPT"
+  ],
+  "authorization": {
+    "variable": "SHEIKHA_AUTHORIZE_SINGLE_USE_TPM_QUOTE_ATTESTATION_V2",
+    "exactValue": "YES",
+    "granted": false
+  },
+  "contractSha256": "25386607669859e36a15486bbdcd931378fbc462623dd5e7b0ec9f049f58d9db"
+}

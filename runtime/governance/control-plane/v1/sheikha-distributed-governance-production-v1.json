@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_DISTRIBUTED_GOVERNANCE_PRODUCTION_V1",
+  "status": "PROVIDER_NEUTRAL_RUNTIME_IMPLEMENTED_EXTERNAL_RESOURCES_REQUIRED",
+  "signing": {
+    "algorithm": "Ed25519",
+    "privateKeyAcceptedByApplication": false,
+    "supportedIntegrationClasses": ["HSM", "KMS", "PKCS11_OR_PROVIDER_SIGN_API"],
+    "activeProductionKeyId": null
+  },
+  "nonce": {
+    "backend": "REDIS_SET_NX_EX",
+    "atomicSingleUse": true,
+    "distributed": true,
+    "tlsRequired": true,
+    "activeEndpointConfigured": false
+  },
+  "audit": {
+    "backend": "REDIS_STREAM_WITH_ATOMIC_LUA_HASH_CHAIN",
+    "appendRaceProtected": true,
+    "tamperEvident": true,
+    "externalWormExportRequired": true,
+    "externalWormExportConfigured": false
+  },
+  "secretsInSource": false,
+  "commercialDistributedProductionReady": false,
+  "activationBlockers": ["EXTERNAL_ED25519_HSM_OR_KMS_KEY", "TLS_REDIS_ENDPOINT", "EXTERNAL_WORM_AUDIT_SINK"]
+}

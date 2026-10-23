@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_TPM_QUOTE_READINESS_PREFLIGHT_V1",
+  "purpose": "فحص متطلبات جمع TPM Quote دون تنفيذ أوامر TPM أو إنشاء AK أو تغيير Firmware.",
+  "requiredTools": ["tpm2_getcap", "tpm2_pcrread", "tpm2_createak", "tpm2_readpublic", "tpm2_quote"],
+  "failClosed": true,
+  "boundaries": {
+    "tpmCommandExecuted": false,
+    "akCreated": false,
+    "quoteCollected": false,
+    "secureBootChanged": false,
+    "firmwareMutationPerformed": false,
+    "networkUsed": false
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "SHEIKHA_HYBRID_DOMAIN_PLAN_V1",
+  "status": "PLANNED",
+  "verification": "UNVERIFIED",
+  "targetRegion": "me-central2",
+  "targetLocation": "Dammam",
+  "dnsAuthority": "HOSTINGER",
+  "hostingMode": "HYBRID",
+  "productionHold": true,
+  "constraints": {
+    "zeroNewSpend": true,
+    "noDelete": true,
+    "noPull": true,
+    "noModelLoads": true
+  },
+  "canary": {
+    "domain": "dev.sheikha.top",
+    "reportedService": "sheikha-dev-service",
+    "reportedRegion": "us-central1",
+    "verification": "UNVERIFIED",
+    "migrationPolicy": "VERIFY_SEPARATELY_DO_NOT_MIGRATE_AUTOMATICALLY"
+  },
+  "domains": [
+    { "domain": "sheikha.top", "kind": "service", "repository": "sheikha-main-portal", "service": "sheikha-main-portal" },
+    { "domain": "sheikha.shop", "kind": "service", "repository": "sheikha-main-portal", "service": "sheikha-main-portal" },
+    { "domain": "sheikha.app", "kind": "service", "repository": "sheikha-main-portal", "service": "sheikha-main-portal" },
+    { "domain": "sheikha.dev", "kind": "service", "repository": "sheikha-portal-core", "service": "sheikha-portal-core", "fallbackCandidate": "sheikha-main-portal" },
+    { "domain": "sheikha.market", "kind": "service", "repository": "sheikha-portal-core", "service": "sheikha-portal-core", "fallbackCandidate": "sheikha-main-portal" },
+    { "domain": "sheikha.capital", "kind": "service", "repository": "sheikha-portal-core", "service": "sheikha-portal-core", "fallbackCandidate": "sheikha-main-portal" },
+    { "domain": "sheikha.cloud", "kind": "service", "repository": "sheikha-ops-reports", "service": "sheikha-ops-reports" },
+    { "domain": "sheikha.digital", "kind": "service", "repository": "sheikha_lc_governance", "service": "sheikha-lc-governance" },
+    { "domain": "sheikha.money", "kind": "redirect", "target": "https://sheikha.capital" },
+    { "domain": "sheikha.me", "kind": "redirect", "target": "https://sheikha.top/profile" },
+    { "domain": "sheikha.site", "kind": "redirect", "target": "https://sheikha.top" },
+    { "domain": "sheikha.click", "kind": "redirect", "target": "https://sheikha.shop" }
+  ]
+}

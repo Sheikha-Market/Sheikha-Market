@@ -1,0 +1,556 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PASTURES_ORCHARDS_CULTIVATION_RUNTIME_V1",
+  "status": "DIVERSIFIED_CULTIVATION_ACTIVE",
+  "worldlyMetaphorOnly": true,
+  "stages": [
+    "SOIL_PREPARATION",
+    "SEED_REGISTRATION",
+    "NURSERY_EXPERIMENT",
+    "TRANSPLANT_OR_GRAFT",
+    "MEASURED_IRRIGATION",
+    "PRUNING_AND_CORRECTION",
+    "VERIFIED_HARVEST",
+    "CONTROLLED_PROPAGATION"
+  ],
+  "paths": {
+    "SEED_FROM_SCRATCH": {
+      "sourceAr": "بذرة مملوكة أو منشأة من الصفر",
+      "speed": "LONG",
+      "requirement": "OWNED_OR_PERMISSIVELY_LICENSED_FOUNDATIONS"
+    },
+    "LICENSED_TRANSPLANT": {
+      "sourceAr": "أصل نام مرخص يعاد غرسه وتكييفه",
+      "speed": "FAST",
+      "requirement": "UPSTREAM_LICENSE_AND_PROVENANCE_VERIFIED"
+    },
+    "GOVERNED_GRAFT": {
+      "sourceAr": "تطعيم أصل مرخص بأدوات أو بيانات أو موائمات شيخة",
+      "speed": "FASTEST_CONTROLLED",
+      "requirement": "COMPATIBILITY_RIGHTS_AND_EVALUATION_VERIFIED"
+    }
+  },
+  "laws": [
+    "التربة هي البنية والحقوق والأمن والبيانات؛ لا غرس في تربة مجهولة.",
+    "كل بذرة تسجل بمالك وغرض ومصدر وترخيص ومؤشر منفعة.",
+    "الزارع دور مسؤول معلوم، ولا تمنح الآلة سلطة بشرية أو شرعية مستقلة.",
+    "السقاية موارد محسوبة: وقت وحوسبة وبيانات ومال ومراجعة، وليست تشغيلًا بلا حدود.",
+    "لا حصاد تجاري قبل اختبار الجودة والسلامة والحقوق وقابلية التسليم.",
+    "لا تكاثر آلي لمنتج أو نموذج فاشل أو مجهول الترخيص.",
+    "التقليم تصحيح موثق قابل للتراجع، لا حذف لأعمال المستخدم أو الأدلة.",
+    "توقف مغرس لبوابة صحيحة لا يوقف المراعي الأخرى الجاهزة.",
+    "لا يمثل هذا النموذج الجنة الغيبية؛ الجنات والمراعي أسماء تشغيلية دنيوية.",
+    "لا ضرر ولا ادعاء اكتمال أو دخل أو علم لم يثبت بالدليل."
+  ],
+  "topology": {
+    "soil": "INFRASTRUCTURE_RIGHTS_SECURITY_DATA",
+    "seeds": "IDEAS_DATASETS_CODE_AND_DEMAND_SIGNALS",
+    "nursery": "ISOLATED_EXPERIMENTS_AND_CANARIES",
+    "irrigation": "SCHEDULED_COMPUTE_FEEDBACK_CAPITAL_AND_MAINTENANCE",
+    "farmer": "NAMED_ACCOUNTABLE_HUMAN_OR_GOVERNED_SERVICE_ROLE",
+    "fruits": "VERIFIED_BENEFIT_REVENUE_OR_REUSABLE_KNOWLEDGE",
+    "pastures": "SHARED_LICENSED_KNOWLEDGE_COMPUTE_AND_TOOLING",
+    "orchards": "DOMAIN_PRODUCT_PORTFOLIOS",
+    "propagation": "REPEATABLE_RIGHTS_VERIFIED_SCALE_OUT"
+  },
+  "continuityPolicy": {
+    "scheduler": "MEASURE_REVIEW_IRRIGATE_PRUNE_RECHECK",
+    "noGlobalStopForSinglePlot": true,
+    "blockedPlotMayConsumePaidResources": false,
+    "highImpactHumanApprovalRequired": true,
+    "invariant": "CONTINUE_ELIGIBLE_PLOTS_HOLD_BLOCKED_PLOTS"
+  },
+  "integratedHabitat": {
+    "system": "SHEIKHA_INTEGRATED_WORLDLY_HABITAT_BLUEPRINT_V1",
+    "status": "CONCEPT_ONLY_SITE_INPUTS_REQUIRED",
+    "boundary": {
+      "actualJannahClaim": false,
+      "unseenRepresentationClaim": false,
+      "physicalConstructionExecuted": false,
+      "unrestrictedHumanDesireEntitlement": false,
+      "statementAr": "بيئة دنيوية للعيش الكريم والمنفعة والرغبات المشروعة ضمن الموارد والحقوق والسلامة."
+    },
+    "domains": [
+      {
+        "id": "HUMAN_COMMUNITY",
+        "nameAr": "مجتمع الإنسان والأسرة",
+        "includesAr": [
+          "سكن",
+          "عمل",
+          "تعليم",
+          "عبادة",
+          "صحة",
+          "ضيافة",
+          "ترفيه مباح"
+        ],
+        "gate": "ACCESSIBILITY_SAFETY_PRIVACY_AND_PUBLIC_SERVICES_APPROVED"
+      },
+      {
+        "id": "FOOD_ORCHARDS",
+        "nameAr": "بساتين ومحاصيل الغذاء",
+        "includesAr": [
+          "نخيل وفاكهة",
+          "حبوب",
+          "خضروات",
+          "أعشاب",
+          "مشتل وبنك بذور"
+        ],
+        "gate": "SOIL_WATER_CROP_AND_FOOD_SAFETY_PLAN_APPROVED"
+      },
+      {
+        "id": "GRAZING_PASTURES",
+        "nameAr": "مراعي الرعي والثروة الحيوانية",
+        "includesAr": [
+          "مراع دورية",
+          "أعلاف",
+          "ماء للحيوان",
+          "ظل ومأوى",
+          "رعاية بيطرية"
+        ],
+        "gate": "CARRYING_CAPACITY_ROTATION_AND_ANIMAL_WELFARE_APPROVED"
+      },
+      {
+        "id": "WATER_NETWORK",
+        "nameAr": "الأنهار والمياه",
+        "includesAr": [
+          "مياه شرب",
+          "ري",
+          "خزانات",
+          "قنوات أو مجار مائية",
+          "صرف وإعادة استخدام"
+        ],
+        "gate": "HYDROLOGY_QUALITY_RIGHTS_DRAINAGE_AND_FLOOD_PLAN_APPROVED"
+      },
+      {
+        "id": "HOMES_AND_PALACES",
+        "nameAr": "البيوت والدور والقصور الدنيوية",
+        "includesAr": [
+          "بيوت ميسرة",
+          "مساكن أسرية",
+          "دور ضيافة",
+          "مبان عامة",
+          "قصور ضمن القدرة والأنظمة"
+        ],
+        "gate": "LAND_TITLE_CODE_STRUCTURE_FIRE_AND_LIFECYCLE_COST_APPROVED"
+      },
+      {
+        "id": "ECOLOGICAL_COMMONS",
+        "nameAr": "المشاعات البيئية",
+        "includesAr": [
+          "غابات وأحزمة خضراء",
+          "موائل",
+          "تربة حية",
+          "ملقحات",
+          "ممرات ومتنزهات"
+        ],
+        "gate": "BIODIVERSITY_NATIVE_SPECIES_AND_INVASIVE_RISK_APPROVED"
+      },
+      {
+        "id": "CIRCULAR_UTILITIES",
+        "nameAr": "المرافق الدائرية",
+        "includesAr": [
+          "طاقة",
+          "تبريد",
+          "نفايات",
+          "سماد عضوي",
+          "نقل واتصال"
+        ],
+        "gate": "UTILITY_CAPACITY_EMISSIONS_RESILIENCE_AND_MAINTENANCE_APPROVED"
+      }
+    ],
+    "waterSeparation": {
+      "potable": "INDEPENDENT_TESTED_NETWORK",
+      "irrigation": "FIT_FOR_CROP_AND_SOIL_NETWORK",
+      "livestock": "VETERINARY_QUALITY_REQUIREMENTS",
+      "reclaimed": "RESTRICTED_BY_TREATMENT_CLASS_AND_USE",
+      "floodAndDrainage": "MODELED_BEFORE_GRADING_OR_CONSTRUCTION"
+    },
+    "foodLoop": [
+      "SEED_AND_BREED_PROVENANCE",
+      "SOIL_AND_FEED_PLAN",
+      "GROW_AND_GRAZE_BY_CARRYING_CAPACITY",
+      "HARVEST_AND_VETERINARY_OR_FOOD_SAFETY_CHECK",
+      "STORE_DISTRIBUTE_AND_TRACE",
+      "COMPOST_SAFE_ORGANIC_RESIDUES",
+      "REPLENISH_SOIL_AND_REMEASURE"
+    ],
+    "designOrder": [
+      "LAND_WATER_CLIMATE_AND_POPULATION_BASELINE",
+      "RIGHTS_ENVIRONMENTAL_AND_HAZARD_ASSESSMENT",
+      "WATER_FOOD_ENERGY_AND_WASTE_BALANCES",
+      "PASTURE_ORCHARD_HOUSING_AND_SERVICE_ZONING",
+      "DISCIPLINE_ENGINEERING_AND_PERMITS",
+      "SMALL_PILOT_AND_ONE_SEASON_MEASUREMENT",
+      "PHASED_BUILD_WITH_INDEPENDENT_ACCEPTANCE",
+      "OPERATE_MAINTAIN_REGENERATE_AND_EXPAND"
+    ],
+    "phases": [
+      {
+        "id": "H0_BASELINE",
+        "scopeAr": "حقوق الأرض والمسح والماء والتربة والمناخ والسيول والسكان",
+        "exitGate": "BASELINE_STUDIES_AND_RIGHTS_APPROVED"
+      },
+      {
+        "id": "H1_LIVING_NUCLEUS",
+        "scopeAr": "نواة سكن وخدمات وماء وطاقة وصرف وطوارئ",
+        "exitGate": "OCCUPANCY_AND_UTILITY_SAFETY_ACCEPTED"
+      },
+      {
+        "id": "H2_FOOD_NURSERY",
+        "scopeAr": "مشتل وبنك بذور ومحاصيل تجريبية وتتبّع غذائي",
+        "exitGate": "ONE_SEASON_YIELD_WATER_AND_FOOD_SAFETY_EVIDENCE"
+      },
+      {
+        "id": "H3_ROTATIONAL_PASTURE",
+        "scopeAr": "مرعى دوري محدود ومأوى وماء ورعاية بيطرية",
+        "exitGate": "CARRYING_CAPACITY_AND_ANIMAL_WELFARE_ACCEPTED"
+      },
+      {
+        "id": "H4_ORCHARDS_AND_COMMONS",
+        "scopeAr": "بساتين دائمة وأحزمة خضراء وموائل ومسارات عامة",
+        "exitGate": "SURVIVAL_BIODIVERSITY_AND_MAINTENANCE_TARGETS_MET"
+      },
+      {
+        "id": "H5_HOMES_AND_HOSPITALITY",
+        "scopeAr": "توسع المساكن ودور الضيافة والمباني العامة والقصور المعتمدة",
+        "exitGate": "DEMAND_FINANCE_CODE_AND_LIFECYCLE_COST_ACCEPTED"
+      },
+      {
+        "id": "H6_REGENERATIVE_EXPANSION",
+        "scopeAr": "توسع مرحلي لا يتجاوز الماء والتربة والميزانية وسعة التشغيل",
+        "exitGate": "INDEPENDENT_MULTI_SEASON_REGENERATIVE_REVIEW"
+      }
+    ],
+    "missingInputs": [
+      "SITE_AREA_REQUIRED",
+      "LOCATION_AND_CLIMATE_REQUIRED",
+      "POPULATION_TARGET_REQUIRED",
+      "WATER_STUDY_REQUIRED",
+      "SOIL_STUDY_REQUIRED",
+      "BUDGET_ENVELOPE_REQUIRED",
+      "LAND_RIGHTS_REQUIRED"
+    ],
+    "automaticConstructionAuthorized": false,
+    "planningExample": {
+      "system": "SHEIKHA_HABITAT_RESOURCE_BALANCE_V1",
+      "status": "PLANNING_SCENARIO_BALANCED_FOR_AREA_ONLY",
+      "planningScenarioOnly": true,
+      "assumptions": {
+        "domesticWaterLitersPerPersonDay": 100,
+        "foodKgPerPersonDay": 0.8,
+        "electricityKwhPerPersonDay": 8,
+        "grossHousingM2PerPerson": 35,
+        "irrigationLitersPerCultivatedM2Day": 4,
+        "livestockWaterLitersPerHeadDay": 35,
+        "reserveFactor": 0.2,
+        "landAllocation": {
+          "housingAndServices": 0.2,
+          "foodOrchardsAndCrops": 0.25,
+          "grazingPastures": 0.3,
+          "ecologicalCommons": 0.15,
+          "waterAndUtilities": 0.1
+        }
+      },
+      "inputs": {
+        "population": 500,
+        "siteAreaM2": 100000,
+        "livestockHeads": 50
+      },
+      "areasM2": {
+        "housingAndServices": 20000,
+        "foodOrchardsAndCrops": 25000,
+        "grazingPastures": 30000,
+        "ecologicalCommons": 15000,
+        "waterAndUtilities": 10000
+      },
+      "dailyDemand": {
+        "domesticWaterLiters": 50000,
+        "irrigationWaterLiters": 100000,
+        "livestockWaterLiters": 1750,
+        "totalWaterWithReserveLiters": 182100,
+        "foodKg": 400,
+        "electricityKwh": 4800
+      },
+      "housing": {
+        "grossDemandM2": 17500,
+        "allocatedM2": 20000,
+        "areaMarginM2": 2500
+      },
+      "unresolvedEngineeringInputs": [
+        "CLIMATE_AND_EVAPOTRANSPIRATION",
+        "CROP_MIX_AND_YIELD",
+        "SOIL_INFILTRATION_AND_SALINITY",
+        "WATER_SOURCE_YIELD_AND_QUALITY",
+        "PASTURE_CARRYING_CAPACITY",
+        "BUILDING_DENSITY_AND_CODE",
+        "ENERGY_LOAD_PROFILE_AND_GENERATION",
+        "CAPEX_OPEX_AND_MAINTENANCE"
+      ],
+      "engineeringApproved": false
+    }
+  },
+  "worldlyCosmicScope": {
+    "system": "SHEIKHA_WORLDLY_COSMIC_SCOPE_V1",
+    "status": "TAXONOMY_ONLY_NOT_UNIVERSAL_OPERATIONAL_COVERAGE",
+    "scopes": [
+      {
+        "id": "EARTH_LOCAL",
+        "nameAr": "المواقع والمدن والأقاليم على الأرض",
+        "operationalWhen": "SITE_DATA_RIGHTS_INFRASTRUCTURE_AND_PERMITS_EXIST"
+      },
+      {
+        "id": "EARTH_GLOBAL",
+        "nameAr": "التنسيق العالمي للأرض",
+        "operationalWhen": "JURISDICTION_PROVIDER_AND_DATA_AGREEMENTS_EXIST"
+      },
+      {
+        "id": "NEAR_SPACE",
+        "nameAr": "المدارات والاتصالات الفضائية القريبة",
+        "operationalWhen": "LICENSED_SPACE_PROVIDER_GROUND_STATION_AND_PROTOCOL_EXIST"
+      },
+      {
+        "id": "OBSERVED_COSMOS",
+        "nameAr": "المعرفة الفلكية عن الكون المرصود",
+        "operationalWhen": "VERIFIED_SCIENTIFIC_DATA_AND_INSTRUMENT_EVIDENCE_EXIST"
+      },
+      {
+        "id": "UNSEEN_HEAVENS_AND_EARTHS",
+        "nameAr": "السماوات والأرضون في المرجع الشرعي",
+        "operationalWhen": "NEVER_AN_ENGINEERING_OR_CONTROL_CLAIM"
+      }
+    ],
+    "laws": [
+      "لا تتحول عالمية الاسم إلى ادعاء تغطية تقنية لكل الكون.",
+      "يمتد التشغيل فقط إلى مورد واتصال وعقد ودليل مثبت.",
+      "العلم الفلكي المرصود يفصل عن الخبر الشرعي المتعلق بالغيب.",
+      "لا سلطة للنظام على السماء أو الأرض أو البشر؛ يقدم أدوات محكومة فقط."
+    ],
+    "sacredBoundary": {
+      "system": "SHEIKHA_SACRED_UNSEEN_REFERENCE_BOUNDARY_V1",
+      "purposeAr": "إثبات المراجع للتذكير وطلب الجنة والدعاء دون تحويل الغيب إلى نموذج هندسي.",
+      "afterlifeIsBetterThanWorldlyDesign": true,
+      "actualJannahSimulationAllowed": false,
+      "unseenGeometryOrPhysicsInferred": false,
+      "worldlyNamesProveAfterlifeLikeness": false,
+      "generatedSacredImageryIsAuthoritative": false,
+      "automatedTafsirOrFatwa": false,
+      "qualifiedScholarReviewRequired": true,
+      "directCitationTextRequiresSourceVerification": true,
+      "references": [
+        {
+          "id": "QURAN_03_015",
+          "topicAr": "جنات وأنهار ورضوان الله",
+          "type": "QURAN_REFERENCE",
+          "explanatoryTextApproved": false
+        },
+        {
+          "id": "QURAN_09_072",
+          "topicAr": "جنات ومساكن طيبة ورضوان الله",
+          "type": "QURAN_REFERENCE",
+          "explanatoryTextApproved": false
+        },
+        {
+          "id": "QURAN_32_017",
+          "topicAr": "نعيم أخفي عن علم البشر",
+          "type": "QURAN_REFERENCE",
+          "explanatoryTextApproved": false
+        },
+        {
+          "id": "QURAN_43_071",
+          "topicAr": "ما تشتهيه الأنفس وتلذ الأعين",
+          "type": "QURAN_REFERENCE",
+          "explanatoryTextApproved": false
+        },
+        {
+          "id": "QURAN_47_015",
+          "topicAr": "مثل الجنة والأنهار المذكورة في القرآن",
+          "type": "QURAN_REFERENCE",
+          "explanatoryTextApproved": false
+        },
+        {
+          "id": "QURAN_65_012",
+          "topicAr": "سبع سماوات ومن الأرض مثلهن",
+          "type": "QURAN_REFERENCE",
+          "explanatoryTextApproved": false
+        },
+        {
+          "id": "QURAN_76_012_022",
+          "topicAr": "الجنة والنعيم والشراب والجزاء",
+          "type": "QURAN_REFERENCE_RANGE",
+          "explanatoryTextApproved": false
+        }
+      ]
+    }
+  },
+  "metrics": {
+    "totalPlots": 4,
+    "activePlots": 3,
+    "harvestReadyPlots": 0,
+    "propagationReadyPlots": 0
+  },
+  "plots": [
+    {
+      "id": "COMMERCIAL_PRODUCTS_ORCHARD",
+      "nameAr": "جنة المنتجات النافعة",
+      "owner": "SHEIKHA_COMMERCIAL_OWNER",
+      "path": "SEED_FROM_SCRATCH",
+      "pathDefinition": {
+        "sourceAr": "بذرة مملوكة أو منشأة من الصفر",
+        "speed": "LONG",
+        "requirement": "OWNED_OR_PERMISSIVELY_LICENSED_FOUNDATIONS"
+      },
+      "stage": "NURSERY_EXPERIMENT",
+      "nursery": {
+        "ready": true,
+        "blockers": []
+      },
+      "harvest": {
+        "ready": false,
+        "blockers": [
+          "DELIVERY_EVIDENCE_REQUIRED"
+        ]
+      },
+      "propagation": {
+        "allowed": false,
+        "blockers": [
+          "DELIVERY_EVIDENCE_REQUIRED",
+          "REPRODUCIBILITY_REQUIRED"
+        ]
+      },
+      "continuousOperation": {
+        "automaticUnboundedTraining": false,
+        "automaticUnboundedSpending": false,
+        "recheckAllowed": true,
+        "safeHoldPreservesOtherPlots": true
+      }
+    },
+    {
+      "id": "ARABIC_MODEL_ORCHARD",
+      "nameAr": "جنة النموذج العربي",
+      "owner": "SHEIKHA_AI_GOVERNOR",
+      "path": "GOVERNED_GRAFT",
+      "pathDefinition": {
+        "sourceAr": "تطعيم أصل مرخص بأدوات أو بيانات أو موائمات شيخة",
+        "speed": "FASTEST_CONTROLLED",
+        "requirement": "COMPATIBILITY_RIGHTS_AND_EVALUATION_VERIFIED"
+      },
+      "stage": "NURSERY_EXPERIMENT",
+      "nursery": {
+        "ready": true,
+        "blockers": []
+      },
+      "harvest": {
+        "ready": false,
+        "blockers": [
+          "QUALITY_EVIDENCE_REQUIRED",
+          "DELIVERY_EVIDENCE_REQUIRED",
+          "COMMERCIAL_APPROVAL_REQUIRED"
+        ]
+      },
+      "propagation": {
+        "allowed": false,
+        "blockers": [
+          "QUALITY_EVIDENCE_REQUIRED",
+          "DELIVERY_EVIDENCE_REQUIRED",
+          "COMMERCIAL_APPROVAL_REQUIRED",
+          "UNIT_ECONOMICS_REQUIRED"
+        ]
+      },
+      "continuousOperation": {
+        "automaticUnboundedTraining": false,
+        "automaticUnboundedSpending": false,
+        "recheckAllowed": true,
+        "safeHoldPreservesOtherPlots": true
+      }
+    },
+    {
+      "id": "SYSTEM_KERNEL_ORCHARD",
+      "nameAr": "جنة النظام والنواة",
+      "owner": "SHEIKHA_SYSTEM_ENGINEERING",
+      "path": "SEED_FROM_SCRATCH",
+      "pathDefinition": {
+        "sourceAr": "بذرة مملوكة أو منشأة من الصفر",
+        "speed": "LONG",
+        "requirement": "OWNED_OR_PERMISSIVELY_LICENSED_FOUNDATIONS"
+      },
+      "stage": "NURSERY_EXPERIMENT",
+      "nursery": {
+        "ready": true,
+        "blockers": []
+      },
+      "harvest": {
+        "ready": false,
+        "blockers": [
+          "DELIVERY_EVIDENCE_REQUIRED"
+        ]
+      },
+      "propagation": {
+        "allowed": false,
+        "blockers": [
+          "DELIVERY_EVIDENCE_REQUIRED",
+          "UNIT_ECONOMICS_REQUIRED"
+        ]
+      },
+      "continuousOperation": {
+        "automaticUnboundedTraining": false,
+        "automaticUnboundedSpending": false,
+        "recheckAllowed": true,
+        "safeHoldPreservesOtherPlots": true
+      }
+    },
+    {
+      "id": "LICENSED_KNOWLEDGE_PASTURE",
+      "nameAr": "مرعى المعرفة المرخصة",
+      "owner": "SHEIKHA_DATA_GOVERNANCE",
+      "path": "LICENSED_TRANSPLANT",
+      "pathDefinition": {
+        "sourceAr": "أصل نام مرخص يعاد غرسه وتكييفه",
+        "speed": "FAST",
+        "requirement": "UPSTREAM_LICENSE_AND_PROVENANCE_VERIFIED"
+      },
+      "stage": "SOIL_PREPARATION",
+      "nursery": {
+        "ready": false,
+        "blockers": [
+          "RIGHTS_AND_LICENSE_REQUIRED",
+          "PROVENANCE_REQUIRED"
+        ]
+      },
+      "harvest": {
+        "ready": false,
+        "blockers": [
+          "RIGHTS_AND_LICENSE_REQUIRED",
+          "PROVENANCE_REQUIRED",
+          "QUALITY_EVIDENCE_REQUIRED",
+          "DELIVERY_EVIDENCE_REQUIRED"
+        ]
+      },
+      "propagation": {
+        "allowed": false,
+        "blockers": [
+          "RIGHTS_AND_LICENSE_REQUIRED",
+          "PROVENANCE_REQUIRED",
+          "QUALITY_EVIDENCE_REQUIRED",
+          "DELIVERY_EVIDENCE_REQUIRED",
+          "REPRODUCIBILITY_REQUIRED",
+          "UNIT_ECONOMICS_REQUIRED"
+        ]
+      },
+      "continuousOperation": {
+        "automaticUnboundedTraining": false,
+        "automaticUnboundedSpending": false,
+        "recheckAllowed": true,
+        "safeHoldPreservesOtherPlots": true
+      }
+    }
+  ],
+  "evidence": {
+    "generatedAt": "2026-08-31T13:22:18.687Z",
+    "sourceSha256": "5b1d36a1eee37168bdbe32fd8f212ec0ad752569ee1ec5a82fed0296c56eaf08",
+    "sourceStatuses": {
+      "commercial": "PORTFOLIO_DEFINED_FIRST_CUSTOMER_EXECUTION_REQUIRED",
+      "arabicModel": "PROMOTION_REJECTED",
+      "systemKernel": "INTEGRATED_ROADMAP_ACTIVE_QEMU_FOUNDATION_PHYSICAL_BOOT_PENDING"
+    }
+  }
+}

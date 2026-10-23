@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_NAMED_BOARD_PACKAGE_QUALIFICATION_V1",
+  "boardPackage": "SFP_BOARD_MSI_PULSE_16_AI_C1VFKG_V1",
+  "status": "BOARD_SEED_EVIDENCE_VERIFIED_BSP_AND_RECOVERY_PENDING",
+  "generatedAt": "2026-09-10T13:41:15.522Z",
+  "bindingMatches": true,
+  "evidenceRecordsValid": true,
+  "seedVerified": true,
+  "implementation": {
+    "verifiedUnits": [
+      "BOARD_ID_AND_REVISION_MATCH",
+      "REMOVABLE_MEDIA_UEFI_BOOT",
+      "POST_EXIT_BOOT_SERVICES_HANDOFF"
+    ],
+    "pendingUnits": [
+      {
+        "id": "SILICON_INITIALIZATION_PACKAGE",
+        "state": "LICENSE_AND_IMPLEMENTATION_REQUIRED"
+      },
+      {
+        "id": "BOARD_ACPI_TABLES",
+        "state": "IMPLEMENTATION_AND_VALIDATION_REQUIRED"
+      },
+      {
+        "id": "BOARD_SMBIOS_TABLES",
+        "state": "IMPLEMENTATION_AND_VALIDATION_REQUIRED"
+      },
+      {
+        "id": "DEVICE_ENABLEMENT_MATRIX",
+        "state": "IMPLEMENTATION_AND_VALIDATION_REQUIRED"
+      },
+      {
+        "id": "SIGNED_CAPSULE_UPDATE",
+        "state": "IMPLEMENTATION_AND_KEY_CEREMONY_REQUIRED"
+      },
+      {
+        "id": "NON_DESTRUCTIVE_RECOVERY_DRILL",
+        "state": "PHYSICAL_LAB_REQUIRED"
+      }
+    ],
+    "completedBsp": false
+  },
+  "recovery": {
+    "contract": "SHEIKHA_NAMED_BOARD_RECOVERY_CONTRACT_V1",
+    "failClosed": true,
+    "physicalDrillCompleted": false,
+    "productionReleasePermitted": false
+  },
+  "safeNextAction": "IMPLEMENT_ACPI_SMBIOS_AND_DEVICE_INVENTORY_WITHOUT_PHYSICAL_FIRMWARE_WRITE",
+  "evidence": {
+    "path": "runtime/bare-metal/v2/evidence/physical-hardware-boot-verification.json",
+    "sha256": "8e4f0b32f7d8b0686b53ffcf4f282bfc4b9a5ebbd986f94905f99481427e101c"
+  },
+  "reportSha256": "391721e6e4671adb16bc8c0a87dea4541c480bee7fae9a164e137258affc00da"
+}

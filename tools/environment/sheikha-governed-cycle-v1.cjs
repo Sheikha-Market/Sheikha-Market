@@ -1,0 +1,16 @@
+"use strict";
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),cp=require('node:child_process');
+const root=path.resolve(__dirname,'../..');
+if(process.argv.length>3||process.argv[2]&&process.argv[2]!=='--write')throw Error('MODE_DENIED');
+const architecture=require('../../core/os/sheikha-os-integration-v1.cjs').inspect();
+const brain=require('../../core/research/sheikha-research-brain-v1.cjs');
+const portfolio=require('../../core/innovation/sheikha-portfolio-monitor-v1.cjs');
+const methods=brain.METHODS.map(method=>brain.plan({question:'كيف نؤهل قدرات شيخة بأدلة قابلة للفحص؟',method,evidenceIds:[]}));
+const monitor=new portfolio.LocalMonitor();[2,4,6].forEach((value,sequence)=>monitor.ingest({sequence,tick:0,channel:'load',unit:'kg',value}));monitor.advance(4);
+const testFiles=['tests/sheikha-os-integration-v1.test.cjs','tests/sheikha-research-brain-v1.test.cjs','tests/sheikha-portfolio-monitor-v1.test.cjs'];
+const tests=cp.spawnSync(process.execPath,['--test','--test-isolation=none','--test-reporter=spec',...testFiles],{cwd:root,encoding:'utf8',timeout:15000,maxBuffer:65536});
+if(tests.error||tests.status!==0)throw Error('LOCAL_TESTS_FAILED');
+const sources=[architecture.source,'core/os/sheikha-os-integration-v1.cjs','core/research/sheikha-research-brain-v1.cjs','core/research/sheikha-methodology-catalog-v1.json','core/innovation/sheikha-portfolio-monitor-v1.cjs','tools/environment/sheikha-governed-cycle-v1.cjs',...testFiles];
+const report={timestamp:new Date().toISOString(),status:'BOUNDED_GOVERNED_CYCLE_COMPLETED',architecture,management:{programs:portfolio.PROGRAMS,tasks:architecture.layers.map(l=>({id:l.id,acceptance:l.properties['معيار_الإثبات'],owner:'UNASSIGNED',fullQualification:'PENDING_INDEPENDENT_EVIDENCE',gate:'LOCAL_DESIGN_AND_PROBES_ONLY'})),promotionEnabled:false},research:{plans:methods,executedAnalysis:brain.summarize([2,4,6]),sampleSource:'SYNTHETIC',allScientificMethodsExecuted:false},monitoring:monitor.status(),innovation:portfolio.proposePrograms({problem:'تحسين كفاءة الموارد ضمن برامج شيخة',metric:'استهلاك الموارد لكل مهمة ناجحة'}),tests:{exitCode:tests.status,output:tests.stdout},sourceDigests:Object.fromEntries(sources.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,f))).digest('hex')])),governance:{values:'QURAN_AND_SUNNAH_NO_HARM_REQUESTED_REFERENCE',independentShariaReview:'UNKNOWN',legalCertification:'UNKNOWN',servicesChanged:false,networkChanged:false,physicalActuation:false,authorityGranted:false}};
+let evidence=null;if(process.argv[2]==='--write'){const dir=path.join(root,'runtime/sheikha-governed-cycle/v1',String(Date.now()));fs.mkdirSync(dir,{recursive:true,mode:0o700});evidence=path.join(dir,'verification.json');fs.writeFileSync(evidence,JSON.stringify(report,null,2)+'\n',{mode:0o600,flag:'wx'});const hash=crypto.createHash('sha256').update(fs.readFileSync(evidence)).digest('hex');fs.writeFileSync(path.join(dir,'SHA256SUMS'),hash+'  verification.json\n',{mode:0o600,flag:'wx'});}
+console.log(JSON.stringify({status:report.status,architectureLayers:architecture.layers.length,programs:portfolio.PROGRAMS.length,methodPlans:methods.length,executedAnalysis:report.research.executedAnalysis,monitorGuard:report.monitoring.guard,testsPassed:tests.status===0,evidence,allScientificMethodsExecuted:false}));

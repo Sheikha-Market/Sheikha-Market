@@ -1,0 +1,62 @@
+{
+  "schema": "SHEIKHA_CREATION_STEWARDSHIP_EARTH_BINDINGS_V1",
+  "bindingMode": "REFERENCE_ONLY",
+  "foundationContract": "../../stewardship/earth-revival.contract.json",
+  "worldDomain": "../../world/earth/earth.domain.json",
+  "bindings": [
+    {
+      "path": "core/comms/sheikha-waterline.js",
+      "role": "water-domain integration"
+    },
+    {
+      "path": "core/gardens-dialogue/sheikha-pastures-orchards-cultivation-runtime-v1.js",
+      "role": "pastures/orchards/cultivation runtime"
+    },
+    {
+      "path": "core/kernel/resources/runtime/sheikha-runtime-resource-fabric.js",
+      "role": "resource runtime fabric"
+    },
+    {
+      "path": "docs/canonical/environment/SHEIKHA-ENVIRONMENT-GOVERNANCE.md",
+      "role": "environment governance canon"
+    },
+    {
+      "path": "routes/sheikha-environment.js",
+      "role": "environment route binding"
+    },
+    {
+      "path": "runtime/electronic-agriculture-farm-fabric/v124/sheikha-electronic-agriculture-farm-fabric-v124.js",
+      "role": "agriculture/farm runtime"
+    },
+    {
+      "path": "runtime/environment/policy/environment-governance-policy.json",
+      "role": "environment governance policy"
+    },
+    {
+      "path": "runtime/global-resource-graph-v2/v1/sheikha-global-resource-graph-v2.json",
+      "role": "global resource graph"
+    },
+    {
+      "path": "runtime/jannat-gardens/v4/sheikha-pastures-orchards-cultivation-v1.json",
+      "role": "pastures/orchards/cultivation garden"
+    },
+    {
+      "path": "runtime/living-digital-twin-agriculture-fabric/v125/sheikha-living-digital-twin-agriculture-fabric-v125.js",
+      "role": "agriculture digital twin"
+    },
+    {
+      "path": "runtime/planetary-resource-fabric/v77/sheikha-planetary-resource-fabric-v77.js",
+      "role": "planetary resource fabric"
+    },
+    {
+      "path": "runtime/resource-source-registry/v1/sheikha-resource-source-registry-v1.json",
+      "role": "resource source registry"
+    }
+  ],
+  "rules": {
+    "moveSource": false,
+    "renameSource": false,
+    "duplicateSource": false,
+    "executeSource": false
+  }
+}

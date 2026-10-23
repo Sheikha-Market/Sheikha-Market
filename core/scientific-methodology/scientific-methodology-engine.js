@@ -62,32 +62,46 @@ function getScientificMethodologyEngine() {
 }
 
 function runMethodologyPipeline(input = {}) {
-  const text = String(input.text || '').trim();
-  const domain = input.domain || 'general';
-
-  const evidenceScore = text.length > 20 ? 100 : 60;
+  if (!input || typeof input !== 'object' || Array.isArray(input)) throw new TypeError('STRUCTURED_METHODOLOGY_INPUT_REQUIRED');
+  const validText = value => typeof value === 'string' && value.trim().length > 0 && value.length <= 10000;
+  const text = typeof input.text === 'string' ? input.text.trim() : '';
+  if (text.length > 10000) throw new RangeError('METHODOLOGY_TEXT_TOO_LONG');
+  const domain = validText(input.domain) ? input.domain : 'general';
+  const protocol = input.protocol && typeof input.protocol === 'object' && !Array.isArray(input.protocol) ? input.protocol : {};
+  const requiredText = ['question', 'hypothesis', 'scope', 'measurement', 'validation', 'limitations', 'ownerId', 'revision'];
+  const requiredLists = ['definitions', 'assumptions', 'procedure', 'references'];
+  const missingFields = [
+    ...requiredText.filter(key => !validText(protocol[key])),
+    ...requiredLists.filter(key => !Array.isArray(protocol[key]) || protocol[key].length === 0 || protocol[key].length > 100 || !protocol[key].every(validText))
+  ];
+  const completenessScore = Math.round(100 * (1 - missingFields.length / (requiredText.length + requiredLists.length)));
+  // Structural coverage and keyword presence are not evidence of truth.
   const quranSunnahReference = /quran|sunnah|القرآن|السنة|الكتاب|حديث|آية/i.test(text);
-  const completenessScore = text.length > 80 ? 100 : 70;
 
   return {
     system: methodologyEngine.system,
-    status: 'RECORDED',
+    status: missingFields.length ? 'PROTOCOL_INCOMPLETE' : 'STRUCTURED_DRAFT_REQUIRES_SCIENTIFIC_REVIEW',
     domain,
     steps: methodologyEngine.productionLine,
     record: {
       inputLength: text.length,
-      evidenceScore,
+      evidenceScore: null,
       completenessScore,
+      completenessMeaning: 'REQUIRED_PROTOCOL_FIELD_COVERAGE_ONLY',
+      missingFields,
+      scientificValidityVerified: false,
+      referencesVerified: false,
+      religiousRulingIssued: false,
       improvementNeeded: completenessScore < 100,
       quranSunnahReference,
-      monitoringStatus: 'ACTIVE',
-      measurementStatus: 'ACTIVE',
-      knowledgeTransferStatus: 'READY',
+      monitoringStatus: 'NOT_CONNECTED',
+      measurementStatus: 'NOT_EXECUTED',
+      knowledgeTransferStatus: missingFields.length ? 'DRAFT_INCOMPLETE' : 'DRAFT_REQUIRES_EDUCATOR_REVIEW',
       scienceRenewalStatus: 'CONTROLLED_PROPOSAL_ONLY',
       recommendation:
         completenessScore < 100
-          ? 'Add more evidence, definitions, measurements, and validation criteria.'
-          : 'Methodology input is suitable for structured validation.'
+          ? 'Complete the explicit protocol fields; adding prose does not supply evidence.'
+          : 'Review sources, rights, measurement, reproducibility and educational safety before use.'
     }
   };
 }

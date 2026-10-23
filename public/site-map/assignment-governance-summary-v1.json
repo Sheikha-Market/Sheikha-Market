@@ -1,0 +1,275 @@
+{
+  "system": "SHEIKHA_ASSIGNMENT_GOVERNANCE_SUMMARY_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "READ_ONLY_END_TO_END_GOVERNANCE_SUMMARY",
+  "governance": {
+    "summaryOnly": true,
+    "noMutation": true,
+    "noAutomaticAuthorization": true,
+    "noAutomaticAssignment": true,
+    "noAutomaticRecovery": true,
+    "verifiedStatusSeparatedFromWorkflowState": true,
+    "nextAllowedActionMustBeNonMutating": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "workflowState": "AWAITING_REVIEWER_ASSIGNMENT",
+  "nextAllowedAction": "PROPOSE_REVIEWER_ASSIGNMENT_PREVIEW_AFTER_EXPLICIT_IDENTITY_AND_ROLE_INPUT",
+  "summary": {
+    "stages": 13,
+    "clearSystemStages": 13,
+    "stagesWithBlockers": 9,
+    "blockerCount": 10,
+    "activeReviewerAssignments": 0,
+    "authorizedConnectors": 0,
+    "liveVerifiedConnectors": 0,
+    "assignmentDriftDetected": 0,
+    "automaticMutationsPerformed": 0
+  },
+  "blockers": [
+    {
+      "stage": "INTEGRATION_FABRIC",
+      "blocker": "NO_LIVE_EXTERNAL_CONNECTION_EVIDENCE"
+    },
+    {
+      "stage": "AUTHORITY_MATRIX",
+      "blocker": "NO_EXTERNAL_MUTATION_AUTHORITY"
+    },
+    {
+      "stage": "IDENTITY_EVIDENCE_BINDING",
+      "blocker": "NO_OWNER_IDENTITIES_ASSIGNED"
+    },
+    {
+      "stage": "IDENTITY_EVIDENCE_BINDING",
+      "blocker": "AUTHORIZATION_EVIDENCE_MISSING"
+    },
+    {
+      "stage": "AUTHORIZATION_PROMOTION_GATE",
+      "blocker": "NO_CONNECTOR_ELIGIBLE_FOR_HUMAN_AUTHORIZATION_REVIEW"
+    },
+    {
+      "stage": "EVIDENCE_INTAKE_REVIEW",
+      "blocker": "NO_EVIDENCE_CANDIDATES_IN_QUEUE"
+    },
+    {
+      "stage": "REVIEWER_AUTHORITY_REGISTRY",
+      "blocker": "NO_REVIEWER_ASSIGNMENTS"
+    },
+    {
+      "stage": "REVIEWER_ASSIGNMENT_PROPOSAL_GATE",
+      "blocker": "NO_REVIEWER_ASSIGNMENT_PROPOSALS"
+    },
+    {
+      "stage": "MANUAL_ASSIGNMENT_COMMIT_GATE",
+      "blocker": "NO_PERSISTED_PROPOSAL_AND_RATIFICATION"
+    },
+    {
+      "stage": "REVIEWER_ASSIGNMENT_WRITE_PLAN",
+      "blocker": "NO_ELIGIBLE_WRITE_PLAN"
+    }
+  ],
+  "stages": [
+    {
+      "id": "MASTER_ENGINE_REGISTRY",
+      "labelAr": "سجل المحركات الرئيسي",
+      "systemStatus": "CLEAR",
+      "workflowState": "READY",
+      "evidence": {
+        "coreEngines": 28,
+        "optionalEngines": 25,
+        "runtimeMissingFromMaster": 0,
+        "criticalMissingFiles": 0
+      },
+      "blockers": [],
+      "nextAllowedAction": "READ_ONLY_CONTINUE_TO_ENGINE_HEALTH"
+    },
+    {
+      "id": "ENGINE_HEALTH",
+      "labelAr": "صحة المحركات والتوجيه",
+      "systemStatus": "CLEAR",
+      "workflowState": "READY",
+      "evidence": {
+        "referencedEngines": 22,
+        "unresolvedReferencedEngines": 0,
+        "routeIntentConflicts": 0,
+        "missingFromMasterRegistry": 0
+      },
+      "blockers": [],
+      "nextAllowedAction": "READ_ONLY_CONTINUE_TO_INTEGRATION"
+    },
+    {
+      "id": "INTEGRATION_FABRIC",
+      "labelAr": "تكامل المحركات والموصلات",
+      "systemStatus": "CLEAR",
+      "workflowState": "READINESS_ONLY",
+      "evidence": {
+        "engines": 28,
+        "mcpContractReady": true,
+        "sdkContractReady": true,
+        "connectorProfiles": 13,
+        "liveExternalConnections": 0
+      },
+      "blockers": [
+        "NO_LIVE_EXTERNAL_CONNECTION_EVIDENCE"
+      ],
+      "nextAllowedAction": "READ_ONLY_INSPECT_CONNECTOR_READINESS"
+    },
+    {
+      "id": "AUTHORITY_MATRIX",
+      "labelAr": "مصفوفة الصلاحيات والقدرات",
+      "systemStatus": "CLEAR",
+      "workflowState": "DEFAULT_DENY",
+      "evidence": {
+        "connectorCapabilityRecords": 33,
+        "liveExternalReads": 0,
+        "externalMutationsAuthorized": 0
+      },
+      "blockers": [
+        "NO_EXTERNAL_MUTATION_AUTHORITY"
+      ],
+      "nextAllowedAction": "READ_ONLY_INSPECT_CAPABILITY_BOUNDARIES"
+    },
+    {
+      "id": "IDENTITY_EVIDENCE_BINDING",
+      "labelAr": "هوية وأدلة الموصلات",
+      "systemStatus": "CLEAR",
+      "workflowState": "EVIDENCE_INCOMPLETE",
+      "evidence": {
+        "bindings": 33,
+        "identitiesBound": 33,
+        "ownerIdentitiesAssigned": 0,
+        "authorized": 0,
+        "liveVerified": 0
+      },
+      "blockers": [
+        "NO_OWNER_IDENTITIES_ASSIGNED",
+        "AUTHORIZATION_EVIDENCE_MISSING"
+      ],
+      "nextAllowedAction": "READ_ONLY_INSPECT_IDENTITY_EVIDENCE_GAPS"
+    },
+    {
+      "id": "AUTHORIZATION_PROMOTION_GATE",
+      "labelAr": "بوابة ترقية التفويض",
+      "systemStatus": "CLEAR",
+      "workflowState": "REVIEW_REQUIRED",
+      "evidence": {
+        "connectorsEvaluated": 33,
+        "review": 33,
+        "eligible": 0,
+        "authorizationsGranted": 0
+      },
+      "blockers": [
+        "NO_CONNECTOR_ELIGIBLE_FOR_HUMAN_AUTHORIZATION_REVIEW"
+      ],
+      "nextAllowedAction": "COMPLETE_EVIDENCE_AND_REVIEWER_REQUIREMENTS"
+    },
+    {
+      "id": "EVIDENCE_INTAKE_REVIEW",
+      "labelAr": "إدخال ومراجعة الأدلة",
+      "systemStatus": "CLEAR",
+      "workflowState": "EMPTY_QUEUE",
+      "evidence": {
+        "records": 0,
+        "pending": 0,
+        "verifiedApproved": 0,
+        "approvedLedgerRecords": 0
+      },
+      "blockers": [
+        "NO_EVIDENCE_CANDIDATES_IN_QUEUE"
+      ],
+      "nextAllowedAction": "PREPARE_EVIDENCE_INTAKE_PREVIEW"
+    },
+    {
+      "id": "REVIEWER_AUTHORITY_REGISTRY",
+      "labelAr": "سجل صلاحيات المراجعين",
+      "systemStatus": "CLEAR",
+      "workflowState": "NO_ASSIGNMENTS",
+      "evidence": {
+        "authorityRoles": 4,
+        "assignments": 0,
+        "invalidAssignments": 0
+      },
+      "blockers": [
+        "NO_REVIEWER_ASSIGNMENTS"
+      ],
+      "nextAllowedAction": "PROPOSE_REVIEWER_ASSIGNMENT_PREVIEW"
+    },
+    {
+      "id": "REVIEWER_ASSIGNMENT_PROPOSAL_GATE",
+      "labelAr": "بوابة اقتراح تعيين المراجعين",
+      "systemStatus": "CLEAR",
+      "workflowState": "NO_PROPOSALS",
+      "evidence": {
+        "proposals": 0,
+        "ratifications": 0,
+        "approvedAssignmentPreviews": 0,
+        "assignmentsCreatedByGate": 0
+      },
+      "blockers": [
+        "NO_REVIEWER_ASSIGNMENT_PROPOSALS"
+      ],
+      "nextAllowedAction": "PROPOSAL_PREVIEW_ONLY_UNTIL_EXPLICIT_HUMAN_RATIFICATION"
+    },
+    {
+      "id": "MANUAL_ASSIGNMENT_COMMIT_GATE",
+      "labelAr": "بوابة الكتابة اليدوية للتعيين",
+      "systemStatus": "CLEAR",
+      "workflowState": "CLOSED_DEFAULT_DENY",
+      "evidence": {
+        "assignmentRecords": 0,
+        "proposalRecords": 0,
+        "ratificationRecords": 0,
+        "assignmentsWrittenByGate": 0,
+        "currentRegistrySha256": "a599798c04cec3f81c7c7b34a222bb290b7c67816fbec3c2e83f4fa44d9eca22"
+      },
+      "blockers": [
+        "NO_PERSISTED_PROPOSAL_AND_RATIFICATION"
+      ],
+      "nextAllowedAction": "EVALUATE_MANUAL_COMMIT_ONLY_AFTER_PERSISTED_HUMAN_RATIFICATION"
+    },
+    {
+      "id": "REVIEWER_ASSIGNMENT_WRITE_PLAN",
+      "labelAr": "خطة كتابة تعيين المراجع",
+      "systemStatus": "CLEAR",
+      "workflowState": "PREVIEW_ONLY",
+      "evidence": {
+        "assignmentRecords": 0,
+        "persistedPlans": 0,
+        "writesPerformedByPlanner": 0
+      },
+      "blockers": [
+        "NO_ELIGIBLE_WRITE_PLAN"
+      ],
+      "nextAllowedAction": "GENERATE_DETERMINISTIC_PATCH_PREVIEW_ONLY_WHEN_COMMIT_GATE_ELIGIBLE"
+    },
+    {
+      "id": "ASSIGNMENT_AUDIT_DRIFT_GUARD",
+      "labelAr": "تدقيق وانحراف سجل التعيين",
+      "systemStatus": "CLEAR",
+      "workflowState": "NO_DRIFT",
+      "evidence": {
+        "auditRecords": 1,
+        "driftDetected": 0,
+        "auditChainBreaks": 0,
+        "auditEvidenceGaps": 0
+      },
+      "blockers": [],
+      "nextAllowedAction": "READ_ONLY_MONITOR_ASSIGNMENT_REGISTRY"
+    },
+    {
+      "id": "RECOVERY_RECONCILIATION_PLAN",
+      "labelAr": "خطة الاستعادة والمصالحة",
+      "systemStatus": "CLEAR",
+      "workflowState": "STANDBY_CLEAR",
+      "evidence": {
+        "driftDetected": 0,
+        "proposedActions": 0,
+        "automaticRepairsPerformed": 0,
+        "automaticRollbacksPerformed": 0,
+        "baselineRefreshesPerformed": 0
+      },
+      "blockers": [],
+      "nextAllowedAction": "NO_RECOVERY_ACTION_REQUIRED"
+    }
+  ]
+}

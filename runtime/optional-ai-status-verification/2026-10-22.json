@@ -1,0 +1,53 @@
+{
+  "verifiedOn": "2026-10-22",
+  "timezone": "Asia/Riyadh",
+  "scope": "OPTIONAL_AI_STATUS_ROUTES_AND_ISOLATED_SERVER_SMOKE",
+  "tests": {
+    "nodePassed": 12,
+    "jestPassed": 16,
+    "failed": 0
+  },
+  "container": {
+    "tag": "localhost/sheikha-main-portal:ai-status-smoke-20261022",
+    "id": "d24ef27ed3ccdf7f8555852e43ea23b2605b776306bb10a81d94a557334fd69c",
+    "node": "v20.20.2",
+    "buildProfile": "TEMPORARY_ISOLATED_SMOKE_PROFILE_NOT_ROOT_DOCKERFILE",
+    "externalNetwork": false,
+    "hostFilesMounted": false,
+    "devicesMounted": false,
+    "hostPortPublished": false,
+    "credentials": "EPHEMERAL_SYNTHETIC_NOT_SAVED",
+    "timeoutSeconds": 20,
+    "timeoutExitCode": 124,
+    "runningAfterTest": false
+  },
+  "requestedFlags": {
+    "SHEIKHA_ENABLE_ALL_ENGINES": "true",
+    "SHEIKHA_LOCALMIND_BOOT": "true",
+    "SHEIKHA_ENABLE_CRON": "true"
+  },
+  "sourceHashes": {
+    "server.js": "92dd7a9e3ef22f1d9daaea01ac2be056bb8960d38d253f6629fe1b6880b2bb3c",
+    "lib/fabric-bootstrap/optional-ai-status-routes.js": "d660c1a1aa8bbce35ff64d786ec1d77e8c4c5321d269c3edf7d34d28f81475dc",
+    "lib/fabric-bootstrap/fabric-bootstrap-loader.js": "d2124f4dc79a83d1d771685fc1406de3a4512843803efddac99e3a0d5bb664b6"
+  },
+  "serverHttpChecks": [
+    { "path": "/api/research/agi-asi-science-fabric/status", "status": 200, "success": true },
+    { "path": "/api/intelligence/integration-fabric/status", "status": 200, "success": true },
+    { "path": "/api/sdk-fabric-mcp/integration/status", "status": 200, "success": true }
+  ],
+  "isolatedRouterChecks": {
+    "enabledStatus": 200,
+    "disabledStatus": 404,
+    "postStatus": 404,
+    "pathsChecked": 3
+  },
+  "limitations": [
+    "NO_PERMANENT_SERVICE_OR_DEPLOYMENT",
+    "NO_REAL_AGI_OR_ASI_CLAIM",
+    "NO_EXTERNAL_PROVIDER_VERIFICATION",
+    "NO_SCHEDULED_CYCLE_VERIFICATION",
+    "ROOT_BUILD_FILES_CHANGED_CONCURRENTLY_NOT_CERTIFIED",
+    "DEPENDENCY_SECURITY_REVIEW_REMAINS_REQUIRED"
+  ]
+}

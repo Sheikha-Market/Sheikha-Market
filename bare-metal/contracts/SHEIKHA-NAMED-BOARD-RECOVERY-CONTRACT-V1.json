@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_NAMED_BOARD_RECOVERY_CONTRACT_V1",
+  "status": "ACTIVE_DESIGN_NOT_PHYSICALLY_DRILLED",
+  "defaultAuthorization": "DENY",
+  "scope": "NAMED_BOARD_FIRMWARE_LAB_ONLY",
+  "preconditions": [
+    "EXACT_BOARD_AND_REVISION_MATCH",
+    "KNOWN_GOOD_VENDOR_IMAGE_ARCHIVED_AND_HASHED",
+    "EXTERNAL_PROGRAMMER_COMPATIBILITY_CONFIRMED",
+    "READBACK_BACKUP_VERIFIED_BEFORE_WRITE",
+    "POWER_FAILURE_SCENARIO_DOCUMENTED",
+    "SIGNED_CANDIDATE_BOUND_TO_BOARD",
+    "HUMAN_FLASH_APPROVAL"
+  ],
+  "recoveryPaths": [
+    "VENDOR_SUPPORTED_RECOVERY",
+    "DUAL_BANK_OR_KNOWN_GOOD_FALLBACK_WHEN_HARDWARE_SUPPORTS_IT",
+    "EXTERNAL_SPI_READBACK_AND_RESTORE"
+  ],
+  "abortConditions": [
+    "BOARD_ID_MISMATCH",
+    "BACKUP_HASH_MISMATCH",
+    "RECOVERY_TOOL_UNAVAILABLE",
+    "POWER_NOT_STABLE",
+    "SIGNATURE_OR_MANIFEST_MISMATCH",
+    "UNKNOWN_FLASH_TOPOLOGY"
+  ],
+  "automaticFlash": false,
+  "remoteUnattendedFirstFlash": false,
+  "physicalRecoveryDrillCompleted": false,
+  "productionReleasePermitted": false
+}

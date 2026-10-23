@@ -1,0 +1,54 @@
+{
+  "system": "SHEIKHA_VISUAL_SPATIAL_INTELLIGENCE_FABRIC_SPEC_V1",
+  "version": "1.0.0",
+  "runtime": {
+    "bind": "127.0.0.1:8093",
+    "nodeStdlibOnly": true,
+    "externalNetworkDefault": false
+  },
+  "qualityTargets": {
+    "stillImages": [
+      "up-to-16K design target; hardware dependent"
+    ],
+    "video": [
+      "24-120fps design profiles",
+      "up-to-8K offline adapter target; not activation-verified"
+    ],
+    "xr": [
+      "72/90/120Hz design profiles; device validation required"
+    ],
+    "color": [
+      "sRGB",
+      "Display-P3",
+      "Rec.709",
+      "Rec.2020",
+      "HDR adapter contracts"
+    ],
+    "geometry": [
+      "float64 math",
+      "2D",
+      "3D",
+      "volumetric adapters"
+    ]
+  },
+  "actualV1Implementations": [
+    "animated SVG generation",
+    "PNG procedural image generation",
+    "scene graph contracts",
+    "policy gate",
+    "license registry",
+    "XR/video control-plane contracts"
+  ],
+  "notClaimed": [
+    "trained video foundation model",
+    "commercial codec license",
+    "hardware benchmark superiority",
+    "living or conscious software"
+  ],
+  "integrations": [
+    "Sheikha Gardens",
+    "Sheikha Farms",
+    "Sheikha Pastures",
+    "Sheikha Runtime Apex sidecar bridge"
+  ]
+}

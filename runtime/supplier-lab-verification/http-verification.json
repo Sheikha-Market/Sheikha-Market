@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-22T03:45:50.185Z",
+  "scope": "LOCAL_SYNTHETIC_PROTOTYPE_ONLY",
+  "checks": [
+    {
+      "requirementId": "supplier-package--acceptance-1",
+      "path": "/api/suppliers",
+      "collection": "suppliers",
+      "fullList": "PASS",
+      "emptyList": "PASS",
+      "sessionDenied": "PASS",
+      "arbitraryPathDenied": "PASS",
+      "responseDigest": "15d4a2e16431008848a0ca247f7e082a41d2aef05c8c4e6980b19e381556d0bd"
+    },
+    {
+      "requirementId": "supplier-package--acceptance-2",
+      "path": "/api/materials",
+      "collection": "materials",
+      "fullList": "PASS",
+      "emptyList": "PASS",
+      "sessionDenied": "PASS",
+      "arbitraryPathDenied": "PASS",
+      "responseDigest": "206973e9eb399b65a3e61223ee6070ee1140c15e9417f51f74205243f6320201"
+    },
+    {
+      "requirementId": "supplier-package--acceptance-3",
+      "path": "/api/documents",
+      "collection": "documents",
+      "fullList": "PASS",
+      "emptyList": "PASS",
+      "sessionDenied": "PASS",
+      "arbitraryPathDenied": "PASS",
+      "responseDigest": "01618b4171f829c501407b4bdc8c49b7434d55947caa01409a2b32b5eb6d5430"
+    }
+  ],
+  "sourceHashes": {
+    "core/ownership/sheikha-supplier-lab-v1.cjs": "9128c276ab0d22b8d00ceb0d27514d8660e4c7cb5954f240fe510d3db4fa6686",
+    "tools/preview/sheikha-supplier-lab-routes.cjs": "1ae08797ea8e2a179e3cfe9dcd7f38afe36ab43fb66620e6f80b5afbd153e0d5",
+    "tools/preview/sheikha-workspace-preview.cjs": "9940ec9c1526eb431ef4a92c6fb164c70ac38641c8fb2268651f3cf1e527beea"
+  },
+  "productionApproved": false,
+  "assetAcceptanceGranted": false,
+  "sourcePackageModified": false,
+  "externalCallsMade": false
+}

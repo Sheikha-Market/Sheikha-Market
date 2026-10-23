@@ -1,0 +1,30 @@
+{
+  "schema": "SHEIKHA_LANDSCAPE_REPOSITORY_REFERENCE_V1",
+  "landscape": {
+    "kind": "gardens",
+    "arabic": "الجنات",
+    "role": "qualified productive environments, products, knowledge and governed operational gardens"
+  },
+  "repository": {
+    "name": "sheikha-main-portal",
+    "canonicalRoot": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+    "rootAnchor": "../../../SHEIKHA_REPOSITORY_ROOT.json",
+    "nestedGitRepository": false
+  },
+  "observedExistingBindingsFromI0": [
+    "core/gardens-dialogue",
+    "docs/jannat-gardens-v1",
+    "docs/jannat-gardens-v2",
+    "docs/jannat-gardens-v4",
+    "public/sheikha-jannat-gardens",
+    "routes/gardens-dialogue",
+    "runtime/gardens-and-trees",
+    "runtime/jannat-gardens"
+  ],
+  "bindingPolicy": {
+    "moveExistingPaths": false,
+    "duplicateExistingPaths": false,
+    "referenceExistingPaths": true,
+    "futureBindingsRequireGovernedMapping": true
+  }
+}

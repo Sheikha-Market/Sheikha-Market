@@ -1,0 +1,11 @@
+[Unit]
+Description=Sheikha local supervisor hourly meaningful changes
+
+[Timer]
+OnCalendar=*-*-* *:00:00 Asia/Riyadh
+Persistent=true
+AccuracySec=1min
+Unit=sheikha-sovereign-supervisor-hourly.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,6782 @@
+{
+  "schema": "SHEIKHA_R4_READ_ONLY_SOURCE_SCHEMA_INVENTORY_V1",
+  "checked_at_utc": "2026-10-17T05:05:39.007171+00:00",
+  "source_path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+  "source_sha256": "39c19d0c7d810c524edd96a291856945aae983bc66e3f2d054283036613228b9",
+  "source_bytes": 856064,
+  "source_bytes_stable_across_review": true,
+  "source_sidecars_before_and_after": false,
+  "original_sqlite_connection_opened": false,
+  "sqlite_connections": "Read-only immutable private temporary copies only; removed on completion",
+  "snapshot_class": "STABLE_BYTE_COPY_NOT_COORDINATED_TRANSACTIONAL_SNAPSHOT",
+  "sql_rows_exposed": false,
+  "raw_values_retained_in_report": false,
+  "integrity": "ok",
+  "existing_six_table_inspector_result": {
+    "integrity": "ok",
+    "counts": {
+      "universal_legal_v35_6_registry": 5,
+      "multi_country_legal_articles_catalog": 4,
+      "entity_regulation_v35_7_registry": 5,
+      "entities_bylaws_articles_catalog": 3,
+      "cosmic_quality_v35_8_registry": 5,
+      "cosmic_serialized_assets_catalog": 4
+    },
+    "columns": {
+      "universal_legal_v35_6_registry": [
+        {
+          "name": "id",
+          "primaryKeyPosition": 1
+        },
+        {
+          "name": "pillar_code",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "pillar_description",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "status",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "sha256_proof",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "timestamp",
+          "primaryKeyPosition": 0
+        }
+      ],
+      "multi_country_legal_articles_catalog": [
+        {
+          "name": "article_id",
+          "primaryKeyPosition": 1
+        },
+        {
+          "name": "country_or_entity",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "code_name",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "article_number",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "quran_sunnah_reference",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "shariah_compliance_verdict",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "sha256_seal",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "timestamp",
+          "primaryKeyPosition": 0
+        }
+      ],
+      "entity_regulation_v35_7_registry": [
+        {
+          "name": "id",
+          "primaryKeyPosition": 1
+        },
+        {
+          "name": "pillar_code",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "pillar_description",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "status",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "sha256_proof",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "timestamp",
+          "primaryKeyPosition": 0
+        }
+      ],
+      "entities_bylaws_articles_catalog": [
+        {
+          "name": "entity_id",
+          "primaryKeyPosition": 1
+        },
+        {
+          "name": "cr_or_gov_number",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "entity_name",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "entity_type",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "bylaw_article_code",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "article_text",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "quran_sunnah_taseel",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "shariah_verdict",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "sha256_seal",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "timestamp",
+          "primaryKeyPosition": 0
+        }
+      ],
+      "cosmic_quality_v35_8_registry": [
+        {
+          "name": "id",
+          "primaryKeyPosition": 1
+        },
+        {
+          "name": "pillar_code",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "pillar_description",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "status",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "sha256_proof",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "timestamp",
+          "primaryKeyPosition": 0
+        }
+      ],
+      "cosmic_serialized_assets_catalog": [
+        {
+          "name": "universal_serial_number",
+          "primaryKeyPosition": 1
+        },
+        {
+          "name": "asset_category",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "asset_name",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "quality_grade",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "cryptographic_hash",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "shariah_taseel",
+          "primaryKeyPosition": 0
+        },
+        {
+          "name": "timestamp",
+          "primaryKeyPosition": 0
+        }
+      ]
+    }
+  },
+  "non_internal_object_counts": {
+    "table": 94,
+    "index": 0,
+    "trigger": 0,
+    "view": 0
+  },
+  "schema_objects_logical_sha256": "92ec9d193c6df7adf831b75e3a30c8876e2a4c0e3d37f7653442a576cc8e9f2b",
+  "tables": [
+    {
+      "name": "absolute_pinnacle_v31_7_registry",
+      "sql_sha256": "7d4ec16583532c0ab520f87822075ec09071920d18d07d59c9c8ba7957b7d9af",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_absolute_pinnacle_v31_7_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "activated_kernel_v31_1_registry",
+      "sql_sha256": "8ef1e414ff3391f0d25f06bfaa116f91cd9d2caed1b84e02df32fc26e7fe9405",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_activated_kernel_v31_1_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "arabian_island_meadows_registry",
+      "sql_sha256": "94b8ed0edfd16ad45d8b0ad7b60bc8d53e190ce4b4eabc4f09b60cadf1ee728b",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "module_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "module_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "hadith_and_sharia_reference",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "scientific_and_engineering_model",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "intellectual_property_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_arabian_island_meadows_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "module_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "brand_visuals_marketing_v25_registry",
+      "sql_sha256": "5e47096f4672b168025fb8c3c467dc68db5b0d6379466befd116136a1b8c56f7",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "component_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "component_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "activation_scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_brand_visuals_marketing_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "component_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "civilizational_blueprint_registry",
+      "sql_sha256": "79ccbce9733c95d04e02b391f13cafbe8459d78c7fa1409b2b9b60e747c89130",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "element_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "element_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "element_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_civilizational_blueprint_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "element_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "cloud_data_catalog_projects",
+      "sql_sha256": "22802d2b818950e4e4038d5e169bd18ebaa27b1802031d65b1d712f42ce41329",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "project_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "project_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "catalog_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "sovereign_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_cloud_data_catalog_projects_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "project_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "comprehensive_islamic_deen_registry",
+      "sql_sha256": "e0938615909ec108ad2b7d3cc981f2a148de0aaade948220f630c56d115094eb",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "domain_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "domain_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "quran_and_sunnah_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "maqasid_and_fiqh_rule",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_comprehensive_islamic_deen_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "domain_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "cosmic_ecosystem_v25_registry",
+      "sql_sha256": "2b0e7b80c7a3727217cda6dd1dd642ee872d99c1f36c1b50e7c4b27fb511e878",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "activation_scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_cosmic_ecosystem_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "cosmic_quality_v35_8_registry",
+      "sql_sha256": "b34d71558e2f7e9729b6afed75eb61bfe306d21bec3675bfb14edb2212159893",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_cosmic_quality_v35_8_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": [],
+      "create_sql": "CREATE TABLE cosmic_quality_v35_8_registry (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                pillar_code TEXT UNIQUE NOT NULL,\n                pillar_description TEXT NOT NULL,\n                status TEXT NOT NULL,\n                sha256_proof TEXT NOT NULL,\n                timestamp INTEGER NOT NULL\n            )",
+      "rows": 5,
+      "logical_rows_sha256": "4cd04ff187ad9c1fc8948e10872e0155374d0e93a459ff9bf8edf6f15abe5b60"
+    },
+    {
+      "name": "cosmic_serialized_assets_catalog",
+      "sql_sha256": "eaf7798bd446a5cd87dd0dbef7d0bd020acfb4a6d231a671f08b5d28c0cf586b",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "universal_serial_number",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "asset_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "asset_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "quality_grade",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "cryptographic_hash",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "shariah_taseel",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_cosmic_serialized_assets_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "universal_serial_number"
+          ]
+        }
+      ],
+      "trigger_names": [],
+      "create_sql": "CREATE TABLE cosmic_serialized_assets_catalog (\n                universal_serial_number TEXT PRIMARY KEY,\n                asset_category TEXT NOT NULL,\n                asset_name TEXT NOT NULL,\n                quality_grade TEXT NOT NULL,\n                cryptographic_hash TEXT NOT NULL,\n                shariah_taseel TEXT NOT NULL,\n                timestamp INTEGER NOT NULL\n            )",
+      "rows": 4,
+      "logical_rows_sha256": "5e26b5e384072adf47d46be42af5d74ee3596f547d340d4c014a7185df1faab3"
+    },
+    {
+      "name": "credentials_v31_9_registry",
+      "sql_sha256": "9058b2c10e355fb53bb68f1b22c90daa96619f9ca9f8d786ddcc0b9616700e2d",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_credentials_v31_9_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "cybersecurity_v32_0_registry",
+      "sql_sha256": "10aed07d3588ea87cc0d9b6bac09d0133e6095ce70fa569f9b7fa0cbe525a861",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_cybersecurity_v32_0_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "data_agent_v36_1_registry",
+      "sql_sha256": "6fca6abebbe5386e8dc955f0c16474fc6de5ff4198176d557bb6567e2e2715d8",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_data_agent_v36_1_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "e2e_commerce_incubator_registry",
+      "sql_sha256": "e5aee5261c0e08d9c6c4a46ed3567b76c65c8adcf90d3b498cd05c090ab2290b",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "trade_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "lifecycle_stage",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "entity_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sharia_compliance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_e2e_commerce_incubator_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "trade_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "e2e_toolchain_registry",
+      "sql_sha256": "722642c3daf9c01d493622f6f48a73ad736cbb63dde4ed65ab2aeabc7bb02e01",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "tool_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "tool_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "product_lifecycle_stage",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "cosmic_earth_purpose",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "security_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_e2e_toolchain_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "tool_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ecohydrology_farms_registry",
+      "sql_sha256": "f755fa83df6b18b0b63430094c71b335eb77b0eb9be83400173c36d2e6add73e",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "sector_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "sector_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "evaporation_index",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "recommended_water_liters",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ecohydrology_farms_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "sector_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "emerald_island_blueprint_v25_registry",
+      "sql_sha256": "2ef34f6b0aeef54745e182f465f1e832760f6aa85979946c568ba32efd148b98",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "node_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "node_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "node_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "node_function",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_emerald_island_blueprint_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "node_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "entities_bylaws_articles_catalog",
+      "sql_sha256": "70cbabcbc143c32876b4577d8a2af51aca1bddd055181881d5b7eba67c45d93c",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "entity_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "cr_or_gov_number",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "entity_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "entity_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "bylaw_article_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "article_text",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "quran_sunnah_taseel",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "shariah_verdict",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_entities_bylaws_articles_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "entity_id"
+          ]
+        }
+      ],
+      "trigger_names": [],
+      "create_sql": "CREATE TABLE entities_bylaws_articles_catalog (\n                entity_id TEXT PRIMARY KEY,\n                cr_or_gov_number TEXT NOT NULL,\n                entity_name TEXT NOT NULL,\n                entity_type TEXT NOT NULL,\n                bylaw_article_code TEXT NOT NULL,\n                article_text TEXT NOT NULL,\n                quran_sunnah_taseel TEXT NOT NULL,\n                shariah_verdict TEXT NOT NULL,\n                sha256_seal TEXT NOT NULL,\n                timestamp INTEGER NOT NULL\n            )",
+      "rows": 3,
+      "logical_rows_sha256": "1cbb2050641c5b69c1b2851007b207ed558a8705928546dc4c95083e40d5ba30"
+    },
+    {
+      "name": "entity_regulation_v35_7_registry",
+      "sql_sha256": "4cda4868876d149aa9058c72db4bdc1a0d9b8004c415701c22c9efd889662119",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_entity_regulation_v35_7_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": [],
+      "create_sql": "CREATE TABLE entity_regulation_v35_7_registry (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                pillar_code TEXT UNIQUE NOT NULL,\n                pillar_description TEXT NOT NULL,\n                status TEXT NOT NULL,\n                sha256_proof TEXT NOT NULL,\n                timestamp INTEGER NOT NULL\n            )",
+      "rows": 5,
+      "logical_rows_sha256": "5dc3ac6d8ee6505f0b7f5bbd18e185fe43f899be9596f02c38beea995a591ef3"
+    },
+    {
+      "name": "evidence_hashes_v2",
+      "sql_sha256": "ad2dab32eb2251fb0b97aa6c472f4ae5f7513627490ecaddefdba5abbe1e25b9",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "document_key",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "file_path",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "sha256_hash",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "seal_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_evidence_hashes_v2_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "document_key"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "firmware_v30_1_activation_registry",
+      "sql_sha256": "a9f7e7488c7a2af93f2fa7edff7917985fda373862c0919a7d45e4db88198de0",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "artifact_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_firmware_v30_1_activation_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "artifact_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "firmware_v30_2_hardening_registry",
+      "sql_sha256": "1507e7867f5c5c7be9816569eb538e3e911c19c03348e2d5dcae22b69085f1ff",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "artifact_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_firmware_v30_2_hardening_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "artifact_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "foundations_evidence_v25_registry",
+      "sql_sha256": "78a10c7d45afa6bc039d0c75756cc54d8cbc1dfc39507478724afc5356321b8e",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "activation_scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_foundations_evidence_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "foundries_registry",
+      "sql_sha256": "d58b06ff48cc3c0236a37021760a7560d87fb039c54b49739d5f2eeba4db99a5",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "foundry_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "foundry_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "pipelines_count",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_foundries_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "foundry_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "hostinger_api_27_tools_catalog",
+      "sql_sha256": "8465db4fc5e9ac3b9eaa428e59f74fafcff93019dda25e13b71d9b8b7554536b",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "tool_category",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "category_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "active_tools_count",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "sovereign_governance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_hostinger_api_27_tools_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "tool_category"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "hostinger_cloud_v36_2_registry",
+      "sql_sha256": "bb5963f33eb4b72285698a5743044d792e8b28f073bc5f3d50157eeacf679877",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_hostinger_cloud_v36_2_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "hostinger_connection_v36_0_registry",
+      "sql_sha256": "d52cae5e29a63b854278e19912458b95f303e7c55fc294b646d5f7ff8d828705",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_hostinger_connection_v36_0_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "hostinger_contracts_v34_0_registry",
+      "sql_sha256": "b5cbba558d0beeea8930ba9a85726e357025a8eba6a76e7e43ab05b5b0c97ecf",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "invoice_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "service_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "validity_period",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "sovereign_governance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_hostinger_contracts_v34_0_registry_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "invoice_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "hostinger_managed_endpoints_catalog",
+      "sql_sha256": "041d497715f4f42f4ea487437f2fdf06fa7b3bf02b90a23e83f1b3b5de08e560",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "endpoint_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "domain_or_service",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "connection_protocol",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "sovereign_security_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_hostinger_managed_endpoints_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "endpoint_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "hostinger_oauth_services_catalog",
+      "sql_sha256": "f12af53183a03ab676869f276a54b9a9798c8813d6e083795b53c0175596b346",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "service_code",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "service_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "connection_method",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "sovereign_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_hostinger_oauth_services_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "service_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "hostinger_token_v36_3_registry",
+      "sql_sha256": "5ba7845a96c60afa14ba8aff82ea7f63d1142be19733a779b731fa08c04bcd1a",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_hostinger_token_v36_3_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "industrial_foundry_v30_5_registry",
+      "sql_sha256": "eeb449bef78659e17b3ada1996fee6112cbb71c969dda480e694d628f7c36e81",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "facility_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "facility_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_industrial_foundry_v30_5_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "facility_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "infrastructure_supply_chain_v25_registry",
+      "sql_sha256": "00109ed168a6cdfa5d93768ce9b57c6a3ec76669dd62c6b674907419ca8d5ec3",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "component_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "component_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "activation_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_infrastructure_supply_chain_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "component_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "integrated_architecture_registry",
+      "sql_sha256": "38a3b08720f9b49b24f78911e5b5c8a1b85408aeffa3b30b952ffc8dc83729c1",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "node_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "node_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "node_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "node_function",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_integrated_architecture_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "node_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "integrated_master_merger_closure_v25_registry",
+      "sql_sha256": "706c7cfcc84a8c7e3652961bc7d85c40118828bc72970d743d51fb4590a9b4dc",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "layer_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "layer_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "closure_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_integrated_master_merger_closure_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "layer_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "international_mgmt_v35_1_registry",
+      "sql_sha256": "60be9a0010c9a261beb197e83f4c8060a5a437658164ca02a878345ab859bd5c",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_international_mgmt_v35_1_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ip_weights_scientific_v31_5_registry",
+      "sql_sha256": "f641f9f0b86d0621d4db6a6efa3bf0f261e3a862ec24e578eac150482325cb23",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ip_weights_scientific_v31_5_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "kernel_production_pipelines",
+      "sql_sha256": "1a36da972313d68f5d1de03624edddbaf8a5384f6a729aed0ad9440334b83359",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pipeline_id",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pipeline_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "execution_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_verification",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_kernel_production_pipelines_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pipeline_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "kernel_watchdog_registry",
+      "sql_sha256": "d02855a7d610fc2a048704b6c943c78b34724c8a3bdf07e74c5a314745c2dcb5",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "component_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "role_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "execution_mode",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "security_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_kernel_watchdog_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "component_name"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "live_compiler_v29_registry",
+      "sql_sha256": "95eae62a6e2f96a42259d58a1e1ce278c18ce96341b19db96ef1ec15307b50d8",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "component_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "component_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "architecture_scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_live_compiler_v29_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "component_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "logic_foundations_v25_registry",
+      "sql_sha256": "92eabf8ca6488f714b48f1f3ccdcbf5bbf459395d4dce9c79375f0c1f0b2ce14",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "activation_scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_logic_foundations_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "master_merger_and_ip_closure_v25_registry",
+      "sql_sha256": "2cbb574c59b5f5e246d589243d80235d6e637d7d3d6a1396ff080249b882b74a",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "component_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "component_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "ip_protection_and_confidentiality_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_master_merger_and_ip_closure_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "component_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "master_merger_closure_registry",
+      "sql_sha256": "3eae7026f6f4c31bc87cfa06c72f0b2c394e4be3062ed2a6e53c1cbf2ea4685e",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "layer_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "layer_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "closure_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_master_merger_closure_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "layer_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "master_merger_closure_v24_registry",
+      "sql_sha256": "5a4a60c890d365b79d19270a66f86346ef0f7a29835f7993791ca301b30c7dc9",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "layer_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "layer_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "closure_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_master_merger_closure_v24_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "layer_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "multi_country_legal_articles_catalog",
+      "sql_sha256": "ecb9e9d6a130893d0301c26337e80b231c8101c9a0e8a0807d90226f1b1c3adf",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "article_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "country_or_entity",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "code_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "article_number",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "quran_sunnah_reference",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "shariah_compliance_verdict",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_multi_country_legal_articles_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "article_id"
+          ]
+        }
+      ],
+      "trigger_names": [],
+      "create_sql": "CREATE TABLE multi_country_legal_articles_catalog (\n                article_id TEXT PRIMARY KEY,\n                country_or_entity TEXT NOT NULL,\n                code_name TEXT NOT NULL,\n                article_number TEXT NOT NULL,\n                quran_sunnah_reference TEXT NOT NULL,\n                shariah_compliance_verdict TEXT NOT NULL,\n                sha256_seal TEXT NOT NULL,\n                timestamp INTEGER NOT NULL\n            )",
+      "rows": 4,
+      "logical_rows_sha256": "5e33f89995eef1490317efe9b059cd9310d333ee5e8655a7e190d8f371593b90"
+    },
+    {
+      "name": "multi_os_foundry_v26_registry",
+      "sql_sha256": "a695296929a12db9b7f607bde42b13a4831977857dbbd973c58873249cdb0f7d",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "os_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "os_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "architectural_scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_multi_os_foundry_v26_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "os_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "network_governance_policy",
+      "sql_sha256": "915cb3f84a6200c4a03ce814344cdaacce217539b1d4ad0350ff9d467ed13713",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "network_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "interface_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "encryption_protocol",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "access_control_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_network_governance_policy_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "interface_name"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "non_profit_waqf_registry",
+      "sql_sha256": "c2a707b0ee83275f348b88e9b4adc7f99e63dc14d601f06c326f3bd30babc94a",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "waqf_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "waqf_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "non_profit_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sharia_commercial_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "security_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_non_profit_waqf_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "waqf_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "omni_biosphere_cycle_registry",
+      "sql_sha256": "00a792b8664185595acc47541ef04e51ef0fdff038d1c1ecdc7e5013bbd687a2",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "cycle_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "trigger_event",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "o2_generated_kg",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "river_inflow_liters",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "soil_field_capacity",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_omni_biosphere_cycle_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "cycle_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "omni_management_v35_0_registry",
+      "sql_sha256": "6957ef0781b48eaf8835d9661de24a5db3f47952711d6bb5b9d7da62954f0537",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_omni_management_v35_0_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "omni_manifests_v31_2_registry",
+      "sql_sha256": "434d6425aa98e9dea19eb3129e1428775c037370cff18729a62c37f763335f59",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "manifest_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "manifest_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_omni_manifests_v31_2_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "manifest_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "omni_master_v31_3_registry",
+      "sql_sha256": "97d942cf238bb3115b18f93c4a671b8fa0f93b6e33e8dca37faf1f25efbf77ba",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_omni_master_v31_3_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "omni_scientific_v31_8_registry",
+      "sql_sha256": "508d52dc9b572b5f03fc7377dc46167a916bb7fd7b87275c4a09a88fe17964ec",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_omni_scientific_v31_8_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "optics_video_v35_3_registry",
+      "sql_sha256": "37a6dfd46a8df08f187e34079b4160279d09ee254de460ef7910b382b3b17336",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_optics_video_v35_3_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "pure_native_base_v31_4_registry",
+      "sql_sha256": "373b6cad7fff339feaa63dc6daf86c5fd4b03137b803d371a2446ce06de7945c",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_pure_native_base_v31_4_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "pure_native_v30_9_registry",
+      "sql_sha256": "d1846bbba794ca502341703eb587976a2ad188861e0846374ec947d369154463",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_pure_native_v30_9_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "quad_ledger_accounting_entries",
+      "sql_sha256": "087dfbff2bb76a1d72637feb0cfaa7afbd54794600d23e68c1cbd7e250d4e048",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "entry_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "debit_account",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "credit_account",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "amount",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "shariah_purity_check",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_quad_ledger_accounting_entries_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "entry_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "realistic_scifi_v35_5_registry",
+      "sql_sha256": "cded9900c8b471a9eecae339ceb35807fc42f59b700b1c9b56ac01359dd9ffeb",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_realistic_scifi_v35_5_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sacred_cosmic_architecture_registry",
+      "sql_sha256": "29e49c81e7ad2a816c420ab7213d0e124fbf450ec3eec8e3df34a2c76e8c0005",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "sharia_and_historical_source",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "computational_model_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sacred_cosmic_architecture_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "semiconductor_ai_v25_registry",
+      "sql_sha256": "b5aa09bf1872b9c12639be7a020ffc1f50fd513c8a0a3ccd915120f8aea866a4",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "activation_scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_semiconductor_ai_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sharia_deduction_evidence",
+      "sql_sha256": "413756641e07d3c58d69a2c077c1cb7eabd0341bf1abaa5d5c93e654afd49966",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "rule_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "source_quran_sunnah",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "deduction_principle",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "system_application",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sharia_deduction_evidence_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "rule_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_applied_scifi_projects_catalog",
+      "sql_sha256": "ea71cf8fa638ad25b1c3110e7f979c4961d10c4942780ad6c66578f010d9090d",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "project_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "project_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "feasibility_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "computational_framework",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_applied_scifi_projects_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "project_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_issued_certificates",
+      "sql_sha256": "24d92e0100d6ea405ff2facc6ca377aa1caaac72dc8ddce16cb56fe509067d4e",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "cert_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "recipient_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "qualification_level",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "merit_score",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "grant_amount",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_issued_certificates_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "cert_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_lang_compiler_v29_registry",
+      "sql_sha256": "64314553b2f0b0e77876b49a8b21b7febd04fa9923dc5f2a5b98971326bd6753",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "script_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "language_version",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "ast_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_lang_compiler_v29_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "script_name"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_legal_jurisdictions",
+      "sql_sha256": "2ab3ce7724baf246ece7e20c589f4dec82429a90bcb16cff4c8b6b98caa0c1d4",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "jurisdiction_code",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "country_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "shariah_compliance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "data_protection_alignment",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_legal_jurisdictions_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "jurisdiction_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_media_production_catalog",
+      "sql_sha256": "0f6f3daf1d4831a2f9423c77b5f1d4b61794c43018b709976e28d55ba898f00a",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "media_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "media_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "no_souls_compliance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "rendering_engine",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_media_production_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "media_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_simulation_nodes_catalog",
+      "sql_sha256": "2091eeacfd200f8903a6a3f3cb3817bbbf1226aa72a154652cf58805d57df1c2",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "node_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "simulation_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "physics_engine_mode",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "spatial_audio_mode",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_simulation_nodes_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "node_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_sovereign_wealth_fund_ledger",
+      "sql_sha256": "191d917138a8aab0391e413d01f8f96a9eda7752753a2563b205cbb8c636e4a4",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "asset_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "asset_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "asset_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "valuation_halal_amount",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_sovereign_wealth_fund_ledger_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "asset_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sheikha_university_faculties_catalog",
+      "sql_sha256": "e9536551879d8dce6649826f445e41a8283c74d47662f4b855aec964eb832e8c",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "faculty_code",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "faculty_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "specialization_domain",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "shariah_governance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sheikha_university_faculties_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "faculty_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "silicon_fab_v30_7_registry",
+      "sql_sha256": "14aa11ebe6a67a34101beefc7cc33dc2065839b759068c2a0e28c67a18377d5d",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "scope_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "scope_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_silicon_fab_v30_7_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "scope_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "simulation_physics_v35_4_registry",
+      "sql_sha256": "1f0be84db3baf45d9fc15932287e1d3a3704266064da33d473bb37b6b5b0dc24",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_simulation_physics_v35_4_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sovereign_assets",
+      "sql_sha256": "08c2f16925c2659a1c074535ca1919539818f5bf0db76e36b3bbb447b8048f9b",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "owner_name",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "cr_number",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "unified_id",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "asset_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "ownership_percentage",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "sharia_compliance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [],
+      "trigger_names": []
+    },
+    {
+      "name": "sovereign_compute_grid_registry",
+      "sql_sha256": "98aebb7b486da451749d887b888e5798648be46a81ad32eb98a7b491a509fd52",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "compute_node_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "node_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "compute_power_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sovereign_compute_grid_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "compute_node_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sovereign_finance_v32_1_registry",
+      "sql_sha256": "769526305bc16962bd96c4da2530803bba599bbe42e033c37904685c3bedb306",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sovereign_finance_v32_1_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sovereign_firmware_v30_3_registry",
+      "sql_sha256": "ad594e6c1ce07ba4645e0207d94adfd2a512373d84d5a78f737867a8858b8a59",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "component_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sovereign_firmware_v30_3_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "component_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "sovereign_ministries_registry",
+      "sql_sha256": "3738f8080cb2f0d165e190b0009752560468e0da253d2e862b61597e9466a71d",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "entity_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "entity_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "supreme_goal_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "key_performance_indicator",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_sovereign_ministries_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "entity_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "specifications_v32_2_registry",
+      "sql_sha256": "88f51389b47f049b01e69ddc2e43672dde0a4efb8a60d7aacb9306b2349299b7",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "spec_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "spec_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_specifications_v32_2_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "spec_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "state_and_business_management_framework",
+      "sql_sha256": "3e1e1298ee3119a21682d6934d0da087e473b62ae33af0363ba24e32f1c5e4f9",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "domain_code",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "domain_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "governance_methodology",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "shariah_alignment_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_state_and_business_management_framework_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "domain_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "supreme_master_v31_0_registry",
+      "sql_sha256": "a987d5265381452d67624ccf801dd0b0ecd5cb0fc930152b3c3397c2524bc812",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_supreme_master_v31_0_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "supreme_master_v33_0_registry",
+      "sql_sha256": "aab7ed4c06ec31a1703147225b9b757666b9b3c610a2d71add318b9b38d39c45",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_supreme_master_v33_0_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "supreme_scientific_v31_6_registry",
+      "sql_sha256": "9edaf64392387760c435f09dedad577cc3d9c09effad57135d426839385374fc",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_supreme_scientific_v31_6_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "telecom_multidata_foundry_registry",
+      "sql_sha256": "0cd571919b40d124144e78844d4522b2eab05b0dd1e7726c38146504f267c526",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "module_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "module_category",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "data_structure_type",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "operational_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_telecom_multidata_foundry_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "module_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "third_party_licenses_to_sheikha",
+      "sql_sha256": "ab8c7d98514bc36b069640b560a2caf6f249e4c79ebb6d5820ea45d0ee77d2e0",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "license_id",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "issuing_authority",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "scope",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "auto_renewal_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "compliance_score",
+          "type": "REAL",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_third_party_licenses_to_sheikha_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "license_id"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ultimate_kingdom_registry",
+      "sql_sha256": "2a8499aa99246bea0d9f7becf66795f2bb56404213c2cc3cfe917e4813974398",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "sector_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "sector_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "core_function",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ultimate_kingdom_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "sector_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ultimate_omni_compute_merger_v25_registry",
+      "sql_sha256": "79d14f3826f845cad58ae80df9c55a7e025548e45b16b4acc7ab90ce89e17900",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "subsystem_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "subsystem_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ultimate_omni_compute_merger_v25_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "subsystem_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ultimate_omni_foundry_v26_registry",
+      "sql_sha256": "6a55acca9d1243912ace16081c17eecef51a866aab94c21e720377ce3411b4f8",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "subsystem_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "subsystem_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ultimate_omni_foundry_v26_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "subsystem_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ultimate_omni_master_v30_6_registry",
+      "sql_sha256": "ff01fd38512b7f37cb6fc6508f45b7c3cd409217d7123a59aec925c43c46ce80",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "layer_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "layer_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "closure_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ultimate_omni_master_v30_6_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "layer_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ultimate_omni_v30_master_registry",
+      "sql_sha256": "650ea73c49a84fed2b959e71c4ba295898bd344db9a7a494382aee61978391c7",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "subsystem_tier",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "tier_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "closure_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ultimate_omni_v30_master_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "subsystem_tier"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "ultimate_proof_v30_4_registry",
+      "sql_sha256": "8ef5f3a0041fd94916f573d3b76b8ba6fa1e5f358483d4e90ec53103c927f942",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "category_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "category_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ultimate_proof_v30_4_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "category_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "universal_compute_v30_8_registry",
+      "sql_sha256": "fdf48a47095f388c9748b752ef9542caccae341da24f11c2182d65576d34a494",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "modality_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "modality_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_universal_compute_v30_8_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "modality_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "universal_legal_v35_6_registry",
+      "sql_sha256": "98d782dd04613d3733babc56f954c4c2639abbe65cdc97e206daf8c9730a40d2",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_universal_legal_v35_6_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": [],
+      "create_sql": "CREATE TABLE universal_legal_v35_6_registry (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                pillar_code TEXT UNIQUE NOT NULL,\n                pillar_description TEXT NOT NULL,\n                status TEXT NOT NULL,\n                sha256_proof TEXT NOT NULL,\n                timestamp INTEGER NOT NULL\n            )",
+      "rows": 5,
+      "logical_rows_sha256": "e980842bb9f0183c87693a66883bb40fcd501acb964615e49d21c7bc4c387e23"
+    },
+    {
+      "name": "universal_management_types_catalog",
+      "sql_sha256": "71c5c9b2c9ef5701ea6e4f5b4f29830168ee6c0dd3d6db230618176a9791f42b",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "type_code",
+          "type": "TEXT",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "management_type_title",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "scope_and_domain",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "shariah_governance_status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_seal",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_universal_management_types_catalog_1",
+          "unique": true,
+          "origin": "pk",
+          "partial": false,
+          "columns": [
+            "type_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "university_silicon_v35_2_registry",
+      "sql_sha256": "fe303995a32773b80a384b6b3d82210c790892778143707ff0fcfd7367fa7ea0",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "pillar_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "pillar_description",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_university_silicon_v35_2_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "pillar_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    },
+    {
+      "name": "visual_architecture_nodes_registry",
+      "sql_sha256": "fbc47188f8a99a2b620ea1288dad38460e76e6c1fc9a1580a7e9a1e4e2b9411d",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default_present": false,
+          "primary_key_position": 1
+        },
+        {
+          "cid": 1,
+          "name": "node_code",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "node_title_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "node_subtitle_ar",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "computational_binding",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "sha256_proof",
+          "type": "TEXT",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "timestamp",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default_present": false,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_visual_architecture_nodes_registry_1",
+          "unique": true,
+          "origin": "u",
+          "partial": false,
+          "columns": [
+            "node_code"
+          ]
+        }
+      ],
+      "trigger_names": []
+    }
+  ],
+  "production_ready": false,
+  "live_migration_authorized": false,
+  "source_modified": false,
+  "v2_modified": false,
+  "historical_stages_reexecuted": false,
+  "tools": [
+    {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/docs/canonical/registry/reviews/2026-10-17-v35-completion/verify_evidence.py",
+      "sha256": "4cedf7fb72f45f1751feebcbf7dcdefc89e0f247d7b306051f1a480dff152fd9"
+    },
+    {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/tools/verification/sheikha-v35-evidence-audit-v1.py",
+      "sha256": "a3027be0469e6177907676f9aada1e3c4e03f4e2809c353bf200b8f450f02feb"
+    }
+  ]
+}

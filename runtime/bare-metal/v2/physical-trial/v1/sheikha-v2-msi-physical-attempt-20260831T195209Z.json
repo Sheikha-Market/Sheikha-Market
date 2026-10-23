@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_MSI_PHYSICAL_BOOT_ATTEMPT_V1",
+  "recordedAt": "2026-08-31T19:52:09.061Z",
+  "evidenceMode": "USER_OBSERVATION_PLUS_READ_ONLY_MEDIA_INSPECTION",
+  "result": "FIRMWARE_FALLBACK_IMAGE_NOT_RAW_WRITTEN",
+  "userObservation": {
+    "oneTimeBootMenuUsed": true,
+    "usbEntrySelected": true,
+    "sheikhaSuccessScreenObserved": false,
+    "hostOperatingSystemBootedAfterward": true
+  },
+  "mediaInspection": {
+    "device": "/dev/sda",
+    "model": "TransMemory",
+    "transport": "usb",
+    "removable": true,
+    "sizeBytes": 31007047680,
+    "existingLayout": "MBR_WITH_ONE_FAT32_PARTITION",
+    "mountedPartition": "/dev/sda1",
+    "imageStoredAsRegularFile": true,
+    "rawGptImageWrittenToWholeDevice": false,
+    "imageFileBytes": 67108864,
+    "imageFileSha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3"
+  },
+  "diagnosis": {
+    "cause": "UEFI_CANNOT_BOOT_A_RAW_DISK_IMAGE_STORED_AS_A_REGULAR_FILE",
+    "firmwareBehavior": "SKIPPED_NON_BOOTABLE_MEDIA_AND_RETURNED_TO_HOST_OS",
+    "kernelPhysicalBootVerified": false,
+    "hostRecoveryVerified": true
+  },
+  "safety": {
+    "writesPerformedByDiagnosis": false,
+    "internalDiskModified": false,
+    "firmwareOrNvramModified": false,
+    "nextStepErasesWholeUsb": true,
+    "explicitDestructiveApprovalRequired": true
+  },
+  "approvedImage": {
+    "path": "bare-metal/images/v2/sheikha-sovereign-bare-metal-v2-msi-usb-gpt-v1.img",
+    "sha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3"
+  },
+  "requiredAcceptance": "ACCEPT SHEIKHA MSI USB V1 SHA256:0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3 DEVICE:/dev/sda",
+  "nextGate": "UNMOUNT_SDA1_THEN_GUARDED_RAW_WRITE_WITH_READBACK"
+}

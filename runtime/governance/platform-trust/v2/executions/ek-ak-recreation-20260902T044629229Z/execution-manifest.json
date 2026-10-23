@@ -1,0 +1,94 @@
+{
+  "system": "SHEIKHA_DEVICE_BOUND_EK_AK_RECREATION_EXECUTION_V2",
+  "status": "EK_AK_RECREATED_AND_CREDENTIAL_V2_REBOUND_NOT_ACTIVATED",
+  "device": "/dev/tpmrm0",
+  "contractSha256": "6c1418edf568fb51dd49efbb44b3c8f60c1121de00f22dac5e0c18fe5b5f558e",
+  "engineSha256": "17d294d55b38c13008f3aeb8bd24e2ad408754b16821595a55accde188e46c0b",
+  "executed": [
+    {
+      "stage": "create-ek",
+      "command": "tpm2_createek",
+      "exitCode": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "read-ek",
+      "command": "tpm2_readpublic",
+      "exitCode": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "create-ak",
+      "command": "tpm2_createak",
+      "exitCode": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "read-ak",
+      "command": "tpm2_readpublic",
+      "exitCode": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "artifacts": {
+    "ekPublic": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ek.pub",
+      "sha256": "31803edc32c2ef87de59875f6926b7e204994480dc7b9daaca45e41c07ddd5a1",
+      "bytes": 124
+    },
+    "ekPem": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ek.pem",
+      "sha256": "bd1dfa38de31cacdf486f105e7f1dc80d6e23b7f34c1283d3780b8f8ab9ff79c",
+      "bytes": 178
+    },
+    "ekName": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ek.name",
+      "sha256": "85d6553a092b90feeb86d16af22ad4e70086307d6010a57db59a0369794c9636",
+      "bytes": 34
+    },
+    "akPublic": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ak.pub",
+      "sha256": "19db18963009e9e8240e077db9c1fdf1d3a42532dfc6ae4e96296cf077e3fd0f",
+      "bytes": 90
+    },
+    "akPem": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ak.pem",
+      "sha256": "edc8b36db4616e8937d72da2eadc472257c22e28bac3cd42bf3ae845b883ed71",
+      "bytes": 178
+    },
+    "akName": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/ak.name",
+      "sha256": "fac0fcc899f684e917cfbd74c5922c4fed7fa42236bffd4a2d392994863f27c6",
+      "bytes": 34
+    },
+    "credentialBlob": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/credentialBlob.tpm2b",
+      "sha256": "544394c32a75bbc5455079ff5e50b3c145afdc8f1d0222c0817af81d92b45271",
+      "bytes": 70
+    },
+    "encryptedSecret": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/encryptedSecret.tpm2b",
+      "sha256": "9e0a1c6a8fa235a8a11b74d09c0c897452757a70a0c7b770a1fe401b76225151",
+      "bytes": 70
+    },
+    "packedCredential": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/tpm2-tools-credential.bin",
+      "sha256": "1f12da6b11b902a6ac23875229cc10cb650de1979d013be2ff05ad4b70ec90c6",
+      "bytes": 148
+    },
+    "expectedCredential": {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/governance/platform-trust/v2/executions/ek-ak-recreation-20260902T044629229Z/secrets/expected-credential.bin",
+      "sha256": "e1bffb68c8f8832b4c4205d8f04d314ba013315165e817ba2278f38df3eef216",
+      "bytes": 32
+    }
+  },
+  "controls": {
+    "persistentHandleCreated": false,
+    "activateCredentialExecuted": false,
+    "firmwareOrSecureBootModified": false,
+    "networkUsed": false,
+    "separateActivationAuthorizationRequired": true
+  },
+  "nextStage": "REVIEW_AND_ISSUE_SINGLE_USE_ACTIVATECREDENTIAL_V2_AUTHORIZATION",
+  "manifestSha256": "fb0d36c5e0b29629078bb8176a7266c96d8c3a7de13471aab899cf094c479079"
+}

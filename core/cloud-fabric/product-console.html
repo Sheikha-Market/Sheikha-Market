@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="@@CSP@@">
+<title>شيخة | سجل المنتجات والتكامل</title><style>@@STYLE@@</style></head>
+<body>
+<header class="masthead"><div class="brand">شيخة <span lang="en">SHEIKHA</span></div><span>سجل المنتجات والتكامل</span><span class="draft">مسودة داخلية</span></header>
+<div class="layout">
+<aside>
+  <h1>منتجات شيخة</h1>
+  <nav aria-label="أقسام السجل">
+    <button data-view="catalog" aria-current="page">@@ICON_LAYERS@@<span>سجل المنتجات</span></button>
+    <button data-view="pilot">@@ICON_LIST@@<span>نطاق التجربة</span></button>
+    <button data-view="connection">@@ICON_NETWORK@@<span>الاتصال والتكامل</span></button>
+    <button data-view="partnership">@@ICON_BOOK@@<span>مسار الشراكة</span></button>
+  </nav>
+  <figure><img src="@@VISUAL@@" alt="مرئية مرجعية لمجمع فوندري شيخة الساحلي"><figcaption>فوندري شيخة · مرئية تصورية</figcaption></figure>
+  <dl class="side-facts"><dt>العلامة</dt><dd>SHEIKHA</dd><dt>البيئة</dt><dd>مراجعة محلية</dd><dt>النشر</dt><dd>غير معتمد</dd></dl>
+</aside>
+<main id="main">
+  <section class="summary" aria-label="ملخص السجل">
+    <div><strong id="total"></strong><span>بند في النطاق</span></div>
+    <div><strong id="categories-count"></strong><span>مجالًا</span></div>
+    <div><strong id="candidates-count"></strong><span>مرشحات محلية</span></div>
+    <div aria-label="منتجات معتمدة في هذا السجل"><strong>0</strong><span>منتجات معتمدة</span></div>
+  </section>
+  <p class="boundary">نطاق مستخلص من قائمتك؛ ليس تنفيذًا مكتملًا لمنتجات Google أو إثبات تكافؤ معها.</p>
+  <p id="notice" role="status" aria-live="polite" hidden></p>
+  <section id="catalog" class="view">
+    <div class="heading"><h2>السجل</h2><button id="export-catalog" class="icon" title="تنزيل السجل" aria-label="تنزيل السجل">@@ICON_DOWNLOAD@@</button></div>
+    <div class="filters">
+      <label class="search">بحث<input id="search" type="search" maxlength="160" placeholder="اسم المنتج أو المرجع" autocomplete="off"></label>
+      <label>المجال<select id="category"><option value="">جميع المجالات</option></select></label>
+      <label>حالة البناء<select id="lifecycle"><option value="">جميع الحالات</option><option value="LOCAL_CANDIDATE_NOT_ACCEPTED">مرشح محلي</option><option value="PROPOSED_NOT_IMPLEMENTED">مقترح</option></select></label>
+      <button id="clear" class="icon" title="إزالة التصفية" aria-label="إزالة التصفية">@@ICON_CLEAR@@</button>
+    </div>
+    <p id="result-count" class="muted" aria-live="polite"></p>
+    <div class="table-wrap"><table><thead><tr><th>التجربة</th><th>المنتج المقترح</th><th>مرجع النطاق</th><th>المجال</th><th>حالة البناء</th><th>التفاصيل</th></tr></thead><tbody id="rows"></tbody></table></div>
+    <p id="empty" hidden>لا توجد نتائج مطابقة.</p>
+  </section>
+  <section id="pilot" class="view" hidden>
+    <div class="heading"><h2>نطاق التجربة</h2><button id="export-pilot" class="icon" title="تنزيل خطة التجربة" aria-label="تنزيل خطة التجربة">@@ICON_DOWNLOAD@@</button></div>
+    <p class="boundary">اختيار النطاق لا يمنح تفويض تشغيل أو ميزانية أو موافقة نشر.</p>
+    <ol class="stages"><li>مراجعة الهوية والصلاحيات</li><li>تحديد البيانات والميزانية</li><li>جرد الاتصال للقراءة فقط</li><li>تنفيذ تجربة معزولة</li><li>اختبار القبول والمراجعة البشرية</li></ol>
+    <h3>البنود المختارة <span id="selected-count"></span></h3>
+    <ul id="selected-products" class="records"></ul>
+    <p id="pilot-empty" hidden>نطاق التجربة فارغ.</p>
+  </section>
+  <section id="connection" class="view" hidden>
+    <h2>الاتصال والتكامل</h2>
+    <dl class="facts" id="connection-facts"></dl>
+    <p class="boundary">حتى نجاح جرد الواجهات لا يثبت تشغيل منتج أو جاهزية حمل عمل. الحالة مرتبطة بوقت الفحص وليست مراقبة حية.</p>
+    <h3>ربط واجهات مبدئي</h3><ul id="bindings" class="records"></ul>
+    <h3>التوليد الخارجي اليومي</h3><dl class="facts"><dt>المزود</dt><dd>لم يُحدد</dd><dt>الميزانية اليومية</dt><dd>لم تُعتمد</dd><dt>التنفيذ المتكرر</dt><dd>متوقف</dd></dl>
+  </section>
+  <section id="partnership" class="view" hidden>
+    <h2>مسار الشراكة</h2>
+    <p class="boundary">مقترح داخلي غير مرسل. لا توجد في هذه الحزمة اتفاقية موقعة أو موافقة من الطرف الآخر أو إذن بعلامة مشتركة.</p>
+    <dl class="facts"><dt>العلامة المستقلة</dt><dd>شيخة | SHEIKHA</dd><dt>الهدف المقترح</dt><dd>تجربة تقنية نافعة ومحدودة النطاق</dd><dt>الطرف المستهدف</dt><dd>Google أو شريك مؤهل، بعد التحقق</dd><dt>الالتزام المالي</dt><dd>غير معتمد</dd></dl>
+    <ol class="stages"><li>تحديد منتج ونتيجة قابلة للقياس</li><li>التحقق من قناة التواصل والمخولين</li><li>مراجعة نطاق البيانات والتكلفة والحقوق</li><li>مراجعة الاتفاقية من الطرفين وتوقيع المخولين</li><li>اعتماد وصف العلاقة قبل أي إعلان</li></ol>
+    <h3>المراجع الرسمية</h3><ul id="sources" class="records"></ul>
+  </section>
+  <footer><span id="observed"></span><span id="source-proof"></span></footer>
+</main>
+</div>
+<dialog id="details" aria-labelledby="detail-title"><div class="dialog-head"><h2 id="detail-title"></h2><button id="close-details" class="icon" title="إغلاق التفاصيل" aria-label="إغلاق التفاصيل">@@ICON_BACK@@</button></div><div id="detail-body"></div></dialog>
+<template id="detail-icon">@@ICON_INFO@@</template>
+<script>@@SCRIPT@@</script>
+</body></html>

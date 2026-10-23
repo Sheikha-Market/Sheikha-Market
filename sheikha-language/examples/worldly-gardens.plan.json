@@ -1,0 +1,1859 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LANGUAGE_CULTIVATION_COMPILER_V1",
+  "sourceLanguage": "sheikha",
+  "sourceExtension": ".shk",
+  "declaration": "جنات_الدنيا",
+  "declarationKind": "garden",
+  "cultivationGraph": {
+    "nodes": [
+      {
+        "id": "جنات_الدنيا",
+        "kind": "garden",
+        "keyword": "جنة",
+        "properties": {
+          "النطاق": "الدنيا",
+          "الموقع": "موقع_تجريبي_معلن",
+          "المساحة": "100000 متر_مربع",
+          "السكان": "500 شخص",
+          "الماشية": "50 رأس",
+          "دراسة_الماء": "مرجع_دراسة_مطلوب",
+          "دراسة_التربة": "مرجع_دراسة_مطلوب",
+          "المسح_الطبوغرافي": "مرجع_مسح_مطلوب",
+          "دراسة_المخاطر_والسيول": "مرجع_دراسة_مطلوب",
+          "حقوق_الأرض": "نعم",
+          "الميزانية": "مرجع_ميزانية_مطلوب",
+          "جهة_الاختصاص": "جهة_معلنة",
+          "التحقق_المستقل": "لا",
+          "يرتبط": "تربة_حية، بذور_موثقة، مغرس_الغذاء، مرعى_دوري، سقاية_مقاسة، ثمار_نافعة"
+        }
+      },
+      {
+        "id": "أساسيات_العمران",
+        "kind": "foundation",
+        "keyword": "أساس",
+        "properties": {
+          "يوجب": "الحقوق، السلامة، القياس، الصيانة"
+        }
+      },
+      {
+        "id": "قواعد_النمو",
+        "kind": "rule",
+        "keyword": "قاعدة",
+        "properties": {
+          "يمنع": "الضرر، الهدر، التكاثر_غير_المحكوم"
+        }
+      },
+      {
+        "id": "تربة_حية",
+        "kind": "soil",
+        "keyword": "تربة",
+        "properties": {
+          "فحص": "الخصوبة، الملوحة، الصرف، الأحياء_الدقيقة",
+          "يرتبط": "بذور_موثقة"
+        }
+      },
+      {
+        "id": "بذور_موثقة",
+        "kind": "seed",
+        "keyword": "بذرة",
+        "properties": {
+          "المصدر": "مملوك_أو_مرخص",
+          "المسار": "من_الصفر",
+          "يرتبط": "فتيلة_التجربة"
+        }
+      },
+      {
+        "id": "فتيلة_التجربة",
+        "kind": "sprout",
+        "keyword": "فتيلة",
+        "properties": {
+          "الغرض": "أصغر_تجربة_قابلة_للقياس",
+          "يرتبط": "مغرس_الغذاء"
+        }
+      },
+      {
+        "id": "مغرس_الغذاء",
+        "kind": "cultivation",
+        "keyword": "مغرس",
+        "properties": {
+          "النوع": "بساتين، حبوب، خضروات، أعشاب",
+          "يرتبط": "سقاية_مقاسة، نمو_مراقب"
+        }
+      },
+      {
+        "id": "مرعى_دوري",
+        "kind": "pasture",
+        "keyword": "مرعى",
+        "properties": {
+          "النوع": "رعي_دوري",
+          "السعة": "تحسب_من_الموقع",
+          "يرتبط": "سقاية_مقاسة، زارع_مسؤول"
+        }
+      },
+      {
+        "id": "زارع_مسؤول",
+        "kind": "grower",
+        "keyword": "زارع",
+        "properties": {
+          "الدور": "إنسان_مسؤول_معلوم",
+          "الصلاحية": "محدودة_وموثقة"
+        }
+      },
+      {
+        "id": "سقاية_مقاسة",
+        "kind": "irrigation",
+        "keyword": "سقاية",
+        "properties": {
+          "المصادر": "ماء، وقت، طاقة، مال، معرفة",
+          "السقف": "محكوم",
+          "يرتبط": "نمو_مراقب"
+        }
+      },
+      {
+        "id": "نمو_مراقب",
+        "kind": "growth",
+        "keyword": "نمو",
+        "properties": {
+          "القياس": "ماء، محصول، صحة_التربة، رفاه_الحيوان",
+          "يرتبط": "ثمار_نافعة"
+        }
+      },
+      {
+        "id": "ثمار_نافعة",
+        "kind": "fruit",
+        "keyword": "ثمرة",
+        "properties": {
+          "الأنواع": "غذاء، سكن، معرفة، دخل_مثبت",
+          "يرتبط": "ازدهار_متزن"
+        }
+      },
+      {
+        "id": "استزراع_سريع",
+        "kind": "transplant",
+        "keyword": "استزراع",
+        "properties": {
+          "الأصل": "نام_ومرخص",
+          "الشرط": "الحقوق، التوافق، الاختبار",
+          "يرتبط": "مغرس_الغذاء"
+        }
+      },
+      {
+        "id": "زراعة_من_الصفر",
+        "kind": "agriculture",
+        "keyword": "زراعة",
+        "properties": {
+          "البداية": "بذرة_موثقة",
+          "النهاية": "ثمرة_مختبرة"
+        }
+      },
+      {
+        "id": "ازدهار_متزن",
+        "kind": "flourishing",
+        "keyword": "ازدهار",
+        "properties": {
+          "الشرط": "منفعة، استدامة، عدل، قابلية_تكرار",
+          "التكاثر": "محكوم_بالجودة_والحقوق"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "from": "جنات_الدنيا",
+        "to": "تربة_حية",
+        "type": "يرتبط"
+      },
+      {
+        "from": "جنات_الدنيا",
+        "to": "بذور_موثقة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "جنات_الدنيا",
+        "to": "مغرس_الغذاء",
+        "type": "يرتبط"
+      },
+      {
+        "from": "جنات_الدنيا",
+        "to": "مرعى_دوري",
+        "type": "يرتبط"
+      },
+      {
+        "from": "جنات_الدنيا",
+        "to": "سقاية_مقاسة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "جنات_الدنيا",
+        "to": "ثمار_نافعة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "تربة_حية",
+        "to": "بذور_موثقة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "بذور_موثقة",
+        "to": "فتيلة_التجربة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "فتيلة_التجربة",
+        "to": "مغرس_الغذاء",
+        "type": "يرتبط"
+      },
+      {
+        "from": "مغرس_الغذاء",
+        "to": "سقاية_مقاسة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "مغرس_الغذاء",
+        "to": "نمو_مراقب",
+        "type": "يرتبط"
+      },
+      {
+        "from": "مرعى_دوري",
+        "to": "سقاية_مقاسة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "مرعى_دوري",
+        "to": "زارع_مسؤول",
+        "type": "يرتبط"
+      },
+      {
+        "from": "سقاية_مقاسة",
+        "to": "نمو_مراقب",
+        "type": "يرتبط"
+      },
+      {
+        "from": "نمو_مراقب",
+        "to": "ثمار_نافعة",
+        "type": "يرتبط"
+      },
+      {
+        "from": "ثمار_نافعة",
+        "to": "ازدهار_متزن",
+        "type": "يرتبط"
+      },
+      {
+        "from": "استزراع_سريع",
+        "to": "مغرس_الغذاء",
+        "type": "يرتبط"
+      }
+    ],
+    "unresolvedReferences": [],
+    "continuousCycle": [
+      "soil",
+      "seed",
+      "sprout",
+      "cultivation",
+      "irrigation",
+      "growth",
+      "fruit",
+      "controlled_propagation"
+    ],
+    "pathways": {
+      "fromScratch": "SOIL_TO_SEED_TO_NURSERY_TO_HARVEST",
+      "acceleratedTransplant": "LICENSED_ROOT_TO_TRANSPLANT_TO_ADAPTATION_TO_HARVEST"
+    },
+    "continuityRule": "CONTINUE_ELIGIBLE_PASTURES_HOLD_BLOCKED_PASTURES"
+  },
+  "ast": {
+    "type": "Program",
+    "body": [
+      {
+        "type": "Directive",
+        "name": "بسم_الله",
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        }
+      },
+      {
+        "type": "ValuesReferenceDeclaration",
+        "name": "الآخرة",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "المصدر",
+            "value": "القرآن_الكريم_والسنة_الصحيحة",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 3
+              },
+              "end": {
+                "line": 4,
+                "column": 39
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "الدور",
+            "value": "غير_تنفيذية",
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 3
+              },
+              "end": {
+                "line": 5,
+                "column": 21
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "السلطة_البرمجية",
+            "value": "لا",
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 3
+              },
+              "end": {
+                "line": 6,
+                "column": 22
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "الفتوى_الآلية",
+            "value": "ممنوع",
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 3
+              },
+              "end": {
+                "line": 7,
+                "column": 23
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "المراجعة_الشرعية",
+            "value": "أهل_العلم_المؤهل",
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 3
+              },
+              "end": {
+                "line": 8,
+                "column": 37
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "التحقق_من_المصادر",
+            "value": "واجب",
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 3
+              },
+              "end": {
+                "line": 9,
+                "column": 26
+              }
+            }
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 11,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "جنات_الدنيا",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "النطاق",
+            "value": "الدنيا",
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 3
+              },
+              "end": {
+                "line": 12,
+                "column": 17
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "الموقع",
+            "value": "موقع_تجريبي_معلن",
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 3
+              },
+              "end": {
+                "line": 13,
+                "column": 27
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "المساحة",
+            "value": "100000 متر_مربع",
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 3
+              },
+              "end": {
+                "line": 14,
+                "column": 27
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "السكان",
+            "value": "500 شخص",
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 3
+              },
+              "end": {
+                "line": 15,
+                "column": 18
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "الماشية",
+            "value": "50 رأس",
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 3
+              },
+              "end": {
+                "line": 16,
+                "column": 18
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "دراسة_الماء",
+            "value": "مرجع_دراسة_مطلوب",
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 3
+              },
+              "end": {
+                "line": 17,
+                "column": 32
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "دراسة_التربة",
+            "value": "مرجع_دراسة_مطلوب",
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 3
+              },
+              "end": {
+                "line": 18,
+                "column": 33
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "المسح_الطبوغرافي",
+            "value": "مرجع_مسح_مطلوب",
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 3
+              },
+              "end": {
+                "line": 19,
+                "column": 35
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "دراسة_المخاطر_والسيول",
+            "value": "مرجع_دراسة_مطلوب",
+            "loc": {
+              "start": {
+                "line": 20,
+                "column": 3
+              },
+              "end": {
+                "line": 20,
+                "column": 42
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "حقوق_الأرض",
+            "value": "نعم",
+            "loc": {
+              "start": {
+                "line": 21,
+                "column": 3
+              },
+              "end": {
+                "line": 21,
+                "column": 18
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "الميزانية",
+            "value": "مرجع_ميزانية_مطلوب",
+            "loc": {
+              "start": {
+                "line": 22,
+                "column": 3
+              },
+              "end": {
+                "line": 22,
+                "column": 32
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "جهة_الاختصاص",
+            "value": "جهة_معلنة",
+            "loc": {
+              "start": {
+                "line": 23,
+                "column": 3
+              },
+              "end": {
+                "line": 23,
+                "column": 26
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "التحقق_المستقل",
+            "value": "لا",
+            "loc": {
+              "start": {
+                "line": 24,
+                "column": 3
+              },
+              "end": {
+                "line": 24,
+                "column": 21
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "تربة_حية، بذور_موثقة، مغرس_الغذاء، مرعى_دوري، سقاية_مقاسة، ثمار_نافعة",
+            "loc": {
+              "start": {
+                "line": 25,
+                "column": 3
+              },
+              "end": {
+                "line": 25,
+                "column": 79
+              }
+            }
+          }
+        ],
+        "declarationKind": "garden",
+        "sourceKeyword": "جنة",
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 1
+          },
+          "end": {
+            "line": 27,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "أساسيات_العمران",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "يوجب",
+            "value": "الحقوق، السلامة، القياس، الصيانة",
+            "loc": {
+              "start": {
+                "line": 28,
+                "column": 3
+              },
+              "end": {
+                "line": 28,
+                "column": 41
+              }
+            }
+          }
+        ],
+        "declarationKind": "foundation",
+        "sourceKeyword": "أساس",
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 1
+          },
+          "end": {
+            "line": 30,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "قواعد_النمو",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "يمنع",
+            "value": "الضرر، الهدر، التكاثر_غير_المحكوم",
+            "loc": {
+              "start": {
+                "line": 31,
+                "column": 3
+              },
+              "end": {
+                "line": 31,
+                "column": 42
+              }
+            }
+          }
+        ],
+        "declarationKind": "rule",
+        "sourceKeyword": "قاعدة",
+        "loc": {
+          "start": {
+            "line": 30,
+            "column": 1
+          },
+          "end": {
+            "line": 33,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "تربة_حية",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "فحص",
+            "value": "الخصوبة، الملوحة، الصرف، الأحياء_الدقيقة",
+            "loc": {
+              "start": {
+                "line": 34,
+                "column": 3
+              },
+              "end": {
+                "line": 34,
+                "column": 48
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "بذور_موثقة",
+            "loc": {
+              "start": {
+                "line": 35,
+                "column": 3
+              },
+              "end": {
+                "line": 35,
+                "column": 20
+              }
+            }
+          }
+        ],
+        "declarationKind": "soil",
+        "sourceKeyword": "تربة",
+        "loc": {
+          "start": {
+            "line": 33,
+            "column": 1
+          },
+          "end": {
+            "line": 37,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "بذور_موثقة",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "المصدر",
+            "value": "مملوك_أو_مرخص",
+            "loc": {
+              "start": {
+                "line": 38,
+                "column": 3
+              },
+              "end": {
+                "line": 38,
+                "column": 24
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "المسار",
+            "value": "من_الصفر",
+            "loc": {
+              "start": {
+                "line": 39,
+                "column": 3
+              },
+              "end": {
+                "line": 39,
+                "column": 19
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "فتيلة_التجربة",
+            "loc": {
+              "start": {
+                "line": 40,
+                "column": 3
+              },
+              "end": {
+                "line": 40,
+                "column": 23
+              }
+            }
+          }
+        ],
+        "declarationKind": "seed",
+        "sourceKeyword": "بذرة",
+        "loc": {
+          "start": {
+            "line": 37,
+            "column": 1
+          },
+          "end": {
+            "line": 42,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "فتيلة_التجربة",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "الغرض",
+            "value": "أصغر_تجربة_قابلة_للقياس",
+            "loc": {
+              "start": {
+                "line": 43,
+                "column": 3
+              },
+              "end": {
+                "line": 43,
+                "column": 33
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "مغرس_الغذاء",
+            "loc": {
+              "start": {
+                "line": 44,
+                "column": 3
+              },
+              "end": {
+                "line": 44,
+                "column": 21
+              }
+            }
+          }
+        ],
+        "declarationKind": "sprout",
+        "sourceKeyword": "فتيلة",
+        "loc": {
+          "start": {
+            "line": 42,
+            "column": 1
+          },
+          "end": {
+            "line": 46,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "مغرس_الغذاء",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "النوع",
+            "value": "بساتين، حبوب، خضروات، أعشاب",
+            "loc": {
+              "start": {
+                "line": 47,
+                "column": 3
+              },
+              "end": {
+                "line": 47,
+                "column": 37
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "سقاية_مقاسة، نمو_مراقب",
+            "loc": {
+              "start": {
+                "line": 48,
+                "column": 3
+              },
+              "end": {
+                "line": 48,
+                "column": 32
+              }
+            }
+          }
+        ],
+        "declarationKind": "cultivation",
+        "sourceKeyword": "مغرس",
+        "loc": {
+          "start": {
+            "line": 46,
+            "column": 1
+          },
+          "end": {
+            "line": 50,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "مرعى_دوري",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "النوع",
+            "value": "رعي_دوري",
+            "loc": {
+              "start": {
+                "line": 51,
+                "column": 3
+              },
+              "end": {
+                "line": 51,
+                "column": 18
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "السعة",
+            "value": "تحسب_من_الموقع",
+            "loc": {
+              "start": {
+                "line": 52,
+                "column": 3
+              },
+              "end": {
+                "line": 52,
+                "column": 24
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "سقاية_مقاسة، زارع_مسؤول",
+            "loc": {
+              "start": {
+                "line": 53,
+                "column": 3
+              },
+              "end": {
+                "line": 53,
+                "column": 33
+              }
+            }
+          }
+        ],
+        "declarationKind": "pasture",
+        "sourceKeyword": "مرعى",
+        "loc": {
+          "start": {
+            "line": 50,
+            "column": 1
+          },
+          "end": {
+            "line": 55,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "زارع_مسؤول",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "الدور",
+            "value": "إنسان_مسؤول_معلوم",
+            "loc": {
+              "start": {
+                "line": 56,
+                "column": 3
+              },
+              "end": {
+                "line": 56,
+                "column": 27
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "الصلاحية",
+            "value": "محدودة_وموثقة",
+            "loc": {
+              "start": {
+                "line": 57,
+                "column": 3
+              },
+              "end": {
+                "line": 57,
+                "column": 26
+              }
+            }
+          }
+        ],
+        "declarationKind": "grower",
+        "sourceKeyword": "زارع",
+        "loc": {
+          "start": {
+            "line": 55,
+            "column": 1
+          },
+          "end": {
+            "line": 59,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "سقاية_مقاسة",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "المصادر",
+            "value": "ماء، وقت، طاقة، مال، معرفة",
+            "loc": {
+              "start": {
+                "line": 60,
+                "column": 3
+              },
+              "end": {
+                "line": 60,
+                "column": 38
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "السقف",
+            "value": "محكوم",
+            "loc": {
+              "start": {
+                "line": 61,
+                "column": 3
+              },
+              "end": {
+                "line": 61,
+                "column": 15
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "نمو_مراقب",
+            "loc": {
+              "start": {
+                "line": 62,
+                "column": 3
+              },
+              "end": {
+                "line": 62,
+                "column": 19
+              }
+            }
+          }
+        ],
+        "declarationKind": "irrigation",
+        "sourceKeyword": "سقاية",
+        "loc": {
+          "start": {
+            "line": 59,
+            "column": 1
+          },
+          "end": {
+            "line": 64,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "نمو_مراقب",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "القياس",
+            "value": "ماء، محصول، صحة_التربة، رفاه_الحيوان",
+            "loc": {
+              "start": {
+                "line": 65,
+                "column": 3
+              },
+              "end": {
+                "line": 65,
+                "column": 47
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "ثمار_نافعة",
+            "loc": {
+              "start": {
+                "line": 66,
+                "column": 3
+              },
+              "end": {
+                "line": 66,
+                "column": 20
+              }
+            }
+          }
+        ],
+        "declarationKind": "growth",
+        "sourceKeyword": "نمو",
+        "loc": {
+          "start": {
+            "line": 64,
+            "column": 1
+          },
+          "end": {
+            "line": 68,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "ثمار_نافعة",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "الأنواع",
+            "value": "غذاء، سكن، معرفة، دخل_مثبت",
+            "loc": {
+              "start": {
+                "line": 69,
+                "column": 3
+              },
+              "end": {
+                "line": 69,
+                "column": 38
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "ازدهار_متزن",
+            "loc": {
+              "start": {
+                "line": 70,
+                "column": 3
+              },
+              "end": {
+                "line": 70,
+                "column": 21
+              }
+            }
+          }
+        ],
+        "declarationKind": "fruit",
+        "sourceKeyword": "ثمرة",
+        "loc": {
+          "start": {
+            "line": 68,
+            "column": 1
+          },
+          "end": {
+            "line": 72,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "استزراع_سريع",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "الأصل",
+            "value": "نام_ومرخص",
+            "loc": {
+              "start": {
+                "line": 73,
+                "column": 3
+              },
+              "end": {
+                "line": 73,
+                "column": 19
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "الشرط",
+            "value": "الحقوق، التوافق، الاختبار",
+            "loc": {
+              "start": {
+                "line": 74,
+                "column": 3
+              },
+              "end": {
+                "line": 74,
+                "column": 35
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "يرتبط",
+            "value": "مغرس_الغذاء",
+            "loc": {
+              "start": {
+                "line": 75,
+                "column": 3
+              },
+              "end": {
+                "line": 75,
+                "column": 21
+              }
+            }
+          }
+        ],
+        "declarationKind": "transplant",
+        "sourceKeyword": "استزراع",
+        "loc": {
+          "start": {
+            "line": 72,
+            "column": 1
+          },
+          "end": {
+            "line": 77,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "زراعة_من_الصفر",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "البداية",
+            "value": "بذرة_موثقة",
+            "loc": {
+              "start": {
+                "line": 78,
+                "column": 3
+              },
+              "end": {
+                "line": 78,
+                "column": 22
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "النهاية",
+            "value": "ثمرة_مختبرة",
+            "loc": {
+              "start": {
+                "line": 79,
+                "column": 3
+              },
+              "end": {
+                "line": 79,
+                "column": 23
+              }
+            }
+          }
+        ],
+        "declarationKind": "agriculture",
+        "sourceKeyword": "زراعة",
+        "loc": {
+          "start": {
+            "line": 77,
+            "column": 1
+          },
+          "end": {
+            "line": 81,
+            "column": 1
+          }
+        }
+      },
+      {
+        "type": "EntityDeclaration",
+        "name": "ازدهار_متزن",
+        "properties": [
+          {
+            "type": "PropertyAssignment",
+            "key": "الشرط",
+            "value": "منفعة، استدامة، عدل، قابلية_تكرار",
+            "loc": {
+              "start": {
+                "line": 82,
+                "column": 3
+              },
+              "end": {
+                "line": 82,
+                "column": 43
+              }
+            }
+          },
+          {
+            "type": "PropertyAssignment",
+            "key": "التكاثر",
+            "value": "محكوم_بالجودة_والحقوق",
+            "loc": {
+              "start": {
+                "line": 83,
+                "column": 3
+              },
+              "end": {
+                "line": 83,
+                "column": 33
+              }
+            }
+          }
+        ],
+        "declarationKind": "flourishing",
+        "sourceKeyword": "ازدهار",
+        "loc": {
+          "start": {
+            "line": 81,
+            "column": 1
+          },
+          "end": {
+            "line": 84,
+            "column": 1
+          }
+        }
+      }
+    ],
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 85,
+        "column": 1
+      }
+    }
+  },
+  "typeCheck": {
+    "ok": true,
+    "diagnostics": [],
+    "symbols": {
+      "entities": {
+        "جنات_الدنيا": {
+          "properties": {
+            "النطاق": "string",
+            "الموقع": "string",
+            "المساحة": "number",
+            "السكان": "number",
+            "الماشية": "number",
+            "دراسة_الماء": "string",
+            "دراسة_التربة": "string",
+            "المسح_الطبوغرافي": "string",
+            "دراسة_المخاطر_والسيول": "string",
+            "حقوق_الأرض": "string",
+            "الميزانية": "string",
+            "جهة_الاختصاص": "string",
+            "التحقق_المستقل": "string",
+            "يرتبط": "list"
+          }
+        },
+        "أساسيات_العمران": {
+          "properties": {
+            "يوجب": "list"
+          }
+        },
+        "قواعد_النمو": {
+          "properties": {
+            "يمنع": "list"
+          }
+        },
+        "تربة_حية": {
+          "properties": {
+            "فحص": "list",
+            "يرتبط": "string"
+          }
+        },
+        "بذور_موثقة": {
+          "properties": {
+            "المصدر": "string",
+            "المسار": "string",
+            "يرتبط": "string"
+          }
+        },
+        "فتيلة_التجربة": {
+          "properties": {
+            "الغرض": "string",
+            "يرتبط": "string"
+          }
+        },
+        "مغرس_الغذاء": {
+          "properties": {
+            "النوع": "list",
+            "يرتبط": "list"
+          }
+        },
+        "مرعى_دوري": {
+          "properties": {
+            "النوع": "string",
+            "السعة": "string",
+            "يرتبط": "list"
+          }
+        },
+        "زارع_مسؤول": {
+          "properties": {
+            "الدور": "string",
+            "الصلاحية": "string"
+          }
+        },
+        "سقاية_مقاسة": {
+          "properties": {
+            "المصادر": "list",
+            "السقف": "string",
+            "يرتبط": "string"
+          }
+        },
+        "نمو_مراقب": {
+          "properties": {
+            "القياس": "list",
+            "يرتبط": "string"
+          }
+        },
+        "ثمار_نافعة": {
+          "properties": {
+            "الأنواع": "list",
+            "يرتبط": "string"
+          }
+        },
+        "استزراع_سريع": {
+          "properties": {
+            "الأصل": "string",
+            "الشرط": "list",
+            "يرتبط": "string"
+          }
+        },
+        "زراعة_من_الصفر": {
+          "properties": {
+            "البداية": "string",
+            "النهاية": "string"
+          }
+        },
+        "ازدهار_متزن": {
+          "properties": {
+            "الشرط": "list",
+            "التكاثر": "string"
+          }
+        }
+      },
+      "procedures": {},
+      "valuesReferences": {
+        "الآخرة": {
+          "executable": false,
+          "properties": {
+            "المصدر": "string",
+            "الدور": "string",
+            "السلطة_البرمجية": "string",
+            "الفتوى_الآلية": "string",
+            "المراجعة_الشرعية": "string",
+            "التحقق_من_المصادر": "string"
+          }
+        }
+      },
+      "governancePolicies": {},
+      "reasoningMethodologies": {},
+      "cultivationDeclarations": {
+        "جنات_الدنيا": {
+          "kind": "garden",
+          "keyword": "جنة",
+          "properties": {
+            "النطاق": "string",
+            "الموقع": "string",
+            "المساحة": "number",
+            "السكان": "number",
+            "الماشية": "number",
+            "دراسة_الماء": "string",
+            "دراسة_التربة": "string",
+            "المسح_الطبوغرافي": "string",
+            "دراسة_المخاطر_والسيول": "string",
+            "حقوق_الأرض": "string",
+            "الميزانية": "string",
+            "جهة_الاختصاص": "string",
+            "التحقق_المستقل": "string",
+            "يرتبط": "list"
+          },
+          "executable": false
+        },
+        "أساسيات_العمران": {
+          "kind": "foundation",
+          "keyword": "أساس",
+          "properties": {
+            "يوجب": "list"
+          },
+          "executable": false
+        },
+        "قواعد_النمو": {
+          "kind": "rule",
+          "keyword": "قاعدة",
+          "properties": {
+            "يمنع": "list"
+          },
+          "executable": false
+        },
+        "تربة_حية": {
+          "kind": "soil",
+          "keyword": "تربة",
+          "properties": {
+            "فحص": "list",
+            "يرتبط": "string"
+          },
+          "executable": false
+        },
+        "بذور_موثقة": {
+          "kind": "seed",
+          "keyword": "بذرة",
+          "properties": {
+            "المصدر": "string",
+            "المسار": "string",
+            "يرتبط": "string"
+          },
+          "executable": false
+        },
+        "فتيلة_التجربة": {
+          "kind": "sprout",
+          "keyword": "فتيلة",
+          "properties": {
+            "الغرض": "string",
+            "يرتبط": "string"
+          },
+          "executable": false
+        },
+        "مغرس_الغذاء": {
+          "kind": "cultivation",
+          "keyword": "مغرس",
+          "properties": {
+            "النوع": "list",
+            "يرتبط": "list"
+          },
+          "executable": false
+        },
+        "مرعى_دوري": {
+          "kind": "pasture",
+          "keyword": "مرعى",
+          "properties": {
+            "النوع": "string",
+            "السعة": "string",
+            "يرتبط": "list"
+          },
+          "executable": false
+        },
+        "زارع_مسؤول": {
+          "kind": "grower",
+          "keyword": "زارع",
+          "properties": {
+            "الدور": "string",
+            "الصلاحية": "string"
+          },
+          "executable": false
+        },
+        "سقاية_مقاسة": {
+          "kind": "irrigation",
+          "keyword": "سقاية",
+          "properties": {
+            "المصادر": "list",
+            "السقف": "string",
+            "يرتبط": "string"
+          },
+          "executable": false
+        },
+        "نمو_مراقب": {
+          "kind": "growth",
+          "keyword": "نمو",
+          "properties": {
+            "القياس": "list",
+            "يرتبط": "string"
+          },
+          "executable": false
+        },
+        "ثمار_نافعة": {
+          "kind": "fruit",
+          "keyword": "ثمرة",
+          "properties": {
+            "الأنواع": "list",
+            "يرتبط": "string"
+          },
+          "executable": false
+        },
+        "استزراع_سريع": {
+          "kind": "transplant",
+          "keyword": "استزراع",
+          "properties": {
+            "الأصل": "string",
+            "الشرط": "list",
+            "يرتبط": "string"
+          },
+          "executable": false
+        },
+        "زراعة_من_الصفر": {
+          "kind": "agriculture",
+          "keyword": "زراعة",
+          "properties": {
+            "البداية": "string",
+            "النهاية": "string"
+          },
+          "executable": false
+        },
+        "ازدهار_متزن": {
+          "kind": "flourishing",
+          "keyword": "ازدهار",
+          "properties": {
+            "الشرط": "list",
+            "التكاثر": "string"
+          },
+          "executable": false
+        }
+      }
+    }
+  },
+  "engineeringPlan": {
+    "system": "SHEIKHA_WORLDLY_GARDENS_ENGINEERING_PLANNER_V1",
+    "status": "ENGINEERING_BASIS_DECLARED_REQUIRES_INDEPENDENT_VERIFICATION",
+    "scope": "WORLDLY_PHYSICAL_AND_OPERATIONAL_PLANNING_ONLY",
+    "sacredLanguageIsolation": {
+      "afterlifeTextMayGenerateGeometry": false,
+      "afterlifeTextMayGenerateQuantities": false,
+      "afterlifeTextMayGenerateMaterialSpecification": false,
+      "afterlifeTextMayAuthorizeConstruction": false,
+      "namesAreTextualRemindersOnly": true,
+      "rule": "SACRED_UNSEEN_TEXT_NEVER_ENTERS_ENGINEERING_CALCULATION"
+    },
+    "inputs": {
+      "siteAreaM2": 100000,
+      "location": "موقع_تجريبي_معلن",
+      "populationTarget": 500,
+      "livestockHeads": 50
+    },
+    "resourceBalance": {
+      "system": "SHEIKHA_HABITAT_RESOURCE_BALANCE_V1",
+      "status": "PLANNING_SCENARIO_BALANCED_FOR_AREA_ONLY",
+      "planningScenarioOnly": true,
+      "assumptions": {
+        "domesticWaterLitersPerPersonDay": 100,
+        "foodKgPerPersonDay": 0.8,
+        "electricityKwhPerPersonDay": 8,
+        "grossHousingM2PerPerson": 35,
+        "irrigationLitersPerCultivatedM2Day": 4,
+        "livestockWaterLitersPerHeadDay": 35,
+        "reserveFactor": 0.2,
+        "landAllocation": {
+          "housingAndServices": 0.2,
+          "foodOrchardsAndCrops": 0.25,
+          "grazingPastures": 0.3,
+          "ecologicalCommons": 0.15,
+          "waterAndUtilities": 0.1
+        }
+      },
+      "inputs": {
+        "population": 500,
+        "siteAreaM2": 100000,
+        "livestockHeads": 50
+      },
+      "areasM2": {
+        "housingAndServices": 20000,
+        "foodOrchardsAndCrops": 25000,
+        "grazingPastures": 30000,
+        "ecologicalCommons": 15000,
+        "waterAndUtilities": 10000
+      },
+      "dailyDemand": {
+        "domesticWaterLiters": 50000,
+        "irrigationWaterLiters": 100000,
+        "livestockWaterLiters": 1750,
+        "totalWaterWithReserveLiters": 182100,
+        "foodKg": 400,
+        "electricityKwh": 4800
+      },
+      "housing": {
+        "grossDemandM2": 17500,
+        "allocatedM2": 20000,
+        "areaMarginM2": 2500
+      },
+      "unresolvedEngineeringInputs": [
+        "CLIMATE_AND_EVAPOTRANSPIRATION",
+        "CROP_MIX_AND_YIELD",
+        "SOIL_INFILTRATION_AND_SALINITY",
+        "WATER_SOURCE_YIELD_AND_QUALITY",
+        "PASTURE_CARRYING_CAPACITY",
+        "BUILDING_DENSITY_AND_CODE",
+        "ENERGY_LOAD_PROFILE_AND_GENERATION",
+        "CAPEX_OPEX_AND_MAINTENANCE"
+      ],
+      "engineeringApproved": false
+    },
+    "disciplines": [
+      {
+        "id": "MASTER_PLANNING",
+        "nameAr": "التخطيط العام واستعمالات الأرض",
+        "deliverables": [
+          "SITE_BASEMAP",
+          "LAND_USE_PLAN",
+          "PHASING_PLAN",
+          "ACCESS_AND_CIRCULATION_PLAN"
+        ]
+      },
+      {
+        "id": "AGRONOMY",
+        "nameAr": "الزراعة والبساتين والمشاتل",
+        "deliverables": [
+          "SOIL_AMENDMENT_PLAN",
+          "CROP_AND_TREE_SCHEDULE",
+          "NURSERY_PLAN",
+          "SEASONAL_OPERATIONS_PLAN"
+        ]
+      },
+      {
+        "id": "PASTURE_AND_VETERINARY",
+        "nameAr": "المراعي والثروة الحيوانية",
+        "deliverables": [
+          "CARRYING_CAPACITY",
+          "ROTATIONAL_GRAZING_PLAN",
+          "FEED_BALANCE",
+          "ANIMAL_WELFARE_AND_BIOSECURITY_PLAN"
+        ]
+      },
+      {
+        "id": "WATER_AND_CIVIL",
+        "nameAr": "المياه والهندسة المدنية",
+        "deliverables": [
+          "WATER_BALANCE",
+          "POTABLE_NETWORK",
+          "IRRIGATION_NETWORK",
+          "DRAINAGE_AND_FLOOD_MODEL",
+          "REUSE_NETWORK"
+        ]
+      },
+      {
+        "id": "ARCHITECTURE_AND_STRUCTURE",
+        "nameAr": "العمارة والإنشاء",
+        "deliverables": [
+          "HOUSING_PROGRAM",
+          "PUBLIC_BUILDING_PROGRAM",
+          "STRUCTURAL_BASIS",
+          "FIRE_AND_EGRESS_PLAN"
+        ]
+      },
+      {
+        "id": "ENERGY_AND_UTILITIES",
+        "nameAr": "الطاقة والمرافق",
+        "deliverables": [
+          "LOAD_PROFILE",
+          "GENERATION_AND_STORAGE_PLAN",
+          "COOLING_PLAN",
+          "WASTE_AND_COMPOST_PLAN"
+        ]
+      },
+      {
+        "id": "ENVIRONMENT_AND_RESILIENCE",
+        "nameAr": "البيئة والمرونة",
+        "deliverables": [
+          "BIODIVERSITY_BASELINE",
+          "NATIVE_SPECIES_PLAN",
+          "HAZARD_REGISTER",
+          "EMERGENCY_AND_RECOVERY_PLAN"
+        ]
+      },
+      {
+        "id": "COST_SCHEDULE_AND_PERMITS",
+        "nameAr": "التكلفة والبرنامج والتراخيص",
+        "deliverables": [
+          "QUANTITY_BASIS",
+          "CAPEX_OPEX_ESTIMATE",
+          "PROCUREMENT_PACKAGES",
+          "PERMIT_MATRIX",
+          "ACCEPTANCE_SCHEDULE"
+        ]
+      }
+    ],
+    "phases": [
+      {
+        "id": "H0_BASELINE",
+        "scopeAr": "حقوق الأرض والمسح والماء والتربة والمناخ والسيول والسكان",
+        "exitGate": "BASELINE_STUDIES_AND_RIGHTS_APPROVED"
+      },
+      {
+        "id": "H1_LIVING_NUCLEUS",
+        "scopeAr": "نواة سكن وخدمات وماء وطاقة وصرف وطوارئ",
+        "exitGate": "OCCUPANCY_AND_UTILITY_SAFETY_ACCEPTED"
+      },
+      {
+        "id": "H2_FOOD_NURSERY",
+        "scopeAr": "مشتل وبنك بذور ومحاصيل تجريبية وتتبّع غذائي",
+        "exitGate": "ONE_SEASON_YIELD_WATER_AND_FOOD_SAFETY_EVIDENCE"
+      },
+      {
+        "id": "H3_ROTATIONAL_PASTURE",
+        "scopeAr": "مرعى دوري محدود ومأوى وماء ورعاية بيطرية",
+        "exitGate": "CARRYING_CAPACITY_AND_ANIMAL_WELFARE_ACCEPTED"
+      },
+      {
+        "id": "H4_ORCHARDS_AND_COMMONS",
+        "scopeAr": "بساتين دائمة وأحزمة خضراء وموائل ومسارات عامة",
+        "exitGate": "SURVIVAL_BIODIVERSITY_AND_MAINTENANCE_TARGETS_MET"
+      },
+      {
+        "id": "H5_HOMES_AND_HOSPITALITY",
+        "scopeAr": "توسع المساكن ودور الضيافة والمباني العامة والقصور المعتمدة",
+        "exitGate": "DEMAND_FINANCE_CODE_AND_LIFECYCLE_COST_ACCEPTED"
+      },
+      {
+        "id": "H6_REGENERATIVE_EXPANSION",
+        "scopeAr": "توسع مرحلي لا يتجاوز الماء والتربة والميزانية وسعة التشغيل",
+        "exitGate": "INDEPENDENT_MULTI_SEASON_REGENERATIVE_REVIEW"
+      }
+    ],
+    "stageGates": [
+      "CONCEPT_10_PERCENT",
+      "SCHEMATIC_30_PERCENT",
+      "COORDINATED_60_PERCENT",
+      "PERMIT_90_PERCENT",
+      "ISSUED_FOR_CONSTRUCTION_100_PERCENT",
+      "AS_BUILT_AND_COMMISSIONED"
+    ],
+    "qualityRules": [
+      "NO_PERCENT_COMPLETE_WITHOUT_NAMED_DELIVERABLES",
+      "INDEPENDENT_DISCIPLINE_CHECK_REQUIRED",
+      "CROSS_DISCIPLINE_CLASH_REVIEW_REQUIRED",
+      "QUANTITIES_TRACE_TO_DRAWINGS_AND_ASSUMPTIONS",
+      "CONSTRUCTION_REQUIRES_SIGNED_PROFESSIONAL_APPROVAL",
+      "CHANGES_REQUIRE_VERSION_IMPACT_AND_APPROVAL"
+    ],
+    "evidenceIndependentlyVerified": false,
+    "blockers": [],
+    "issuedForConstruction": false,
+    "physicalExecutionAuthorized": false
+  },
+  "admissionReview": {
+    "schemaVersion": "1.0.0",
+    "decision": "BLOCKED",
+    "reviewable": true,
+    "executable": false,
+    "blockers": [
+      "UNRESOLVED_ENGINEERING_INPUTS",
+      "INDEPENDENT_EVIDENCE_VERIFICATION_REQUIRED",
+      "NOT_ISSUED_FOR_CONSTRUCTION",
+      "PHYSICAL_EXECUTION_NOT_AUTHORIZED"
+    ],
+    "evidence": {
+      "languageReferencesResolved": true,
+      "independentVerification": false,
+      "unresolvedEngineeringInputCount": 8,
+      "unresolvedEngineeringInputs": [
+        "CLIMATE_AND_EVAPOTRANSPIRATION",
+        "CROP_MIX_AND_YIELD",
+        "SOIL_INFILTRATION_AND_SALINITY",
+        "WATER_SOURCE_YIELD_AND_QUALITY",
+        "PASTURE_CARRYING_CAPACITY",
+        "BUILDING_DENSITY_AND_CODE",
+        "ENERGY_LOAD_PROFILE_AND_GENERATION",
+        "CAPEX_OPEX_AND_MAINTENANCE"
+      ]
+    },
+    "nextGate": "COMPLETE_SITE_SPECIFIC_ENGINEERING_STUDIES",
+    "rule": "COMPILATION_NEVER_AUTHORIZES_PHYSICAL_EXECUTION"
+  },
+  "execution": {
+    "requested": false,
+    "authorized": false,
+    "performed": false
+  }
+}

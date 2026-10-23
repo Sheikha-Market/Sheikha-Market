@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>شيخة | العناقيد الصناعية</title>
+  <link rel="icon" href="/images/sheikha-emblem-hd.png">
+  <link rel="stylesheet" href="./workspace.css">
+  <link rel="stylesheet" href="./industry.css">
+  <script src="./industry.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">تجاوز إلى المحتوى</a>
+  <header class="topbar">
+    <a class="brand" href="./#/sheikha"><img src="/images/sheikha-emblem-hd.png" alt="" width="42" height="42"><span>شيخة <small>SHEIKHA</small></span></a>
+    <nav aria-label="التنقل الرئيسي"><a href="./#/sheikha">المنظومة</a><a href="./#/market">السوق</a><a href="./industry.html" aria-current="page">العناقيد الصناعية</a><a href="./#/operations">التشغيل</a><a href="./robot-studio.html">الروبوتات</a></nav>
+    <span class="local-label">تخطيط محلي · دون تشغيل مادي</span>
+  </header>
+  <main id="main" class="industry-main" tabindex="-1">
+    <div class="content band">
+      <div class="heading"><div><p class="eyebrow">SHEIKHA INDUSTRIAL ECOSYSTEM</p><h1 class="page-title">العناقيد والمزارع الصناعية</h1></div><span class="tag">رؤية طموحة · قدرات غير متحققة</span></div>
+      <p id="industry-vision">نحو أوسع منظومة صناعية وأكثرها نفعًا وخيرًا وكرمًا، بخدمة الإنسان وحفظ الموارد.</p>
+      <figure class="industry-panorama"><img src="./assets/campus.png" alt="تصور مرئي لمجمع شيخة الصناعي ومرافقه المشتركة"><figcaption>تصور معماري، لا منشأة تشغيلية موثقة</figcaption></figure>
+      <div class="industry-summary"><span id="industry-count" role="status">جارٍ قراءة السجل</span><span>الموارد: غير متحققة</span><span>الموافقات: مراجعة بشرية</span><span>النشر والأجهزة: متوقفان</span></div>
+      <div id="industry-load-error" class="notice" hidden><p>تعذر قراءة سجل التخطيط.</p><button id="industry-retry" type="button"><img class="icon" src="/architecture-explorer/icons/refresh-cw.svg" alt=""> إعادة المحاولة</button></div>
+    </div>
+    <div id="industry-content" hidden>
+      <section class="content band" aria-labelledby="catalog-title">
+        <div class="heading"><h2 id="catalog-title">القطاعات ومسارات الإنتاج</h2><a href="./industry-runtime.html">تشغيل التجمع الصناعي الرقمي ←</a><label class="industry-search">البحث<input type="search" id="industry-search" maxlength="100" placeholder="قطاع أو مخرج"></label></div>
+        <div class="industry-layout">
+          <div><div id="industry-sectors" class="industry-sectors" role="group" aria-label="اختيار القطاع"></div><p id="industry-empty" class="subtle" hidden>لا قطاعات مطابقة.</p></div>
+          <section class="industry-detail" aria-labelledby="sector-title">
+            <p id="sector-code" class="eyebrow" dir="ltr"></p><h3 id="sector-title"></h3><p id="sector-output"></p>
+            <h4>الموارد المطلوبة</h4><ul id="sector-resources"></ul>
+            <h4>مراحل الخط المقترحة</h4><ol id="sector-stages"></ol>
+            <p id="sector-review" class="notice"></p>
+          </section>
+        </div>
+      </section>
+      <section class="content band" aria-labelledby="plan-title">
+        <div class="heading"><div><p class="eyebrow">FOUNDRY / PLANNING</p><h2 id="plan-title">مسودة مشروع صناعي</h2></div><span class="tag">أهداف مقترحة، لا توقعات إنتاج</span></div>
+        <form id="industry-form">
+          <div class="industry-form-grid">
+            <label class="name-field">اسم المشروع<input id="plan-name" required minlength="3" maxlength="120" value="عنقود شيخة للمواد النافعة"></label>
+            <label>البنية التنظيمية<select id="plan-type" required></select></label>
+            <label>مسار الإنتاج<select id="plan-template" required></select></label>
+            <label>الأفق<select id="plan-horizon" required></select></label>
+            <label>المخرجات المستهدفة<input id="plan-quantity" type="number" min="1" max="1000000" step="1" value="100" required></label>
+            <label>فترة التخطيط بالأيام<input id="plan-days" type="number" min="1" max="3650" step="1" value="30" required></label>
+            <label>حصة المنفعة المجتمعية %<input id="plan-share" type="number" min="0" max="100" step="1" value="10" required></label>
+          </div>
+          <p id="plan-structure" class="subtle"></p>
+          <label class="check"><input type="checkbox" id="plan-consent" required>مسودة للمراجعة، دون اعتماد هندسي أو شرعي أو إذن تشغيل.</label>
+          <div class="run-bar"><button type="submit" class="primary" id="plan-submit">إنشاء مسودة <img class="icon" src="/architecture-explorer/icons/arrow-left.svg" alt=""></button><span id="plan-status" role="status"></span></div>
+        </form>
+        <section id="industry-result" class="industry-result" aria-labelledby="result-title" hidden>
+          <div class="heading"><h3 id="result-title" tabindex="-1"></h3><button class="icon-button" id="industry-export" title="تنزيل المسودة JSON" aria-label="تنزيل المسودة JSON"><img class="icon" src="/architecture-explorer/icons/download.svg" alt=""></button></div>
+          <p id="result-output"></p><dl id="industry-targets" class="industry-targets"></dl>
+          <p class="subtle">المتوسط اليومي مقرب للأعلى والحصة المجتمعية مقربة للأسفل. القدرة والتكلفة والموعد الفعلي غير متحققة.</p>
+          <ol id="result-stages" class="industry-pipeline"></ol>
+          <div id="industry-reviews" class="industry-reviews"></div>
+          <details><summary>سجل المسودة</summary><pre id="industry-json" dir="ltr"></pre></details>
+        </section>
+      </section>
+      <section class="content band" aria-labelledby="metrics-title">
+        <div class="heading"><h2 id="metrics-title">النفع والخير والكرم والإتقان</h2><span class="subtle">لم تُسجّل قياسات فعلية</span></div>
+        <div id="industry-metrics" class="industry-metrics"></div>
+      </section>
+      <section class="content band" aria-labelledby="links-title"><div class="heading"><h2 id="links-title">مسارات شيخة المرتبطة</h2><span class="subtle">محلي · دون نقل صلاحيات</span></div><div id="industry-links" class="industry-links"></div></section>
+    </div>
+  </main>
+  <footer class="content"><strong>شيخة | SHEIKHA</strong><span>بالكتاب والسنة · صدق وعدل وأمانة · مراجعة مؤهلة قبل التنفيذ</span><span dir="ltr">SHEIKHA UGIT-RP</span></footer>
+  <noscript><p class="notice">JavaScript غير مفعّل؛ التخطيط المحلي غير متاح.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_CHAT_COMMERCIAL_SUSTAINED_V1",
+  "generatedAt": "2026-08-30T14:04:38.860Z",
+  "status": "VERIFIED",
+  "passed": true,
+  "target": "http://127.0.0.1:8083",
+  "configuredDurationMs": 60000,
+  "intervalMs": 2500,
+  "requestCount": 24,
+  "passedCount": 24,
+  "failedCount": 0,
+  "healthBeforePassed": true,
+  "healthAfterPassed": true,
+  "latencyMs": {
+    "minimum": 1.918,
+    "p50": 2.443,
+    "p95": 3.071,
+    "maximum": 3.577
+  },
+  "results": [
+    {
+      "id": 1,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.903,
+      "bytes": 2112
+    },
+    {
+      "id": 2,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 3.071,
+      "bytes": 2112
+    },
+    {
+      "id": 3,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.443,
+      "bytes": 2112
+    },
+    {
+      "id": 4,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.539,
+      "bytes": 2112
+    },
+    {
+      "id": 5,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.578,
+      "bytes": 2112
+    },
+    {
+      "id": 6,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.266,
+      "bytes": 2112
+    },
+    {
+      "id": 7,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.464,
+      "bytes": 2112
+    },
+    {
+      "id": 8,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.146,
+      "bytes": 2112
+    },
+    {
+      "id": 9,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.946,
+      "bytes": 2112
+    },
+    {
+      "id": 10,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.303,
+      "bytes": 2112
+    },
+    {
+      "id": 11,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.546,
+      "bytes": 2112
+    },
+    {
+      "id": 12,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.86,
+      "bytes": 2112
+    },
+    {
+      "id": 13,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.771,
+      "bytes": 2112
+    },
+    {
+      "id": 14,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 1.918,
+      "bytes": 2112
+    },
+    {
+      "id": 15,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 1.975,
+      "bytes": 2112
+    },
+    {
+      "id": 16,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.05,
+      "bytes": 2112
+    },
+    {
+      "id": 17,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.121,
+      "bytes": 2112
+    },
+    {
+      "id": 18,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.459,
+      "bytes": 2112
+    },
+    {
+      "id": 19,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.029,
+      "bytes": 2112
+    },
+    {
+      "id": 20,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.331,
+      "bytes": 2112
+    },
+    {
+      "id": 21,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 3.577,
+      "bytes": 2112
+    },
+    {
+      "id": 22,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.912,
+      "bytes": 2112
+    },
+    {
+      "id": 23,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.298,
+      "bytes": 2112
+    },
+    {
+      "id": 24,
+      "passed": true,
+      "statusCode": 200,
+      "durationMs": 2.015,
+      "bytes": 2112
+    }
+  ],
+  "boundaries": {
+    "gatewayAndBackendIncluded": true,
+    "loopbackOnly": true,
+    "durationClass": "sustained-smoke",
+    "formalSoakTest": false,
+    "contractualSlaEvidence": false
+  }
+}

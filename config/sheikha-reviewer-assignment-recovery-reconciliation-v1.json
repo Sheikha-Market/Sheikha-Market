@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_REVIEWER_ASSIGNMENT_RECOVERY_RECONCILIATION_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "READ_ONLY_RECOVERY_PLAN_NO_ROLLBACK",
+  "registrySource": "runtime/connector-evidence-review/v1/reviewer-authority-assignments-v1.json",
+  "auditLedgerSource": "runtime/connector-evidence-review/v1/reviewer-assignment-audit-ledger-v1.json",
+  "writePlanSource": "runtime/connector-evidence-review/v1/reviewer-assignment-write-plans-v1.json",
+  "governance": {
+    "reconcileOnlyWhenDriftDetected": true,
+    "expectedVsActualRequired": true,
+    "sourceAttributionRequired": true,
+    "humanDecisionRequired": true,
+    "noAutomaticRollback": true,
+    "noAutomaticRepair": true,
+    "noAutomaticBaselineRefresh": true,
+    "noAutomaticAssignment": true,
+    "noProductionMutation": true,
+    "readOnlyPlanning": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "allowedPlanActions": [
+    "FREEZE_ASSIGNMENT_WRITES",
+    "COLLECT_CHANGE_EVIDENCE",
+    "COMPARE_EXPECTED_ACTUAL",
+    "IDENTIFY_WRITE_PROVENANCE",
+    "HUMAN_RECONCILIATION_REVIEW",
+    "RESTORE_EXPECTED_STATE_MANUALLY",
+    "ACCEPT_ACTUAL_AS_NEW_BASELINE_MANUALLY"
+  ]
+}

@@ -1,0 +1,1 @@
+"use strict";const p=require('../../core/platform/sheikha-sdp-project-v1.cjs');const [mode,id]=process.argv.slice(2);if(process.argv.length!==4||!['init','build'].includes(mode))throw Error('PROJECT_COMMAND_DENIED');console.log(JSON.stringify(mode==='init'?p.initialize(id):p.buildProject(id)));

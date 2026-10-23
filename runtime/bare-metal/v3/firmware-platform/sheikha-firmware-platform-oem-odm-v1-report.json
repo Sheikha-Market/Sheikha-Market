@@ -1,0 +1,423 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_FIRMWARE_PLATFORM_OEM_ODM_V1",
+  "status": "DEVELOPMENT_FOUNDATION_READY_PRODUCTION_GATES_OPEN",
+  "generatedAt": "2026-09-10T13:41:06.644Z",
+  "product": {
+    "brand": "Sheikha Foundation Firmware Platform",
+    "arabicBrand": "منصة شيخة للبرمجيات الثابتة التأسيسية",
+    "tracks": [
+      "SFP_BOOTLAB",
+      "SFP_UEFI_PAYLOAD",
+      "SFP_BOARD_PORT_KIT",
+      "SFP_SECURE_LIFECYCLE",
+      "SFP_OEM_ODM_PRODUCTION"
+    ],
+    "architectures": [
+      "x86_64",
+      "aarch64",
+      "riscv64"
+    ],
+    "compositionModel": [
+      "SHEIKHA_FIRMWARE_CORE",
+      "ARCHITECTURE_ADAPTER",
+      "LICENSED_SILICON_ENABLEMENT_PACKAGE",
+      "NAMED_BOARD_PACKAGE",
+      "OEM_ODM_PRODUCT_CONFIGURATION"
+    ],
+    "families": [
+      {
+        "id": "SHEIKHA_BOOT_FOUNDATION",
+        "state": "FOUNDATION_PARTIAL"
+      },
+      {
+        "id": "SHEIKHA_MANAGE_FOUNDATION",
+        "state": "ARCHITECTURE_DEFINED"
+      },
+      {
+        "id": "SHEIKHA_TRUST_FOUNDATION",
+        "state": "ARCHITECTURE_DEFINED"
+      },
+      {
+        "id": "SHEIKHA_FIRMWARE_OPERATIONS",
+        "state": "ARCHITECTURE_DEFINED"
+      },
+      {
+        "id": "SHEIKHA_EDGE_FOUNDATION",
+        "state": "PRODUCT_PLANNED"
+      },
+      {
+        "id": "SHEIKHA_DATACENTER_FOUNDATION",
+        "state": "PRODUCT_PLANNED"
+      },
+      {
+        "id": "SHEIKHA_AI_PLATFORM_FIRMWARE",
+        "state": "PRODUCT_PLANNED"
+      },
+      {
+        "id": "SHEIKHA_OPEN_FIRMWARE",
+        "state": "LICENSE_POLICY_REQUIRED"
+      },
+      {
+        "id": "SHEIKHA_PLATFORM_ENGINEERING",
+        "state": "FOUNDATION_ACTIVE"
+      }
+    ]
+  },
+  "editions": {
+    "community": {
+      "name": "Sheikha Foundation Firmware Community",
+      "purpose": [
+        "OPEN_BOARD_ENABLEMENT",
+        "DEVELOPER_SDK_AND_TOOLING",
+        "TEST_EXPANSION",
+        "ECOSYSTEM_BUILDING"
+      ],
+      "notDeliberatelyCrippled": true,
+      "releaseRequires": [
+        "OPEN_SOURCE_LICENSE_REVIEW",
+        "SECRET_SCAN",
+        "THIRD_PARTY_PROVENANCE",
+        "COMMUNITY_SUPPORT_BOUNDARY"
+      ]
+    },
+    "enterpriseOem": {
+      "name": "Sheikha Foundation Firmware Enterprise/OEM",
+      "adds": [
+        "COMMERCIAL_SUPPORT",
+        "OEM_CUSTOMIZATION",
+        "LICENSED_SILICON_PACKAGES",
+        "MANUFACTURING_PROVISIONING",
+        "PRODUCTION_SIGNING",
+        "FLEET_MANAGEMENT",
+        "SECURITY_LIFECYCLE",
+        "CERTIFICATION_SUPPORT",
+        "LONG_TERM_MAINTENANCE"
+      ]
+    }
+  },
+  "foundationComputingPlatform": {
+    "id": "SHEIKHA_FOUNDATION_COMPUTING_PLATFORM_V1",
+    "status": "ARCHITECTURE_ACTIVE_IMPLEMENTATION_PARTIAL",
+    "layers": [
+      {
+        "id": "FIRMWARE",
+        "system": "SHEIKHA_FOUNDATION_FIRMWARE_PLATFORM",
+        "state": "DEVELOPMENT_FOUNDATION_ACTIVE"
+      },
+      {
+        "id": "BARE_METAL",
+        "system": "SHEIKHA_SOVEREIGN_BARE_METAL",
+        "state": "NAMED_DEVICE_SEED_VERIFIED"
+      },
+      {
+        "id": "RUNTIME",
+        "system": "SHEIKHA_RUNTIME",
+        "state": "EXISTING_SYSTEM_REFERENCE"
+      },
+      {
+        "id": "OPERATING_SYSTEM",
+        "system": "SHEIKHA_OPERATING_SYSTEM",
+        "state": "NOT_GENERAL_PURPOSE_COMPLETE"
+      },
+      {
+        "id": "MANAGEABILITY",
+        "system": "SHEIKHA_MANAGE_FOUNDATION",
+        "state": "ARCHITECTURE_DEFINED"
+      },
+      {
+        "id": "SECURITY",
+        "system": "SHEIKHA_TRUST_FOUNDATION",
+        "state": "ARCHITECTURE_DEFINED"
+      },
+      {
+        "id": "OBSERVABILITY",
+        "system": "SHEIKHA_FIRMWARE_OPERATIONS",
+        "state": "ARCHITECTURE_DEFINED"
+      },
+      {
+        "id": "ENTERPRISE_CONTROL_PLANE",
+        "system": "SHEIKHA_ENTERPRISE_CONTROL_PLANE",
+        "state": "INTEGRATION_REQUIRED"
+      }
+    ],
+    "fullyImplemented": false
+  },
+  "roadmap": {
+    "id": "SHEIKHA_FOUNDATION_FIRMWARE_ROADMAP_V1",
+    "status": "ACTIVE_EVIDENCE_GATED",
+    "currentMilestone": "M1",
+    "verifiedMilestones": [
+      "M0"
+    ],
+    "blockedMilestones": [
+      "M2",
+      "M3",
+      "M4"
+    ]
+  },
+  "evidence": {
+    "uefiFoundationStatus": "ACTIVE_WITH_VERIFIED_FOUNDATION_SUBSETS",
+    "physicalNamedDeviceBootVerified": true,
+    "physicalEvidencePath": "runtime/bare-metal/v2/evidence/physical-hardware-boot-verification.json",
+    "contractActive": true,
+    "namedBoardPackage": {
+      "id": "SFP_BOARD_MSI_PULSE_16_AI_C1VFKG_V1",
+      "seedVerified": true,
+      "evidenceRecordsValid": true,
+      "completedBsp": false,
+      "recoveryDrillCompleted": false
+    }
+  },
+  "governance": {
+    "doctrine": "NO_HARM_NO_RECIPROCAL_HARM",
+    "failureSequence": [
+      "FAIL_CLOSED",
+      "PROTECT",
+      "DETECT",
+      "ISOLATE",
+      "RECOVER",
+      "VERIFY",
+      "RECORD_EVIDENCE"
+    ],
+    "invariantCount": 18,
+    "invariantsSatisfiedByContract": true,
+    "aiAuthorityBounded": true,
+    "cleanRoomRequired": true,
+    "trademarkClearancePending": true,
+    "unifiedDecisionContract": "SHEIKHA_UNIFIED_GOVERNANCE_DECISION_CONTRACT_V1",
+    "decisionContractRequiredFieldsPresent": true,
+    "religiousReferencePolicyBounded": true,
+    "controlPlane": {
+      "id": "SHEIKHA_GOVERNANCE_CONTROL_PLANE_AND_MASTER_AUDIT_V1",
+      "authorityIsTechnicalOnly": true,
+      "algorithm": "Ed25519",
+      "pepCount": 10,
+      "productionPrivateKeyBundled": false,
+      "distributedProductionReady": false,
+      "distributedProductionStatus": "EXTERNAL_RESOURCES_REQUIRED",
+      "distributedProductionBlockers": [
+        "kmsProviderConfigured",
+        "kmsKeyIdConfigured",
+        "ed25519PublicKeyConfigured",
+        "redisTlsConfigured",
+        "wormAuditSinkConfigured",
+        "externalConnectivityVerified",
+        "externalSigningRoundTripVerified",
+        "redisAtomicOperationsVerified",
+        "wormAppendAndRetentionVerified"
+      ]
+    }
+  },
+  "readiness": {
+    "gateStates": {
+      "F0": "VERIFIED",
+      "F1": "VERIFIED",
+      "F2": "PARTIAL",
+      "F3": "BLOCKED",
+      "F4": "BLOCKED",
+      "F5": "BLOCKED",
+      "F6": "BLOCKED",
+      "F7": "BLOCKED"
+    },
+    "verifiedGates": [
+      "F0",
+      "F1"
+    ],
+    "blockedGates": [
+      {
+        "id": "F2",
+        "state": "PARTIAL",
+        "missing": [
+          "board_specific_bsp",
+          "non_destructive_recovery"
+        ]
+      },
+      {
+        "id": "F3",
+        "state": "BLOCKED",
+        "missing": [
+          "secure_boot",
+          "measured_boot",
+          "signed_capsule",
+          "rollback_protection"
+        ]
+      },
+      {
+        "id": "F4",
+        "state": "BLOCKED",
+        "missing": [
+          "linux_matrix",
+          "windows_matrix",
+          "acpi_validation",
+          "driver_matrix"
+        ]
+      },
+      {
+        "id": "F5",
+        "state": "BLOCKED",
+        "missing": [
+          "per_device_identity",
+          "key_ceremony",
+          "factory_test",
+          "traceability"
+        ]
+      },
+      {
+        "id": "F6",
+        "state": "BLOCKED",
+        "missing": [
+          "signed_pilot_agreement",
+          "pilot_board",
+          "acceptance_report"
+        ]
+      },
+      {
+        "id": "F7",
+        "state": "BLOCKED",
+        "missing": [
+          "release_sla",
+          "vulnerability_response",
+          "field_recovery",
+          "regional_support"
+        ]
+      }
+    ],
+    "developmentKitReady": true,
+    "namedBoardFirmwareReady": false,
+    "oemOdmCommercialReleaseReady": false
+  },
+  "nextSafeMilestone": "F2_NAMED_BOARD_BSP_RECOVERY_AND_NON_DESTRUCTIVE_FLASH_LAB",
+  "correctedPhysicalClaim": {
+    "postExitBootServicesKernelEntryVerified": true,
+    "generalPurposeOperatingSystemComplete": false,
+    "fullMotherboardFirmwareReplacementComplete": false
+  },
+  "releaseIdentity": {
+    "evidenceId": "SFP-EVIDENCE-EE18AE2907F45BEA",
+    "artifactSha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3",
+    "boardBinding": "Micro-Star International Co., Ltd.::Pulse 16 AI C1VFKG::E15P3IMS.10D",
+    "scope": "ONE_NAMED_MSI_DEVICE_READ_ONLY_CONTROLLED_HALT_BOOT_TRIAL",
+    "externalCertification": false
+  },
+  "actualFirmwareReleaseGate": {
+    "decision": "RELEASE_DENY",
+    "blockers": [
+      "DECISION_REQUIRED",
+      "EXECUTION_LEASE_REQUIRED",
+      "VERIFIED_CAPABILITY_TOKEN_REQUIRED",
+      "PEP_AUTHORIZATION_REQUIRED",
+      "VALID_MASTER_AUDIT_REQUIRED",
+      "ARTIFACT_SIGNATURE_VERIFICATION_REQUIRED",
+      "SBOM_REQUIRED",
+      "APPROVED_PRODUCTION_KEY_REQUIRED",
+      "ENVIRONMENT_IDENTITY_MISMATCH",
+      "UNRESOLVED_CRITICAL_BLOCKER",
+      "MUTABLE_RELEASE_RECOVERY_REQUIRED",
+      "MUTABLE_RELEASE_ROLLBACK_REQUIRED",
+      "SIGNED_FIRMWARE_REQUIRED",
+      "ANTI_ROLLBACK_POLICY_REQUIRED",
+      "FIRMWARE_RECOVERY_PATH_REQUIRED",
+      "FLASH_WRITE_AUTHORIZATION_REQUIRED"
+    ]
+  },
+  "runtimeAdapterIntegration": {
+    "adapterFabric": "SHEIKHA_GOVERNANCE_RUNTIME_INTEGRATION_AND_ADAPTER_ACTIVATION_V1",
+    "hardwareFirmwareAdapter": "SHEIKHA_HARDWARE_FIRMWARE_GOVERNANCE_ADAPTER_V1",
+    "domainAdapterCount": 10,
+    "firmwareDefaultMode": "READ_ONLY",
+    "physicalWriteActivated": false,
+    "actualFlashPlan": {
+      "operation": "FIRMWARE_FLASH_WRITE",
+      "decision": "DENY",
+      "blockers": [
+        "HUMAN_APPROVAL_REQUIRED",
+        "RECOVERY_PLAN_REQUIRED",
+        "SIGNED_ARTIFACT_REQUIRED",
+        "READBACK_BACKUP_REQUIRED",
+        "ANTI_ROLLBACK_POLICY_REQUIRED",
+        "PHYSICAL_PRESENCE_EVIDENCE_REQUIRED"
+      ],
+      "policy": {
+        "domain": "FIRMWARE",
+        "mode": "BOUNDED_MUTATION",
+        "mutation": true,
+        "risk": "CRITICAL"
+      },
+      "actualOperationPerformed": false
+    }
+  },
+  "physicalPlatformTrust": {
+    "status": "PARTIAL_LOCAL_PLATFORM_TRUST_EVIDENCE",
+    "uefiRuntimePresent": true,
+    "secureBootEnabled": false,
+    "tpm2Present": true,
+    "measuredBootEvidenceAvailable": false,
+    "cryptographicAttestationVerified": false,
+    "bmcIdentityAndAttestationVerified": false,
+    "blockers": [
+      "secureBootEnabled",
+      "measuredBootEvidenceAvailable",
+      "cryptographicAttestationVerified",
+      "bmcIdentityAndAttestationVerified"
+    ],
+    "reportSha256": "33447a8b78d2b4473a335fa431c7e4b087e4cd06ed9fe72c369271e95b201fcd"
+  },
+  "measurementEvidencePipeline": {
+    "collector": "SHEIKHA_BOOT_EVIDENCE_COLLECTOR_AND_HARDWARE_MEASUREMENT_INGESTION_V1",
+    "acceptedKindCount": 15,
+    "normalizer": "SHEIKHA_TPM_PCR_AND_EVENT_LOG_EVIDENCE_NORMALIZATION_V1",
+    "supportedAlgorithms": [
+      "sha1",
+      "sha256",
+      "sha384",
+      "sha512"
+    ],
+    "realPcrExportIngested": false,
+    "realTpmEventLogIngested": false,
+    "normalizedMeasuredBootEvidenceVerified": false,
+    "directTpmAccessByPipeline": false,
+    "nativeTpmsAttestParser": "SHEIKHA_NATIVE_TPMS_ATTEST_AND_AK_TRUST_CHAIN_V1",
+    "nativeTpmtSignatureVerifier": "SHEIKHA_NATIVE_TPMT_SIGNATURE_AND_QUOTE_CRYPTOGRAPHIC_VERIFICATION_V1",
+    "nativeTpmPublicParser": "SHEIKHA_NATIVE_TPM2B_PUBLIC_TPMT_PUBLIC_AK_NAME_BINDING_V1",
+    "supportedAkPublicTypes": [
+      "RSA",
+      "ECC"
+    ],
+    "supportedQuoteSignatures": [
+      "RSASSA",
+      "RSAPSS",
+      "ECDSA"
+    ],
+    "realTpmsAttestQuoteIngested": false,
+    "realTpmtSignatureIngested": false,
+    "realAkEnrollmentVerified": false,
+    "realAkPublicExportIngested": false,
+    "akObjectNameVerified": false,
+    "akQualifiedNameBindingVerified": false,
+    "realTpmResidencyVerified": false,
+    "nativeQuoteCryptographicallyVerified": false
+  },
+  "tpm2Part2Conformance": {
+    "specificationVersion": "185",
+    "claim": "BOUNDED_SUBSET_IMPLEMENTATION_NOT_FULL_PART2_CONFORMANCE",
+    "profileCount": 6,
+    "implementedProfiles": [
+      "ATTESTATION_QUOTE",
+      "QUOTE_SIGNATURE",
+      "AK_PUBLIC_IDENTITY",
+      "OBJECT_NAME"
+    ],
+    "fullPart2Conformance": false,
+    "unsupportedStructurePolicy": "DENY"
+  },
+  "claimBoundary": {
+    "independentSheikhaProduct": true,
+    "amibiosOrAptioCodeIncluded": false,
+    "amiTrademarkOwnershipClaimed": false,
+    "fullPlatformFirmwareComplete": false,
+    "oemProductionReady": false,
+    "governmentCertificationClaimed": false
+  },
+  "reportSha256": "95b1b668d694031141a89fab7a36dbd96804de1de0d0eb8f7f72439adc45b6e2"
+}

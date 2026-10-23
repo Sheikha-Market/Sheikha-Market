@@ -1,0 +1,36 @@
+{
+  "system": "SHEIKHA_CONNECTOR_EVIDENCE_INTAKE_REVIEW_V1",
+  "status": "CLEAR",
+  "queue": "SHEIKHA_CONNECTOR_EVIDENCE_REVIEW_QUEUE_V1",
+  "mode": "CANDIDATE_INTAKE_HUMAN_REVIEW_NO_AUTO_APPROVAL",
+  "summary": {
+    "records": 0,
+    "pending": 0,
+    "approved": 0,
+    "rejected": 0,
+    "verifiedApproved": 0
+  },
+  "governance": {
+    "candidateIsNotVerifiedEvidence": true,
+    "intakeDoesNotAuthorize": true,
+    "reviewDoesNotAutoAuthorize": true,
+    "approvedEvidenceStillRequiresPromotionGate": true,
+    "reviewerIdentityRequiredForDecision": true,
+    "signerIdentityRequiredForApproval": true,
+    "ownerIdentityRequiredForApproval": true,
+    "evidenceRegistryReferenceRequiredForApproval": true,
+    "sha256IntegrityRequiredForApproval": true,
+    "scopeRequiredForApproval": true,
+    "expiryCheckedWhenPresent": true,
+    "secretMaterialForbidden": true,
+    "rawCredentialMaterialForbidden": true,
+    "noAutomaticQueueMutation": true,
+    "noProductionMutation": true,
+    "noPayment": true,
+    "noContract": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "records": []
+}

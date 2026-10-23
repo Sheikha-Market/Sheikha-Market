@@ -1,0 +1,249 @@
+{
+  "system": "SHEIKHA_SECURITY_FOUNDATION_V1",
+  "version": "1.0.0",
+  "mode": "DEFENSIVE_FAIL_CLOSED_NON_PRODUCTION",
+  "identity": {
+    "ar": "منظومة شيخة للأمن والإصلاح والبناء والجذور والقواعد والحارس والواتش",
+    "purpose": "Prevent defects and security weaknesses from the foundation and build stages; detect, classify, contain, and prepare governed repairs without unauthorized access."
+  },
+  "hierarchy": [
+    "FOUNDATION",
+    "ROOTS",
+    "RULES",
+    "BUILD_GUARD",
+    "REPAIR_ENGINE",
+    "SECURITY_WATCH",
+    "SECURITY_GUARD",
+    "MCP_CONNECTOR_GUARD",
+    "EVIDENCE_AND_AUDIT"
+  ],
+  "foundations": [
+    "truth_and_evidence",
+    "least_privilege",
+    "deny_by_default",
+    "secure_by_design",
+    "fail_closed",
+    "separation_of_duties",
+    "immutable_evidence",
+    "human_authorization_for_consequential_actions",
+    "no_secret_in_source",
+    "no_unauthorized_testing",
+    "reversible_low_impact_information_actions_only"
+  ],
+  "roots": [
+    {
+      "id": "IDENTITY_ROOT",
+      "protects": [
+        "authentication",
+        "session",
+        "principal_identity"
+      ]
+    },
+    {
+      "id": "AUTHORITY_ROOT",
+      "protects": [
+        "authorization",
+        "scope",
+        "one_time_approval",
+        "revocation"
+      ]
+    },
+    {
+      "id": "DATA_ROOT",
+      "protects": [
+        "classification",
+        "privacy",
+        "integrity",
+        "retention"
+      ]
+    },
+    {
+      "id": "SECRET_ROOT",
+      "protects": [
+        "credentials",
+        "tokens",
+        "keys",
+        "rotation"
+      ]
+    },
+    {
+      "id": "SUPPLY_CHAIN_ROOT",
+      "protects": [
+        "dependencies",
+        "lockfiles",
+        "SBOM",
+        "provenance"
+      ]
+    },
+    {
+      "id": "BUILD_ROOT",
+      "protects": [
+        "compiler",
+        "CI",
+        "artifacts",
+        "release_gates"
+      ]
+    },
+    {
+      "id": "MCP_ROOT",
+      "protects": [
+        "plugins",
+        "MCP",
+        "SDK",
+        "connectors",
+        "tool_permissions"
+      ]
+    },
+    {
+      "id": "RUNTIME_ROOT",
+      "protects": [
+        "routes",
+        "processes",
+        "network",
+        "service_boundaries"
+      ]
+    },
+    {
+      "id": "OBSERVABILITY_ROOT",
+      "protects": [
+        "logs",
+        "alerts",
+        "watch",
+        "incident_evidence"
+      ]
+    },
+    {
+      "id": "RECOVERY_ROOT",
+      "protects": [
+        "repair",
+        "rollback",
+        "backup",
+        "safe_recovery"
+      ]
+    }
+  ],
+  "rules": {
+    "mandatory": [
+      "no_unapproved_external_probe",
+      "no_hacking_back",
+      "no_exploit_development_for_unauthorized_targets",
+      "no_inline_secrets_in_mcp_configs",
+      "external_mcp_requires_https",
+      "local_mcp_requires_explicit_command_and_local_path",
+      "dependencies_must_be_pinned_when_security_critical",
+      "lockfile_required_for_node_root",
+      "security_incident_must_be_distinguished_from_availability_incident",
+      "production_promotion_requires_independent_authority",
+      "repair_defaults_to_candidate_only",
+      "writes_require_separate_authorization"
+    ],
+    "prohibited": [
+      "merge",
+      "deploy",
+      "production_mutation",
+      "payment",
+      "contract",
+      "ads_spend",
+      "secret_mutation",
+      "destructive_database_action",
+      "physical_actuation",
+      "irrigation",
+      "auto_install",
+      "auto_permission_escalation"
+    ]
+  },
+  "buildGuard": {
+    "checks": [
+      "foundation_manifest_valid",
+      "root_mcp_json_valid",
+      "vscode_mcp_json_valid",
+      "cursor_mcp_json_valid",
+      "mcp_external_endpoints_https",
+      "mcp_no_inline_secret_values",
+      "node_mcp_sdk_exact_pin",
+      "python_mcp_exact_pin",
+      "node_lockfile_present",
+      "security_baseline_present",
+      "existing_runtime_guard_present",
+      "existing_dependency_guardian_present",
+      "existing_semantic_secret_scanner_present",
+      "existing_security_observatory_present"
+    ],
+    "actionOnFailure": "BLOCK_PROMOTION_AND_GENERATE_REPAIR_CANDIDATE",
+    "automaticRepair": false
+  },
+  "watch": {
+    "categories": [
+      "known_exploited_vulnerabilities",
+      "critical_cves",
+      "software_supply_chain",
+      "authentication_authorization",
+      "mcp_plugin_connector_security",
+      "cloud_ai_api_incidents",
+      "dependency_advisories",
+      "secret_exposure_patterns",
+      "availability_incidents",
+      "security_incidents"
+    ],
+    "sourceClasses": [
+      "vendor_status",
+      "vendor_security_advisory",
+      "CISA_KEV",
+      "NVD",
+      "GitHub_Security_Advisories",
+      "package_registry_advisories",
+      "MCP_spec_and_vendor_advisories"
+    ],
+    "classificationRule": "AVAILABILITY_IS_NOT_A_SECURITY_VULNERABILITY_UNLESS_SECURITY_EVIDENCE_EXISTS"
+  },
+  "repairEngine": {
+    "stages": [
+      "detect",
+      "verify",
+      "classify",
+      "contain",
+      "candidate_fix",
+      "static_verify",
+      "human_authorize",
+      "apply_if_separately_authorized",
+      "post_verify"
+    ],
+    "defaultMode": "CANDIDATE_ONLY",
+    "thirdPartyRule": "Use only official support, vendor, bug-bounty, coordinated-disclosure, or contracted maintenance channels."
+  },
+  "commercialAndCharitableService": {
+    "allowed": [
+      "defensive_architecture_review",
+      "secure_by_design_consulting",
+      "authorized_vulnerability_management",
+      "hardening",
+      "incident_readiness",
+      "patch_and_upgrade_planning",
+      "MCP_connector_governance",
+      "SBOM_and_supply_chain_review",
+      "charitable_defensive_guidance"
+    ],
+    "requiresFormalAuthorization": [
+      "third_party_system_testing",
+      "vendor_system_repair",
+      "production_changes",
+      "credential_access",
+      "penetration_testing"
+    ],
+    "noClaimOfVendorAuthority": true
+  },
+  "constraints": [
+    "NO_MERGE",
+    "NO_DEPLOY",
+    "NO_PRODUCTION",
+    "NO_PAYMENT",
+    "NO_CONTRACT",
+    "NO_ADS_SPEND",
+    "NO_SECRET_MUTATION",
+    "NO_DESTRUCTIVE_DB",
+    "NO_PHYSICAL_ACTUATION",
+    "NO_IRRIGATION",
+    "NO_AUTO_INSTALL",
+    "NO_AUTO_PERMISSION_ESCALATION"
+  ]
+}

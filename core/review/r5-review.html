@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="{{CSP}}">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>شيخة R5 | مراجعة الأنظمة والتكامل</title>
+<style>{{STYLE}}</style>
+</head>
+<body>
+<a class="skip" href="#workspace">المحتوى</a>
+<header class="masthead"><div><span class="wordmark">شيخة <bdi>SHEIKHA</bdi></span><h1>مراجعة الأنظمة والتكامل <bdi>R5</bdi></h1></div><span class="status">تصميم مرجعي · غير منشور</span></header>
+<div class="shell">
+<aside><div class="aside-content"><nav aria-label="أقسام المراجعة">
+<button data-view="systems" aria-current="page">{{ICON:layers}}<span>الأنظمة</span><b>88</b></button>
+<button data-view="flows">{{ICON:network}}<span>عقود التكامل</span><b>14</b></button>
+<button data-view="acceptance">{{ICON:list}}<span>مراجعة القبول</span><b>34</b></button>
+<button data-view="architecture">{{ICON:box}}<span>المعمارية</span></button>
+<button data-view="rfq">{{ICON:book-open}}<span>مواصفة RFQ / CRM</span></button>
+<button data-view="references">{{ICON:compass}}<span>المرئيات والمراجع</span></button>
+</nav><div class="side-note"><strong>بوابة النشر</strong><p>بانتظار مراجعة بشرية</p><span>لا اتصال بخدمات الأعمال أو المعدات.</span></div></div></aside>
+<main id="workspace" tabindex="-1">
+<div class="summary"><div><b>20</b><span>عائلة وظيفية</span></div><div><b>88</b><span>وحدة مقترحة</span></div><div><b>14</b><span>عقد ربط مصمم</span></div><div><b id="review-count">0 / 34</b><span>معيار بملاحظة مراجعة</span></div></div>
+<div class="heading"><div><span class="eyebrow">SHEIKHA · R5</span><h2 id="view-title">كتالوج الأنظمة</h2></div><div class="actions"><button id="undo-import" title="التراجع عن آخر استيراد" aria-label="التراجع عن آخر استيراد" disabled>{{ICON:rotate-ccw}}</button><button id="import-review" title="استيراد المراجعة" aria-label="استيراد المراجعة">{{ICON:download}}</button><button id="export-catalog" title="تصدير الكتالوج" aria-label="تصدير الكتالوج">{{ICON:download}}</button><button id="export-review" class="primary">{{ICON:download}}تصدير المراجعة</button></div><input id="import-file" type="file" accept="application/json,.json" hidden></div>
+<p id="notice" role="status" aria-live="polite"></p>
+<div id="toolbar" class="toolbar"><label class="search">{{ICON:search}}<input id="search" type="search" aria-label="بحث" placeholder="بحث بالاسم أو المعرّف"><button id="clear" title="مسح البحث والتصفية" aria-label="مسح البحث والتصفية">{{ICON:filter-x}}</button></label><label id="filter-label">العائلة<select id="filter"></select></label><output id="result-count" aria-live="polite"></output></div>
+<div id="view"></div>
+<footer><span>مصدر ثابت · <bdi id="source-name"></bdi></span><span>مراجعة تصميم، وليست شهادة تشغيل أو امتثال.</span></footer>
+</main></div>
+<dialog id="details" aria-labelledby="dialog-title"><div class="dialog-head"><h2 id="dialog-title"></h2><button id="close-dialog" aria-label="إغلاق التفاصيل" title="إغلاق التفاصيل">{{ICON:arrow-left}}</button></div><div id="dialog-body"></div></dialog>
+<dialog id="import-dialog" aria-labelledby="import-title"><div class="dialog-head"><h2 id="import-title">مراجعة الاستيراد</h2><button id="close-import" aria-label="إغلاق الاستيراد" title="إغلاق الاستيراد">{{ICON:arrow-left}}</button></div><p id="import-filename"></p><p id="import-summary" role="status"></p><div id="import-preview"></div><div class="import-actions"><button id="cancel-import">إلغاء</button><button id="confirm-import" class="primary">دمج المراجعة</button></div></dialog>
+<script type="application/json" id="r5-data">{{DATA}}</script>
+<script>{{SCRIPT}}</script>
+</body></html>

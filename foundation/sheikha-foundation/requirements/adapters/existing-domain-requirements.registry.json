@@ -1,0 +1,73 @@
+{
+  "schema": "SHEIKHA_EXISTING_DOMAIN_REQUIREMENTS_ADAPTER_REGISTRY_V1",
+  "mode": "REFERENCE_ONLY_PRESERVE_EXISTING_ARTIFACTS",
+  "sourceDecision": "REQUIREMENTS_SCATTERED_DOMAIN_SPECIFIC_ONLY",
+  "canonicalRequirementsDirectoryPreviouslyExisted": false,
+  "adapters": [
+    {
+      "adapterId": "producer-production-qualification-runtime-requirements",
+      "domain": "production-qualification",
+      "artifact": "runtime/producer-production-qualification/v1/registries/production-file-requirements.json",
+      "artifactKind": "domain-requirements-registry",
+      "bindingMode": "reference-only",
+      "preserveArtifact": true,
+      "semanticSignalsFromI15": [
+        "acceptance",
+        "status",
+        "version",
+        "trace"
+      ],
+      "canonicalMappingStatus": "PENDING_SEMANTIC_FIELD_MAPPING",
+      "notes": "Path-evidence exists; no destructive migration is authorized."
+    },
+    {
+      "adapterId": "producer-production-qualification-core",
+      "domain": "production-qualification",
+      "artifact": "core/production-qualification/sheikha-producer-production-qualification-v1.js",
+      "artifactKind": "implementation",
+      "bindingMode": "reference-only",
+      "preserveArtifact": true,
+      "semanticSignalsFromI15": [
+        "acceptance",
+        "status",
+        "version",
+        "trace"
+      ],
+      "canonicalMappingStatus": "PENDING_SEMANTIC_FIELD_MAPPING"
+    },
+    {
+      "adapterId": "producer-production-qualification-tests",
+      "domain": "production-qualification",
+      "artifact": "tests/sheikha-producer-production-qualification-v1.test.js",
+      "artifactKind": "test-evidence",
+      "bindingMode": "reference-only",
+      "preserveArtifact": true,
+      "semanticSignalsFromI15": [
+        "status",
+        "version"
+      ],
+      "canonicalMappingStatus": "EVIDENCE_REFERENCE_ONLY"
+    }
+  ],
+  "invariants": {
+    "deleteExistingArtifacts": false,
+    "overwriteExistingArtifacts": false,
+    "moveExistingArtifacts": false,
+    "renameExistingArtifacts": false,
+    "inventSemanticEquivalence": false,
+    "canonicalLayerMayReferenceExistingDomainArtifacts": true
+  },
+  "futureMappingFields": [
+    "requirementId",
+    "source",
+    "rationale",
+    "statement",
+    "acceptanceCriteria",
+    "verificationMethod",
+    "owner",
+    "status",
+    "version",
+    "traceLinks",
+    "changeHistory"
+  ]
+}

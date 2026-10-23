@@ -1,0 +1,4656 @@
+{
+  "type": "SheikhaBytecode",
+  "version": "0.1.0",
+  "neuralProfile": {
+    "mesh": "SHEIKHA_GOVERNED_COMPILED_VM_V1",
+    "cells": 57,
+    "metricKind": "compatibility_profile_not_intelligence_claim",
+    "layers": {
+      "lexer": true,
+      "parser": true,
+      "types": true,
+      "ir": true,
+      "bytecode": true,
+      "governance": true,
+      "sandbox": true
+    },
+    "valuesReference": {
+      "basis": "QURAN_AND_AUTHENTIC_SUNNAH",
+      "executable": false,
+      "automatedFatwaAllowed": false,
+      "religiousAuthorityClaimed": false
+    }
+  },
+  "instructions": [
+    {
+      "code": "PUSH_DIRECTIVE",
+      "op": "DIRECTIVE",
+      "name": "بسم_الله",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      }
+    },
+    {
+      "code": "OPEN_VALUES_REFERENCE",
+      "op": "VALUES_REFERENCE_BEGIN",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المصدر",
+      "value": "الكتاب_والسنة_الصحيحة",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 32
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الدور",
+      "value": "قيم_غير_تنفيذية",
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 3
+        },
+        "end": {
+          "line": 4,
+          "column": 25
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "السلطة_البرمجية",
+      "value": "لا",
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 3
+        },
+        "end": {
+          "line": 5,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الفتوى_الآلية",
+      "value": "ممنوعة",
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 3
+        },
+        "end": {
+          "line": 6,
+          "column": 24
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المراجعة_الشرعية",
+      "value": "أهل_العلم_المؤهلون",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 3
+        },
+        "end": {
+          "line": 7,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "التحقق_من_المصادر",
+      "value": "واجب",
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 3
+        },
+        "end": {
+          "line": 8,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "CLOSE_VALUES_REFERENCE",
+      "op": "VALUES_REFERENCE_END",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_GOVERNANCE_POLICY",
+      "op": "GOVERNANCE_POLICY_BEGIN",
+      "name": "الروبوت",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "يوجب",
+      "value": "الصدق، العدل، الأمانة، الدليل",
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 3
+        },
+        "end": {
+          "line": 10,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "يمنع",
+      "value": "الضرر، الظلم، الغش، الخداع، الإكراه",
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 3
+        },
+        "end": {
+          "line": 11,
+          "column": 44
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "القرار_العالي_الأثر",
+      "value": "مراجعة_بشرية_ملزمة",
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 3
+        },
+        "end": {
+          "line": 12,
+          "column": 42
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "التنفيذ",
+      "value": "أقل_صلاحية_وموافقة_صريحة",
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 3
+        },
+        "end": {
+          "line": 13,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "الاتصال_بالأجهزة",
+      "value": "ممنوع_في_المحاكاة",
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 3
+        },
+        "end": {
+          "line": 14,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "CLOSE_GOVERNANCE_POLICY",
+      "op": "GOVERNANCE_POLICY_END",
+      "name": "الروبوت",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الجذور",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 23,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الجذور",
+      "key": "الدور",
+      "value": "الهوية_والقيم_والمقصد_والحقوق",
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 3
+        },
+        "end": {
+          "line": 16,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الجذور",
+      "key": "يعتمد_على",
+      "value": "لا_شيء",
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 3
+        },
+        "end": {
+          "line": 17,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الجذور",
+      "key": "المدخل",
+      "value": "مرجع_هوية_محدد",
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 3
+        },
+        "end": {
+          "line": 18,
+          "column": 25
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الجذور",
+      "key": "المخرج",
+      "value": "وثيقة_جذور",
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 3
+        },
+        "end": {
+          "line": 19,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الجذور",
+      "key": "معيار_القبول",
+      "value": "تطابق_الهوية_والمرجع",
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 3
+        },
+        "end": {
+          "line": 20,
+          "column": 37
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الجذور",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 3
+        },
+        "end": {
+          "line": 21,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الجذور",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 3
+        },
+        "end": {
+          "line": 22,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الجذور",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 23,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الحوكمة",
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 1
+        },
+        "end": {
+          "line": 31,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوكمة",
+      "key": "الدور",
+      "value": "التفويض_والسياسات_والمساءلة",
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 3
+        },
+        "end": {
+          "line": 24,
+          "column": 37
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوكمة",
+      "key": "يعتمد_على",
+      "value": "الجذور",
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 3
+        },
+        "end": {
+          "line": 25,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوكمة",
+      "key": "المدخل",
+      "value": "طلب_محدد",
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 3
+        },
+        "end": {
+          "line": 26,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوكمة",
+      "key": "المخرج",
+      "value": "قرار_محدود",
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 3
+        },
+        "end": {
+          "line": 27,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوكمة",
+      "key": "معيار_القبول",
+      "value": "رفض_التفويض_الذاتي",
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 3
+        },
+        "end": {
+          "line": 28,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوكمة",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 3
+        },
+        "end": {
+          "line": 29,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوكمة",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 3
+        },
+        "end": {
+          "line": 30,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الحوكمة",
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 1
+        },
+        "end": {
+          "line": 31,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الأدلة",
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 1
+        },
+        "end": {
+          "line": 39,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأدلة",
+      "key": "الدور",
+      "value": "المصدر_والبصمة_وحدود_الادعاء",
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 3
+        },
+        "end": {
+          "line": 32,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأدلة",
+      "key": "يعتمد_على",
+      "value": "الحوكمة",
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 3
+        },
+        "end": {
+          "line": 33,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأدلة",
+      "key": "المدخل",
+      "value": "ملف_مصرح",
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 3
+        },
+        "end": {
+          "line": 34,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأدلة",
+      "key": "المخرج",
+      "value": "نتيجة_فحص",
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 3
+        },
+        "end": {
+          "line": 35,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأدلة",
+      "key": "معيار_القبول",
+      "value": "لا_نجاح_دون_مصدر",
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 3
+        },
+        "end": {
+          "line": 36,
+          "column": 33
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأدلة",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 3
+        },
+        "end": {
+          "line": 37,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأدلة",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 38,
+          "column": 3
+        },
+        "end": {
+          "line": 38,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الأدلة",
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 1
+        },
+        "end": {
+          "line": 39,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "العلوم",
+      "loc": {
+        "start": {
+          "line": 39,
+          "column": 1
+        },
+        "end": {
+          "line": 47,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العلوم",
+      "key": "الدور",
+      "value": "منهج_وفرضية_وتجربة_وقياس",
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 3
+        },
+        "end": {
+          "line": 40,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العلوم",
+      "key": "يعتمد_على",
+      "value": "الأدلة",
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 3
+        },
+        "end": {
+          "line": 41,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العلوم",
+      "key": "المدخل",
+      "value": "سؤال_قابل_للاختبار",
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 3
+        },
+        "end": {
+          "line": 42,
+          "column": 29
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العلوم",
+      "key": "المخرج",
+      "value": "نتيجة_قابلة_لإعادة_الفحص",
+      "loc": {
+        "start": {
+          "line": 43,
+          "column": 3
+        },
+        "end": {
+          "line": 43,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العلوم",
+      "key": "معيار_القبول",
+      "value": "توثيق_المنهج_والحدود",
+      "loc": {
+        "start": {
+          "line": 44,
+          "column": 3
+        },
+        "end": {
+          "line": 44,
+          "column": 37
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العلوم",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 3
+        },
+        "end": {
+          "line": 45,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العلوم",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 3
+        },
+        "end": {
+          "line": 46,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "العلوم",
+      "loc": {
+        "start": {
+          "line": 39,
+          "column": 1
+        },
+        "end": {
+          "line": 47,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الحساب",
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 1
+        },
+        "end": {
+          "line": 55,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحساب",
+      "key": "الدور",
+      "value": "أعداد_ووحدات_ودقة_ومعادلات",
+      "loc": {
+        "start": {
+          "line": 48,
+          "column": 3
+        },
+        "end": {
+          "line": 48,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحساب",
+      "key": "يعتمد_على",
+      "value": "العلوم",
+      "loc": {
+        "start": {
+          "line": 49,
+          "column": 3
+        },
+        "end": {
+          "line": 49,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحساب",
+      "key": "المدخل",
+      "value": "قيم_ووحدات",
+      "loc": {
+        "start": {
+          "line": 50,
+          "column": 3
+        },
+        "end": {
+          "line": 50,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحساب",
+      "key": "المخرج",
+      "value": "نتيجة_محسوبة",
+      "loc": {
+        "start": {
+          "line": 51,
+          "column": 3
+        },
+        "end": {
+          "line": 51,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحساب",
+      "key": "معيار_القبول",
+      "value": "فحص_الدقة_والوحدات",
+      "loc": {
+        "start": {
+          "line": 52,
+          "column": 3
+        },
+        "end": {
+          "line": 52,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحساب",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 53,
+          "column": 3
+        },
+        "end": {
+          "line": 53,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحساب",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 54,
+          "column": 3
+        },
+        "end": {
+          "line": 54,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الحساب",
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 1
+        },
+        "end": {
+          "line": 55,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "اللغة",
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 1
+        },
+        "end": {
+          "line": 63,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللغة",
+      "key": "الدور",
+      "value": "مصدر_وتحليل_وأنواع_وآلة_افتراضية",
+      "loc": {
+        "start": {
+          "line": 56,
+          "column": 3
+        },
+        "end": {
+          "line": 56,
+          "column": 42
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللغة",
+      "key": "يعتمد_على",
+      "value": "الحساب",
+      "loc": {
+        "start": {
+          "line": 57,
+          "column": 3
+        },
+        "end": {
+          "line": 57,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللغة",
+      "key": "المدخل",
+      "value": "برنامج_shk",
+      "loc": {
+        "start": {
+          "line": 58,
+          "column": 3
+        },
+        "end": {
+          "line": 58,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللغة",
+      "key": "المخرج",
+      "value": "IR_وBytecode",
+      "loc": {
+        "start": {
+          "line": 59,
+          "column": 3
+        },
+        "end": {
+          "line": 59,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللغة",
+      "key": "معيار_القبول",
+      "value": "توقف_عند_المخالفة",
+      "loc": {
+        "start": {
+          "line": 60,
+          "column": 3
+        },
+        "end": {
+          "line": 60,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللغة",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 61,
+          "column": 3
+        },
+        "end": {
+          "line": 61,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللغة",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 3
+        },
+        "end": {
+          "line": 62,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "اللغة",
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 1
+        },
+        "end": {
+          "line": 63,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "النواة",
+      "loc": {
+        "start": {
+          "line": 63,
+          "column": 1
+        },
+        "end": {
+          "line": 71,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النواة",
+      "key": "الدور",
+      "value": "ذاكرة_وتوقيت_ومقاطعات_وعزل",
+      "loc": {
+        "start": {
+          "line": 64,
+          "column": 3
+        },
+        "end": {
+          "line": 64,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النواة",
+      "key": "يعتمد_على",
+      "value": "الحوكمة",
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 3
+        },
+        "end": {
+          "line": 65,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النواة",
+      "key": "المدخل",
+      "value": "حزمة_معتمدة",
+      "loc": {
+        "start": {
+          "line": 66,
+          "column": 3
+        },
+        "end": {
+          "line": 66,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النواة",
+      "key": "المخرج",
+      "value": "تشغيل_تجريبي",
+      "loc": {
+        "start": {
+          "line": 67,
+          "column": 3
+        },
+        "end": {
+          "line": 67,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النواة",
+      "key": "معيار_القبول",
+      "value": "دليل_إقلاع_محدد",
+      "loc": {
+        "start": {
+          "line": 68,
+          "column": 3
+        },
+        "end": {
+          "line": 68,
+          "column": 32
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النواة",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 69,
+          "column": 3
+        },
+        "end": {
+          "line": 69,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النواة",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 3
+        },
+        "end": {
+          "line": 70,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "النواة",
+      "loc": {
+        "start": {
+          "line": 63,
+          "column": 1
+        },
+        "end": {
+          "line": 71,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "التشغيل",
+      "loc": {
+        "start": {
+          "line": 71,
+          "column": 1
+        },
+        "end": {
+          "line": 79,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التشغيل",
+      "key": "الدور",
+      "value": "حالة_وميزانية_وإدارة_تطبيق",
+      "loc": {
+        "start": {
+          "line": 72,
+          "column": 3
+        },
+        "end": {
+          "line": 72,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التشغيل",
+      "key": "يعتمد_على",
+      "value": "النواة",
+      "loc": {
+        "start": {
+          "line": 73,
+          "column": 3
+        },
+        "end": {
+          "line": 73,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التشغيل",
+      "key": "المدخل",
+      "value": "تعليمات_محدودة",
+      "loc": {
+        "start": {
+          "line": 74,
+          "column": 3
+        },
+        "end": {
+          "line": 74,
+          "column": 25
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التشغيل",
+      "key": "المخرج",
+      "value": "حالة_تنفيذ",
+      "loc": {
+        "start": {
+          "line": 75,
+          "column": 3
+        },
+        "end": {
+          "line": 75,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التشغيل",
+      "key": "معيار_القبول",
+      "value": "حدود_موارد_مختبرة",
+      "loc": {
+        "start": {
+          "line": 76,
+          "column": 3
+        },
+        "end": {
+          "line": 76,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التشغيل",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 77,
+          "column": 3
+        },
+        "end": {
+          "line": 77,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التشغيل",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 78,
+          "column": 3
+        },
+        "end": {
+          "line": 78,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "التشغيل",
+      "loc": {
+        "start": {
+          "line": 71,
+          "column": 1
+        },
+        "end": {
+          "line": 79,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "العتاد",
+      "loc": {
+        "start": {
+          "line": 79,
+          "column": 1
+        },
+        "end": {
+          "line": 87,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العتاد",
+      "key": "الدور",
+      "value": "HAL_ومشغلات_ومعايرة",
+      "loc": {
+        "start": {
+          "line": 80,
+          "column": 3
+        },
+        "end": {
+          "line": 80,
+          "column": 29
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العتاد",
+      "key": "يعتمد_على",
+      "value": "الحوكمة",
+      "loc": {
+        "start": {
+          "line": 81,
+          "column": 3
+        },
+        "end": {
+          "line": 81,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العتاد",
+      "key": "المدخل",
+      "value": "عقد_جهاز",
+      "loc": {
+        "start": {
+          "line": 82,
+          "column": 3
+        },
+        "end": {
+          "line": 82,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العتاد",
+      "key": "المخرج",
+      "value": "واجهة_معزولة",
+      "loc": {
+        "start": {
+          "line": 83,
+          "column": 3
+        },
+        "end": {
+          "line": 83,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العتاد",
+      "key": "معيار_القبول",
+      "value": "لا_حركة_دون_تأهيل",
+      "loc": {
+        "start": {
+          "line": 84,
+          "column": 3
+        },
+        "end": {
+          "line": 84,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العتاد",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 85,
+          "column": 3
+        },
+        "end": {
+          "line": 85,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "العتاد",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 86,
+          "column": 3
+        },
+        "end": {
+          "line": 86,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "العتاد",
+      "loc": {
+        "start": {
+          "line": 79,
+          "column": 1
+        },
+        "end": {
+          "line": 87,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "البنية_التحتية",
+      "loc": {
+        "start": {
+          "line": 87,
+          "column": 1
+        },
+        "end": {
+          "line": 95,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_التحتية",
+      "key": "الدور",
+      "value": "شبكة_وتخزين_وطاقة_واستعادة",
+      "loc": {
+        "start": {
+          "line": 88,
+          "column": 3
+        },
+        "end": {
+          "line": 88,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_التحتية",
+      "key": "يعتمد_على",
+      "value": "التشغيل",
+      "loc": {
+        "start": {
+          "line": 89,
+          "column": 3
+        },
+        "end": {
+          "line": 89,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_التحتية",
+      "key": "المدخل",
+      "value": "موارد_محددة",
+      "loc": {
+        "start": {
+          "line": 90,
+          "column": 3
+        },
+        "end": {
+          "line": 90,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_التحتية",
+      "key": "المخرج",
+      "value": "خدمات_بنية",
+      "loc": {
+        "start": {
+          "line": 91,
+          "column": 3
+        },
+        "end": {
+          "line": 91,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_التحتية",
+      "key": "معيار_القبول",
+      "value": "اختبار_التوافر_والاستعادة",
+      "loc": {
+        "start": {
+          "line": 92,
+          "column": 3
+        },
+        "end": {
+          "line": 92,
+          "column": 42
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_التحتية",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 93,
+          "column": 3
+        },
+        "end": {
+          "line": 93,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_التحتية",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 94,
+          "column": 3
+        },
+        "end": {
+          "line": 94,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "البنية_التحتية",
+      "loc": {
+        "start": {
+          "line": 87,
+          "column": 1
+        },
+        "end": {
+          "line": 95,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الأمن",
+      "loc": {
+        "start": {
+          "line": 95,
+          "column": 1
+        },
+        "end": {
+          "line": 103,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأمن",
+      "key": "الدور",
+      "value": "مصادقة_وصلاحية_وعزل_وخصوصية",
+      "loc": {
+        "start": {
+          "line": 96,
+          "column": 3
+        },
+        "end": {
+          "line": 96,
+          "column": 37
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأمن",
+      "key": "يعتمد_على",
+      "value": "الحوكمة",
+      "loc": {
+        "start": {
+          "line": 97,
+          "column": 3
+        },
+        "end": {
+          "line": 97,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأمن",
+      "key": "المدخل",
+      "value": "هوية_وإذن",
+      "loc": {
+        "start": {
+          "line": 98,
+          "column": 3
+        },
+        "end": {
+          "line": 98,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأمن",
+      "key": "المخرج",
+      "value": "قبول_أو_رفض",
+      "loc": {
+        "start": {
+          "line": 99,
+          "column": 3
+        },
+        "end": {
+          "line": 99,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأمن",
+      "key": "معيار_القبول",
+      "value": "أقل_صلاحية_وغياب_أسرار",
+      "loc": {
+        "start": {
+          "line": 100,
+          "column": 3
+        },
+        "end": {
+          "line": 100,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأمن",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 101,
+          "column": 3
+        },
+        "end": {
+          "line": 101,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأمن",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 102,
+          "column": 3
+        },
+        "end": {
+          "line": 102,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الأمن",
+      "loc": {
+        "start": {
+          "line": 95,
+          "column": 1
+        },
+        "end": {
+          "line": 103,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "البيانات",
+      "loc": {
+        "start": {
+          "line": 103,
+          "column": 1
+        },
+        "end": {
+          "line": 111,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البيانات",
+      "key": "الدور",
+      "value": "تصنيف_ومصدر_وجودة_واحتفاظ",
+      "loc": {
+        "start": {
+          "line": 104,
+          "column": 3
+        },
+        "end": {
+          "line": 104,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البيانات",
+      "key": "يعتمد_على",
+      "value": "الأمن",
+      "loc": {
+        "start": {
+          "line": 105,
+          "column": 3
+        },
+        "end": {
+          "line": 105,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البيانات",
+      "key": "المدخل",
+      "value": "بيانات_مأذونة",
+      "loc": {
+        "start": {
+          "line": 106,
+          "column": 3
+        },
+        "end": {
+          "line": 106,
+          "column": 24
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البيانات",
+      "key": "المخرج",
+      "value": "سجل_مصدر",
+      "loc": {
+        "start": {
+          "line": 107,
+          "column": 3
+        },
+        "end": {
+          "line": 107,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البيانات",
+      "key": "معيار_القبول",
+      "value": "تقليل_البيانات_وقابلية_الحذف",
+      "loc": {
+        "start": {
+          "line": 108,
+          "column": 3
+        },
+        "end": {
+          "line": 108,
+          "column": 45
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البيانات",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 109,
+          "column": 3
+        },
+        "end": {
+          "line": 109,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البيانات",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 110,
+          "column": 3
+        },
+        "end": {
+          "line": 110,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "البيانات",
+      "loc": {
+        "start": {
+          "line": 103,
+          "column": 1
+        },
+        "end": {
+          "line": 111,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الحوسبة",
+      "loc": {
+        "start": {
+          "line": 111,
+          "column": 1
+        },
+        "end": {
+          "line": 119,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوسبة",
+      "key": "الدور",
+      "value": "معالجة_مهام_وجدولة_وموارد",
+      "loc": {
+        "start": {
+          "line": 112,
+          "column": 3
+        },
+        "end": {
+          "line": 112,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوسبة",
+      "key": "يعتمد_على",
+      "value": "البنية_التحتية",
+      "loc": {
+        "start": {
+          "line": 113,
+          "column": 3
+        },
+        "end": {
+          "line": 113,
+          "column": 28
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوسبة",
+      "key": "المدخل",
+      "value": "مهمة_محكومة",
+      "loc": {
+        "start": {
+          "line": 114,
+          "column": 3
+        },
+        "end": {
+          "line": 114,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوسبة",
+      "key": "المخرج",
+      "value": "نتيجة_محدودة",
+      "loc": {
+        "start": {
+          "line": 115,
+          "column": 3
+        },
+        "end": {
+          "line": 115,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوسبة",
+      "key": "معيار_القبول",
+      "value": "ميزانية_وتوقيت_مقاسان",
+      "loc": {
+        "start": {
+          "line": 116,
+          "column": 3
+        },
+        "end": {
+          "line": 116,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوسبة",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 117,
+          "column": 3
+        },
+        "end": {
+          "line": 117,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الحوسبة",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 118,
+          "column": 3
+        },
+        "end": {
+          "line": 118,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الحوسبة",
+      "loc": {
+        "start": {
+          "line": 111,
+          "column": 1
+        },
+        "end": {
+          "line": 119,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الذكاء_الصناعي",
+      "loc": {
+        "start": {
+          "line": 119,
+          "column": 1
+        },
+        "end": {
+          "line": 127,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الذكاء_الصناعي",
+      "key": "الدور",
+      "value": "تحليل_وتخطيط_واقتراح",
+      "loc": {
+        "start": {
+          "line": 120,
+          "column": 3
+        },
+        "end": {
+          "line": 120,
+          "column": 30
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الذكاء_الصناعي",
+      "key": "يعتمد_على",
+      "value": "البيانات",
+      "loc": {
+        "start": {
+          "line": 121,
+          "column": 3
+        },
+        "end": {
+          "line": 121,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الذكاء_الصناعي",
+      "key": "المدخل",
+      "value": "طلب_وسياق",
+      "loc": {
+        "start": {
+          "line": 122,
+          "column": 3
+        },
+        "end": {
+          "line": 122,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الذكاء_الصناعي",
+      "key": "المخرج",
+      "value": "خطة_استشارية",
+      "loc": {
+        "start": {
+          "line": 123,
+          "column": 3
+        },
+        "end": {
+          "line": 123,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الذكاء_الصناعي",
+      "key": "معيار_القبول",
+      "value": "لا_تفويض_حركة_ذاتي",
+      "loc": {
+        "start": {
+          "line": 124,
+          "column": 3
+        },
+        "end": {
+          "line": 124,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الذكاء_الصناعي",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 125,
+          "column": 3
+        },
+        "end": {
+          "line": 125,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الذكاء_الصناعي",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 126,
+          "column": 3
+        },
+        "end": {
+          "line": 126,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الذكاء_الصناعي",
+      "loc": {
+        "start": {
+          "line": 119,
+          "column": 1
+        },
+        "end": {
+          "line": 127,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "المختبر",
+      "loc": {
+        "start": {
+          "line": 127,
+          "column": 1
+        },
+        "end": {
+          "line": 135,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المختبر",
+      "key": "الدور",
+      "value": "تجربة_ومحاكاة_وفشل_وتعاف",
+      "loc": {
+        "start": {
+          "line": 128,
+          "column": 3
+        },
+        "end": {
+          "line": 128,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المختبر",
+      "key": "يعتمد_على",
+      "value": "العلوم",
+      "loc": {
+        "start": {
+          "line": 129,
+          "column": 3
+        },
+        "end": {
+          "line": 129,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المختبر",
+      "key": "المدخل",
+      "value": "سيناريو_محدد",
+      "loc": {
+        "start": {
+          "line": 130,
+          "column": 3
+        },
+        "end": {
+          "line": 130,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المختبر",
+      "key": "المخرج",
+      "value": "سجل_اختبار",
+      "loc": {
+        "start": {
+          "line": 131,
+          "column": 3
+        },
+        "end": {
+          "line": 131,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المختبر",
+      "key": "معيار_القبول",
+      "value": "نجاح_وفشل_قابلان_للقياس",
+      "loc": {
+        "start": {
+          "line": 132,
+          "column": 3
+        },
+        "end": {
+          "line": 132,
+          "column": 40
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المختبر",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 133,
+          "column": 3
+        },
+        "end": {
+          "line": 133,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المختبر",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 134,
+          "column": 3
+        },
+        "end": {
+          "line": 134,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "المختبر",
+      "loc": {
+        "start": {
+          "line": 127,
+          "column": 1
+        },
+        "end": {
+          "line": 135,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الاستوديو",
+      "loc": {
+        "start": {
+          "line": 135,
+          "column": 1
+        },
+        "end": {
+          "line": 143,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الاستوديو",
+      "key": "الدور",
+      "value": "تصميم_ومجسمات_ورسوم_وصوت",
+      "loc": {
+        "start": {
+          "line": 136,
+          "column": 3
+        },
+        "end": {
+          "line": 136,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الاستوديو",
+      "key": "يعتمد_على",
+      "value": "اللغة",
+      "loc": {
+        "start": {
+          "line": 137,
+          "column": 3
+        },
+        "end": {
+          "line": 137,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الاستوديو",
+      "key": "المدخل",
+      "value": "وصف_محكوم",
+      "loc": {
+        "start": {
+          "line": 138,
+          "column": 3
+        },
+        "end": {
+          "line": 138,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الاستوديو",
+      "key": "المخرج",
+      "value": "أصول_رقمية",
+      "loc": {
+        "start": {
+          "line": 139,
+          "column": 3
+        },
+        "end": {
+          "line": 139,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الاستوديو",
+      "key": "معيار_القبول",
+      "value": "نسب_الحقوق_وفحص_الناتج",
+      "loc": {
+        "start": {
+          "line": 140,
+          "column": 3
+        },
+        "end": {
+          "line": 140,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الاستوديو",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 141,
+          "column": 3
+        },
+        "end": {
+          "line": 141,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الاستوديو",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 142,
+          "column": 3
+        },
+        "end": {
+          "line": 142,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الاستوديو",
+      "loc": {
+        "start": {
+          "line": 135,
+          "column": 1
+        },
+        "end": {
+          "line": 143,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الفوندري",
+      "loc": {
+        "start": {
+          "line": 143,
+          "column": 1
+        },
+        "end": {
+          "line": 151,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الفوندري",
+      "key": "الدور",
+      "value": "بناء_برمجيات_ومكونات_وإصدارات",
+      "loc": {
+        "start": {
+          "line": 144,
+          "column": 3
+        },
+        "end": {
+          "line": 144,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الفوندري",
+      "key": "يعتمد_على",
+      "value": "المختبر",
+      "loc": {
+        "start": {
+          "line": 145,
+          "column": 3
+        },
+        "end": {
+          "line": 145,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الفوندري",
+      "key": "المدخل",
+      "value": "مواصفة_مدققة",
+      "loc": {
+        "start": {
+          "line": 146,
+          "column": 3
+        },
+        "end": {
+          "line": 146,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الفوندري",
+      "key": "المخرج",
+      "value": "حزمة_بناء",
+      "loc": {
+        "start": {
+          "line": 147,
+          "column": 3
+        },
+        "end": {
+          "line": 147,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الفوندري",
+      "key": "معيار_القبول",
+      "value": "توقيع_واختبارات_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 148,
+          "column": 3
+        },
+        "end": {
+          "line": 148,
+          "column": 44
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الفوندري",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 149,
+          "column": 3
+        },
+        "end": {
+          "line": 149,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الفوندري",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 150,
+          "column": 3
+        },
+        "end": {
+          "line": 150,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الفوندري",
+      "loc": {
+        "start": {
+          "line": 143,
+          "column": 1
+        },
+        "end": {
+          "line": 151,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "مصنع_ELF",
+      "loc": {
+        "start": {
+          "line": 151,
+          "column": 1
+        },
+        "end": {
+          "line": 159,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصنع_ELF",
+      "key": "الدور",
+      "value": "ربط_وفحص_الملفات_الأصلية",
+      "loc": {
+        "start": {
+          "line": 152,
+          "column": 3
+        },
+        "end": {
+          "line": 152,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصنع_ELF",
+      "key": "يعتمد_على",
+      "value": "الفوندري",
+      "loc": {
+        "start": {
+          "line": 153,
+          "column": 3
+        },
+        "end": {
+          "line": 153,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصنع_ELF",
+      "key": "المدخل",
+      "value": "كائنات_بناء",
+      "loc": {
+        "start": {
+          "line": 154,
+          "column": 3
+        },
+        "end": {
+          "line": 154,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصنع_ELF",
+      "key": "المخرج",
+      "value": "ELF_وEFI",
+      "loc": {
+        "start": {
+          "line": 155,
+          "column": 3
+        },
+        "end": {
+          "line": 155,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصنع_ELF",
+      "key": "معيار_القبول",
+      "value": "فحص_الرؤوس_والرموز",
+      "loc": {
+        "start": {
+          "line": 156,
+          "column": 3
+        },
+        "end": {
+          "line": 156,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصنع_ELF",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 157,
+          "column": 3
+        },
+        "end": {
+          "line": 157,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصنع_ELF",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 158,
+          "column": 3
+        },
+        "end": {
+          "line": 158,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "مصنع_ELF",
+      "loc": {
+        "start": {
+          "line": 151,
+          "column": 1
+        },
+        "end": {
+          "line": 159,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الروبوتات",
+      "loc": {
+        "start": {
+          "line": 159,
+          "column": 1
+        },
+        "end": {
+          "line": 167,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوتات",
+      "key": "الدور",
+      "value": "توأم_وتخطيط_وتحكم_وصيانة",
+      "loc": {
+        "start": {
+          "line": 160,
+          "column": 3
+        },
+        "end": {
+          "line": 160,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوتات",
+      "key": "يعتمد_على",
+      "value": "العتاد",
+      "loc": {
+        "start": {
+          "line": 161,
+          "column": 3
+        },
+        "end": {
+          "line": 161,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوتات",
+      "key": "المدخل",
+      "value": "خطة_ومشاهدات",
+      "loc": {
+        "start": {
+          "line": 162,
+          "column": 3
+        },
+        "end": {
+          "line": 162,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوتات",
+      "key": "المخرج",
+      "value": "محاكاة_وسجل",
+      "loc": {
+        "start": {
+          "line": 163,
+          "column": 3
+        },
+        "end": {
+          "line": 163,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوتات",
+      "key": "معيار_القبول",
+      "value": "إيقاف_ومراجعة_قبل_الواقع",
+      "loc": {
+        "start": {
+          "line": 164,
+          "column": 3
+        },
+        "end": {
+          "line": 164,
+          "column": 41
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوتات",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 165,
+          "column": 3
+        },
+        "end": {
+          "line": 165,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوتات",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 166,
+          "column": 3
+        },
+        "end": {
+          "line": 166,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الروبوتات",
+      "loc": {
+        "start": {
+          "line": 159,
+          "column": 1
+        },
+        "end": {
+          "line": 167,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "المصانع",
+      "loc": {
+        "start": {
+          "line": 167,
+          "column": 1
+        },
+        "end": {
+          "line": 175,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المصانع",
+      "key": "الدور",
+      "value": "خلايا_وتصنيع_وتجميع_وجودة",
+      "loc": {
+        "start": {
+          "line": 168,
+          "column": 3
+        },
+        "end": {
+          "line": 168,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المصانع",
+      "key": "يعتمد_على",
+      "value": "الفوندري",
+      "loc": {
+        "start": {
+          "line": 169,
+          "column": 3
+        },
+        "end": {
+          "line": 169,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المصانع",
+      "key": "المدخل",
+      "value": "عقود_مواد_ومكونات",
+      "loc": {
+        "start": {
+          "line": 170,
+          "column": 3
+        },
+        "end": {
+          "line": 170,
+          "column": 28
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المصانع",
+      "key": "المخرج",
+      "value": "منتج_وسجل_جودة",
+      "loc": {
+        "start": {
+          "line": 171,
+          "column": 3
+        },
+        "end": {
+          "line": 171,
+          "column": 25
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المصانع",
+      "key": "معيار_القبول",
+      "value": "تأهيل_كل_خط_على_حدة",
+      "loc": {
+        "start": {
+          "line": 172,
+          "column": 3
+        },
+        "end": {
+          "line": 172,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المصانع",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 173,
+          "column": 3
+        },
+        "end": {
+          "line": 173,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "المصانع",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 174,
+          "column": 3
+        },
+        "end": {
+          "line": 174,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "المصانع",
+      "loc": {
+        "start": {
+          "line": 167,
+          "column": 1
+        },
+        "end": {
+          "line": 175,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "التوريد",
+      "loc": {
+        "start": {
+          "line": 175,
+          "column": 1
+        },
+        "end": {
+          "line": 183,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التوريد",
+      "key": "الدور",
+      "value": "موردون_وعروض_ومواصفات_وأذونات",
+      "loc": {
+        "start": {
+          "line": 176,
+          "column": 3
+        },
+        "end": {
+          "line": 176,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التوريد",
+      "key": "يعتمد_على",
+      "value": "البيانات",
+      "loc": {
+        "start": {
+          "line": 177,
+          "column": 3
+        },
+        "end": {
+          "line": 177,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التوريد",
+      "key": "المدخل",
+      "value": "طلب_توريد",
+      "loc": {
+        "start": {
+          "line": 178,
+          "column": 3
+        },
+        "end": {
+          "line": 178,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التوريد",
+      "key": "المخرج",
+      "value": "عرض_موثق",
+      "loc": {
+        "start": {
+          "line": 179,
+          "column": 3
+        },
+        "end": {
+          "line": 179,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التوريد",
+      "key": "معيار_القبول",
+      "value": "مطابقة_العرض_والحقوق",
+      "loc": {
+        "start": {
+          "line": 180,
+          "column": 3
+        },
+        "end": {
+          "line": 180,
+          "column": 37
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التوريد",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 181,
+          "column": 3
+        },
+        "end": {
+          "line": 181,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التوريد",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 182,
+          "column": 3
+        },
+        "end": {
+          "line": 182,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "التوريد",
+      "loc": {
+        "start": {
+          "line": 175,
+          "column": 1
+        },
+        "end": {
+          "line": 183,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الإمداد",
+      "loc": {
+        "start": {
+          "line": 183,
+          "column": 1
+        },
+        "end": {
+          "line": 191,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الإمداد",
+      "key": "الدور",
+      "value": "مواد_ومخزون_وتتبع_وتسليم",
+      "loc": {
+        "start": {
+          "line": 184,
+          "column": 3
+        },
+        "end": {
+          "line": 184,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الإمداد",
+      "key": "يعتمد_على",
+      "value": "التوريد",
+      "loc": {
+        "start": {
+          "line": 185,
+          "column": 3
+        },
+        "end": {
+          "line": 185,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الإمداد",
+      "key": "المدخل",
+      "value": "مواد_معلومة",
+      "loc": {
+        "start": {
+          "line": 186,
+          "column": 3
+        },
+        "end": {
+          "line": 186,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الإمداد",
+      "key": "المخرج",
+      "value": "عقد_تتبع",
+      "loc": {
+        "start": {
+          "line": 187,
+          "column": 3
+        },
+        "end": {
+          "line": 187,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الإمداد",
+      "key": "معيار_القبول",
+      "value": "سجل_الكمية_والملكية",
+      "loc": {
+        "start": {
+          "line": 188,
+          "column": 3
+        },
+        "end": {
+          "line": 188,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الإمداد",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 189,
+          "column": 3
+        },
+        "end": {
+          "line": 189,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الإمداد",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 190,
+          "column": 3
+        },
+        "end": {
+          "line": 190,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الإمداد",
+      "loc": {
+        "start": {
+          "line": 183,
+          "column": 1
+        },
+        "end": {
+          "line": 191,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "اللوجستيات",
+      "loc": {
+        "start": {
+          "line": 191,
+          "column": 1
+        },
+        "end": {
+          "line": 199,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوجستيات",
+      "key": "الدور",
+      "value": "نقل_وتخزين_ومناولة_ووجهة",
+      "loc": {
+        "start": {
+          "line": 192,
+          "column": 3
+        },
+        "end": {
+          "line": 192,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوجستيات",
+      "key": "يعتمد_على",
+      "value": "الإمداد",
+      "loc": {
+        "start": {
+          "line": 193,
+          "column": 3
+        },
+        "end": {
+          "line": 193,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوجستيات",
+      "key": "المدخل",
+      "value": "شحنة_محددة",
+      "loc": {
+        "start": {
+          "line": 194,
+          "column": 3
+        },
+        "end": {
+          "line": 194,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوجستيات",
+      "key": "المخرج",
+      "value": "تسليم_موثق",
+      "loc": {
+        "start": {
+          "line": 195,
+          "column": 3
+        },
+        "end": {
+          "line": 195,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوجستيات",
+      "key": "معيار_القبول",
+      "value": "سلامة_وتكلفة_وقابلية_تتبع",
+      "loc": {
+        "start": {
+          "line": 196,
+          "column": 3
+        },
+        "end": {
+          "line": 196,
+          "column": 42
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوجستيات",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 197,
+          "column": 3
+        },
+        "end": {
+          "line": 197,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوجستيات",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 198,
+          "column": 3
+        },
+        "end": {
+          "line": 198,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "اللوجستيات",
+      "loc": {
+        "start": {
+          "line": 191,
+          "column": 1
+        },
+        "end": {
+          "line": 199,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "التجارة",
+      "loc": {
+        "start": {
+          "line": 199,
+          "column": 1
+        },
+        "end": {
+          "line": 207,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التجارة",
+      "key": "الدور",
+      "value": "منتج_وسوق_ودولة_وعقد_وتراض",
+      "loc": {
+        "start": {
+          "line": 200,
+          "column": 3
+        },
+        "end": {
+          "line": 200,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التجارة",
+      "key": "يعتمد_على",
+      "value": "اللوجستيات",
+      "loc": {
+        "start": {
+          "line": 201,
+          "column": 3
+        },
+        "end": {
+          "line": 201,
+          "column": 24
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التجارة",
+      "key": "المدخل",
+      "value": "طلب_وعرض_وموافقة",
+      "loc": {
+        "start": {
+          "line": 202,
+          "column": 3
+        },
+        "end": {
+          "line": 202,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التجارة",
+      "key": "المخرج",
+      "value": "معاملة_مقترحة",
+      "loc": {
+        "start": {
+          "line": 203,
+          "column": 3
+        },
+        "end": {
+          "line": 203,
+          "column": 24
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التجارة",
+      "key": "معيار_القبول",
+      "value": "لا_تحصيل_دون_استحقاق",
+      "loc": {
+        "start": {
+          "line": 204,
+          "column": 3
+        },
+        "end": {
+          "line": 204,
+          "column": 37
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التجارة",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 205,
+          "column": 3
+        },
+        "end": {
+          "line": 205,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التجارة",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 206,
+          "column": 3
+        },
+        "end": {
+          "line": 206,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "التجارة",
+      "loc": {
+        "start": {
+          "line": 199,
+          "column": 1
+        },
+        "end": {
+          "line": 207,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الأموال",
+      "loc": {
+        "start": {
+          "line": 207,
+          "column": 1
+        },
+        "end": {
+          "line": 215,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأموال",
+      "key": "الدور",
+      "value": "دفتر_قيود_وتكلفة_ونقد_وتسوية",
+      "loc": {
+        "start": {
+          "line": 208,
+          "column": 3
+        },
+        "end": {
+          "line": 208,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأموال",
+      "key": "يعتمد_على",
+      "value": "التجارة",
+      "loc": {
+        "start": {
+          "line": 209,
+          "column": 3
+        },
+        "end": {
+          "line": 209,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأموال",
+      "key": "المدخل",
+      "value": "مستند_ومبلغ_وعملة",
+      "loc": {
+        "start": {
+          "line": 210,
+          "column": 3
+        },
+        "end": {
+          "line": 210,
+          "column": 28
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأموال",
+      "key": "المخرج",
+      "value": "قيد_مقترح",
+      "loc": {
+        "start": {
+          "line": 211,
+          "column": 3
+        },
+        "end": {
+          "line": 211,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأموال",
+      "key": "معيار_القبول",
+      "value": "توازن_القيود_ومراجعة_مستقلة",
+      "loc": {
+        "start": {
+          "line": 212,
+          "column": 3
+        },
+        "end": {
+          "line": 212,
+          "column": 44
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأموال",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 213,
+          "column": 3
+        },
+        "end": {
+          "line": 213,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الأموال",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 214,
+          "column": 3
+        },
+        "end": {
+          "line": 214,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الأموال",
+      "loc": {
+        "start": {
+          "line": 207,
+          "column": 1
+        },
+        "end": {
+          "line": 215,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "البنية_الفوقية",
+      "loc": {
+        "start": {
+          "line": 215,
+          "column": 1
+        },
+        "end": {
+          "line": 223,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_الفوقية",
+      "key": "الدور",
+      "value": "واجهات_وسوق_وCloud_وSaaS",
+      "loc": {
+        "start": {
+          "line": 216,
+          "column": 3
+        },
+        "end": {
+          "line": 216,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_الفوقية",
+      "key": "يعتمد_على",
+      "value": "الحوسبة",
+      "loc": {
+        "start": {
+          "line": 217,
+          "column": 3
+        },
+        "end": {
+          "line": 217,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_الفوقية",
+      "key": "المدخل",
+      "value": "عقود_خدمات",
+      "loc": {
+        "start": {
+          "line": 218,
+          "column": 3
+        },
+        "end": {
+          "line": 218,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_الفوقية",
+      "key": "المخرج",
+      "value": "تجربة_مستخدم",
+      "loc": {
+        "start": {
+          "line": 219,
+          "column": 3
+        },
+        "end": {
+          "line": 219,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_الفوقية",
+      "key": "معيار_القبول",
+      "value": "عزل_ومراقبة_ومعايير_قبول",
+      "loc": {
+        "start": {
+          "line": 220,
+          "column": 3
+        },
+        "end": {
+          "line": 220,
+          "column": 41
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_الفوقية",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 221,
+          "column": 3
+        },
+        "end": {
+          "line": 221,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "البنية_الفوقية",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 222,
+          "column": 3
+        },
+        "end": {
+          "line": 222,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "البنية_الفوقية",
+      "loc": {
+        "start": {
+          "line": 215,
+          "column": 1
+        },
+        "end": {
+          "line": 223,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "التنظيم",
+      "loc": {
+        "start": {
+          "line": 223,
+          "column": 1
+        },
+        "end": {
+          "line": 231,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التنظيم",
+      "key": "الدور",
+      "value": "مسؤوليات_وصيانة_وتغيير_وإصدار",
+      "loc": {
+        "start": {
+          "line": 224,
+          "column": 3
+        },
+        "end": {
+          "line": 224,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التنظيم",
+      "key": "يعتمد_على",
+      "value": "الحوكمة",
+      "loc": {
+        "start": {
+          "line": 225,
+          "column": 3
+        },
+        "end": {
+          "line": 225,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التنظيم",
+      "key": "المدخل",
+      "value": "تغيير_مبرر",
+      "loc": {
+        "start": {
+          "line": 226,
+          "column": 3
+        },
+        "end": {
+          "line": 226,
+          "column": 21
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التنظيم",
+      "key": "المخرج",
+      "value": "مراجعة_وقرار",
+      "loc": {
+        "start": {
+          "line": 227,
+          "column": 3
+        },
+        "end": {
+          "line": 227,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التنظيم",
+      "key": "معيار_القبول",
+      "value": "فصل_المطور_عن_المعتمد",
+      "loc": {
+        "start": {
+          "line": 228,
+          "column": 3
+        },
+        "end": {
+          "line": 228,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التنظيم",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 229,
+          "column": 3
+        },
+        "end": {
+          "line": 229,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "التنظيم",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 230,
+          "column": 3
+        },
+        "end": {
+          "line": 230,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "التنظيم",
+      "loc": {
+        "start": {
+          "line": 223,
+          "column": 1
+        },
+        "end": {
+          "line": 231,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "اللوائح",
+      "loc": {
+        "start": {
+          "line": 231,
+          "column": 1
+        },
+        "end": {
+          "line": 239,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوائح",
+      "key": "الدور",
+      "value": "متطلبات_قطاع_ودولة_وسلامة",
+      "loc": {
+        "start": {
+          "line": 232,
+          "column": 3
+        },
+        "end": {
+          "line": 232,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوائح",
+      "key": "يعتمد_على",
+      "value": "الأدلة",
+      "loc": {
+        "start": {
+          "line": 233,
+          "column": 3
+        },
+        "end": {
+          "line": 233,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوائح",
+      "key": "المدخل",
+      "value": "مصدر_رسمي_وتاريخ",
+      "loc": {
+        "start": {
+          "line": 234,
+          "column": 3
+        },
+        "end": {
+          "line": 234,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوائح",
+      "key": "المخرج",
+      "value": "قائمة_متطلبات_مقترحة",
+      "loc": {
+        "start": {
+          "line": 235,
+          "column": 3
+        },
+        "end": {
+          "line": 235,
+          "column": 31
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوائح",
+      "key": "معيار_القبول",
+      "value": "مراجعة_مختصة_قبل_الاعتماد",
+      "loc": {
+        "start": {
+          "line": 236,
+          "column": 3
+        },
+        "end": {
+          "line": 236,
+          "column": 42
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوائح",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 237,
+          "column": 3
+        },
+        "end": {
+          "line": 237,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "اللوائح",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 238,
+          "column": 3
+        },
+        "end": {
+          "line": 238,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "اللوائح",
+      "loc": {
+        "start": {
+          "line": 231,
+          "column": 1
+        },
+        "end": {
+          "line": 239,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "النفع",
+      "loc": {
+        "start": {
+          "line": 239,
+          "column": 1
+        },
+        "end": {
+          "line": 247,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النفع",
+      "key": "الدور",
+      "value": "وظائف_وتدريب_وإتقان_وأثر",
+      "loc": {
+        "start": {
+          "line": 240,
+          "column": 3
+        },
+        "end": {
+          "line": 240,
+          "column": 34
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النفع",
+      "key": "يعتمد_على",
+      "value": "العلوم",
+      "loc": {
+        "start": {
+          "line": 241,
+          "column": 3
+        },
+        "end": {
+          "line": 241,
+          "column": 20
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النفع",
+      "key": "المدخل",
+      "value": "خط_أساس_ومؤشرات",
+      "loc": {
+        "start": {
+          "line": 242,
+          "column": 3
+        },
+        "end": {
+          "line": 242,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النفع",
+      "key": "المخرج",
+      "value": "قياس_أثر",
+      "loc": {
+        "start": {
+          "line": 243,
+          "column": 3
+        },
+        "end": {
+          "line": 243,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النفع",
+      "key": "معيار_القبول",
+      "value": "لا_ادعاء_نتيجة_غير_مقاسة",
+      "loc": {
+        "start": {
+          "line": 244,
+          "column": 3
+        },
+        "end": {
+          "line": 244,
+          "column": 41
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النفع",
+      "key": "الحالة",
+      "value": "DESIGN_CONTRACT",
+      "loc": {
+        "start": {
+          "line": 245,
+          "column": 3
+        },
+        "end": {
+          "line": 245,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "النفع",
+      "key": "التشغيل_الحقيقي",
+      "value": "UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 246,
+          "column": 3
+        },
+        "end": {
+          "line": 246,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "النفع",
+      "loc": {
+        "start": {
+          "line": 239,
+          "column": 1
+        },
+        "end": {
+          "line": 247,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_PROCEDURE",
+      "op": "PROCEDURE_BEGIN",
+      "name": "بناء_المواصفة_الموحدة",
+      "loc": {
+        "start": {
+          "line": 247,
+          "column": 1
+        },
+        "end": {
+          "line": 249,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "CALL_COMMAND",
+      "op": "COMMAND",
+      "procedure": "بناء_المواصفة_الموحدة",
+      "command": "اعرض",
+      "argument": "\"SHEIKHA_UNIFIED_FOUNDATIONS_DESIGN_COMPLETE\"",
+      "loc": {
+        "start": {
+          "line": 248,
+          "column": 3
+        },
+        "end": {
+          "line": 248,
+          "column": 53
+        }
+      }
+    },
+    {
+      "code": "CLOSE_PROCEDURE",
+      "op": "PROCEDURE_END",
+      "name": "بناء_المواصفة_الموحدة",
+      "loc": {
+        "start": {
+          "line": 247,
+          "column": 1
+        },
+        "end": {
+          "line": 249,
+          "column": 1
+        }
+      }
+    }
+  ]
+}

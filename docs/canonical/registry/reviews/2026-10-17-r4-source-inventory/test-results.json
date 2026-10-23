@@ -1,0 +1,62 @@
+{
+  "schema": "SHEIKHA_R4_SYNTHETIC_ADAPTER_TEST_RESULT_V1",
+  "executed_on": "2026-10-17",
+  "command": "python3 -S -B docs/canonical/registry/reviews/2026-10-17-r4-source-inventory/test_candidate_adapter.py",
+  "test_count": 13,
+  "passed": 13,
+  "failures": 0,
+  "errors": 0,
+  "exit_code": 0,
+  "elapsed_seconds": 0.139,
+  "result_text": "Ran13tests in0.139s / OK",
+  "code_sha256": "ec82cb98e75e1aa70bcdab02a6fbd95b4ba3d94ac2900564ada757054521aa28",
+  "tests_sha256": "86b07901c39031aaf0e5827e516470129dd54ef2186056370365fd3d44bb3011",
+  "target_schema_sha256": "967528d6d227e5a74879aaaba6514feff4119c78f4c3b02c67242fc315f88934",
+  "data_scope": "New synthetic SQLite bytes only; two sample entities with Unicode and whitespace.",
+  "source_master_or_r3_database_used_by_adapter": false,
+  "historical_stages_or_tests_rerun": false,
+  "checks": [
+    "Preserve all10source columns and exact string values in payload",
+    "Separate entity/document/observation version/provision/pending review with valid FKs",
+    "No official identifiers or legal references or runtime claims invented",
+    "Source/shariah status literals remain unreviewed, datesNULL",
+    "Deterministic IDs for a pinned snapshot",
+    "Reject NULL/blank keys, duplicate source keys and derived-key collisions before target creation",
+    "Reject mismatched column types, PK and collation",
+    "Reject BLOB text and REAL/overflow timestamp",
+    "Reject changed source/schema pins before source SQLite access",
+    "Bytes-only API, source size and row limits",
+    "Unrelated source tables not converted; triggers on source table refused",
+    "Private source copy removed after success and rejection",
+    "Injected target insertion failure rolls back and closes memory target"
+  ],
+  "execution_history": [
+    {
+      "attempt": 1,
+      "result": "FIXTURE_FAILURE",
+      "tests_started": 10,
+      "errors": 18,
+      "cause": "sqlite3.Connection.serialize unavailable in local Python; adapter not invoked",
+      "corrected": "Synthetic fixture exported via SQLite Backup to a private temporary file"
+    },
+    {
+      "attempt": 2,
+      "result": "PASS",
+      "tests": 10,
+      "exit_code": 0
+    },
+    {
+      "attempt": 3,
+      "result": "PASS",
+      "tests": 13,
+      "exit_code": 0,
+      "reason_for_repeat": "Added pin-before-SQLite and failure-cleanup/connection-close checks after source review"
+    }
+  ],
+  "limits": [
+    "No actual master rows converted",
+    "No file output migration or recovery demonstrated for this adapter",
+    "No Hostinger guard, contracts or production activation tested",
+    "Not a re-run of R3 tests"
+  ]
+}

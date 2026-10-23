@@ -1,0 +1,79 @@
+{
+  "schema": "SHEIKHA_REQUIREMENTS_FOUNDATION_CONTRACT_V1",
+  "identity": {
+    "name": "Sheikha Requirements Foundation Core",
+    "arabic": "نواة متطلبات شيخة المؤسسية",
+    "authoritativeDesignCanon": "V61",
+    "authoritativeClosureCanon": "V62"
+  },
+  "purpose": "Provide one canonical requirements layer without replacing valid domain-specific requirement artifacts.",
+  "requirementCoreFields": [
+    "requirementId",
+    "type",
+    "source",
+    "rationale",
+    "statement",
+    "acceptanceCriteria",
+    "verificationMethod",
+    "owner",
+    "status",
+    "version",
+    "traceLinks",
+    "changeHistory"
+  ],
+  "requirementTypes": [
+    "stakeholder",
+    "business",
+    "customer",
+    "regulatory",
+    "system",
+    "subsystem",
+    "component",
+    "interface",
+    "manufacturing",
+    "service-support",
+    "security",
+    "safety",
+    "privacy",
+    "quality",
+    "environment-resource",
+    "legal-ip"
+  ],
+  "invariants": {
+    "needIsNotRequirement": true,
+    "requirementIsNotDesign": true,
+    "requirementApprovedIsNotImplemented": true,
+    "verificationIsNotValidation": true,
+    "customerRequestIsNotAutomaticRequirement": true,
+    "unverifiedCriticalRequirementBlocksRelease": true,
+    "orphanCriticalRequirementBlocksRelease": true,
+    "domainSpecificArtifactsArePreserved": true,
+    "silentMasterDuplicationForbidden": true
+  },
+  "governance": {
+    "aiMayAssist": [
+      "parse requirements",
+      "detect trace gaps",
+      "propose acceptance criteria",
+      "propose verification methods",
+      "summarize changes"
+    ],
+    "aiMayNot": [
+      "fabricate evidence",
+      "approve critical requirements autonomously",
+      "waive critical safety requirements autonomously",
+      "issue binding Sharia rulings"
+    ]
+  },
+  "integration": {
+    "schema": "requirement.schema.json",
+    "traceability": "traceability.contract.json",
+    "lifecycle": "lifecycle.contract.json",
+    "existingDomainAdapters": "adapters/existing-domain-requirements.registry.json"
+  },
+  "pr31": {
+    "targetSha256": "dd9ab8f2a3f45ecdf0cbc19b077c403e41a74b2e0987b4953087f50ad08a6b5a",
+    "consumed": "UNKNOWN_UNTIL_TERMINAL_OUTPUT",
+    "doNotAdvance": true
+  }
+}

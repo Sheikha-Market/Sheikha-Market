@@ -1,0 +1,674 @@
+{
+  "system": "SHEIKHA_UNIFIED_RUNTIME_DISCOVERY_V1",
+  "root": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+  "services": {
+    "apex": {
+      "reachable": true,
+      "http": 200,
+      "system": "SHEIKHA_RUNTIME_APEX_V2"
+    },
+    "drawing": {
+      "reachable": true,
+      "http": 200,
+      "system": "SHEIKHA_DRAWING_MOTION_SPATIAL_FABRIC_V2"
+    },
+    "possibility": {
+      "reachable": true,
+      "http": 200,
+      "system": "SHEIKHA_POSSIBILITY_REALIZATION_FABRIC_V1"
+    },
+    "commercial": {
+      "reachable": true,
+      "http": 200,
+      "system": "SHEIKHA_COMMERCIAL_PRODUCTION_READINESS_FABRIC_V1"
+    }
+  },
+  "components": [
+    {
+      "id": "STUDIO",
+      "name": "Sheikha Studio",
+      "category": "experience",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        "docs/architecture/SHEIKHA-STUDIO-INDEPENDENT-PRODUCT-V1.md",
+        "docs/sheikha-studio-v2",
+        "docs/sheikha-studio-v2/SHEIKHA-TRUST-TOOLS-CONTRACT-V1-AR.md",
+        "docs/sheikha-studio-v2/SHEIKHA_STUDIO_V2.md",
+        "routes/sheikha-studio-product-v1.js",
+        "runtime/sheikha-developer-platform/v1/registries/studio-modules.json",
+        "runtime/sheikha-studio",
+        "runtime/sheikha-studio/core",
+        "runtime/sheikha-studio/core/sheikha-360-reality-bridge-v1.js",
+        "runtime/sheikha-studio/core/sheikha-azure-integration-fabric-v1.js",
+        "runtime/sheikha-studio/core/sheikha-cloud-v1.js",
+        "runtime/sheikha-studio/core/sheikha-commercial-operating-system-v1.js"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "TRUST_TOOLS",
+      "name": "Sheikha Trust Tools",
+      "category": "trust",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        ".venv-llm/lib/python3.10/site-packages/pip/_vendor/truststore",
+        ".venv-llm/lib/python3.10/site-packages/urllib3/contrib/pyopenssl.py",
+        "Sheikha-Market/sheikha-main-portal/lib/sheikha-trust-auth-engine.js",
+        "bare-metal/kernel/v2/security/sheikha_tpm.c",
+        "core/governance/sheikha-gardens-language-platform-trust-bridge-v1.js",
+        "core/governance/sheikha-native-tpm-attestation-v1.js",
+        "core/governance/sheikha-native-tpm-public-v1.js",
+        "core/governance/sheikha-native-tpm-signature-v1.js",
+        "core/governance/sheikha-tpm-activatecredential-contract-v2.js",
+        "core/governance/sheikha-tpm-context-observation-diagnosis-v2.js",
+        "core/governance/sheikha-tpm-ek-ak-recreation-contract-v2.js",
+        "core/governance/sheikha-tpm-evidence-normalizer-v1.js"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "FIRMWARE",
+      "name": "Sheikha Firmware",
+      "category": "device",
+      "mode": "READ_ONLY_GOVERNED",
+      "evidencePaths": [
+        "bare-metal/contracts/SHEIKHA-FIRMWARE-OEM-ODM-CONTRACT-V1.json",
+        "core/governance/sheikha-hardware-firmware-governance-adapter-v1.js",
+        "docs/products/SHEIKHA-FIRMWARE-PLATFORM-OEM-ODM-V1-AR.md",
+        "runtime/bare-metal/v3/firmware-platform",
+        "runtime/bare-metal/v3/firmware-platform/boards",
+        "runtime/bare-metal/v3/firmware-platform/boards/msi-pulse-16-ai-c1vfkg-board-package-v1-report.json",
+        "runtime/bare-metal/v3/firmware-platform/boards/msi-pulse-16-ai-c1vfkg-board-package-v1.json",
+        "runtime/bare-metal/v3/firmware-platform/sheikha-firmware-platform-oem-odm-v1-report.json",
+        "runtime/bare-metal/v3/firmware-platform/sheikha-firmware-platform-oem-odm-v1.json",
+        "runtime/bare-metal/v3/firmware-platform/sheikha-foundation-computing-platform-v1.json",
+        "runtime/bare-metal/v3/firmware-platform/sheikha-foundation-firmware-roadmap-v1.json",
+        "runtime/governance/runtime-adapters/v1/sheikha-hardware-firmware-governance-adapter-v1.json"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "TPM",
+      "name": "Sheikha TPM",
+      "category": "trust",
+      "mode": "EVIDENCE_BOUND",
+      "evidencePaths": [
+        "bare-metal/kernel/v2/security/sheikha_tpm.c",
+        "core/governance/sheikha-native-tpm-attestation-v1.js",
+        "core/governance/sheikha-native-tpm-public-v1.js",
+        "core/governance/sheikha-native-tpm-signature-v1.js",
+        "core/governance/sheikha-tpm-activatecredential-contract-v2.js",
+        "core/governance/sheikha-tpm-context-observation-diagnosis-v2.js",
+        "core/governance/sheikha-tpm-ek-ak-recreation-contract-v2.js",
+        "core/governance/sheikha-tpm-evidence-normalizer-v1.js",
+        "core/governance/sheikha-tpm-id-object-framing-v2.js",
+        "core/governance/sheikha-tpm-production-trial-gate-v1.js",
+        "core/governance/sheikha-tpm-quote-attestation-contract-v2.js",
+        "core/governance/sheikha-tpm-quote-readiness-v1.js"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "ARABIC_LANGUAGE",
+      "name": "لغة شيخة العربية",
+      "category": "language",
+      "mode": "LOCAL_RUNTIME",
+      "evidencePaths": [
+        ".venv-llm/lib/python3.10/site-packages/triton/language",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/__init__.py",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/__pycache__",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/core.py",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/extra",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/math.py",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/random.py",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/semantic.py",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/standard.py",
+        ".venv-llm/lib/python3.10/site-packages/triton/language/target_info.py",
+        ".venv-llm/lib/python3.10/site-packages/triton/profiler/language.py",
+        "README-SHEIKHA-LANGUAGE.md"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "LMM",
+      "name": "Sheikha LMM Orchestrator",
+      "category": "models",
+      "mode": "ORCHESTRATION",
+      "evidencePaths": [
+        "OLLAMA-VERIFICATION-REPORT-2026-06-07.md",
+        "SHEIKHA-IDE-LMM-GUIDE.md",
+        "Sheikha-Market/sheikha-main-portal/SHEIKHA-IDE-LMM-GUIDE.md",
+        "Sheikha-Market/sheikha-main-portal/data/lmm-settings.json",
+        "Sheikha-Market/sheikha-main-portal/lib/sheikha-lmm-engine.js",
+        "Sheikha-Market/sheikha-main-portal/lib/sheikha-ollama-orchestrator.js",
+        "Sheikha-Market/sheikha-main-portal/scripts/ollama-models-sync.js",
+        "Sheikha-Market/sheikha-main-portal/scripts/sheikha-ollama-copilot.js",
+        "activate-sheikha-ollama-core-model-v1.sh",
+        "core/providers/ollama",
+        "core/providers/ollama/index.js",
+        "docs/architecture/SHEIKHA-CORE-LOCAL-OLLAMA-GATEWAY.md"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "FOUNDRY",
+      "name": "Sheikha Foundry",
+      "category": "build",
+      "mode": "CONTROL_PLANE",
+      "evidencePaths": [
+        "activate-sheikha-foundry-v1.sh",
+        "activate-sheikha-foundry-v2.sh",
+        "core/foundry",
+        "core/foundry/sheikha-foundry-v1.js",
+        "core/foundry/sheikha-foundry-v2.js",
+        "core/foundry/sheikha-foundry-v3.js",
+        "docs/architecture/SHEIKHA-FOUNDRY-ORCHESTRATION-APEX-V1.md",
+        "routes/sheikha-foundry-routes.js",
+        "routes/sheikha-foundry-v2-routes.js",
+        "runtime/foundry",
+        "runtime/foundry/decisions",
+        "runtime/foundry/decisions/conversation-engine-routing.json"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "CLOUD",
+      "name": "Sheikha Cloud",
+      "category": "compute",
+      "mode": "ADAPTER",
+      "evidencePaths": [
+        "AUTO-GCLOUD-ACTIVATION-STATUS.json",
+        "CLOUD-DEPLOYMENT-COMPLETE.md",
+        "GOOGLE_CLOUD_SETUP.md",
+        "SHEIKHA-CLOUD-ARCHITECTURE.md",
+        "SHEIKHA-CLOUD-DEPLOYMENT.md",
+        "SHEIKHA-CLOUD-SAAS-READY.md",
+        "SHEIKHA-GCLOUD-UNIFIED-ACTIVATION-REPORT.md",
+        "Sheikha-Market/sheikha-main-portal/AUTO-GCLOUD-ACTIVATION-STATUS.json",
+        "Sheikha-Market/sheikha-main-portal/GOOGLE_CLOUD_SETUP.md",
+        "Sheikha-Market/sheikha-main-portal/SHEIKHA-CLOUD-ARCHITECTURE.md",
+        "Sheikha-Market/sheikha-main-portal/SHEIKHA-GCLOUD-UNIFIED-ACTIVATION-REPORT.md",
+        "Sheikha-Market/sheikha-main-portal/core/sheikha-cloud-root.js"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "BARE_METAL",
+      "name": "Sheikha Bare Metal",
+      "category": "compute",
+      "mode": "GOVERNED_ADAPTER",
+      "evidencePaths": [
+        "bare-metal",
+        "bare-metal/Makefile",
+        "bare-metal/README.md",
+        "bare-metal/architecture",
+        "bare-metal/architecture/aarch64",
+        "bare-metal/architecture/aarch64/README.md",
+        "bare-metal/architecture/x86_64",
+        "bare-metal/architecture/x86_64/README.md",
+        "bare-metal/boot",
+        "bare-metal/boot/uefi",
+        "bare-metal/boot/uefi/sheikha_uefi_entry.c",
+        "bare-metal/boot/uefi/sheikha_v2_paging_boot_adapter.c"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "SAAS",
+      "name": "Sheikha SaaS",
+      "category": "commercial",
+      "mode": "CONTROL_PLANE",
+      "evidencePaths": [
+        "SHEIKHA-CLAUDE-SAAS-COMPLETE.md",
+        "SHEIKHA-CLOUD-SAAS-READY.md",
+        "Sheikha-Market/sheikha-main-portal/core/sheikha-saas-root.js",
+        "Sheikha-Market/sheikha-main-portal/infrastructure/sheikha-main-artery/cloud-saas",
+        "Sheikha-Market/sheikha-main-portal/infrastructure/sheikha-main-artery/cloud-saas/hyperscale-cloud-saas-spec.json",
+        "Sheikha-Market/sheikha-main-portal/reports/cloud/sheikha-cloud-saas-activation-2026-03-12T05-34-24.json",
+        "Sheikha-Market/sheikha-main-portal/reports/cloud/sheikha-cloud-saas-activation-2026-03-12T14-29-04.json",
+        "Sheikha-Market/sheikha-main-portal/reports/cloud/sheikha-cloud-saas-activation-2026-03-12T14-35-35.json",
+        "Sheikha-Market/sheikha-main-portal/reports/cloud/sheikha-cloud-saas-activation-2026-03-12T14-38-42.json",
+        "Sheikha-Market/sheikha-main-portal/reports/cloud/sheikha-cloud-saas-activation-2026-03-12T14-42-11.json",
+        "Sheikha-Market/sheikha-main-portal/reports/cloud/sheikha-cloud-saas-activation-2026-03-12T15-38-09.json",
+        "Sheikha-Market/sheikha-main-portal/reports/cloud/sheikha-cloud-saas-activation-2026-03-12T16-26-36.json"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "SYSTEM_BUILDER",
+      "name": "Sheikha System Builder",
+      "category": "build",
+      "mode": "CONTROL_PLANE",
+      "evidencePaths": [
+        "docs/system-builder-fabric",
+        "docs/system-builder-fabric/SHEIKHA-SYSTEM-BUILDER-FABRIC-V1.md",
+        "public/system-builder-workbench",
+        "public/system-builder-workbench/app.js",
+        "public/system-builder-workbench/index.html",
+        "public/system-builder-workbench/styles.css",
+        "routes/system-builder-platform",
+        "routes/system-builder-platform/sheikha-system-builder-platform-routes.js",
+        "runtime/gardens-and-trees/v2/sheikha-sovereign-bare-metal-system-builder-integration-v2.json",
+        "runtime/system-builder",
+        "runtime/system-builder/root",
+        "runtime/system-builder/root/v1"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "GIT_LAB_HUB",
+      "name": "Sheikha Git-Lab Hub",
+      "category": "devtools",
+      "mode": "ADAPTER",
+      "evidencePaths": [
+        ".github",
+        ".github/copilot-instructions.json",
+        ".github/copilot-instructions.md",
+        ".github/sheikha-runtime.yml",
+        ".github/workflows",
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml",
+        ".github/workflows/governance-admission.yml",
+        ".github/workflows/optimum-rules-check.yml",
+        ".github/workflows/security-scan.yml",
+        ".github/workflows/sre-monitor.yml",
+        ".gitlab"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "SDK",
+      "name": "Sheikha SDK",
+      "category": "devtools",
+      "mode": "ADAPTER",
+      "evidencePaths": [
+        "Sheikha-Market/sheikha-main-portal/data/sdk-catalog.json",
+        "Sheikha-Market/sheikha-main-portal/data/stripe-sdk-languages.json",
+        "Sheikha-Market/sheikha-main-portal/docs/تقرير-تفعيل-SDK-والأدوات.md",
+        "Sheikha-Market/sheikha-main-portal/mcp-servers/sheikha-sdk-server.js",
+        "distribution/common/staging/1.0.51/linux-deb-amd64/sheikha-1.0.51-linux-x86_64/sdk",
+        "distribution/common/staging/1.0.51/linux-tar-x86_64/sheikha-1.0.51-linux-x86_64/sdk",
+        "distribution/common/verification/1.0.51/linux-tar-x86_64/sheikha-1.0.51-linux-x86_64/sdk",
+        "distribution/staging/v2/1.0.51/linux-deb-amd64/sheikha-1.0.51-linux-x86_64/sdk",
+        "distribution/staging/v2/1.0.51/linux-tar-x86_64/sheikha-1.0.51-linux-x86_64/sdk",
+        "distribution/staging/v5/1.0.51-candidate-3350af998f9e36fb8352/linux-tar-x86_64/sheikha-1.0.51-linux-x86_64/sdk",
+        "distribution/staging/v5/1.0.51-candidate-404999ddc7ff3c9b2792/linux-tar-x86_64/sheikha-1.0.51-linux-x86_64/sdk",
+        "distribution/staging/v5/1.0.51-candidate-508f0a6f9c7b5abe3678/linux-tar-x86_64/sheikha-1.0.51-linux-x86_64/sdk"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "CLI",
+      "name": "Sheikha CLI",
+      "category": "devtools",
+      "mode": "ADAPTER",
+      "evidencePaths": [
+        ".venv/lib/python3.10/site-packages/pip/_internal/cli",
+        ".venv/lib/python3.10/site-packages/setuptools/cli-32.exe",
+        ".venv/lib/python3.10/site-packages/setuptools/cli-64.exe",
+        ".venv/lib/python3.10/site-packages/setuptools/cli-arm64.exe",
+        ".venv/lib/python3.10/site-packages/setuptools/cli.exe",
+        ".venv/lib/python3.10/site-packages/setuptools/command/build_clib.py",
+        ".venv-llm/bin/datasets-cli",
+        ".venv-llm/bin/huggingface-cli",
+        ".venv-llm/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/__pycache__/client.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/__pycache__/client_exceptions.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/__pycache__/client_middleware_digest_auth.cpython-310.pyc"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "MCP",
+      "name": "Sheikha MCP",
+      "category": "devtools",
+      "mode": "ADAPTER",
+      "evidencePaths": [
+        ".mcp.json",
+        ".venv-llm/lib/python3.10/site-packages/huggingface_hub/inference/_mcp",
+        ".vscode/mcp.json",
+        "Sheikha-Market/sheikha-main-portal/config/mcp-servers.template.json",
+        "Sheikha-Market/sheikha-main-portal/data/figma-mcp-clients.json",
+        "Sheikha-Market/sheikha-main-portal/data/mcp-tools-catalog.json",
+        "Sheikha-Market/sheikha-main-portal/docs/guides/MCP-تكامل-احترافي-شيخة.md",
+        "Sheikha-Market/sheikha-main-portal/docs/تفعيل-MCP-Browse.md",
+        "Sheikha-Market/sheikha-main-portal/docs/تقرير-تفعيل-MCP-NVIDIA-VSCode-2026-02-28.md",
+        "Sheikha-Market/sheikha-main-portal/docs/تكامل-Figma-MCP-شيخة.md",
+        "Sheikha-Market/sheikha-main-portal/exports/activation-bundle/mcp",
+        "Sheikha-Market/sheikha-main-portal/exports/activation-bundle/mcp/allowlist.json"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "PHP",
+      "name": "Sheikha PHP Integration",
+      "category": "devtools",
+      "mode": "ADAPTER",
+      "evidencePaths": [
+        ".venv-llm/lib/python3.10/site-packages/pygments/lexers/_php_builtins.py",
+        ".venv-llm/lib/python3.10/site-packages/pygments/lexers/php.py",
+        "app/Http/Controllers/Auth/GoogleAuthController.php",
+        "app/Http/Controllers/FileUploadController.php",
+        "app/Models/File.php",
+        "app/Models/GoogleEcosystemModels.php",
+        "app/Services/FirebaseService.php",
+        "app/Services/GoogleAnalyticsService.php",
+        "app/Services/GoogleCloudStorageService.php",
+        "app/Services/GoogleMapsService.php",
+        "app/Services/GooglePayService.php",
+        "config/google-services.php"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "MODEL_SUBSCRIPTIONS",
+      "name": "Model Subscriptions",
+      "category": "models",
+      "mode": "BUDGET_AND_LICENSE_REGISTRY",
+      "evidencePaths": [
+        ".venv/lib/python3.10/site-packages/pip/_internal/models",
+        ".venv-llm/lib/python3.10/site-packages/accelerate/__pycache__/big_modeling.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/accelerate/big_modeling.py",
+        ".venv-llm/lib/python3.10/site-packages/accelerate/utils/modeling.py",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/_websocket/models.py",
+        ".venv-llm/lib/python3.10/site-packages/charset_normalizer/__pycache__/models.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/charset_normalizer/models.py",
+        ".venv-llm/lib/python3.10/site-packages/httpcore/__pycache__/_models.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/httpcore/_models.py",
+        ".venv-llm/lib/python3.10/site-packages/httpx/__pycache__/_models.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/httpx/_models.py",
+        ".venv-llm/lib/python3.10/site-packages/huggingface_hub/cli/models.py"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "OBSERVABILITY",
+      "name": "Sheikha Observability",
+      "category": "operations",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        ".venv-llm/lib/python3.10/site-packages/huggingface_hub/utils/_telemetry.py",
+        "Sheikha-Market/sheikha-main-portal/infra/observability",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/alertmanager",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/alertmanager/alertmanager.yml",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/grafana",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/grafana/provisioning",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/grafana/provisioning/datasources",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/loki",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/loki/loki-config.yml",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/otel",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/otel/otel-collector-config.yml",
+        "Sheikha-Market/sheikha-main-portal/infra/observability/prometheus"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "SECURITY_TOOLING",
+      "name": "Sheikha Security Tooling",
+      "category": "security",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        ".github/workflows/security-scan.yml",
+        "SECURITY.md",
+        "Sheikha-Market/sheikha-main-portal/.github/workflows/security-scan.yml",
+        "Sheikha-Market/sheikha-main-portal/SECURITY.md",
+        "Sheikha-Market/sheikha-main-portal/data/security",
+        "Sheikha-Market/sheikha-main-portal/data/security/security-radar-status.json",
+        "Sheikha-Market/sheikha-main-portal/data/security-audit.ndjson",
+        "Sheikha-Market/sheikha-main-portal/docs/security",
+        "Sheikha-Market/sheikha-main-portal/docs/security/حوكمة-المنظومة-الرقمية-بالكتاب-والسنة.md",
+        "Sheikha-Market/sheikha-main-portal/docs/security/دليل-الاستجابة-للحوادث-شيخة.md",
+        "Sheikha-Market/sheikha-main-portal/docs/security/دليل-تفعيل-الملكية-الفكرية-والأمن-الرقمي-شيخة.md",
+        "Sheikha-Market/sheikha-main-portal/docs/security/سياسة-أمن-المعلومات-شيخة.md"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "MARKET",
+      "name": "سوق شيخة",
+      "category": "commerce",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        "ACTIVATION-MARKETING-INTELLIGENCE.md",
+        "SHEIKHA-MARKET-OPERATIONS.md",
+        "Sheikha-Market",
+        "Sheikha-Market/.github",
+        "Sheikha-Market/.github/CODEOWNERS",
+        "Sheikha-Market/.github/ISSUE_TEMPLATE",
+        "Sheikha-Market/.github/ISSUE_TEMPLATE/bug_report.md",
+        "Sheikha-Market/.github/ISSUE_TEMPLATE/feature_request.md",
+        "Sheikha-Market/.github/PULL_REQUEST_TEMPLATE.md",
+        "Sheikha-Market/.github/dependabot.yml",
+        "Sheikha-Market/.github/workflows",
+        "Sheikha-Market/.github/workflows/ci.yml"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "GARDENS",
+      "name": "جنات شيخة",
+      "category": "worldly-engineering",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        "core/gardens-dialogue",
+        "core/gardens-dialogue/sheikha-constructive-thought-dialogue-ai-v3.js",
+        "core/gardens-dialogue/sheikha-gardens-knowledge-dialogue-runtime-v2.js",
+        "core/gardens-dialogue/sheikha-pastures-orchards-cultivation-runtime-v1.js",
+        "core/governance/sheikha-gardens-language-platform-trust-bridge-v1.js",
+        "docs/commercial/SHEIKHA-JANNAT-LANGUAGE-COMMERCIAL-READINESS-2026-09-01.md",
+        "docs/jannat-gardens-v1",
+        "docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md",
+        "docs/jannat-gardens-v2",
+        "docs/jannat-gardens-v2/SHEIKHA-COMPLETE-GARDENS-PRODUCTS-MARKETS-SECTORS-GUIDE-V2.md",
+        "docs/jannat-gardens-v2/SHEIKHA-GARDENS-KNOWLEDGE-DIALOGUE-V2.md",
+        "docs/jannat-gardens-v4"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "FARMS",
+      "name": "مزارع شيخة",
+      "category": "worldly-engineering",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        "Sheikha-Market/sheikha-main-portal/lib/sheikha-smart-digital-farm-engine.js",
+        "lib/sheikha-smart-digital-farm-engine.js",
+        "runtime/electronic-agriculture-farm-fabric",
+        "runtime/electronic-agriculture-farm-fabric/v124",
+        "runtime/electronic-agriculture-farm-fabric/v124/sheikha-electronic-agriculture-farm-fabric-v124.js",
+        "runtime/gpu-farm-readiness",
+        "runtime/gpu-farm-readiness/v1",
+        "runtime/gpu-farm-readiness/v1/sheikha-gpu-farm-readiness-v1.json"
+      ],
+      "evidenceCount": 8,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "PASTURES",
+      "name": "مراعي شيخة",
+      "category": "worldly-engineering",
+      "mode": "LOCAL_ADAPTER",
+      "evidencePaths": [
+        "core/gardens-dialogue/sheikha-pastures-orchards-cultivation-runtime-v1.js",
+        "docs/jannat-gardens-v4/SHEIKHA-PASTURES-ORCHARDS-CULTIVATION-OPERATING-MODEL-V1.md",
+        "public/pastures-orchards",
+        "public/pastures-orchards/app.js",
+        "public/pastures-orchards/index.html",
+        "public/pastures-orchards/styles.css",
+        "routes/gardens-dialogue/sheikha-pastures-orchards-cultivation-routes-v4.js",
+        "runtime/jannat-gardens/v4/sheikha-pastures-orchards-cultivation-v1.json",
+        "tests/sheikha-pastures-orchards-cultivation-routes-v4.test.js",
+        "tests/sheikha-pastures-orchards-cultivation-v1.test.js",
+        "tools/activation/activate-sheikha-pastures-orchards-cultivation-v1.js"
+      ],
+      "evidenceCount": 11,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "RESOURCE_RARITY",
+      "name": "Resource & Rarity Governance",
+      "category": "governance",
+      "mode": "CONTROL_PLANE",
+      "evidencePaths": [
+        "runtime/sheikha-ai-governor/v1/sheikha-llm-specialization-rarity-v1.js",
+        "runtime/sheikha-apex-v1/resource-governance-v1.js"
+      ],
+      "evidenceCount": 2,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "DEFENSIVE_EWAR",
+      "name": "Sheikha Defensive EW Resilience",
+      "category": "defense",
+      "mode": "DEFENSIVE_RESILIENCE_ONLY",
+      "evidencePaths": [
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/__pycache__/client_middleware_digest_auth.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/__pycache__/client_middlewares.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/__pycache__/web_middlewares.cpython-310.pyc",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/client_middleware_digest_auth.py",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/client_middlewares.py",
+        ".venv-llm/lib/python3.10/site-packages/aiohttp/web_middlewares.py",
+        ".venv-llm/lib/python3.10/site-packages/trl/experimental/openreward",
+        ".venv-llm/lib/python3.10/site-packages/trl/rewards",
+        ".venv-llm/lib/python3.10/site-packages/trl/rewards/__init__.py",
+        ".venv-llm/lib/python3.10/site-packages/trl/rewards/__pycache__",
+        ".venv-llm/lib/python3.10/site-packages/trl/rewards/accuracy_rewards.py",
+        ".venv-llm/lib/python3.10/site-packages/trl/rewards/format_rewards.py"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": null
+    },
+    {
+      "id": "DRAWING_MOTION",
+      "name": "Drawing / Graphics / Motion 2D-5D",
+      "category": "visual",
+      "mode": "LIVE_SERVICE_8093",
+      "evidencePaths": [
+        ".venv-llm/lib/python3.10/site-packages/networkx/algorithms/planar_drawing.py",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/__init__.py",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/__pycache__",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/layout.py",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/nx_agraph.py",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/nx_latex.py",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/nx_pydot.py",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/nx_pylab.py",
+        ".venv-llm/lib/python3.10/site-packages/networkx/drawing/tests",
+        ".venv-llm/lib/python3.10/site-packages/sympy/categories/diagram_drawing.py",
+        "runtime/sheikha-apex-v1/drawing-possibility-bridge-r4.js"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": {
+        "reachable": true,
+        "http": 200,
+        "system": "SHEIKHA_DRAWING_MOTION_SPATIAL_FABRIC_V2"
+      }
+    },
+    {
+      "id": "POSSIBILITY",
+      "name": "Possibility Realization",
+      "category": "planning",
+      "mode": "LIVE_SERVICE_8094",
+      "evidencePaths": [
+        "runtime/sheikha-possibility-realization-fabric-v1",
+        "runtime/sheikha-possibility-realization-fabric-v1/catalog.js",
+        "runtime/sheikha-possibility-realization-fabric-v1/fabrication.js",
+        "runtime/sheikha-possibility-realization-fabric-v1/planner.js",
+        "runtime/sheikha-possibility-realization-fabric-v1/policy.js",
+        "runtime/sheikha-possibility-realization-fabric-v1/server.js",
+        "runtime/sheikha-possibility-realization-fabric-v1/test.js"
+      ],
+      "evidenceCount": 7,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": {
+        "reachable": true,
+        "http": 200,
+        "system": "SHEIKHA_POSSIBILITY_REALIZATION_FABRIC_V1"
+      }
+    },
+    {
+      "id": "COMMERCIAL_READINESS",
+      "name": "Commercial Readiness",
+      "category": "commercial",
+      "mode": "LIVE_SERVICE_8095",
+      "evidencePaths": [
+        "docs/commercial/SHEIKHA-JANNAT-LANGUAGE-COMMERCIAL-READINESS-2026-09-01.md",
+        "runtime/chat-commercial-readiness",
+        "runtime/chat-commercial-readiness/sheikha-inspector-loopback-stability-v1.json",
+        "runtime/chat-commercial-readiness/v1",
+        "runtime/chat-commercial-readiness/v1/SHEIKHA-CHAT-COMMERCIAL-PRODUCTION-READINESS-V1.md",
+        "runtime/chat-commercial-readiness/v1/sheikha-chat-commercial-activation-final-v1.json",
+        "runtime/chat-commercial-readiness/v1/sheikha-chat-commercial-load-v1.json",
+        "runtime/chat-commercial-readiness/v1/sheikha-chat-commercial-readiness-run-1.json",
+        "runtime/chat-commercial-readiness/v1/sheikha-chat-commercial-readiness-run-2.json",
+        "runtime/chat-commercial-readiness/v1/sheikha-chat-commercial-readiness-run-3.json",
+        "runtime/chat-commercial-readiness/v1/sheikha-chat-commercial-readiness-v1.json",
+        "runtime/chat-commercial-readiness/v1/sheikha-chat-commercial-recovery-v1.json"
+      ],
+      "evidenceCount": 12,
+      "discoveryState": "LOCAL_SIGNALS_FOUND",
+      "liveService": {
+        "reachable": true,
+        "http": 200,
+        "system": "SHEIKHA_COMMERCIAL_PRODUCTION_READINESS_FABRIC_V1"
+      }
+    }
+  ],
+  "boundaries": {
+    "ewarOffensiveActions": false,
+    "jamming": false,
+    "targeting": false,
+    "unauthorizedIntrusion": false,
+    "firmwareWritesDefault": false,
+    "tpmHighImpactDefault": false,
+    "afterlifeSimulation": false,
+    "unseenClaim": false
+  }
+}

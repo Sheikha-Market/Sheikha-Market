@@ -1,0 +1,11 @@
+[Unit]
+Description=Sheikha local supervisor daily at 08:00 Riyadh
+
+[Timer]
+OnCalendar=*-*-* 08:00:00 Asia/Riyadh
+Persistent=true
+AccuracySec=1min
+Unit=sheikha-sovereign-supervisor.service
+
+[Install]
+WantedBy=timers.target

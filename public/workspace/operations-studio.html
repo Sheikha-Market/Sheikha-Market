@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مدير ومشرف شيخة المحلي</title>
+<style>
+:root{font-family:Tahoma,Arial,sans-serif;color:#15382e;background:#f2f5f1;font-size:16px}*{box-sizing:border-box}body{margin:0}header{padding:36px max(20px,calc((100vw - 1200px)/2));background:#123e30;color:#fff;border-bottom:5px solid #b79a50}h1{font-size:clamp(1.6rem,4vw,2.5rem);margin:10px 0}h2{font-size:1.3rem;margin-top:0}h3{margin:0 0 12px}p{line-height:1.9}main{max-width:1240px;margin:auto;padding:24px;display:grid;gap:22px}.hold{display:inline-block;background:#ffe7db;color:#732900;border:1px solid #eebd98;padding:8px 12px;border-radius:7px;font-weight:bold}.muted{color:#617267}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.panel,.card{background:#fff;border:1px solid #dbe3d9;border-radius:12px;padding:20px;min-width:0}.card{border-right:4px solid #b79a50}.card p{margin:8px 0}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}input,select,button{font:inherit;border:1px solid #a9bbb0;border-radius:8px;padding:11px;background:#fff;color:#15382e}button{cursor:pointer}button:hover{background:#e5eee5}input{flex:1;min-width:180px}small{line-height:1.8}.badge{display:inline-block;background:#edf3ea;padding:5px 9px;border-radius:6px;margin:3px 0;font-size:.86rem}.warning{background:#fff4d8;color:#745200}.critical{background:#ffe4e1;color:#882c21}dl{display:grid;grid-template-columns:minmax(70px,auto) 1fr;gap:9px;margin-bottom:0}dt{font-weight:bold}dd{margin:0;overflow-wrap:anywhere}code{direction:ltr;unicode-bidi:isolate;font-size:.85rem;overflow-wrap:anywhere}ul{padding-right:20px;line-height:1.8}.empty{padding:16px;background:#f5f5ec;border-radius:8px}.roles .card{border-right-color:#5b8c74}.counts{font-size:1.15rem;font-weight:bold}.section-head{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}#error{color:#8f2d23;background:#ffebe7;padding:14px;border-radius:9px}footer{padding:10px 24px 35px;text-align:center;color:#617267}@media(max-width:580px){main{padding:14px}.panel,.card{padding:15px}header{padding:25px 18px}.toolbar>*{width:100%}dl{grid-template-columns:1fr}dd{padding-bottom:8px}}
+</style>
+</head>
+<body>
+<header><span class="badge">SHEIKHA · تشغيل محلي</span><h1>مدير شيخة ومشرف شيخة</h1><p>تنسيق الأدلة، وصف الوظائف، مراجعة التحسين، ومتابعة الأولويات.</p><span class="hold">الإنتاج محجوز · PRODUCTION HOLD</span></header>
+<main>
+<div id="error" role="alert" hidden></div>
+<section class="panel"><div class="section-head"><h2>حالة دورة التشغيل</h2><button id="refresh" type="button">تحديث القراءة</button></div><p id="cycle">جارٍ قراءة الحالة المحلية…</p><p class="muted">تشغيل هذه اللوحة يثبت خدمة عرض محلية. بطاقات الأدوار تصميم وظائف رقمية؛ لا تعني تعيين أشخاص أو تشغيل وكلاء دائمين أو منح صلاحيات. نجاح HTTP يثبت الإتاحة فقط.</p><div id="summary" class="grid"></div><p id="checked" class="muted"></p></section>
+<section class="panel"><h2>المدير التنفيذي وفريق التشغيل الرقمي</h2><p>كل دور ينسّق ضمن نطاقه؛ التغيير الخارجي والنشر والأجهزة والمراسلات والصرف تتطلب تفويضًا مستقلًا.</p><div id="roles" class="grid roles"></div></section>
+<section class="panel"><div class="section-head"><h2>بصريات النواة والخلية المنطقية</h2><select id="workforce-scenario" aria-label="سيناريو سعة الأدوار المنطقية"><option value="1">دور منطقي واحد</option><option value="100">100 دور منطقي</option><option value="1000000">مليون دور منطقي</option><option value="100000000">100 مليون دور منطقي</option></select></div><p>مقارنة سعة محدودة بالحساب فقط، دون إنشاء نسخ أو عمال أو قوائم هائلة. الخلية هنا علاقة أدوار وأدلة، ولا تمثل خلية حيوية أو نموذجًا عصبيًا مدربًا.</p><div id="workforce" class="grid"></div><p id="workforce-signals" class="muted"></p></section>
+<section class="panel"><div class="section-head"><h2>الأقسام والوصف الوظيفي</h2><span id="catalog-count" class="badge">كتالوج محلي</span></div><div class="toolbar"><input id="search" type="search" aria-label="البحث في الأقسام والأدوار" placeholder="ابحث عن إدارة أو دور أو مسؤولية…"><select id="department-filter" aria-label="تصفية الأقسام"><option value="">كل الأقسام</option></select><button id="download" type="button" disabled>تنزيل الكتالوج JSON</button></div><p class="muted">مؤشرات الأداء أهداف قياس مقترحة؛ لا تُعرض نتائج إنجاز أو قياسات مختلقة. التحسين المستمر ينتظر دليلًا ومراجعةً قبل تعديل الوصف أو الصلاحيات.</p><div id="departments" class="grid"></div></section>
+<section class="grid"><article class="panel"><h2>الرَّحَاة · التحقق من metadata</h2><div id="raha"></div></article><article class="panel"><h2>مراجعة تطوير الوظائف</h2><div id="review"></div></article></section>
+<section class="panel"><h2>أولويات المشرف وإجراءات مقترحة</h2><div id="priorities" class="grid"></div></section>
+<section class="panel"><h2>بصريات الحوكمة وحدود التنفيذ</h2><p>مرجعية الكتاب والسنة والأمانة والعدل وحفظ الحقوق. لا شهادة شرعية أو قانونية آلية. الواجهة للقراءة، ولا تحتوي أزرار إصلاح أو نشر أو تغيير صلاحيات.</p><div id="evidence"></div></section>
+</main><footer>شيخة · الأدلة المحفوظة لا تمنح صلاحية تنفيذ، ولا تثبت اتصال المزود الآن.</footer>
+<script>
+'use strict';
+const el=id=>document.getElementById(id);let catalog=null,manager=null,workforce=null;
+const labels={executive:'المدير التنفيذي',manager:'المدير',supervisor:'المشرف',monitor:'المراقب والحارس',watch:'المراقب والحارس',engineer:'المهندس',coordinator:'المنسق',worker:'العامل الرقمي',producer:'المنتج'};
+const str=value=>typeof value==='string'?value:typeof value==='number'||typeof value==='boolean'?String(value):'';
+const values=value=>Array.isArray(value)?value:[];
+const title=row=>row.nameAr||row.titleAr||row.name||row.title||row.id||'عنصر';
+function node(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
+function textOf(value){if(typeof value==='string')return value;if(Array.isArray(value))return value.map(textOf).filter(Boolean).join('، ');if(value&&typeof value==='object')return Object.entries(value).map(([key,v])=>labels[key]||str(v)).filter(Boolean).join(' · ');return str(value)}
+function list(parent,label,items){const rows=values(items);if(!rows.length)return;parent.append(node('strong',label));const ul=node('ul');for(const item of rows.slice(0,16))ul.append(node('li',typeof item==='object'?item.descriptionAr||item.titleAr||item.nameAr||item.labelAr||item.description||item.label||item.id||textOf(item):str(item)));parent.append(ul)}
+function badge(parent,text,kind){parent.append(node('span',text,'badge '+(kind||'')))}
+function renderRoles(org){
+ const target=el('roles');target.replaceChildren();
+ const rows=Object.entries(manager.roles||{}).map(([id,value])=>({id,...value}));
+ for(const role of rows){const card=node('article',undefined,'card');card.append(node('h3',role.roleAr||labels[role.id]||role.id));badge(card,'خطوة محلية · لا وكيل مستقل');card.append(node('p','حالة الخطوة: '+(role.execution||'غير متحققة')));card.append(node('small','لا يمنح هذا الدور صلاحيات خدمات أو أجهزة أو اعتمادًا للإنتاج.','muted'));target.append(card)}
+ if(!rows.length)target.append(node('p','تعذر تحميل نتيجة دورة الأدوار المحلية.','empty'));
+}
+function renderDepartments(){
+ const target=el('departments');target.replaceChildren();if(!catalog)return;
+ const org=catalog.organization,term=el('search').value.trim().toLocaleLowerCase('ar'),filter=el('department-filter').value;
+ const roles=values(org.roles),rows=values(org.departments).filter(row=>(!filter||row.id===filter)&&(!term||JSON.stringify([row,...roles.filter(role=>role.departmentId===row.id)]).toLocaleLowerCase('ar').includes(term)));
+ for(const dept of rows){
+  const card=node('article',undefined,'card');card.append(node('h3',title(dept)));badge(card,'أدوار رقمية موصوفة · صلاحيات خارجية غير ممنوحة');card.append(node('p',dept.purposeAr||'نطاق يحتاج مراجعة.'));
+  const managerRole=roles.find(role=>role.id===dept.managerRoleId),reviewer=roles.find(role=>role.id===dept.independentReviewRoleId);
+  const details=node('dl');details.append(node('dt','إدارة القسم'),node('dd',managerRole?title(managerRole):'غير محدد'),node('dt','مراجعة مستقلة'),node('dd',reviewer?title(reviewer):dept.independentReviewRoleId==='owner'?'المالك · تفويض مستقل':'غير محددة'));card.append(details);
+  for(const role of roles.filter(item=>item.departmentId===dept.id)){
+   const entry=node('details'),summary=node('summary',title(role));entry.append(summary,node('p',role.jobDescriptionAr||'الوصف قيد التوثيق.'));
+   list(entry,'المسؤوليات',role.responsibilities);list(entry,'المخرجات',role.deliverables);
+   list(entry,'مؤشرات قياس مقترحة',values(role.kpis).map(k=>({labelAr:(k.labelAr||k.code)+' · الوحدة: '+(k.unit||'تحتاج تعريفًا')+' · القياس الفعلي: غير متحقق'})));
+   list(entry,'حدود الصلاحيات',role.limits);entry.append(node('small','إصدار الوصف: '+(role.descriptionVersion||'غير مسجل')+' · المراجعة كل '+(role.reviewCadenceDays||'غير محدد')+' يومًا · لم يُعيّن شخص ولم يُشغّل وكيل دائم.','muted'));card.append(entry);
+  }
+  card.append(node('p','دليل الأداء والموافقة المستقلة مطلوبان قبل تطوير الوصف أو تغيير صلاحياته.','muted'));target.append(card);
+ }
+ if(!rows.length)target.append(node('p','لا توجد أقسام مطابقة للبحث.','empty'));el('catalog-count').textContent=rows.length+' / '+values(org.departments).length+' قسم · '+roles.length+' دور';
+}
+function renderStatus(result){manager=result.report||result;el('cycle').textContent='نُفذت قراءة وتجميع الحالة المحلية في هذه الجلسة؛ دورة العامل المجدولة تُثبت من سجل الخدمة بصورة مستقلة.';el('checked').textContent='وقت التقرير: '+(manager.generatedAt||'غير متوفر')+' · لا تحقق حي من المزودين ضمن هذه القراءة.';const sum=el('summary');sum.replaceChildren();for(const [key,label]of [['critical','نتائج حرجة'],['warning','تحذيرات'],['healthy','قراءات سليمة في نطاقها'],['unknown','أصول غير متحققة']]){const card=node('div',undefined,'card');card.append(node('div',String(manager.counts?.[key]??'غير متوفر'),'counts'),node('p',label));sum.append(card)}const rt=el('raha');rt.replaceChildren(node('p','تنقية البيانات الوصفية والتحقق من اتساق البصمة والتكرار؛ لا تشغيل للنواة الثقيلة أو تصفية شرعية آلية.'));badge(rt,manager.raha?.status||'لم تكتمل نتيجة التحقق');const p=el('priorities');p.replaceChildren();for(const row of values(manager.priorities).slice(0,12)){const c=node('article',undefined,'card');c.append(node('h3',row.assetId||row.id),node('p',row.state||'غير متحقق'));const proposal=values(manager.proposals).find(x=>x.assetId===row.assetId);if(proposal)c.append(node('p',proposal.action||proposal.actionCode));badge(c,row.verified?'دليل محلي محدود':'لا دليل راهن متحقق',row.state==='حرج'?'critical':'warning');p.append(c)}const ev=el('evidence');ev.replaceChildren(node('p','بصمة التقرير:'));ev.append(node('code',manager.reportDigest||'غير متوفرة'));}
+function renderOrganization(value){catalog=value;const org=value.organization||{};renderRoles(org);const select=el('department-filter'),current=select.value;select.replaceChildren(node('option','كل الأقسام'));select.firstChild.value='';for(const dept of values(org.departments)){const option=node('option',title(dept));option.value=dept.id;select.append(option)}select.value=current;renderDepartments();const review=el('review');review.replaceChildren(node('p','لم تُقدّم قياسات أداء في طلب المراجعة الحالي؛ لا تعديل تلقائي للوصف الوظيفي.'));badge(review,value.jobDescriptionReview?.status||'أدلة القياس والمراجعة مطلوبة','warning');review.append(node('p','الحالة: '+(org.status||'غير متوفر')+' · إصدار الكتالوج: '+(org.catalogVersion||'غير متوفر')));el('download').disabled=false;}
+function renderWorkforce(){
+ const result=values(workforce?.scenarios).find(row=>row.requestedLogicalAgents===el('workforce-scenario').value),target=el('workforce');target.replaceChildren();if(!result){target.append(node('p','لم يُتحقق من سيناريو السعة.','empty'));return}
+ for(const [label,value]of [['الهويات المنطقية المطلوبة',result.requestedLogicalAgents],['خانات تزامن مخططة',result.plannedConcurrentSlots],['عمال شغّلهم هذا المخطط',result.workersStarted],['سعة طابور المهام',result.queue?.capacity]]){const c=node('article',undefined,'card');c.append(node('h3',label),node('p',String(value??'غير متحقق')));target.append(c)}
+ const signals={OBSERVE:'رصد',VALIDATE_EVIDENCE:'تحقق من الدليل',PRIORITIZE:'ترتيب الأولويات',PLAN:'تخطيط',REPORT:'تقرير'};
+ el('workforce-signals').textContent='مسار الإشارة المنطقي: '+values(result.neuralIntegration?.signals).map(s=>signals[s]||s).join(' ← ')+' · لا قياس لعدد عمال المضيف أو إنتاجيته · النسخ التلقائي غير مفعّل · لا عنقود موزع متصل.';
+}
+async function get(url){const response=await fetch(url,{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(12000)});if(!response.ok)throw Error('SOURCE_UNAVAILABLE');return response.json()}
+async function load(){el('refresh').disabled=true;el('error').hidden=true;try{const [status,organization,plans]=await Promise.all([get('/api/status'),get('/api/organization'),get('/api/workforce')]);renderStatus(status);renderOrganization(organization);workforce=plans;renderWorkforce()}catch{el('error').hidden=false;el('error').textContent='تعذر استكمال القراءة المحلية. لا تُعد البيانات السابقة حالة راهنة؛ الإنتاج يبقى محجوزًا.';el('cycle').textContent='فشل التحقق من إحدى قنوات القراءة.';el('download').disabled=true}finally{el('refresh').disabled=false}}
+el('workforce-scenario').addEventListener('change',renderWorkforce);
+el('refresh').addEventListener('click',load);el('search').addEventListener('input',renderDepartments);el('department-filter').addEventListener('change',renderDepartments);el('download').addEventListener('click',()=>{if(!catalog)return;const blob=new Blob([JSON.stringify(catalog,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=node('a');a.href=url;a.download='sheikha-digital-organization-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url)});load();
+</script>
+</body>
+</html>

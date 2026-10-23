@@ -1,7 +1,11 @@
 'use strict';
 
-const os = require('os');
-const cp = require('child_process');
+const os = require('node:os');
+const cp = require('node:child_process');
+
+const GIT_EXECUTABLE = process.platform === 'win32'
+  ? 'C:\\Program Files\\Git\\cmd\\git.exe'
+  : '/usr/bin/git';
 
 const GIT_SNAPSHOT_TTL_MS = 10000;
 const GIT_SNAPSHOT = {
@@ -15,7 +19,7 @@ let gitRefreshPromise = null;
 
 function execGit(args, fallback = 'غير متاح') {
   return new Promise((resolve) => {
-    cp.execFile('git', args, {
+    cp.execFile(GIT_EXECUTABLE, args, {
       cwd: process.cwd(),
       encoding: 'utf8',
       timeout: 5000,
@@ -25,9 +29,60 @@ function execGit(args, fallback = 'غير متاح') {
         resolve(fallback);
         return;
       }
-      resolve(String(stdout || '').trim());
+      // Leading spaces in porcelain encode the index state.
+      resolve(String(stdout || '').replace(/\r?\n$/u, ''));
     });
   });
+}
+
+function classifyGitStatus(code) {
+  if (code === '??') return 'untracked';
+  if (code.includes('U') || code === 'AA' || code === 'DD') {
+    return 'conflicted';
+  }
+  if (code[0] !== ' ' && code[1] !== ' ') return 'stagedAndUnstaged';
+  if (code[0] !== ' ') return 'staged';
+  return 'unstaged';
+}
+
+function summarizeGitStatus(status = '') {
+  const lines = String(status || '').split('\n').filter(Boolean);
+  const byState = {
+    untracked: 0,
+    conflicted: 0,
+    staged: 0,
+    unstaged: 0,
+    stagedAndUnstaged: 0
+  };
+  const areaCounts = new Map();
+
+  lines.forEach((line) => {
+    const code = line.slice(0, 2);
+    const rawPath = line.slice(3);
+    const selectedPath = rawPath.includes(' -> ')
+      ? rawPath.split(' -> ').at(-1)
+      : rawPath;
+    const normalizedPath = selectedPath.replace(/^"|"$/gu, '');
+    const area = normalizedPath.includes('/')
+      ? normalizedPath.split('/')[0]
+      : '(root)';
+    const state = classifyGitStatus(code);
+    byState[state] += 1;
+    areaCounts.set(area, (areaCounts.get(area) || 0) + 1);
+  });
+
+  const topAreas = [...areaCounts.entries()]
+    .map(([area, count]) => ({area, count}))
+    .sort((left, right) =>
+      right.count - left.count || left.area.localeCompare(right.area)
+    )
+    .slice(0, 12);
+
+  return {
+    total: lines.length,
+    byState,
+    topAreas
+  };
 }
 
 function refreshGitSnapshot(options = {}) {
@@ -42,9 +97,13 @@ function refreshGitSnapshot(options = {}) {
   GIT_SNAPSHOT.refreshStatus = 'REFRESHING';
   gitRefreshPromise = Promise.all([
     execGit(['rev-parse', '--abbrev-ref', 'HEAD']),
-    execGit(['status', '--short'], ''),
+    execGit(['status', '--porcelain=v1'], null),
     execGit(['rev-list', '--left-right', '--count', '@{u}...HEAD'])
   ]).then(([branch, status, aheadBehind]) => {
+    if (status === null) {
+      GIT_SNAPSHOT.refreshStatus = 'DEGRADED';
+      return { ...GIT_SNAPSHOT };
+    }
     Object.assign(GIT_SNAPSHOT, {
       branch,
       status,
@@ -78,7 +137,8 @@ function collectControlTowerStatus() {
     },
     git: {
       ...GIT_SNAPSHOT,
-      stale: !GIT_SNAPSHOT.refreshedAt ||
+      changeSummary: summarizeGitStatus(GIT_SNAPSHOT.status),
+      stale: GIT_SNAPSHOT.refreshStatus !== 'READY' || !GIT_SNAPSHOT.refreshedAt ||
         Date.now() - Date.parse(GIT_SNAPSHOT.refreshedAt) >= GIT_SNAPSHOT_TTL_MS
     },
     project: {
@@ -111,7 +171,8 @@ function collectControlTowerStatus() {
 module.exports = {
   GIT_SNAPSHOT,
   collectControlTowerStatus,
-  refreshGitSnapshot
+  refreshGitSnapshot,
+  summarizeGitStatus
 };
 
 refreshGitSnapshot().catch(() => {

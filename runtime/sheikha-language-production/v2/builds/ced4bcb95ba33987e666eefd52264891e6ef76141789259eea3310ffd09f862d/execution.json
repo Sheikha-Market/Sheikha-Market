@@ -1,0 +1,136 @@
+{
+  "status": "EXECUTED_LOCAL_PRODUCTION",
+  "adapterDryRun": true,
+  "governanceViolations": 0,
+  "output": [
+    "VERIFIED:utf",
+    "PRODUCED:utf",
+    "VERIFIED:language",
+    "PRODUCED:language",
+    "VERIFIED:core",
+    "PRODUCED:core",
+    "VERIFIED:governance",
+    "PRODUCED:governance",
+    "VERIFIED:ownership",
+    "PRODUCED:ownership",
+    "VERIFIED:sdk",
+    "PRODUCED:sdk",
+    "VERIFIED:mcp",
+    "PRODUCED:mcp",
+    "VERIFIED:platform",
+    "PRODUCED:platform",
+    "VERIFIED:foundry",
+    "PRODUCED:foundry",
+    "VERIFIED:weights",
+    "PRODUCED:weights",
+    "VERIFIED:llm",
+    "PRODUCED:llm",
+    "VERIFIED:factories",
+    "PRODUCED:factories",
+    "VERIFIED:pipelines",
+    "PRODUCED:pipelines",
+    "VERIFIED:studio",
+    "PRODUCED:studio",
+    "VERIFIED:lab",
+    "PRODUCED:lab",
+    "VERIFIED:visual",
+    "PRODUCED:visual",
+    "VERIFIED:firmware",
+    "PRODUCED:firmware",
+    "VERIFIED:bare-metal",
+    "PRODUCED:bare-metal",
+    "\"SHEIKHA_LANGUAGE_LOCAL_PRODUCTION_COMPLETE\""
+  ],
+  "evidence": [
+    {
+      "component": "utf",
+      "basis": "ACTUAL_LOCAL_ENCODING_ROUND_TRIP",
+      "passed": true
+    },
+    {
+      "component": "language",
+      "basis": "ACTUAL_LOCAL_COMPILER_VM_PROBE",
+      "passed": true
+    },
+    {
+      "component": "core",
+      "basis": "LOCAL_CONTRACT_COMPOSITION_ONLY",
+      "passed": true
+    },
+    {
+      "component": "governance",
+      "basis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+      "passed": true
+    },
+    {
+      "component": "ownership",
+      "basis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+      "passed": true
+    },
+    {
+      "component": "sdk",
+      "basis": "LOCAL_SDK_LANGUAGE_EXECUTION",
+      "passed": true
+    },
+    {
+      "component": "mcp",
+      "basis": "POLICY_ADMISSION_AND_DENIAL_PROBE",
+      "passed": true
+    },
+    {
+      "component": "platform",
+      "basis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+      "passed": true
+    },
+    {
+      "component": "foundry",
+      "basis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+      "passed": true
+    },
+    {
+      "component": "weights",
+      "basis": "LOCAL_ADAPTER_ARTIFACT_HASHES",
+      "passed": true
+    },
+    {
+      "component": "llm",
+      "basis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+      "passed": true
+    },
+    {
+      "component": "factories",
+      "basis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+      "passed": true
+    },
+    {
+      "component": "pipelines",
+      "basis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+      "passed": true
+    },
+    {
+      "component": "studio",
+      "basis": "LOCAL_WORKSPACE_READ_AND_LANGUAGE_PROBE",
+      "passed": true
+    },
+    {
+      "component": "lab",
+      "basis": "LOCAL_LANGUAGE_EXPERIMENT_AND_CYCLE_REGISTRY",
+      "passed": true
+    },
+    {
+      "component": "visual",
+      "basis": "LOCAL_GEOMETRY_AND_POLICY_EXECUTION",
+      "passed": true
+    },
+    {
+      "component": "firmware",
+      "basis": "LOCAL_POLICY_DENIAL_TEST",
+      "passed": true
+    },
+    {
+      "component": "bare-metal",
+      "basis": "CURRENT_ARTIFACT_HASH_VS_RECORDED_REPORT",
+      "passed": true
+    }
+  ]
+}

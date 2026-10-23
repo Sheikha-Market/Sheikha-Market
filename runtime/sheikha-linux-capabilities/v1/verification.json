@@ -1,0 +1,300 @@
+{
+  "system": "SHEIKHA_LINUX_HOST_BRIDGE_V1",
+  "timestamp": "2026-10-13T01:36:01.876Z",
+  "mode": "READ_ONLY_LOCAL",
+  "host": {
+    "kernel": "7.1.1-76070101-generic",
+    "platform": "linux",
+    "architecture": "x64",
+    "cpuCount": 22,
+    "totalMemoryBytes": 66875146240,
+    "freeMemoryBytes": 43384942592,
+    "uptimeSeconds": 187167.92
+  },
+  "tools": {
+    "compiler": {
+      "available": true,
+      "version": "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+      "serviceRunning": "NOT_CHECKED"
+    },
+    "build": {
+      "available": true,
+      "version": "GNU Make 4.3",
+      "serviceRunning": "NOT_CHECKED"
+    },
+    "python": {
+      "available": true,
+      "version": "Python 3.10.12",
+      "serviceRunning": "NOT_CHECKED"
+    },
+    "elf": {
+      "available": true,
+      "version": "GNU readelf (GNU Binutils for Ubuntu) 2.38",
+      "serviceRunning": "NOT_CHECKED"
+    },
+    "virtualization": {
+      "available": true,
+      "version": "QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.31)",
+      "serviceRunning": "NOT_CHECKED"
+    },
+    "containers": {
+      "available": true,
+      "version": "podman version 3.4.4",
+      "serviceRunning": "NOT_CHECKED"
+    },
+    "rootlessContainers": {
+      "available": true,
+      "version": "podman version 3.4.4",
+      "serviceRunning": "NOT_CHECKED"
+    },
+    "serviceManager": {
+      "available": true,
+      "version": "systemd 249 (249.11-0ubuntu3.20pop0~1778766019~22.04~5586583)",
+      "serviceRunning": "NOT_CHECKED"
+    }
+  },
+  "sheikha": {
+    "system": "SHEIKHA_OS_INTEGRATED_V1",
+    "status": "LOCAL_SPECIFICATION_AND_PROBES_VERIFIED",
+    "source": "sheikha-language/foundations/sheikha-os-integrated-v1.shk",
+    "sourceSha256": "c35b2103564ed40d4dcffe68560acb783c5de21c1208f2f60a10c486b329ec21",
+    "layers": [
+      {
+        "id": "boot",
+        "properties": {
+          "الدور": "إقلاع_UEFI_وتسليم_التحكم",
+          "معيار_الإثبات": "boot_artifact_integrity",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "kernel",
+        "properties": {
+          "الدور": "ذاكرة_ومقاطعات_وتوقيت_وعزل",
+          "معيار_الإثبات": "kernel_runtime_safety",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "scheduler",
+        "properties": {
+          "الدور": "جدولة_وميزانية_ومنع_تجويع",
+          "معيار_الإثبات": "scheduling",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "hal",
+        "properties": {
+          "الدور": "تعريفات_أجهزة_ومعايرة_وحدود",
+          "معيار_الإثبات": "hardware_drivers",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "storage",
+        "properties": {
+          "الدور": "ملفات_دائمة_وتعاف_وصلاحيات",
+          "معيار_الإثبات": "persistent_storage",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "network",
+        "properties": {
+          "الدور": "شبكة_ومصادقة_وتشفير",
+          "معيار_الإثبات": "network_stack",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "security",
+        "properties": {
+          "الدور": "أقل_صلاحية_وفصل_وتدقيق",
+          "معيار_الإثبات": "security_isolation",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "packages",
+        "properties": {
+          "الدور": "حزم_موقعة_وترقية_وتراجع",
+          "معيار_الإثبات": "package_management",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "language",
+        "properties": {
+          "الدور": "مترجم_شيخة_وآلة_افتراضية",
+          "معيار_الإثبات": "language_runtime",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "desktop",
+        "properties": {
+          "الدور": "واجهة_عربية_وتطبيقات_وإتاحة",
+          "معيار_الإثبات": "desktop",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "research",
+        "properties": {
+          "الدور": "منهجيات_وتجارب_ومراجعة",
+          "معيار_الإثبات": "research_planning",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "watch",
+        "properties": {
+          "الدور": "قياس_وسجل_ورصد_تقادم",
+          "معيار_الإثبات": "local_monitoring",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "evidence",
+        "properties": {
+          "الدور": "بصمات_محتوى_وفحص_ادعاءات",
+          "معيار_الإثبات": "independent_evidence",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "governance",
+        "properties": {
+          "الدور": "تفويض_منفصل_ولائحة_تغيير",
+          "معيار_الإثبات": "governance",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "migration",
+        "properties": {
+          "الدور": "ترحيل_خدمات_وتكافؤ_سلوك",
+          "معيار_الإثبات": "service_migration",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "recovery",
+        "properties": {
+          "الدور": "نسخ_واستعادة_واختبار_تعاف",
+          "معيار_الإثبات": "recovery",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      }
+    ],
+    "probes": {
+      "bootArtifactIntegrity": true,
+      "recordedVmBootStatus": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+      "bootExecutedThisSession": false,
+      "languageExecution": "VERIFIED_DRY_RUN",
+      "methodProfiles": 11,
+      "methodRequirementsPresent": true,
+      "monitorStaleData": "STALE_DATA"
+    },
+    "unverified": [
+      {
+        "id": "boot",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "kernel",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "scheduler",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "hal",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "storage",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "network",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "security",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "packages",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "desktop",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "evidence",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "governance",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "migration",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "recovery",
+        "fullCapability": "UNKNOWN"
+      }
+    ],
+    "policy": {
+      "authorityGranted": false,
+      "productionEnabled": false,
+      "networkOperations": false,
+      "physicalActuation": false,
+      "serviceControl": false,
+      "independentShariaApproval": "UNKNOWN",
+      "legalCompliance": "UNKNOWN"
+    },
+    "allScientificMethodsActivated": false,
+    "linuxReplacementReady": false,
+    "hostRuntime": "Node.js"
+  },
+  "boundaries": {
+    "linuxHosted": true,
+    "independentSheikhaKernel": false,
+    "allLinuxFeaturesActivated": false,
+    "servicesChanged": false,
+    "networkChanged": false,
+    "packagesInstalled": false,
+    "productionEnabled": false
+  },
+  "nextQualification": [
+    "filesystems_and_recovery",
+    "process_and_user_isolation",
+    "network_protocols_and_firewall",
+    "device_drivers",
+    "desktop_and_application_compatibility",
+    "service_reliability"
+  ]
+}

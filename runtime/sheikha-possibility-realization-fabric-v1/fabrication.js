@@ -1,0 +1,3 @@
+'use strict';
+function pipeline({artifact='generic',dimension='3D'}={}){return{system:'SHEIKHA_REALITY_FABRICATION_PIPELINE_V1',artifact,dimension,stages:['DRAWING_OR_GEOMETRY','MATERIAL_AND_TOLERANCE_SPEC','DIGITAL_REVIEW','PROTOTYPE','SAFETY_AND_RIGHTS_GATE','MANUFACTURING_PACKAGE','AUTHORIZED_HUMAN_OR_MACHINE_EXECUTION','MEASUREMENT_AND_ACCEPTANCE'],adapters:{cad:'CONTRACT_READY',cnc:'CONTRACT_READY',additiveManufacturing:'CONTRACT_READY',robotics:'CONTRACT_READY',arVrReview:'CONTROL_PLANE_READY'},physicalMachineCommandIssued:false,hardwareAuthorizationRequired:true};}
+module.exports={pipeline};

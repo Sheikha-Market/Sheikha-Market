@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_TPM_CONTEXT_OBSERVATION_FAILURE_DIAGNOSIS_V2",
+  "status": "DIAGNOSED",
+  "classification": "SAVED_TPM_CONTEXT_INTEGRITY_REJECTED_BEFORE_READPUBLIC",
+  "evidence": {
+    "contextLoadFailure": true,
+    "integrityFailure": true,
+    "readPublicFailure": true,
+    "responseCode": "0x000001df",
+    "stderrSha256": "f101d9212fe34623e486e8938c958cefbe8b658603e6b1ef33235744d1bdd2a8",
+    "contextSha256": "88aa7bef74e5bc80a7a1f40681efef64ec9a6b6a5f6c2bdebc1bcdac8db07623",
+    "framingRepairSha256": "d970064b7635d71eb9286e860a3cdd6daf5503fca847c079395d1d284b2d2f56"
+  },
+  "conclusions": {
+    "framingRepairInvalidated": false,
+    "activateCredentialReached": false,
+    "tpmMutationObserved": false,
+    "savedContextUsableNow": false,
+    "exactRootCauseProven": false
+  },
+  "possibleCauses": [
+    "TPM_OR_RESOURCE_MANAGER_STATE_CHANGED_AFTER_CONTEXT_SAVE",
+    "CONTEXT_CREATED_AGAINST_A_DIFFERENT_TPM_STATE",
+    "CONTEXT_FILE_CORRUPTION_OR_PROTECTION_MISMATCH"
+  ],
+  "nextRequiredStage": "NEW_AUTHORIZED_READ_ONLY_TPM_RESET_COUNT_AND_HANDLE_INVENTORY",
+  "ifTransientObjectsWereLost": "NEW_DEVICE_BOUND_EK_AK_CREATION_AND_COMPLETE_CREDENTIAL_REBIND_REQUIRED",
+  "oldPhysicalAuthorizationReusable": false,
+  "rerunFailedObservationAllowed": false,
+  "reportSha256": "5c61a193c55e6238caad401b620fe170ed21fb6b0e906f810289b50dbcc9df29"
+}

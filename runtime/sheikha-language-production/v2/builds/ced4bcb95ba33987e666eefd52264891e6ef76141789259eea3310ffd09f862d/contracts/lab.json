@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0",
+  "component": "lab",
+  "language": "sheikha",
+  "sourceSha256": "3a37c6c42c59aad92fb87bcecd2508d295480942099995bd3b737e9d75b5c97c",
+  "definition": {
+    "name": "شيخة_Lab",
+    "properties": {
+      "المعرف": "lab",
+      "المسؤولية": "التجربة_قبل_الترقية",
+      "التبعيات": "core، studio، pipelines",
+      "الحد": "تجربة_محلية",
+      "المسؤول_الإداري": "غير_معين",
+      "المراجعة": "حوكمة_واختبار_قبل_الإصدار"
+    }
+  },
+  "dependencies": [
+    "core",
+    "studio",
+    "pipelines"
+  ],
+  "status": "LOCAL_CONTRACT_PRODUCED",
+  "verificationScope": "LOCAL_ARTIFACT_OR_PROBE_ONLY",
+  "verificationBasis": "LOCAL_LANGUAGE_EXPERIMENT_AND_CYCLE_REGISTRY",
+  "productionServiceActivated": false,
+  "hardwareMutationPerformed": false,
+  "deploymentPerformed": false
+}

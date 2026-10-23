@@ -1,0 +1,146 @@
+{
+  "system": "SHEIKHA_ENGINE_DOMAIN_REGISTRY_V3",
+  "version": "3.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "ADDITIVE_NON_DESTRUCTIVE",
+  "principles": {
+    "preserveV2Routes": true,
+    "preserveAliases": true,
+    "noDirectPageToExternalConnector": true,
+    "policyBeforeSpecialist": true,
+    "observabilityRequired": true,
+    "denyProductionMutation": true
+  },
+  "policyEngines": ["sovereign", "sharia", "security"],
+  "domainProfiles": {
+    "identity": {
+      "labelAr": "الهوية والتعريف",
+      "primaryEngine": "identity",
+      "supportingEngines": ["security", "standards"],
+      "orchestrator": "identity.orchestrator"
+    },
+    "marketplace": {
+      "labelAr": "السوق والقطاعات",
+      "primaryEngine": "market",
+      "supportingEngines": ["trade", "resources", "specialized_neural"],
+      "orchestrator": "marketplace.orchestrator"
+    },
+    "commerce": {
+      "labelAr": "التجارة والعملاء",
+      "primaryEngine": "trade",
+      "supportingEngines": ["identity", "standards", "payments"],
+      "orchestrator": "commerce.orchestrator"
+    },
+    "logistics": {
+      "labelAr": "اللوجستيات وسلاسل الإمداد",
+      "primaryEngine": "resources",
+      "supportingEngines": ["industrial_nn", "trade", "universal_networks"],
+      "orchestrator": "logistics.orchestrator"
+    },
+    "enterprise": {
+      "labelAr": "المؤسسة والجهات",
+      "primaryEngine": "vision",
+      "supportingEngines": ["consulting", "standards", "identity"],
+      "orchestrator": "enterprise.orchestrator"
+    },
+    "knowledge": {
+      "labelAr": "المعرفة والمجتمع",
+      "primaryEngine": "knowledge",
+      "supportingEngines": ["learning", "quran", "live-ai"],
+      "orchestrator": "knowledge.orchestrator"
+    },
+    "developer": {
+      "labelAr": "البناء والتطوير",
+      "primaryEngine": "ai",
+      "supportingEngines": ["lmm", "cloud", "specialized_neural"],
+      "orchestrator": "developer.orchestrator"
+    },
+    "operations": {
+      "labelAr": "التشغيل والمراقبة",
+      "primaryEngine": "production_neural",
+      "supportingEngines": ["security", "cloud", "universal_networks"],
+      "orchestrator": "operations.orchestrator"
+    },
+    "governance": {
+      "labelAr": "الحوكمة والامتثال",
+      "primaryEngine": "sovereign",
+      "supportingEngines": ["sharia", "standards", "security"],
+      "orchestrator": "governance.orchestrator"
+    },
+    "native": {
+      "labelAr": "الإقلاع والعتاد",
+      "primaryEngine": "specialized_neural",
+      "supportingEngines": ["security", "standards"],
+      "orchestrator": "native.orchestrator"
+    },
+    "integration": {
+      "labelAr": "التكامل والموصلات",
+      "primaryEngine": "universal_networks",
+      "supportingEngines": ["cloud", "security", "standards"],
+      "orchestrator": "integration.orchestrator",
+      "integrationGateway": "sheikha.integration"
+    },
+    "platform": {
+      "labelAr": "المنصة والنظام",
+      "primaryEngine": "live-ai",
+      "supportingEngines": ["cloud", "universal_networks", "security"],
+      "orchestrator": "platform.orchestrator"
+    },
+    "general": {
+      "labelAr": "الخدمات العامة",
+      "primaryEngine": "knowledge",
+      "supportingEngines": ["security"],
+      "orchestrator": "general.orchestrator"
+    }
+  },
+  "routeOverrides": {
+    "/market/": { "logicalDomain": "marketplace", "engineProfile": "marketplace.core" },
+    "/dashboard/": { "logicalDomain": "operations", "engineProfile": "operations.owner-dashboard" },
+    "/riyadh-aljannah-community/": { "logicalDomain": "knowledge", "engineProfile": "knowledge.gardens" },
+    "/system-builder-workbench/": { "logicalDomain": "developer", "engineProfile": "developer.system-builder" },
+    "/ide/": { "logicalDomain": "developer", "engineProfile": "developer.studio-ide" },
+    "/technology/": { "logicalDomain": "developer", "engineProfile": "developer.technology" },
+    "/ai-router/": { "logicalDomain": "integration", "engineProfile": "integration.ai-router-anywhere", "primaryEngine": "ai", "supportingEngines": ["universal_networks", "cloud", "security", "standards"] },
+    "/mcp.html": { "logicalDomain": "integration", "engineProfile": "integration.core" },
+    "/sdk.html": { "logicalDomain": "integration", "engineProfile": "integration.core" },
+    "/تكامل-شيخة-الذكي.html": { "logicalDomain": "integration", "engineProfile": "integration.core" },
+    "/لوحة-تكامل-شيخة-الموحدة.html": { "logicalDomain": "integration", "engineProfile": "integration.core" },
+    "/SHEIKHA-COMMUNICATIONS.html": { "logicalDomain": "integration", "engineProfile": "integration.comms" },
+    "/sheikha-visual-chain/": { "logicalDomain": "integration", "engineProfile": "integration.visual-chain" },
+    "/sheikha-platform/": { "logicalDomain": "platform", "engineProfile": "platform.core" },
+    "/sheikha-portal-v2/": { "logicalDomain": "platform", "engineProfile": "platform.portal" },
+    "/منظومة-تطبيقات-شيخة.html": { "logicalDomain": "platform", "engineProfile": "platform.apps" },
+    "/نظام-شيخة-الموحد.html": { "logicalDomain": "platform", "engineProfile": "platform.os" },
+    "/تطبيق-شيخة-الموبايل.html": { "logicalDomain": "platform", "engineProfile": "platform.mobile" },
+    "/شيخة-محادثة-حية.html": { "logicalDomain": "platform", "engineProfile": "platform.chat" },
+    "/شيخة-التواصل-الاجتماعي.html": { "logicalDomain": "commerce", "engineProfile": "commerce.social" },
+    "/أدوات-التسويق.html": { "logicalDomain": "commerce", "engineProfile": "commerce.marketing" },
+    "/sheikha-customer-revenue/": { "logicalDomain": "commerce", "engineProfile": "commerce.revenue" },
+    "/product-experience/p1/": { "logicalDomain": "commerce", "engineProfile": "commerce.command" },
+    "/الوكلاء-الإسلاميين.html": { "logicalDomain": "governance", "engineProfile": "governance.agents" },
+    "/آيات-التجارة.html": { "logicalDomain": "knowledge", "engineProfile": "knowledge.quran-trade" },
+    "/معايير-الأحاديث.html": { "logicalDomain": "knowledge", "engineProfile": "knowledge.hadith" },
+    "/سجل-العلوم-الحضارية.html": { "logicalDomain": "knowledge", "engineProfile": "knowledge.civilization" },
+    "/المتحف-الحضاري.html": { "logicalDomain": "knowledge", "engineProfile": "knowledge.museum" },
+    "/مركز-التدريب-متعدد-اللغات.html": { "logicalDomain": "knowledge", "engineProfile": "knowledge.training" },
+    "/مختبرات-الابتكار.html": { "logicalDomain": "developer", "engineProfile": "developer.innovation" },
+    "/شيخة-ترميز-UTF8.html": { "logicalDomain": "developer", "engineProfile": "developer.arabic-encoding" },
+    "/أدوات/محلل-الإعراب.html": { "logicalDomain": "developer", "engineProfile": "developer.arabic-parser" },
+    "/منطق-الصفحات-والايقونات.html": { "logicalDomain": "developer", "engineProfile": "developer.ui-logic" },
+    "/خريطة-الأرض-التفاعلية.html": { "logicalDomain": "knowledge", "engineProfile": "knowledge.earth-map" },
+    "/شبكة-عملة-شيخة-الرقمية.html": { "logicalDomain": "marketplace", "engineProfile": "marketplace.currency-network" },
+    "/شيخة-عملة-الكون.html": { "logicalDomain": "marketplace", "engineProfile": "marketplace.currency" },
+    "/منظومة-البركة.html": { "logicalDomain": "governance", "engineProfile": "governance.barakah" },
+    "/العاصمة-الاقتصادية.html": { "logicalDomain": "enterprise", "engineProfile": "enterprise.economic-capital" },
+    "/شيخة-امبراطورية-الكون.html": { "logicalDomain": "enterprise", "engineProfile": "enterprise.legacy-vision" },
+    "/sheikha-organization/": { "logicalDomain": "enterprise", "engineProfile": "enterprise.organization" },
+    "/SHEIKHA-EVALUATION-FINAL.html": { "logicalDomain": "operations", "engineProfile": "operations.evaluation" },
+    "/SHEIKHA-LIVE-EVALUATION-v2.html": { "logicalDomain": "operations", "engineProfile": "operations.live-evaluation" },
+    "/cli.html": { "logicalDomain": "developer", "engineProfile": "developer.cli" },
+    "/download.html": { "logicalDomain": "platform", "engineProfile": "platform.distribution" },
+    "/دليل-الاستخدام.html": { "logicalDomain": "knowledge", "engineProfile": "knowledge.guide" },
+    "/حقائق-شيخة.html": { "logicalDomain": "identity", "engineProfile": "identity.facts" },
+    "/site-map/": { "logicalDomain": "operations", "engineProfile": "operations.registry" },
+    "/": { "logicalDomain": "platform", "engineProfile": "platform.entry" }
+  }
+}

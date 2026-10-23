@@ -1,0 +1,19 @@
+{
+  "default": "deny",
+  "tools": {
+    "sheikha_federation_status": { "access": "read", "risk": "low", "arguments": "empty" },
+    "sheikha_runtime_status": { "access": "read", "risk": "low", "arguments": "empty" },
+    "sheikha_jannat_status": { "access": "read", "risk": "low", "arguments": "empty" },
+    "sheikha_catalog_evidence_status": { "access": "read", "risk": "low", "arguments": "empty" },
+    "sheikha_foundry_telecom_simulation": { "access": "read", "risk": "low", "arguments": "empty" },
+    "sheikha_natural_data_process": { "access": "read", "risk": "low" },
+    "sheikha_sensory_interpret": { "access": "read", "risk": "low" },
+    "sheikha_environment_governance_status": { "access": "read", "risk": "low", "arguments": "empty" }
+  },
+  "resources": [
+    "sheikha://federation/audit",
+    "sheikha://jannat/p7",
+    "sheikha://jannat/p8-admission",
+    "sheikha://catalog/read"
+  ]
+}

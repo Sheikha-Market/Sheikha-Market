@@ -1,0 +1,27 @@
+{
+  "system": "SHEIKHA_REVIEWER_ASSIGNMENT_MANUAL_COMMIT_GATE_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "PREVIEW_ONLY_EXPLICIT_USER_WRITE_REQUIRED",
+  "confirmationPhrase": "AUTHORIZE_REVIEWER_ASSIGNMENT_WRITE",
+  "governance": {
+    "defaultDeny": true,
+    "previewOnly": true,
+    "noWriteEndpoint": true,
+    "explicitUserConfirmationRequired": true,
+    "expectedRegistrySha256Required": true,
+    "proposalIdRequired": true,
+    "approvedRatificationRequired": true,
+    "scopeChecksumRequired": true,
+    "registryCompareAndSwapRequired": true,
+    "separationOfDutiesRequired": true,
+    "noAutomaticAssignment": true,
+    "noAutomaticPersistence": true,
+    "noProductionMutation": true,
+    "noSecretMaterial": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "assignmentRegistrySource": "runtime/connector-evidence-review/v1/reviewer-authority-assignments-v1.json",
+  "proposalQueueSource": "runtime/connector-evidence-review/v1/reviewer-assignment-proposals-v1.json",
+  "ratificationLedgerSource": "runtime/connector-evidence-review/v1/reviewer-assignment-ratifications-v1.json"
+}

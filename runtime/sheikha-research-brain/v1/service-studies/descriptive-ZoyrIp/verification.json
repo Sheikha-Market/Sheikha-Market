@@ -1,0 +1,70 @@
+{
+  "journalId": "journal-dI1YEY",
+  "timestamp": "2026-10-13T19:37:47.535Z",
+  "status": "LOCAL_DESCRIPTIVE_SERVICE_SAMPLE_ANALYZED",
+  "method": "descriptive",
+  "question": "ما أزمنة الاستجابة وحالات HTTP المسجلة في هذه العينة المحلية؟",
+  "evidence": {
+    "status": "STORED_SERVICE_JOURNAL_CONSISTENCY_VERIFIED",
+    "recordsInspected": 4,
+    "counts": {
+      "HTTP_200_OBSERVED": 4,
+      "NON_200_OBSERVED": 0,
+      "TIMEOUT": 0,
+      "UNREACHABLE": 0
+    },
+    "failureObservations": 0,
+    "lastObservedAt": "2026-10-13T10:02:43.768Z",
+    "lastObservedState": "HTTP_200_OBSERVED",
+    "chainHead": "aa8dd08cd52d4e41848f61a2255389ac5c43fe886e2249d74d9cd21927f94455",
+    "scope": "STORED_RECORDS_PRESENT_AT_REVIEW",
+    "currentServiceStateChecked": false,
+    "signatureAuthenticated": false,
+    "completeHistoryIndependentlyEstablished": false,
+    "fullServiceReadinessEstablished": false
+  },
+  "measurementUnit": "millisecond",
+  "sampleFrame": "REQUEST_TRIGGERED_PROBES_OF_SINGLE_LOCAL_ENDPOINT",
+  "endpoint": "http://127.0.0.1:8080/health",
+  "sampleCount": 4,
+  "successfulResponseCount": 4,
+  "failureObservationCount": 0,
+  "observedSuccessFraction": 1,
+  "allProbeWaitingTime": {
+    "n": 4,
+    "mean": 2.5,
+    "min": 2,
+    "max": 4,
+    "scope": "DESCRIPTIVE_SAMPLE_ONLY",
+    "causation": "UNKNOWN",
+    "populationInference": "UNKNOWN"
+  },
+  "http200ResponseTime": {
+    "n": 4,
+    "mean": 2.5,
+    "min": 2,
+    "max": 4,
+    "scope": "DESCRIPTIVE_SAMPLE_ONLY",
+    "causation": "UNKNOWN",
+    "populationInference": "UNKNOWN"
+  },
+  "failedProbeWaitingTime": null,
+  "observationWindow": {
+    "firstCheckAt": "2026-10-13T09:57:41.963Z",
+    "lastCompletedAt": "2026-10-13T10:02:43.768Z"
+  },
+  "limitations": [
+    "CONVENIENCE_SAMPLE_AT_REQUEST_TIMES",
+    "UNOBSERVED_INTERVALS_NOT_COVERED",
+    "SINGLE_LOCAL_ENDPOINT",
+    "HTTP_200_NOT_FULL_FUNCTIONAL_READINESS",
+    "UNSIGNED_RECORDS_NOT_INDEPENDENT_AUTHENTICATION"
+  ],
+  "missingIntervalsInferred": false,
+  "populationAvailabilityEstimateEstablished": false,
+  "slaEstablished": false,
+  "causation": "UNKNOWN",
+  "independentReview": "UNKNOWN",
+  "physicalActuationAllowed": false,
+  "productionAuthorized": false
+}

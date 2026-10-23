@@ -1,0 +1,80 @@
+{
+  "schema": "SHEIKHA_AGENT_INTEGRATION_VERIFICATION_V1",
+  "date": "2026-10-23",
+  "timezone": "Asia/Riyadh",
+  "scope": "LOCAL_PLANNING_UNIT_ROUTE_TESTS_AND_STAGED_CLI_NOT_PRODUCTION",
+  "status": "PASS",
+  "productionReady": false,
+  "productionHold": true,
+  "tests": {
+    "integrationPlan": 14,
+    "descriptorKernel": 8,
+    "naturalModel": 8,
+    "authenticatedRoutes": 12,
+    "buildContext": 18,
+    "total": 60,
+    "failed": 0,
+    "skipped": 0
+  },
+  "testsNotRun": [
+    "FULL_REPOSITORY_SUITE",
+    "FULL_PORTAL_CONTAINER_BOOT_FOR_THIS_SNAPSHOT",
+    "CLOUD_DEPLOYMENT",
+    "HARDWARE_INTEGRATION"
+  ],
+  "stagedContext": {
+    "directory": "/tmp/SHEIKHA_CLOUD_CONTEXT_V1_6sotwxr2",
+    "files": 2883,
+    "bytes": 75639780,
+    "estimatedBytesWithManifest": 76553546,
+    "inventorySha256": "779d3c663737d3f2ce9886741622107ff025ce5aff93b79f12a18527f4d87a8f",
+    "policySha256": "0d8d82bf141fe94d052e7faec4c55b66335f37803d4d7c324c17fd0c1c4a8d27",
+    "staticGraph": {
+      "literal_local_imports": 1027,
+      "resolved_results": 1027,
+      "reachable_sources": 754,
+      "limitations": "Entrypoint-reachable literal imports only; dynamic imports, fs assets and optional feature behavior require separate smoke tests."
+    },
+    "findings": [],
+    "warnings": [
+      {
+        "path": "node",
+        "rule": "LOCAL_ROOT_SYMLINK_EXCLUDED"
+      }
+    ]
+  },
+  "stagedCLI": {
+    "exitCode": 0,
+    "schema": "SHEIKHA_AGENT_INTEGRATION_PLAN_V1",
+    "requestedDescriptors": "161",
+    "representativeDescriptors": 5,
+    "physicalCommands": false,
+    "trainingPerformed": false
+  },
+  "sourceSha256": {
+    "runtime/sheikha-infinite-agent/v1/sheikha-agent-integration-plan.js": "640a99c474960b87ca9b704b83a13e29eb2ae3caa75f4c3bb4df6837181ddea4",
+    "tools/runtime/sheikha-agent-integration-plan.cjs": "43ec63fa05f59dc85b20d67fea335d83ec7d3a317fb299c75c35d1ec95e631a4",
+    "tests/sheikha-agent-integration-plan.test.cjs": "659706d2c008fa24df0e9d5dfd841f04787dc7e74e4b1f571edef7980e705afc",
+    ".dockerignore": "26610e6239ff0e7f21c8c89ade422f98a3dfa2374b92fe1277a3894fb6eaaac5",
+    ".gcloudignore": "26610e6239ff0e7f21c8c89ade422f98a3dfa2374b92fe1277a3894fb6eaaac5",
+    "config/cloud/sheikha-cloud-build-context-v1.json": "0d8d82bf141fe94d052e7faec4c55b66335f37803d4d7c324c17fd0c1c4a8d27",
+    "tools/production/sheikha-cloud-build-context-v1.py": "2162e1246c99c22c6152bd317a3aad74c416dfb2d5ea59fc12eefa52c3895095"
+  },
+  "operationalChanges": {
+    "cloudBuildSubmitted": false,
+    "cloudDeployed": false,
+    "iamChanged": false,
+    "dnsChanged": false,
+    "firewallChanged": false,
+    "servicesRestarted": false,
+    "credentialsReused": false,
+    "credentialsRotated": false,
+    "physicalCommandSent": false
+  },
+  "notes": [
+    "HTTP route tests use an isolated Express harness and synthetic test credentials.",
+    "The optional existing root node symlink was excluded and preserved.",
+    "A successful local plan neither authorizes execution nor proves customs, scientific, religious or physical validity.",
+    "The staged context is temporary and predates this verification receipt."
+  ]
+}
