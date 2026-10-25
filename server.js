@@ -20464,7 +20464,7 @@ try {
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const server = app.listen(PORT, HOST, () => {
+const server = app.listen(parseInt(process.env.PORT || '8080', 10), '0.0.0.0', () => {
     console.log(`SHEIKHA Global Runtime Platform listening on http://${HOST}:${PORT}`);
     addSystemLog('success', 'Server', `SHEIKHA Global Runtime Platform started on http://${HOST}:${PORT}`);
 
