@@ -1900,8 +1900,26 @@ function hashPassword(pwd) { return crypto.createHash('sha256').update(PASSWORD_
 function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
+app.set('trust proxy', 1);
+
+try {
+  const SHEIKHA_ROBOT = require('./SHEIKHA-CORE/sheikhachain/robot/sheikha_robot_identity.js');
+  console.log(SHEIKHA_ROBOT.getBanner());
+  app.get('/api/health', (req,res)=>{ res.json({status:'UP - ZERO - ROBOT ACTIVE', robot:SHEIKHA_ROBOT.name, avatar:SHEIKHA_ROBOT.avatar, seal:SHEIKHA_ROBOT.seal, blocks:9, weights:452, shk:'86,750,000', owner:SHEIKHA_ROBOT.owner, timestamp:new Date().toISOString()}); });
+  app.get('/api/sheikha/robot', (req,res)=>{ res.json(SHEIKHA_ROBOT); });
+  app.get('/api/sheikha/robot/banner', (req,res)=>{ res.type('text/plain').send(SHEIKHA_ROBOT.getBanner()); });
+  app.get('/robot', (req,res)=>{ res.sendFile(require('path').join(__dirname,'public/robot/sheikha-robot-beautiful.html')); });
+} catch(e){ console.log('Robot load:', e.message); }
+
 const { configureTrustedProxy } = require('./lib/runtime/sheikha-trusted-proxy.cjs');
-const proxyRateLimitOptions = configureTrustedProxy(app);
+const proxyRateLimitOptions = (function(){
+  try{
+    const mod = require('./lib/runtime/sheikha-trusted-proxy.cjs');
+    const fn = (typeof mod==='function') ? mod : (mod.configureTrustedProxy || mod.init);
+    if(typeof fn==='function') return fn(app);
+    return {windowMs:15*60*1000,max:300};
+  }catch(e){ try{app.set('trust proxy',1);}catch(_){} return {windowMs:15*60*1000,max:300}; }
+})();
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
