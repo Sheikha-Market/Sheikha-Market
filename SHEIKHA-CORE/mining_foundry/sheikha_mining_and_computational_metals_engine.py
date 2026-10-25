@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ===================================================================================
-# 🕌 SHEIKHA METAL MINING, PEARL SUPERALLOYS & COMPUTATIONAL MINING FABRIC V1.0
+# 🕌 SHEIKHA MINING, PEARL METAL & COMPUTATIONAL EXTRACTION FABRIC V50.0
 # Owner & IP Holder: Salman Ahmed bin Salman Al-Rajhi (CR: 2051263653 | Unified ID: 7049031003)
 # Creed: LA_ILAHA_ILLA_ALLAH_MUHAMMAD_RASUL_ALLAH
 # Seal: BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED
@@ -29,29 +29,32 @@ def main():
     owner = "سلمان أحمد بن سلمان الراجح (CR: 2051263653)"
     seal = "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED"
 
-    # أوزان تعدين شيخة ومعدن شيخة وحوسبة التعدين المعتمدة
-    mining_metal_weights = [
-        ("W_MINE_RAW_ORES_ARABIAN_SHIELD", "تعدين واستكشاف خامات الذهب والنحاس والتيتانيوم في الدرع العربي", "HS Code 2601-2621 Direct Geochemical Telemetry", 650000),
-        ("W_MINE_PEARL_METAL_SUPERALLOY", "معدن شيخة الفائق: سبيكة Pearl Metal 15000MT النانوية المتماسكة", "High-Entropy Nanostructured Superalloy Specification", 700000),
-        ("W_MINE_COMPUTATIONAL_PROOF", "حوسبة التعدين السيادي: إثبات الاستخراج العيني PoGS وإلغاء الربا", "Energy-Efficient Triple-Entry Ledger Computational Mining", 680000),
-        ("W_MINE_SMART_FOUNDATION_GEO", "تكامل تعدين المعادن مع تسليح الأساسات الذكية SBC 303 ومجسات ESP32", "Structural Steel & Load Cell HX711 Nanoscale Integration", 620000),
-        ("W_MINE_AUTOMATED_ROS2_FOUNDRY", "أسراب روبوتات الصب والتشكيل الحراري المتقدم للسبائك عبر ROS2", "Automated Giga-Foundry Molten Metal Swarm Robotics", 640000)
+    # مصفوفة أوزان التعدين، المعادن الفائقة، وحوسبة الطاقة الكونية
+    mining_weights = [
+        ("MINING_ARABIAN_SHIELD_ORES", "تعدين خامات الدرع العربي واستخراج المعادن النادرة والحديد", "Physical Ore Extraction & Geo-Survey", 550000),
+        ("PEARL_METAL_SUPERALLOY_15K", "معدن شيخة وسبيكة Pearl Metal 15000MT فائقة المتانة والحرارة", "Sub-Micron Advanced Superalloy", 600000),
+        ("COMPUTATIONAL_MINING_POGS", "حوسبة التعدين وإثبات السيادة الخوارزمي في SheikhaChain", "Proof of Governed Sovereignty (PoGS) Engine", 650000),
+        ("BIO_ENERGY_ATP_METABOLISM", "دورة التمثيل الغذائي وتناغم الطاقة الحيوية في 86B عصبون", "Cellular Bio-Energetic Homeostasis", 520000),
+        ("QUANTUM_NANO_METALLURGY", "النانو-ميتالورجي الذكي - أسراب الروبوتات النانوية المعالجة للمعدن", "Self-Healing Molecular Metallurgy", 580000),
+        ("SCALE_EXTREME_COSMIC_BOUNDS", "ميزان مقاييس الكون: من طول بلانك الأصغر إلى الأفق المنظور الأكبر", "Planck to Observable Cosmos Continuum", 700000),
+        ("NATURAL_FITRAH_EQUILIBRIUM", "الفطرة الطبيعية والميزان الكوني للطاقة والمادة والصحة", "Primordial Creation Environmental Balance", 500000)
     ]
 
     added = 0
-    for w_id, title, spec, reward in mining_metal_weights:
+    for key, title, spec, rew in mining_weights:
+        w_id = f"SHEIKHA_{key}"
         if w_id not in registry:
             payload = f"{w_id}:{title}:{spec}:{time.time()}"
             w_hash = hashlib.sha256(payload.encode("utf-8")).hexdigest()
             registry[w_id] = {
                 "id": w_id,
-                "category_domain": "Mining_Metallurgy_and_Computational_Extraction",
+                "domain": "Mining_Metals_and_Computational_Extraction",
                 "title": title,
                 "specification": spec,
-                "commercial_sale_license": True,
-                "shk_reward": reward,
+                "commercial_intelligence_licensed": True,
+                "ip_owner": owner,
+                "shk_reward": rew,
                 "weight_hash": w_hash,
-                "owner": owner,
                 "seal": seal,
                 "timestamp": int(time.time())
             }
@@ -60,11 +63,11 @@ def main():
     with open(reg_path, "w", encoding="utf-8") as f:
         json.dump(registry, f, indent=2, ensure_ascii=False)
 
-    total_count = len(registry)
-    total_shk = sum(item.get("shk_reward", 0) for item in registry.values() if isinstance(item, dict))
+    total_w = len(registry)
+    total_shk = sum(x.get("shk_reward", 0) for x in registry.values() if isinstance(x, dict))
 
     print(f"✨ تم تثبيت وتفعيل أوزان تعدين ومعدن وحوسبة شيخة: +{added}")
-    print(f"📊 إجمالي الأوزان السيادية المعتمدة في السجل: {total_count}")
+    print(f"📊 إجمالي الأوزان السيادية المعتمدة في السجل: {total_w}")
     print(f"💰 إجمالي المكافآت الأصولية لعملة SHK: {total_shk:,} SHK")
     print("===================================================================================")
 
