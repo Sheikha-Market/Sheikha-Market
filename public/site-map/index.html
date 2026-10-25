@@ -27,9 +27,9 @@
   <main>
     <section class="page-heading">
       <div>
-        <p class="eyebrow">SHEIKHA ROUTE REGISTRY V2</p>
-        <h1>صفحات شيخة ومساراتها العامة</h1>
-        <p>مرجع واحد للواجهات العامة القانونية، مع استبعاد الإدارة والأرشيف.</p>
+        <p class="eyebrow">SHEIKHA ROUTE · DOMAIN · ENGINE REGISTRY V3</p>
+        <h1>صفحات شيخة ونطاقاتها ومحركاتها</h1>
+        <p>مرجع موحد للصفحة ← النطاق ← المحرك ← التكامل، مع بقاء مسارات V2 القانونية كما هي.</p>
       </div>
       <div class="registry-state" aria-live="polite">
         <span id="registryDot"></span>
@@ -41,7 +41,62 @@
       <div><strong id="allCount">0</strong><span>صفحة مكتشفة</span></div>
       <div><strong id="publicCount">0</strong><span>صفحة عامة</span></div>
       <div><strong id="canonicalCount">0</strong><span>مسار عام قانوني</span></div>
-      <div><strong id="domainCount">0</strong><span>مجالات منظمة</span></div>
+      <div><strong id="domainCount">0</strong><span>نطاقات منطقية</span></div>
+      <div><strong id="engineCount">0</strong><span>محركات مرتبطة</span></div>
+      <div><strong id="boundCount">0</strong><span>صفحات مرتبطة بمحرك</span></div>
+      <div><strong id="unresolvedCount">0</strong><span>محركات غير محلولة</span></div>
+      <div><strong id="conflictCount">0</strong><span>تعارضات توجيه</span></div>
+      <div><strong id="masterCoreCount">0</strong><span>محركات أساسية في السجل الرئيسي</span></div>
+      <div><strong id="masterOptionalCount">0</strong><span>عقود محركات اختيارية</span></div>
+      <div><strong id="mcpToolCount">0</strong><span>أدوات MCP معرفة</span></div>
+      <div><strong id="connectorProfileCount">0</strong><span>ملفات موصلات محكومة</span></div>
+      <div><strong id="connectorAuthCount">0</strong><span>موصلات تتطلب تفويضًا</span></div>
+      <div><strong id="liveExternalCount">0</strong><span>اتصالات خارجية حية مثبتة</span></div>
+      <div><strong id="capabilityRecordCount">0</strong><span>سجلات قدرات الموصلات</span></div>
+      <div><strong id="authorizedMutationCount">0</strong><span>صلاحيات تغيير خارجية</span></div>
+      <div><strong id="identityBindingCount">0</strong><span>هويات موصلات مربوطة</span></div>
+      <div><strong id="authorizationEligibleCount">0</strong><span>مؤهلة لمراجعة التفويض</span></div>
+      <div><strong id="authorizedConnectorCount">0</strong><span>موصلات مفوضة</span></div>
+      <div><strong id="liveVerifiedConnectorCount">0</strong><span>موصلات حية مثبتة</span></div>
+      <div><strong id="promotionReviewCount">0</strong><span>تفويضات تحت المراجعة</span></div>
+      <div><strong id="promotionEligibleCount">0</strong><span>مؤهلة للعرض على المراجع</span></div>
+      <div><strong id="evidenceQueueCount">0</strong><span>أدلة في طابور المراجعة</span></div>
+      <div><strong id="verifiedEvidenceCount">0</strong><span>أدلة معتمدة قابلة للإسقاط</span></div>
+      <div><strong id="reviewerRoleCount">0</strong><span>أدوار مراجعة معرفة</span></div>
+      <div><strong id="reviewerAssignmentCount">0</strong><span>هويات مراجعين مخولة</span></div>
+      <div><strong id="assignmentProposalCount">0</strong><span>اقتراحات تعيين مراجع</span></div>
+      <div><strong id="approvedAssignmentPreviewCount">0</strong><span>تعيينات مؤهلة يدويًا</span></div>
+      <div><strong id="manualCommitIntentCount">0</strong><span>نوايا كتابة تعيين</span></div>
+      <div><strong id="manualAssignmentWriteCount">0</strong><span>تعيينات كتبها النظام</span></div>
+      <div><strong id="writePlanCount">0</strong><span>خطط كتابة محفوظة</span></div>
+      <div><strong id="plannerWriteCount">0</strong><span>كتابات نفذها المخطط</span></div>
+      <div><strong id="assignmentAuditCount">0</strong><span>سجلات تدقيق التعيين</span></div>
+      <div><strong id="assignmentDriftCount">0</strong><span>انحرافات سجل التعيين</span></div>
+      <div><strong id="recoveryActionCount">0</strong><span>إجراءات استعادة مقترحة</span></div>
+      <div><strong id="recoveryMutationCount">0</strong><span>استعادات نفذها النظام</span></div>
+    </section>
+
+    <section class="governance-summary-card" aria-label="ملخص حوكمة التعيين">
+      <div class="governance-summary-head">
+        <div>
+          <p class="eyebrow">END-TO-END ASSIGNMENT GOVERNANCE</p>
+          <h2>مسار الحوكمة من المحرك حتى التعيين والاستعادة</h2>
+        </div>
+        <div class="governance-state">
+          <strong id="governanceWorkflowState">جارٍ التحميل</strong>
+          <span id="governanceNextAction"></span>
+        </div>
+      </div>
+      <div class="governance-stage-table" role="table" aria-label="مراحل حوكمة التعيين">
+        <div class="governance-stage-row governance-stage-header" role="row">
+          <span role="columnheader">المرحلة</span>
+          <span role="columnheader">حالة النظام</span>
+          <span role="columnheader">حالة العمل</span>
+          <span role="columnheader">العوائق</span>
+          <span role="columnheader">الإجراء المسموح التالي</span>
+        </div>
+        <div id="governanceStageRows"></div>
+      </div>
     </section>
 
     <section class="directory">
@@ -56,9 +111,15 @@
           >
         </label>
         <label class="domain-field">
-          <span>المجال</span>
+          <span>النطاق</span>
           <select id="domainSelect">
-            <option value="">كل المجالات</option>
+            <option value="">كل النطاقات</option>
+          </select>
+        </label>
+        <label class="engine-field">
+          <span>المحرك</span>
+          <select id="engineSelect">
+            <option value="">كل المحركات</option>
           </select>
         </label>
       </div>
@@ -71,7 +132,9 @@
       <div class="route-table" role="table" aria-label="المسارات العامة">
         <div class="route-row route-header" role="row">
           <span role="columnheader">الصفحة</span>
-          <span role="columnheader">المجال</span>
+          <span role="columnheader">النطاق</span>
+          <span role="columnheader">المحرك الرئيسي</span>
+          <span role="columnheader">التكامل</span>
           <span role="columnheader">المسار</span>
           <span role="columnheader">الحالة</span>
           <span aria-hidden="true"></span>

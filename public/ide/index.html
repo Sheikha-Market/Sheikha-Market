@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>⚡ Sheikha IDE v1.0 LMM — أول IDE بذكاء صناعي متعدد الوسائط | Image to Code + Autocomplete</title>
-<meta name="description" content="Sheikha IDE v1.0 LMM - محرر أكواد بذكاء صناعي: تحويل صور لأكواد، تنبؤ ذكي، بحث AI، شرح الكود، كشف الأخطاء تلقائياً">
+<title>Sheikha Studio — منصة شيخة للتطوير</title>
+<meta name="description" content="Sheikha Studio منصة تطوير عربية محكومة تضم المحرر والطرفية والاختبارات وGit والشات وموجّه النماذج.">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- Monaco Editor - محرك VS Code الحقيقي -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
@@ -94,6 +94,8 @@ body {
 .ide-actions {
   display: flex;
   gap: 8px;
+  align-items: center;
+  overflow-x: auto;
 }
 
 .ide-btn {
@@ -242,11 +244,28 @@ body {
 .ide-editor-container {
   flex: 1;
   position: relative;
+  direction: ltr;
 }
 
 #monaco-editor {
   width: 100%;
   height: 100%;
+  direction: ltr;
+  text-align: left;
+}
+
+.ide-fallback-editor {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: 0;
+  outline: 0;
+  padding: 18px;
+  background: #0a0f1a;
+  color: #e2e8f0;
+  font: 14px/1.6 'JetBrains Mono', monospace;
+  direction: ltr;
+  text-align: left;
 }
 
 /* ═══ AI Assistant Panel ═══ */
@@ -323,6 +342,14 @@ body {
   font-family: 'JetBrains Mono', monospace;
   margin-bottom: 10px;
 }
+
+.runtime-summary { direction: rtl; text-align: right; font-family: inherit; }
+.runtime-summary-header { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.runtime-products { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.runtime-product { border: 1px solid var(--border); border-radius: 6px; padding: 9px; background: var(--bg3); min-width: 0; }
+.runtime-product strong, .runtime-product span { display: block; overflow-wrap: anywhere; }
+.runtime-product span { color: var(--t3); margin-top: 3px; }
+.runtime-gate { color: #f59e0b; margin-top: 10px; }
 
 .ide-ai-actions {
   display: flex;
@@ -430,6 +457,7 @@ body {
   flex-direction: column;
   z-index: 1000;
   animation: fadeOut 2s ease 1s forwards;
+  pointer-events: none;
 }
 
 @keyframes fadeOut {
@@ -483,8 +511,11 @@ body {
 
 /* ═══ Responsive ═══ */
 @media (max-width: 768px) {
+  .ide-header { height: auto; min-height: 50px; align-items: flex-start; gap: 8px; flex-wrap: wrap; padding-block: 8px; }
+  .ide-actions { width: 100%; direction: rtl; }
+  .ide-main { height: calc(100vh - 96px); }
   .ide-sidebar {
-    width: 220px;
+    width: min(42vw, 220px);
   }
 
   .ide-ai-panel {
@@ -492,6 +523,8 @@ body {
     left: 20px;
     right: 20px;
   }
+
+  .runtime-products { grid-template-columns: minmax(0, 1fr); }
 }
 </style>
 </head>
@@ -500,7 +533,7 @@ body {
 <!-- ═══ Splash Screen ═══ -->
 <div class="ide-splash">
   <div class="ide-splash-logo">⚡</div>
-  <div class="ide-splash-text">Sheikha IDE</div>
+  <div class="ide-splash-text">Sheikha Studio</div>
   <div class="ide-splash-subtitle">نظام شيخة للتطوير — قوة الإتقان</div>
   <div class="ide-splash-loading">
     <div class="ide-splash-progress"></div>
@@ -511,23 +544,33 @@ body {
 <header class="ide-header">
   <div class="ide-logo">
     <div class="ide-logo-icon">⚡</div>
-    <div class="ide-logo-text">SHEIKHA IDE</div>
-    <div class="ide-logo-beta">v1.0 LMM</div>
+    <div class="ide-logo-text">SHEIKHA STUDIO</div>
+    <div class="ide-logo-beta" id="studioRuntimeStatus">جارٍ فحص الأدوات</div>
   </div>
   <div class="ide-actions">
-    <select id="lmmProviderSelect" class="ide-btn ide-btn-secondary" style="min-width: 110px;">
-      <option value="openai">OpenAI</option>
-      <option value="claude">Claude</option>
-      <option value="mock">Mock</option>
-    </select>
-    <button class="ide-btn ide-btn-secondary" onclick="switchLMMProvider()">🔁 Provider</button>
-    <button class="ide-btn ide-btn-secondary" onclick="toggleLMMPanel()">🧠 LMM</button>
-    <button class="ide-btn ide-btn-secondary" onclick="toggleImageToCode()">🖼️ Image→Code</button>
-    <button class="ide-btn ide-btn-secondary" onclick="performAISearch()">🔍 Search</button>
-    <button class="ide-btn ide-btn-secondary" onclick="explainCurrentCode()">📖 Explain</button>
-    <button class="ide-btn ide-btn-secondary" onclick="detectBugsInCode()">🐛 Bugs</button>
-    <button class="ide-btn ide-btn-secondary" onclick="toggleTerminal()">⌨️ Terminal</button>
-    <button class="ide-btn ide-btn-primary" onclick="runCode()">▶ تشغيل</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/api/sheikha/studio/v1/model-providers" data-runtime-title="النماذج">النماذج</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/ai-router-anywhere-v1.json" data-runtime-title="AI Router Anywhere">AI Router</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/api/sheikha/studio/v1/git-lab-hub/status" data-runtime-title="Git-Lab Hub">Git</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/api/sheikha/studio/v1/foundry/status" data-runtime-title="Sheikha Foundry">Foundry</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/api/sheikha/studio/v1/cloud/status" data-runtime-title="Sheikha Cloud">Cloud</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/api/sheikha/studio/v1/ecosystem/status" data-runtime-title="منظومة شيخة">المنظومة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/master-engine-registry-v1.json" data-runtime-title="سجل المحركات الرئيسي">المحركات</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/engine-integration-fabric-v1.json" data-runtime-title="تكامل المحركات والموصلات">التكامل</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/connector-authority-capability-matrix-v1.json" data-runtime-title="مصفوفة صلاحيات وقدرات الموصلات">الصلاحيات</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/connector-identity-evidence-binding-v1.json" data-runtime-title="هوية وأدلة الموصلات">الأدلة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/connector-authorization-promotion-gate-v1.json" data-runtime-title="بوابة ترقية التفويض">بوابة التفويض</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/connector-evidence-review-queue-v1.json" data-runtime-title="طابور مراجعة أدلة الموصلات">طابور الأدلة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/reviewer-authority-registry-v1.json" data-runtime-title="سجل صلاحيات المراجعين">المراجعون</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/reviewer-assignment-proposal-gate-v1.json" data-runtime-title="بوابة اقتراح تعيين المراجعين">اقتراح التعيين</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/reviewer-assignment-manual-commit-gate-v1.json" data-runtime-title="بوابة الكتابة اليدوية للتعيين">بوابة الكتابة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/reviewer-assignment-write-plan-v1.json" data-runtime-title="خطة كتابة تعيين المراجع">خطة الكتابة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/reviewer-assignment-audit-drift-guard-v1.json" data-runtime-title="تدقيق وانحراف تعيينات المراجعين">تدقيق التعيين</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/reviewer-assignment-recovery-plan-v1.json" data-runtime-title="خطة استعادة ومصالحة تعيينات المراجعين">خطة الاستعادة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/site-map/assignment-governance-summary-v1.json" data-runtime-title="ملخص حوكمة التعيين الشامل">ملخص الحوكمة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/api/sheikha/studio/v1/azure/status" data-runtime-title="Azure الاختياري">Azure</button>
+    <button type="button" class="ide-btn ide-btn-secondary" data-runtime-endpoint="/api/sheikha/studio/v1/trust-tools/status" data-runtime-title="Trust Tools">الثقة</button>
+    <button type="button" class="ide-btn ide-btn-secondary" id="refreshButton">تحديث</button>
+    <button type="button" class="ide-btn ide-btn-primary" id="saveButton">حفظ</button>
   </div>
 </header>
 
@@ -536,32 +579,7 @@ body {
   <!-- Sidebar - File Tree -->
   <aside class="ide-sidebar">
     <div class="ide-sidebar-header">⚡ مشروع شيخة</div>
-    <div class="ide-file-tree" id="fileTree">
-      <div class="ide-file-item active" onclick="openFile('server.js')">
-        <span class="ide-file-icon">📄</span>
-        <span>server.js</span>
-      </div>
-      <div class="ide-file-item" onclick="openFile('index.html')">
-        <span class="ide-file-icon">🌐</span>
-        <span>index.html</span>
-      </div>
-      <div class="ide-file-item" onclick="openFile('styles.css')">
-        <span class="ide-file-icon">🎨</span>
-        <span>styles.css</span>
-      </div>
-      <div class="ide-file-item" onclick="openFile('api.js')">
-        <span class="ide-file-icon">⚡</span>
-        <span>api.js</span>
-      </div>
-      <div class="ide-file-item" onclick="openFile('database.json')">
-        <span class="ide-file-icon">📊</span>
-        <span>database.json</span>
-      </div>
-      <div class="ide-file-item" onclick="openFile('README.md')">
-        <span class="ide-file-icon">📖</span>
-        <span>README.md</span>
-      </div>
-    </div>
+    <div class="ide-file-tree" id="fileTree"><div class="ide-file-item">جارٍ تحميل الملفات...</div></div>
   </aside>
 
   <!-- Editor Area -->
@@ -584,43 +602,23 @@ body {
         <div class="ide-ai-header">
           <div class="ide-ai-title">
             <span>🧠</span>
-            <span>مساعد الذكاء الاصطناعي</span>
+            <span id="runtimePanelTitle">حالة Runtime</span>
           </div>
           <div class="ide-ai-status">
             <div class="ide-ai-pulse"></div>
-            <span>نشط</span>
+            <span>بيانات حية</span>
           </div>
         </div>
         <div class="ide-ai-suggestion">
-          💡 اقتراح: يمكنك تحسين الأداء بإضافة cache middleware:<br>
-          <code style="color: var(--gold);">app.use(express.static('public', { maxAge: '1d' }));</code>
+          اختر إحدى لوحات النماذج أو Git أو Azure أو أدوات الثقة.
         </div>
-        <div class="ide-ai-actions">
-          <button class="ide-ai-btn ide-ai-btn-accept">✓ قبول</button>
-          <button class="ide-ai-btn ide-ai-btn-reject">✗ رفض</button>
-        </div>
+        <div class="ide-ai-actions"><button type="button" class="ide-ai-btn ide-ai-btn-reject" id="closeRuntimePanel">إغلاق</button></div>
       </div>
     </div>
 
     <!-- Terminal -->
     <div class="ide-terminal" id="terminal">
-      <div class="ide-terminal-line">
-        <span class="ide-terminal-prompt">$ </span>
-        <span>npm start</span>
-      </div>
-      <div class="ide-terminal-line" style="color: var(--green);">
-        ✓ Server started on http://127.0.0.1:8080
-      </div>
-      <div class="ide-terminal-line" style="color: var(--t3);">
-        [Sheikha] 200+ API endpoints loaded
-      </div>
-      <div class="ide-terminal-line" style="color: var(--green);">
-        ✓ Smart Image Engine initialized
-      </div>
-      <div class="ide-terminal-line">
-        <span class="ide-terminal-prompt">$ </span>
-        <span class="cursor">_</span>
-      </div>
+      <div class="ide-terminal-line">الطرفية معطلة حتى تفعيل runner معزول ومصرح.</div>
     </div>
   </div>
 </main>
@@ -630,7 +628,7 @@ body {
   <div class="ide-status-left">
     <div class="ide-status-item success">
       <span>✓</span>
-      <span>لا أخطاء</span>
+      <span id="operationStatus">جارٍ التحقق</span>
     </div>
     <div class="ide-status-item">
       <span>📝</span>
@@ -638,12 +636,12 @@ body {
     </div>
     <div class="ide-status-item">
       <span>⚡</span>
-      <span>Node.js v25.6.1</span>
+      <span>Sheikha Runtime</span>
     </div>
   </div>
   <div class="ide-status-right">
     <div class="ide-status-item">
-      <span>سطر 42، عمود 16</span>
+      <span id="editorEngine">تحميل المحرر</span>
     </div>
     <div class="ide-status-item">
       <span>UTF-8</span>
@@ -667,11 +665,120 @@ body {
 // ═══════════════════════════════════════════════════════════════════
 
 let editor;
-let currentFile = './server.js'; // المسار النسبي
-let currentWorkspace = '/workspaces/sheikha/sheikha-main-portal';
+let currentFile = 'server.js';
+let currentWorkspace = '.';
 let fileCache = {}; // ذاكرة تخزين مؤقتة
 let currentLMMProvider = 'mock';
 const LMM_PROVIDER_STORAGE_KEY = 'sheikha:lmm-provider';
+
+async function loadStudioRuntimeStatus() {
+  const badge = document.getElementById('studioRuntimeStatus');
+  try {
+    const response = await fetch('/api/sheikha/studio/v1/status');
+    const payload = await response.json();
+    const status = payload.data || {};
+    if (badge) {
+      badge.textContent = `${status.coverage?.nativeCoveragePercent ?? 0}% أصلي`;
+      badge.title = status.status || 'حالة Studio غير متاحة';
+    }
+  } catch {
+    if (badge) badge.textContent = 'Runtime غير متاح';
+  }
+}
+
+async function loadWorkspaceRuntimeStatus() {
+  const statusText = document.getElementById('operationStatus');
+  const saveButton = document.getElementById('saveButton');
+  try {
+    const response = await fetch('/api/sheikha/studio/v1/workspace/status');
+    const payload = await response.json();
+    const writable = payload.ok && payload.data.writeEnabled === true;
+    if (statusText) statusText.textContent = writable ? 'التحرير مفعل' : 'قراءة فقط';
+    if (saveButton) {
+      saveButton.disabled = !writable;
+      saveButton.title = writable ? 'حفظ الملف' : 'الكتابة مغلقة حتى وجود تفويض مستخدم';
+      saveButton.style.opacity = writable ? '1' : '0.55';
+    }
+    const fallback = document.querySelector('.ide-fallback-editor');
+    if (fallback) fallback.readOnly = !writable;
+    if (window.monaco && editor?.updateOptions) editor.updateOptions({ readOnly: !writable });
+  } catch {
+    if (statusText) statusText.textContent = 'مساحة العمل غير متاحة';
+    if (saveButton) saveButton.disabled = true;
+  }
+}
+
+async function showRuntimePanel(endpoint, title) {
+  const panel = document.getElementById('aiPanel');
+  const titleElement = document.getElementById('runtimePanelTitle');
+  const content = panel.querySelector('.ide-ai-suggestion');
+  titleElement.textContent = title;
+  content.textContent = 'جارٍ تحميل البيانات الحية...';
+  panel.classList.add('visible');
+  try {
+    const response = await fetch(endpoint);
+    const payload = await response.json();
+    const apiEnvelope = Object.prototype.hasOwnProperty.call(payload, 'ok');
+    if (!response.ok || (apiEnvelope && !payload.ok)) {
+      throw new Error(payload.message || 'فشل الطلب');
+    }
+    const runtimeData = apiEnvelope ? payload.data : payload;
+    if (endpoint.endsWith('/ecosystem/status')) {
+      const data = runtimeData;
+      content.className = 'ide-ai-suggestion runtime-summary';
+      content.replaceChildren();
+      const header = document.createElement('div');
+      header.className = 'runtime-summary-header';
+      header.innerHTML = `<strong>المنتجات المربوطة: ${Number(data.productCount || data.products?.length || 0)}</strong><span>${data.status || ''}</span>`;
+      const grid = document.createElement('div');
+      grid.className = 'runtime-products';
+      (data.products || []).forEach((product) => {
+        const item = document.createElement('div');
+        item.className = 'runtime-product';
+        const name = document.createElement('strong');
+        name.textContent = product.id;
+        const maturity = document.createElement('span');
+        maturity.textContent = product.maturity || 'UNSPECIFIED';
+        const state = document.createElement('span');
+        state.textContent = product.state;
+        item.append(name, maturity, state);
+        grid.appendChild(item);
+      });
+      const gate = document.createElement('div');
+      gate.className = 'runtime-gate';
+      gate.textContent = `بوابة الإصدار: ${data.commercialRelease?.status || data.productionClaim}`;
+      content.append(header, grid, gate);
+      content.style.direction = 'rtl';
+      content.style.textAlign = 'right';
+    } else {
+      content.className = 'ide-ai-suggestion';
+      content.textContent = JSON.stringify(runtimeData, null, 2);
+      content.style.whiteSpace = 'pre-wrap';
+      content.style.direction = 'ltr';
+      content.style.textAlign = 'left';
+    }
+    content.style.maxHeight = '48vh';
+    content.style.overflow = 'auto';
+  } catch (error) {
+    content.textContent = `تعذر تحميل ${title}: ${error.message}`;
+  }
+}
+
+function installInteractiveControls() {
+  document.querySelector('.ide-splash')?.remove();
+  document.querySelector('.ide-actions')?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-runtime-endpoint]');
+    if (!button) return;
+    showRuntimePanel(button.dataset.runtimeEndpoint, button.dataset.runtimeTitle || button.textContent.trim());
+  });
+  document.getElementById('refreshButton')?.addEventListener('click', loadWorkspaceFiles);
+  document.getElementById('saveButton')?.addEventListener('click', saveCurrentFile);
+  document.getElementById('closeRuntimePanel')?.addEventListener('click', () => {
+    document.getElementById('aiPanel')?.classList.remove('visible');
+  });
+}
+
+installInteractiveControls();
 
 function getStoredLMMProvider() {
   try {
@@ -696,10 +803,10 @@ function storeLMMProvider(provider) {
 // ═══ API Helper Functions ═══
 async function fetchFiles(path = '') {
   try {
-    const res = await fetch(`/api/ide/files?path=${encodeURIComponent(path || currentWorkspace)}`);
+    const res = await fetch(`/api/sheikha/studio/v1/workspace/files?path=${encodeURIComponent(path || currentWorkspace)}`);
     const data = await res.json();
-    if (data.success) {
-      return data.data.files;
+    if (data.ok) {
+      return data.data.entries;
     }
     console.error('فشل جلب الملفات:', data.message);
     return [];
@@ -711,10 +818,10 @@ async function fetchFiles(path = '') {
 
 async function fetchFileContent(filePath) {
   try {
-    const res = await fetch(`/api/ide/file?path=${encodeURIComponent(filePath)}`);
+    const res = await fetch(`/api/sheikha/studio/v1/workspace/file?path=${encodeURIComponent(filePath)}`);
     const data = await res.json();
-    if (data.success) {
-      fileCache[filePath] = data.data.content; // تخزين في الذاكرة
+    if (data.ok) {
+      fileCache[filePath] = data.data;
       return data.data;
     }
     console.error('فشل قراءة الملف:', data.message);
@@ -727,15 +834,16 @@ async function fetchFileContent(filePath) {
 
 async function saveFileContent(filePath, content) {
   try {
-    const res = await fetch('/api/ide/file', {
-      method: 'POST',
+    const cached = fileCache[filePath];
+    const res = await fetch('/api/sheikha/studio/v1/workspace/file', {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: filePath, content })
+      body: JSON.stringify({ path: filePath, content, expectedSha256: cached?.sha256 })
     });
     const data = await res.json();
-    if (data.success) {
-      console.log('✓ ملف محفوظ:', data.message);
-      fileCache[filePath] = content; // تحديث الذاكرة
+    if (data.ok) {
+      console.log('✓ ملف محفوظ:', data.data.path);
+      fileCache[filePath] = data.data;
       return true;
     }
     console.error('فشل حفظ الملف:', data.message);
@@ -746,13 +854,32 @@ async function saveFileContent(filePath, content) {
   }
 }
 
-// Initialize Monaco Editor
-require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
+async function finishEditorInitialization(engine) {
+  document.getElementById('editorEngine').textContent = engine;
+  await loadWorkspaceFiles();
+  await loadStudioRuntimeStatus();
+  await loadWorkspaceRuntimeStatus();
+}
 
-require(['vs/editor/editor.main'], async function() {
+async function initializeFallbackEditor() {
+  const serverFile = await fetchFileContent('server.js');
+  const textarea = document.createElement('textarea');
+  textarea.className = 'ide-fallback-editor';
+  textarea.value = serverFile?.content || '';
+  const container = document.getElementById('monaco-editor');
+  container.replaceChildren(textarea);
+  editor = {
+    getValue: () => textarea.value,
+    setValue: (value) => { textarea.value = value; },
+    getModel: () => null,
+  };
+  await finishEditorInitialization('محرر محلي');
+}
+
+async function initializeMonacoEditor() {
   // تحميل محتوى server.js من API الحقيقي
-  const serverFile = await fetchFileContent(currentWorkspace + '/server.js');
-  const initialCode = serverFile ? serverFile.content : '// Loading...';
+  const serverFile = await fetchFileContent('server.js');
+  const initialCode = serverFile ? serverFile.content : '';
 
   editor = monaco.editor.create(document.getElementById('monaco-editor'), {
     value: initialCode,
@@ -765,7 +892,7 @@ require(['vs/editor/editor.main'], async function() {
     lineNumbers: 'on',
     roundedSelection: false,
     scrollBeyondLastLine: false,
-    readOnly: false,
+    readOnly: true,
     cursorStyle: 'line',
     wordWrap: 'on',
     suggestOnTriggerCharacters: true,
@@ -773,60 +900,16 @@ require(['vs/editor/editor.main'], async function() {
     tabSize: 2
   });
 
-  // ═══ LMM AUTOCOMPLETE — التنبؤ الذكي التلقائي ═══
-  let autocompleteTimer;
-  editor.onDidChangeModelContent(async (e) => {
-    clearTimeout(autocompleteTimer);
+  await finishEditorInitialization('Monaco');
+}
 
-    // انتظار 300ms بعد توقف الكتابة
-    autocompleteTimer = setTimeout(async () => {
-      const code = editor.getValue();
-      const position = editor.getPosition();
-      const language = monaco.editor.getModels()[0]?.getLanguageId() || 'javascript';
-
-      // لا نستدعي API إذا كان الكود قصير جداً
-      if (code.length < 10) return;
-
-      try {
-        const response = await fetch('/api/lmm/autocomplete', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            code,
-            language,
-            position: { line: position.lineNumber, column: position.column },
-            context: { projectName: 'sheikha' }
-          })
-        });
-
-        const data = await response.json();
-
-        if (data.success && data.data.suggestions.length > 0) {
-          // عرض الاقتراح في Status Bar
-          const statusItem = document.querySelector('.ide-status-item.success');
-          if (statusItem) {
-            statusItem.innerHTML = `<span>🤖</span><span>AI: ${data.data.suggestions[0].text}</span>`;
-            setTimeout(() => {
-              statusItem.innerHTML = '<span>✓</span><span>لا أخطاء</span>';
-            }, 3000);
-          }
-        }
-      } catch (error) {
-        console.error('Autocomplete error:', error);
-      }
-    }, 300);
-  });
-
-  // تحديث شجرة الملفات بملفات حقيقية
-  await loadWorkspaceFiles();
-  await refreshLMMProviderUI();
-  await restoreSavedLMMProvider();
-
-  // اقتراحات AI محاكاة (سيتم ربطها بـ OpenAI لاحقاً)
-  setTimeout(() => {
-    showAISuggestion();
-  }, 5000);
-});
+if (typeof window.require === 'function') {
+  window.require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
+  window.require(['vs/editor/editor.main'], initializeMonacoEditor, initializeFallbackEditor);
+  setTimeout(() => { if (!editor) initializeFallbackEditor(); }, 5000);
+} else {
+  initializeFallbackEditor();
+}
 
 // ═══ File Tree: تحميل الملفات الحقيقية ═══
 async function loadWorkspaceFiles() {
@@ -836,8 +919,26 @@ async function loadWorkspaceFiles() {
   // مسح الملفات التجريبية
   fileTree.innerHTML = '';
 
-  // عرض الملفات الحقيقية (أول 30 ملف)
+  const navigation = document.createElement('div');
+  navigation.className = 'ide-file-item';
+  navigation.style.fontWeight = '700';
+  navigation.innerHTML = `<span class="ide-file-icon">${currentWorkspace === '.' ? '◉' : '↑'}</span><span>${currentWorkspace}</span>`;
+  navigation.title = currentWorkspace === '.' ? 'جذر مساحة العمل' : 'الرجوع إلى المجلد الأعلى';
+  navigation.onclick = () => {
+    if (currentWorkspace === '.') return;
+    const parts = currentWorkspace.split('/').filter(Boolean);
+    parts.pop();
+    currentWorkspace = parts.join('/') || '.';
+    loadWorkspaceFiles();
+  };
+  fileTree.appendChild(navigation);
+
+  // عرض دفعة محدودة من المجلد الحالي.
   const topFiles = files.slice(0, 30);
+  if (!topFiles.length) {
+    fileTree.innerHTML = '<div class="ide-file-item">تعذر تحميل مساحة العمل</div>';
+    return;
+  }
   topFiles.forEach((file, index) => {
     const icon = file.isDirectory ? '📁' : getFileIcon(file.name);
     const item = document.createElement('div');
@@ -847,9 +948,12 @@ async function loadWorkspaceFiles() {
       <span>${file.name}</span>
     `;
     item.onclick = () => {
-      if (!file.isDirectory) {
-        openFile(file.fullPath, file.name);
+      if (file.isDirectory) {
+        currentWorkspace = file.path;
+        loadWorkspaceFiles();
+        return;
       }
+      openFile(file.path, file.name);
     };
     fileTree.appendChild(item);
   });
@@ -877,8 +981,10 @@ async function openFile(filePath, filename) {
   // Update editor
   const language = getLanguage(filename);
 
-  if (editor) {
+  if (editor && window.monaco && editor.getModel()) {
     monaco.editor.setModelLanguage(editor.getModel(), language);
+    editor.setValue(fileData.content);
+  } else if (editor) {
     editor.setValue(fileData.content);
   }
 
@@ -943,44 +1049,16 @@ async function saveCurrentFile() {
 
   if (success) {
     // تحديث Status Bar
-    const statusItem = document.querySelector('.ide-status-item.success');
-    if (statusItem) {
-      statusItem.innerHTML = '<span>💾</span><span>محفوظ</span>';
-      setTimeout(() => {
-        statusItem.innerHTML = '<span>✓</span><span>لا أخطاء</span>';
-      }, 2000);
-    }
+    document.getElementById('operationStatus').textContent = 'محفوظ';
+  } else {
+    document.getElementById('operationStatus').textContent = 'الحفظ مرفوض';
   }
 }
 
-// ═══ AI Assistant ═══
+// ═══ Runtime status panel ═══
 function toggleAI() {
   const panel = document.getElementById('aiPanel');
   panel.classList.toggle('visible');
-}
-
-function showAISuggestion() {
-  const panel = document.getElementById('aiPanel');
-  panel.classList.add('visible');
-
-  // اقتراح عشوائي (سيتم استبداله بـ OpenAI API لاحقاً)
-  const suggestions = [
-    '💡 اقتراح: يمكنك تحسين الأداء بإضافة cache middleware',
-    '💡 اقتراح: هذه الدالة معقدة — يمكن تقسيمها لدوال أصغر',
-    '💡 اقتراح: استخدم async/await بدلاً من .then() للوضوح',
-    '💡 اقتراح: أضف try/catch لمعالجة الأخطاء',
-    '💡 تحذير شرعي: هذا API يتعامل مع فوائد ربوية — راجع الكود'
-  ];
-
-  const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
-  const suggestionEl = document.querySelector('.ide-ai-suggestion');
-  if (suggestionEl) {
-    suggestionEl.textContent = randomSuggestion;
-  }
-
-  setTimeout(() => {
-    panel.classList.remove('visible');
-  }, 10000);
 }
 
 // ═══ Terminal ═══
@@ -993,17 +1071,7 @@ function toggleTerminal() {
 function runCode() {
   const terminal = document.getElementById('terminal');
   terminal.classList.add('visible');
-
-  const lines = terminal.querySelectorAll('.ide-terminal-line');
-  const lastLine = lines[lines.length - 1];
-
-  const newLine = document.createElement('div');
-  newLine.className = 'ide-terminal-line';
-  newLine.style.color = 'var(--green)';
-  newLine.textContent = `✓ Running ${currentFile}...`;
-
-  terminal.insertBefore(newLine, lastLine);
-  terminal.scrollTop = terminal.scrollHeight;
+  terminal.innerHTML = '<div class="ide-terminal-line">لم يبدأ التشغيل: يلزم runner معزول وتفويض صريح.</div>';
 }
 
 // ═══ Keyboard Shortcuts ═══
@@ -1034,282 +1102,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ═══════════════════════════════════════════════════════════════════
-// 🧠 SHEIKHA LMM — Large Multimodal Model Functions
-// ═══════════════════════════════════════════════════════════════════
-
-async function toggleLMMPanel() {
-  const terminal = document.getElementById('terminal');
-  terminal.classList.toggle('visible');
-
-  if (terminal.classList.contains('visible')) {
-    console.log('🧠 Sheikha LMM Panel — متصل');
-    terminal.innerHTML = `
-      <div class="ide-terminal-line" style="color: var(--gold);">⚡ Sheikha LMM v1.0 — محرك الذكاء المتعدد الوسائط</div>
-      <div class="ide-terminal-line" style="color: var(--green);">✓ الميزات المفعّالة:</div>
-      <div class="ide-terminal-line">  1. 🔮 Autocomplete — التنبؤ الذكي بالكود</div>
-      <div class="ide-terminal-line">  2. 🖼️ Image to Code — تحويل التصاميم إلى أكواد</div>
-      <div class="ide-terminal-line">  3. 🔍 AI Search — بحث فوري عن حلول</div>
-      <div class="ide-terminal-line">  4. 💬 Chat with Files — دردشة مع ملفاتك</div>
-      <div class="ide-terminal-line">  5. 📖 Code Explanation — شرح الأكواد</div>
-      <div class="ide-terminal-line">  6. 🐛 Bug Detection — كشف الأخطاء تلقائياً</div>
-      <div class="ide-terminal-line" style="color: var(--gold); margin-top: 10px;">جاهز للاستخدام الآن!</div>
-    `;
-  }
-}
-
-async function refreshLMMProviderUI() {
-  try {
-    const response = await fetch('/api/lmm/stats');
-    const data = await response.json();
-    if (!data.success) return;
-
-    const provider = data.data.provider || 'mock';
-    currentLMMProvider = provider;
-    storeLMMProvider(provider);
-
-    const select = document.getElementById('lmmProviderSelect');
-    if (select) {
-      select.value = provider;
-    }
-  } catch (error) {
-    console.error('خطأ تحديث مزود LMM:', error);
-  }
-}
-
-async function switchLMMProvider(options = {}) {
-  const select = document.getElementById('lmmProviderSelect');
-  if (!select) return;
-
-  const provider = (options.forceProvider || select.value || 'mock').toLowerCase();
-
-  if (!['openai', 'claude', 'mock'].includes(provider)) {
-    showNotification('⚠️ مزود غير صالح');
-    return;
-  }
-
-  if (!options.forceProvider && provider === currentLMMProvider) {
-    storeLMMProvider(provider);
-    if (!options.silent) {
-      showNotification(`✓ المزود الحالي بالفعل: ${provider}`);
-    }
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/lmm/provider', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ provider })
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      currentLMMProvider = data.data?.provider || provider;
-      storeLMMProvider(currentLMMProvider);
-      if (!options.silent) {
-        showNotification(`✓ تم التبديل إلى ${currentLMMProvider}`);
-      }
-      await refreshLMMProviderUI();
-    } else {
-      if (!options.silent) {
-        showNotification(`⚠️ ${data.message || 'فشل تغيير المزود'}`);
-      }
-    }
-  } catch (error) {
-    console.error('خطأ تغيير المزود:', error);
-    if (!options.silent) {
-      showNotification('⚠️ تعذر تغيير المزود');
-    }
-  }
-}
-
-async function restoreSavedLMMProvider() {
-  const savedProvider = getStoredLMMProvider();
-  if (!savedProvider || savedProvider === currentLMMProvider) {
-    return;
-  }
-
-  await switchLMMProvider({ forceProvider: savedProvider, silent: true });
-
-  const select = document.getElementById('lmmProviderSelect');
-  if (select) {
-    select.value = savedProvider;
-  }
-}
-
-async function toggleImageToCode() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'image/*';
-
-  input.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const imageBase64 = event.target.result.split(',')[1];
-
-      try {
-        const response = await fetch('/api/lmm/image-to-code', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            imageBase64,
-            framework: 'html',
-            description: 'Converted from image'
-          })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          // إدراج الكود في المحرر
-          if (editor) {
-            editor.setValue(data.data.code);
-            editor.getAction('editor.action.formatDocument').run();
-          }
-
-          console.log('✓ تم تحويل الصورة إلى كود بنجاح!');
-          showNotification('✓ تم تحويل الصورة إلى كود!');
-        }
-      } catch (error) {
-        console.error('خطأ في تحويل الصورة:', error);
-      }
-    };
-
-    reader.readAsDataURL(file);
-  });
-
-  input.click();
-}
-
-async function performAISearch() {
-  const query = prompt('ماذا تبحث عن؟ (مثال: كيفية قراءة ملف JSON):');
-
-  if (!query) return;
-
-  try {
-    const response = await fetch('/api/lmm/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query,
-        language: getLanguage(currentFile)
-      })
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      console.log('🔍 نتائج البحث:', data.data.results);
-
-      // عرض النتائج في Terminal
-      const terminal = document.getElementById('terminal');
-      terminal.innerHTML = `
-        <div class="ide-terminal-line" style="color: var(--gold);">🔍 نتائج البحث: "${query}"</div>
-        <div class="ide-terminal-line" style="color: var(--green);">✓ وجدنا ${data.data.totalResults} حل</div>
-        ${data.data.results.map((r, i) => `
-          <div class="ide-terminal-line">
-            <strong>${i + 1}. ${r.title}</strong> (${r.source})
-          </div>
-          <div class="ide-terminal-line" style="color: var(--t3);">
-            ${r.code.slice(0, 80)}...
-          </div>
-        `).join('')}
-      `;
-      terminal.classList.add('visible');
-    }
-  } catch (error) {
-    console.error('خطأ في AI Search:', error);
-  }
-}
-
-async function explainCurrentCode() {
-  if (!editor || !currentFile) {
-    showNotification('⚠️ لا يوجد كود لشرحه');
-    return;
-  }
-
-  const code = editor.getValue();
-  const language = getLanguage(currentFile);
-
-  try {
-    const response = await fetch('/api/lmm/explain', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, language })
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      console.log('📖 شرح الكود:', data.data.explanation);
-      showNotification(`📖 ${data.data.explanation.slice(0, 100)}...`);
-    }
-  } catch (error) {
-    console.error('خطأ في شرح الكود:', error);
-  }
-}
-
-async function detectBugsInCode() {
-  if (!editor || !currentFile) {
-    showNotification('⚠️ لا يوجد كود للفحص');
-    return;
-  }
-
-  const code = editor.getValue();
-  const language = getLanguage(currentFile);
-
-  try {
-    const response = await fetch('/api/lmm/detect-bugs', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, language })
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      const terminal = document.getElementById('terminal');
-      terminal.innerHTML = `
-        <div class="ide-terminal-line" style="color: var(--gold);">🐛 تحليل الأخطاء</div>
-        <div class="ide-terminal-line" style="color: var(--green);">مستوى الخطورة: ${data.data.severityLevel}</div>
-        ${data.data.bugs.map(bug => `
-          <div class="ide-terminal-line">• ${bug}</div>
-        `).join('')}
-      `;
-      terminal.classList.add('visible');
-    }
-  } catch (error) {
-    console.error('خطأ في كشف الأخطاء:', error);
-  }
-}
-
-function showNotification(message) {
-  const notification = document.createElement('div');
-  notification.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(212, 175, 55, 0.9);
-    color: #0a0f1a;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    z-index: 10000;
-  `;
-  notification.textContent = message;
-  document.body.appendChild(notification);
-
-  setTimeout(() => notification.remove(), 3000);
-}
-
-console.log('⚡ Sheikha IDE v1.0 LMM — نظام شيخة للتطوير المتقدم');
-console.log('✓ محرك الذكاء المتعدد الوسائط مُفعّل بالكامل');
-console.log('✓ Features: Autocomplete, Image-to-Code, AI Search, Explain, Bug Detection');
-console.log('إن الله يحب إذا عمل أحدكم عملاً أن يتقنه');
+console.log('Sheikha Studio — منصة شيخة المستقلة للتطوير');
+console.log('VS Code وMonaco ومزودو النماذج محولات مؤقتة قابلة للاستبدال وليست أصل المنتج.');
 </script>
 
 </body>

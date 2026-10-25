@@ -9,6 +9,7 @@
   --border: #d9dedb;
   --danger: #8c2525;
   --success: #17613f;
+  --blue: #24567a;
 }
 
 * {
@@ -32,12 +33,7 @@ a {
 
 .hero {
   color: var(--white);
-  background:
-    linear-gradient(
-      135deg,
-      var(--green),
-      #0b281e
-    );
+  background: #102f27;
   padding: 0 6vw 5rem;
 }
 
@@ -71,6 +67,18 @@ a {
   font-weight: bold;
 }
 
+.hero-note,
+.trust-note {
+  max-width: 720px;
+  font-weight: bold;
+}
+
+.trust-note {
+  border-inline-start: 4px solid var(--gold);
+  padding-inline-start: 0.8rem;
+  color: var(--muted);
+}
+
 .primary-button {
   display: inline-block;
   border: 0;
@@ -84,6 +92,17 @@ a {
   cursor: pointer;
 }
 
+.secondary-button {
+  display: inline-block;
+  margin-inline-start: 0.65rem;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  padding: 0.78rem 1.3rem;
+  color: var(--white);
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .hero .primary-button {
   color: var(--green);
   background: #e5c96e;
@@ -93,6 +112,32 @@ a {
   width: min(1120px, 90%);
   margin: 0 auto;
   padding: 4rem 0;
+}
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: min(1120px, 90%);
+  margin: -2rem auto 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+}
+
+.proof-strip div {
+  display: grid;
+  gap: 0.15rem;
+  padding: 1.15rem;
+}
+
+.proof-strip div + div {
+  border-inline-start: 1px solid var(--border);
+}
+
+.proof-strip span {
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .offer-grid {
@@ -106,7 +151,7 @@ a {
 .form-card,
 .policy-page {
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 8px;
   background: var(--white);
   box-shadow: 0 10px 30px rgb(0 0 0 / 5%);
 }
@@ -114,6 +159,10 @@ a {
 .offer-card {
   position: relative;
   padding: 1.5rem;
+}
+
+.offer-card.featured {
+  border-top: 4px solid var(--blue);
 }
 
 .offer-card h3 {
@@ -128,7 +177,7 @@ a {
 
 .badge {
   display: inline-block;
-  border-radius: 999px;
+  border-radius: 4px;
   padding: 0.2rem 0.7rem;
   color: var(--green);
   background: #f0df9e;
@@ -142,10 +191,18 @@ a {
 
 .callout {
   margin-bottom: 4rem;
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 2rem;
   color: var(--white);
   background: var(--green);
+}
+
+.funding-band {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(300px, 1.2fr);
+  gap: 3rem;
+  align-items: center;
+  border-block: 1px solid var(--border);
 }
 
 footer {
@@ -228,6 +285,29 @@ textarea {
   color: var(--danger);
 }
 
+.checkout-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; max-width: 1100px; margin: 40px auto; padding: 0 24px; }
+.checkout-page h1 { font-size: 28px; letter-spacing: 0; line-height: 1.5; }
+.checkout-page h2 { font-size: 21px; letter-spacing: 0; }
+.checkout-page h3 { font-size: 18px; letter-spacing: 0; }
+.checkout-page { background: #f7f8fa; color: #202728; }
+.checkout-page section, .checkout-page aside { min-width: 0; }
+.checkout-summary { border-inline-start: 1px solid #d6dce0; padding-inline-start: 32px; }
+.checkout-page dl { display: grid; grid-template-columns: minmax(85px, 1fr) minmax(0, 2fr); gap: 14px; }
+.checkout-page dt { color: #55626b; }
+.checkout-page dd { margin: 0; overflow-wrap: anywhere; }
+.checkout-page li { margin-block: 10px; }
+.checkout-page .checkbox-row { display: flex; align-items: flex-start; gap: 10px; font-weight: normal; }
+.checkout-page .checkbox-row input { flex: 0 0 18px; width: 18px; min-height: 18px; margin-block: 6px; }
+.checkout-page input, .checkout-page select, .checkout-page textarea { max-width: 100%; min-width: 0; background: white; }
+.checkout-page .form-result, .checkout-page a { overflow-wrap: anywhere; }
+.checkout-page button:disabled { opacity: .6; cursor: default; }
+.checkout-page :focus-visible { outline: 3px solid #077887; outline-offset: 3px; }
+@media (max-width: 720px) {
+  .checkout-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; margin: 24px auto; padding: 0 18px; }
+  .checkout-summary { grid-row: 1; border-inline-start: 0; border-bottom: 1px solid #d6dce0; padding: 0 0 20px; }
+  .checkout-page h1 { font-size: 24px; }
+}
+
 .policy-page {
   width: min(900px, 92%);
   margin: 3rem auto;
@@ -241,5 +321,15 @@ textarea {
 
   .hero-content {
     padding-top: 3rem;
+  }
+
+  .proof-strip,
+  .funding-band {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-strip div + div {
+    border-inline-start: 0;
+    border-top: 1px solid var(--border);
   }
 }
