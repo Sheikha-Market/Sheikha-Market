@@ -1,205 +1,373 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta
-    name="description"
-    content="شيخة منصة تشغيل للتجارة والصناعة وسلاسل الإمداد والخدمات المؤسسية."
-  >
-  <title>شيخة | منصة التجارة والصناعة</title>
-  <link rel="stylesheet" href="/sheikha-brand-v1/styles.css?v=2">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شَـيْـخَـة — روبوت ومنظومة العمارة الكونية والسيادة الرقمية</title>
+  
+  <meta name="description" content="منظومة وروبوت شيخة الرقمي المتجسد: دمج مقاييس بلانك، والنانو-روبوتك، والأساسات الإنشائية SBC 303، وسلسلة كتل شيخة شين وفق الكتاب والسنة.">
+  <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- مكتبة Three.js للروبوت التفاعلي -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #020b08;
+      --bg-card: rgba(6, 26, 20, 0.75);
+      --border-gold: rgba(212, 175, 55, 0.35);
+      --border-hover: rgba(212, 175, 55, 0.85);
+      --gold-primary: #d4af37;
+      --gold-light: #f9e295;
+      --text-white: #f5f9f7;
+      --text-dim: #9fb3a8;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --font-body: 'Tajawal', sans-serif;
+      --font-title: 'Amiri', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #08261d 0%, var(--bg-dark) 85%);
+      color: var(--text-white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      backdrop-filter: blur(16px);
+      background: rgba(2, 11, 8, 0.85);
+      border-bottom: 1px solid var(--border-gold);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 1rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand { display: flex; align-items: center; gap: 1rem; }
+    .brand-title { font-family: var(--font-title); font-size: 2.2rem; font-weight: 700; color: var(--gold-light); }
+    .sovereign-tag { font-size: 0.8rem; background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); border: 1px solid var(--border-gold); padding: 0.3rem 0.8rem; border-radius: 9999px; }
+
+    .nav-stats { display: flex; align-items: center; gap: 1.2rem; }
+    .stat-badge { display: flex; align-items: center; gap: 0.5rem; background: var(--bg-card); border: 1px solid var(--border-gold); padding: 0.4rem 1rem; border-radius: 8px; font-size: 0.85rem; }
+    .pulse-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+    /* منصة عرض الروبوت الرقمي */
+    .robot-stage {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.08) 0%, transparent 100%);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    .creed-banner { font-family: var(--font-title); font-size: 1.6rem; color: var(--gold-primary); margin-bottom: 1rem; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+    .hero-h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #ffffff 40%, var(--gold-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-p { color: var(--text-dim); font-size: 1.15rem; margin-bottom: 2rem; line-height: 1.8; }
+
+    #robot-canvas-container {
+      width: 100%;
+      height: 420px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas { border-radius: 20px; outline: none; }
+
+    /* شبكة الحراس السبعة والأدوار السيادية */
+    .section-title { font-size: 1.6rem; font-weight: 700; color: var(--gold-light); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 0.75rem; }
+    
+    .grid-sentinels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 18px;
+      padding: 1.8rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover { transform: translateY(-5px); border-color: var(--gold-primary); box-shadow: 0 12px 30px var(--emerald-glow); }
+    .card-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .card h3 { color: var(--gold-light); font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .card p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
+
+    /* شريط مقاييس الكتل */
+    .metrics-bar {
+      background: rgba(2, 11, 8, 0.95);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .metric-value { font-size: 2.2rem; font-weight: 900; color: var(--gold-light); margin-bottom: 0.3rem; }
+    .metric-label { font-size: 0.85rem; color: var(--text-dim); }
+
+    footer {
+      text-align: center;
+      padding: 3rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      margin-top: 5rem;
+    }
+
+    @media (max-width: 900px) {
+      .robot-stage { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="/" aria-label="شيخة، الصفحة الرئيسية">
-      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
-      <span><strong>شيخة</strong><small>SHEIKHA</small></span>
-    </a>
-    <nav aria-label="التنقل الرئيسي">
-      <a class="active" href="/" aria-current="page">الرئيسية</a>
-      <a href="/market/">السوق</a>
-      <a href="/dashboard/">لوحة التحكم</a>
-      <a href="/technology/">التقنية</a>
-      <a href="/riyadh-aljannah-community/">الجنات</a>
-      <a href="/constructive-dialogue/">الحوار</a>
-      <a href="/system-builder-workbench/">بناء الأنظمة</a>
-    </nav>
-    <a class="account-link" href="/register/">إنشاء حساب</a>
+
+  <header>
+    <div class="brand">
+      <div class="brand-title">شَـيْـخَـة</div>
+      <div class="sovereign-tag">الأفق السيادي الكوني</div>
+    </div>
+    <div class="nav-stats">
+      <div class="stat-badge">
+        <div class="pulse-dot"></div>
+        <span>الروبوت الرقمي متجسد ونشط</span>
+      </div>
+      <div class="stat-badge">
+        <span>السلسلة: <strong>9 كتل (Block #0 - #8)</strong></span>
+      </div>
+      <div class="stat-badge">
+        <span>الأصول: <strong>86,750,000 SHK</strong></span>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <section class="brand-stage">
-      <img
-        src="/images/sheikha-emblem-hd.png"
-        alt="هوية شيخة المبنية على العدل والميزان"
-      >
-      <div class="stage-copy">
-        <p class="eyebrow">SHEIKHA GLOBAL RUNTIME PLATFORM</p>
-        <h1>شيخة</h1>
-        <p>
-          منصة تشغيل سعودية تجمع السوق والصناعة والمعرفة وبناء الأنظمة،
-          من واجهات جنات شيخة إلى System Builder وUEFI والنواة الأصلية.
+  <div class="container">
+    
+    <!-- منصة الروبوت الرقمي التفاعلية -->
+    <div class="robot-stage">
+      <div>
+        <div class="creed-banner">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ • لَا إِلَٰهَ إِلَّا اللَّهُ مُحَمَّدٌ رَسُولُ اللَّهِ ﷺ</div>
+        <h1 class="hero-h1">روبوت شيخة الرقمي المتجسد</h1>
+        <p class="hero-p">
+          تجسيد حي يجمع علوم الكون من مقياس بلانك ($10^{-35}\text{ m}$) إلى المجرات وسلاسل الإمداد، مقترناً بالأساسات الذكية SBC 303 وحراس السلسلة السبعة، ومحكوماً بعهد التوحيد والإتقان لإعمار الأرض والسماوات.
         </p>
-        <div class="actions">
-          <a class="primary" href="#product-runtime">حالة المنتجات</a>
-          <a class="secondary" href="/market/">دخول السوق</a>
-          <a class="secondary" href="/technology/">التقدم التقني</a>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <div class="stat-badge" style="background: rgba(212, 175, 55, 0.15);">
+            <span>الختم: <strong>ATOM_WATER_RASUL_JANNAH_SEALED</strong></span>
+          </div>
+          <div class="stat-badge">
+            <span>الحوكمة: <strong>BOUND_BY_QURAN_SUNNAH</strong></span>
+          </div>
         </div>
       </div>
-    </section>
+      
+      <!-- كانفاس الروبوت التفاعلي -->
+      <div id="robot-canvas-container"></div>
+    </div>
 
-    <section class="runtime-strip" aria-label="حالة المنظومة">
+    <!-- مصفوفة الحراس السبعة للشين -->
+    <div class="section-title">
+      <span>🛡️</span>
+      <h2>أدوار وحراس سلسلة شيخة شين (The 7 Sentinels)</h2>
+    </div>
+
+    <div class="grid-sentinels">
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <h3>المراقب (Watcher)</h3>
+        <p>مراقبة نبض الحاويات والخدمات والشبكة اللحظية دون انقطاع، وضمان استمرارية تشغيل النواة.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>الحارس (Guardian)</h3>
+        <p>التدقيق الشرعي L0/L1/L2، وحظر أي معاملات تتضمن الربا أو الغرر أو الميسر أو الاحتكار.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>المستكشف (Explorer)</h3>
+        <p>فهرسة وعرض الكتل الـ 9 والأوزان الـ 452 والمعاملات التشاركية عبر واجهات رسومية شفافة.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">✍️</div>
+        <h3>المسجل (Registrar)</h3>
+        <p>تسجيل المستفيدين وإصدار المحافظ السيادية التشاركية آلياً للمواطنين والشركات والجهات الدولية.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔎</div>
+        <h3>المدقق (Auditor)</h3>
+        <p>التدقيق الرياضي ثلاثي القيد ومطابقة الأصول الحقيقية مع كل كتلة تصدر في شبكة SheikhaChain.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📜</div>
+        <h3>الموثق (Notary)</h3>
+        <p>ختم التوثيق السيادي والتسجيل التجاري المعتمد (س.ت: 2051263653) لكافة البلوكات والمعاملات.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🏛️</div>
+        <h3>المجلس (Council)</h3>
+        <p>تكامل الـ 12 نطاقاً والـ 8 عقول الإدارية لإدارة العلاقات الدبلوماسية، والرحلات التجارية، وإعمار الأرض.</p>
+      </div>
+    </div>
+
+    <!-- المؤشرات السيادية الكلية -->
+    <div class="metrics-bar">
       <div>
-        <span class="status-dot" id="runtimeDot"></span>
-        <strong id="runtimeStatus">جارٍ فحص التشغيل</strong>
+        <div class="metric-value">452</div>
+        <div class="metric-label">الأوزان السيادية المعتمدة بالسجل</div>
       </div>
-      <dl>
-        <div><dt>الصفحات</dt><dd id="pageCount">--</dd></div>
-        <div><dt>المسارات العامة</dt><dd id="routeCount">--</dd></div>
-        <div><dt>المجالات</dt><dd id="domainCount">--</dd></div>
-        <div><dt>المنتجات الموحّدة</dt><dd id="productCount">--</dd></div>
-      </dl>
-    </section>
+      <div>
+        <div class="metric-value">86,750,000</div>
+        <div class="metric-label">إجمالي مكافآت عملة SHK الأصولية</div>
+      </div>
+      <div>
+        <div class="metric-value">9 كتل</div>
+        <div class="metric-label">ارتفاع سلسلة كتل SheikhaChain</div>
+      </div>
+      <div>
+        <div class="metric-value">100%</div>
+        <div class="metric-label">مطابقة الشريعة وإتقان العمل</div>
+      </div>
+    </div>
 
-    <section class="product-runtime-band" id="product-runtime">
-      <div class="section-heading">
-        <p class="eyebrow">SHEIKHA UNIFIED PRODUCT RUNTIME</p>
-        <h2>جذر واحد، وأربع واجهات تنفيذية واضحة</h2>
-        <p>
-          كل حالة أدناه مشتقة من دليل محلي؛ التسجيل لا يعني اكتمال التنفيذ،
-          والتحقق بالمحاكاة لا يُعرض بوصفه اختبارًا فيزيائيًا.
-        </p>
-      </div>
-
-      <div class="product-stack" aria-label="حالة منتجات شيخة">
-        <a href="/riyadh-aljannah-community/" data-product="gardens">
-          <span class="product-index">01</span>
-          <div><strong>جنات وأشجار شيخة</strong><small>المعرفة والتجربة الدنيوية</small></div>
-          <b>جارٍ التحقق</b>
-        </a>
-        <a href="/system-builder-workbench/" data-product="system-builder">
-          <span class="product-index">02</span>
-          <div><strong>System Builder</strong><small>عقود البناء والقدرات</small></div>
-          <b>جارٍ التحقق</b>
-        </a>
-        <a href="/boot-trial/" data-product="uefi">
-          <span class="product-index">03</span>
-          <div><strong>Sheikha UEFI</strong><small>سجل الإقلاع والواجهات</small></div>
-          <b>جارٍ التحقق</b>
-        </a>
-        <a href="/boot-trial/" data-product="bare-metal">
-          <span class="product-index">04</span>
-          <div><strong>Sheikha Bare Metal</strong><small>النواة وصورة التشغيل</small></div>
-          <b>جارٍ التحقق</b>
-        </a>
-      </div>
-    </section>
-
-    <section class="workspace-band">
-      <div class="section-heading">
-        <p class="eyebrow">بوابات شيخة</p>
-        <h2>الوصول المباشر إلى العمل</h2>
-        <p>مسارات قانونية موحدة للسوق والخدمات والتشغيل والبناء والمعرفة.</p>
-      </div>
-
-      <div class="portal-grid">
-        <article>
-          <img src="/images/sheikha-industrial-market-hero-v1.png" alt="سوق صناعي وسلسلة إمداد">
-          <div>
-            <span>السوق</span>
-            <h3>المعادن والسكراب</h3>
-            <p>المنتجات والقطاعات والعروض وبيانات السوق.</p>
-            <a href="/market/">فتح السوق</a>
-          </div>
-        </article>
-        <article>
-          <div>
-            <span>التجارة</span>
-            <h3>الخدمات التجارية</h3>
-            <p>التشخيص والتقارير والتجارب المؤسسية وطلبات الصفقات.</p>
-            <a href="/commercial/">فتح الخدمات</a>
-          </div>
-        </article>
-        <article>
-          <div>
-          <span>التشغيل</span>
-          <h3>لوحة التجارة والاقتصاد</h3>
-          <p>المنتجات وSaaS والقطاعات ومسارات الإمداد في لوحة واحدة.</p>
-          <a href="/dashboard/">فتح لوحة التحكم</a>
-          </div>
-        </article>
-        <article>
-          <div>
-            <span>التقنية</span>
-            <h3>مرصد التقدم والقياس</h3>
-            <p>تدفق البيانات والذكاء الحي والقياسات والملفات الهندسية.</p>
-            <a href="/technology/">فتح المرصد</a>
-          </div>
-        </article>
-        <article>
-          <div>
-            <span>البناء</span>
-            <h3>System Builder</h3>
-            <p>لغة شيخة وعقود القدرات ومسارات بناء الأنظمة.</p>
-            <a href="/system-builder-workbench/">فتح منصة البناء</a>
-          </div>
-        </article>
-        <article>
-          <div>
-            <span>المعرفة</span>
-            <h3>جنات وأشجار شيخة</h3>
-            <p>حدائق معرفية دنيوية تربط الدليل بالعلم والعمل النافع.</p>
-            <a href="/riyadh-aljannah-community/">فتح الجنات</a>
-          </div>
-        </article>
-        <article>
-          <div>
-            <span>الحوار</span>
-            <h3>الأفكار والأدلة</h3>
-            <p>مقارنة عادلة للأهداف والدعاوى والوسائل دون تصنيف الأشخاص.</p>
-            <a href="/constructive-dialogue/">فتح الحوار</a>
-          </div>
-        </article>
-        <article>
-          <div>
-            <span>الإقلاع</span>
-            <h3>تجربة النواة V2</h3>
-            <p>حالة صورة UEFI وتجهيز وسيط MSI الآمن.</p>
-            <a href="/boot-trial/">فتح تجربة الإقلاع</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="principles-band">
-      <div class="section-heading">
-        <p class="eyebrow">الهوية التشغيلية</p>
-        <h2>أمانة في البيانات، وعدل في التعامل، وإتقان في التنفيذ</h2>
-        <p>
-          مرجعية قيم معلنة من الكتاب والسنة مع مراجعة بشرية مؤهلة للأحكام
-          الشرعية؛ لا فتوى آلية ولا ادعاء عصمة أو سلطة دينية للبرنامج.
-        </p>
-      </div>
-      <ol>
-        <li><strong>تحقق</strong><span>لا ادعاء دون دليل قابل للمراجعة.</span></li>
-        <li><strong>حوكمة</strong><span>صلاحيات محددة وموافقة بشرية للأثر العالي.</span></li>
-        <li><strong>تنفيذ</strong><span>مسارات واضحة من الطلب إلى النتيجة.</span></li>
-        <li><strong>مراجعة</strong><span>قياس مستمر للأداء والسلامة والجودة.</span></li>
-      </ol>
-    </section>
-  </main>
+  </div>
 
   <footer>
-    <strong>شيخة</strong>
-    <span>الخبر، المملكة العربية السعودية</span>
-    <nav aria-label="روابط التذييل">
-      <a href="/commercial/terms.html">الشروط</a>
-      <a href="/commercial/privacy.html">الخصوصية</a>
-      <a href="/site-map/">دليل الصفحات</a>
-    </nav>
+    الناظر والمالك السيادي: <strong>سلمان أحمد بن سلمان الراجح</strong> | مؤسسة سلمان أحمد بن سلمان الراجح التجارية (س.ت: 2051263653 • الرقم الموحد: 7049031003)<br>
+    مختومة بالكتاب والسنة النبوية الشريفة • لا إله إلا الله محمد رسول الله ﷺ
   </footer>
 
-  <script src="/sheikha-brand-v1/app.js" defer></script>
+  <!-- سكربت الروبوت ثلاثي الأبعاد المتحرك التفاعلي -->
+  <script>
+    const container = document.getElementById('robot-canvas-container');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // الإضاءة الملكية
+    const ambientLight = new THREE.AmbientLight(0xd4af37, 1.2);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 2, 50);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    const emeraldLight = new THREE.PointLight(0x10b981, 2.5, 30);
+    emeraldLight.position.set(-5, -3, 3);
+    scene.add(emeraldLight);
+
+    // تجميع جسم الروبوت الرقمي
+    const robotGroup = new THREE.Group();
+
+    // 1. الرأس (Sphere Glass + Gold Halo)
+    const headGeo = new THREE.SphereGeometry(1.2, 32, 32);
+    const headMat = new THREE.MeshPhysicalMaterial({
+      color: 0x061a14,
+      metalness: 0.8,
+      roughness: 0.2,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.1,
+      wireframe: false
+    });
+    const head = new THREE.Mesh(headGeo, headMat);
+    robotGroup.add(head);
+
+    // 2. الهالة والتاج السيادي المحيط بالرأس
+    const haloGeo = new THREE.TorusGeometry(1.6, 0.06, 16, 100);
+    const haloMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.9, roughness: 0.1 });
+    const halo = new THREE.Mesh(haloGeo, haloMat);
+    halo.rotation.x = Math.PI / 3;
+    robotGroup.add(halo);
+
+    // 3. العيون الرقمية المتوهجة (Dual Core Eyes)
+    const eyeGeo = new THREE.SphereGeometry(0.18, 16, 16);
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+    const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+    leftEye.position.set(-0.45, 0.2, 1.05);
+    const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+    rightEye.position.set(0.45, 0.2, 1.05);
+    robotGroup.add(leftEye);
+    robotGroup.add(rightEye);
+
+    // 4. الحلقات الكوانتية المدارية حول الروبوت
+    const ringGeo = new THREE.TorusGeometry(2.1, 0.03, 16, 100);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0.6 });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = -Math.PI / 4;
+    robotGroup.add(ring);
+
+    scene.add(robotGroup);
+    camera.position.z = 6;
+
+    // تفاعل الروبوت مع مؤشر الفأرة
+    let mouseX = 0, mouseY = 0;
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      mouseX = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
+      mouseY = -(((e.clientY - rect.top) / container.clientHeight) * 2 - 1);
+    });
+
+    // حلقة الحركة (Animation Loop)
+    let clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const elapsed = clock.getElapsedTime();
+
+      // حركة التنفس والدوران الهادئ
+      robotGroup.position.y = Math.sin(elapsed * 1.5) * 0.15;
+      halo.rotation.z += 0.01;
+      ring.rotation.y += 0.008;
+      ring.rotation.x = Math.sin(elapsed * 0.8) * 0.5;
+
+      // تتبع المؤشر بنعومة
+      robotGroup.rotation.y += (mouseX * 0.5 - robotGroup.rotation.y) * 0.05;
+      robotGroup.rotation.x += (-mouseY * 0.3 - robotGroup.rotation.x) * 0.05;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+  </script>
 </body>
 </html>
