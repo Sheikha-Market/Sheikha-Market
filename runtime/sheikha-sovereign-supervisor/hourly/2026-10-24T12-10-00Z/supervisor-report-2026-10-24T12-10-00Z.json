@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-10-24T12-10-00Z",
+  "local_time": "2026-10-24 15:10:09 +03",
+  "location": "Khobar, Eastern Province, SA",
+  "seal": "BOUND_BY_QURAN_SUNNAH - ATOM_WATER_RASUL_JANNAH_SEALED",
+  "fingerprint": "BOUND_BY_QURAN_SUNNAH",
+  "containers": {
+    "sheikha-test": "976582068c3b Up 16h 0.0.0.0:18081->8080 - PASS",
+    "sheikha-supreme": "2a953f6e368f Up 16h host network - PASS"
+  },
+  "infinite_agent": {"expected": "ok enabled:true ready:true from 18081"},
+  "health": {"endpoint": "18081/api/health", "status": "ok"},
+  "weights": {"current_after_fix": "278 weights 12.7M SHK - 55 advanced (Sheikha Lang 10 + All Langs 15 + Compute 10 + Eng 10 + Mgmt 10)"},
+  "deploy": {
+    "build": "pending d81ebfcd4-278weights",
+    "previous_build": "b94e2656 SUCCESS 49.2 MiB",
+    "cloud_run_fix": "clear-volumes + HOST=0.0.0.0",
+    "auth": "market@sheikha.top OK"
+  },
+  "vps_949321": {"firewall": "BLOCKED 62954/tcp L1 manual hPanel - TODO", "note": "افتحي Hostinger hPanel > Firewall > Allow 62954/tcp"},
+  "governance": "الحوكمة فوق الأتمتة - لا كتابة فوق تقارير قديمة - BOUND_BY_QURAN_SUNNAH"
+}

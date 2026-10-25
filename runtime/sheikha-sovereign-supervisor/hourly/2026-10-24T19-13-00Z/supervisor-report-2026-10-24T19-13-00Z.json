@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-10-24T19-13-00Z",
+  "local_time": "2026-10-24 22:13:45 +03",
+  "location": "Khobar, Eastern Province, SA",
+  "seal": "BOUND_BY_QURAN_SUNNAH - ATOM_WATER_RASUL_JANNAH_SEALED",
+  "fingerprint": "BOUND_BY_QURAN_SUNNAH",
+  "containers": {
+    "sheikha-test": "976582068c3b - from podman ps",
+    "sheikha-supreme": "2a953f6e368f - from podman ps"
+  },
+  "infinite_agent": {
+    "endpoint_18081": "from curl 18081",
+    "endpoint_18080": "from curl 18080",
+    "expected": "ok enabled:true ready:true seal ATOM_WATER_RASUL_JANNAH_SEALED"
+  },
+  "health": {
+    "endpoint": "18081/api/health",
+    "expected": "SHEIKHA_OPERATING_SYSTEM_V1 status ok pid 1 enabled 9 ready 9"
+  },
+  "weights": {
+    "current": "223 weights 8,080,000 SHK - before fix",
+    "target": "278 weights 12.7M SHK - 55 advanced (Sheikha Lang 10 + All Langs 15 + Compute 10 + Eng 10 + Mgmt 10)",
+    "ledger": "SHEIKHA_EXPLORER_V5_LEDGER.json"
+  },
+  "deploy": {
+    "build_id": "b94e2656 SUCCESS 49.2 MiB",
+    "image": "us-central1-docker.pkg.dev/sheikha-marketplace/sheikha-apps/sheikha-main-portal:b03af0d43",
+    "cloud_run": "00038-h6j FAIL - needs --clear-volumes --clear-volume-mounts + HOST=0.0.0.0",
+    "next_image": "278weights",
+    "auth": "market@sheikha.top OK"
+  },
+  "vps_949321": {
+    "ip": "72.60.114.236:62954",
+    "firewall": "BLOCKED 62954/tcp L1 manual hPanel required",
+    "sheikha_ai_server": "Restarting Could not import app",
+    "prometheus": "Exited 127",
+    "grafana": "Up but 3000 closed externally"
+  },
+  "ports": {
+    "8080": "busy code-server",
+    "8081": "free",
+    "8082": "free",
+    "8083": "check fuser -k",
+    "8090": "explorer - recommended",
+    "18080": "sheikha-supreme host network",
+    "18081": "sheikha-test 0.0.0.0:18081->8080"
+  },
+  "governance": "الحوكمة فوق الأتمتة - لا فتح منافذ تلقائي - لا كتابة فوق تقارير قديمة - BOUND_BY_QURAN_SUNNAH - ATOM_WATER_RASUL_JANNAH_SEALED",
+  "reminder_id": "01a1658b-e26d-7226-8fb8-42ac81f79525"
+}
