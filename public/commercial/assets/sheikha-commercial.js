@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.search
   ).get('offer');
 
+  const campaign = new URLSearchParams(
+    window.location.search
+  );
+
   if (
     requestedOffer &&
     Array.from(offerSelect.options).some(
@@ -46,7 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
       offerId: data.get('offerId'),
       need: data.get('need'),
       consent: data.get('consent') === 'on',
-      source: 'WEBSITE_COMMERCIAL_V1'
+      source: 'WEBSITE_COMMERCIAL_V1',
+      campaignSource: campaign.get('utm_source'),
+      campaignMedium: campaign.get('utm_medium'),
+      campaignName: campaign.get('utm_campaign'),
+      campaignContent: campaign.get('utm_content'),
+      referrer: document.referrer,
+      landingPage: window.location.href
     };
 
     try {

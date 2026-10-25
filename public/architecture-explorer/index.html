@@ -1,59 +1,98 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>شيخة | مستكشف المعمارية</title>
-  <link rel="stylesheet" href="/architecture-explorer/styles.css?v=1"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#093e36">
+  <title>شيخة | المعمارية التقنية والتنظيمية</title>
+  <link rel="stylesheet" href="/architecture-explorer/styles.css?v=3">
+  <script type="module" src="/architecture-explorer/app.js?v=3"></script>
 </head>
 <body>
-  <main class="shell">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">Sheikha Enterprise Architecture Registry V2</p>
-        <h1>مستكشف معمارية شيخة</h1>
-        <p>
-          عرض طبقات الحضارة، المنظومة، المملكة، الاتحاد، إمارات التجارة،
-          الوزارات التشغيلية، البنية الرقمية، ونظام تشغيل القيمة.
-        </p>
+  <a class="skip-link" href="#workspace">انتقل إلى المعمارية</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="شيخة، الرئيسية"><strong>شيخة</strong><span lang="en" dir="ltr">SHEIKHA</span></a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/architecture-explorer/" aria-current="page">المعمارية</a>
+      <a href="/site-map/">خريطة المنصة</a>
+      <a href="/market/">السوق</a>
+    </nav>
+    <span class="platform-name" lang="en" dir="ltr">SHEIKHA UGIT-RP</span>
+  </header>
+  <main>
+    <section class="page-heading" aria-labelledby="page-title">
+      <div><p class="eyebrow">منصة شيخة التشغيلية العالمية الموحّدة</p><h1 id="page-title">المعمارية التقنية والتنظيمية</h1></div>
+      <div class="source-status"><span class="source-label">سجل التعريفات</span><span id="source-version">بانتظار المصدر</span><small>التشغيل الحي: غير متحقق</small></div>
+    </section>
+    <dl class="metrics" aria-label="ملخص السجل">
+      <div><dt>الطبقات المسجلة</dt><dd id="layer-count">—</dd></div>
+      <div><dt>علاقات الاعتماد</dt><dd id="relation-count">—</dd></div>
+      <div><dt>المبادئ</dt><dd id="principle-count">—</dd></div>
+      <div><dt>نطاقات التكامل</dt><dd id="integration-count">—</dd></div>
+    </dl>
+    <section class="toolbar" aria-label="تصفية المعمارية">
+      <div class="search-field"><img class="icon" src="/architecture-explorer/icons/search.svg" alt=""><input id="search" type="search" maxlength="160" aria-label="البحث في الطبقات" placeholder="بحث بالاسم أو القدرة أو المعرّف" autocomplete="off"></div>
+      <label class="group-filter"><span class="sr-only">المجال</span><select id="group-filter"><option value="all">جميع المجالات</option></select></label>
+      <button id="reset" class="icon-button" type="button" aria-label="مسح التصفية" data-tooltip="مسح التصفية"><img class="icon" src="/architecture-explorer/icons/filter-x.svg" alt=""></button>
+      <div class="view-switch" role="group" aria-label="طريقة العرض">
+        <button type="button" id="core-view" aria-pressed="true"><img class="icon" src="/architecture-explorer/icons/box.svg" alt="">النواة</button>
+        <button type="button" id="map-view" aria-pressed="false"><img class="icon" src="/architecture-explorer/icons/network.svg" alt="">خريطة</button>
+        <button type="button" id="list-view" aria-pressed="false"><img class="icon" src="/architecture-explorer/icons/list.svg" alt="">قائمة</button>
       </div>
-      <aside class="status-card">
-        <span>الحالة</span>
-        <strong id="status">...</strong>
-        <small id="version">...</small>
+      <div class="toolbar-actions">
+        <button id="refresh" class="icon-button" type="button" aria-label="تحديث السجل" data-tooltip="تحديث السجل"><img class="icon" src="/architecture-explorer/icons/refresh-cw.svg" alt=""></button>
+        <button id="export" class="icon-button" type="button" aria-label="تنزيل التعريفات JSON" data-tooltip="تنزيل التعريفات JSON" disabled><img class="icon" src="/architecture-explorer/icons/download.svg" alt=""></button>
+      </div>
+    </section>
+    <div class="fetch-line"><span id="announcement" role="status" aria-live="polite">جارٍ تحميل سجل المعمارية...</span><span id="loaded-at"></span></div>
+    <div id="error" class="error-banner" role="alert" hidden><span id="error-text"></span><button id="retry" type="button">إعادة المحاولة</button></div>
+    <div id="workspace" class="workspace" tabindex="-1" aria-busy="true">
+      <aside class="layer-sidebar" aria-labelledby="layers-heading">
+        <div class="section-heading"><h2 id="layers-heading">الطبقات</h2><span id="result-count" class="count">0</span></div>
+        <div id="layer-list" class="layer-list"></div>
+        <p id="empty" class="empty-state" hidden>لا توجد طبقات مطابقة.</p>
       </aside>
-    </header>
-
-    <section class="metrics">
-      <article><small>الطبقات</small><b id="layersCount">0</b></article>
-      <article><small>النشطة</small><b id="activeLayers">0</b></article>
-      <article><small>المبادئ</small><b id="principles">0</b></article>
-      <article><small>التكاملات</small><b id="integrations">0</b></article>
-    </section>
-
-    <section class="panel">
-      <div class="head">
-        <h2>شجرة الطبقات</h2>
-        <p>كل طبقة لها قدرات وتبعيات وحالة تشغيل.</p>
-      </div>
-      <div id="layers" class="layers"></div>
-    </section>
-
-
-    <section class="panel">
-      <div class="head">
-        <h2>مخطط التبعيات</h2>
-        <p>يعرض تسلسل اعتماد الطبقات من المرجعية إلى التشغيل.</p>
-      </div>
-      <div id="dependencyGraph" class="dependency-graph"></div>
-    </section>
-
-    <section class="panel">
-      <h2>تفاصيل الطبقة</h2>
-      <pre id="details">اختر طبقة من الشجرة...</pre>
-    </section>
+      <section class="overview" aria-labelledby="overview-heading">
+        <div class="section-heading"><h2 id="overview-heading">النواة المعمارية</h2><span class="section-meta">تصنيف معماري</span></div>
+        <div id="core-panel" class="core-panel">
+          <div class="core-heading"><div><span lang="en" dir="ltr">SHEIKHA / ARCHITECTURE</span><h3>النواة الموحّدة</h3></div><p>تصور ثلاثي الأبعاد<br><small>علاقات مسجلة · ليست تدفقات حية</small></p></div>
+          <div id="core-stage" class="core-stage" aria-label="النواة المعمارية ثلاثية الأبعاد">
+            <p id="scene-state" class="scene-state" role="status">بانتظار سجل المعمارية</p>
+            <p id="scene-hover" class="scene-hover" aria-live="off" hidden></p>
+            <div id="scene-error" class="scene-error" role="status" hidden><p>تعذر عرض المشهد ثلاثي الأبعاد على هذا المتصفح.</p><button id="scene-fallback" type="button">عرض الخريطة</button></div>
+          </div>
+          <div class="scene-toolbar" aria-label="أدوات المشهد">
+            <div class="camera-tools">
+              <button id="scene-left" class="icon-button" type="button" aria-label="تدوير لليسار" data-tooltip="تدوير لليسار" disabled><img class="icon" src="/architecture-explorer/icons/rotate-ccw.svg" alt=""></button>
+              <button id="scene-right" class="icon-button" type="button" aria-label="تدوير لليمين" data-tooltip="تدوير لليمين" disabled><img class="icon" src="/architecture-explorer/icons/rotate-cw.svg" alt=""></button>
+              <button id="scene-zoom-in" class="icon-button" type="button" aria-label="تكبير المشهد" data-tooltip="تكبير المشهد" disabled><img class="icon" src="/architecture-explorer/icons/zoom-in.svg" alt=""></button>
+              <button id="scene-zoom-out" class="icon-button" type="button" aria-label="تصغير المشهد" data-tooltip="تصغير المشهد" disabled><img class="icon" src="/architecture-explorer/icons/zoom-out.svg" alt=""></button>
+              <button id="scene-reset" class="icon-button" type="button" aria-label="إعادة ضبط الكاميرا" data-tooltip="إعادة ضبط الكاميرا" disabled><img class="icon" src="/architecture-explorer/icons/focus.svg" alt=""></button>
+            </div>
+            <label class="motion-toggle"><input id="scene-motion" type="checkbox" disabled><span>دوران تلقائي</span></label>
+          </div>
+          <div id="scene-legend" class="scene-legend" role="group" aria-label="مجالات النواة"></div>
+          <p id="scene-relations" class="scene-relations">بانتظار العلاقات المسجلة</p>
+        </div>
+        <div id="map-panel" hidden>
+          <div class="architecture-map" id="architecture-map">
+            <div class="map-orbit" aria-hidden="true"></div>
+            <figure class="vision-center"><img src="/images/sheikha-worldly-gardens-v1.png" alt="تصور معماري لحدائق ومبانٍ وقنوات مياه في شيخة" width="1024" height="1024"><figcaption><small>الرؤية</small><strong>الإنسان والطبيعة</strong><span>معرفة نافعة ونماء مستدام</span></figcaption></figure>
+            <div id="category-nodes"></div>
+          </div>
+          <div class="map-caption"><span>شيخة</span><p>الرؤية · القيم · التنظيم · التقنية · التكامل</p><small>الصورة تصور معماري، وليست مرفقًا تشغيليًا موثقًا.</small></div>
+        </div>
+        <div id="table-panel" hidden><div class="table-scroll"><table><caption class="sr-only">الطبقات وعلاقات الاعتماد المسجلة</caption><thead><tr><th scope="col">الطبقة</th><th scope="col">المجال</th><th scope="col">التبعيات</th></tr></thead><tbody id="table-body"></tbody></table></div></div>
+        <div class="registry-note"><img class="icon" src="/architecture-explorer/icons/info.svg" alt=""><p>التعريفات والعلاقات من سجل المشروع. حالة <bdi>ACTIVE</bdi> فيه لا تثبت اتصالًا حيًا أو جاهزية إنتاجية.</p></div>
+      </section>
+      <aside id="detail-panel" class="detail-panel" tabindex="-1" aria-labelledby="detail-heading">
+        <div class="section-heading"><h2 id="detail-heading">تفاصيل الطبقة</h2><img class="icon" src="/architecture-explorer/icons/layers.svg" alt=""></div>
+        <div id="detail-content"><p class="empty-state">بانتظار سجل المعمارية.</p></div>
+      </aside>
+    </div>
+    <section class="principles-band" aria-labelledby="principles-heading"><h2 id="principles-heading">المبادئ</h2><ul id="principles"></ul></section>
+    <footer class="page-footer"><p>المسميات التنظيمية داخلية في منظومة شيخة، ولا تمثل جهات حكومية أو سيادية أو سلطة دينية.</p><a href="/site-map/">خريطة المنصة <img class="icon" src="/architecture-explorer/icons/arrow-left.svg" alt=""></a></footer>
   </main>
-
-  <script src="/architecture-explorer/app.js?v=1"></script>
+  <noscript><p class="error-banner">يلزم تفعيل JavaScript لتحميل سجل المعمارية.</p></noscript>
 </body>
 </html>
