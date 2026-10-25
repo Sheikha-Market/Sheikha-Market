@@ -1,5 +1,3 @@
-// بسم الله الرحمن الرحيم - SHEIKHA SUPREME V44
-// لا إله إلا الله محمد رسول الله
 // SHEIKHA_SUPREME_STARTUP_BEGIN
 require('./global-neural-governance-init.js');
 {
@@ -15,486 +13,29 @@ require('./global-neural-governance-init.js');
     try {
       require(activationPath);
     } catch (_error) {
-      // A partially loaded module must not be reported as successful activation.
       throw new Error('SHEIKHA_SUPREME_ACTIVATION_LOAD_FAILED');
     }
     console.log('[SHEIKHA_SUPREME] MODULE_LOADED: runtime capabilities are not yet verified');
   }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
 // SHEIKHA_SUPREME_STARTUP_END
 
-const { registerOptionalEngineStubs, governedResolveEngine } = require('./core/engine-registry/sheikha-governed-engine-registry-v2');
-const { resolveEngine } = require('./core/engine-registry/sheikha-engine-registry-v1');
-const {
-  registerOptionalEngineContractFabric
-} = require('./core/optional-engine-contract-fabric/sheikha-optional-engine-contract-fabric-v14');
-
-registerOptionalEngineContractFabric();
-
-function resolveOptionalEngine(name, label) {
-  const result = governedResolveEngine(name);
-  if (result.status === 'RESOLVED') return result.instance;
-
-  console.log(`⏸️ [OPTIONAL] ${label || name}: ${result.status}`);
-  return result.instance;
-}
-
-const { runSheikhaProtocol } = require('./runtime/protocols/sheikha-protocol/sheikha-protocol');
-try {
-    const dotenv = require('dotenv');
-    dotenv.config({ path: '.env.runtime' });
-    dotenv.config();
-} catch (_) {}
+try { require('dotenv').config(); } catch (_) {}
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
-const { execSync } = require('child_process');
 const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
+const WebSocket = require('ws');
 
 function governedCronSchedule(expression, task, options) {
-  if (process.env.SHEIKHA_ENABLE_CRON !== 'true') {
-    console.log(`⏸️ [CRON DISABLED] ${expression} — set SHEIKHA_ENABLE_CRON=true in worker only`);
-    return { status: 'DISABLED', expression };
-  }
+    if (process.env.SHEIKHA_ENABLE_CRON !== 'true') return { status: 'DISABLED', expression };
+    return cron.schedule(expression, task, options);
+}
 
-  return cron.schedule(expression, task, options);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-const WebSocket = require('ws');
-const appConfig = require('./config/config');
-const unifiedRuntimeRegistry = require('./config/runtime-registry');
-const {
-    getRuntimeIdentity
-} = require('./lib/runtime-identity/sheikha-runtime-identity');
-
-// ====== SHARIA GUARD GLOBAL MIDDLEWARE ======
-// ====== SHARIA GUARD GLOBAL MIDDLEWARE & ROUTES ======
-const shariaGuard = require('./middleware/sheikha-sharia-guard');
-const runtimeSecurityMiddleware = require('./middleware/security');
-const tradeRoutes = require('./routes/trade.routes');
-const { sreMiddleware } = require('./middleware/sre-monitor');
-const sreRoutes = require('./routes/sre');
-const { registerSheikhaRuntimeHealthRoutes } = require("./routes/runtime-health/sheikha-runtime-health-routes");
-const { registerSheikhaRuntimeBootstrapRoutes } = require("./routes/runtime-bootstrap/sheikha-runtime-bootstrap-routes");
-
-
-// SHEIKHA GOVERNED ENGINE REGISTRY V2 BOOTSTRAP
-try {
-  registerOptionalEngineStubs();
-  console.log('✅ SHEIKHA Governed Engine Registry V2 ACTIVE');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Governed Engine Registry V2 bootstrap warning:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-const app = express();
-
-// SHEIKHA_OWNERSHIP_LICENSING_PRODUCTION_ENTRYPOINT_V1
-const sheikhaOwnershipLicensingRoutes = require(
-  './routes/ownership-licensing/' +
-  'sheikha-ownership-licensing-routes.cjs'
-);
-
-const sheikhaProductionRiskToSafeRoutes = require(
-  './routes/production-risk-to-safe/' +
-  'sheikha-production-risk-to-safe-routes-v1'
-);
-
-const {
-  createSheikhaProductionChangeAdmissionRoutesV1
-} = require(
-  './routes/production-change-admission/'
-  + 'sheikha-production-change-admission-routes-v1'
-);
-
-app.use(
-  '/api/sheikha/ownership-licensing/v1',
-  sheikhaOwnershipLicensingRoutes
-);
-
-app.use(
-  '/api/sheikha/integrative-awareness/v1',
-  require('./routes/integrative-awareness/sheikha-integrative-awareness-routes-v1')
-);
-
-app.use(
-  '/api/sheikha/production-risk-to-safe/v1',
-  sheikhaProductionRiskToSafeRoutes
-);
-
-
-// SHEIKHA LANGUAGE FOUNDATION AND WORKBENCH V1
-app.use(
-  '/api/sheikha-platform/v1',
-  require(
-    './routes/sheikha-platform/' +
-    'sheikha-platform-routes'
-  )
-);
-
-app.use(
-  '/api/sheikha/production-change-admission/v1',
-  createSheikhaProductionChangeAdmissionRoutesV1()
-);
-
-// SHEIKHA SITE ROUTE, DOMAIN, AND IDENTITY REGISTRY V2
-app.use(
-  '/',
-  require(
-    './routes/site-registry/sheikha-public-route-aliases-v2'
-  )
-);
-app.use(
-  '/api/site-registry/v2',
-  require(
-    './routes/site-registry/sheikha-site-registry-routes-v2'
-  )
-);
-
-// SHEIKHA PAGE -> DOMAIN -> ENGINE -> INTEGRATION REGISTRY V3
-// Additive only: V2 remains canonical for public routes and aliases.
-app.use(
-  '/api/site-registry/v3',
-  require(
-    './routes/site-registry/sheikha-engine-domain-routes-v3'
-  )
-);
-
-app.use(
-  '/api/sheikha/bare-metal/v2/physical-trial/v1',
-  require(
-    './routes/bare-metal-v2/' +
-      'sheikha-bare-metal-v2-physical-trial-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/bare-metal/v2/uefi-integration/v1',
-  require(
-    './routes/bare-metal-v2/' +
-      'sheikha-uefi-integration-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/bare-metal/v2/hardware-compatibility/v1',
-  require(
-    './routes/bare-metal-v2/' +
-      'sheikha-hardware-compatibility-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/product-runtime/v1',
-  require(
-    './routes/product-runtime/' +
-      'sheikha-unified-product-runtime-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/commerce/v1',
-  require(
-    './routes/commerce/' +
-      'sheikha-unified-commerce-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/organization-control/v1',
-  require(
-    './routes/organization/' +
-      'sheikha-autonomous-role-dashboard-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/technical-experience/v1',
-  require(
-    './routes/technical-experience/' +
-      'sheikha-technical-experience-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/production-qualification/v1',
-  require(
-    './routes/production-qualification/' +
-      'sheikha-producer-production-qualification-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/production-federation/v1',
-  require(
-    './routes/production-federation/' +
-      'sheikha-governed-production-federation-routes-v1'
-  )
-);
-
-app.use(
-  '/api/sheikha/gardens-knowledge-dialogue/v2',
-  require(
-    './routes/gardens-dialogue/' +
-      'sheikha-gardens-knowledge-dialogue-routes-v2'
-  )
-);
-
-app.use(
-  '/api/sheikha/constructive-thought-dialogue/v3',
-  require(
-    './routes/gardens-dialogue/' +
-      'sheikha-constructive-thought-dialogue-ai-routes-v3'
-  )
-);
-
-app.use(
-  '/api/sheikha/root-architecture/v3',
-  require(
-    './routes/root-architecture/' +
-      'sheikha-root-architecture-v3-routes'
-  )
-);
-
-app.use(
-  '/api/sheikha/language-foundation/v2',
-  require(
-    './routes/language-foundation/' +
-      'sheikha-language-foundation-root-v2-routes'
-  )
-);
-
-app.use(
-  '/system-builder-workbench',
-  express.static(
-    require('path').join(
-      __dirname,
-      'public',
-      'system-builder-workbench'
-    )
-  )
-);
-
-// SHEIKHA SYSTEM BUILDER PLATFORM HIERARCHY V1
-app.use(
-  '/api/system-builder-platform/v1',
-  require(
-    './routes/system-builder-platform/' +
-    'sheikha-system-builder-platform-routes'
-  )
-);
-
-// SHEIKHA WEBSITE PRIMARY RUNTIME V1
-app.use(
-  '/api/website-primary-runtime/v1',
-  require(
-    './routes/website-primary-runtime/' +
-    'sheikha-website-primary-runtime-routes'
-  )
-);
-
-registerSheikhaRuntimeHealthRoutes(app);
-registerSheikhaRuntimeBootstrapRoutes(app);
-
-// SHEIKHA_TODO_TAGS_GLOBAL_REGISTRY_TOP_ROUTES
-app.get('/api/sheikha/global-registry/status', (_req, res) => res.json({
-  success: true,
-  data: {
-    status: 'ACTIVE',
-    fabric: 'SHEIKHA_GLOBAL_REGISTRY_FABRIC',
-    registries: ['github','gitlab','npm','pypi','dockerhub','openvsx','vscode-marketplace','google','apple','microsoft','windows'],
-    mode: 'read-first',
-    externalWrite: 'blocked_until_authorized'
-  }
-}));
-
-app.get('/api/sheikha/todo/status', (_req, res) => res.json({
-  success: true,
-  data: { count: 0, todos: [] }
-}));
-
-app.post('/api/sheikha/todo/add', express.json(), (req, res) => res.json({
-  success: true,
-  data: {
-    id: Date.now(),
-    text: String(req.body?.text || req.body?.message || '').trim(),
-    status: 'open',
-    createdAt: new Date().toISOString()
-  }
-}));
-
-app.get('/api/sheikha/tags/status', (_req, res) => res.json({
-  success: true,
-  data: { tags: ['runtime','vscode','debug','registry','rag','cli','sdk','mcp','graphics'] }
-}));
-
-app.post('/api/sheikha/tags/add', express.json(), (req, res) => res.json({
-  success: true,
-  data: { tag: String(req.body?.tag || '').trim(), status: 'registered' }
-}));
-
-console.log('[Sheikha] TOP Todo/Tags/Global Registry endpoints ACTIVE');
-
-
-// SHEIKHA_TODO_TAGS_GLOBAL_REGISTRY_TOP_ROUTES
-app.get('/api/sheikha/global-registry/status', (_req, res) => res.json({
-  success: true,
-  data: {
-    status: 'ACTIVE',
-    fabric: 'SHEIKHA_GLOBAL_REGISTRY_FABRIC',
-    registries: ['github','gitlab','npm','pypi','dockerhub','openvsx','vscode-marketplace','google','apple','microsoft','windows'],
-    mode: 'read-first',
-    externalWrite: 'blocked_until_authorized'
-  }
-}));
-
-app.get('/api/sheikha/todo/status', (_req, res) => res.json({
-  success: true,
-  data: { count: 0, todos: [] }
-}));
-
-app.post('/api/sheikha/todo/add', express.json(), (req, res) => res.json({
-  success: true,
-  data: {
-    id: Date.now(),
-    text: String(req.body?.text || req.body?.message || '').trim(),
-    status: 'open',
-    createdAt: new Date().toISOString()
-  }
-}));
-
-app.get('/api/sheikha/tags/status', (_req, res) => res.json({
-  success: true,
-  data: { tags: ['runtime','vscode','debug','registry','rag','cli','sdk','mcp','graphics'] }
-}));
-
-app.post('/api/sheikha/tags/add', express.json(), (req, res) => res.json({
-  success: true,
-  data: { tag: String(req.body?.tag || '').trim(), status: 'registered' }
-}));
-
-console.log('[Sheikha] TOP Todo/Tags/Global Registry endpoints ACTIVE');
-
-const SHEIKHA_RUNTIME_IDENTITY = getRuntimeIdentity({ rootDir: __dirname });
-app.locals.sheikhaRuntimeIdentity = SHEIKHA_RUNTIME_IDENTITY;
-const kernel = require('./runtime/kernel/sheikha-runtime-kernel');
-
-kernel.initialize();
-
-try {
-  const runtimeIdentityRoutes = require('./routes/runtime/identity/status.routes');
-
-try {
-  app.use(require('./routes/sheikha-runtime-chat'));
-app.use('/api/decision-flow', require('./routes/decision-flow.routes'));
-app.use(require('./routes/sheikha-enterprise-control-tower-routes'));
-app.use(require('./routes/sheikha-orchestrator-fabric-v2-routes'));
-app.use(require('./routes/sheikha-apex-control-plane-v1-routes'));
-app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
-app.use(require('./routes/sheikha-executive-platform-v2-routes'));
-app.use(
-  '/api/sheikha/intelligence-capability-apex/v1',
-  require(
-    './routes/intelligence-apex/' +
-    'sheikha-intelligence-capability-apex-routes-v1'
-  )
-);
-app.use(require('./routes/sheikha-conversation-engine-v1-routes'));
-app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
-// Recovery Health Governance routes (self-healing + corrective governance)
-try {
-    app.use(require('./routes/recovery-health/sheikha-recovery-health-routes'));
-    console.log('[Sheikha] Recovery Health Governance routes mounted');
-app.use(require('./routes/sheikha-vscode-extension-experience-apex-routes'));
-app.use(require('./routes/vital-chat-apex/sheikha-vital-chat-apex-routes'));
-app.use(require('./routes/debugging-apex/sheikha-debugging-apex-routes'));
-app.use(require('./routes/chat-interface-apex/sheikha-chat-interface-apex-routes'));
-app.use(require('./routes/ide-apex/sheikha-ide-apex-routes'));
-app.use(require('./routes/technical-capability-apex/sheikha-technical-capability-apex-routes'));
-app.use(require('./routes/streaming-chat-apex/sheikha-streaming-chat-apex-routes'));
-app.use(require('./routes/extension-streaming-artifact-apex/sheikha-extension-streaming-artifact-apex-routes'));
-app.use(require('./routes/sheikha-unified-chat-fabric'));
-app.use(require('./routes/chat-therapy/sheikha-chat-therapy-routes'));
-app.use(require('./routes/cognitive-governance-v3/sheikha-cognitive-pipeline-v3-routes'));
-app.use(require('./routes/conversation-engine/sheikha-conversation-engine-routes'));
-app.use(require('./routes/inspector-intelligence/sheikha-intelligent-inspector-routes'));
-app.use(require('./routes/log-intelligence-v2/sheikha-log-intelligence-v2-routes'));
-app.use(require('./routes/backend-registry-intelligence/sheikha-backend-registry-intelligence-routes'));
-app.use(require('./routes/sheikha-technical-life-fabric-routes'));
-app.use(require('./routes/sheikha-extension-chat-compat-routes'));
-app.use('/api/sheikha/robotics/v1', require('./routes/sheikha-robotics-v1.cjs'));
-app.use('/api/sheikha/foundation/managed/v1', require('./routes/sheikha-foundation-management-v1.cjs'));
-app.use('/api/sheikha/language/managed/v1', require('./routes/sheikha-managed-language-v1.cjs'));
-app.use(require('./routes/sheikha-foundry-routes'));
-app.use(require('./routes/sheikha-foundry-v2-routes'));
-app.use(require('./routes/enterprise-saas-runtime-routes'));
-app.use(require('./routes/enterprise-saas-v2-routes'));
-app.use(require('./routes/cloud-saas-apex-routes'));
-app.use(require('./routes/global-control-plane-routes'));
-app.use(require('./routes/cloud-production-deployment-apex/sheikha-cloud-production-deployment-apex-routes'));
-app.use(require('./routes/distribution-apex/sheikha-universal-distribution-apex-routes'));
-app.use(require('./routes/enterprise-platform-routes'));
-app.use(require('./routes/civilization-os-routes'));
-app.use(require('./routes/civilization-governance-v2-routes'));
-app.use(require('./routes/executive-mission-control-routes'));
-app.use(require('./routes/master-life-cycle-routes'));
-app.use(require('./routes/master-log-routes'));
-app.use(require('./routes/master-log-inspector-routes'));
-app.use(require('./routes/evidence-registry-routes'));
-app.use(require('./routes/civilization-command-intelligence-plane-routes'));
-app.use(require('./routes/civilization-stewardship-apex-routes'));
-app.use(require('./routes/covenant-governance-apex-routes'));
-app.use(require('./routes/layer-governance-promotion-os-routes'));
-app.use(require('./routes/storage-governance-routes'));
-app.use(require('./routes/platform-rc2-routes'));
-app.use(require('./routes/runtime-fabric-v5-routes'));
-app.use(require('./routes/sheikha-direct-repair-governance-routes'));
-
-try {
-  console.log('[Sheikha] Programming route mounted');
-  console.log('[Sheikha] Runtime chat endpoint mounted');
-app.use('/api/runtime/identity', runtimeIdentityRoutes);
-  app.use('/api/operating-system', runtimeIdentityRoutes);
-  app.use('/api/root-identity', runtimeIdentityRoutes);
-  console.log('✅ Sheikha Operating System identity ACTIVE', SHEIKHA_RUNTIME_IDENTITY.officialName);
-// ===== Root Control Plane — Central Governance Layer =====
-try {
-  const rootControlPlaneRoutes = require('./routes/root-control-plane.routes');
-
-// SHEIKHA_WELLKNOWN_IDENTITY
-app.get('/.well-known/sheikha.json', (_req, res) => {
-  return res.sendFile(
-    require('path').join(__dirname, '.well-known', 'sheikha.json')
-  );
-});
-
-
-// SHEIKHA_AI_MANIFEST
-
-// SHEIKHA_OPENAPI_RUNTIME
-
-// SHEIKHA_ENTERPRISE_IDENTITY
-app.use('/runtime', express.static('runtime'));
-
-app.use('/openapi', express.static('openapi'));
-
-app.use('/.well-known', express.static('.well-known'));
-app.use('/governance', express.static('governance'));
-
-app.use('/api/root-control-plane', rootControlPlaneRoutes);
-  console.log('✅ Root Control Plane ACTIVE on /api/root-control-plane');
-function optionalRequire(modulePath) {
-    try {
-        return require(modulePath);
-    } catch (error) {
-        const missingModule = error && error.code === 'MODULE_NOT_FOUND' && String(error.message || '').includes(modulePath);
-        if (!missingModule) {
-            console.log(`⚠️ تعذر تحميل ${modulePath}:`, error.message);
-        }
-        return null;
-    }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📜 SHEIKHA CHARTER — Runtime Governance Switches
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -502,91 +43,13 @@ function optionalRequire(modulePath) {
 // القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const runtimeBootstrap = optionalRequire('./lib/runtime/bootstrap');
-const runtimeBootstrapState = {
-    SHEIKHA_CHARTER_ENFORCED: false,
-    STARTUP_L0_ONLY: true,
-    SHEIKHA_RUNTIME_RING: 'fallback',
-    SHEIKHA_RUNTIME_STRICT_FINGERPRINT: false,
-    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS: true,
-    GIT_METADATA: null,
-    RUNTIME_FINGERPRINT_STATUS: 'fallback',
-    runtimeCore: {},
-    observability: null
-};
+const SHEIKHA_CHARTER_ENFORCED = true; // ✅ الميثاق حاكم
 
-if (typeof runtimeBootstrap === 'function') {
-    try {
-        Object.assign(runtimeBootstrapState, runtimeBootstrap({ rootDir: __dirname }) || {});
-    } catch (error) {
-        console.log('⚠️ Runtime bootstrap fallback:', error.message);
-    }
-} else {
-    console.log('⚠️ Runtime bootstrap غير متوفر — سيتم تشغيل الوضع الاحتياطي');
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-const {
-    SHEIKHA_CHARTER_ENFORCED,
-    STARTUP_L0_ONLY,
-    SHEIKHA_RUNTIME_RING,
-    SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-    GIT_METADATA,
-    RUNTIME_FINGERPRINT_STATUS,
-    runtimeCore,
-    observability
-} = runtimeBootstrapState;
+// المرحلة الثالثة: الرقمنة المنضبطة — L0-only startup
+const STARTUP_L0_ONLY = true; // ✅ الهدف: تحميل L0 (21 محرك) فقط عند البداية
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// 👁️ Self-Monitoring Watchdog — مراقب ذاتي وتحليل مستمر
-// ═══════════════════════════════════════════════════════════════════════════════
-const selfImprovementLog = [];
-function analyzeAndImprove() {
-    const mem = process.memoryUsage();
-    const uptime = process.uptime();
-    const now = new Date().toISOString();
-    let issues = [];
-    if (mem.heapUsed / mem.heapTotal > 0.85) {
-        issues.push('تحذير: استهلاك الذاكرة مرتفع');
-    }
-    if (uptime > 86400) {
-        issues.push('تنبيه: مدة التشغيل تجاوزت 24 ساعة — يفضل إعادة التشغيل الدورية');
-    }
-    // تحليل حالة شبكة الخلايا العصبية الجذرية
-    let neuralStatus = { status: 'not-initialized' };
-    try {
-        if (typeof rootNeuralCells !== 'undefined' && rootNeuralCells && typeof rootNeuralCells.getStatus === 'function') {
-            neuralStatus = rootNeuralCells.getStatus();
-            if (neuralStatus.status !== 'active') {
-                issues.push('تنبيه: شبكة الخلايا العصبية الجذرية غير نشطة');
-            }
-        } else {
-            issues.push('تنبيه: rootNeuralCells غير مفعّلة');
-        }
-    } catch (e) {
-        issues.push('خطأ في تحليل شبكة الخلايا العصبية: ' + e.message);
-    }
-    // يمكن إضافة تحليلات أعمق لاحقًا (مراقبة الأخطاء، البطء، إلخ)
-    const report = {
-        timestamp: now,
-        heapUsedMB: Math.round(mem.heapUsed / 1024 / 1024),
-        heapTotalMB: Math.round(mem.heapTotal / 1024 / 1024),
-        uptime: Math.floor(uptime),
-        neuralStatus,
-        issues,
-        action: issues.length ? 'اقتراح تحسين أو إعادة تشغيل' : 'النظام مستقر'
-    };
-    selfImprovementLog.push(report);
-    // تنفيذ تحسين تلقائي بسيط (مثلاً: حفظ تقرير، إرسال تنبيه، إلخ)
-    if (issues.length) {
-        try {
-            fs.writeFileSync('self-improvement-latest.json', JSON.stringify(report, null, 2));
-        } catch (e) {}
-    }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// مراقبة دورية كل 5 دقائق
-setInterval(analyzeAndImprove, 5 * 60 * 1000);
-// تحليل أولي عند التشغيل
-analyzeAndImprove();
+// جامع الأمان والأمن: Deny-by-default للأدوات الخطرة
+const MCP_DENY_BY_DEFAULT = true; // ✅ P0-4: لا أداة إلا بـ allowlist
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -645,21 +108,11 @@ function loadEngineOnDemand(engineFile) {
         }
     }
     return lazyEngines[engineFile];
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
-
-const runtimeEngineLoader = optionalRequire('./lib/runtime/core/engine-loader');
-const safeLoadEngine = typeof runtimeEngineLoader === 'function'
-    ? runtimeEngineLoader
-    : function fallbackSafeLoadEngine(enginePath) {
-        try {
-            return { ok: true, engine: require(enginePath) };
-        } catch (error) {
-            return { ok: false, engine: null, error: error.message };
-        }
-    };
 
 console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
 
@@ -670,6 +123,9 @@ let SheikaAIEngine = null;
 try {
     SheikaAIEngine = require('./lib/sheikha-ai-engine.js');
     console.log('✅ محرك ذكاء شيخة المتقدم - تم التحميل');
+} catch (e) {
+    console.log('⚠️ محرك ذكاء شيخة غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] محرك ذكاء شيخة — سيُحمّل عند الطلب');
 
@@ -678,21 +134,25 @@ console.log('⏸️ [LAZY] محرك ذكاء شيخة — سيُحمّل عند 
 /*
 let sheikhaLocalMind = null;
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-local-mind.js
-    // const { SheikhaLocalMind } = require('./lib/sheikha-local-mind.js');
-    console.log('⏸️ [LAZY] sheikha-local-mind.js — سيُحمّل عند الطلب');
+    const { SheikhaLocalMind } = require('./lib/sheikha-local-mind.js');
     sheikhaLocalMind = new SheikhaLocalMind();
     console.log('✅ 🧠 العقل المحلي المستقل (Neural + Lexicon + Mind) — مُفعّل بدون APIs خارجية');
+} catch (e) {
+    console.log('⚠️ العقل المحلي غير متوفر:', e.message);
+}
 */
 console.log('⏸️ العقل المحلي — معطّل مؤقتاً (P0-1 تسريع)');
 
-// 🛠️ محرك التطوير المتكامل (Sheikha IDE + Local AI Gateway)
+// 🛠️ محرك التطوير المتكامل (Cursor + Claude)
 // ═══ P0-1: LAZY — محرك L2 ═══
 let DevelopmentEngine = null;
 /* LAZY-DISABLED:
 try {
     DevelopmentEngine = require('./lib/development-engine.js');
-    console.log('✅ محرك التطوير المتكامل (Sheikha IDE + Local AI Gateway) - تم التحميل');
+    console.log('✅ محرك التطوير المتكامل (Cursor + Claude) - تم التحميل');
+} catch (e) {
+    console.log('⚠️ محرك التطوير غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Development Engine — سيُحمّل عند الطلب');
 
@@ -701,11 +161,12 @@ console.log('⏸️ [LAZY] Development Engine — سيُحمّل عند الطل
 let sheikaNav = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-navigator.js
-    // const SheikaNavigator = require('./lib/sheikha-navigator.js');
-    console.log('⏸️ [LAZY] sheikha-navigator.js — سيُحمّل عند الطلب');
+    const SheikaNavigator = require('./lib/sheikha-navigator.js');
     sheikaNav = new SheikaNavigator(path.join(__dirname, 'data'));
     console.log('✅ Navigator — محرك الناقل الذكي مفعّل');
+} catch (e) {
+    console.log('⚠️ Navigator غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Navigator — سيُحمّل عند الطلب');
 
@@ -714,11 +175,12 @@ console.log('⏸️ [LAZY] Navigator — سيُحمّل عند الطلب');
 let marketingEngine = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (UNKNOWN) - sheikha-marketing-engine.js
-    // const SheikaMarketingEngine = require('./lib/sheikha-marketing-engine.js');
-    console.log('⏸️ [LAZY] sheikha-marketing-engine.js — سيُحمّل عند الطلب');
+    const SheikaMarketingEngine = require('./lib/sheikha-marketing-engine.js');
     marketingEngine = new SheikaMarketingEngine(__dirname);
     console.log('✅ Marketing Engine — محرك التسويق الرقمي مفعّل');
+} catch (e) {
+    console.log('⚠️ Marketing Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Marketing Engine — سيُحمّل عند الطلب');
 
@@ -726,25 +188,24 @@ console.log('⏸️ [LAZY] Marketing Engine — سيُحمّل عند الطلب
 // ✅ L0 CRITICAL — يُحمّل فوراً
 let pilotEngine = null;
 try {
-    const pilotEngineLoad = safeLoadEngine('./lib/sheikha-pilot-engine.js');
-    pilotEngine = pilotEngineLoad.ok
-        ? new pilotEngineLoad.engine(__dirname)
-        : null;
-    if (pilotEngine) {
-        console.log(`✅ Pilot Engine — وضع التشغيل: ${pilotEngine.mode}`);
-    } else {
-        console.log('⚠️ Pilot Engine غير متوفر: missing');
-    }
+    const SheikaPilotEngine = require('./lib/sheikha-pilot-engine.js');
+    pilotEngine = new SheikaPilotEngine(__dirname);
+    console.log(`✅ Pilot Engine — وضع التشغيل: ${pilotEngine.mode}`);
+} catch (e) {
+    console.log('⚠️ Pilot Engine غير متوفر:', e.message);
+}
+
 // ═══ EXCELLENCE ENGINE — محرك الإتقان والتقدم العلمي والتجاري والتقني ═══
 // ═══ P0-1: LAZY — محرك L1 ═══
 let excellenceEngine = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-excellence-engine.js
-    // const SheikaExcellenceEngine = require('./lib/sheikha-excellence-engine.js');
-    console.log('⏸️ [LAZY] sheikha-excellence-engine.js — سيُحمّل عند الطلب');
+    const SheikaExcellenceEngine = require('./lib/sheikha-excellence-engine.js');
     excellenceEngine = new SheikaExcellenceEngine(__dirname);
     console.log('✅ Excellence Engine — محرك الإتقان والتقدم مفعّل');
+} catch (e) {
+    console.log('⚠️ Excellence Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Excellence Engine — سيُحمّل عند الطلب');
 
@@ -753,11 +214,12 @@ console.log('⏸️ [LAZY] Excellence Engine — سيُحمّل عند الطل�
 let fourPhaseEngine = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-four-phase-engine.js
-    // const SheikaFourPhaseEngine = require('./lib/sheikha-four-phase-engine.js');
-    console.log('⏸️ [LAZY] sheikha-four-phase-engine.js — سيُحمّل عند الطلب');
+    const SheikaFourPhaseEngine = require('./lib/sheikha-four-phase-engine.js');
     fourPhaseEngine = new SheikaFourPhaseEngine(__dirname);
     console.log(`✅ Four-Phase Engine — المرحلة الحالية: ${fourPhaseEngine.getCurrentPhase()}`);
+} catch (e) {
+    console.log('⚠️ Four-Phase Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Four-Phase Engine — سيُحمّل عند الطلب');
 
@@ -766,11 +228,12 @@ console.log('⏸️ [LAZY] Four-Phase Engine — سيُحمّل عند الطل�
 let aiAdvancementEngine = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-ai-advancement-engine.js
-    // const SheikaAIAdvancementEngine = require('./lib/sheikha-ai-advancement-engine.js');
-    console.log('⏸️ [LAZY] sheikha-ai-advancement-engine.js — سيُحمّل عند الطلب');
+    const SheikaAIAdvancementEngine = require('./lib/sheikha-ai-advancement-engine.js');
     aiAdvancementEngine = new SheikaAIAdvancementEngine(__dirname);
     console.log(`✅ AI Advancement Engine — المستوى: ${aiAdvancementEngine.getCurrentLevel().name}`);
+} catch (e) {
+    console.log('⚠️ AI Advancement Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] AI Advancement Engine — سيُحمّل عند الطلب');
 
@@ -779,13 +242,14 @@ console.log('⏸️ [LAZY] AI Advancement Engine — سيُحمّل عند ال�
 /* LAZY: Production Engine
 let productionEngine = null;
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-production-engine.js
-    // const SheikaProductionEngine = require('./lib/sheikha-production-engine.js');
-    console.log('⏸️ [LAZY] sheikha-production-engine.js — سيُحمّل عند الطلب');
+    const SheikaProductionEngine = require('./lib/sheikha-production-engine.js');
     productionEngine = new SheikaProductionEngine(__dirname);
     // P0-1: تشغيل تلقائي معطّل للتسريع — يُفعّل يدوياً عند الحاجة
     // productionEngine.startAutoProduction();
     console.log('✅ Production Engine — مُحمّل (Auto-start: معطّل مؤقتاً)');
+} catch (e) {
+    console.log('⚠️ Production Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Production Engine — سيُحمّل عند الطلب');
 
@@ -794,13 +258,14 @@ console.log('⏸️ [LAZY] Production Engine — سيُحمّل عند الطل�
 /* LAZY: Monitor Engine
 let monitorEngine = null;
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-monitor-engine.js
-    // const SheikaMonitorEngine = require('./lib/sheikha-monitor-engine.js');
-    console.log('⏸️ [LAZY] sheikha-monitor-engine.js — سيُحمّل عند الطلب');
+    const SheikaMonitorEngine = require('./lib/sheikha-monitor-engine.js');
     monitorEngine = new SheikaMonitorEngine(__dirname, 8080);
     // P0-1: مراقبة تلقائية معطّلة للتسريع — تُفعّل يدوياً عند الحاجة
     // monitorEngine.startAutoMonitor(30000);
     console.log('✅ Monitor & Index Engine — مُحمّل (Auto-monitor: معطّل مؤقتاً)');
+} catch (e) {
+    console.log('⚠️ Monitor Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Monitor Engine — سيُحمّل عند الطلب');
 
@@ -809,12 +274,13 @@ console.log('⏸️ [LAZY] Monitor Engine — سيُحمّل عند الطلب')
 let dimEngine = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-dim-engine.js
-    // const SheikaDIMEngine = require('./lib/sheikha-dim-engine.js');
-    console.log('⏸️ [LAZY] sheikha-dim-engine.js — سيُحمّل عند الطلب');
+    const SheikaDIMEngine = require('./lib/sheikha-dim-engine.js');
     dimEngine = new SheikaDIMEngine(__dirname);
     dimEngine.initializeDefaults();
     console.log(`✅ DIM Engine — منهج الإتقان الرقمي (${dimEngine.workItems.length} عنصر عمل، ${dimEngine.decisions.length} قرار)`);
+} catch (e) {
+    console.log('⚠️ DIM Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] DIM Engine — سيُحمّل عند الطلب');
 
@@ -823,11 +289,12 @@ console.log('⏸️ [LAZY] DIM Engine — سيُحمّل عند الطلب');
 let automationEngine = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-automation-engine.js
-    // const SheikhaAutomationEngine = require('./lib/sheikha-automation-engine.js');
-    console.log('⏸️ [LAZY] sheikha-automation-engine.js — سيُحمّل عند الطلب');
+    const SheikhaAutomationEngine = require('./lib/sheikha-automation-engine.js');
     automationEngine = new SheikhaAutomationEngine({ dataDir: path.join(__dirname, 'data') });
     console.log(`✅ Automation Engine v2.0 — ${automationEngine.functions.size} وظيفة حقيقية | ${automationEngine.workflows.size} سير عمل | ${automationEngine.actions.size} إجراء | تغطية ${automationEngine.kpis.automationCoverage}% | n8n bridge: ${automationEngine.n8nBridge.enabled ? 'مُفعَّل' : 'معطّل'}`);
+} catch (e) {
+    console.log('⚠️ Automation Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Automation Engine — سيُحمّل عند الطلب');
 
@@ -836,18 +303,18 @@ console.log('⏸️ [LAZY] Automation Engine — سيُحمّل عند الطل�
 let surveyEngine = null;
 /* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-survey-feedback-engine.js
-    // const SheikhaStandardsSurveyEngine = require('./lib/sheikha-survey-feedback-engine.js');
-    console.log('⏸️ [LAZY] sheikha-survey-feedback-engine.js — سيُحمّل عند الطلب');
+    const SheikhaStandardsSurveyEngine = require('./lib/sheikha-survey-feedback-engine.js');
     surveyEngine = new SheikhaStandardsSurveyEngine(__dirname);
     const sd = surveyEngine.getDashboard();
     console.log(`✅ Survey & Feedback Engine — ${sd.sum.tpls} استبيان | ${sd.sum.qs} سؤال | ${sd.sum.ch} قناة جمع | ${sd.principles} مبدأ شرعي | إتقان ${sd.itq.score}%`);
+} catch (e) {
+    console.log('⚠️ Survey Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Survey Engine — سيُحمّل عند الطلب');
 
 // ═══ COMMS ENGINE — منظومة شيخة للاتصالات الشاملة ═══
 // SMS | واتساب | بريد | مكالمات آلية | مصادقة | إشعارات — بالكتاب والسنة
-let commsEngine = null;
 /* LAZY: let commsEngine = null;
 /* LAZY: try {
 /* LAZY:     const SheikhaCommsEngine = require('./lib/sheikha-comms-engine.js');
@@ -865,9 +332,7 @@ console.log('⏸️ [LAZY] Comms Engine — سيُحمّل عند الطلب');
 let aiCommsBridge = null;
 let _AICBridgeClass = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-ai-comms-bridge.js
-    /*     _AICBridgeClass = require('./lib/sheikha-ai-comms-bridge.js'); */
-    console.log('⏸️ [LAZY] sheikha-ai-comms-bridge.js — سيُحمّل عند الطلب');
+    _AICBridgeClass = require('./lib/sheikha-ai-comms-bridge.js');
     // التهيئة المؤجلة — تتم بعد تحميل sheikhaAI
     aiCommsBridge = new _AICBridgeClass({
         aiEngine: null,
@@ -876,33 +341,43 @@ try {
     });
     const bd = aiCommsBridge.getDashboard();
     console.log(`\u2705 AI-Comms Bridge \u2014 ${bd.summary.totalUniversalChannels || '?'} \u0642\u0646\u0627\u0629 \u0634\u0627\u0645\u0644\u0629 | ${bd.summary.socialMedia || 0} \u062a\u0648\u0627\u0635\u0644 | ${bd.summary.marketingChannels || 0} \u062a\u0633\u0648\u064a\u0642 | ${bd.summary.salesChannels || 0} \u0645\u0628\u064a\u0639\u0627\u062a | ${bd.summary.logisticsChannels || 0} \u0644\u0648\u062c\u0633\u062a\u064a\u0627\u062a | ${bd.summary.dataSources || 0} \u0645\u0635\u062f\u0631 \u0628\u064a\u0627\u0646\u0627\u062a | ${bd.summary.capabilities} \u0642\u062f\u0631\u0629 AI | ${bd.summary.thinkingModes} \u062a\u0641\u0643\u064a\u0631 | AI:${bd.aiConnected ? '\u2705' : '\u274c'} Comms:${bd.commsConnected ? '\u2705' : '\u274c'}`);
+} catch (e) {
+    console.log('\u26a0\ufe0f AI-Comms Bridge \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:', e.message);
+}
+
 // ═══ IHSAN ENGINE — منظومة شيخة للإحسان الرقمي والأساسي ═══
 let ihsanEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-ihsan-engine.js
-    /*     const SheikhaIhsanEngine = require('./lib/sheikha-ihsan-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-ihsan-engine.js — سيُحمّل عند الطلب');
+    const SheikhaIhsanEngine = require('./lib/sheikha-ihsan-engine.js');
     ihsanEngine = new SheikhaIhsanEngine(__dirname);
     const d = ihsanEngine.getDashboard();
     console.log(`✅ Ihsan Engine — ${d.ihsanLevels} مستوى إحسان | ${d.digitalApplications} تطبيق رقمي | ${d.principles} مبدأ شرعي | إحسان ${d.ihsanScore}%`);
+} catch (e) {
+    console.log('⚠️ Ihsan Engine غير متوفر:', e.message);
+}
+
 // ═══ ITQAN SYSTEM ENGINE — منظومة شيخة للإتقان الأساسي والرقمي ═══
 let itqanSystemEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-itqan-system-engine.js
-    /*     const SheikhaItqanSystemEngine = require('./lib/sheikha-itqan-system-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-itqan-system-engine.js — سيُحمّل عند الطلب');
+    const SheikhaItqanSystemEngine = require('./lib/sheikha-itqan-system-engine.js');
     itqanSystemEngine = new SheikhaItqanSystemEngine();
     const d = itqanSystemEngine.getDashboard();
     console.log(`✅ Itqan System Engine — ${d.domains} مجال إتقان | ${d.levels} مستوى | ${d.zeroDefectsRules} قاعدة صفر أخطاء | ${d.principles} أساس شرعي`);
+} catch (e) {
+    console.log('⚠️ Itqan System Engine غير متوفر:', e.message);
+}
+
 // ═══ QURAN & DHIKR ENGINE — منظومة القرآن والذكر والباقيات الصالحات ═══
 let quranDhikrEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-quran-dhikr-engine.js
-    /*     const SheikhaQuranDhikrEngine = require('./lib/sheikha-quran-dhikr-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-quran-dhikr-engine.js — سيُحمّل عند الطلب');
+    const SheikhaQuranDhikrEngine = require('./lib/sheikha-quran-dhikr-engine.js');
     quranDhikrEngine = new SheikhaQuranDhikrEngine();
     const d = quranDhikrEngine.getDashboard();
     console.log(`✅ Quran & Dhikr Engine — ${d.surahs} سورة | ${d.ayat} آية | ${d.adhkarCount} ذكر | ${d.baqiyatCount} باقية صالحة | ${d.features} ميزة رقمية`);
+} catch (e) {
+    console.log('⚠️ Quran & Dhikr Engine غير متوفر:', e.message);
+}
+
 // ═══ TAQWA ENGINE — منظومة تقوى الله — إن أكرمكم عند الله أتقاكم ═══
 let taqwaEngine = null;
 try {
@@ -910,6 +385,10 @@ try {
     taqwaEngine = new SheikhaTaqwaEngine();
     const d = taqwaEngine.getDashboard();
     console.log(`✅ Taqwa Engine — ${d.pillars} ركيزة تقوى | ${d.businessRules} ضابط تجاري | ${d.rewards} ثمرة | تقوى ${d.taqwaScore}%`);
+} catch (e) {
+    console.log('⚠️ Taqwa Engine غير متوفر:', e.message);
+}
+
 // ═══ EXPERIENCE ENGINE — محرك التجربة المتكاملة على نهج الرسول ﷺ ═══
 let experienceEngine = null;
 try {
@@ -917,23 +396,31 @@ try {
     experienceEngine = new SheikhaExperienceEngine();
     const d = experienceEngine.getDashboard();
     console.log(`✅ Experience Engine — ${d.summary.totalJourneys} رحلة | ${d.summary.totalSteps} خطوة | ${d.propheticPrinciples.total} مبدأ نبوي | إتقان ${d.metrics.itqanScore}%`);
+} catch (e) {
+    console.log('⚠️ Experience Engine غير متوفر:', e.message);
+}
+
 // ═══ GOV ENGINE — محرك الأنظمة الحكومية الشامل (سعودي + دولي + شركات حكومية) ═══
 let govEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-gov-engine.js
-    /*     const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-gov-engine.js — سيُحمّل عند الطلب');
+    const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js');
     govEngine = new SheikhaGovEngine();
     console.log(`✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`);
+} catch (e) {
+    console.log('⚠️ Gov Engine غير متوفر:', e.message);
+}
+
 // ═══ BARAKAH ENGINE — منظومة البركة للاقتصاد الإسلامي ═══
 let barakahEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-barakah-engine.js
-    /*     const SheikhaBarakahEngine = require('./lib/sheikha-barakah-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-barakah-engine.js — سيُحمّل عند الطلب');
+    const SheikhaBarakahEngine = require('./lib/sheikha-barakah-engine.js');
     barakahEngine = new SheikhaBarakahEngine();
     const bd = barakahEngine.getDashboard();
     console.log(`✅ Barakah Engine — مؤشر البركة: ${bd.barakahIndex.currentScore}/100 | ${bd.summary.pillarsCount} ركن | ${bd.summary.financingModesCount} نمط تمويل | تكامل منتدى البركة ✓`);
+} catch (e) {
+    console.log('⚠️ Barakah Engine غير متوفر:', e.message);
+}
+
 // ═══ MUSHARRI' ENGINE — مُشرِّع شيخة الذكي ═══
 let musharriEngine = null;
 try {
@@ -941,42 +428,54 @@ try {
     musharriEngine = new SheikhaMusharriEngine();
     const md = musharriEngine.getDashboard();
     console.log(`✅ Musharri' Engine — ${md.summary.totalSources} مصدر | ${md.summary.totalEvidence} دليل | ${md.summary.totalMuamalat} عقد | ${md.summary.totalProhibitions} محرّم | ${md.summary.totalEcommerceRulings} حكم إلكتروني`);
+} catch (e) {
+    console.log('⚠️ Musharri\' Engine غير متوفر:', e.message);
+}
+
 // ═══ COSMOS ENGINE — منظومة الأرض والسماء ═══
 let cosmosEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-cosmos-engine.js
-    /*     const SheikhaCosmosEngine = require('./lib/sheikha-cosmos-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-cosmos-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCosmosEngine = require('./lib/sheikha-cosmos-engine.js');
     cosmosEngine = new SheikhaCosmosEngine();
     const cd = cosmosEngine.getDashboard();
     console.log(`✅ Cosmos Engine — ${cd.summary.earthSectors} قطاع أرضي | ${cd.summary.spaceDomains} مجال فضائي | ${cd.summary.celestialBodies} جرم | ${cd.summary.tradeRoutes} ممر تجاري | ${cd.summary.quranVerses} آية`);
+} catch (e) {
+    console.log('⚠️ Cosmos Engine غير متوفر:', e.message);
+}
+
 // ═══ NETWORKS ENGINE — منظومة الشبكات والاتصالات والطاقة ═══
 let networksEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-networks-engine.js
-    /*     const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-networks-engine.js — سيُحمّل عند الطلب');
+    const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js');
     networksEngine = new SheikhaNetworksEngine();
     const nd = networksEngine.getDashboard();
     console.log(`✅ Networks Engine — ${nd.summary.networkTypes} شبكة | ${nd.summary.telecomSectors} اتصالات | ${nd.summary.mobileGenerations} جيل | ${nd.summary.energySectors} طاقة | ${nd.summary.digitalKeyTypes} مفتاح رقمي | ${nd.summary.cyberDomains} أمن`);
+} catch (e) {
+    console.log('⚠️ Networks Engine غير متوفر:', e.message);
+}
+
 // ═══ PETROLEUM ENGINE — منظومة شيخة للبترول والنفط والغاز ═══
 let petroleumEngine = null;
 try {
-    // P0-1: LAZY-DISABLED (L2) - sheikha-petroleum-engine.js
-    // const SheikhaP‌etroleumEngine = require('./lib/sheikha-petroleum-engine.js');
-    console.log('⏸️ [LAZY] sheikha-petroleum-engine.js — سيُحمّل عند الطلب');
+    const SheikhaP‌etroleumEngine = require('./lib/sheikha-petroleum-engine.js');
     petroleumEngine = new SheikhaP‌etroleumEngine();
     const pd = petroleumEngine.getDashboard();
     console.log(`✅ Petroleum Engine — ${pd.summary.valueChainStages} مرحلة | ${pd.summary.crudeBenchmarks} معيار خام | ${pd.summary.refiningProducts} منتج تكرير | ${pd.summary.tradingMarkets} سوق | ${pd.summary.organizations} منظمة`);
+} catch (e) {
+    console.log('⚠️ Petroleum Engine غير متوفر:', e.message);
+}
+
 // ═══ EARTH RESOURCES ENGINE — منظومة الزراعة والجغرافيا والمعادن والجيولوجيا ═══
 let earthResourcesEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-earth-resources-engine.js
-    /*     const SheikhaEarthResourcesEngine = require('./lib/sheikha-earth-resources-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-earth-resources-engine.js — سيُحمّل عند الطلب');
+    const SheikhaEarthResourcesEngine = require('./lib/sheikha-earth-resources-engine.js');
     earthResourcesEngine = new SheikhaEarthResourcesEngine();
     const ed = earthResourcesEngine.getDashboard();
     console.log(`✅ Earth Resources — ${ed.summary.agriSectors} زراعة | ${ed.summary.waterSources} مصدر مياه | ${ed.summary.mineralCategories} تصنيف معادن | ${ed.summary.ecosystems} نظام بيئي | ${ed.summary.continents} قارة | ${ed.summary.quranVerses} آية`);
+} catch (e) {
+    console.log('⚠️ Earth Resources Engine غير متوفر:', e.message);
+}
+
 // ═══ METALS MARKET ENGINE — سوق شيخة للمعادن والسكراب والتشليح ═══
 let metalsMarketEngine = null;
 try {
@@ -984,6 +483,10 @@ try {
     metalsMarketEngine = new SheikhaMetalsMarketEngine();
     const mm = metalsMarketEngine.getDashboard();
     console.log(`✅ Metals Market — ${mm.summary.preciousMetals} معدن ثمين | ${mm.summary.baseMetals} معدن أساسي | ${mm.summary.scrapCategories} سكراب | ${mm.summary.tashleehSteps} تشليح | ${mm.summary.shariaRules} ضابط شرعي`);
+} catch (e) {
+    console.log('⚠️ Metals Market Engine غير متوفر:', e.message);
+}
+
 // ═══ SUPPLY & LOGISTICS ENGINE — سلاسل الإمداد واللوجستيات ═══
 let supplyLogisticsEngine = null;
 try {
@@ -991,23 +494,32 @@ try {
     supplyLogisticsEngine = new SheikhaSupplyLogisticsEngine();
     const sl = supplyLogisticsEngine.getDashboard();
     console.log(`✅ Supply & Logistics — ${sl.summary.scmStages} مرحلة إمداد | ${sl.summary.logisticsModes} وسيلة نقل | ${sl.summary.incoterms} إنكوترم | ${sl.summary.saudiPorts} ميناء | ${sl.summary.tradeDocuments} مستند`);
+} catch (e) {
+    console.log('⚠️ Supply & Logistics Engine غير متوفر:', e.message);
+}
+
 // ═══ ECONOMICS ENGINE — التجارة والاقتصاد السعودي والعالمي ═══
 let economicsEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-economics-engine.js
-    /*     const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-economics-engine.js — سيُحمّل عند الطلب');
+    const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js');
     economicsEngine = new SheikhaEconomicsEngine();
     const ec = economicsEngine.getDashboard();
     console.log(`✅ Economics Engine — ${ec.summary.macroIndicators} مؤشر كلي | ${ec.summary.saudiSectors} قطاع سعودي | ${ec.summary.saudiBanks} بنك | ${ec.summary.globalExchanges} بورصة | ${ec.summary.investmentTypes} نوع استثمار | ${ec.summary.islamicFinancingModes} صيغة إسلامية`);
+} catch (e) {
+    console.log('⚠️ Economics Engine غير متوفر:', e.message);
+}
+
 // ═══ UNIVERSAL ENGINE — النظام الكوني بالكتاب والسنة ═══
 let universalEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-universal-engine.js
-    /*     const SheikhaUniversalEngine = require('./lib/sheikha-universal-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-universal-engine.js — سيُحمّل عند الطلب');
+    const SheikhaUniversalEngine = require('./lib/sheikha-universal-engine.js');
     universalEngine = new SheikhaUniversalEngine();
     const ue = universalEngine.getDashboard();
+    console.log(`✅ Universal Engine — ${ue.summary.heavens} سماء | ${ue.summary.cosmicLaws} سنة كونية | ${ue.summary.scienceBranches} علم | ${ue.summary.techFundamentals} تقنية | ${ue.summary.mathBranches} رياضيات | ${ue.summary.wisdomPrinciples} حكمة`);
+} catch (e) {
+    console.log('⚠️ Universal Engine غير متوفر:', e.message);
+}
+
 // ═══ TRADE ENGINE — التجارة المحلية السعودية والدولية ═══
 let tradeEngine = null;
 try {
@@ -1015,24 +527,32 @@ try {
     tradeEngine = new SheikhaTradeEngine();
     const td = tradeEngine.getDashboard();
     console.log(`✅ Trade Engine — ${td.summary.saudiRegulators} منظم | ${td.summary.incoterms} إنكوترم | ${td.summary.ecomModels} نموذج إلكتروني | ${td.summary.tradeRoutes} ممر تجاري | ${td.summary.shariaContracts} عقد شرعي`);
+} catch (e) {
+    console.log('⚠️ Trade Engine غير متوفر:', e.message);
+}
+
 // ═══ AI & COMPUTING ENGINE — الذكاء الاصطناعي والحاسب ═══
 let aiComputingEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-ai-computing-engine.js
-    /*     const SheikhaAIComputingEngine = require('./lib/sheikha-ai-computing-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-ai-computing-engine.js — سيُحمّل عند الطلب');
+    const SheikhaAIComputingEngine = require('./lib/sheikha-ai-computing-engine.js');
     aiComputingEngine = new SheikhaAIComputingEngine();
     const ac = aiComputingEngine.getDashboard();
     console.log(`✅ AI & Computing — ${ac.summary.aiBranches} فرع AI | ${ac.summary.programmingLanguages} لغة | ${ac.summary.cyberDomains} أمن | ${ac.summary.emergingTech} تقنية ناشئة | ${ac.summary.saudiAIEntities} جهة سعودية`);
+} catch (e) {
+    console.log('⚠️ AI & Computing Engine غير متوفر:', e.message);
+}
+
 // ═══ BANK & FUND ENGINE — بنك شيخة الإسلامي + صندوق شيخة الاستثماري ═══
 let bankFundEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-bank-fund-engine.js
-    /*     const SheikhaBank_FundEngine = require('./lib/sheikha-bank-fund-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-bank-fund-engine.js — سيُحمّل عند الطلب');
+    const SheikhaBank_FundEngine = require('./lib/sheikha-bank-fund-engine.js');
     bankFundEngine = new SheikhaBank_FundEngine();
     const bf = bankFundEngine.getDashboard();
     console.log(`✅ Bank & Fund — ${bf.summary.bankAccounts} حساب | ${bf.summary.bankFinancing} تمويل | ${bf.summary.investmentFunds} صندوق | ${bf.summary.riskTypes} مخاطر | ${bf.summary.complianceRegulations} امتثال`);
+} catch (e) {
+    console.log('⚠️ Bank & Fund Engine غير متوفر:', e.message);
+}
+
 // ═══ SECURITY ENGINE — الأمن الشامل والملكية الفكرية ═══
 let securityEngine = null;
 try {
@@ -1040,15 +560,21 @@ try {
     securityEngine = new SheikhaSecurityEngine();
     const se = securityEngine.getDashboard();
     console.log(`✅ Security Engine — ${se.summary.securityDomains} مجال أمن | ${se.summary.cyberDomains} سيبراني | ${se.summary.ipTypes} ملكية فكرية | ${se.summary.saudiEntities} جهة | ${se.summary.shariaRules} ضابط شرعي`);
+} catch (e) {
+    console.log('⚠️ Security Engine غير متوفر:', e.message);
+}
+
 // 🏭 محرك الصناعة والتصنيع والصناعة الرقمية
 let industryEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-industry-engine.js
-    /*     const SheikhaIndustryEngine = require('./lib/sheikha-industry-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-industry-engine.js — سيُحمّل عند الطلب');
+    const SheikhaIndustryEngine = require('./lib/sheikha-industry-engine.js');
     industryEngine = new SheikhaIndustryEngine();
     const ie = industryEngine.getDashboard();
     console.log(`✅ Industry Engine — ${ie.summary.industrialSectors} قطاع صناعي | ${ie.summary.digitalIndustryDomains} مجال رقمي | ${ie.summary.qualityMethodologies} منهجية جودة | ${ie.summary.robotTypes} نوع روبوت | ${ie.summary.saudiIndustrialCities} مدينة صناعية | ${ie.summary.shariaRules} ضابط شرعي`);
+} catch (e) {
+    console.log('⚠️ Industry Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك الشريعة الإسلامية الشامل
 let shariaEngine = null;
 try {
@@ -1056,6 +582,10 @@ try {
     shariaEngine = new SheikhaShareEngine();
     const sh = shariaEngine.getDashboard();
     console.log(`✅ Sharia Engine — ${sh.summary.quranSurahs} سورة | ${sh.summary.quranAyahs} آية | ${sh.summary.sunnahCollections} مصنف حديث | ${sh.summary.fiqhMadhahib} مذاهب | ${sh.summary.maqasidDaruriyyat} ضروريات | ${sh.summary.islamicFinanceContracts} عقد مالي | ${sh.summary.digitalShariaSystems} نظام رقمي`);
+} catch (e) {
+    console.log('⚠️ Sharia Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك تصنيف المستخدمين والفئات المستهدفة والتسويق
 let segmentsEngine = null;
 try {
@@ -1063,23 +593,32 @@ try {
     segmentsEngine = new SheikhaSegmentsEngine();
     const seg = segmentsEngine.getDashboard();
     console.log(`✅ Segments Engine — ${seg.summary.userSegments} فئة مستخدم | ${seg.summary.totalSubTypes} نوع فرعي | ${seg.summary.digitalChannelCategories} قناة رقمية | ${seg.summary.nonDigitalChannelCategories} قناة تقليدية | ${seg.summary.socialPlatforms} منصة تواصل | ${seg.summary.marketingMatrixEntries} مصفوفة تسويق | ${seg.summary.shariaRules} ضابط شرعي`);
+} catch (e) {
+    console.log('⚠️ Segments Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك العلوم والابتكار والبحث والمختبرات والتقنية
 let sciencesEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-sciences-engine.js
-    /*     const ShekhaSciencesEngine = require('./lib/sheikha-sciences-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-sciences-engine.js — سيُحمّل عند الطلب');
+    const ShekhaSciencesEngine = require('./lib/sheikha-sciences-engine.js');
     sciencesEngine = new ShekhaSciencesEngine();
     const sci = sciencesEngine.getDashboard();
     console.log(`✅ Sciences Engine — ${sci.summary.naturalScienceBranches} علوم طبيعية | ${sci.summary.appliedScienceBranches} علوم تطبيقية | ${sci.summary.medicalScienceBranches} علوم طبية | ${sci.summary.humanScienceBranches} علوم إنسانية | ${sci.summary.techDomains} مجال تقني | ${sci.summary.labTypes} نوع مختبر | ${sci.summary.explorationDomains} مجال استكشاف | ${sci.summary.islamicScholars} عالم إسلامي | ${sci.summary.digitalSystems} نظام رقمي`);
+} catch (e) {
+    console.log('⚠️ Sciences Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك المجتمعات والمجموعات
 let communityEngine = null;
 try {
     const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js');
-    console.log('✅ sheikha-community-engine.js loaded');
     communityEngine = new SheikhaCommunityEngine();
     const com = communityEngine.getDashboard();
     console.log(`✅ Community Engine — ${com.summary.communityTypes} نوع مجتمع | ${com.summary.totalSubGroups} مجموعة فرعية | ${com.summary.digitalTools} أداة رقمية | ${com.summary.islamicGoals + com.summary.economicGoals + com.summary.socialGoals + com.summary.digitalGoals} هدف`);
+} catch (e) {
+    console.log('⚠️ Community Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك القوانين والأنظمة والمعاهدات
 let legalEngine = null;
 try {
@@ -1087,55 +626,65 @@ try {
     legalEngine = new SheikhaLegalEngine();
     const leg = legalEngine.getDashboard();
     console.log(`✅ Legal Engine — ${leg.summary.saudiLawCategories} فئة نظام سعودي | ${leg.summary.saudiLawsTotal} نظام | ${leg.summary.internationalLawBranches} فرع قانون دولي | ${leg.summary.internationalOrgs} منظمة | ${leg.summary.treatiesTotal} معاهدة`);
+} catch (e) {
+    console.log('⚠️ Legal Engine غير متوفر:', e.message);
+}
+
 // ☪️ فهرس المحركات الشامل
 let masterCatalog = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-master-catalog.js
-    /*     const SheikhaMasterCatalog = require('./lib/sheikha-master-catalog.js'); */
-    console.log('⏸️ [LAZY] sheikha-master-catalog.js — سيُحمّل عند الطلب');
+    const SheikhaMasterCatalog = require('./lib/sheikha-master-catalog.js');
     masterCatalog = new SheikhaMasterCatalog();
     const cat = masterCatalog.getDashboard();
     console.log(`✅ Master Catalog — ${cat.summary.totalEngines} محرك | ${cat.summary.totalLayers} طبقة | ${cat.summary.totalAPIs} API | ${cat.summary.activeEngines} نشط`);
+} catch (e) {
+    console.log('⚠️ Master Catalog غير متوفر:', e.message);
+}
+
 // ☪️ محرك التقنية والحاسب الشامل
 let techEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-tech-computing-engine.js
-    /*     const SheikhaTechComputingEngine = require('./lib/sheikha-tech-computing-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-tech-computing-engine.js — سيُحمّل عند الطلب');
+    const SheikhaTechComputingEngine = require('./lib/sheikha-tech-computing-engine.js');
     techEngine = new SheikhaTechComputingEngine();
     const t = techEngine.getDashboard();
     console.log(`✅ Tech Computing Engine — ${t.summary.osCategories} فئة أنظمة تشغيل | ${t.summary.totalOSSystems} نظام | ${t.summary.programmingLanguages} لغة برمجة | ${t.summary.databaseCategories} فئة قواعد بيانات | ${t.summary.automotiveDomains} مجال سيارات | ${t.summary.emergingTechnologies} تقنية ناشئة`);
+} catch (e) {
+    console.log('⚠️ Tech Computing Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-calendar-engine.js
-    /*     const SheikhaCalendarEngine = require('./lib/sheikha-calendar-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-calendar-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCalendarEngine = require('./lib/sheikha-calendar-engine.js');
     calendarEngine = new SheikhaCalendarEngine();
     const cal = calendarEngine.getDashboard();
     console.log(`✅ Calendar Engine — ${cal.currentTime.hijri} | ${cal.summary.hijriMonths} شهر هجري | ${cal.summary.worldCalendars} تقويم عالمي | ${cal.summary.islamicEvents} مناسبة إسلامية | ${cal.summary.saudiEvents} مناسبة سعودية | ${cal.summary.realTimeEventTypes} نوع حدث لحظي | ${cal.summary.integrations} تكامل | ${cal.summary.digitalSystems} نظام رقمي`);
+} catch (e) {
+    console.log('⚠️ Calendar Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك نظام تشغيل شيخة — SheikhaOS
 let sheikhaOSEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-os-engine.js
-    /*     const SheikhaOSEngine = require('./lib/sheikha-os-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-os-engine.js — سيُحمّل عند الطلب');
+    const SheikhaOSEngine = require('./lib/sheikha-os-engine.js');
     sheikhaOSEngine = new SheikhaOSEngine();
     const os = sheikhaOSEngine.getDashboard();
     console.log(`✅ نظام شيخة — ${os.brandName} (${os.brandNameEn}) | ${os.summary.editions} إصدار | ${os.summary.builtInApps} تطبيق مدمج | ${os.summary.developerAPIs} API | ${os.summary.securityLayers} طبقة أمان | ${os.summary.sdkLanguages} لغة تطوير | ${os.summary.supremeLaws} قانون شرعي | ${os.summary.domainSpecs} مجال مواصفات | ${os.summary.totalConditions} شرط`);
+} catch (e) {
+    console.log('⚠️ SheikhaOS Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك سوق المدينة المنورة — Souq Al-Madinah Engine
 let souqMadinahEngine = null;
 try {
-    const souqEngineLoad = safeLoadEngine('./lib/sheikha-souq-madinah-engine.js');
-    souqMadinahEngine = souqEngineLoad.ok
-        ? new souqEngineLoad.engine()
-        : null;
-    if (souqMadinahEngine) {
-        const sm = souqMadinahEngine.getDashboard();
-        console.log(`✅ محرك سوق المدينة — ${sm.summary.pillars} ركن | ${sm.summary.tradeLaws} حكم بيوع | ${sm.summary.designSpecs} مواصفة | ${sm.summary.totalRules} قاعدة`);
-    } else {
-        console.log('⚠️ Souq Madinah Engine غير متوفر: missing');
-    }
+    const SheikhaSouqMadinahEngine = require('./lib/sheikha-souq-madinah-engine.js');
+    souqMadinahEngine = new SheikhaSouqMadinahEngine();
+    const sm = souqMadinahEngine.getDashboard();
+    console.log(`✅ محرك سوق المدينة — ${sm.summary.pillars} ركن | ${sm.summary.tradeLaws} حكم بيوع | ${sm.summary.designSpecs} مواصفة | ${sm.summary.totalRules} قاعدة`);
+} catch (e) {
+    console.log('⚠️ Souq Madinah Engine غير متوفر:', e.message);
+}
+
 // 📜 محرك التوثيق التاريخي الشامل — Historical Documentation Engine
 let historicalEngine = null;
 try {
@@ -1143,6 +692,10 @@ try {
     historicalEngine = new SheikhaHistoricalEngine();
     const hd = historicalEngine.getDashboard();
     console.log(`✅ محرك التوثيق التاريخي — ${hd.summary.totalEras} عصور | ${hd.summary.totalEvents} حدث | ${hd.summary.totalLaws} قانون | ${hd.summary.specifications} مواصفة`);
+} catch (e) {
+    console.log('⚠️ Historical Engine غير متوفر:', e.message);
+}
+
 // 🏛️ محرك الهيكل الإداري والمخطط الهندسي — Admin Blueprint Engine
 let adminBlueprintEngine = null;
 try {
@@ -1150,6 +703,10 @@ try {
     adminBlueprintEngine = new SheikhaAdminBlueprintEngine();
     const ab = adminBlueprintEngine.getDashboard();
     console.log(`✅ الهيكل الإداري — ${ab.summary.sectors} قطاع | ${ab.summary.totalDepartments} إدارة | ${ab.summary.estimatedStaff} موظف | ${ab.summary.engines} محرك | ${ab.summary.totalComponents} مكون`);
+} catch (e) {
+    console.log('⚠️ Admin Blueprint Engine غير متوفر:', e.message);
+}
+
 // 📖 محرك الآيات القرآنية للتجارة والأسواق — Quran Trade Engine
 let quranTradeEngine = null;
 try {
@@ -1157,6 +714,10 @@ try {
     quranTradeEngine = new SheikhaQuranTradeEngine();
     const qt = quranTradeEngine.getDashboard();
     console.log(`✅ آيات التجارة — ${qt.summary.totalVerses} آية | ${qt.summary.totalAbwab} أبواب | ربا + بيع + موازين + دَين + ذهب + زكاة + قوة + أنبياء + عدل`);
+} catch (e) {
+    console.log('⚠️ Quran Trade Engine غير متوفر:', e.message);
+}
+
 // ⚖️ محرك الأحاديث الصحيحة ومعايير السوق — Hadith Standards Engine
 let hadithStandardsEngine = null;
 try {
@@ -1164,6 +725,10 @@ try {
     hadithStandardsEngine = new SheikhaHadithStandardsEngine();
     const hs = hadithStandardsEngine.getDashboard();
     console.log(`✅ معايير الأحاديث — ${hs.summary.totalHadiths} حديث | ${hs.summary.measureUnits} وحدة قياس | ${hs.summary.totalActiveRules} قاعدة مفعّلة | ٨ أبواب`);
+} catch (e) {
+    console.log('⚠️ Hadith Standards Engine غير متوفر:', e.message);
+}
+
 // 🏦 محرك شيخة للصرافة والبنك المركزي — Banking & Exchange Engine
 let bankingEngine = null;
 try {
@@ -1171,15 +736,21 @@ try {
     bankingEngine = new SheikhaBankingEngine();
     const bk = bankingEngine.getDashboard();
     console.log(`✅ بنك شيخة المركزي — ${bk.summary.bankDepartments} قسم | ${bk.summary.bankProducts} منتج | ${bk.summary.islamicContracts} عقد | ${bk.summary.totalComponents} مكون`);
+} catch (e) {
+    console.log('⚠️ Banking Engine غير متوفر:', e.message);
+}
+
 // 🌍 محرك العاصمة الاقتصادية العالمية — Global Economic Capital Engine
 let capitalEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-capital-engine.js
-    /*     const SheikhaCapitalEngine = require('./lib/sheikha-capital-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-capital-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCapitalEngine = require('./lib/sheikha-capital-engine.js');
     capitalEngine = new SheikhaCapitalEngine();
     const ce = capitalEngine.getDashboard();
     console.log(`✅ العاصمة الاقتصادية — ${ce.summary.pillars} ركن | ${ce.summary.tradeCorridors} ممر | ${ce.summary.phases} مرحلة | ${ce.summary.totalComponents} مكون`);
+} catch (e) {
+    console.log('⚠️ Capital Engine غير متوفر:', e.message);
+}
+
 // 🏗️ محرك هيكل السوق الكامل — Market Structure Engine
 let marketStructureEngine = null;
 try {
@@ -1187,42 +758,54 @@ try {
     marketStructureEngine = new SheikhaMarketStructureEngine();
     const ms = marketStructureEngine.getDashboard();
     console.log(`✅ هيكل السوق — ${ms.summary.divisions} قطاع | ${ms.summary.marketSections} قسم | ${ms.summary.regulatoryRules} قاعدة | ${ms.summary.totalComponents} مكون`);
+} catch (e) {
+    console.log('⚠️ Market Structure Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك الحكمة والمنطق والبصيرة — SheikhaHikmah
 let hikmahEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-hikmah-engine.js
-    /*     const SheikhaHikmahEngine = require('./lib/sheikha-hikmah-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-hikmah-engine.js — سيُحمّل عند الطلب');
+    const SheikhaHikmahEngine = require('./lib/sheikha-hikmah-engine.js');
     hikmahEngine = new SheikhaHikmahEngine();
     const h = hikmahEngine.getDashboard();
     console.log(`✅ محرك الحكمة — ${h.summary.foundations} أساس | ${h.summary.logicLayers} طبقة منطق | ${h.summary.wisdomRules} قاعدة حكمة | ${h.summary.computationTypes} نوع حساب`);
+} catch (e) {
+    console.log('⚠️ Hikmah Engine غير متوفر:', e.message);
+}
+
 // ☪️ منظومة شيخة التشغيلية الشاملة — ١٥ قطاع و ٧٤ نظام
 let opsSystemsEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-ops-systems-engine.js
-    /*     const SheikhaOpsSystemsEngine = require('./lib/sheikha-ops-systems-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-ops-systems-engine.js — سيُحمّل عند الطلب');
+    const SheikhaOpsSystemsEngine = require('./lib/sheikha-ops-systems-engine.js');
     opsSystemsEngine = new SheikhaOpsSystemsEngine();
     const ops = opsSystemsEngine.getDashboard();
     console.log(`✅ Ops Systems Engine — ${ops.summary.sectors} قطاع | ${ops.summary.totalSystems} نظام تشغيلي | ${ops.summary.shariaPrinciples} ضابط شرعي`);
+} catch (e) {
+    console.log('⚠️ Ops Systems Engine غير متوفر:', e.message);
+}
+
 // ☪️ متصفح شيخة — Sheikha Browser
 let browserEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-browser-engine.js
-    /*     const SheikhaBrowserEngine = require('./lib/sheikha-browser-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-browser-engine.js — سيُحمّل عند الطلب');
+    const SheikhaBrowserEngine = require('./lib/sheikha-browser-engine.js');
     browserEngine = new SheikhaBrowserEngine();
     const br = browserEngine.getDashboard();
     console.log(`✅ Sheikha Browser — ${br.summary.coreFeatures} ميزة | ${br.summary.securityLayers} طبقة أمان | ${br.summary.platforms} منصة`);
+} catch (e) {
+    console.log('⚠️ Browser Engine غير متوفر:', e.message);
+}
+
 // ☪️ محرك التطوير المستمر والإتقان — DevOps
 let devopsEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-devops-engine.js
-    /*     const SheikhaDevOpsEngine = require('./lib/sheikha-devops-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-devops-engine.js — سيُحمّل عند الطلب');
+    const SheikhaDevOpsEngine = require('./lib/sheikha-devops-engine.js');
     devopsEngine = new SheikhaDevOpsEngine();
     const dv = devopsEngine.getDashboard();
     console.log(`✅ DevOps Engine — ${dv.summary.cicdStages} مرحلة CI/CD | ${dv.summary.improvementKPIs} مؤشر | ${dv.summary.teamRoles} دور`);
+} catch (e) {
+    console.log('⚠️ DevOps Engine غير متوفر:', e.message);
+}
+
 // ☪️ لوحة تحكم شيخة الشاملة — Dashboard
 let dashboardEngine = null;
 try {
@@ -1230,24 +813,32 @@ try {
     dashboardEngine = new SheikhaDashboardEngine();
     const db = dashboardEngine.getDashboard();
     console.log(`✅ Dashboard Engine — ${db.summary.totalPanels} لوحة | ${db.summary.totalWidgets} ويدجت | ${db.summary.totalViews} عرض | ${db.summary.roles} دور`);
+} catch (e) {
+    console.log('⚠️ Dashboard Engine غير متوفر:', e.message);
+}
+
 // ☪️ المنظومة الطبية والمعالجة — Medical
 let medicalEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-medical-engine.js
-    /*     const SheikhaMedicalEngine = require('./lib/sheikha-medical-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-medical-engine.js — سيُحمّل عند الطلب');
+    const SheikhaMedicalEngine = require('./lib/sheikha-medical-engine.js');
     medicalEngine = new SheikhaMedicalEngine();
     const med = medicalEngine.getDashboard();
     console.log(`✅ Medical Engine — ${med.summary.propheticRemedies} علاج نبوي | ${med.summary.medicalSpecialties} تخصص | ${med.summary.digitalSystems} نظام رقمي`);
+} catch (e) {
+    console.log('⚠️ Medical Engine غير متوفر:', e.message);
+}
+
 // ☪️ التعليمات والإجراءات والتعريفات ورحلة المستخدم — Instructions
 let instructionsEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-instructions-engine.js
-    /*     const SheikhaInstructionsEngine = require('./lib/sheikha-instructions-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-instructions-engine.js — سيُحمّل عند الطلب');
+    const SheikhaInstructionsEngine = require('./lib/sheikha-instructions-engine.js');
     instructionsEngine = new SheikhaInstructionsEngine();
     const ins = instructionsEngine.getDashboard();
     console.log(`✅ Instructions Engine — ${ins.summary.totalTerms} تعريف | ${ins.summary.journeyStages} مرحلة رحلة | ${ins.summary.procedureCategories} فئة إجراء`);
+} catch (e) {
+    console.log('⚠️ Instructions Engine غير متوفر:', e.message);
+}
+
 // ☪️ منظومة الكتاب والسنة — Quran & Sunnah
 let quranSunnahEngine = null;
 try {
@@ -1255,6 +846,10 @@ try {
     quranSunnahEngine = new SheikhaQuranSunnahEngine();
     const qs = quranSunnahEngine.getDashboard();
     console.log(`✅ Quran & Sunnah Engine — ${qs.summary.quranSurahs} سورة | ${qs.summary.quranAyahs} آية | ${qs.summary.hadithBooks} كتاب حديث | ${qs.summary.fiqhSchools} مذاهب`);
+} catch (e) {
+    console.log('⚠️ Quran & Sunnah Engine غير متوفر:', e.message);
+}
+
 // ☪️ منظومة هوية شيخة والعلامة التجارية — Brand
 let brandEngine = null;
 try {
@@ -1262,31 +857,41 @@ try {
     brandEngine = new SheikhaBrandEngine();
     const brd = brandEngine.getDashboard();
     console.log(`✅ Brand Engine — ${brd.summary.brandValues} قيمة | ${brd.summary.reachChannels} قناة وصول | ${brd.summary.brandColors} لون`);
+} catch (e) {
+    console.log('⚠️ Brand Engine غير متوفر:', e.message);
+}
+
 // ☪️ المعالجة الذاتية والإصلاح التلقائي — Self-Heal
 let selfHealEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-selfheal-engine.js
-    /*     const SheikhaSelfHealEngine = require('./lib/sheikha-selfheal-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-selfheal-engine.js — سيُحمّل عند الطلب');
+    const SheikhaSelfHealEngine = require('./lib/sheikha-selfheal-engine.js');
     selfHealEngine = new SheikhaSelfHealEngine();
     const sh = selfHealEngine.getDashboard();
     console.log(`✅ Self-Heal Engine — ${sh.summary.monitoringChecks} فحص | ${sh.summary.repairStrategies} استراتيجية إصلاح | ${sh.summary.escalationLevels} مستوى تصعيد`);
+} catch (e) {
+    console.log('⚠️ Self-Heal Engine غير متوفر:', e.message);
+}
+
 // ☪️ التكامل الذكي بين كل المنظومات — Integration
 let integrationEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-integration-engine.js
-    /*     const SheikhaIntegrationEngine = require('./lib/sheikha-integration-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-integration-engine.js — سيُحمّل عند الطلب');
+    const SheikhaIntegrationEngine = require('./lib/sheikha-integration-engine.js');
     integrationEngine = new SheikhaIntegrationEngine();
     const ig = integrationEngine.getDashboard();
     console.log(`✅ Integration Engine — ${ig.summary.integrationLayers} طبقة تكامل | ${ig.summary.totalEngines} محرك | ${ig.summary.dataFlowPatterns} نمط تدفق`);
+} catch (e) {
+    console.log('⚠️ Integration Engine غير متوفر:', e.message);
+}
+
 // ═══ منظومة شيخة للتطوير — SDK + MCP + IDE ═══
 let devPlatformEngine;
 try {
-    // P0-1: LAZY (L1) - sheikha-dev-platform-engine.js
-    /*     const SheikhaDevPlatformEngine = require('./lib/sheikha-dev-platform-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-dev-platform-engine.js — سيُحمّل عند الطلب');
+    const SheikhaDevPlatformEngine = require('./lib/sheikha-dev-platform-engine.js');
     devPlatformEngine = new SheikhaDevPlatformEngine();
+} catch (e) {
+    console.log('⚠️ Dev Platform Engine غير متوفر:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // ☪️ بسم الله الرحمن الرحيم
 // نظام سوق شيخة - قائم على الكتاب والسنة
@@ -1327,7 +932,8 @@ const HIJRI_DAYS = [
 function gregorianToHijri(gYear, gMonth, gDay) {
     const jd = gregorianToJulian(gYear, gMonth, gDay);
     return julianToHijri(jd);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 function gregorianToJulian(year, month, day) {
     if (month <= 2) {
         year -= 1;
@@ -1347,7 +953,7 @@ function julianToHijri(jd) {
     const month = Math.floor((24 * l3) / 709);
     const day = l3 - Math.floor((709 * month) / 24);
     const year = 30 * n + j - 30;
-
+    
     return { year, month, day };
 }
 
@@ -1372,7 +978,7 @@ function julianToGregorian(jd) {
     const day = b - d - Math.floor(30.6001 * e);
     const month = e < 14 ? e - 1 : e - 13;
     const year = month > 2 ? c - 4716 : c - 4715;
-
+    
     return { year, month, day };
 }
 
@@ -1381,7 +987,7 @@ function getCurrentHijriDate() {
     const now = new Date();
     const hijri = gregorianToHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
     const dayOfWeek = now.getDay();
-
+    
     return {
         year: hijri.year,
         month: hijri.month,
@@ -1406,7 +1012,7 @@ function getCurrentHijriDate() {
 // تنسيق التاريخ الهجري
 function formatHijriDate(hijriYear, hijriMonth, hijriDay, format = 'full') {
     const monthInfo = HIJRI_MONTHS[hijriMonth - 1];
-
+    
     switch (format) {
         case 'full':
             return `${hijriDay} ${monthInfo.name} ${hijriYear} هـ`;
@@ -1427,28 +1033,28 @@ function formatHijriDate(hijriYear, hijriMonth, hijriDay, format = 'full') {
 // التحقق من الأيام المباركة والمناسبات الإسلامية
 function getIslamicOccasions(hijriMonth, hijriDay) {
     const occasions = [];
-
+    
     // محرم
     if (hijriMonth === 1) {
         if (hijriDay === 1) occasions.push({ name: 'رأس السنة الهجرية', type: 'new_year' });
         if (hijriDay === 10) occasions.push({ name: 'يوم عاشوراء', type: 'blessed', fasting: true });
     }
-
+    
     // ربيع الأول
     if (hijriMonth === 3 && hijriDay === 12) {
         occasions.push({ name: 'المولد النبوي الشريف', type: 'blessed' });
     }
-
+    
     // رجب
     if (hijriMonth === 7 && hijriDay === 27) {
         occasions.push({ name: 'ليلة الإسراء والمعراج', type: 'blessed' });
     }
-
+    
     // شعبان
     if (hijriMonth === 8 && hijriDay === 15) {
         occasions.push({ name: 'ليلة النصف من شعبان', type: 'blessed' });
     }
-
+    
     // رمضان
     if (hijriMonth === 9) {
         occasions.push({ name: 'شهر رمضان المبارك', type: 'ramadan', fasting: true });
@@ -1456,12 +1062,12 @@ function getIslamicOccasions(hijriMonth, hijriDay) {
             occasions.push({ name: 'ليالي القدر المحتملة', type: 'laylat_qadr' });
         }
     }
-
+    
     // شوال
     if (hijriMonth === 10 && hijriDay === 1) {
         occasions.push({ name: 'عيد الفطر المبارك', type: 'eid', holiday: true });
     }
-
+    
     // ذو الحجة
     if (hijriMonth === 12) {
         if (hijriDay >= 1 && hijriDay <= 9) occasions.push({ name: 'أيام العشر المباركة', type: 'blessed' });
@@ -1469,7 +1075,7 @@ function getIslamicOccasions(hijriMonth, hijriDay) {
         if (hijriDay === 10) occasions.push({ name: 'عيد الأضحى المبارك', type: 'eid', holiday: true });
         if (hijriDay >= 11 && hijriDay <= 13) occasions.push({ name: 'أيام التشريق', type: 'tashreeq' });
     }
-
+    
     return occasions;
 }
 
@@ -1494,7 +1100,7 @@ const ISLAMIC_PRINCIPLES = {
             { text: 'إياكم ومحدثات الأمور فإن كل محدثة بدعة وكل بدعة ضلالة', narrator: 'أبو داود', grade: 'صحيح' }
         ]
     },
-
+    
     // المحرمات في المعاملات
     prohibited: {
         riba: {
@@ -1534,7 +1140,7 @@ const ISLAMIC_PRINCIPLES = {
             evidence: 'حيلة ربوية محرمة'
         }
     },
-
+    
     // شروط البيع الصحيح
     validSaleConditions: [
         { condition: 'رضا المتعاقدين', description: 'التراضي بين البائع والمشتري' },
@@ -1544,7 +1150,7 @@ const ISLAMIC_PRINCIPLES = {
         { condition: 'القدرة على التسليم', description: 'إمكان تسليم المبيع' },
         { condition: 'خلو العقد من الشروط الفاسدة', description: 'عدم وجود شروط تخالف الشرع' }
     ],
-
+    
     // آداب التجارة
     etiquette: [
         { adab: 'الصدق والأمانة', description: 'قول الحق في وصف السلعة' },
@@ -1560,7 +1166,7 @@ const ISLAMIC_PRINCIPLES = {
 function validateIslamicTransaction(transaction) {
     const violations = [];
     const warnings = [];
-
+    
     // التحقق من الربا
     if (transaction.interest && transaction.interest > 0) {
         violations.push({
@@ -1569,7 +1175,7 @@ function validateIslamicTransaction(transaction) {
             evidence: ISLAMIC_PRINCIPLES.prohibited.riba.evidence
         });
     }
-
+    
     // التحقق من الغرر
     if (!transaction.productDescription || transaction.productDescription.length < 10) {
         warnings.push({
@@ -1578,7 +1184,7 @@ function validateIslamicTransaction(transaction) {
             evidence: ISLAMIC_PRINCIPLES.prohibited.gharar.evidence
         });
     }
-
+    
     // التحقق من معلومية الثمن
     if (!transaction.price || transaction.price <= 0) {
         violations.push({
@@ -1587,7 +1193,7 @@ function validateIslamicTransaction(transaction) {
             evidence: 'من شروط البيع الصحيح معلومية الثمن'
         });
     }
-
+    
     // التحقق من ملكية السلعة
     if (transaction.sellerOwnership === false) {
         violations.push({
@@ -1596,7 +1202,7 @@ function validateIslamicTransaction(transaction) {
             evidence: 'نهى النبي ﷺ عن بيع ما لا يملك'
         });
     }
-
+    
     return {
         isValid: violations.length === 0,
         violations,
@@ -1628,7 +1234,7 @@ const PRAYER_TIMES_SETTINGS = {
 function getApproximatePrayerTimes() {
     const now = new Date();
     const month = now.getMonth() + 1;
-
+    
     // أوقات تقريبية للخبر (تختلف حسب الموسم)
     const times = {
         fajr: month >= 4 && month <= 9 ? '03:45' : '05:00',
@@ -1638,7 +1244,7 @@ function getApproximatePrayerTimes() {
         maghrib: month >= 4 && month <= 9 ? '18:30' : '17:30',
         isha: month >= 4 && month <= 9 ? '20:00' : '19:00'
     };
-
+    
     return {
         ...times,
         date: getCurrentHijriDate(),
@@ -1650,17 +1256,17 @@ function getApproximatePrayerTimes() {
 function isJumuahTime() {
     const now = new Date();
     if (now.getDay() !== 5) return false; // ليس يوم الجمعة
-
+    
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const currentTime = hours * 60 + minutes;
-
+    
     const [startH, startM] = PRAYER_TIMES_SETTINGS.jumuahPauseStart.split(':').map(Number);
     const [endH, endM] = PRAYER_TIMES_SETTINGS.jumuahPauseEnd.split(':').map(Number);
-
+    
     const startTime = startH * 60 + startM;
     const endTime = endH * 60 + endM;
-
+    
     return currentTime >= startTime && currentTime <= endTime;
 }
 
@@ -1683,7 +1289,7 @@ const ZAKAT_CONFIG = {
 
 function calculateZakat(amount, goldPricePerGram = 250) {
     const nisabValue = ZAKAT_CONFIG.nisab.gold.grams * goldPricePerGram;
-
+    
     if (amount < nisabValue) {
         return {
             required: false,
@@ -1692,9 +1298,9 @@ function calculateZakat(amount, goldPricePerGram = 250) {
             amount
         };
     }
-
+    
     const zakatAmount = amount * ZAKAT_CONFIG.rate;
-
+    
     return {
         required: true,
         amount,
@@ -1710,7 +1316,33 @@ function calculateZakat(amount, goldPricePerGram = 250) {
 // 🌍 نظام الترجمة الآلية الشامل - Multi-Language Auto Translation System
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const SUPPORTED_LANGUAGES = unifiedRuntimeRegistry.getHumanLanguageCatalog();
+const SUPPORTED_LANGUAGES = {
+    ar: { name: 'العربية', nameEn: 'Arabic', dir: 'rtl', flag: '🇸🇦', primary: true },
+    en: { name: 'English', nameEn: 'English', dir: 'ltr', flag: '🇺🇸' },
+    zh: { name: '中文', nameEn: 'Chinese', dir: 'ltr', flag: '🇨🇳' },
+    hi: { name: 'हिन्दी', nameEn: 'Hindi', dir: 'ltr', flag: '🇮🇳' },
+    es: { name: 'Español', nameEn: 'Spanish', dir: 'ltr', flag: '🇪🇸' },
+    fr: { name: 'Français', nameEn: 'French', dir: 'ltr', flag: '🇫🇷' },
+    ru: { name: 'Русский', nameEn: 'Russian', dir: 'ltr', flag: '🇷🇺' },
+    pt: { name: 'Português', nameEn: 'Portuguese', dir: 'ltr', flag: '🇧🇷' },
+    de: { name: 'Deutsch', nameEn: 'German', dir: 'ltr', flag: '🇩🇪' },
+    ja: { name: '日本語', nameEn: 'Japanese', dir: 'ltr', flag: '🇯🇵' },
+    ko: { name: '한국어', nameEn: 'Korean', dir: 'ltr', flag: '🇰🇷' },
+    tr: { name: 'Türkçe', nameEn: 'Turkish', dir: 'ltr', flag: '🇹🇷' },
+    ur: { name: 'اردو', nameEn: 'Urdu', dir: 'rtl', flag: '🇵🇰' },
+    fa: { name: 'فارسی', nameEn: 'Persian', dir: 'rtl', flag: '🇮🇷' },
+    id: { name: 'Bahasa Indonesia', nameEn: 'Indonesian', dir: 'ltr', flag: '🇮🇩' },
+    ms: { name: 'Bahasa Melayu', nameEn: 'Malay', dir: 'ltr', flag: '🇲🇾' },
+    th: { name: 'ไทย', nameEn: 'Thai', dir: 'ltr', flag: '🇹🇭' },
+    vi: { name: 'Tiếng Việt', nameEn: 'Vietnamese', dir: 'ltr', flag: '🇻🇳' },
+    it: { name: 'Italiano', nameEn: 'Italian', dir: 'ltr', flag: '🇮🇹' },
+    nl: { name: 'Nederlands', nameEn: 'Dutch', dir: 'ltr', flag: '🇳🇱' },
+    pl: { name: 'Polski', nameEn: 'Polish', dir: 'ltr', flag: '🇵🇱' },
+    uk: { name: 'Українська', nameEn: 'Ukrainian', dir: 'ltr', flag: '🇺🇦' },
+    bn: { name: 'বাংলা', nameEn: 'Bengali', dir: 'ltr', flag: '🇧🇩' },
+    tl: { name: 'Tagalog', nameEn: 'Tagalog', dir: 'ltr', flag: '🇵🇭' },
+    sw: { name: 'Kiswahili', nameEn: 'Swahili', dir: 'ltr', flag: '🇰🇪' }
+};
 
 // القاموس الأساسي للترجمة (العربية هي المصدر)
 const TRANSLATIONS = {
@@ -1893,7 +1525,7 @@ const TRANSLATIONS = {
         vi: 'Không hại', it: 'Senza danno', nl: 'Geen schade', pl: 'Bez szkody'
     },
     'شريكك الموثوق في عالم المعادن': {
-        en: 'Your trusted partner in the world of metals',
+        en: 'Your trusted partner in the world of metals', 
         fr: 'Votre partenaire de confiance dans le monde des métaux',
         tr: 'Metal dünyasında güvenilir ortağınız',
         ur: 'دھاتوں کی دنیا میں آپ کا قابل اعتماد ساتھی',
@@ -2159,37 +1791,37 @@ const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 ساعة
 function translate(text, targetLang, sourceLang = 'ar') {
     if (!text || targetLang === sourceLang) return text;
     if (targetLang === 'ar') return text; // العربية هي اللغة الأصلية
-
+    
     // البحث في القاموس أولاً
     if (TRANSLATIONS[text] && TRANSLATIONS[text][targetLang]) {
         return TRANSLATIONS[text][targetLang];
     }
-
+    
     // البحث في الذاكرة المؤقتة
     const cacheKey = `${text}:${sourceLang}:${targetLang}`;
     const cached = TRANSLATION_CACHE.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_EXPIRY) {
         return cached.translation;
     }
-
+    
     return text; // إرجاع النص الأصلي إذا لم توجد ترجمة
 }
 
 // دالة الترجمة الآلية (للمحتوى الديناميكي)
 async function autoTranslate(text, targetLang, sourceLang = 'ar') {
     if (!text || targetLang === sourceLang || targetLang === 'ar') return text;
-
+    
     // البحث في القاموس
     const directTranslation = translate(text, targetLang, sourceLang);
     if (directTranslation !== text) return directTranslation;
-
+    
     // البحث في الذاكرة المؤقتة
     const cacheKey = `auto:${text}:${sourceLang}:${targetLang}`;
     const cached = TRANSLATION_CACHE.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_EXPIRY) {
         return cached.translation;
     }
-
+    
     // محاولة الترجمة عبر API خارجي (محاكاة)
     // في الإنتاج سيتم استخدام Google Translate API أو DeepL
     try {
@@ -2200,25 +1832,26 @@ async function autoTranslate(text, targetLang, sourceLang = 'ar') {
                 translatedText = translatedText.replace(new RegExp(arWord, 'g'), translations[targetLang]);
             }
         }
-
+        
         // حفظ في الذاكرة المؤقتة
         TRANSLATION_CACHE.set(cacheKey, {
             translation: translatedText,
             timestamp: Date.now()
         });
-
+        
         return translatedText;
     } catch (error) {
         console.error('Translation error:', error);
         return text;
     }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // ترجمة كائن كامل
 async function translateObject(obj, targetLang, fieldsToTranslate = []) {
     if (!obj || typeof obj !== 'object' || targetLang === 'ar') return obj;
-
+    
     const translated = Array.isArray(obj) ? [] : {};
-
+    
     for (const [key, value] of Object.entries(obj)) {
         if (typeof value === 'string') {
             if (fieldsToTranslate.length === 0 || fieldsToTranslate.includes(key)) {
@@ -2232,40 +1865,14 @@ async function translateObject(obj, targetLang, fieldsToTranslate = []) {
             translated[key] = value;
         }
     }
-
+    
     return translated;
 }
 
 // نظام الذكاء الاصطناعي المستقل لشيخة
-// P0-1: الملف sheikha-ai غير متاح في startup (L0-only)، لذلك نستخدم fallback آمن
-let sheikhaAI = null;
-let KNOWLEDGE_BASE = {
-    metals: {},
-    supplyChain: { stages: [] },
-    standards: {},
-    regulations: { trading: [], environmental: [] }
-};
-try {
-    if (!STARTUP_L0_ONLY) {
-        // P0-1: BLOCKED (ملف مفقود/محظور) - sheikha-ai
-        // const aiModule = require('./lib/sheikha-ai');
-        const SheikhaAI = aiModule?.SheikhaAI;
-        KNOWLEDGE_BASE = aiModule?.KNOWLEDGE_BASE || KNOWLEDGE_BASE;
-        if (typeof SheikhaAI === 'function') {
-            sheikhaAI = new SheikhaAI();
-        }
-    }
-if (!sheikhaAI) {
-    sheikhaAI = {
-        async generateResponse() {
-            return { text: 'نظام الذكاء المحلي مؤجل حالياً ضمن وضع L0-only.', suggestions: [] };
-        },
-        getMetalInfo() { return null; },
-        getSupplyChainStages() { return []; },
-        calculateProfit() { return { profit: 0, margin: 0 }; },
-        suggestPrice() { return null; }
-    };
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+const { SheikhaAI, KNOWLEDGE_BASE } = require('./lib/sheikha-ai');
+const sheikhaAI = new SheikhaAI();
+
 // ═══ تهيئة مؤجلة: ربط AI-Comms Bridge بـ sheikhaAI ═══
 if (aiCommsBridge && sheikhaAI) {
     try {
@@ -2275,7 +1882,8 @@ if (aiCommsBridge && sheikhaAI) {
     } catch (e) {
         console.log('⚠️ AI-Comms Bridge — خطأ في الربط المؤجل:', e.message);
     }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // ─── مفاتيح الأمان — يجب تعيينها في .env ───
 const JWT_SECRET = process.env.JWT_SECRET;
 const PASSWORD_SALT = process.env.PASSWORD_SALT;
@@ -2291,160 +1899,108 @@ if (!PASSWORD_SALT || PASSWORD_SALT.length < 10) {
 function hashPassword(pwd) { return crypto.createHash('sha256').update(PASSWORD_SALT + (pwd || '')).digest('hex'); }
 function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
-// ═══ محادثة شيخة الحية — Live Chat Endpoint
-app.post("/api/sheikha/live-chat", express.json(), async (req, res) => {
-    const userMsg = (req.body && req.body.message || "").trim();
-    if (!userMsg) {
-        return res.status(400).json({ success: false, message: "الرسالة مطلوبة." });
-    }
-    let response = "";
-    try {
-        if (typeof rootNeuralCells !== "undefined" && rootNeuralCells && typeof rootNeuralCells.reply === "function") {
-            response = await rootNeuralCells.reply(userMsg, { user: req.user || null });
-        } else {
-            response = "شيخة: النظام يعمل، لكن الذكاء العصبي غير مفعل حاليًا.";
-        }
-    } catch (e) {
-        response = "حدث خطأ أثناء توليد الرد.";
-    }
-    res.json({ success: true, response });
-});
+const app = express();
+const { configureTrustedProxy } = require('./lib/runtime/sheikha-trusted-proxy.cjs');
+const proxyRateLimitOptions = configureTrustedProxy(app);
 
-const makeNoopEngine = (engineName) => class NoopEngine {
-    constructor() {
-        this.engineName = engineName;
-    }
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
+// ═══════════════════════════════════════════════════════════════════════════════
 
-    getDashboard() {
-        return {
-            engine: this.engineName,
-            status: 'fallback',
-            summary: {}
-        };
-    }
-
-    getProviders() {
-        return [];
-    }
-};
-
-const ObservabilityService = optionalRequire('./lib/runtime/services/observability-service') || class FallbackObservabilityService {
-    createLatencyMiddleware() {
-        return (req, res, next) => next();
-    }
-};
-const createRuntimeRouter = optionalRequire('./lib/runtime/routes/runtime-routes') || (() => express.Router());
-const MetalsMarketEngine = optionalRequire('./lib/runtime/engines/metals-market-engine') || makeNoopEngine('metals-market');
-const SmartCitiesEngine = optionalRequire('./lib/runtime/engines/smart-cities-engine') || makeNoopEngine('smart-cities');
-const SupplyChainEngine = optionalRequire('./lib/runtime/engines/supply-chain-engine') || makeNoopEngine('supply-chain');
-const RecyclingEngine = optionalRequire('./lib/runtime/engines/recycling-engine') || makeNoopEngine('recycling');
-const TraceabilityEngine = optionalRequire('./lib/runtime/engines/traceability-engine') || makeNoopEngine('traceability');
-const SpaceEngine = optionalRequire('./lib/runtime/engines/space-engine') || makeNoopEngine('space');
-const CommunicationsEngine = optionalRequire('./lib/runtime/engines/communications-engine') || makeNoopEngine('communications');
-const LegislativeEngine = optionalRequire('./lib/runtime/engines/legislative-engine') || makeNoopEngine('legislative');
-const ArbitrationEngine = optionalRequire('./lib/runtime/engines/arbitration-engine') || makeNoopEngine('arbitration');
-const EducationEngine = optionalRequire('./lib/runtime/engines/education-engine') || makeNoopEngine('education');
-const InnovationEngine = optionalRequire('./lib/runtime/engines/innovation-engine') || makeNoopEngine('innovation');
-const KnowledgeGraphEngine = optionalRequire('./lib/runtime/engines/knowledge-graph-engine') || makeNoopEngine('knowledge-graph');
-const InternationalConsultingEngine = optionalRequire('./lib/runtime/engines/international-consulting-engine') || makeNoopEngine('international-consulting');
-const RootNeuralCellsNetwork = optionalRequire('./lib/runtime/engines/root-neural-cells-network') || makeNoopEngine('root-neural-cells');
-const runtimeRegistry = optionalRequire('./lib/runtime/core/runtime-registry') || {};
-const hsRuntimeRegistry = optionalRequire('./lib/runtime/core/hs-runtime-registry') || {};
-const rootSystemRegistry = optionalRequire('./lib/runtime/core/root-system-registry') || {};
-const rootNeuralCellsRegistry = optionalRequire('./lib/runtime/core/root-neural-cells-registry') || {};
-const getNeuralCellsStatus = typeof rootNeuralCellsRegistry.getNeuralCellsStatus === 'function'
-    ? rootNeuralCellsRegistry.getNeuralCellsStatus
-    : () => ({ status: 'fallback', activeCells: 0, message: 'Root neural cells registry unavailable' });
-const consultingRegistry = optionalRequire('./lib/runtime/organizations/consulting/consulting-registry') || {};
-const consultingGovernance = optionalRequire('./lib/runtime/organizations/consulting/consulting-governance') || {};
-const consultingKpi = optionalRequire('./lib/runtime/organizations/consulting/consulting-kpi') || {};
-const consultingKnowledgeBase = optionalRequire('./lib/runtime/organizations/consulting/consulting-knowledge-base') || {};
-const createConsultingRouter = optionalRequire('./lib/runtime/organizations/consulting/consulting-routes') || (() => express.Router());
-const applySecurityMiddleware = optionalRequire('./lib/runtime/middleware/security-middleware');
-const runtimeObservability = new ObservabilityService();
-const metalsMarket = new MetalsMarketEngine();
-const smartCities = new SmartCitiesEngine();
-const supplyChain = new SupplyChainEngine();
-const recycling = new RecyclingEngine();
-const traceability = new TraceabilityEngine();
-const space = new SpaceEngine();
-const communicationsRuntime = new CommunicationsEngine();
-const legislative = new LegislativeEngine();
-const arbitration = new ArbitrationEngine();
-const education = new EducationEngine();
-const innovation = new InnovationEngine();
-const knowledgeGraph = new KnowledgeGraphEngine();
-const consulting = new InternationalConsultingEngine();
-const rootNeuralCells = new RootNeuralCellsNetwork();
-const runtimeCoreProfile = {
-    ...runtimeCore,
-    organization: 'SHEIKHA',
-    runtime: 'stable',
-    architecture: 'modular-runtime',
-    markets: [
-        'metals',
-        'scrap',
-        'gold',
-        'silver',
-        'financial',
-        'real-estate',
-        'ai',
-        'supply-chain'
-    ]
-};
-
-app.use(
-    '/api',
-    createRuntimeRouter(
-        runtimeCoreProfile,
-        runtimeObservability
-    )
-);
-
-app.use('/api/consulting', createConsultingRouter({
-    consultingRegistry,
-    consultingGovernance,
-    consultingKpi,
-    consultingKnowledgeBase,
-    consultingEngine: consulting,
-    hsRuntimeRegistry,
-    supplyChain,
-    recycling
-}));
-
-if (observability && typeof observability.createLatencyMiddleware === 'function') {
-    app.use(observability.createLatencyMiddleware({
-        slowMs: Number(process.env.SHEIKHA_SLOW_REQUEST_MS || 1000)
+// 1. Helmet — ترويسات الحماية (XSS, clickjacking, MIME sniffing)
+// ⚠️ HSTS معطّل لأن السيرفر يعمل على HTTP محلياً — يُفعّل عند النشر على HTTPS
+if (helmet) {
+    app.use(helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
+                styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+                fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+                imgSrc: ["'self'", "data:", "https:", "blob:"],
+                connectSrc: ["'self'", "ws:", "wss:", "http://localhost:*", "https://api.openai.com"],
+                frameSrc: ["'none'"],
+                objectSrc: ["'none'"],
+                upgradeInsecureRequests: null  // ⛔ تعطيل التحويل التلقائي لـ HTTPS
+            }
+        },
+        hsts: false,  // ⛔ تعطيل HSTS — السيرفر يعمل على HTTP محلياً
+        crossOriginEmbedderPolicy: false,
+        crossOriginResourcePolicy: { policy: 'cross-origin' }
     }));
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق أمني سابق)
-// ═══════════════════════════════════════════════════════════════════════════════
-if (typeof applySecurityMiddleware === 'function') {
-    applySecurityMiddleware({
-        app,
-        helmet,
-        compression,
-        rateLimit,
-        cors,
-        express
-    });
-    applySecurityMiddleware({
-        app,
-        helmet,
-        compression,
-        rateLimit,
-        cors,
-        express
+    console.log('✅ helmet مفعّل — ترويسات الحماية (بدون HSTS للبيئة المحلية)');
+}
+
+// 2. Compression — ضغط الاستجابات (تقليل 60-80% من الحجم)
+if (compression) {
+    app.use(compression({
+        level: 6,
+        threshold: 1024,
+        filter: (req, res) => {
+            if (req.headers['x-no-compression']) return false;
+            return compression.filter(req, res);
+        }
+    }));
+    console.log('✅ compression مفعّل — ضغط الاستجابات');
+}
+
+// 3. CORS — تقييد النطاقات المسموحة
+const corsOptions = {
+    origin: [
+        'https://sheikha.top',
+        'https://www.sheikha.top',
+        'http://localhost:23000',
+        'http://localhost:8080'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    maxAge: 86400
+};
+
+// 4. Input Sanitization — تنظيف المدخلات من XSS و Injection
+const sanitizeInput = (obj) => {
+    if (typeof obj === 'string') {
+        return obj
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;')
+            .replace(/\//g, '&#x2F;')
+            .trim();
+    }
+    if (Array.isArray(obj)) return obj.map(sanitizeInput);
+    if (obj && typeof obj === 'object') {
+        const clean = {};
+        for (const key of Object.keys(obj)) clean[key] = sanitizeInput(obj[key]);
+        return clean;
+    }
+    return obj;
+};
+
+// 5. Rate Limiters — حماية من الإغراق (DDoS)
+let generalLimiter, authLimiter, aiLimiter;
+if (rateLimit) {
+    // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
+    generalLimiter = rateLimit({
+        ...proxyRateLimitOptions,
+        windowMs: 15 * 60 * 1000,
+        max: 500,
+        message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
+        standardHeaders: true,
+        legacyHeaders: false
     });
     // حد صارم لتسجيل الدخول — 5 محاولات كل 15 دقيقة
     authLimiter = rateLimit({
+        ...proxyRateLimitOptions,
         windowMs: 15 * 60 * 1000,
         max: 5,
         message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' }
     });
     // حد لـ AI — 20 طلب كل 15 دقيقة
     aiLimiter = rateLimit({
+        ...proxyRateLimitOptions,
         windowMs: 15 * 60 * 1000,
         max: 20,
         message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' }
@@ -2453,677 +2009,38 @@ if (typeof applySecurityMiddleware === 'function') {
 }
 
 // === تطبيق الـ middleware بالترتيب الصحيح ===
-const corsOptions = {
-    origin: true,
-    credentials: true,
-    optionsSuccessStatus: 200
-};
-
 app.use(cors(corsOptions));
+// SHEIKHA_INFINITE_AGENT_BEFORE_404
+// Keep bounded JSON contracts ahead of the legacy text sanitizer.
+const localKernelRoutes = require('./routes/sheikha-infinite-agent/sheikha-infinite-agent-routes');
+if (generalLimiter) app.use(['/api/infinite-agent', '/api/sheikha-kernel', '/api/cosmic-engineering', '/api/cosmic'], generalLimiter);
+app.use('/api/infinite-agent', localKernelRoutes);
+app.use('/api/sheikha-kernel', localKernelRoutes);
+app.use('/api/cosmic-engineering', localKernelRoutes.createNaturalRouter());
+app.use('/api/cosmic', require('./routes/cosmic'));
+if (generalLimiter) app.use('/api/minds', generalLimiter);
+app.use('/api/minds', require('./routes/minds'));
+app.use(express.json());
 
-// SHEIKHA FAST SSE DIRECT ROUTE — SAFE V2
-app.post('/api/sheikha/streaming-chat-apex/v1/stream', (req, res) => {
-  const payload = {
-    message: req.body?.message || '',
-    channel: req.body?.channel || 'extension-chat',
-    mode: req.body?.mode || 'code',
-    ts: new Date().toISOString()
-  };
-
-  const token = `تم الاستلام: ${payload.message || 'أمر جديد'}\n\nشيخة تعمل بالمسار السريع الآن، والمحرك العميق يعمل في الخلفية دون تعطيل الشات.`;
-  const wantsJson = req.query?.format === 'json' || req.headers.accept === 'application/json';
-
-  if (wantsJson) {
-    return res.json({
-      success: true,
-      ack: true,
-      meta: { route: 'direct-fast-sse-safe-v2', backgroundEngine: true, blocking: false },
-      token,
-      done: true
-    });
-  }
-
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream; charset=utf-8',
-    'Cache-Control': 'no-cache, no-transform',
-    Connection: 'keep-alive',
-    'X-Accel-Buffering': 'no'
-  });
-
-  const send = (event, data) => {
-    res.write(`event: ${event}\n`);
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
-
-  send('ack', { success: true, accepted: true, startedAt: payload.ts });
-  send('meta', { route: 'direct-fast-sse-safe-v2', backgroundEngine: true, blocking: false, principle: 'لا ضرر ولا ضرار' });
-  send('token', { text: token });
-  send('done', { success: true });
-  res.end();
-
-  setImmediate(() => {
-    try {
-      console.log('[sheikha-fast-sse-bg]', payload.channel, payload.mode);
-    } catch (_) {}
-  });
+// تنظيف المدخلات
+app.use((req, res, next) => {
+    if (req.body) req.body = sanitizeInput(req.body);
+    if (req.query) req.query = sanitizeInput(req.query);
+    if (req.params) req.params = sanitizeInput(req.params);
+    next();
 });
 
-
-// SHEIKHA SERVER LIVE DIRECT ROUTES V1 — must be before slow/fallback routes
-(function registerSheikhaLiveDirectRoutes() {
-  if (typeof app === 'undefined' || !app || app.__sheikhaLiveDirectRoutesV1) return;
-  app.__sheikhaLiveDirectRoutesV1 = true;
-
-  function makeToken(message) {
-    const text = String(message || '').trim();
-    if (/تقرير|report|اكتب|اكتبي/i.test(text)) {
-      return [
-        'بسم الله الرحمن الرحيم',
-        '',
-        'أنا شيخة.',
-        '',
-        'أستطيع كتابة التقرير. أرسل الموضوع أو البيانات المطلوبة، وسأبنيه بصيغة: ملخص تنفيذي، تحليل، مخاطر، توصيات، وخطوات تالية.'
-      ].join('\n');
-    }
-
-    if (/diagnostics|حالة|افحص|health/i.test(text)) {
-      return [
-        'بسم الله الرحمن الرحيم',
-        '',
-        'أنا شيخة.',
-        '',
-        'المسار الحي يعمل. تم قبول الطلب عبر Live Direct Route دون انتظار المحرك العميق.'
-      ].join('\n');
-    }
-
-    return [
-      'بسم الله الرحمن الرحيم',
-      '',
-      'أنا شيخة.',
-      '',
-      `تم الاستلام: ${text || 'أمر جديد'}`,
-      '',
-      'شيخة تعمل الآن بالمسار الحي السريع، والمحرك العميق يعمل في الخلفية دون تعطيل الشات.'
-    ].join('\n');
-  }
-
-  function sendSse(res, event, data) {
-    res.write(`event: ${event}\n`);
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  }
-
-  function handleLive(req, res) {
-    const payload = {
-      message: req.body?.message || '',
-      mode: req.body?.mode || 'smart',
-      channel: req.body?.channel || 'extension-chat',
-      ts: new Date().toISOString()
-    };
-
-    const token = makeToken(payload.message);
-    const wantsJson =
-      req.query?.format === 'json' ||
-      String(req.headers.accept || '').includes('application/json');
-
-    if (wantsJson) {
-      return res.status(200).json({
-        success: true,
-        ack: true,
-        meta: {
-          route: 'sheikha-server-live-direct-v1',
-          live: true,
-          backgroundEngine: true,
-          blocking: false,
-          principle: 'لا ضرر ولا ضرار'
-        },
-        token,
-        answer: token,
-        done: true
-      });
-    }
-
-    res.writeHead(200, {
-      'Content-Type': 'text/event-stream; charset=utf-8',
-      'Cache-Control': 'no-cache, no-transform',
-      Connection: 'keep-alive',
-      'X-Accel-Buffering': 'no'
-    });
-
-    sendSse(res, 'ack', { success: true, accepted: true, startedAt: payload.ts });
-    sendSse(res, 'meta', {
-      route: 'sheikha-server-live-direct-v1',
-      live: true,
-      backgroundEngine: true,
-      blocking: false,
-      principle: 'لا ضرر ولا ضرار'
-    });
-    sendSse(res, 'token', { text: token });
-    sendSse(res, 'done', { success: true });
-    res.end();
-  }
-
-  app.post('/api/sheikha/streaming-chat-apex/v1/stream', handleLive);
-  app.post('/api/sheikha/extension-streaming-artifact-apex/v1/stream', handleLive);
-
-  app.get('/api/sheikha/extension-streaming-artifact-apex/v1/status', (_req, res) => {
-    res.json({
-      success: true,
-      status: 'ready',
-      route: 'sheikha-server-live-direct-v1',
-      live: true
-    });
-  });
-})();
-
-
-try {
-  app.use(require('./routes/developer-tools-apex/sheikha-developer-tools-apex-routes'));
-} catch (error) {
-  console.warn('[sheikha-developer-tools-apex] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/ai-notes-governance/sheikha-ai-notes-governance-routes'));
-} catch (error) {
-  console.warn('[sheikha-ai-notes-governance] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/supreme-governance-intelligence-fabric/sheikha-supreme-governance-intelligence-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-supreme-governance-intelligence-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/model-core/sheikha-ollama-core-routes'));
-} catch (error) {
-  console.warn('[sheikha-ollama-core] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/ai-cluster-pipeline-production/sheikha-ai-cluster-pipeline-production-routes'));
-} catch (error) {
-  console.warn('[sheikha-ai-cluster-pipeline-production] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/ha-ai-production-fabric/sheikha-ha-ai-production-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-ha-ai-production-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/autonomous-enterprise-fabric/sheikha-autonomous-enterprise-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-autonomous-enterprise-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/autonomous-execution-bridge/sheikha-autonomous-execution-bridge-routes'));
-} catch (error) {
-  console.warn('[sheikha-autonomous-execution-bridge] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA CHAT AUTONOMOUS EXECUTION BINDING V1
-(function registerSheikhaChatAutonomousExecutionBinding() {
-  if (typeof app === 'undefined' || !app || app.__sheikhaChatAutonomousExecutionBindingV1) return;
-  app.__sheikhaChatAutonomousExecutionBindingV1 = true;
-
-  async function executeAutonomous(message, mode) {
-    const { execute } = require('./runtime/autonomous-execution-bridge/v1/sheikha-autonomous-execution-bridge-v1');
-    return execute(message, {
-      mode: mode || 'smart',
-      timeoutMs: 180000,
-      numPredict: 160
-    });
-  }
-
-  app.post('/api/sheikha/chat/autonomous/v1', async (req, res) => {
-    try {
-      const result = await executeAutonomous(req.body?.message || '', req.body?.mode || 'smart');
-      res.json({
-        success: true,
-        route: 'SHEIKHA_CHAT_AUTONOMOUS_EXECUTION_BINDING_V1',
-        answer: result.answer,
-        result
-      });
-    } catch (error) {
-      res.json({
-        success: false,
-        route: 'SHEIKHA_CHAT_AUTONOMOUS_EXECUTION_BINDING_V1',
-        error: error.message,
-        fallback: 'تعذر تشغيل التنفيذ العميق، وتم الرجوع للمسار السريع.'
-      });
-    }
-  });
-
-  app.post('/api/sheikha/streaming-chat-apex/v1/autonomous', async (req, res) => {
-    try {
-      const result = await executeAutonomous(req.body?.message || '', req.body?.mode || 'smart');
-
-      res.writeHead(200, {
-        'Content-Type': 'text/event-stream; charset=utf-8',
-        'Cache-Control': 'no-cache, no-transform',
-        Connection: 'keep-alive',
-        'X-Accel-Buffering': 'no'
-      });
-
-      const send = (event, data) => {
-        res.write(`event: ${event}\n`);
-        res.write(`data: ${JSON.stringify(data)}\n\n`);
-      };
-
-      send('ack', { success: true, accepted: true });
-      send('meta', {
-        route: 'SHEIKHA_CHAT_AUTONOMOUS_EXECUTION_BINDING_V1',
-        apexLevel: 26,
-        model: result?.routed?.model,
-        status: result?.status
-      });
-      send('token', { text: result.answer || '' });
-      send('done', { success: true });
-      res.end();
-    } catch (error) {
-      res.writeHead(200, {
-        'Content-Type': 'text/event-stream; charset=utf-8',
-        'Cache-Control': 'no-cache, no-transform',
-        Connection: 'keep-alive'
-      });
-      res.write(`event: token\n`);
-      res.write(`data: ${JSON.stringify({ text: 'تعذر تشغيل التنفيذ العميق، وتم الرجوع للمسار السريع.' })}\n\n`);
-      res.write(`event: done\n`);
-      res.write(`data: ${JSON.stringify({ success: false, error: error.message })}\n\n`);
-      res.end();
-    }
-  });
-})();
-
-
-try {
-  app.use(require('./routes/sharia-governance-fabric/sheikha-sharia-governance-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-sharia-governance-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/knowledge-evidence-fabric/sheikha-knowledge-evidence-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-knowledge-evidence-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/supreme-operating-fabric/sheikha-supreme-operating-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-supreme-operating-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/live-realtime-fabric/sheikha-live-realtime-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-live-realtime-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/exponential-accounting-engine/sheikha-exponential-accounting-engine-routes'));
-} catch (error) {
-  console.warn('[sheikha-exponential-accounting-engine] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/exponential-cluster-taxonomy-fabric/sheikha-exponential-cluster-taxonomy-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-exponential-cluster-taxonomy-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/safe-catalyst-transport-fabric/sheikha-safe-catalyst-transport-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-safe-catalyst-transport-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/industrial-material-lifecycle-fabric/sheikha-industrial-material-lifecycle-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-industrial-material-lifecycle-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/ai-supply-chain-living-production/sheikha-ai-supply-chain-living-production-routes'));
-} catch (error) {
-  console.warn('[sheikha-ai-supply-chain-living-production] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/global-industrial-ai-os/sheikha-global-industrial-ai-os-routes'));
-} catch (error) {
-  console.warn('[sheikha-global-industrial-ai-os] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/exponential-civilization-fabric/sheikha-exponential-civilization-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-exponential-civilization-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/universal-civilization-fabric/sheikha-universal-civilization-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-universal-civilization-fabric] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {} catch(e){} catch (error) {
+// Rate limiters على المسارات المحددة
+if (generalLimiter) app.use('/api/', generalLimiter);
+if (authLimiter) {
+    app.use('/api/auth/login', authLimiter);
+    app.use('/api/auth/register', authLimiter);
+}
+if (aiLimiter) {
+    app.use('/api/ai/', aiLimiter);
+    app.use('/api/sheikha-ai/', aiLimiter);
 }
 
-
-try {
-  app.use(require('./routes/knowledge-graph-engine/sheikha-knowledge-graph-engine-routes'));
-} catch (error) {
-  console.warn('[sheikha-knowledge-graph-engine-v63] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/digital-twin-fabric/sheikha-digital-twin-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-digital-twin-fabric-v64] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/industrial-cognitive-factory-fabric/sheikha-industrial-cognitive-factory-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-industrial-cognitive-factory-fabric-v65] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/global-supply-chain-graph/sheikha-global-supply-chain-graph-routes'));
-} catch (error) {
-  console.warn('[sheikha-global-supply-chain-graph-v66] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/earth-digital-twin-fabric/sheikha-earth-digital-twin-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-earth-digital-twin-fabric-v67] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/unified-scientific-knowledge-graph/sheikha-unified-scientific-knowledge-graph-routes'));
-} catch (error) {
-  console.warn('[sheikha-unified-scientific-knowledge-graph-v68] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/industrial-cluster-fabric/sheikha-industrial-cluster-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-industrial-cluster-fabric-v69] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/civilization-operating-system/sheikha-civilization-operating-system-routes'));
-} catch (error) {
-  console.warn('[sheikha-civilization-operating-system-v70] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/quality-safety-fabric/sheikha-quality-safety-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-quality-safety-fabric-v71] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/research-innovation-fabric/sheikha-research-innovation-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-research-innovation-fabric-v72] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/human-model-fabric/sheikha-human-model-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-human-model-fabric-v73] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/self-healing-fabric/sheikha-self-healing-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-self-healing-fabric-v74] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/global-orchestrator-fabric/sheikha-global-orchestrator-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-global-orchestrator-fabric-v75] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/knowledge-universe-graph/sheikha-knowledge-universe-graph-routes'));
-} catch (error) {
-  console.warn('[sheikha-knowledge-universe-graph-v76] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/planetary-resource-fabric/sheikha-planetary-resource-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-planetary-resource-fabric-v77] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/industrial-ecosystem-fabric/sheikha-industrial-ecosystem-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-industrial-ecosystem-fabric-v78] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/civilization-intelligence-fabric/sheikha-civilization-intelligence-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-civilization-intelligence-fabric-v79] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/unified-apex-fabric/sheikha-unified-apex-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-unified-apex-fabric-v80] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/global-knowledge-mesh/sheikha-global-knowledge-mesh-routes'));
-} catch (error) {
-  console.warn('[sheikha-global-knowledge-mesh-v81] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/universal-runtime-fabric/sheikha-universal-runtime-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-universal-runtime-fabric-v82] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/meta-knowledge-fabric/sheikha-meta-knowledge-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-meta-knowledge-fabric-v83] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/sovereign-intelligence-fabric/sheikha-sovereign-intelligence-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-sovereign-intelligence-fabric-v84] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/global-coordination-fabric/sheikha-global-coordination-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-global-coordination-fabric-v85] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/strategic-execution-fabric/sheikha-strategic-execution-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-strategic-execution-fabric-v86] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/autonomous-improvement-fabric/sheikha-autonomous-improvement-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-autonomous-improvement-fabric-v87] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/multi-agent-federation-fabric/sheikha-multi-agent-federation-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-multi-agent-federation-fabric-v88] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/capability-registry-federation-fabric/sheikha-capability-registry-federation-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-capability-registry-federation-fabric-v89] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/arabic-language-cluster-fabric/sheikha-arabic-language-cluster-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-arabic-language-cluster-fabric-v91] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/arabic-compiler-fabric/sheikha-arabic-compiler-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-arabic-compiler-fabric-v92] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/arabic-type-system-fabric/sheikha-arabic-type-system-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-arabic-type-system-fabric-v93] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/arabic-standard-library-fabric/sheikha-arabic-standard-library-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-arabic-standard-library-fabric-v94] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/arabic-runtime-fabric/sheikha-arabic-runtime-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-arabic-runtime-fabric-v95] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/arabic-package-manager-fabric/sheikha-arabic-package-manager-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-arabic-package-manager-fabric-v96] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/sheikha-navigator-fabric/sheikha-navigator-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-navigator-fabric-v111] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/sheikha-inter-system-navigator-fabric/sheikha-inter-system-navigator-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-inter-system-navigator-fabric-v112] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/global-transport-mesh-fabric/sheikha-global-transport-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-global-transport-mesh-fabric-v113] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/hyper-routing-fabric/sheikha-hyper-routing-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-hyper-routing-fabric-v114] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/autonomous-service-mesh-fabric/sheikha-autonomous-service-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-autonomous-service-mesh-fabric-v115] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/universal-connector-fabric/sheikha-universal-connector-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-universal-connector-fabric-v116] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/distributed-execution-mesh-fabric/sheikha-distributed-execution-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-distributed-execution-mesh-fabric-v117] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/distributed-knowledge-mesh-fabric/sheikha-distributed-knowledge-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-distributed-knowledge-mesh-fabric-v118] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/intelligence-mesh-fabric/sheikha-intelligence-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-intelligence-mesh-fabric-v119] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/self-improvement-mesh-fabric/sheikha-self-improvement-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-self-improvement-mesh-fabric-v120] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/observability-mesh-fabric/sheikha-observability-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-observability-mesh-fabric-v121] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/policy-enforcement-mesh-fabric/sheikha-policy-enforcement-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-policy-enforcement-mesh-fabric-v122] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/capability-registry-mesh-fabric/sheikha-capability-registry-mesh-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-capability-registry-mesh-fabric-v123] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/living-digital-twin-agriculture-fabric/sheikha-living-digital-twin-agriculture-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-living-digital-twin-agriculture-fabric-v125] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/bio-inspired-growth-fabric/sheikha-bio-inspired-growth-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-bio-inspired-growth-fabric-v126] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(
-    require('./routes/ecosystem-intelligence-fabric/sheikha-ecosystem-intelligence-fabric-routes')
-  );
-} catch (error) {
-  console.warn(
-    '[sheikha-ecosystem-intelligence-fabric-v127] route mount skipped:',
-    error.message
-  );
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/regenerative-knowledge-fabric/sheikha-regenerative-knowledge-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-regenerative-knowledge-fabric-v128] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/master-blueprint/sheikha-master-blueprint-routes'));
-} catch (error) {
-  console.warn('[sheikha-master-blueprint-v1] route mount skipped:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/quranic-atlas/sheikha-quranic-atlas-routes'));
-} catch (error) {
-  console.warn('[quranic-atlas]', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/quranic-operating-system/sheikha-quranic-operating-system-routes'));
-} catch (error) {
-  console.warn('[quranic-operating-system]', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/federation-omega/sheikha-federation-omega-routes'));
-} catch (error) {
-  console.warn('[federation-omega]', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/unified-graph/sheikha-unified-graph-routes'));
-} catch (error) {
-  console.warn('[unified-graph]', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/execution-cortex/sheikha-execution-cortex-routes'));
-} catch (error) {
-  console.warn('[execution-cortex]', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-app.use(express.json());
-app.use(require('./routes/sheikha-programming'));
-app.use(require('./routes/sheikha-tools'));
-app.use(require('./routes/sheikha-environment'));
-app.use(require('./routes/sheikha-software-registry'));
-app.use(require('./routes/sheikha-intent-router'));
-
-try {
-  app.use(require('./routes/enterprise-management-os-routes'));
-  console.log('✅ Sheikha Enterprise Management OS V1 routes mounted');
-} catch (err) {
-  console.error('⚠️ Sheikha Enterprise Management OS V1 mount failed:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/hub-routes'));
-  console.log('✅ Sheikha Hub V1 routes mounted');
-} catch (err) {
-  console.error('⚠️ Sheikha Hub V1 mount failed:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-  app.use(require('./routes/master-log-center-routes'));
-  console.log('✅ Sheikha Master Log Center V1 routes mounted');
-} catch (err) {
-  console.error('⚠️ Sheikha Master Log Center V1 mount failed:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-app.use(runtimeSecurityMiddleware.securityHeaders);
-app.use(runtimeSecurityMiddleware.ipOwnershipHeaders);
-app.use(runtimeSecurityMiddleware.responseIntegritySignature);
-
-// تفعيل شبكة الخلايا العصبية الجذرية المتقدمة بعد JSON/CORS/SRE
-const rootNeuralRoutesPath = path.join(__dirname, 'routes', 'root-neural-network.routes.js');
-if (fs.existsSync(rootNeuralRoutesPath)) {
-    try {
-        const rootNeuralNetworkRoutes = require('./routes/root-neural-network.routes');
-        app.use('/api/root-neural-network', rootNeuralNetworkRoutes);
-        console.log('✅ Root Neural Cell Network ACTIVE on /api/root-neural-network');
-    } catch (e) {
-        console.warn('⚠️ Root Neural Cell Network disabled:', e.message);
-    }
-} else {
-    console.log('⚠️ security middleware module غير متوفر — fallback للتشغيل الأساسي');
-    app.use(cors());
-    app.use(express.json({ limit: '10mb' }));
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // سجل أمني — تسجيل محاولات مشبوهة
 const securityLog = (event, details) => {
     console.warn('🔐 أمان:', JSON.stringify({ timestamp: new Date().toISOString(), event, ...details }));
@@ -3131,14 +2048,30 @@ const securityLog = (event, details) => {
 
 // ═══ حماية المسارات الإدارية — Admin Route Protection ═══
 // الصفحات التي تتطلب صلاحية admin فقط
-const SITE_ROUTE_POLICY_V2 = require(
-    './config/sheikha-site-route-policy-v2.json'
-);
-const ADMIN_ONLY_PAGES = SITE_ROUTE_POLICY_V2.protectedPageRoutes;
-const ADMIN_PREFIXES = SITE_ROUTE_POLICY_V2.protectedPrefixes;
-const LOGIN_REQUIRED_PAGES =
-    SITE_ROUTE_POLICY_V2.loginRequiredPageRoutes;
-const GOV_PAGES = SITE_ROUTE_POLICY_V2.governmentPageRoutes;
+const ADMIN_ONLY_PAGES = [
+    '/لوحة-الادمن.html',
+    '/_admin/sheikha-command-center.html',
+    '/التسويق-الرقمي.html',
+    '/المواد-التسويقية.html',
+    '/marketing.html',
+    '/المخطط-الهيكلي.html',
+    '/فهرس-المنظومة.html',
+    '/خريطة-شيخة.html',
+    '/منظومة-الذكاء-والتقدم.html',
+    '/الإنتاج-المنهجي.html',
+    '/الإتقان-والتقدم.html',
+    '/التجربة-التشغيلية.html',
+    '/تجربة-المنظومة.html',
+    '/منظومة-الشبكات-والطاقة.html',
+    '/منظومة-الأرض-والسماء.html',
+    '/منظومة-الحكمة-والمنطق.html',
+    '/الهيكل-الإداري.html',
+    '/خريطة-الأهداف.html',
+    '/لوحة-المؤشرات.html'
+];
+const ADMIN_PREFIXES = ['/_admin/', '/marketing/', '/_engines/'];
+const LOGIN_REQUIRED_PAGES = ['/لوحة-تحكم-المستخدم.html', '/لوحة-الشركة.html'];
+const GOV_PAGES = ['/لوحة-الحكومة-السعودية.html', '/لوحة-الحكومات-الدولية.html', '/gov-dashboard.html', '/الشركات-الحكومية.html'];
 
 function verifyTokenRole(req) {
     try {
@@ -3153,18 +2086,10 @@ function verifyTokenRole(req) {
     } catch(e) {
         return null;
     }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // Middleware لحماية الصفحات (HTML)
 const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
-app.use('/api/sheikha', require('./routes/sheikha-system-status'));
-
-
-
-// SHEIKHA MARKETPLACE ROUTE ALIAS V1
-app.get('/marketplace', (req, res) => {
-  res.redirect('/#marketplace');
-});
-
 app.use((req, res, next) => {
     const path = decodeURIComponent(req.path);
 
@@ -3209,12 +2134,11 @@ if (pilotEngine) {
     console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
 }
 
-// JSON/CORS تم تفعيله مسبقًا ضمن إعدادات الأمان أعلاه.
+app.use(cors());
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Cache Control for HTML pages
-
-
 app.use((req, res, next) => {
     if (req.path.endsWith('.html') || req.path === '/' || req.path === '') {
         res.set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
@@ -3239,12 +2163,9 @@ app.get('/health', (req, res) => {
 app.get('/api/project/identity', (req, res) => {
     res.json({
         success: true,
-        identity: SHEIKHA_RUNTIME_IDENTITY,
         project: {
-            name: SHEIKHA_RUNTIME_IDENTITY.arabicName,
-            nameEn: SHEIKHA_RUNTIME_IDENTITY.highestIdentityName,
-            methodologicalNameEn: SHEIKHA_RUNTIME_IDENTITY.officialName,
-            rootOperatingCore: SHEIKHA_RUNTIME_IDENTITY.rootOperatingCore,
+            name: 'منظومة وسوق شيخة',
+            nameEn: 'SHEIKHA — Metals & Scrap Ecosystem',
             owner: 'سلمان أحمد بن سلمان الراجح',
             domain: 'sheikha.top',
             email: 'market@sheikha.top',
@@ -3266,8 +2187,8 @@ app.get('/api/project/identity', (req, res) => {
             status: 'active'
         },
         integrations: {
-            sheikhaIde: { configured: true, extension: true, localGateway: true, prompts: true },
-            anthropicLegacy: { configured: false, enabledByDefault: false },
+            cursor: { configured: true, mcp: true, rules: true, prompts: true },
+            claude: { configured: true, claudeMd: true, config: true },
             chatgpt: { contextFile: 'SHEIKHA-AI-CONTEXT.md' },
             vercel: { configured: true },
             github: { configured: false, recommended: true }
@@ -3311,7 +2232,7 @@ app.post('/api/government/register', express.json(), (req, res) => {
     try {
         const data = req.body;
         const refCode = 'GOV-2026-' + Math.random().toString(36).substring(2, 7).toUpperCase();
-
+        
         const entry = {
             refCode,
             type: data.type,
@@ -3380,20 +2301,22 @@ app.get('/api/government/entities', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧭 SHEIKHA NAVIGATOR — نظام النقل الذكي المركزي
 // ═══════════════════════════════════════════════════════════════════════════════
-// ناقل المعلومات بين البيئات — يقرأ من Sheikha IDE / VS Code / ChatGPT
+// ناقل المعلومات بين البيئات — يقرأ من Cursor/Claude/ChatGPT
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // Navigator already loaded at top of file (line 39) — variable name: sheikaNav
 // Re-initialize status if sheikaNav is available
 if (sheikaNav) {
     try { sheikaNav.generateStatus(); } catch(e) {}
+}
+
 // الحالة الكاملة — تُقرأ من أي بيئة
 app.get('/api/navigator/status', (req, res) => {
     if (!sheikaNav) return res.json({ success: false, message: 'Navigator غير مفعّل' });
     res.json({ success: true, ...sheikaNav.generateStatus() });
 });
 
-// تقرير لبيئة محددة (sheikha-ide / vscode / chatgpt)
+// تقرير لبيئة محددة (cursor / claude / chatgpt)
 app.get('/api/navigator/report/:env', (req, res) => {
     if (!sheikaNav) return res.json({ success: false, message: 'Navigator غير مفعّل' });
     const env = req.params.env;
@@ -3414,7 +2337,7 @@ app.post('/api/navigator/achievement', express.json(), (req, res) => {
     if (!sheikaNav) return res.json({ success: false, message: 'Navigator غير مفعّل' });
     const { env, description, category } = req.body;
     if (!description) return res.status(400).json({ success: false, message: 'الوصف مطلوب' });
-    const event = sheikaNav.recordAchievement(env || 'sheikha-ide', description, category || 'general');
+    const event = sheikaNav.recordAchievement(env || 'cursor', description, category || 'general');
     res.json({ success: true, event });
 });
 
@@ -3503,9 +2426,10 @@ function recordPageView(path) {
     PAGE_VIEWS.total++;
     PAGE_VIEWS.byPath[key] = (PAGE_VIEWS.byPath[key] || 0) + 1;
     PAGE_VIEWS.lastUpdated = new Date().toISOString();
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
 function flushPageViews() {
     try { fs.writeFileSync(PAGE_VIEWS_FILE, JSON.stringify(PAGE_VIEWS, null, 2), 'utf8'); } catch (_) {}
+}
 setInterval(flushPageViews, 10000);
 
 // ═══ Page View Recording + Auto Script Injection ═══
@@ -3513,8 +2437,6 @@ setInterval(flushPageViews, 10000);
 // يعمل بقراءة الملف من الذاكرة المؤقتة (لا يعتمد على سرعة القرص/OneDrive)
 const _htmlCache = new Map();
 const INJECT_TAG = '<script src="/js/sheikha-app.js"></script>';
-
-
 
 app.use((req, res, next) => {
     if (req.method === 'GET' && (req.path === '/' || req.path.endsWith('.html'))) {
@@ -3559,208 +2481,8 @@ app.use((req, res, next) => {
     next();
 });
 
-// ═══ P0-2: Live Check — للتحقق السريع من حيوية العملية ═══
-app.get('/api/live', (req, res) => {
-    res.json({
-        success: true,
-        live: true,
-        pid: process.pid,
-        uptimeSeconds: Math.floor(process.uptime()),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/health', (req, res) => {
-    const integrations = Object.values(appConfig.runtime.integrations || {});
-    return res.json({
-        success: true,
-        data: {
-            identity: {
-                system: SHEIKHA_RUNTIME_IDENTITY.system,
-                officialName: SHEIKHA_RUNTIME_IDENTITY.officialName,
-                arabicName: SHEIKHA_RUNTIME_IDENTITY.arabicName,
-                packageName: SHEIKHA_RUNTIME_IDENTITY.packageName
-            },
-            status: 'ok',
-            pid: process.pid,
-            uptimeSeconds: Math.floor(process.uptime()),
-            environment: appConfig.server.appEnv,
-            defaultLocale: appConfig.languages.defaultLocale,
-            languageCounts: {
-                human: appConfig.languages.supportedCodes.length,
-                programming: appConfig.languages.programming.length,
-                markup: appConfig.languages.markup.length
-            },
-            integrationSummary: {
-                enabled: integrations.filter((item) => item.enabled).length,
-                ready: integrations.filter((item) => item.ready).length
-            }
-        },
-        message: 'الخدمة تعمل بشكل طبيعي',
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/status', (req, res) => {
-    return res.json({
-        success: true,
-        data: {
-            identity: {
-                system: SHEIKHA_RUNTIME_IDENTITY.system,
-                officialName: SHEIKHA_RUNTIME_IDENTITY.officialName,
-                arabicName: SHEIKHA_RUNTIME_IDENTITY.arabicName,
-                packageName: SHEIKHA_RUNTIME_IDENTITY.packageName
-            },
-            status: 'ok',
-            pid: process.pid,
-            uptimeSeconds: Math.floor(process.uptime())
-        },
-        message: 'حالة الخدمة متاحة',
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/enterprise/status', (req, res) => {
-    const enginesReady = {
-        runtimeBootstrap: Boolean(runtimeBootstrap),
-        communicationsRuntime: Boolean(communicationsRuntime),
-        rootNeuralCells: Boolean(rootNeuralCells)
-    };
-
-    return res.json({
-        success: true,
-        data: {
-            mode: 'enterprise',
-            runtimeRing: SHEIKHA_RUNTIME_RING,
-            charterEnforced: Boolean(SHEIKHA_CHARTER_ENFORCED),
-            startupL0Only: Boolean(STARTUP_L0_ONLY),
-            enginesReady
-        },
-        message: 'حالة المنظومة المؤسسية متاحة',
-        timestamp: new Date().toISOString()
-    });
-});
-
-// مسارات runtime الأساسية تُسجَّل مبكراً لتفادي أي تعارض ترتيب مع middlewares عامة لاحقاً
-app.get('/api/runtime', (req, res) => {
-    return res.json({
-        success: true,
-        data: {
-            identity: SHEIKHA_RUNTIME_IDENTITY,
-            mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
-            contractsVersion: 'early-v1',
-            ring: SHEIKHA_RUNTIME_RING || 'fallback',
-            loaded: Boolean(runtimeBootstrap),
-            startedAt: SERVER_START_TIME,
-            uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000),
-            fingerprint: {
-                status: RUNTIME_FINGERPRINT_STATUS || 'unknown'
-            },
-            environment: appConfig.runtime.currentProfile,
-            languages: {
-                defaultLocale: appConfig.languages.defaultLocale,
-                primary: appConfig.languages.primary,
-                human: appConfig.languages.supportedCodes.length,
-                programming: appConfig.languages.programming.length,
-                markup: appConfig.languages.markup.length,
-                acceptsUnknownProgrammingLanguages: appConfig.runtime.acceptsUnknownProgrammingLanguages
-            },
-            integrations: appConfig.runtime.integrations
-        },
-        message: 'تم جلب حالة التشغيل بنجاح',
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha-node/status', (req, res) => {
-    return res.json({
-        success: true,
-        data: {
-            status: 'online',
-            mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
-            ring: SHEIKHA_RUNTIME_RING || 'fallback',
-            startedAt: SERVER_START_TIME,
-            uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000)
-        },
-        message: 'حالة العقدة تعمل',
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/observability/summary', (req, res) => {
-    const metricsDir = path.join(__dirname, 'data', 'runtime-metrics');
-    const statBytes = (filePath) => {
-        try {
-            return fs.existsSync(filePath) ? fs.statSync(filePath).size : 0;
-        } catch (_) {
-            return 0;
-        }
-    };
-
-    let files = [];
-    try {
-        files = fs.existsSync(metricsDir)
-            ? fs.readdirSync(metricsDir).filter((name) => name.endsWith('.ndjson'))
-            : [];
-    } catch (_) {
-        files = [];
-    }
-
-    return res.json({
-        success: true,
-        data: {
-            files,
-            latencyBytes: statBytes(path.join(metricsDir, 'latency.ndjson')),
-            errorsBytes: statBytes(path.join(metricsDir, 'errors.ndjson')),
-            throughputBytes: statBytes(path.join(metricsDir, 'throughput.ndjson'))
-        },
-        message: 'ملخص المراقبة متاح',
-        timestamp: new Date().toISOString()
-    });
-});
-
-
-
-// SHEIKHA PRODUCT EXPERIENCE P1
-app.get('/product/pilot', (req, res) => {
-  res.sendFile(require('path').join(__dirname, 'public', 'product-experience', 'p1', 'index.html'));
-});
-
-// SHEIKHA PRODUCT EXPERIENCE P1 - HOME OVERRIDE
-app.get('/', (req, res) => {
-    res.redirect('/executive-civilization-control-center/index.html');
-});
-
-
-// SHEIKHA ENTERPRISE ARCHITECTURE API
-app.use('/api/enterprise-architecture', require('./routes/enterprise-architecture/status.routes'));
-
-
-// SHEIKHA ARCHITECTURE EXPLORER UI
-app.get('/architecture', (req, res) => {
-  res.sendFile(require('path').join(__dirname, 'public', 'architecture-explorer', 'index.html'));
-});
-
-
-
-// SHEIKHA PRODUCT KNOWLEDGE LOCAL CORS BYPASS
-app.use('/api/product-knowledge', (req, res, next) => {
-  const origin = req.headers.origin;
-  if (
-    origin === 'http://127.0.0.1:8080' ||
-    origin === 'http://localhost:8080' ||
-    !origin
-  ) {
-    res.setHeader('Access-Control-Allow-Origin', origin || '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-    if (req.method === 'OPTIONS') return res.sendStatus(204);
-  }
-  return next();
-});
-
-// SHEIKHA PRODUCT KNOWLEDGE API
-app.use('/api/product-knowledge', require('./routes/product-knowledge/product-knowledge.routes'));
+// ═══ P0-2: Health Check — للتحقق السريع من جاهزية الخادم ═══
+app.get('/api/health', (req, res) => res.json({ status: 'ok', success: true, data: { status: 'ok' } }));
 
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
@@ -3770,31 +2492,9 @@ app.get('/admin', (req, res) => res.redirect('/لوحة-الادمن.html'));
 app.get('/dashboard', (req, res) => res.redirect('/لوحة-تحكم-المستخدم.html'));
 app.get('/login', (req, res) => res.redirect('/تسجيل-الدخول.html'));
 
-// ═══ Live Chat Endpoint — محادثة شيخة الحية ═══
-app.post('/api/sheikha/live-chat', express.json(), (req, res) => {
-    const message = String(req.body?.message || '').trim();
-
-    res.json({
-        success: true,
-        status: 'interactive',
-        reply: message
-            ? `استلمت طلبك: ${message}\nسأحلله وأقترح الإجراء الآمن.`
-            : 'اكتب طلبك لأتفاعل معه.',
-        capabilities: {
-            talk: true,
-            write: true,
-            edit: true,
-            test: true,
-            createPullRequest: true,
-            autonomousCommit: false,
-            autonomousPush: false,
-            autonomousDeploy: false
-        },
-        governance: 'human-approved'
-    });
-});
-
-const PORT = process.env.PORT || 8080;
+const PORT = parseInt(process.env.PORT, 10) || 8080;
+const HOST = process.env.HOST || "0.0.0.0";
+const HOST_OLD = '0.0.0.0';
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
@@ -3814,7 +2514,7 @@ const BUSINESS_PLAN = {
         founded: 2024,
         headquarters: 'الخبر، المنطقة الشرقية، المملكة العربية السعودية'
     },
-
+    
     services: {
         trading: {
             name: 'تداول المعادن والسكراب',
@@ -3842,13 +2542,13 @@ const BUSINESS_PLAN = {
             features: ['تحليل كيميائي', 'فحص الجودة', 'شهادات المطابقة', 'تقارير فنية']
         }
     },
-
+    
     targetMarkets: {
         primary: ['المملكة العربية السعودية', 'الإمارات', 'الكويت', 'قطر', 'البحرين', 'عمان'],
         secondary: ['مصر', 'الأردن', 'العراق', 'تركيا', 'الهند', 'الصين'],
         sectors: ['المصانع', 'شركات البناء', 'تجار المعادن', 'معيدو التدوير', 'المصدرون والمستوردون']
     },
-
+    
     revenueModel: {
         commission: { name: 'عمولة الصفقات', rate: '1-3%', description: 'عمولة على كل صفقة ناجحة' },
         subscription: { name: 'الاشتراكات', packages: ['مجاني', 'أساسي - 500 ريال/شهر', 'احترافي - 2000 ريال/شهر', 'مؤسسي - حسب الطلب'] },
@@ -3856,7 +2556,7 @@ const BUSINESS_PLAN = {
         consulting: { name: 'الاستشارات', rate: '500-5000 ريال/جلسة' },
         laboratory: { name: 'خدمات المختبر', rate: 'حسب نوع التحليل' }
     },
-
+    
     milestones: [
         { phase: 1, name: 'الإطلاق', duration: 'الشهر 1-3', goals: ['إطلاق المنصة', '100 شركة مسجلة', '50 عرض نشط'] },
         { phase: 2, name: 'النمو', duration: 'الشهر 4-6', goals: ['500 شركة', '200 صفقة شهرية', 'التوسع للخليج'] },
@@ -3941,7 +2641,7 @@ const METALLURGY_SCIENCES = {
             uses: ['إلكترونيات', 'مغناطيسات', 'ليزر', 'طاقة متجددة']
         }
     },
-
+    
     // عمليات التعدين والاستخراج
     extraction: {
         mining: {
@@ -3961,7 +2661,7 @@ const METALLURGY_SCIENCES = {
             electrometallurgy: { name: 'معالجة كهربائية', processes: ['تحليل كهربائي', 'تكرير كهربائي'] }
         }
     },
-
+    
     // اختبارات الجودة
     testing: {
         chemical: {
@@ -4023,7 +2723,7 @@ const SCRAP_SCIENCES = {
             }
         }
     },
-
+    
     // عمليات المعالجة
     processing: {
         collection: {
@@ -4052,7 +2752,7 @@ const SCRAP_SCIENCES = {
             reverberatory: { name: 'فرن عاكس', capacity: '50-500t', for: 'نحاس/رصاص' }
         }
     },
-
+    
     // الجودة والمعايير
     quality: {
         contamination: {
@@ -4096,7 +2796,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
             nonRecyclable: ['بلاستيك مخلوط', 'مواد ملوثة', 'حفاضات']
         }
     },
-
+    
     // التسلسل الهرمي للنفايات (من الأفضل للأسوأ)
     hierarchy: {
         prevention: { priority: 1, name: 'منع', description: 'تقليل إنتاج النفايات من المصدر' },
@@ -4106,7 +2806,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
         recovery: { priority: 5, name: 'استرداد', description: 'استخلاص طاقة أو مواد' },
         disposal: { priority: 6, name: 'تخلص', description: 'الدفن أو الحرق كملاذ أخير' }
     },
-
+    
     // عمليات المعالجة
     treatment: {
         mechanical: {
@@ -4135,7 +2835,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
             engineered: { name: 'مدفن هندسي', compaction: 'عالية', cover: 'يومي' }
         }
     },
-
+    
     // إعادة التدوير
     recycling: {
         metals: {
@@ -4154,7 +2854,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
         paper: { rate: '65-80%', cycles: '5-7 مرات', products: ['كرتون', 'ورق تغليف'] },
         glass: { rate: '90%+', cycles: 'لانهائي', energy_saving: '30%' }
     },
-
+    
     // الاقتصاد الدائري
     circularEconomy: {
         principles: ['تصميم للتدوير', 'إطالة العمر', 'استرداد المواد', 'تجديد الأنظمة'],
@@ -4239,17 +2939,18 @@ function calculateFairPrice(baseCost, category, metal = null) {
     const SDV = metal ? (SHEIKHA_DYNAMIC_VARIABLES.SDV[metal] || 1.00) : 1.00;
     const GPV = SHEIKHA_DYNAMIC_VARIABLES.GPV.lmeImpact;
     const SV = SHEIKHA_DYNAMIC_VARIABLES.SV;
-
+    
     let fairPrice = baseCost * (1 + FPM) * SDV * GPV * SV;
-
+    
     // التحقق من حدود العدالة
     const minPrice = baseCost * SHEIKHA_PRICING_CONSTANTS.PPF; // حماية المنتج
     const maxPrice = baseCost * (1 + FPM) * SHEIKHA_PRICING_CONSTANTS.CPF; // حماية المستهلك
-
+    
     fairPrice = Math.max(minPrice, Math.min(maxPrice, fairPrice));
-
+    
     return Math.round(fairPrice * 100) / 100;
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ جمعية شيخة للمعادن والسكراب — Sheikha Metals & Scrap Association
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -4475,7 +3176,7 @@ const LIVE_PRICES = {
 function calculateSMI() {
     let indexValue = 0;
     const components = SHEIKHA_METALS_INDEX.components;
-
+    
     // تحديث أسعار المكونات من الأسعار الحية
     components.iron.price = LIVE_PRICES.saudi.steelRebar.price;
     components.aluminum.price = LIVE_PRICES.saudi.aluminum.price;
@@ -4483,26 +3184,26 @@ function calculateSMI() {
     components.gold.price = SHEIKHA_FAIR_PRICES.preciousMetals.gold24K.fairPrice;
     components.stainless.price = SHEIKHA_FAIR_PRICES.baseMetals.stainless304.fairPrice;
     components.silver.price = SHEIKHA_FAIR_PRICES.preciousMetals.silver999.fairPrice;
-
+    
     // حساب المؤشر المرجح
     Object.keys(components).forEach(key => {
         const comp = components[key];
         const normalizedPrice = comp.price / (key === 'gold' || key === 'silver' ? 1 : 1000);
         indexValue += normalizedPrice * comp.weight * 10;
     });
-
+    
     const previousValue = SHEIKHA_METALS_INDEX.value;
     SHEIKHA_METALS_INDEX.value = Math.round(indexValue * 100) / 100;
     SHEIKHA_METALS_INDEX.change = Math.round((SHEIKHA_METALS_INDEX.value - previousValue) * 100) / 100;
     SHEIKHA_METALS_INDEX.changePercent = previousValue > 0 ? Math.round((SHEIKHA_METALS_INDEX.change / previousValue) * 10000) / 100 : 0;
     SHEIKHA_METALS_INDEX.lastUpdated = new Date().toISOString();
-
+    
     LIVE_PRICES.index.smi = {
         value: SHEIKHA_METALS_INDEX.value,
         change: SHEIKHA_METALS_INDEX.change,
         changePercent: SHEIKHA_METALS_INDEX.changePercent
     };
-
+    
     return SHEIKHA_METALS_INDEX;
 }
 
@@ -4520,7 +3221,7 @@ governedCronSchedule('*/30 * * * * *', () => {
             LIVE_PRICES.metals[metal].sarPrice = Math.round(LIVE_PRICES.metals[metal].price * 3.75);
         }
     });
-
+    
     // تحديث تغيرات السكراب
     Object.keys(LIVE_PRICES.scrap).forEach(scrap => {
         const change = Math.round((Math.random() - 0.5) * 4 * 10) / 10;
@@ -4531,7 +3232,7 @@ governedCronSchedule('*/30 * * * * *', () => {
             LIVE_PRICES.scrap[scrap].sarPrice = Math.round(LIVE_PRICES.scrap[scrap].price * 3.75);
         }
     });
-
+    
     // تحديث الأسعار السعودية
     Object.keys(LIVE_PRICES.saudi).forEach(item => {
         const change = Math.round((Math.random() - 0.5) * 2 * 10) / 10;
@@ -4539,10 +3240,10 @@ governedCronSchedule('*/30 * * * * *', () => {
         const priceChange = LIVE_PRICES.saudi[item].price * (change / 100);
         LIVE_PRICES.saudi[item].price = Math.round(LIVE_PRICES.saudi[item].price + priceChange);
     });
-
+    
     // حساب مؤشر شيخة
     calculateSMI();
-
+    
     broadcastPrices();
 });
 
@@ -4639,7 +3340,7 @@ app.get('/api/pricing/variables', (req, res) => {
 // حساب السعر العادل
 app.get('/api/pricing/calculate', (req, res) => {
     const { cost, category, metal } = req.query;
-
+    
     if (!cost || !category) {
         return res.status(400).json({
             success: false,
@@ -4647,11 +3348,11 @@ app.get('/api/pricing/calculate', (req, res) => {
             example: '/api/pricing/calculate?cost=2000&category=baseMetals&metal=iron'
         });
     }
-
+    
     const baseCost = parseFloat(cost);
     const fairPrice = calculateFairPrice(baseCost, category, metal);
     const FPM = SHEIKHA_PRICING_CONSTANTS.FPM[category] || 0.10;
-
+    
     res.json({
         success: true,
         calculation: {
@@ -4673,16 +3374,16 @@ app.get('/api/pricing/calculate', (req, res) => {
 app.get('/api/prices/sheikha', (req, res) => {
     const currency = (req.query.currency || 'SAR').toUpperCase();
     const rate = CURRENCY_RATES[currency] ? CURRENCY_RATES[currency].rate : 1;
-
+    
     // تحويل الأسعار للعملة المطلوبة
     const convertPrice = (price) => Math.round((price / rate) * 100) / 100;
-
+    
     const convertedPrices = {
         baseMetals: {},
         preciousMetals: {},
         scrap: {}
     };
-
+    
     Object.keys(SHEIKHA_FAIR_PRICES.baseMetals).forEach(key => {
         const item = SHEIKHA_FAIR_PRICES.baseMetals[key];
         convertedPrices.baseMetals[key] = {
@@ -4692,7 +3393,7 @@ app.get('/api/prices/sheikha', (req, res) => {
             currency: currency
         };
     });
-
+    
     Object.keys(SHEIKHA_FAIR_PRICES.preciousMetals).forEach(key => {
         const item = SHEIKHA_FAIR_PRICES.preciousMetals[key];
         convertedPrices.preciousMetals[key] = {
@@ -4702,7 +3403,7 @@ app.get('/api/prices/sheikha', (req, res) => {
             currency: currency
         };
     });
-
+    
     Object.keys(SHEIKHA_FAIR_PRICES.scrap).forEach(key => {
         const item = SHEIKHA_FAIR_PRICES.scrap[key];
         convertedPrices.scrap[key] = {
@@ -4712,7 +3413,7 @@ app.get('/api/prices/sheikha', (req, res) => {
             currency: currency
         };
     });
-
+    
     res.json({
         success: true,
         prices: convertedPrices,
@@ -4728,13 +3429,13 @@ app.get('/api/prices/sheikha', (req, res) => {
 // الطاقة الإنتاجية
 app.get('/api/capacity/production', (req, res) => {
     const region = (req.query.region || 'all').toLowerCase();
-
+    
     let data = {};
     if (region === 'global' || region === 'all') data.global = PRODUCTION_CAPACITY.global;
     if (region === 'saudi' || region === 'all') data.saudi = PRODUCTION_CAPACITY.saudi;
     if (region === 'gulf' || region === 'all') data.gulf = PRODUCTION_CAPACITY.gulf;
     if (region === 'islamic' || region === 'all') data.islamic = PRODUCTION_CAPACITY.islamic;
-
+    
     res.json({
         success: true,
         capacity: data,
@@ -4761,10 +3462,10 @@ app.get('/api/logistics/calculate', (req, res) => {
     const origin = (req.query.origin || 'saudi').toLowerCase();
     const destination = (req.query.destination || 'india').toLowerCase();
     const transportType = (req.query.type || 'sea').toLowerCase();
-
+    
     let totalCost = 0;
     let breakdown = [];
-
+    
     // تكلفة التحميل
     breakdown.push({
         stage: 'التحميل بالمصنع',
@@ -4772,7 +3473,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.loading.fairPrice * weight;
-
+    
     // النقل للميناء (افتراض 200 كم)
     const landCost = 200 * weight * LOGISTICS_PRICES.land.mediumRange.pricePerTonKm * (1 + LOGISTICS_PRICES.land.mediumRange.profitMargin);
     breakdown.push({
@@ -4781,7 +3482,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += landCost;
-
+    
     // رسوم الميناء
     breakdown.push({
         stage: 'رسوم الميناء',
@@ -4789,7 +3490,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.portFees.fairPrice * weight;
-
+    
     // التخليص الجمركي
     breakdown.push({
         stage: 'التخليص الجمركي',
@@ -4797,7 +3498,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.customsClearance.fairPrice * weight;
-
+    
     // الشحن البحري
     let seaCost = 0;
     if (destination === 'india') seaCost = LOGISTICS_PRICES.sea.gulfIndia.fairPrice * weight;
@@ -4805,14 +3506,14 @@ app.get('/api/logistics/calculate', (req, res) => {
     else if (destination === 'europe') seaCost = LOGISTICS_PRICES.sea.gulfEurope.fairPrice * weight;
     else if (destination === 'usa') seaCost = LOGISTICS_PRICES.sea.gulfUSA.fairPrice * weight;
     else seaCost = LOGISTICS_PRICES.sea.gulfIndia.fairPrice * weight;
-
+    
     breakdown.push({
         stage: 'الشحن البحري',
         cost: seaCost,
         unit: 'SAR'
     });
     totalCost += seaCost;
-
+    
     // التفريغ
     breakdown.push({
         stage: 'التفريغ للعميل',
@@ -4820,7 +3521,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.unloading.fairPrice * weight;
-
+    
     res.json({
         success: true,
         calculation: {
@@ -4853,14 +3554,14 @@ app.get('/api/currency/convert', (req, res) => {
     const amount = parseFloat(req.query.amount) || 1;
     const from = (req.query.from || 'SAR').toUpperCase();
     const to = (req.query.to || 'USD').toUpperCase();
-
+    
     const fromRate = CURRENCY_RATES[from] ? CURRENCY_RATES[from].rate : 1;
     const toRate = CURRENCY_RATES[to] ? CURRENCY_RATES[to].rate : 3.75;
-
+    
     // تحويل للريال أولاً ثم للعملة المطلوبة
     const sarAmount = amount * fromRate;
     const result = sarAmount / toRate;
-
+    
     res.json({
         success: true,
         conversion: {
@@ -5027,14 +3728,14 @@ setInterval(() => {
         }
         if (v.fuel) v.fuel = Math.max(10, v.fuel - Math.random() * 0.5);
     });
-
+    
     // تحديث تقدم الشحنات
     ACTIVE_SHIPMENTS.forEach(s => {
         if (s.status === 'transit' && s.progress < 95) {
             s.progress = Math.min(95, s.progress + Math.random() * 2);
         }
     });
-
+    
     // تحديث مستشعرات IoT
     IOT_SENSORS.temperature.value = 22 + Math.random() * 6;
     IOT_SENSORS.humidity.value = 40 + Math.random() * 20;
@@ -5053,7 +3754,7 @@ app.get('/api/logistics/dashboard', (req, res) => {
     const totalVehicles = VEHICLES.length;
     const inCustoms = ACTIVE_SHIPMENTS.filter(s => s.status === 'customs').length;
     const deliveredToday = ACTIVE_SHIPMENTS.filter(s => s.status === 'delivered').length;
-
+    
     res.json({
         success: true,
         dashboard: {
@@ -5131,7 +3832,7 @@ app.get('/api/logistics/customs', (req, res) => {
 app.post('/api/logistics/documents/generate', (req, res) => {
     const { shipmentId, documentTypes } = req.body;
     const types = documentTypes || ['bill_of_lading', 'commercial_invoice', 'certificate_of_origin', 'customs_declaration', 'packing_list'];
-
+    
     const documents = types.map(type => ({
         id: uuidv4(),
         type,
@@ -5147,7 +3848,7 @@ app.post('/api/logistics/documents/generate', (req, res) => {
         shipmentId: shipmentId || 'SH-2024-0847',
         downloadUrl: `/api/logistics/documents/${type}/${shipmentId || 'sample'}`
     }));
-
+    
     res.json({
         success: true,
         message: 'تم توليد الوثائق بنجاح',
@@ -5177,7 +3878,7 @@ app.get('/api/logistics/documents', (req, res) => {
 // API: حساب تكلفة الشحن الكاملة
 app.post('/api/logistics/quote', (req, res) => {
     const { origin, destination, weight, cargoType, transportMode } = req.body;
-
+    
     // حساب المسافة التقديرية (محاكاة)
     const distances = {
         'الرياض-جدة': 950,
@@ -5188,7 +3889,7 @@ app.post('/api/logistics/quote', (req, res) => {
     };
     const key = `${origin}-${destination}`;
     const distance = distances[key] || distances['default'];
-
+    
     // حساب التكاليف
     const weightNum = parseFloat(weight) || 20;
     const baseCost = transportMode === 'sea' ? weightNum * 50 : transportMode === 'air' ? weightNum * 500 : weightNum * (distance * 0.08);
@@ -5197,7 +3898,7 @@ app.post('/api/logistics/quote', (req, res) => {
     const customsCost = baseCost * 0.05;
     const profitMargin = 0.15;
     const totalCost = (baseCost + handlingCost + insuranceCost + customsCost) * (1 + profitMargin);
-
+    
     res.json({
         success: true,
         quote: {
@@ -5226,41 +3927,41 @@ app.post('/api/logistics/quote', (req, res) => {
 // 🧠 منظومة الذكاء المتعدد — Multi-AI Intelligence System
 // ═══════════════════════════════════════════════════════════════════════════════
 
-// ─── OpenAI-compatible provider (optional external provider) ────────────────────
-const CONFIGURED_AI_BASE_URL = process.env.AI_LLM_BASE_URL || '';
+// ─── OpenAI GPT-5.2 (أحدث نموذج - فبراير 2026) ─────────────────────────────────
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
 const OPENAI_BASE_URL = 'https://api.openai.com/v1';
-const OPENAI_MODEL = process.env.OPENAI_MODEL ||
-    (CONFIGURED_AI_BASE_URL.includes('openai.com') ? process.env.AI_LLM_MODEL : '') ||
-    'gpt-4o-mini';
+const OPENAI_MODEL = process.env.AI_LLM_MODEL || 'gpt-5.2';
 
-// ─── Anthropic provider (legacy optional; disabled unless explicitly enabled) ───
-const SHEIKHA_ENABLE_ANTHROPIC = process.env.SHEIKHA_ENABLE_ANTHROPIC === 'true';
-const ANTHROPIC_API_KEY = SHEIKHA_ENABLE_ANTHROPIC ? (process.env.ANTHROPIC_API_KEY || '') : '';
+// ─── Anthropic Claude Opus 4.6 (أقوى نموذج ذكاء اصطناعي في العالم) ──────────────
+// 🧠 صدر 5 فبراير 2026 — تفكير تكيفي، سياق 1M توكن، ضغط السياق
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
 const ANTHROPIC_BASE_URL = 'https://api.anthropic.com/v1';
-const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'disabled';
-const ANTHROPIC_VERSION = process.env.ANTHROPIC_VERSION || '2023-06-01';
+const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-opus-4-6-20260205';
+const ANTHROPIC_VERSION = '2025-04-14';
 
-// ─── ميزات Anthropic legacy عند التفعيل الصريح فقط ──────────────────────────────
+// ─── مميزات Claude Opus 4.6 الجديدة ──────────────────────────────────────────────
 const CLAUDE_FEATURES = {
     adaptiveThinking: process.env.CLAUDE_ADAPTIVE_THINKING === 'true',
     extendedContext: process.env.CLAUDE_EXTENDED_CONTEXT === 'true',    // 1M tokens
     contextCompaction: process.env.CLAUDE_CONTEXT_COMPACTION === 'true', // محادثات لا نهائية
     maxTokens: parseInt(process.env.CLAUDE_MAX_TOKENS) || 8192,
-    capabilities: ['external-reasoning', 'context-tools', 'code-assistance']
+    capabilities: [
+        'adaptive-thinking', 'extended-context-1m', 'context-compaction',
+        'agent-teams', 'production-code-gen', 'complex-reasoning',
+        'financial-analysis', 'arabic-understanding'
+    ]
 };
 
 // ─── إعدادات النظام ───────────────────────────────────────────────────────────────
-// الوضع الافتراضي: Sheikha-Core محلياً، ثم OpenAI عند وجود مفتاح، ولا Anthropic إلا بإذن صريح.
-const AI_MODE = process.env.AI_MODE || 'local-first'; // local-first | openai | anthropic
-const AI_LLM_BASE_URL = 'http://127.0.0.1:11434';
-const AI_LLM_MODEL = process.env.AI_LLM_MODEL || process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
+// الوضع الافتراضي: Claude Opus 4.6 للتطوير والتحليل، GPT-5.2 للمحادثات العامة
+const AI_MODE = process.env.AI_MODE || 'auto'; // auto | openai | anthropic | opus-priority
+const AI_LLM_BASE_URL = process.env.AI_LLM_BASE_URL || OPENAI_BASE_URL;
+const AI_LLM_MODEL = OPENAI_MODEL;
 
 // تسجيل حالة AI عند البدء
-console.log(`[AI] Sheikha local-first mode: ${AI_MODE} | model: ${AI_LLM_MODEL}`);
-if (OPENAI_API_KEY) console.log(`[AI] ✓ OpenAI-compatible provider configured (${OPENAI_MODEL})`);
-if (SHEIKHA_ENABLE_ANTHROPIC && ANTHROPIC_API_KEY) {
-    console.log(`[AI] ✓ Anthropic provider explicitly enabled (${ANTHROPIC_MODEL})`);
+if (OPENAI_API_KEY) console.log(`[AI] ✓ OpenAI GPT-5.2 متصل`);
+if (ANTHROPIC_API_KEY) {
+    console.log(`[AI] ✓ Claude Opus 4.6 متصل — أقوى نموذج ذكاء اصطناعي (5 فبراير 2026)`);
     console.log(`[AI]   ├─ التفكير التكيفي: ${CLAUDE_FEATURES.adaptiveThinking ? '✅' : '❌'}`);
     console.log(`[AI]   ├─ سياق 1M توكن: ${CLAUDE_FEATURES.extendedContext ? '✅' : '❌'}`);
     console.log(`[AI]   └─ ضغط السياق: ${CLAUDE_FEATURES.contextCompaction ? '✅' : '❌'}`);
@@ -5343,7 +4044,7 @@ const SYSTEM_INTELLIGENCE = {
     name: 'ذكاء المنظومة',
     nameEn: 'Sheikha System Intelligence',
     version: '2.0',
-
+    
     // الأهداف الاستراتيجية الكلية
     strategicObjectives: [
         'تحقيق السيادة والريادة العالمية في تجارة المعادن والسكراب',
@@ -5356,7 +4057,7 @@ const SYSTEM_INTELLIGENCE = {
         'تحقيق أهداف الدول في التداول الآمن واستدامة الموارد',
         'تحقيق السلامة المهنية والعامة والأمن العام'
     ],
-
+    
     // المبادئ الأساسية
     principles: [
         'بالكتاب والسنة',
@@ -5367,7 +4068,7 @@ const SYSTEM_INTELLIGENCE = {
         'الأمان التجاري لجميع الأطراف',
         'الشفافية والوضوح'
     ],
-
+    
     // البنية التحتية الرقمية
     digitalInfrastructure: {
         localNetwork: 'شبكة محلية سعودية متكاملة',
@@ -5376,7 +4077,7 @@ const SYSTEM_INTELLIGENCE = {
         digitalTools: 'أدوات رقمية متكاملة لتيسير الإجراءات',
         automation: 'أتمتة كاملة للعمليات'
     },
-
+    
     // أهداف الأمان والسلامة
     safetyObjectives: [
         'السلامة المهنية في جميع العمليات',
@@ -5391,7 +4092,7 @@ const MARKET_INTELLIGENCE = {
     name: 'ذكاء السوق',
     nameEn: 'Sheikha Market Intelligence',
     version: '2.0',
-
+    
     // أهداف السوق التجارية
     marketObjectives: [
         'تحقيق أفضل تجربة تجارية للتجار',
@@ -5402,7 +4103,7 @@ const MARKET_INTELLIGENCE = {
         'تحقيق الأرباح الضخمة للتجار والسوق',
         'جذب التجار والمستثمرين من جميع أنحاء العالم'
     ],
-
+    
     // قدرات ذكاء السوق
     capabilities: [
         'تحليل الأسعار والاتجاهات في الوقت الحقيقي',
@@ -5414,7 +4115,7 @@ const MARKET_INTELLIGENCE = {
         'مطابقة العرض والطلب تلقائياً',
         'إدارة المخزون والتوريد'
     ],
-
+    
     // الشبكة التجارية
     tradeNetwork: {
         local: {
@@ -5433,7 +4134,7 @@ const MARKET_INTELLIGENCE = {
             status: 'قيد التطوير'
         }
     },
-
+    
     // أمان السوق
     marketSecurity: {
         transactionSecurity: 'تأمين جميع المعاملات المالية',
@@ -5451,14 +4152,14 @@ const SMART_CONSULTANT = {
     title: 'مستشار السوق',
     gender: 'male', // صيغة مذكر
     version: '2.0',
-
+    
     // شخصية المستشار
     personality: {
         traits: ['حكيم', 'مبتكر', 'متعلم', 'صادق', 'مرن', 'موثوق'],
         style: 'طلق اللسان، يشجع الابتكار، يحب نشر العلم',
         tone: 'ودود ومهني، يتحدث بصيغة المذكر'
     },
-
+    
     // مهام المستشار الأساسية
     coreMissions: [
         'تحقيق الربحية وزيادة المبيعات',
@@ -5469,7 +4170,7 @@ const SMART_CONSULTANT = {
         'الحفاظ على الأمن والسلامة',
         'مساعدة التجار في تحقيق أهدافهم'
     ],
-
+    
     // التقارير والمعلومات
     reporting: {
         realTimeReports: 'تقارير فورية عن حالة السوق',
@@ -5485,21 +4186,21 @@ const INTELLIGENCE_INTEGRATION = {
     name: 'تكامل الذكاءات',
     nameEn: 'Intelligence Integration Layer',
     version: '1.0',
-
+    
     // قنوات التكامل الآمنة
     secureChannels: {
         systemToMarket: 'قناة آمنة بين ذكاء المنظومة وذكاء السوق',
         marketToConsultant: 'قناة آمنة بين ذكاء السوق والمستشار',
         consultantToSystem: 'قناة آمنة بين المستشار وذكاء المنظومة'
     },
-
+    
     // تدفق المعلومات
     dataFlow: {
         upward: 'المستشار ← ذكاء السوق ← ذكاء المنظومة (تقارير وبيانات)',
         downward: 'ذكاء المنظومة ← ذكاء السوق ← المستشار (أهداف وتوجيهات)',
         horizontal: 'تبادل آمن بين جميع الذكاءات'
     },
-
+    
     // بروتوكولات الأمان
     securityProtocols: [
         'تشفير جميع الاتصالات بين الذكاءات',
@@ -5700,34 +4401,34 @@ const CONTEXT_PROMPTS = {
 - مقارنة أسعار الأنواع المختلفة
 - 💡 زر صفحة السوق https://www.sheikha.top/السوق.html لرؤية الأسعار الفعلية
 - 💡 زر عرض بضائع https://www.sheikha.top/سوق-شيخة.html إذا أردت البيع`,
-
+    
     logistics: `أنا شيخة — خبيرة لوجستيات ونقل المعادن والسكراب. أساعدك في:
 - فهم مرحلة النقل في سلسلة التوريد
 - خيارات التسليم: استلام من الموقع، توصيل، شحن
 - مسؤولية النقل والتأمين
 - 💡 زر آلية البيع https://www.sheikha.top/آلية-البيع.html لفهم خطوات التسليم`,
-
+    
     scm: `أنا مستشار شيخة — خبير سلاسل الإمداد والتوريد. أقدم لك استشارات في:
 - فهم المراحل السبع: المصدر → التجميع → المعالجة → النقل → المصهر → التصنيع → المستهلك
 - تحسين عمليات التوريد
 - إدارة المخزون
 - 💡 زر لوحة التحكم https://www.sheikha.top/لوحة-التحكم.html لنظام SCM
 - 💡 زر المنتدى https://www.sheikha.top/المنتدى.html لنقاشات سلاسل الإمداد`,
-
+    
     erp: `أنا مستشار شيخة — خبير نظام ERP. أقدم لك استشارات في:
 - وحدات النظام: المخزون، المالية، المشتريات، المبيعات، علاقات العملاء
 - إدارة المنتجات والطلبات
 - إعداد التقارير
 - 💡 زر لوحة التحكم https://www.sheikha.top/لوحة-التحكم.html للوصول لنظام ERP
 - 💡 تحتاج تسجيل دخول أولاً https://www.sheikha.top/تسجيل-الدخول.html`,
-
+    
     environment: `أنا مستشار شيخة — خبير إعادة التدوير والاستدامة. أقدم لك استشارات في:
 - فوائد إعادة التدوير البيئية: توفير CO2، الطاقة، المياه
 - معايير الجودة والشهادات البيئية
 - الاقتصاد الدائري ورؤية 2030
 - 💡 زر مركز الأبحاث https://www.sheikha.top/مركز-الأبحاث.html للدراسات البيئية
 - 💡 زر المنتدى https://www.sheikha.top/المنتدى.html لنقاشات الاستدامة`,
-
+    
     research: `أنا مستشار شيخة — خبير البحث العلمي في المعادن وسلاسل الإمداد. أقدم لك استشارات في:
 - البحث في قاعدة الأبحاث والدراسات
 - استخدام أدوات البحث المتقدمة
@@ -5735,7 +4436,7 @@ const CONTEXT_PROMPTS = {
 - التعاون مع الباحثين الآخرين
 - 💡 زر مختبر الأبحاث https://www.sheikha.top/مركز-الأبحاث.html
 - 💡 زر المنتدى العلمي https://www.sheikha.top/المنتدى.html للنقاشات`,
-
+    
     general: `أنا مستشار شيخة — مستشارك المتخصص. أوجهك حسب حاجتك:
 - للتسجيل → https://www.sheikha.top/تسجيل-الشركات.html
 - للبيع → https://www.sheikha.top/سوق-شيخة.html ثم السوق
@@ -5769,33 +4470,33 @@ function detectContext(message) {
 function buildFullContext(message, user = null) {
     const context = detectContext(message);
     let systemPrompt = SHEIKHA_SYSTEM_PROMPT;
-
+    
     if (context !== 'general' && CONTEXT_PROMPTS[context]) {
         systemPrompt += '\n\n## سياق متخصص:\n' + CONTEXT_PROMPTS[context];
     }
-
+    
     if (user) {
         systemPrompt += `\n\n## معلومات المستخدم:
 - الاسم: ${user.name || user.storeName || 'غير محدد'}
 - نوع الحساب: ${user.role || 'تاجر'}
 - صلاحياته محدودة بمتجره ومنتجاته فقط`;
     }
-
+    
     return systemPrompt;
 }
-// ─── استدعاء Anthropic الاختياري ────────────────────────────────────────────────
-// هذا المسار legacy ومعطّل افتراضياً؛ فعّله فقط عبر SHEIKHA_ENABLE_ANTHROPIC=true.
+// ─── استدعاء Claude Opus 4.6 ─────────────────────────────────────────────────────
+// 🧠 أقوى نموذج ذكاء اصطناعي في العالم (5 فبراير 2026)
+// ✨ تفكير تكيفي | سياق 1M توكن | ضغط السياق | فرق وكلاء
 async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
-    if (!SHEIKHA_ENABLE_ANTHROPIC) return { error: 'ANTHROPIC_DISABLED' };
-    if (!ANTHROPIC_API_KEY) return { error: 'ANTHROPIC_NOT_CONFIGURED' };
-
+    if (!ANTHROPIC_API_KEY) return { error: 'CLAUDE_NOT_CONFIGURED' };
+    
     // تحويل الرسائل من صيغة OpenAI إلى صيغة Anthropic
     const systemMsg = messages.find(m => m.role === 'system');
     const chatMessages = messages.filter(m => m.role !== 'system').map(m => ({
         role: m.role === 'assistant' ? 'assistant' : 'user',
         content: m.content
     }));
-
+    
     const body = {
         model: ANTHROPIC_MODEL,
         max_tokens: maxTokens,
@@ -5803,7 +4504,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
         messages: chatMessages
     };
 
-    // ─── تفعيل التفكير التكيفي عند دعم المزود الخارجي ──────
+    // ─── تفعيل التفكير التكيفي (Adaptive Thinking) لـ Opus 4.6 ──────
     if (options.enableThinking && CLAUDE_FEATURES.adaptiveThinking) {
         body.thinking = {
             type: 'enabled',
@@ -5811,7 +4512,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
         };
         body.max_tokens = maxTokens + (options.thinkingBudget || 8192);
     }
-
+    
     try {
         const res = await fetch(ANTHROPIC_BASE_URL + '/messages', {
             method: 'POST',
@@ -5822,18 +4523,18 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
             },
             body: JSON.stringify(body)
         });
-
+        
         if (!res.ok) {
             const t = await res.text();
             return { error: 'CLAUDE_ERROR', status: res.status, detail: t.slice(0, 200) };
         }
-
+        
         const data = await res.json();
 
-        // استخراج الرد والتفكير عند دعم المزود الخارجي لهذا الشكل
+        // استخراج الرد والتفكير (Opus 4.6 يدعم كتل التفكير)
         let reply = '';
         let thinking = null;
-
+        
         if (data.content) {
             for (const block of data.content) {
                 if (block.type === 'thinking') {
@@ -5846,7 +4547,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
 
         if (!reply) reply = data.content?.[0]?.text || '';
 
-        return {
+        return { 
             reply,
             thinking,
             usage: data.usage,
@@ -5856,29 +4557,31 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
     } catch (e) {
         return { error: 'CLAUDE_NETWORK_ERROR', detail: e.message };
     }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ─── استدعاء OpenAI-compatible مع Fallback ───────────────────────────────────────
-const OPENAI_FALLBACK_MODELS = [OPENAI_MODEL, 'gpt-4o', 'gpt-4o-mini'].filter((value, index, list) => (
-    value && list.indexOf(value) === index
-));
+}
+
+// ─── استدعاء GPT-5.2 مع Fallback ─────────────────────────────────────────────────────
+// 🚀 أحدث نموذج من OpenAI (فبراير 2026)
+// Fallback chain: gpt-5.2 → gpt-4o → gpt-4o-mini
+const OPENAI_FALLBACK_MODELS = ['gpt-5.2', 'gpt-4o', 'gpt-4o-mini'];
 
 async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, options = {}) {
     if (!OPENAI_API_KEY) {
         return { error: 'AI_NOT_CONFIGURED' };
     }
-
+    
     // Try models in order until one works
-    const modelsToTry = options.forceModel ? [options.forceModel] : OPENAI_FALLBACK_MODELS;
-
+    const modelsToTry = options.forceModel ? [options.forceModel] : 
+        (OPENAI_MODEL === 'gpt-5.2' ? OPENAI_FALLBACK_MODELS : [OPENAI_MODEL]);
+    
     for (const model of modelsToTry) {
         // GPT-5 / o1 models use max_completion_tokens instead of max_tokens
         const isNewModel = model.startsWith('gpt-5') || model.startsWith('o1') || model.startsWith('o3');
-
+        
         const body = {
             model: model,
             messages
         };
-
+        
         // Handle token parameter naming based on model
         if (isNewModel) {
             body.max_completion_tokens = Math.min(maxTokens, 4000);
@@ -5887,7 +4590,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
             body.max_tokens = Math.min(maxTokens, 4000);
             body.temperature = temperature;
         }
-
+        
         // ميزات GPT-5 الجديدة (فقط للنماذج التي تدعمها)
         if (isNewModel && options.reasoning_effort) {
             body.reasoning_effort = options.reasoning_effort;
@@ -5895,7 +4598,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
         if (isNewModel && options.verbosity) {
             body.verbosity = options.verbosity;
         }
-
+        
         const url = OPENAI_BASE_URL + '/chat/completions';
     try {
         const res = await fetch(url, {
@@ -5906,7 +4609,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
             },
             body: JSON.stringify(body)
         });
-
+            
         if (!res.ok) {
             const t = await res.text();
                 // If model not found, try next model
@@ -5920,19 +4623,19 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
                 }
             return { error: 'LLM_ERROR', status: res.status, detail: t.slice(0, 200) };
         }
-
+            
         const data = await res.json();
         const choice = data.choices && data.choices[0];
         const reply = choice && choice.message && choice.message.content ? choice.message.content.trim() : '';
-
+            
             // Log which model actually worked
             if (model !== OPENAI_MODEL) {
                 console.log(`[AI] ✓ Using fallback model: ${model}`);
             }
-
-            return {
-                reply,
-                usage: data.usage,
+            
+            return { 
+                reply, 
+                usage: data.usage, 
                 model: model,  // Return actual model used
                 provider: 'openai',
                 reasoning: choice?.message?.reasoning
@@ -5941,72 +4644,32 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
             continue;
         }
     }
-
+    
     // All models failed
     return { error: 'LLM_ALL_MODELS_FAILED', detail: 'تعذر الاتصال بأي نموذج AI' };
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-async function callLocalSheikhaCoreChat(messages, options = {}) {
-    try {
-        const { askSheikhaCore } = require('./core/ai-gateway/sheikha-ai-gateway');
-        const prompt = messages
-            .filter((message) => message && message.role !== 'system')
-            .map((message) => String(message.content || ''))
-            .join('\n\n')
-            .trim();
-        const systemContext = messages
-            .filter((message) => message && message.role === 'system')
-            .map((message) => String(message.content || ''))
-            .join('\n\n')
-            .trim();
+}
 
-        const result = await askSheikhaCore({
-            prompt: prompt || systemContext || 'اختبار Sheikha-Core',
-            context: {
-                source: 'server-callLLMChat',
-                mode: options.mode || AI_MODE,
-                systemContext: systemContext ? 'provided' : 'none'
-            }
-        });
-
-        if (!result.success) {
-            return { error: result.error || 'LOCAL_AI_ERROR', detail: result.message };
-        }
-
-        return {
-            reply: result.output,
-            usage: null,
-            model: result.model || AI_LLM_MODEL,
-            provider: result.provider || 'sheikha-local',
-            localModelOnline: result.localModelOnline,
-            governance: result.governance
-        };
-    } catch (e) {
-        return { error: 'LOCAL_AI_GATEWAY_ERROR', detail: e.message };
-    }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ─── استدعاء LLM الذكي (local-first governed routing) ────────────────────────────
+// ─── استدعاء LLM الذكي (يختار الأفضل تلقائياً) ─────────────────────────────────────
 async function callLLMChat(messages, maxTokens = 800, temperature = 0.5, options = {}) {
-    const isDevelopment = options.mode === 'development' ||
-                          messages.some(m => m.content?.includes('كود') ||
-                                            m.content?.includes('برمج') ||
+    const isDevelopment = options.mode === 'development' || 
+                          messages.some(m => m.content?.includes('كود') || 
+                                            m.content?.includes('برمج') || 
                                             m.content?.includes('تطوير'));
-
-    if (AI_MODE === 'local-first') {
-        const localResult = await callLocalSheikhaCoreChat(messages, options);
-        if (!localResult.error) return localResult;
-    }
-
-    // Anthropic legacy path is available only when explicitly enabled.
-    if (isDevelopment && AI_MODE === 'anthropic' && SHEIKHA_ENABLE_ANTHROPIC && ANTHROPIC_API_KEY) {
+    
+    // للتطوير والبرمجة: استخدم Claude Opus 4.6 (الأقوى في العالم)
+    if (isDevelopment && ANTHROPIC_API_KEY) {
         const result = await callClaudeChat(messages, maxTokens, options);
         if (!result.error) return result;
+        // fallback to OpenAI if Claude fails
     }
-
+    
+    // للمحادثات العامة: استخدم GPT-5.2
     if (OPENAI_API_KEY) {
         return await callOpenAIChat(messages, maxTokens, temperature, options);
     }
-
-    return await callLocalSheikhaCoreChat(messages, options);
+    
+    // لا يوجد مفتاح API
+    return { error: 'AI_NOT_CONFIGURED' };
 }
 
 // ─── دالة قديمة للتوافق ─────────────────────────────────────────────────────────────
@@ -6028,7 +4691,7 @@ async function callPricingLLM(metalType, quantity, quality, region) {
 2. نطاق السعر (من - إلى)
 3. العوامل المؤثرة
 4. نصيحة للبائع`;
-
+    
     const messages = [
         { role: 'system', content: CONTEXT_PROMPTS.pricing },
         { role: 'user', content: prompt }
@@ -6044,7 +4707,7 @@ ${JSON.stringify(data, null, 2)}
 أجب عن السؤال: ${question}
 
 قدم تحليلاً مختصراً مع توصيات عملية.`;
-
+    
     const messages = [
         { role: 'system', content: 'أنت محلل بيانات متخصص في سوق المعادن والسكراب. قدم تحليلات دقيقة ومختصرة.' },
         { role: 'user', content: prompt }
@@ -6061,7 +4724,7 @@ async function callSearchLLM(query, context) {
 1. نتائج بحث مناسبة
 2. منتجات/خدمات ذات صلة
 3. نصائح للمستخدم`;
-
+    
     const messages = [
         { role: 'system', content: 'أنت محرك بحث ذكي لسوق المعادن والسكراب.' },
         { role: 'user', content: prompt }
@@ -6106,11 +4769,10 @@ app.get('/api/intelligence', (req, res) => {
 // قدرات الذكاء الاصطناعي
 app.get('/api/ai/capabilities', (req, res) => {
     const openaiEnabled = !!OPENAI_API_KEY;
-    const localModel = AI_LLM_MODEL || 'Sheikha-Core';
+    const claudeEnabled = !!ANTHROPIC_API_KEY;
     const capabilities = [
-        { id: 'chat', nameAr: 'المستشار الذكي المحلي', api: 'POST /api/sheikha/ai-gateway/ask', status: '🟢 مفعّل محلياً', model: localModel },
-        { id: 'development', nameAr: 'التطوير والبرمجة عبر Sheikha-Core', api: 'POST /api/sheikha/ai-gateway/ask', status: '🟢 local-first', model: localModel },
-        { id: 'openai-compatible', nameAr: 'مزود OpenAI-compatible اختياري', api: 'POST /api/ai/chat', status: openaiEnabled ? '🟢 مفعّل' : '⚪ اختياري', model: OPENAI_MODEL },
+        { id: 'chat', nameAr: 'المستشار الذكي (GPT-5.2)', api: 'POST /api/ai/chat', status: openaiEnabled ? '🟢 مفعّل' : '⚪ جاهز — ضع OPENAI_API_KEY في .env', model: OPENAI_MODEL },
+        { id: 'development', nameAr: 'التطوير والبرمجة (Claude Opus 4.6)', api: 'POST /api/ai/chat', status: claudeEnabled ? '🟢 مفعّل' : '⚪ جاهز — ضع ANTHROPIC_API_KEY في .env', model: ANTHROPIC_MODEL },
         { id: 'system-intelligence', nameAr: 'ذكاء المنظومة', api: 'GET /api/intelligence', status: '🟢 مفعّل' },
         { id: 'market-intelligence', nameAr: 'ذكاء السوق', api: 'GET /api/intelligence', status: '🟢 مفعّل' },
         { id: 'pricing', nameAr: 'اقتراح أسعار ذكي', api: 'POST /api/ai/pricing', status: openaiEnabled ? '🟢 مفعّل' : '⚪ جاهز' },
@@ -6157,7 +4819,7 @@ app.get('/api/ai/knowledge-base', (req, res) => {
 app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
     const { metalType, quantity, quality, region } = req.body || {};
     if (!metalType) return res.status(400).json({ success: false, message: 'يرجى تحديد نوع المعدن (metalType)' });
-
+    
     try {
         const result = await callPricingLLM(
             metalType || 'غير محدد',
@@ -6165,7 +4827,7 @@ app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
             quality || 'متوسط',
             region || 'السعودية'
         );
-
+        
         if (result.error) {
             // إذا لم يكن AI مفعلاً، نقدم تقدير بسيط
             const basePrices = { حديد: 2400, نحاس: 32000, ألمنيوم: 8200, ستانلس: 6500 };
@@ -6180,7 +4842,7 @@ app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
                 }
             });
         }
-
+        
         res.json({
             success: true,
             pricing: {
@@ -6199,14 +4861,14 @@ app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
 app.post('/api/ai/analytics', express.json(), authRequired, async (req, res) => {
     const { data, question } = req.body || {};
     if (!question) return res.status(400).json({ success: false, message: 'يرجى تحديد السؤال (question)' });
-
+    
     try {
         const result = await callAnalyticsLLM(data || {}, question);
-
+        
         if (result.error) {
             return res.status(503).json({ success: false, message: 'الذكاء غير مفعّل', code: result.error });
         }
-
+        
         res.json({
             success: true,
             analysis: result.reply,
@@ -6222,10 +4884,10 @@ app.post('/api/ai/analytics', express.json(), authRequired, async (req, res) => 
 app.post('/api/ai/search', express.json(), authOptional, async (req, res) => {
     const { query, context } = req.body || {};
     if (!query) return res.status(400).json({ success: false, message: 'يرجى تحديد نص البحث (query)' });
-
+    
     try {
         const result = await callSearchLLM(query, context || 'سوق المعادن والسكراب');
-
+        
         if (result.error) {
             // بحث بسيط بدون AI
             return res.json({
@@ -6235,7 +4897,7 @@ app.post('/api/ai/search', express.json(), authOptional, async (req, res) => {
                 source: 'بحث أساسي'
             });
         }
-
+        
         res.json({
             success: true,
             smartSearch: result.reply,
@@ -6251,7 +4913,7 @@ app.post('/api/ai/search', express.json(), authOptional, async (req, res) => {
 // توصيات المشترين المحتملين
 app.post('/api/ai/recommendations', express.json(), authRequired, async (req, res) => {
     const { productId, metalType, region } = req.body || {};
-
+    
     const prompt = `بناءً على منتج من نوع "${metalType || 'معدن'}" في منطقة "${region || 'السعودية'}"، اقترح:
 1. أنواع المشترين المحتملين (مصاهر، مصانع، تجار)
 2. المناطق الجغرافية المستهدفة
@@ -6264,7 +4926,7 @@ app.post('/api/ai/recommendations', express.json(), authRequired, async (req, re
             { role: 'user', content: prompt }
         ];
         const result = await callLLMChat(messages, 600, 0.5);
-
+        
         if (result.error) {
             return res.json({
                 success: true,
@@ -6276,7 +4938,7 @@ app.post('/api/ai/recommendations', express.json(), authRequired, async (req, re
                 source: 'توصيات أساسية'
             });
         }
-
+        
         res.json({
             success: true,
             recommendations: result.reply,
@@ -6292,7 +4954,7 @@ app.post('/api/ai/recommendations', express.json(), authRequired, async (req, re
 // تحليل السوق
 app.post('/api/ai/market-analysis', express.json(), authOptional, async (req, res) => {
     const { metalType, period, region } = req.body || {};
-
+    
     const prompt = `قدم تحليلاً لسوق "${metalType || 'المعادن والسكراب'}" في "${region || 'السعودية'}" خلال الفترة "${period || 'الشهر الحالي'}":
 1. اتجاه الأسعار
 2. العرض والطلب
@@ -6306,7 +4968,7 @@ app.post('/api/ai/market-analysis', express.json(), authOptional, async (req, re
             { role: 'user', content: prompt }
         ];
         const result = await callLLMChat(messages, 800, 0.4);
-
+        
         if (result.error) {
             return res.json({
                 success: true,
@@ -6320,7 +4982,7 @@ app.post('/api/ai/market-analysis', express.json(), authOptional, async (req, re
                 source: 'تحليل أساسي'
             });
         }
-
+        
         res.json({
             success: true,
             marketAnalysis: result.reply,
@@ -6358,13 +5020,16 @@ try {
     if (fs.existsSync(AI_LEARNING_FILE)) {
         AI_LEARNING_DATA = JSON.parse(fs.readFileSync(AI_LEARNING_FILE, 'utf8'));
     }
+} catch (e) { console.log('AI learning data init'); }
+
 // حفظ بيانات التعلم
 function saveAILearning() {
     try {
         AI_LEARNING_DATA.statistics.lastUpdated = new Date().toISOString();
         fs.writeFileSync(AI_LEARNING_FILE, JSON.stringify(AI_LEARNING_DATA, null, 2), 'utf8');
     } catch (e) { console.error('Failed to save AI learning data'); }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // تسجيل المحادثة للتعلم
 function recordConversation(userMessage, aiResponse, context, responseTime, wasHelpful = null) {
     const record = {
@@ -6377,21 +5042,21 @@ function recordConversation(userMessage, aiResponse, context, responseTime, wasH
         wasHelpful,
         intent: detectContext(userMessage)
     };
-
+    
     // إضافة للمحادثات (آخر 1000)
     AI_LEARNING_DATA.conversations.unshift(record);
     if (AI_LEARNING_DATA.conversations.length > 1000) {
         AI_LEARNING_DATA.conversations = AI_LEARNING_DATA.conversations.slice(0, 1000);
     }
-
+    
     // تحديث المواضيع الشائعة
     const topic = record.intent || 'general';
     AI_LEARNING_DATA.popularTopics[topic] = (AI_LEARNING_DATA.popularTopics[topic] || 0) + 1;
-
+    
     // تحديث الإحصائيات
     AI_LEARNING_DATA.statistics.totalConversations++;
     AI_LEARNING_DATA.statistics.totalMessages++;
-
+    
     // اكتشاف الأسئلة التي لم تُجب عليها جيداً
     if (aiResponse.includes('لم أتمكن') || aiResponse.includes('لا أعرف') || aiResponse.length < 50) {
         AI_LEARNING_DATA.unansweredQuestions.push({
@@ -6413,7 +5078,7 @@ function recordFeedback(conversationId, rating, comment) {
         comment: comment?.slice(0, 500),
         timestamp: new Date().toISOString()
     });
-
+    
     // حساب معدل الرضا
     const recentFeedback = AI_LEARNING_DATA.userFeedback.slice(-100);
     const avgRating = recentFeedback.reduce((sum, f) => sum + (f.rating || 0), 0) / recentFeedback.length;
@@ -6428,7 +5093,7 @@ setInterval(saveAILearning, 60000);
 // ═══════════════════════════════════════════════════════════════════════════════
 function generateAdminLocalResponse(message) {
     const lower = message.toLowerCase();
-
+    
     // تفعيل المنظومة
     if (lower.includes('تفعيل') && (lower.includes('منظومة') || lower.includes('شيخة') || lower.includes('نظام'))) {
         return `✅ **تم تفعيل منظومة شيخة بنجاح!**
@@ -6445,18 +5110,18 @@ function generateAdminLocalResponse(message) {
 
 ما الذي تريد فعله الآن؟`;
     }
-
+    
     // التطوير والبرمجيات
     if (lower.includes('برمج') || lower.includes('تطوير') || lower.includes('كود') || lower.includes('قم بها')) {
         return `💻 **التطوير والبرمجة — صلاحيات كاملة**
 
-⚠️ **ملاحظة:** وضع Sheikha المحلي هو الأساس حالياً.
+⚠️ **ملاحظة:** OpenAI API غير متصل حالياً.
 
 للحصول على قدرات برمجية كاملة (كتابة كود، تعديل ملفات، إنشاء APIs):
 
-**الحل 1:** استخدم Sheikha-Core عبر `/api/sheikha/ai-gateway/ask`
+**الحل 1:** تأكد من صحة OPENAI_API_KEY في ملف .env
 
-**الحل 2:** افتح امتداد Sheikha داخل VS Code واطلب المهمة من لوحة Sheikha.
+**الحل 2:** استخدم Cursor IDE مباشرة — أكتب لي ما تريد تطويره وسأنفذه.
 
 **ما يمكنني فعله الآن:**
 • تحليل هيكل المنظومة ✓
@@ -6466,7 +5131,7 @@ function generateAdminLocalResponse(message) {
 **للبرمجة الفعلية:**
 أخبرني بالتفصيل ما تريد برمجته وسأقدم لك الكود الكامل.`;
     }
-
+    
     // التحليل
     if (lower.includes('حلل') || lower.includes('تحليل') || lower.includes('فحص')) {
         return `🔍 **تحليل منظومة شيخة**
@@ -6495,7 +5160,7 @@ sheikha-main-portal/
 
 ما الجانب الذي تريد تحليله بالتفصيل؟`;
     }
-
+    
     // المخطط
     if (lower.includes('مخطط') || lower.includes('خريطة') || lower.includes('هيكل')) {
         return `📊 **مخطط منظومة شيخة الشامل**
@@ -6527,7 +5192,7 @@ sheikha-main-portal/
 
 هل تريد تفصيل أي جزء؟`;
     }
-
+    
     // الرد الافتراضي للأدمن
     return `🛡️ **مساعد القيادة — وضع محلي**
 
@@ -6552,17 +5217,17 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
     const startTime = Date.now();
     const message = (req.body && req.body.message) ? String(req.body.message).trim().slice(0, 2000) : '';
     if (!message) return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
-
+    
     const history = Array.isArray(req.body.history) ? req.body.history.slice(-20) : [];
     const user = req.user;
     const sessionId = req.body.sessionId || uuidv4();
     const customSystemPrompt = req.body.systemPrompt || '';
     const isAdmin = req.body.context?.isAdmin === true;
     const context = detectContext(message);
-
+    
     // بناء السياق حسب نوع المستخدم
     let systemContent;
-
+    
     if (isAdmin) {
         // ═══════════════════════════════════════════════════════════════════════════════
         // 🛡️ برومبت الأدمن — صلاحيات كاملة بلا حدود إلا الكتاب والسنة
@@ -6648,23 +5313,23 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
         // المستخدم العادي — استخدم برومبت مستشار السوق
         systemContent = buildFullContext(message, user);
     }
-
+    
     const messages = [
         { role: 'system', content: systemContent },
         ...history.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: String(m.content || '').slice(0, 1500) })),
         { role: 'user', content: message }
     ];
-
+    
     try {
         // محاولة استخدام OpenAI أولاً
         let result = await callLLMChat(messages, 1200, 0.6);
         let reply = '';
         let source = 'sheikha-ai';
-
+        
         if (result.error) {
             // استخدام نظام شيخة المحلي كبديل
             source = 'sheikha-ai-local';
-
+            
             // 🛡️ للأدمن: رد خاص حتى مع الذكاء المحلي
             if (isAdmin) {
                 reply = generateAdminLocalResponse(message);
@@ -6673,7 +5338,7 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
             try {
                 const localResponse = await sheikhaAI.generateResponse(message, { user });
                 reply = localResponse.text;
-
+                
                 // إضافة اقتراحات
                 if (localResponse.suggestions && localResponse.suggestions.length > 0) {
                     reply += '\n\n💡 **اقتراحات:**\n' + localResponse.suggestions.map(s => `• ${s}`).join('\n');
@@ -6686,22 +5351,22 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
         } else {
             reply = result.reply;
         }
-
+        
         // تسجيل للتعلم
         const responseTime = Date.now() - startTime;
         recordConversation(message, reply, context, responseTime);
-
+        
         // تسجيل العملية
-        logOperation('ai_chat', 'ai', {
-            userId: user?.id,
-            context,
+        logOperation('ai_chat', 'ai', { 
+            userId: user?.id, 
+            context, 
             source,
             responseTime,
-            tokensUsed: result.usage?.total_tokens
+            tokensUsed: result.usage?.total_tokens 
         });
-
-        res.json({
-            success: true,
+        
+        res.json({ 
+            success: true, 
             reply,
             sessionId,
             source,
@@ -6727,17 +5392,18 @@ function getSuggestions(context, message) {
         general: ['كيف أبدأ؟', 'أسعار المعادن', 'تسجيل متجر', 'آلية البيع']
     };
     return suggestions[context] || suggestions.general;
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // API لتقييم الرد
 app.post('/api/ai/feedback', express.json(), (req, res) => {
     const { conversationId, rating, comment } = req.body;
     if (!rating || rating < 1 || rating > 5) {
         return res.status(400).json({ success: false, message: 'أرسل rating من 1 إلى 5' });
     }
-
+    
     recordFeedback(conversationId, rating, comment);
     saveAILearning();
-
+    
     res.json({ success: true, message: 'شكراً لتقييمك!' });
 });
 
@@ -6769,27 +5435,28 @@ async function getDefaultReply(message) {
     } catch (e) {
         // fallback في حالة الخطأ
         const lower = message.toLowerCase();
-
+        
         if (lower.includes('مرحبا') || lower.includes('السلام')) {
             return 'مرحباً بك في سوق شيخة! كيف يمكنني مساعدتك اليوم؟\n\n• لتسجيل متجر جديد: /تسجيل-الشركات.html\n• لعرض بضائع: /سوق-شيخة.html\n• للدخول للوحة التحكم: /لوحة-التحكم.html';
         }
-
+        
         if (lower.includes('تسجيل') || lower.includes('فتح متجر')) {
             return 'لفتح متجرك في سوق شيخة:\n\n1. اذهب إلى صفحة التسجيل: /تسجيل-الشركات.html\n2. أدخل معلوماتك الأساسية\n3. اختر تخصصك ومرحلتك في سلسلة التوريد\n4. ابدأ بعرض بضائعك!\n\nالتسجيل مجاني ولا توجد رسوم اشتراك.';
         }
-
+        
         if (lower.includes('سعر') || lower.includes('أسعار')) {
             return 'أسعار المعادن تتغير يومياً. يمكنك:\n\n• مشاهدة الأسعار المرجعية في الصفحة الرئيسية\n• استخدام خدمة اقتراح الأسعار\n• متابعة أسعار LME العالمية';
         }
-
+        
         return 'شكراً لتواصلك مع سوق شيخة!\n\nيمكنني مساعدتك في:\n• تسجيل متجر جديد\n• عرض بضائعك للبيع\n• معرفة الأسعار المرجعية\n• فهم آلية البيع والشراء';
     }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // API لنظام الذكاء المستقل (بدون OpenAI)
 app.post('/api/sheikha-ai/chat', express.json(), async (req, res) => {
     const message = (req.body && req.body.message) ? String(req.body.message).trim().slice(0, 2000) : '';
     if (!message) return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
-
+    
     try {
         const clientContext = (req.body && req.body.context && typeof req.body.context === 'object') ? req.body.context : {};
         // تمرير سياق الأدمن/الإنتاج من الواجهة (مع إبقاء معلومات المستخدم إن وجدت)
@@ -6845,17 +5512,17 @@ app.get('/api/sheikha-ai/supply-chain', (req, res) => {
 // API لحساب الربح
 app.post('/api/sheikha-ai/calculate-profit', express.json(), (req, res) => {
     const { sellPrice, buyPrice, quantity } = req.body;
-
+    
     if (!sellPrice || !buyPrice) {
         return res.status(400).json({ success: false, message: 'أرسل sellPrice و buyPrice' });
     }
-
+    
     const result = sheikhaAI.calculateProfit(
         parseFloat(sellPrice),
         parseFloat(buyPrice),
         parseFloat(quantity) || 1
     );
-
+    
     res.json({
         success: true,
         ...result,
@@ -6866,17 +5533,17 @@ app.post('/api/sheikha-ai/calculate-profit', express.json(), (req, res) => {
 // API لاقتراح السعر
 app.post('/api/sheikha-ai/suggest-price', express.json(), (req, res) => {
     const { metalType, quantity, quality, location } = req.body;
-
+    
     if (!metalType) {
         return res.status(400).json({ success: false, message: 'حدد metalType' });
     }
-
+    
     const suggestion = sheikhaAI.suggestPrice(metalType, quantity, quality, location);
-
+    
     if (!suggestion) {
         return res.status(404).json({ success: false, message: 'معدن غير معروف' });
     }
-
+    
     res.json({
         success: true,
         ...suggestion
@@ -6905,19 +5572,19 @@ app.get('/api/sheikha-ai/knowledge', (req, res) => {
 app.post('/api/ai/chat-public', express.json(), async (req, res) => {
     const message = (req.body && req.body.message) ? String(req.body.message).trim().slice(0, 1000) : '';
     if (!message) return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
-
+    
     const systemContent = SHEIKHA_SYSTEM_PROMPT + '\n\nهذا زائر غير مسجل. وجّهه للتسجيل إن كان مهتماً بالتجارة.';
-
+    
     const messages = [
         { role: 'system', content: systemContent },
         { role: 'user', content: message }
     ];
-
+    
     try {
         const result = await callLLMChat(messages, 500, 0.6);
         if (result.error) {
-            return res.json({
-                success: true,
+            return res.json({ 
+                success: true, 
                 reply: getDefaultReply(message),
                 source: 'نظام الردود الافتراضية'
             });
@@ -6964,7 +5631,8 @@ function isEssentialOperation(opType, payload) {
     }
     if (opType === 'container_add' || opType === 'container_edit') return true;
     return false;
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 function logOperation(opType, entityType, summary, fullPayload) {
     const ts = new Date().toISOString();
     const id = uuidv4();
@@ -6988,7 +5656,8 @@ function appendEssentialSync(entry) {
         list.push(entry);
         fs.writeFileSync(f, JSON.stringify(list, null, 2), 'utf8');
     } catch (e) { console.error('[ops] appendEssentialSync:', e.message); }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 let CLOUD_QUEUE = [];
 let CLOUD_SYNCING = false;
 function enqueueCloudSync(entry) {
@@ -7015,11 +5684,12 @@ function flushOperationsLog() {
         fs.appendFileSync(logFile, lines, 'utf8');
         OPERATIONS_STATS.lastFlush = new Date().toISOString();
     } catch (e) { console.error('[ops] flushOperationsLog:', e.message); }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
 setInterval(flushOperationsLog, 1000);
 
 function loadJSON(file, def = []) {
     try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch (_) { return def; }
+}
 function saveJSON(file, data) {
     fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
 }
@@ -7372,7 +6042,7 @@ function authOptional(req, res, next) {
         if (user) { req.user = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, role: user.role || 'user' }; }
     } catch (_) {}
     next();
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
 function authRequired(req, res, next) {
     const token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.body?.token || req.query?.token;
     if (!token) return res.status(401).json({ success: false, message: 'يجب تسجيل الدخول.' });
@@ -7383,7 +6053,8 @@ function authRequired(req, res, next) {
         req.user = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, role: user.role || 'user' };
         next();
     } catch (_) { res.status(401).json({ success: false, message: 'جلسة منتهية. سجّل الدخول مرة أخرى.' }); }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // تم إزالة البيانات الوهمية نهائياً - المنتجات تأتي فقط من التجار الحقيقيين
 const MARKET_STORES_SAMPLE = [];
 
@@ -7998,7 +6669,8 @@ function calculateSecurityScore(user) {
     if ((user.authMethods || []).length >= 3) score += 10;
     if (user.passwordChangedAt) score += 10;
     return Math.min(100, score);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // سجل الأمان
 app.get('/api/auth/security-log', authRequired, (req, res) => {
     const user = USERS.find(u => u.id === req.user.id);
@@ -8255,8 +6927,8 @@ app.get('/api/my-products', authRequired, (req, res) => {
 
 // إضافة منتج (متجر كامل: وصف، كمية، وزن، موقع، إثبات ملكية، مرحلة توريد، نوع سكراب، دعم المصانع والكميات الكبيرة)
 app.post('/api/products', authRequired, (req, res) => {
-    const {
-        name, hsCode, categoryName: reqCategoryName, description, quantity, unit, weight, price, currency,
+    const { 
+        name, hsCode, categoryName: reqCategoryName, description, quantity, unit, weight, price, currency, 
         locationAddress, locationLat, locationLng, address, proofOfOwnership, supplyChainStage, scrapType,
         quality, priceType, delivery, transportTypes, shippingCost, minOrder, notes,
         // بيانات المصنع
@@ -8264,36 +6936,36 @@ app.post('/api/products', authRequired, (req, res) => {
         // خصم الكميات
         hasBulkDiscount, bulkQty, bulkDiscount
     } = req.body || {};
-
+    
     if (!name) return res.status(400).json({ success: false, message: 'اسم المنتج مطلوب.' });
-
+    
     const hs = getHSCategory(hsCode || 'other');
     const defaultStage = req.user.specialty ? getSpecialty(req.user.specialty).stage : 'source';
     const stage = getStage(supplyChainStage || defaultStage);
     const scrapDisplay = getScrapDisplayType(scrapType || 'collection');
     const id = uuidv4();
-
+    
     const listing = {
-        id,
-        traderId: req.user.id,
-        traderPhone: req.user.phone,
-        storeName: req.user.storeName || req.user.name,
+        id, 
+        traderId: req.user.id, 
+        traderPhone: req.user.phone, 
+        storeName: req.user.storeName || req.user.name, 
         storeRegion: req.user.region || locationAddress,
-        name: name.trim(),
-        hsCode: hs.id,
-        category: hs.id,
+        name: name.trim(), 
+        hsCode: hs.id, 
+        category: hs.id, 
         categoryName: reqCategoryName || hs.nameAr,
-        description: (description || '').trim(),
-        quantity: quantity || '',
-        unit: unit || 'طن',
+        description: (description || '').trim(), 
+        quantity: quantity || '', 
+        unit: unit || 'طن', 
         weight: weight || '',
-        price: price || '',
+        price: price || '', 
         currency: currency || 'ريال',
         quality: quality || 'جيد',
         priceType: priceType || 'fixed',
-        locationAddress: (locationAddress || '').trim(),
+        locationAddress: (locationAddress || '').trim(), 
         address: (address || '').trim(),
-        locationLat: locationLat || null,
+        locationLat: locationLat || null, 
         locationLng: locationLng || null,
         delivery: delivery || 'pickup',
         transportTypes: transportTypes || [],
@@ -8301,7 +6973,7 @@ app.post('/api/products', authRequired, (req, res) => {
         minOrder: minOrder || null,
         notes: (notes || '').trim(),
         proofOfOwnership: (proofOfOwnership || '').trim(),
-        supplyChainStage: stage.id,
+        supplyChainStage: stage.id, 
         scrapType: scrapDisplay.id,
         // بيانات المصنع والإنتاج
         supplyType: supplyType || 'stock',
@@ -8319,13 +6991,13 @@ app.post('/api/products', authRequired, (req, res) => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
     };
-
+    
     LISTINGS.push(listing);
     saveJSON(LISTINGS_FILE, LISTINGS);
-
-    res.status(201).json({
-        success: true,
-        product: { ...listing, icon: hs.icon },
+    
+    res.status(201).json({ 
+        success: true, 
+        product: { ...listing, icon: hs.icon }, 
         message: 'تم نشر العرض بنجاح! يمكنك مشاهدته في السوق الآن.',
         redirectTo: '/السوق.html'
     });
@@ -8520,7 +7192,8 @@ app.get('/api/stores-by-specialty', (req, res) => {
 function categoryName(id) {
     const c = SCRAP_CATEGORIES.find(x => x.id === id);
     return c ? c.name : 'أخرى';
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // تحويل نص إلى رقم (للكمية، السعر، الوزن)
 function toNum(s) { const n = parseFloat(String(s || '').replace(/[^\d.-]/g, '')); return isNaN(n) ? 0 : n; }
 
@@ -8626,34 +7299,34 @@ app.get('/api/market-listings', (req, res) => {
     const type = (req.query.type || '').toLowerCase();
     const stage = (req.query.stage || '').toLowerCase();
     const scrapType = (req.query.scrapType || '').toLowerCase();
-
+    
     // المنتجات تأتي فقط من قاعدة البيانات الحقيقية
     let listings = LISTINGS.map(l => {
         const hs = getHSCategory(l.hsCode || l.category);
         const st = getStage(l.supplyChainStage);
         const sd = getScrapDisplayType(l.scrapType);
         const trader = TRADERS.find(t => t.id === l.traderId);
-        return {
-            id: l.id,
-            name: l.name,
-            description: l.description,
-            quantity: l.quantity,
-            unit: l.unit,
-            weight: l.weight,
-            price: l.price,
-            currency: l.currency,
-            storeName: l.storeName,
-            storeRegion: l.storeRegion,
-            category: l.category,
-            categoryName: l.categoryName || hs.nameAr,
-            hsCode: l.hsCode,
-            icon: hs.icon,
-            locationAddress: l.locationAddress,
-            locationLat: l.locationLat,
-            locationLng: l.locationLng,
-            supplyChainStage: l.supplyChainStage || st.id,
-            supplyChainStageName: st.nameAr,
-            scrapType: l.scrapType || sd.id,
+        return { 
+            id: l.id, 
+            name: l.name, 
+            description: l.description, 
+            quantity: l.quantity, 
+            unit: l.unit, 
+            weight: l.weight, 
+            price: l.price, 
+            currency: l.currency, 
+            storeName: l.storeName, 
+            storeRegion: l.storeRegion, 
+            category: l.category, 
+            categoryName: l.categoryName || hs.nameAr, 
+            hsCode: l.hsCode, 
+            icon: hs.icon, 
+            locationAddress: l.locationAddress, 
+            locationLat: l.locationLat, 
+            locationLng: l.locationLng, 
+            supplyChainStage: l.supplyChainStage || st.id, 
+            supplyChainStageName: st.nameAr, 
+            scrapType: l.scrapType || sd.id, 
             scrapTypeName: sd.nameAr,
             quality: l.quality || 'جيد',
             priceType: l.priceType || 'fixed',
@@ -8664,31 +7337,31 @@ app.get('/api/market-listings', (req, res) => {
             createdAt: l.createdAt
         };
     });
-
+    
     // الفلترة
     if (type) listings = listings.filter(l => (l.category || '').toLowerCase() === type);
     if (stage) listings = listings.filter(l => (l.supplyChainStage || '').toLowerCase() === stage);
     if (scrapType) listings = listings.filter(l => (l.scrapType || '').toLowerCase() === scrapType);
-
+    
     // الفئات مع عدد المنتجات الحقيقية
-    const categories = HS_SCRAP_CATEGORIES.map(c => ({
-        id: c.id,
-        hsCode: c.hsCode,
-        name: c.nameAr,
-        icon: c.icon,
-        count: LISTINGS.filter(l => (l.category || l.hsCode) === c.id).length
+    const categories = HS_SCRAP_CATEGORIES.map(c => ({ 
+        id: c.id, 
+        hsCode: c.hsCode, 
+        name: c.nameAr, 
+        icon: c.icon, 
+        count: LISTINGS.filter(l => (l.category || l.hsCode) === c.id).length 
     }));
-
+    
     // إحصائيات حقيقية
     const storesCount = [...new Set(LISTINGS.map(l => l.traderId))].length;
-
-    res.json({
-        success: true,
-        listings,
-        categories,
-        stages: SUPPLY_CHAIN_STAGES,
-        scrapDisplayTypes: SCRAP_DISPLAY_TYPES,
-        tradersCount: TRADERS.length,
+    
+    res.json({ 
+        success: true, 
+        listings, 
+        categories, 
+        stages: SUPPLY_CHAIN_STAGES, 
+        scrapDisplayTypes: SCRAP_DISPLAY_TYPES, 
+        tradersCount: TRADERS.length, 
         listingsCount: LISTINGS.length,
         storesCount
     });
@@ -8721,14 +7394,14 @@ app.get('/api/market/products', (req, res) => {
     const heading = (req.query.heading || '').toLowerCase();
     const region = (req.query.region || '').toLowerCase();
     const search = (req.query.search || '').toLowerCase();
-
+    
     // جلب المنتجات الحقيقية من قاعدة البيانات
     let products = LISTINGS.filter(l => l.status !== 'deleted').map(l => {
         const hs = getHSCategory(l.hsCode || l.category);
         const st = getStage(l.supplyChainStage);
         const trader = TRADERS.find(t => t.id === l.traderId);
         const user = USERS.find(u => u.id === l.traderId);
-
+        
         return {
             id: l.id,
             name: l.name,
@@ -8766,47 +7439,47 @@ app.get('/api/market/products', (req, res) => {
             createdAt: l.createdAt
         };
     });
-
+    
     // الفلترة حسب السوق (metals, scrap, precious)
     if (market === 'metals') {
-        products = products.filter(p => ['iron', 'copper', 'aluminum', 'stainless', '7204', '7404', '7602', '8002'].includes(p.hs) ||
+        products = products.filter(p => ['iron', 'copper', 'aluminum', 'stainless', '7204', '7404', '7602', '8002'].includes(p.hs) || 
             p.hs.startsWith('72') || p.hs.startsWith('73') || p.hs.startsWith('74') || p.hs.startsWith('75') || p.hs.startsWith('76'));
     } else if (market === 'scrap') {
-        products = products.filter(p => ['7204', '7404', '7602', '8002', '8548', '8549'].includes(p.hs) ||
+        products = products.filter(p => ['7204', '7404', '7602', '8002', '8548', '8549'].includes(p.hs) || 
             p.category.includes('سكراب') || p.category.includes('نفايات'));
     } else if (market === 'precious') {
-        products = products.filter(p => p.hs.startsWith('71') ||
+        products = products.filter(p => p.hs.startsWith('71') || 
             p.category.includes('ذهب') || p.category.includes('فضة') || p.category.includes('بلاتين'));
     }
-
+    
     // الفلترة حسب الفصل
     if (chapter) {
         products = products.filter(p => p.hs.startsWith(chapter));
     }
-
+    
     // الفلترة حسب البند
     if (heading) {
         products = products.filter(p => p.hs === heading || p.hs.startsWith(heading));
     }
-
+    
     // الفلترة حسب المنطقة
     if (region) {
         products = products.filter(p => p.location.toLowerCase().includes(region));
     }
-
+    
     // البحث النصي
     if (search) {
-        products = products.filter(p =>
-            p.name.toLowerCase().includes(search) ||
+        products = products.filter(p => 
+            p.name.toLowerCase().includes(search) || 
             p.description.toLowerCase().includes(search) ||
             p.category.toLowerCase().includes(search) ||
             p.seller.toLowerCase().includes(search)
         );
     }
-
+    
     // ترتيب حسب الأحدث
     products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+    
     res.json({
         success: true,
         products,
@@ -8853,9 +7526,9 @@ app.get('/api/products/:id', (req, res) => {
     };
 
     // عروض تجار آخرين لنفس الفئة
-    const similarOffers = LISTINGS.filter(l =>
-        l.status !== 'deleted' &&
-        String(l.id) !== String(id) &&
+    const similarOffers = LISTINGS.filter(l => 
+        l.status !== 'deleted' && 
+        String(l.id) !== String(id) && 
         (l.categoryName === listing.categoryName || l.hsCode === listing.hsCode || l.category === listing.category)
     ).slice(0, 5).map(l => {
         const offerTrader = TRADERS.find(t => t.id === l.traderId);
@@ -8927,13 +7600,13 @@ app.get('/api/products/:id', (req, res) => {
 app.post('/api/rfq', (req, res) => {
     const { productId, quantity, notes, contact } = req.body;
     if (!productId) return res.status(400).json({ success: false, message: 'حدد المنتج' });
-
+    
     const listing = LISTINGS.find(l => String(l.id) === String(productId));
     if (!listing) return res.status(404).json({ success: false, message: 'المنتج غير موجود' });
-
+    
     listing.inquiries = (listing.inquiries || 0) + 1;
     saveJSON(LISTINGS_FILE, LISTINGS);
-
+    
     res.json({
         success: true,
         message: 'تم إرسال طلب عرض السعر بنجاح — سيتم الرد خلال 24 ساعة بإذن الله',
@@ -8954,18 +7627,18 @@ app.post('/api/rfq', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 app.get('/api/market-by-stage', (req, res) => {
     const stage = (req.query.stage || '').toLowerCase();
-
+    
     let listings = LISTINGS.filter(l => l.status !== 'deleted');
-
+    
     // فلترة حسب مرحلة سلسلة التوريد
     if (stage && stage !== 'all') {
         listings = listings.filter(l => {
             const traderStage = l.supplyChainStage || '';
             const trader = TRADERS.find(t => t.id === l.traderId);
             const traderSpecialty = trader?.specialty || '';
-
+            
             // التطابق المباشر أو حسب تخصص التاجر
-            return traderStage === stage ||
+            return traderStage === stage || 
                    traderSpecialty === stage ||
                    (stage === 'source' && ['source', 'mine', 'factory'].includes(traderStage)) ||
                    (stage === 'collection' && ['collection', 'collector', 'gatherer'].includes(traderStage)) ||
@@ -8975,12 +7648,12 @@ app.get('/api/market-by-stage', (req, res) => {
                    (stage === 'end' && ['retail', 'end', 'consumer'].includes(traderStage));
         });
     }
-
+    
     const result = listings.map(l => {
         const hs = getHSCategory(l.hsCode || l.category);
         const st = getStage(l.supplyChainStage);
         const trader = TRADERS.find(t => t.id === l.traderId);
-
+        
         return {
             id: l.id,
             name: l.name,
@@ -9001,10 +7674,10 @@ app.get('/api/market-by-stage', (req, res) => {
             createdAt: l.createdAt
         };
     });
-
+    
     // ترتيب حسب الأحدث
     result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+    
     res.json({
         success: true,
         stage: stage || 'all',
@@ -9073,16 +7746,16 @@ app.get('/api/fbs/pricing', (req, res) => {
 
 app.post('/api/fbs/inventory', authRequired, (req, res) => {
     const { warehouseId, productName, quantity, unit, value, hsCode, notes } = req.body;
-
+    
     if (!warehouseId || !productName || !quantity) {
         return res.status(400).json({ success: false, error: 'بيانات ناقصة' });
     }
-
+    
     const warehouse = FBS_WAREHOUSES.find(w => w.id === warehouseId);
     if (!warehouse || warehouse.status !== 'active') {
         return res.status(400).json({ success: false, error: 'المستودع غير متاح' });
     }
-
+    
     const item = {
         id: 'FBS-' + Date.now(),
         traderId: req.user.id,
@@ -9097,9 +7770,9 @@ app.post('/api/fbs/inventory', authRequired, (req, res) => {
         status: 'pending',
         createdAt: new Date().toISOString()
     };
-
+    
     FBS_INVENTORY.push(item);
-
+    
     res.json({
         success: true,
         message: 'تم إضافة البضاعة للمراجعة',
@@ -9207,7 +7880,7 @@ const SHEIKHA_PRICING_SYSTEM = {
             { hadith: 'لا يحتكرُ إلا خاطئ', narrator: 'مسلم', meaning: 'تحريم الاحتكار' }
         ]
     },
-
+    
     // معاملات المناطق
     regionFactors: {
         'السعودية': { factor: 1.00, nameEn: 'Saudi Arabia', tier: 1 },
@@ -9231,7 +7904,7 @@ const SHEIKHA_PRICING_SYSTEM = {
         'أمريكا': { factor: 1.22, nameEn: 'USA', tier: 4 },
         'أخرى': { factor: 1.25, nameEn: 'Other', tier: 5 }
     },
-
+    
     // معاملات الجودة
     qualityFactors: {
         'A+': { factor: 1.20, nameAr: 'ممتاز', purity: '>99%' },
@@ -9240,7 +7913,7 @@ const SHEIKHA_PRICING_SYSTEM = {
         'C': { factor: 0.90, nameAr: 'مقبول', purity: '>80%' },
         'D': { factor: 0.75, nameAr: 'ضعيف', purity: '<80%' }
     },
-
+    
     // هامش الربح العادل (حسب الشريعة)
     fairMargins: {
         basemetals: { min: 0.03, max: 0.08, typical: 0.05, nameAr: 'معادن أساسية' },
@@ -9271,7 +7944,7 @@ const SHEIKHA_REFERENCE_PRICES = {
         nickel: { nameAr: 'نيكل', nameEn: 'Nickel', lme: 65000, sheikha: 68250, unit: 'طن', hsCode: '7502' },
         tin: { nameAr: 'قصدير', nameEn: 'Tin', lme: 95000, sheikha: 99750, unit: 'طن', hsCode: '8001' }
     },
-
+    
     // المعادن الثمينة (ريال/جرام)
     precious: {
         gold_24k: { nameAr: 'ذهب 24 قيراط', nameEn: 'Gold 24K', comex: 280, sheikha: 287, unit: 'جرام', purity: '999' },
@@ -9283,7 +7956,7 @@ const SHEIKHA_REFERENCE_PRICES = {
         platinum: { nameAr: 'بلاتين', nameEn: 'Platinum', comex: 380, sheikha: 390, unit: 'جرام' },
         palladium: { nameAr: 'بلاديوم', nameEn: 'Palladium', comex: 420, sheikha: 430, unit: 'جرام' }
     },
-
+    
     // السكراب والإلكترونيات (ريال/طن أو كجم)
     scrap: {
         cables_insulated: { nameAr: 'كابلات معزولة', nameEn: 'Insulated Cables', lme: 4500, sheikha: 4950, unit: 'طن', hsCode: '8544' },
@@ -9307,7 +7980,7 @@ function calculateAdvancedSMI() {
         stainless_304: 0.10,
         silver_999: 0.05
     };
-
+    
     const baseValues = {
         iron_rebar: 2400,
         aluminum_pure: 9500,
@@ -9316,40 +7989,40 @@ function calculateAdvancedSMI() {
         stainless_304: 8500,
         silver_999: 3.8
     };
-
+    
     let index = 0;
     for (const [metal, weight] of Object.entries(weights)) {
-        const current = (SHEIKHA_REFERENCE_PRICES?.basemetals?.[metal]?.sheikha)
-                     || (SHEIKHA_REFERENCE_PRICES?.precious?.[metal]?.sheikha)
+        const current = (SHEIKHA_REFERENCE_PRICES?.basemetals?.[metal]?.sheikha) 
+                     || (SHEIKHA_REFERENCE_PRICES?.precious?.[metal]?.sheikha) 
                      || baseValues[metal];
         const base = baseValues[metal];
         index += (current / base) * weight * 1000;
     }
-
+    
     return Math.round(index);
 }
 
 // حساب سعر شيخة العادل
 function calculateSheikhaFairPrice(metal, region = 'السعودية', quality = 'B', quantity = 1) {
     // البحث عن المعدن في كل الفئات
-    let metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal]
-                 || SHEIKHA_REFERENCE_PRICES.precious[metal]
+    let metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal] 
+                 || SHEIKHA_REFERENCE_PRICES.precious[metal] 
                  || SHEIKHA_REFERENCE_PRICES.scrap[metal];
-
+    
     if (!metalData) {
         return { error: 'معدن غير معروف', metal };
     }
-
+    
     const regionData = SHEIKHA_PRICING_SYSTEM.regionFactors[region] || SHEIKHA_PRICING_SYSTEM.regionFactors['أخرى'];
     const qualityData = SHEIKHA_PRICING_SYSTEM.qualityFactors[quality] || SHEIKHA_PRICING_SYSTEM.qualityFactors['B'];
-
+    
     const basePrice = metalData.sheikha;
     const regionFactor = regionData.factor;
     const qualityFactor = qualityData.factor;
-
+    
     const fairPrice = Math.round(basePrice * regionFactor * qualityFactor);
     const totalPrice = fairPrice * quantity;
-
+    
     return {
         metal: metalData.nameAr,
         metalEn: metalData.nameEn,
@@ -9381,13 +8054,13 @@ app.get('/api/prices/metals/:metal', (req, res) => {
     const region = req.query.region || 'السعودية';
     const quality = req.query.quality || 'B';
     const quantity = parseFloat(req.query.quantity) || 1;
-
+    
     const result = calculateSheikhaFairPrice(metal, region, quality, quantity);
-
+    
     if (result.error) {
         return res.status(404).json({ success: false, error: result.error });
     }
-
+    
     res.json({
         success: true,
         pricing: result,
@@ -9399,11 +8072,11 @@ app.get('/api/prices/metals/:metal', (req, res) => {
 app.get('/api/prices/precious/:metal', (req, res) => {
     const metal = req.params.metal;
     const metalData = SHEIKHA_REFERENCE_PRICES.precious[metal];
-
+    
     if (!metalData) {
         return res.status(404).json({ success: false, error: 'معدن ثمين غير معروف' });
     }
-
+    
     res.json({
         success: true,
         metal: metalData,
@@ -9416,11 +8089,11 @@ app.get('/api/prices/precious/:metal', (req, res) => {
 app.get('/api/prices/scrap/:type', (req, res) => {
     const type = req.params.type;
     const scrapData = SHEIKHA_REFERENCE_PRICES.scrap[type];
-
+    
     if (!scrapData) {
         return res.status(404).json({ success: false, error: 'نوع سكراب غير معروف' });
     }
-
+    
     res.json({
         success: true,
         scrap: scrapData,
@@ -9433,11 +8106,11 @@ app.get('/api/prices/scrap/:type', (req, res) => {
 app.get('/api/prices/regional/:region', (req, res) => {
     const region = req.params.region;
     const regionData = SHEIKHA_PRICING_SYSTEM.regionFactors[region];
-
+    
     if (!regionData) {
         return res.status(404).json({ success: false, error: 'منطقة غير معروفة', availableRegions: Object.keys(SHEIKHA_PRICING_SYSTEM.regionFactors) });
     }
-
+    
     // حساب أسعار كل المعادن لهذه المنطقة
     const prices = {};
     for (const [key, metal] of Object.entries(SHEIKHA_REFERENCE_PRICES.basemetals)) {
@@ -9446,7 +8119,7 @@ app.get('/api/prices/regional/:region', (req, res) => {
             regionalPrice: Math.round(metal.sheikha * regionData.factor)
         };
     }
-
+    
     res.json({
         success: true,
         region,
@@ -9459,17 +8132,17 @@ app.get('/api/prices/regional/:region', (req, res) => {
 // API: تاريخ الأسعار (تم حذف المسار المكرر /api/index/smi — المسار الأصلي في السطر 2080)
 app.get('/api/history/:metal/:period', (req, res) => {
     const { metal, period } = req.params;
-
+    
     // توليد بيانات تاريخية تجريبية
     const days = period === 'week' ? 7 : period === 'month' ? 30 : period === 'year' ? 365 : 7;
-    const metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal]
-                   || SHEIKHA_REFERENCE_PRICES.precious[metal]
+    const metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal] 
+                   || SHEIKHA_REFERENCE_PRICES.precious[metal] 
                    || SHEIKHA_REFERENCE_PRICES.scrap[metal];
-
+    
     if (!metalData) {
         return res.status(404).json({ success: false, error: 'معدن غير معروف' });
     }
-
+    
     const history = [];
     const basePrice = metalData.sheikha;
     for (let i = days; i >= 0; i--) {
@@ -9482,7 +8155,7 @@ app.get('/api/history/:metal/:period', (req, res) => {
             volume: Math.round(Math.random() * 10000)
         });
     }
-
+    
     res.json({
         success: true,
         metal: metalData.nameAr,
@@ -9498,22 +8171,22 @@ app.get('/api/history/:metal/:period', (req, res) => {
 // API: حاسبة السعر العادل
 app.get('/api/prices/calculate', (req, res) => {
     const { metal, region, quality, quantity } = req.query;
-
+    
     if (!metal) {
         return res.status(400).json({ success: false, error: 'يجب تحديد المعدن' });
     }
-
+    
     const result = calculateSheikhaFairPrice(
-        metal,
-        region || 'السعودية',
-        quality || 'B',
+        metal, 
+        region || 'السعودية', 
+        quality || 'B', 
         parseFloat(quantity) || 1
     );
-
+    
     if (result.error) {
         return res.status(404).json({ success: false, error: result.error });
     }
-
+    
     res.json({
         success: true,
         calculation: result,
@@ -9529,9 +8202,9 @@ app.get('/api/ai/pricing-suggestion', (req, res) => {
     const unit = (req.query.unit || 'طن').toString();
     const region = req.query.region || 'السعودية';
     const quality = req.query.quality || 'B';
-
+    
     // البحث في أسعار شيخة أولاً
-    const keyMap = {
+    const keyMap = { 
         steelrebar: 'iron_rebar', حديد: 'iron_rebar', iron: 'iron_rebar',
         copper: 'copper_1', نحاس: 'copper_1',
         aluminum: 'aluminum_pure', ألومنيوم: 'aluminum_pure', ألمنيوم: 'aluminum_pure',
@@ -9540,17 +8213,17 @@ app.get('/api/ai/pricing-suggestion', (req, res) => {
         hms1: 'iron_hms1', hms2: 'iron_hms2',
         stainless: 'stainless_304', ستانلس: 'stainless_304'
     };
-
+    
     const metalKey = keyMap[category] || category;
     const result = calculateSheikhaFairPrice(metalKey, region, quality, quantity);
-
+    
     if (result.error) {
         // fallback للنظام القديم
         const saudi = LIVE_PRICES.saudi || {};
         const metals = LIVE_PRICES.metals || {};
         let basePrice = saudi[category]?.price || metals[category]?.price || 2000;
         const suggested = Math.round(basePrice * quantity * 1.05);
-
+        
         return res.json({
             success: true,
             suggestion: {
@@ -9565,7 +8238,7 @@ app.get('/api/ai/pricing-suggestion', (req, res) => {
             timestamp: new Date().toISOString()
         });
     }
-
+    
     res.json({
         success: true,
         suggestion: {
@@ -9601,7 +8274,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         trailer: { nameAr: 'تريلا', capacity: '30-40 طن', ratePerKm: 5.50, fixedFee: 500, minCharge: 1000 },
         flatbed: { nameAr: 'تريلا مسطحة', capacity: '40-50 طن', ratePerKm: 6.50, fixedFee: 600, minCharge: 1200 }
     },
-
+    
     // مصفوفة المسافات بين المدن السعودية (كم)
     saudiDistances: {
         'الرياض-جدة': 950, 'الرياض-الدمام': 400, 'الرياض-مكة': 870, 'الرياض-المدينة': 850,
@@ -9610,7 +8283,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'جدة-أبها': 650, 'جدة-جازان': 700, 'الدمام-الجبيل': 90, 'الدمام-الأحساء': 150,
         'مكة-المدينة': 450, 'المدينة-تبوك': 680, 'أبها-جازان': 200, 'أبها-نجران': 280
     },
-
+    
     // أسعار الشحن البحري الدولي (دولار/حاوية 20ft)
     internationalSeaRates: {
         'الإمارات': { min: 350, avg: 450, max: 600, days: '3-5' },
@@ -9628,7 +8301,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'جنوب أفريقيا': { min: 2200, avg: 2900, max: 3800, days: '25-32' },
         'أستراليا': { min: 2400, avg: 3100, max: 4100, days: '28-35' }
     },
-
+    
     // أنواع الحاويات
     containerTypes: {
         '20ft_standard': { nameAr: 'حاوية 20 قدم', volume: 33, maxWeight: 21000, multiplier: 1.0 },
@@ -9637,7 +8310,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'open_top': { nameAr: 'حاوية مفتوحة', volume: 32, maxWeight: 20000, multiplier: 1.3 },
         'flat_rack': { nameAr: 'حاوية مسطحة', volume: 0, maxWeight: 40000, multiplier: 1.5 }
     },
-
+    
     // أسعار النقل الجوي (دولار/كجم)
     airFreightRates: {
         'الإمارات': { standard: 2.5, express: 4.0, minWeight: 45, days: '1-2' },
@@ -9646,7 +8319,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'آسيا': { standard: 3.5, express: 6.0, minWeight: 45, days: '2-3' },
         'أفريقيا': { standard: 5.0, express: 8.5, minWeight: 45, days: '3-5' }
     },
-
+    
     // Incoterms 2020
     incoterms: {
         'EXW': { nameAr: 'من المصنع', seller: 'أدنى مسؤولية', buyer: 'كل التكاليف' },
@@ -9657,7 +8330,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'DAP': { nameAr: 'تسليم في المكان', seller: 'حتى مكان التسليم', buyer: 'التفريغ والجمارك' },
         'DDP': { nameAr: 'تسليم مدفوع الرسوم', seller: 'كل شيء', buyer: 'التفريغ فقط' }
     },
-
+    
     // الوثائق المطلوبة
     requiredDocuments: {
         domestic: ['بوليصة الشحن', 'فاتورة البيع', 'إذن التحميل', 'وثيقة الوزن'],
@@ -9669,21 +8342,21 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
 function calculateDomesticShipping(from, to, truckType, weight) {
     const route = `${from}-${to}`;
     const reverseRoute = `${to}-${from}`;
-    const distance = SHEIKHA_LOGISTICS_SYSTEM.saudiDistances[route]
+    const distance = SHEIKHA_LOGISTICS_SYSTEM.saudiDistances[route] 
                   || SHEIKHA_LOGISTICS_SYSTEM.saudiDistances[reverseRoute];
-
+    
     if (!distance) {
         return { error: 'مسار غير متوفر', availableRoutes: Object.keys(SHEIKHA_LOGISTICS_SYSTEM.saudiDistances) };
     }
-
-    const truck = SHEIKHA_LOGISTICS_SYSTEM.domesticRates[truckType]
+    
+    const truck = SHEIKHA_LOGISTICS_SYSTEM.domesticRates[truckType] 
                || SHEIKHA_LOGISTICS_SYSTEM.domesticRates['trailer'];
-
+    
     let cost = (distance * truck.ratePerKm) + truck.fixedFee;
     cost = Math.max(cost, truck.minCharge);
-
+    
     const pricePerTon = weight > 0 ? Math.round(cost / weight) : 0;
-
+    
     return {
         from,
         to,
@@ -9711,18 +8384,18 @@ function calculateInternationalShipping(destination, containerType, incoterm) {
     if (!rates) {
         return { error: 'وجهة غير متوفرة', availableDestinations: Object.keys(SHEIKHA_LOGISTICS_SYSTEM.internationalSeaRates) };
     }
-
-    const container = SHEIKHA_LOGISTICS_SYSTEM.containerTypes[containerType]
+    
+    const container = SHEIKHA_LOGISTICS_SYSTEM.containerTypes[containerType] 
                    || SHEIKHA_LOGISTICS_SYSTEM.containerTypes['20ft_standard'];
-
+    
     const baseCost = rates.avg * container.multiplier;
     const incoData = SHEIKHA_LOGISTICS_SYSTEM.incoterms[incoterm] || SHEIKHA_LOGISTICS_SYSTEM.incoterms['FOB'];
-
+    
     // تقدير التكاليف الإضافية حسب الـ Incoterm
     let additionalCosts = 0;
     if (incoterm === 'CIF' || incoterm === 'DDP') additionalCosts += baseCost * 0.03; // تأمين 3%
     if (incoterm === 'DDP') additionalCosts += baseCost * 0.10; // جمارك تقديرية 10%
-
+    
     return {
         destination,
         containerType: container.nameAr,
@@ -9748,21 +8421,21 @@ function calculateInternationalShipping(destination, containerType, incoterm) {
 // API: حاسبة النقل الداخلي
 app.get('/api/logistics/domestic/calculate', (req, res) => {
     const { from, to, truckType, weight } = req.query;
-
+    
     if (!from || !to) {
-        return res.status(400).json({
-            success: false,
+        return res.status(400).json({ 
+            success: false, 
             error: 'يجب تحديد نقطة الانطلاق والوجهة',
             availableCities: ['الرياض', 'جدة', 'الدمام', 'مكة', 'المدينة', 'تبوك', 'أبها', 'جازان', 'نجران', 'الجبيل', 'الأحساء']
         });
     }
-
+    
     const result = calculateDomesticShipping(from, to, truckType || 'trailer', parseFloat(weight) || 25);
-
+    
     if (result.error) {
         return res.status(404).json({ success: false, ...result });
     }
-
+    
     res.json({
         success: true,
         shipping: result,
@@ -9787,25 +8460,25 @@ app.get('/api/logistics/domestic/rates', (req, res) => {
 // API: حاسبة الشحن الدولي
 app.get('/api/logistics/international/calculate', (req, res) => {
     const { destination, containerType, incoterm } = req.query;
-
+    
     if (!destination) {
-        return res.status(400).json({
-            success: false,
+        return res.status(400).json({ 
+            success: false, 
             error: 'يجب تحديد الوجهة',
             availableDestinations: Object.keys(SHEIKHA_LOGISTICS_SYSTEM.internationalSeaRates)
         });
     }
-
+    
     const result = calculateInternationalShipping(
-        destination,
-        containerType || '20ft_standard',
+        destination, 
+        containerType || '20ft_standard', 
         incoterm || 'FOB'
     );
-
+    
     if (result.error) {
         return res.status(404).json({ success: false, ...result });
     }
-
+    
     res.json({
         success: true,
         shipping: result,
@@ -9832,9 +8505,9 @@ app.get('/api/logistics/international/rates', (req, res) => {
 // API: مصفوفة المسافات السعودية (تم حذف المسار المكرر /api/logistics/documents — المسار الأصلي في السطر 2679)
 app.get('/api/logistics/distances/saudi', (req, res) => {
     const { from } = req.query;
-
+    
     let distances = SHEIKHA_LOGISTICS_SYSTEM.saudiDistances;
-
+    
     if (from) {
         // فلترة المسافات من مدينة محددة
         distances = {};
@@ -9844,7 +8517,7 @@ app.get('/api/logistics/distances/saudi', (req, res) => {
             }
         }
     }
-
+    
     res.json({
         success: true,
         distances,
@@ -9865,7 +8538,7 @@ app.get('/api/logistics/live-stats', (req, res) => {
     const transitCount = ACTIVE_SHIPMENTS.filter(s => s.status === 'transit').length;
     const customsCount = ACTIVE_SHIPMENTS.filter(s => s.status === 'customs').length;
     const deliveredToday = ACTIVE_SHIPMENTS.filter(s => s.status === 'delivered').length;
-
+    
     res.json({
         success: true,
         stats: {
@@ -9887,10 +8560,10 @@ app.get('/api/logistics/live-stats', (req, res) => {
 app.get('/api/logistics/shipments', (req, res) => {
     const { status, type } = req.query;
     let shipments = [...ACTIVE_SHIPMENTS];
-
+    
     if (status) shipments = shipments.filter(s => s.status === status);
     if (type) shipments = shipments.filter(s => s.type === type);
-
+    
     res.json({
         success: true,
         shipments: shipments.map(s => ({
@@ -9912,7 +8585,7 @@ app.get('/api/logistics/shipments', (req, res) => {
 app.get('/api/logistics/shipments/:id', (req, res) => {
     const shipment = ACTIVE_SHIPMENTS.find(s => s.id === req.params.id);
     if (!shipment) return res.status(404).json({ success: false, message: 'الشحنة غير موجودة' });
-
+    
     res.json({
         success: true,
         shipment: {
@@ -10006,15 +8679,17 @@ try {
     if (fs.existsSync(dataPath)) {
         SHIPPING_COMPANIES_DATA = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     }
+} catch (e) { console.log('تحذير: لم يتم تحميل بيانات شركات النقل'); }
+
 // API: شركات النقل المسجلة
 app.get('/api/shipping/companies', (req, res) => {
     const { type, country, verified } = req.query;
     let companies = [...SHIPPING_COMPANIES_DATA.companies];
-
+    
     if (type) companies = companies.filter(c => c.type === type);
     if (country) companies = companies.filter(c => c.country === country);
     if (verified === 'true') companies = companies.filter(c => c.verified);
-
+    
     res.json({
         success: true,
         companies,
@@ -10028,11 +8703,11 @@ app.get('/api/shipping/companies', (req, res) => {
 app.get('/api/shipping/trucks', (req, res) => {
     const { suitable } = req.query;
     let trucks = [...SHIPPING_COMPANIES_DATA.trucks];
-
+    
     if (suitable) {
         trucks = trucks.filter(t => t.suitable && t.suitable.includes(suitable));
     }
-
+    
     res.json({
         success: true,
         trucks,
@@ -10044,10 +8719,10 @@ app.get('/api/shipping/trucks', (req, res) => {
 app.get('/api/shipping/warehouses', (req, res) => {
     const { city, type } = req.query;
     let warehouses = [...SHIPPING_COMPANIES_DATA.warehouses];
-
+    
     if (city) warehouses = warehouses.filter(w => w.city === city);
     if (type) warehouses = warehouses.filter(w => w.type === type);
-
+    
     res.json({
         success: true,
         warehouses,
@@ -10059,21 +8734,21 @@ app.get('/api/shipping/warehouses', (req, res) => {
 app.get('/api/shipping/find', (req, res) => {
     const { cargo, from, to, international } = req.query;
     let companies = [...SHIPPING_COMPANIES_DATA.companies];
-
+    
     // تصفية حسب الوجهة
     if (international === 'true') {
         companies = companies.filter(c => c.services && c.services.includes('international'));
     }
-
+    
     // تصفية حسب نوع البضاعة
     if (cargo === 'precious' || cargo === 'gold') {
-        companies = companies.filter(c => c.specializations &&
+        companies = companies.filter(c => c.specializations && 
             (c.specializations.includes('precious-metals') || c.specializations.includes('freight')));
     }
-
+    
     // ترتيب حسب التقييم
     companies.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-
+    
     // اقتراح نوع الشاحنة
     let suggestedTrucks = SHIPPING_COMPANIES_DATA.trucks.filter(t => {
         if (cargo === 'precious' || cargo === 'gold') return t.type === 'armored';
@@ -10081,7 +8756,7 @@ app.get('/api/shipping/find', (req, res) => {
         if (cargo === 'metals') return t.type === 'flatbed' || t.type === 'container';
         return true;
     });
-
+    
     res.json({
         success: true,
         companies: companies.slice(0, 5),
@@ -10093,7 +8768,7 @@ app.get('/api/shipping/find', (req, res) => {
 // API: تتبع الشحنة عبر شركات متعددة
 app.get('/api/shipping/track/:trackingNumber', (req, res) => {
     const { trackingNumber } = req.params;
-
+    
     // محاكاة بيانات التتبع
     res.json({
         success: true,
@@ -10113,11 +8788,11 @@ app.get('/api/shipping/track/:trackingNumber', (req, res) => {
 // API: إنشاء شحنة جديدة
 app.post('/api/logistics/shipments', (req, res) => {
     const { from, to, cargo, weight, type, priority } = req.body;
-
+    
     if (!from || !to || !cargo) {
         return res.status(400).json({ success: false, message: 'بيانات الشحنة غير مكتملة' });
     }
-
+    
     const newShipment = {
         id: 'SH-2024-' + String(Date.now()).slice(-4),
         status: 'pending',
@@ -10131,9 +8806,9 @@ app.post('/api/logistics/shipments', (req, res) => {
         createdAt: new Date().toISOString(),
         eta: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
     };
-
+    
     ACTIVE_SHIPMENTS.unshift(newShipment);
-
+    
     res.json({
         success: true,
         shipment: newShipment,
@@ -10149,7 +8824,7 @@ app.post('/api/logistics/shipments', (req, res) => {
 // API: توليد الوثائق تلقائياً
 app.post('/api/logistics/documents/generate', (req, res) => {
     const { shipmentId, documentTypes } = req.body;
-
+    
     const documents = (documentTypes || ['bill_of_lading', 'commercial_invoice', 'customs_declaration']).map(type => ({
         type,
         name: {
@@ -10163,7 +8838,7 @@ app.post('/api/logistics/documents/generate', (req, res) => {
         generatedAt: new Date().toISOString(),
         downloadUrl: `/api/logistics/documents/${shipmentId}/${type}.pdf`
     }));
-
+    
     res.json({
         success: true,
         shipmentId,
@@ -10175,14 +8850,14 @@ app.post('/api/logistics/documents/generate', (req, res) => {
 // API: حساب تكلفة الشحن الكاملة
 app.post('/api/logistics/calculate-cost', (req, res) => {
     const { from, to, weight, type, includeCustoms, includeInsurance } = req.body;
-
+    
     // حسابات تقريبية
     const baseCost = weight * (type === 'ship' ? 50 : type === 'plane' ? 150 : 25);
     const customsFees = includeCustoms ? weight * 15 : 0;
     const insuranceFees = includeInsurance ? baseCost * 0.02 : 0;
     const handlingFees = weight * 5;
     const total = baseCost + customsFees + insuranceFees + handlingFees;
-
+    
     res.json({
         success: true,
         calculation: {
@@ -10354,13 +9029,17 @@ app.get('/api/performance-indicators', (req, res) => {
 let SAUDI_METALS_ANALYSIS = {};
 try {
     SAUDI_METALS_ANALYSIS = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'saudi-metals-analysis.json'), 'utf8'));
+} catch (e) {
+    console.log('[Data] saudi-metals-analysis.json not found, using defaults');
+}
+
 // API: قائمة الشركات الكبرى
 app.get('/api/companies', (req, res) => {
     const type = (req.query.type || '').toLowerCase(); // mining, scrap, logistics, all
     const analysis = SAUDI_METALS_ANALYSIS;
-
+    
     let companies = [];
-
+    
     if (!type || type === 'all') {
         companies = [
             ...(analysis.majorCompanies?.mining || []),
@@ -10374,7 +9053,7 @@ app.get('/api/companies', (req, res) => {
     } else if (type === 'logistics') {
         companies = analysis.majorCompanies?.logistics || [];
     }
-
+    
     res.json({
         success: true,
         type: type || 'all',
@@ -10388,19 +9067,19 @@ app.get('/api/companies', (req, res) => {
 app.get('/api/companies/:id', (req, res) => {
     const id = req.params.id.toLowerCase();
     const analysis = SAUDI_METALS_ANALYSIS;
-
+    
     const allCompanies = [
         ...(analysis.majorCompanies?.mining || []),
         ...(analysis.majorCompanies?.scrap || []),
         ...(analysis.majorCompanies?.logistics || [])
     ];
-
+    
     const company = allCompanies.find(c => c.id === id);
-
+    
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     res.json({
         success: true,
         company,
@@ -10411,7 +9090,7 @@ app.get('/api/companies/:id', (req, res) => {
 // API: المناجم
 app.get('/api/mines', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-
+    
     res.json({
         success: true,
         goldMines: analysis.goldMines || {},
@@ -10427,7 +9106,7 @@ app.get('/api/mines', (req, res) => {
 // API: بيانات السوق
 app.get('/api/market-analysis', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-
+    
     res.json({
         success: true,
         marketData: analysis.marketData || {},
@@ -10441,7 +9120,7 @@ app.get('/api/market-analysis', (req, res) => {
 // API: نموذج سلسلة التوريد
 app.get('/api/supply-chain-model', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-
+    
     res.json({
         success: true,
         model: analysis.supplyChainModel || {},
@@ -10454,7 +9133,7 @@ app.get('/api/supply-chain-model', (req, res) => {
 // API: التعدين الرقمي
 app.get('/api/digital-mining', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-
+    
     res.json({
         success: true,
         digitalMining: analysis.digitalMining || {},
@@ -10481,25 +9160,29 @@ app.get('/api/saudi-metals-report', (req, res) => {
 let COMPANIES_REGISTRY = { registeredCompanies: [], preRegisteredCompanies: [] };
 try {
     COMPANIES_REGISTRY = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'companies-registry.json'), 'utf8'));
+} catch (e) {
+    console.log('[Data] companies-registry.json not found');
+}
+
 // تسجيل شركة جديدة
 app.post('/api/companies/register', express.json(), async (req, res) => {
     try {
         const company = req.body;
-
+        
         // دعم حقل type كبديل لـ category (من نموذج التسجيل)
         if (!company.category && company.type) company.category = company.type;
-
+        
         // التحقق من البيانات المطلوبة
         if (!company.nameAr || !company.category) {
             return res.status(400).json({ success: false, message: 'الاسم والفئة مطلوبان' });
         }
-
+        
         // توليد معرف فريد
         if (!company.companyId) {
             const prefix = company.category.toUpperCase().slice(0, 3);
             company.companyId = `${prefix}-${Date.now().toString().slice(-6)}`;
         }
-
+        
         // توليد API Key
         if (!company.apiIntegration?.apiKey) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -10511,16 +9194,16 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
             company.apiIntegration.apiKey = apiKey;
             company.apiIntegration.enabled = true;
         }
-
+        
         // إعداد نموذج الذكاء المخصص
         company.aiModel = company.aiModel || { enabled: true };
-        company.aiModel.customPrompt = company.aiModel.customPrompt ||
+        company.aiModel.customPrompt = company.aiModel.customPrompt || 
             `أنت مساعد ذكي لشركة ${company.nameAr}. تخصصك: ${company.category}. ساعد العملاء والموظفين.`;
-
+        
         // إضافة تاريخ التسجيل والحالة
         company.registeredAt = new Date().toISOString();
         company.status = 'active';
-
+        
         // تحليل أهداف الشركة تلقائياً
         company.analytics = {
             performanceScore: 80,
@@ -10529,17 +9212,17 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
             digitalMaturityScore: 70,
             customerSatisfactionScore: 85
         };
-
+        
         // إضافة للسجل
         COMPANIES_REGISTRY.registeredCompanies.push(company);
-
+        
         // حفظ السجل
         fs.writeFileSync(
             path.join(__dirname, 'data', 'companies-registry.json'),
             JSON.stringify(COMPANIES_REGISTRY, null, 2),
             'utf8'
         );
-
+        
         res.json({
             success: true,
             message: 'تم تسجيل الشركة بنجاح',
@@ -10550,7 +9233,7 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
                 dashboardUrl: `/لوحة-الشركة.html?id=${company.companyId}`
             }
         });
-
+        
     } catch (e) {
         res.status(500).json({ success: false, message: 'خطأ في التسجيل: ' + e.message });
     }
@@ -10560,11 +9243,11 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
 app.get('/api/companies/registered', (req, res) => {
     const category = req.query.category;
     let companies = COMPANIES_REGISTRY.registeredCompanies || [];
-
+    
     if (category) {
         companies = companies.filter(c => c.category === category);
     }
-
+    
     res.json({
         success: true,
         count: companies.length,
@@ -10585,11 +9268,11 @@ app.get('/api/companies/registered', (req, res) => {
 app.get('/api/companies/registered/:id', (req, res) => {
     const id = req.params.id;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-
+    
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     res.json({
         success: true,
         company,
@@ -10602,25 +9285,25 @@ app.put('/api/companies/registered/:id', express.json(), (req, res) => {
     const id = req.params.id;
     const updates = req.body;
     const index = COMPANIES_REGISTRY.registeredCompanies.findIndex(c => c.companyId === id);
-
+    
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     // تحديث البيانات
     COMPANIES_REGISTRY.registeredCompanies[index] = {
         ...COMPANIES_REGISTRY.registeredCompanies[index],
         ...updates,
         updatedAt: new Date().toISOString()
     };
-
+    
     // حفظ السجل
     fs.writeFileSync(
         path.join(__dirname, 'data', 'companies-registry.json'),
         JSON.stringify(COMPANIES_REGISTRY, null, 2),
         'utf8'
     );
-
+    
     res.json({
         success: true,
         message: 'تم تحديث بيانات الشركة',
@@ -10646,7 +9329,8 @@ function saveGovRegistry() {
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(path.join(dir, 'gov-registry.json'), JSON.stringify(GOV_REGISTRY, null, 2), 'utf8');
     } catch (e) { console.error('خطأ في حفظ السجل الحكومي:', e.message); }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // (تم حذف المسارات المكررة: /api/government/register و /api/government/entities — الأصلية في السطور 1104 و 1164)
 
 // GET /api/government/employees — قائمة الموظفين الحكوميين
@@ -10763,11 +9447,11 @@ function getDefaultEntityPermissions(type) {
 app.get('/api/company/:id/products', (req, res) => {
     const id = req.params.id;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-
+    
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     res.json({
         success: true,
         companyId: id,
@@ -10781,27 +9465,27 @@ app.post('/api/company/:id/products', express.json(), (req, res) => {
     const id = req.params.id;
     const product = req.body;
     const index = COMPANIES_REGISTRY.registeredCompanies.findIndex(c => c.companyId === id);
-
+    
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     // إنشاء معرف المنتج
     product.productId = `PRD-${Date.now().toString().slice(-8)}`;
     product.createdAt = new Date().toISOString();
-
+    
     // إضافة المنتج
-    COMPANIES_REGISTRY.registeredCompanies[index].products =
+    COMPANIES_REGISTRY.registeredCompanies[index].products = 
         COMPANIES_REGISTRY.registeredCompanies[index].products || [];
     COMPANIES_REGISTRY.registeredCompanies[index].products.push(product);
-
+    
     // حفظ
     fs.writeFileSync(
         path.join(__dirname, 'data', 'companies-registry.json'),
         JSON.stringify(COMPANIES_REGISTRY, null, 2),
         'utf8'
     );
-
+    
     res.json({
         success: true,
         message: 'تم إضافة المنتج',
@@ -10813,11 +9497,11 @@ app.post('/api/company/:id/products', express.json(), (req, res) => {
 app.get('/api/company/:id/analytics', (req, res) => {
     const id = req.params.id;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-
+    
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     res.json({
         success: true,
         companyId: id,
@@ -10840,11 +9524,11 @@ app.post('/api/company/:id/ai/chat', express.json(), async (req, res) => {
     const id = req.params.id;
     const { message } = req.body;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-
+    
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     // بناء سياق مخصص للشركة
     const companyContext = `
 أنتِ شيخة، المساعدة الذكية المخصصة لشركة "${company.nameAr}" (${company.nameEn || ''}).
@@ -10865,15 +9549,15 @@ ${company.aiModel?.customPrompt ? `\nتعليمات إضافية من الشرك
 
 ساعد المستخدم بما يتعلق بمنتجات الشركة وخدماتها. كن محترفاً ومفيداً.
 `;
-
+    
     try {
         const messages = [
             { role: 'system', content: companyContext },
             { role: 'user', content: message }
         ];
-
+        
         const result = await callLLMChat(messages, 800, 0.6);
-
+        
         res.json({
             success: true,
             reply: result.reply || 'مرحباً، كيف يمكنني مساعدتك؟',
@@ -10901,6 +9585,10 @@ try {
         MARKETING_SERVICES = JSON.parse(fs.readFileSync(marketingServicesPath, 'utf8'));
         console.log('✅ تم تحميل خدمات التسويق');
     }
+} catch (e) {
+    console.log('⚠️ لم يتم العثور على ملف خدمات التسويق');
+}
+
 // ═══════════════════════════════════════════════════════════════
 // MARKETING ENGINE API — محرك التسويق الرقمي
 // ═══════════════════════════════════════════════════════════════
@@ -11050,18 +9738,18 @@ app.get('/api/marketing/packages', (req, res) => {
 app.get('/api/marketing/packages/:id', (req, res) => {
     const pkgId = req.params.id;
     const pkg = MARKETING_SERVICES.packages?.[pkgId];
-
+    
     if (!pkg) {
         return res.status(404).json({ success: false, message: 'الباقة غير موجودة' });
     }
-
+    
     res.json({ success: true, package: pkg });
 });
 
 // الحصول على الخدمات الفردية
 app.get('/api/marketing/services', (req, res) => {
     const category = req.query.category;
-
+    
     if (category && MARKETING_SERVICES.individualServices?.[category]) {
         return res.json({
             success: true,
@@ -11069,7 +9757,7 @@ app.get('/api/marketing/services', (req, res) => {
             services: MARKETING_SERVICES.individualServices[category]
         });
     }
-
+    
     res.json({
         success: true,
         services: MARKETING_SERVICES.individualServices || {}
@@ -11079,7 +9767,7 @@ app.get('/api/marketing/services', (req, res) => {
 // طلب خدمة هوية تجارية
 app.post('/api/marketing/branding', express.json(), (req, res) => {
     const { companyId, serviceType, requirements } = req.body;
-
+    
     const order = {
         orderId: 'BRD-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -11090,7 +9778,7 @@ app.post('/api/marketing/branding', express.json(), (req, res) => {
         price: MARKETING_SERVICES.individualServices?.branding?.[serviceType]?.price || 500,
         createdAt: new Date().toISOString()
     };
-
+    
     res.json({
         success: true,
         message: 'تم استلام طلب الهوية التجارية',
@@ -11101,9 +9789,9 @@ app.post('/api/marketing/branding', express.json(), (req, res) => {
 // طلب موقع إلكتروني
 app.post('/api/marketing/website', express.json(), (req, res) => {
     const { companyId, packageType, domain, requirements } = req.body;
-
+    
     const pkg = MARKETING_SERVICES.individualServices?.websites?.[packageType || 'landing'];
-
+    
     const order = {
         orderId: 'WEB-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -11117,7 +9805,7 @@ app.post('/api/marketing/website', express.json(), (req, res) => {
         features: pkg?.features || [],
         createdAt: new Date().toISOString()
     };
-
+    
     res.json({
         success: true,
         message: 'تم استلام طلب الموقع الإلكتروني',
@@ -11128,9 +9816,9 @@ app.post('/api/marketing/website', express.json(), (req, res) => {
 // طلب خدمة بريد إلكتروني
 app.post('/api/marketing/emails', express.json(), (req, res) => {
     const { companyId, packageType, emailAccounts } = req.body;
-
+    
     const pkg = MARKETING_SERVICES.individualServices?.emails?.[packageType || 'basic'];
-
+    
     const order = {
         orderId: 'EML-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -11146,7 +9834,7 @@ app.post('/api/marketing/emails', express.json(), (req, res) => {
         features: pkg?.features || [],
         createdAt: new Date().toISOString()
     };
-
+    
     res.json({
         success: true,
         message: 'تم استلام طلب البريد الإلكتروني',
@@ -11157,10 +9845,10 @@ app.post('/api/marketing/emails', express.json(), (req, res) => {
 // طلب إيميلات ذكية للسائقين
 app.post('/api/marketing/smart-emails', express.json(), (req, res) => {
     const { companyId, emailType, accounts } = req.body;
-
+    
     const type = emailType || 'driver';
     const smartPkg = MARKETING_SERVICES.individualServices?.smartEmails?.[type];
-
+    
     const order = {
         orderId: 'SMT-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -11174,7 +9862,7 @@ app.post('/api/marketing/smart-emails', express.json(), (req, res) => {
         status: 'pending',
         createdAt: new Date().toISOString()
     };
-
+    
     res.json({
         success: true,
         message: 'تم استلام طلب الإيميلات الذكية',
@@ -11193,10 +9881,10 @@ app.get('/api/marketing/addons', (req, res) => {
 // حساب السعر الإجمالي للباقة + الإضافات
 app.post('/api/marketing/calculate-price', express.json(), (req, res) => {
     const { packageId, addons, quantity } = req.body;
-
+    
     let total = 0;
     const breakdown = [];
-
+    
     // سعر الباقة
     const pkg = MARKETING_SERVICES.packages?.[packageId];
     if (pkg && pkg.price) {
@@ -11207,7 +9895,7 @@ app.post('/api/marketing/calculate-price', express.json(), (req, res) => {
             type: 'package'
         });
     }
-
+    
     // الإضافات
     if (addons && Array.isArray(addons)) {
         addons.forEach(addonId => {
@@ -11222,7 +9910,7 @@ app.post('/api/marketing/calculate-price', express.json(), (req, res) => {
             }
         });
     }
-
+    
     res.json({
         success: true,
         total,
@@ -11353,8 +10041,6 @@ let ERROR_COUNT = 0;
 let TOTAL_RESPONSE_TIME = 0;
 
 // Middleware لقياس الأداء
-
-
 app.use((req, res, next) => {
     const start = Date.now();
     REQUEST_COUNT++;
@@ -11370,7 +10056,7 @@ app.get('/api/server/status', (req, res) => {
     const uptime = Date.now() - SERVER_START_TIME;
     const avgResponseTime = REQUEST_COUNT > 0 ? Math.round(TOTAL_RESPONSE_TIME / REQUEST_COUNT) : 0;
     const memUsage = process.memoryUsage();
-
+    
     res.json({
         success: true,
         server: {
@@ -11406,7 +10092,7 @@ app.get('/api/server/metrics', (req, res) => {
     const uptime = Date.now() - SERVER_START_TIME;
     const memUsage = process.memoryUsage();
     const cpuUsage = process.cpuUsage();
-
+    
     res.json({
         success: true,
         metrics: {
@@ -11445,7 +10131,7 @@ app.get('/api/server/metrics', (req, res) => {
 // حالة الخدمات
 app.get('/api/server/services', (req, res) => {
     const aiEnabled = !!OPENAI_API_KEY && OPENAI_API_KEY !== 'YOUR_API_KEY_HERE';
-
+    
     res.json({
         success: true,
         services: [
@@ -11521,7 +10207,8 @@ function addSystemLog(level, service, message) {
         message
     });
     if (SYSTEM_LOGS.length > 100) SYSTEM_LOGS.pop();
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // إضافة سجلات أولية
 addSystemLog('info', 'Server', 'System initialized successfully');
 addSystemLog('success', 'Database', 'JSON storage connected');
@@ -11530,12 +10217,12 @@ addSystemLog('success', 'WebSocket', 'Real-time server started');
 app.get('/api/server/logs', (req, res) => {
     const limit = parseInt(req.query.limit) || 50;
     const level = req.query.level;
-
+    
     let logs = [...SYSTEM_LOGS];
     if (level) {
         logs = logs.filter(l => l.level === level);
     }
-
+    
     res.json({
         success: true,
         logs: logs.slice(0, limit),
@@ -11597,6 +10284,65 @@ app.get('/api/server/technologies', (req, res) => {
                 { name: 'NDJSON Logs', category: 'Operations' }
             ]
         },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// فحص صحة النظام — محسّن (عتبة الذاكرة 95% بدل 90% لتناسب حجم المشروع الكبير)
+// ═══════════════════════════════════════════════════════════════════════════════
+// فحص الذاكرة المُحسّن — Memory Health (حسب تدقيق Claude الأمني)
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/health', (req, res) => {
+    const mem = process.memoryUsage();
+    const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
+    const heapTotalMB = Math.round(mem.heapTotal / 1024 / 1024);
+    const rssMB = Math.round(mem.rss / 1024 / 1024);
+    const heapPercent = Math.round((mem.heapUsed / mem.heapTotal) * 100);
+
+    // بسم الله — عتبة ذكية: heap صغير (< 100MB) طبيعي عند 90%+ | كبير يُحد بـ 85% | RSS < 512MB
+    const memoryOk = rssMB < 512 && (heapTotalMB < 100 || heapPercent < 85);
+
+    const checks = {
+        server: true,
+        database: fs.existsSync(path.join(__dirname, 'data', 'users.json')),
+        memory: memoryOk
+    };
+    
+    // الخادم صحي إذا الخادم والبيانات يعملان — الذاكرة تحذيرية
+    const healthy = checks.server && checks.database;
+    const status = healthy ? (memoryOk ? 'healthy' : 'degraded') : 'unhealthy';
+    
+    res.status(healthy ? 200 : 503).json({
+        success: healthy,
+        status,
+        checks,
+        memoryDetails: {
+            heapUsed: heapUsedMB + ' MB',
+            heapTotal: heapTotalMB + ' MB',
+            rss: rssMB + ' MB',
+            heapPercent: heapPercent + '%',
+            threshold: '85% heap / 512MB RSS'
+        },
+        security: {
+            helmet: !!helmet,
+            compression: !!compression,
+            rateLimiting: !!rateLimit,
+            inputSanitization: true,
+            cors: 'restricted'
+        },
+        service: 'sheikha-main-portal',
+        uptime: Math.floor(process.uptime()) + 's',
+        node: process.version,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// فحص جاهزية النظام
+app.get('/api/ready', (req, res) => {
+    res.json({
+        success: true,
+        ready: true,
+        uptime: Date.now() - SERVER_START_TIME,
         timestamp: new Date().toISOString()
     });
 });
@@ -11703,8 +10449,12 @@ try {
     if (fs.existsSync(SMART_INVENTORY_FILE)) {
         SMART_INVENTORY = { ...SMART_INVENTORY, ...JSON.parse(fs.readFileSync(SMART_INVENTORY_FILE, 'utf8')) };
     }
+} catch (e) { console.log('Smart inventory init'); }
+
 function saveSmartInventory() {
     try { fs.writeFileSync(SMART_INVENTORY_FILE, JSON.stringify(SMART_INVENTORY, null, 2), 'utf8'); } catch (e) {}
+}
+
 // ─── حسابات القيمة والاهلاك ─────────────────────────────────────────────────────
 
 /**
@@ -11714,29 +10464,29 @@ function calculateScrapValue(item) {
     const now = new Date();
     const purchaseDate = new Date(item.purchaseDate || now);
     const monthsHeld = Math.floor((now - purchaseDate) / (30 * 24 * 60 * 60 * 1000));
-
+    
     // السعر الأساسي
     let currentValue = item.purchasePrice || 0;
-
+    
     // 1. الاهلاك الزمني (بالتلف)
     const timeDepreciation = currentValue * SMART_INVENTORY.depreciation.timeDepreciation * monthsHeld;
-
+    
     // 2. الاهلاك الشكلي (إن وجد)
-    const physicalDepreciation = item.hasPhysicalDamage ?
+    const physicalDepreciation = item.hasPhysicalDamage ? 
         currentValue * SMART_INVENTORY.depreciation.physicalDepreciation : 0;
-
+    
     // 3. فقد المعالجة (قص، فرز، إلخ)
     const processingLoss = item.wasProcessed ?
         currentValue * SMART_INVENTORY.depreciation.processingLoss : 0;
-
+    
     // 4. فرق الوزن الحقيقي
     const weightVariance = item.actualWeight && item.originalWeight ?
         Math.abs(item.originalWeight - item.actualWeight) / item.originalWeight * currentValue : 0;
-
+    
     // القيمة الحالية بعد الاهلاك
     const depreciation = timeDepreciation + physicalDepreciation + processingLoss + weightVariance;
     const currentNetValue = Math.max(0, currentValue - depreciation);
-
+    
     return {
         originalValue: item.purchasePrice,
         currentValue: Math.round(currentNetValue),
@@ -11750,29 +10500,30 @@ function calculateScrapValue(item) {
         monthsHeld,
         depreciationRate: item.purchasePrice > 0 ? ((depreciation / item.purchasePrice) * 100).toFixed(1) : 0
     };
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 /**
  * توقع امتلاء المخزون
  */
 function predictInventoryFill(userId, warehouseCapacity = 1000) {
     const userItems = SMART_INVENTORY.items.filter(i => i.userId === userId);
     if (userItems.length < 2) return null;
-
+    
     // حساب معدل الإضافة اليومي
     const sortedItems = userItems.sort((a, b) => new Date(a.addedAt) - new Date(b.addedAt));
     const firstDate = new Date(sortedItems[0].addedAt);
     const lastDate = new Date(sortedItems[sortedItems.length - 1].addedAt);
     const daysDiff = Math.max(1, (lastDate - firstDate) / (24 * 60 * 60 * 1000));
-
+    
     const totalWeight = userItems.reduce((sum, i) => sum + (i.actualWeight || i.originalWeight || 0), 0);
     const dailyRate = totalWeight / daysDiff;
-
+    
     // توقع تاريخ الامتلاء
     const remainingCapacity = warehouseCapacity - totalWeight;
     const daysToFill = remainingCapacity > 0 && dailyRate > 0 ? Math.ceil(remainingCapacity / dailyRate) : null;
-
+    
     const predictedFillDate = daysToFill ? new Date(Date.now() + daysToFill * 24 * 60 * 60 * 1000) : null;
-
+    
     return {
         currentWeight: Math.round(totalWeight),
         capacity: warehouseCapacity,
@@ -11780,7 +10531,7 @@ function predictInventoryFill(userId, warehouseCapacity = 1000) {
         dailyRate: Math.round(dailyRate * 100) / 100,
         daysToFill,
         predictedFillDate: predictedFillDate?.toISOString().split('T')[0],
-        recommendation: remainingCapacity < warehouseCapacity * 0.2 ?
+        recommendation: remainingCapacity < warehouseCapacity * 0.2 ? 
             'يوصى بالبيع قريباً - المخزون يقترب من الامتلاء' :
             remainingCapacity < warehouseCapacity * 0.5 ?
             'المخزون في مستوى جيد - راقب الأسعار للبيع الأمثل' :
@@ -11793,29 +10544,29 @@ function predictInventoryFill(userId, warehouseCapacity = 1000) {
  */
 function analyzeInventoryFeasibility(items) {
     if (!items || items.length === 0) return null;
-
+    
     let totalPurchaseValue = 0;
     let totalCurrentValue = 0;
     let totalWeight = 0;
     let totalDepreciation = 0;
-
+    
     const byCategory = {};
     const byQuality = {};
-
+    
     items.forEach(item => {
         const valuation = calculateScrapValue(item);
         totalPurchaseValue += item.purchasePrice || 0;
         totalCurrentValue += valuation.currentValue;
         totalWeight += item.actualWeight || item.originalWeight || 0;
         totalDepreciation += valuation.totalDepreciation;
-
+        
         // تجميع حسب النوع
         const cat = item.category || 'other';
         if (!byCategory[cat]) byCategory[cat] = { count: 0, weight: 0, value: 0 };
         byCategory[cat].count++;
         byCategory[cat].weight += item.actualWeight || item.originalWeight || 0;
         byCategory[cat].value += valuation.currentValue;
-
+        
         // تجميع حسب الجودة
         const qual = item.quality || 'unknown';
         if (!byQuality[qual]) byQuality[qual] = { count: 0, weight: 0, value: 0 };
@@ -11823,7 +10574,7 @@ function analyzeInventoryFeasibility(items) {
         byQuality[qual].weight += item.actualWeight || item.originalWeight || 0;
         byQuality[qual].value += valuation.currentValue;
     });
-
+    
     return {
         summary: {
             totalItems: items.length,
@@ -11831,9 +10582,9 @@ function analyzeInventoryFeasibility(items) {
             totalPurchaseValue: Math.round(totalPurchaseValue),
             totalCurrentValue: Math.round(totalCurrentValue),
             totalDepreciation: Math.round(totalDepreciation),
-            depreciationPercent: totalPurchaseValue > 0 ?
+            depreciationPercent: totalPurchaseValue > 0 ? 
                 ((totalDepreciation / totalPurchaseValue) * 100).toFixed(1) : 0,
-            averageValuePerTon: totalWeight > 0 ?
+            averageValuePerTon: totalWeight > 0 ? 
                 Math.round(totalCurrentValue / totalWeight * 1000) : 0
         },
         byCategory: Object.entries(byCategory).map(([k, v]) => ({
@@ -11861,17 +10612,17 @@ function analyzeInventoryFeasibility(items) {
  */
 function autoScheduleInventory(items, marketPrices = {}) {
     if (!items || items.length === 0) return [];
-
+    
     const scheduled = items.map(item => {
         const valuation = calculateScrapValue(item);
         const marketPrice = marketPrices[item.category] || item.estimatedMarketPrice || 0;
-        const profitMargin = marketPrice > 0 ?
+        const profitMargin = marketPrice > 0 ? 
             ((marketPrice - valuation.currentValue) / valuation.currentValue * 100).toFixed(1) : 0;
-
+        
         // تحديد الأولوية
         let priority = 'normal';
         let action = 'hold';
-
+        
         if (valuation.depreciationRate > 15) {
             priority = 'urgent';
             action = 'sell_immediately';
@@ -11885,7 +10636,7 @@ function autoScheduleInventory(items, marketPrices = {}) {
             priority = 'low';
             action = 'wait_for_better_price';
         }
-
+        
         return {
             itemId: item.id,
             name: item.name,
@@ -11906,7 +10657,7 @@ function autoScheduleInventory(items, marketPrices = {}) {
             recommendation: getItemRecommendation(action, profitMargin, valuation.depreciationRate)
         };
     });
-
+    
     // ترتيب حسب الأولوية
     const priorityOrder = { urgent: 0, high: 1, medium: 2, normal: 3, low: 4 };
     return scheduled.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
@@ -11932,13 +10683,19 @@ try {
     if (fs.existsSync(FORUM_DATA_FILE)) FORUM_DATA = { ...FORUM_DATA, ...JSON.parse(fs.readFileSync(FORUM_DATA_FILE, 'utf8')) };
     if (fs.existsSync(RESEARCH_DATA_FILE)) RESEARCH_DATA = { ...RESEARCH_DATA, ...JSON.parse(fs.readFileSync(RESEARCH_DATA_FILE, 'utf8')) };
     if (fs.existsSync(INTELLIGENCE_DATA_FILE)) INTELLIGENCE_DATA = { ...INTELLIGENCE_DATA, ...JSON.parse(fs.readFileSync(INTELLIGENCE_DATA_FILE, 'utf8')) };
+} catch (e) { console.log('Forum/Research data init'); }
+
 // حفظ البيانات
 function saveForumData() {
     try { fs.writeFileSync(FORUM_DATA_FILE, JSON.stringify(FORUM_DATA, null, 2), 'utf8'); } catch (e) {}
+}
 function saveResearchData() {
     try { fs.writeFileSync(RESEARCH_DATA_FILE, JSON.stringify(RESEARCH_DATA, null, 2), 'utf8'); } catch (e) {}
+}
 function saveIntelligenceData() {
     try { fs.writeFileSync(INTELLIGENCE_DATA_FILE, JSON.stringify(INTELLIGENCE_DATA, null, 2), 'utf8'); } catch (e) {}
+}
+
 // ─── APIs المنتدى ─────────────────────────────────────────────────────────────
 
 // إحصائيات المنتدى
@@ -11956,17 +10713,17 @@ app.get('/api/forum/stats', (req, res) => {
 app.get('/api/forum/topics', (req, res) => {
     const { category, sort, limit = 20, page = 1 } = req.query;
     let topics = [...FORUM_DATA.topics];
-
+    
     if (category) topics = topics.filter(t => t.category === category);
-
+    
     // ترتيب
     if (sort === 'popular') topics.sort((a, b) => (b.views + b.replies * 10) - (a.views + a.replies * 10));
     else if (sort === 'replies') topics.sort((a, b) => b.replies - a.replies);
     else topics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+    
     const start = (page - 1) * limit;
     const paginated = topics.slice(start, start + parseInt(limit));
-
+    
     res.json({
         success: true,
         topics: paginated,
@@ -11982,7 +10739,7 @@ app.post('/api/forum/topics', express.json(), authOptional, (req, res) => {
     if (!title || !content || !category) {
         return res.status(400).json({ success: false, message: 'يرجى تعبئة جميع الحقول' });
     }
-
+    
     const topic = {
         id: uuidv4(),
         title: title.slice(0, 200),
@@ -11998,19 +10755,19 @@ app.post('/api/forum/topics', express.json(), authOptional, (req, res) => {
         status: 'active',
         pinned: false
     };
-
+    
     FORUM_DATA.topics.unshift(topic);
     FORUM_DATA.statistics.totalTopics++;
-
+    
     // تحديث عداد القسم
     const cat = FORUM_DATA.categories.find(c => c.id === category);
     if (cat) cat.count++;
-
+    
     saveForumData();
-
+    
     // تسجيل للذكاء — جمع معلومات
     collectIntelligence('forum_topic', { title, category, content: content.slice(0, 500) });
-
+    
     res.json({ success: true, topic, message: 'تم نشر الموضوع بنجاح' });
 });
 
@@ -12018,12 +10775,12 @@ app.post('/api/forum/topics', express.json(), authOptional, (req, res) => {
 app.get('/api/forum/topics/:id', (req, res) => {
     const topic = FORUM_DATA.topics.find(t => t.id === req.params.id);
     if (!topic) return res.status(404).json({ success: false, message: 'الموضوع غير موجود' });
-
+    
     topic.views++;
     saveForumData();
-
+    
     const replies = FORUM_DATA.replies.filter(r => r.topicId === req.params.id);
-
+    
     res.json({ success: true, topic, replies });
 });
 
@@ -12033,10 +10790,10 @@ app.post('/api/forum/replies', express.json(), authOptional, (req, res) => {
     if (!topicId || !content) {
         return res.status(400).json({ success: false, message: 'يرجى كتابة الرد' });
     }
-
+    
     const topic = FORUM_DATA.topics.find(t => t.id === topicId);
     if (!topic) return res.status(404).json({ success: false, message: 'الموضوع غير موجود' });
-
+    
     const reply = {
         id: uuidv4(),
         topicId,
@@ -12045,14 +10802,14 @@ app.post('/api/forum/replies', express.json(), authOptional, (req, res) => {
         authorId: req.user?.id || null,
         createdAt: new Date().toISOString()
     };
-
+    
     FORUM_DATA.replies.push(reply);
     topic.replies++;
     topic.updatedAt = new Date().toISOString();
     FORUM_DATA.statistics.totalReplies++;
-
+    
     saveForumData();
-
+    
     res.json({ success: true, reply, message: 'تم إضافة الرد' });
 });
 
@@ -12060,15 +10817,15 @@ app.post('/api/forum/replies', express.json(), authOptional, (req, res) => {
 app.get('/api/forum/search', (req, res) => {
     const { q, category } = req.query;
     if (!q) return res.json({ success: true, results: [] });
-
+    
     const query = q.toLowerCase();
-    let results = FORUM_DATA.topics.filter(t =>
-        t.title.toLowerCase().includes(query) ||
+    let results = FORUM_DATA.topics.filter(t => 
+        t.title.toLowerCase().includes(query) || 
         t.content.toLowerCase().includes(query)
     );
-
+    
     if (category) results = results.filter(t => t.category === category);
-
+    
     res.json({ success: true, results: results.slice(0, 50), total: results.length });
 });
 
@@ -12088,16 +10845,16 @@ app.get('/api/research/stats', (req, res) => {
 app.get('/api/research/papers', (req, res) => {
     const { area, type, year, limit = 20, page = 1 } = req.query;
     let papers = [...RESEARCH_DATA.papers];
-
+    
     if (area) papers = papers.filter(p => p.area === area);
     if (type) papers = papers.filter(p => p.type === type);
     if (year) papers = papers.filter(p => p.year === parseInt(year));
-
+    
     papers.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-
+    
     const start = (page - 1) * limit;
     const paginated = papers.slice(start, start + parseInt(limit));
-
+    
     res.json({
         success: true,
         papers: paginated,
@@ -12112,7 +10869,7 @@ app.post('/api/research/papers', express.json(), authOptional, (req, res) => {
     if (!title || !abstract || !type || !area) {
         return res.status(400).json({ success: false, message: 'يرجى تعبئة الحقول المطلوبة' });
     }
-
+    
     const paper = {
         id: uuidv4(),
         title: title.slice(0, 300),
@@ -12128,19 +10885,19 @@ app.post('/api/research/papers', express.json(), authOptional, (req, res) => {
         views: 0,
         downloads: 0
     };
-
+    
     RESEARCH_DATA.papers.unshift(paper);
     RESEARCH_DATA.statistics.totalPapers++;
-
+    
     // تحديث عداد المجال
     const areaData = RESEARCH_DATA.areas.find(a => a.id === area);
     if (areaData) areaData.papers++;
-
+    
     saveResearchData();
-
+    
     // تسجيل للذكاء
     collectIntelligence('research_paper', { title, area, abstract: abstract.slice(0, 500) });
-
+    
     res.json({ success: true, paper, message: 'تم إرسال البحث للمراجعة' });
 });
 
@@ -12148,17 +10905,17 @@ app.post('/api/research/papers', express.json(), authOptional, (req, res) => {
 app.get('/api/research/search', (req, res) => {
     const { q, area, type } = req.query;
     if (!q) return res.json({ success: true, results: [] });
-
+    
     const query = q.toLowerCase();
-    let results = RESEARCH_DATA.papers.filter(p =>
-        p.title.toLowerCase().includes(query) ||
+    let results = RESEARCH_DATA.papers.filter(p => 
+        p.title.toLowerCase().includes(query) || 
         p.abstract.toLowerCase().includes(query) ||
         p.keywords.some(k => k.toLowerCase().includes(query))
     );
-
+    
     if (area) results = results.filter(p => p.area === area);
     if (type) results = results.filter(p => p.type === type);
-
+    
     res.json({ success: true, results: results.slice(0, 50), total: results.length });
 });
 
@@ -12173,25 +10930,26 @@ function collectIntelligence(type, data) {
         collectedAt: new Date().toISOString(),
         processed: false
     };
-
+    
     INTELLIGENCE_DATA.collectedData.push(record);
     INTELLIGENCE_DATA.statistics.totalCollected++;
     INTELLIGENCE_DATA.statistics.lastCollection = new Date().toISOString();
-
+    
     // حفظ كل 10 سجلات
     if (INTELLIGENCE_DATA.collectedData.length % 10 === 0) {
         saveIntelligenceData();
     }
-
+    
     // توليد رؤى آلية
     if (INTELLIGENCE_DATA.collectedData.length % 50 === 0) {
         generateInsights();
     }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // توليد رؤى من البيانات المجمعة
 function generateInsights() {
     const recentData = INTELLIGENCE_DATA.collectedData.slice(-100);
-
+    
     // تحليل المواضيع الأكثر ذكراً
     const topics = {};
     recentData.forEach(d => {
@@ -12202,7 +10960,7 @@ function generateInsights() {
             }
         });
     });
-
+    
     const insight = {
         id: uuidv4(),
         type: 'topic_analysis',
@@ -12212,10 +10970,10 @@ function generateInsights() {
             generatedAt: new Date().toISOString()
         }
     };
-
+    
     INTELLIGENCE_DATA.insights.unshift(insight);
     INTELLIGENCE_DATA.statistics.insightsGenerated++;
-
+    
     if (INTELLIGENCE_DATA.insights.length > 100) {
         INTELLIGENCE_DATA.insights = INTELLIGENCE_DATA.insights.slice(0, 100);
     }
@@ -12238,7 +10996,7 @@ app.get('/api/intelligence/stats', (req, res) => {
     INTELLIGENCE_DATA.collectedData.forEach(d => {
         typeStats[d.type] = (typeStats[d.type] || 0) + 1;
     });
-
+    
     res.json({
         success: true,
         statistics: INTELLIGENCE_DATA.statistics,
@@ -12255,27 +11013,27 @@ app.get('/api/intelligence/stats', (req, res) => {
 app.get('/api/search/all', (req, res) => {
     const { q, limit = 30 } = req.query;
     if (!q) return res.json({ success: true, results: { forum: [], research: [], market: [] } });
-
+    
     const query = q.toLowerCase();
-
+    
     // البحث في المنتدى
-    const forumResults = FORUM_DATA.topics.filter(t =>
+    const forumResults = FORUM_DATA.topics.filter(t => 
         t.title.toLowerCase().includes(query) || t.content.toLowerCase().includes(query)
     ).slice(0, 10).map(t => ({ ...t, source: 'forum' }));
-
+    
     // البحث في الأبحاث
-    const researchResults = RESEARCH_DATA.papers.filter(p =>
+    const researchResults = RESEARCH_DATA.papers.filter(p => 
         p.title.toLowerCase().includes(query) || p.abstract.toLowerCase().includes(query)
     ).slice(0, 10).map(p => ({ ...p, source: 'research' }));
-
+    
     // البحث في السوق
-    const marketResults = LISTINGS.filter(l =>
+    const marketResults = LISTINGS.filter(l => 
         l.name?.toLowerCase().includes(query) || l.category?.toLowerCase().includes(query)
     ).slice(0, 10).map(l => ({ ...l, source: 'market' }));
-
+    
     // تسجيل البحث للذكاء
     collectIntelligence('search_query', { query: q, resultsCount: forumResults.length + researchResults.length + marketResults.length });
-
+    
     res.json({
         success: true,
         results: {
@@ -12294,7 +11052,7 @@ function formatUptime(ms) {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-
+    
     if (days > 0) return `${days}d ${hours % 24}h ${minutes % 60}m`;
     if (hours > 0) return `${hours}h ${minutes % 60}m ${seconds % 60}s`;
     if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
@@ -12316,7 +11074,7 @@ function formatBytes(bytes) {
 // API مؤشرات الأداء الرئيسية
 app.get('/api/dashboard/kpis', (req, res) => {
     const { period = 'week' } = req.query;
-
+    
     // بيانات تجريبية - في الإنتاج ستأتي من قاعدة البيانات
     const kpis = {
         totalRevenue: { value: 2547830 + Math.floor(Math.random() * 50000), trend: 12.5, currency: 'SAR' },
@@ -12328,7 +11086,7 @@ app.get('/api/dashboard/kpis', (req, res) => {
         conversionRate: { value: 4.2, trend: 0.5 },
         avgOrderValue: { value: 1984, trend: 3.2 }
     };
-
+    
     res.json({
         success: true,
         period,
@@ -12340,7 +11098,7 @@ app.get('/api/dashboard/kpis', (req, res) => {
 // API بيانات الرسوم البيانية
 app.get('/api/dashboard/charts', (req, res) => {
     const { type = 'revenue', period = 'week' } = req.query;
-
+    
     const charts = {
         revenue: {
             labels: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
@@ -12358,7 +11116,7 @@ app.get('/api/dashboard/charts', (req, res) => {
             data: [40, 25, 18, 10, 7]
         }
     };
-
+    
     res.json({
         success: true,
         type,
@@ -12371,10 +11129,10 @@ app.get('/api/dashboard/charts', (req, res) => {
 // API النشاط المباشر
 app.get('/api/dashboard/activity', (req, res) => {
     const { limit = 10 } = req.query;
-
+    
     const activityTypes = ['order', 'user', 'payment', 'shipment', 'alert'];
     const activities = [];
-
+    
     for (let i = 0; i < parseInt(limit); i++) {
         const type = activityTypes[Math.floor(Math.random() * activityTypes.length)];
         activities.push({
@@ -12385,7 +11143,7 @@ app.get('/api/dashboard/activity', (req, res) => {
             timestamp: new Date(Date.now() - i * 300000).toISOString()
         });
     }
-
+    
     res.json({
         success: true,
         count: activities.length,
@@ -12396,7 +11154,7 @@ app.get('/api/dashboard/activity', (req, res) => {
 // API أفضل التجار
 app.get('/api/dashboard/top-traders', (req, res) => {
     const { limit = 5, period = 'month' } = req.query;
-
+    
     const traders = [
         { id: 1, name: 'مؤسسة الفهد للمعادن', region: 'الرياض', revenue: 485000, orders: 156, rating: 4.9 },
         { id: 2, name: 'شركة النور للسكراب', region: 'جدة', revenue: 412000, orders: 134, rating: 4.8 },
@@ -12404,7 +11162,7 @@ app.get('/api/dashboard/top-traders', (req, res) => {
         { id: 4, name: 'تجارة المعادن الحديثة', region: 'مكة', revenue: 295000, orders: 98, rating: 4.6 },
         { id: 5, name: 'مؤسسة الأمل', region: 'المدينة', revenue: 267000, orders: 87, rating: 4.5 }
     ];
-
+    
     res.json({
         success: true,
         period,
@@ -12452,7 +11210,7 @@ app.get('/api/dashboard/ai-insights', (req, res) => {
             priority: 'low'
         }
     ];
-
+    
     res.json({
         success: true,
         count: insights.length,
@@ -12464,7 +11222,7 @@ app.get('/api/dashboard/ai-insights', (req, res) => {
 // API التقارير
 app.get('/api/dashboard/reports', (req, res) => {
     const { type = 'summary', period = 'month' } = req.query;
-
+    
     const reports = {
         summary: {
             totalRevenue: 2547830,
@@ -12487,7 +11245,7 @@ app.get('/api/dashboard/reports', (req, res) => {
             satisfaction: 91
         }
     };
-
+    
     res.json({
         success: true,
         type,
@@ -12567,13 +11325,13 @@ app.get('/api/store/info', (req, res) => {
 // 🔐 APIs التكاملات والمصادقة
 // ═══════════════════════════════════════════════════════════════════════════════
 
-// ═══ API تكامل Sheikha IDE legacy (يبقى /api/cursor للتوافق) ════════════════
+// ═══ API تكامل شيخة–Cursor ═══════════════════════════════════════════════════
 // «وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى» — المائدة ٢
 app.get('/api/cursor/bridge', (req, res) => {
     res.json({
         success: true,
         bridge: {
-            name: 'جسر Sheikha IDE',
+            name: 'جسر شيخة–Cursor',
             version: '2.0.0',
             status: 'active',
             protocol: 'MCP (Model Context Protocol)',
@@ -12607,7 +11365,7 @@ app.get('/api/cursor/tools', (req, res) => {
             { name: 'sheikha_apis', desc: 'خريطة 200+ API' },
             { name: 'sheikha_pages', desc: 'صفحات الموقع' },
             { name: 'sheikha_quran_wisdom', desc: 'آيات وأحاديث لأي موضوع' },
-            { name: 'sheikha_learning_report', desc: 'تقرير التعلّم من Sheikha IDE' },
+            { name: 'sheikha_learning_report', desc: 'تقرير التعلّم من Cursor' },
             { name: 'sheikha_suggest_improvements', desc: 'اقتراح تحسينات ذكية' },
             { name: 'sheikha_translate', desc: 'ترجمة — 22 لغة' }
         ],
@@ -12662,12 +11420,12 @@ app.get('/api/auth/oauth/:provider', (req, res) => {
         microsoft: { authUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize', clientId: 'SHEIKHA_MS' },
         apple: { authUrl: 'https://appleid.apple.com/auth/authorize', clientId: 'SHEIKHA_APPLE' }
     };
-
+    
     const config = providers[provider];
     if (!config) {
         return res.status(400).json({ success: false, error: 'مزود غير معروف' });
     }
-
+    
     // في الإنتاج، سيتم إعادة توجيه المستخدم لصفحة المصادقة
     res.json({
         success: true,
@@ -12694,7 +11452,8 @@ function loadCompaniesDB() {
         console.error('Error loading companies DB:', e);
     }
     return { metadata: { totalCompanies: 0 }, companies: [], hsCodeTargets: {} };
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // حفظ قاعدة بيانات الشركات
 function saveCompaniesDB(data) {
     try {
@@ -12706,23 +11465,24 @@ function saveCompaniesDB(data) {
         console.error('Error saving companies DB:', e);
         return false;
     }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // الحصول على كل الشركات
 app.get('/api/companies', (req, res) => {
     const db = loadCompaniesDB();
     const { type, region, verified, limit = 50, offset = 0 } = req.query;
-
+    
     let companies = db.sampleCompanies || [];
-
+    
     // التصفية
     if (type) companies = companies.filter(c => c.type === type);
     if (region) companies = companies.filter(c => c.region?.includes(region));
     if (verified === 'true') companies = companies.filter(c => c.verified);
-
+    
     // الترقيم
     const total = companies.length;
     companies = companies.slice(parseInt(offset), parseInt(offset) + parseInt(limit));
-
+    
     res.json({
         success: true,
         data: companies,
@@ -12734,14 +11494,14 @@ app.get('/api/companies', (req, res) => {
 app.get('/api/companies/hs/:code', (req, res) => {
     const { code } = req.params;
     const db = loadCompaniesDB();
-
+    
     let companies = db.sampleCompanies || [];
-    companies = companies.filter(c =>
+    companies = companies.filter(c => 
         c.hsCategories?.some(hs => hs.startsWith(code) || code.startsWith(hs))
     );
-
+    
     const hsInfo = db.hsCodeTargets?.[code] || { name: 'غير محدد', nameEn: 'Unknown' };
-
+    
     res.json({
         success: true,
         hsCode: code,
@@ -12755,27 +11515,27 @@ app.get('/api/companies/hs/:code', (req, res) => {
 app.get('/api/companies/search', (req, res) => {
     const { q, hsCode, type, region, category } = req.query;
     const db = loadCompaniesDB();
-
+    
     let companies = db.sampleCompanies || [];
-
+    
     if (q) {
         const query = q.toLowerCase();
-        companies = companies.filter(c =>
+        companies = companies.filter(c => 
             c.name?.toLowerCase().includes(query) ||
             c.nameEn?.toLowerCase().includes(query) ||
             c.specialization?.toLowerCase().includes(query)
         );
     }
-
+    
     if (hsCode) {
-        companies = companies.filter(c =>
+        companies = companies.filter(c => 
             c.hsCategories?.some(hs => hs.startsWith(hsCode))
         );
     }
-
+    
     if (type) companies = companies.filter(c => c.type === type);
     if (region) companies = companies.filter(c => c.region?.includes(region));
-
+    
     res.json({
         success: true,
         query: { q, hsCode, type, region, category },
@@ -12793,10 +11553,10 @@ app.post('/api/companies', (req, res) => {
         createdAt: new Date().toISOString(),
         verified: false
     };
-
+    
     if (!db.sampleCompanies) db.sampleCompanies = [];
     db.sampleCompanies.push(company);
-
+    
     if (saveCompaniesDB(db)) {
         res.json({ success: true, message: 'تم إضافة الشركة بنجاح', data: company });
     } else {
@@ -12808,14 +11568,14 @@ app.post('/api/companies', (req, res) => {
 app.put('/api/companies/:id', (req, res) => {
     const { id } = req.params;
     const db = loadCompaniesDB();
-
+    
     const index = db.sampleCompanies?.findIndex(c => c.id === id);
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     db.sampleCompanies[index] = { ...db.sampleCompanies[index], ...req.body, updatedAt: new Date().toISOString() };
-
+    
     if (saveCompaniesDB(db)) {
         res.json({ success: true, message: 'تم تحديث الشركة', data: db.sampleCompanies[index] });
     } else {
@@ -12827,14 +11587,14 @@ app.put('/api/companies/:id', (req, res) => {
 app.delete('/api/companies/:id', (req, res) => {
     const { id } = req.params;
     const db = loadCompaniesDB();
-
+    
     const index = db.sampleCompanies?.findIndex(c => c.id === id);
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     db.sampleCompanies.splice(index, 1);
-
+    
     if (saveCompaniesDB(db)) {
         res.json({ success: true, message: 'تم حذف الشركة' });
     } else {
@@ -12846,22 +11606,22 @@ app.delete('/api/companies/:id', (req, res) => {
 app.get('/api/companies/export', (req, res) => {
     const { format = 'json', hsCode, type } = req.query;
     const db = loadCompaniesDB();
-
+    
     let companies = db.sampleCompanies || [];
-
+    
     if (hsCode) {
-        companies = companies.filter(c =>
+        companies = companies.filter(c => 
             c.hsCategories?.some(hs => hs.startsWith(hsCode))
         );
     }
     if (type) companies = companies.filter(c => c.type === type);
-
+    
     if (format === 'csv') {
         const headers = 'الاسم,النوع,الهاتف,البريد,المنطقة,تصنيفات HS\n';
-        const rows = companies.map(c =>
+        const rows = companies.map(c => 
             `"${c.name}","${c.type}","${c.contact?.phone}","${c.contact?.email}","${c.region}","${c.hsCategories?.join('; ')}"`
         ).join('\n');
-
+        
         res.setHeader('Content-Type', 'text/csv; charset=utf-8');
         res.setHeader('Content-Disposition', 'attachment; filename=companies-export.csv');
         res.send('\ufeff' + headers + rows);
@@ -12895,7 +11655,7 @@ app.get('/api/companies/export', (req, res) => {
 app.get('/api/companies/stats', (req, res) => {
     const db = loadCompaniesDB();
     const companies = db.sampleCompanies || [];
-
+    
     const stats = {
         total: companies.length,
         verified: companies.filter(c => c.verified).length,
@@ -12903,7 +11663,7 @@ app.get('/api/companies/stats', (req, res) => {
         byRegion: {},
         byHsCode: {}
     };
-
+    
     companies.forEach(c => {
         // حسب النوع
         stats.byType[c.type] = (stats.byType[c.type] || 0) + 1;
@@ -12915,7 +11675,7 @@ app.get('/api/companies/stats', (req, res) => {
             stats.byHsCode[mainCode] = (stats.byHsCode[mainCode] || 0) + 1;
         });
     });
-
+    
     res.json({ success: true, data: stats });
 });
 
@@ -12974,7 +11734,7 @@ function checkFridayPause() {
     const now = new Date();
     const day = now.getDay(); // 5 = Friday
     const time = now.getHours() * 100 + now.getMinutes();
-
+    
     if (day === 5 && time >= 1200 && time <= 1330) {
         SYSTEM_STATUS.fridayPauseActive = true;
         return {
@@ -12993,28 +11753,28 @@ const rateLimitStore = new Map();
 function checkRateLimit(ip) {
     const now = Date.now();
     const record = rateLimitStore.get(ip) || { count: 0, firstRequest: now, blocked: false };
-
+    
     // Check if blocked
     if (record.blocked && now - record.blockedAt < SECURITY_CONFIG.rateLimit.blockDuration) {
         return { allowed: false, remaining: 0, retryAfter: Math.ceil((record.blockedAt + SECURITY_CONFIG.rateLimit.blockDuration - now) / 1000) };
     }
-
+    
     // Reset if window expired
     if (now - record.firstRequest > SECURITY_CONFIG.rateLimit.window) {
         record.count = 0;
         record.firstRequest = now;
         record.blocked = false;
     }
-
+    
     record.count++;
-
+    
     if (record.count > SECURITY_CONFIG.rateLimit.maxRequests) {
         record.blocked = true;
         record.blockedAt = now;
         rateLimitStore.set(ip, record);
         return { allowed: false, remaining: 0, blocked: true };
     }
-
+    
     rateLimitStore.set(ip, record);
     return { allowed: true, remaining: SECURITY_CONFIG.rateLimit.maxRequests - record.count };
 }
@@ -13024,7 +11784,7 @@ app.get('/api/security/status', (req, res) => {
     const uptimeSeconds = Math.floor((Date.now() - SYSTEM_STATUS.uptime) / 1000);
     const uptimeHours = Math.floor(uptimeSeconds / 3600);
     const uptimeMinutes = Math.floor((uptimeSeconds % 3600) / 60);
-
+    
     res.json({
         success: true,
         status: SYSTEM_STATUS.status,
@@ -13071,11 +11831,11 @@ app.get('/api/security/config', (req, res) => {
 app.get('/api/security/logs', (req, res) => {
     const { limit = 50, type } = req.query;
     let logs = [...SYSTEM_STATUS.errors].reverse();
-
+    
     if (type) {
         logs = logs.filter(l => l.type === type);
     }
-
+    
     res.json({
         success: true,
         count: logs.length,
@@ -13086,7 +11846,7 @@ app.get('/api/security/logs', (req, res) => {
 // API النسخ الاحتياطي
 app.post('/api/security/backup', (req, res) => {
     SYSTEM_STATUS.lastBackup = new Date().toISOString();
-
+    
     res.json({
         success: true,
         message: 'تم بدء عملية النسخ الاحتياطي',
@@ -13101,11 +11861,10 @@ app.post('/api/security/backup', (req, res) => {
 // 👤 نظام العميل الافتراضي لاختبار التجربة
 // ═══════════════════════════════════════════════════════════════════════════════
 
+// بيانات العميل الافتراضي
 const virtualTestAccounts = require('./core/security/sheikha-virtual-test-accounts.cjs')
     .createVirtualTestAccounts(process.env, hashPassword);
 app.use('/api/virtual-customer', virtualTestAccounts.guard);
-
-// بيانات العميل الافتراضي
 const VIRTUAL_CUSTOMER = {
     id: 'vc-001',
     name: 'مستخدم عميل',
@@ -13179,16 +11938,16 @@ app.get('/api/virtual-customer', (req, res) => {
 // API تسجيل دخول العميل الافتراضي
 app.post('/api/virtual-customer/login', (req, res) => {
     const { email, password } = req.body;
-
+    
     if (email === VIRTUAL_CUSTOMER.email && verifyPassword(password, VIRTUAL_CUSTOMER.password)) {
         VIRTUAL_CUSTOMER.metrics.lastLogin = new Date().toISOString();
-
+        
         const token = jwt.sign(
             { id: VIRTUAL_CUSTOMER.id, email, type: 'virtual-customer' },
             JWT_SECRET,
             { expiresIn: '24h' }
         );
-
+        
         res.json({
             success: true,
             message: 'تم تسجيل الدخول بنجاح',
@@ -13206,7 +11965,7 @@ app.post('/api/virtual-customer/login', (req, res) => {
             JWT_SECRET,
             { expiresIn: '24h' }
         );
-
+        
         res.json({
             success: true,
             message: 'تم تسجيل الدخول بنجاح',
@@ -13239,7 +11998,7 @@ app.post('/api/customer-journey/start', (req, res) => {
             userActions: []
         }
     };
-
+    
     res.json({
         success: true,
         message: 'تم بدء رحلة العميل',
@@ -13259,7 +12018,7 @@ app.post('/api/customer-journey/start', (req, res) => {
 app.post('/api/customer-journey/step/:stepId', (req, res) => {
     const stepId = parseInt(req.params.stepId);
     const startTime = Date.now();
-
+    
     // محاكاة تنفيذ الخطوة
     const stepResults = {
         1: { // Discovery
@@ -13305,15 +12064,15 @@ app.post('/api/customer-journey/step/:stepId', (req, res) => {
             wouldRecommend: true
         }
     };
-
+    
     const result = stepResults[stepId] || {};
     result.stepId = stepId;
     result.executionTime = Date.now() - startTime;
     result.timestamp = new Date().toISOString();
-
+    
     CUSTOMER_JOURNEY_STATE.steps.push(result);
     CUSTOMER_JOURNEY_STATE.currentStep = stepId;
-
+    
     res.json({
         success: true,
         step: stepId,
@@ -13325,7 +12084,7 @@ app.post('/api/customer-journey/step/:stepId', (req, res) => {
 // API إنهاء رحلة العميل
 app.post('/api/customer-journey/complete', (req, res) => {
     const totalTime = Date.now() - CUSTOMER_JOURNEY_STATE.startTime;
-
+    
     // حساب المقاييس النهائية
     const finalMetrics = {
         totalTime: Math.floor(totalTime / 1000),
@@ -13337,14 +12096,14 @@ app.post('/api/customer-journey/complete', (req, res) => {
         avgPageLoad: (CUSTOMER_JOURNEY_STATE.steps.reduce((acc, s) => acc + (parseFloat(s.loadTime) || 0), 0) / CUSTOMER_JOURNEY_STATE.steps.length).toFixed(2),
         issues: []
     };
-
+    
     // تحديد نقاط التحسين
     if (finalMetrics.avgPageLoad > 2) {
         finalMetrics.issues.push({ area: 'الأداء', issue: 'وقت تحميل الصفحات أعلى من الهدف' });
     }
-
+    
     CUSTOMER_JOURNEY_STATE.active = false;
-
+    
     res.json({
         success: true,
         message: 'اكتملت رحلة العميل بنجاح',
@@ -13584,11 +12343,11 @@ async function sendEmail(to, subject, body, template = null) {
         template,
         timestamp: new Date().toISOString()
     };
-
+    
     // في الإنتاج، سيتم استخدام خدمة بريد حقيقية (SendGrid, AWS SES, etc.)
     console.log(`📧 إرسال بريد إلى: ${to}`);
     console.log(`   الموضوع: ${subject}`);
-
+    
     const log = logNotification('email', 'smtp', to, 'sent', emailData);
     return { success: true, messageId: log.id, ...emailData };
 }
@@ -13601,11 +12360,11 @@ async function sendSMS(phone, message) {
         sender: 'SHEIKHA',
         timestamp: new Date().toISOString()
     };
-
+    
     // في الإنتاج، سيتم استخدام خدمة SMS حقيقية (Twilio, Unifonic, etc.)
     console.log(`📱 إرسال SMS إلى: ${phone}`);
     console.log(`   الرسالة: ${message}`);
-
+    
     const log = logNotification('sms', 'sms_gateway', phone, 'sent', smsData);
     return { success: true, messageId: log.id, ...smsData };
 }
@@ -13619,11 +12378,11 @@ async function sendWhatsApp(phone, message, mediaUrl = null) {
         from: SHEIKHA_COMMUNICATIONS.phone.whatsapp,
         timestamp: new Date().toISOString()
     };
-
+    
     // في الإنتاج، سيتم استخدام WhatsApp Business API
     console.log(`💬 إرسال WhatsApp إلى: ${phone}`);
     console.log(`   الرسالة: ${message}`);
-
+    
     const log = logNotification('whatsapp', 'whatsapp_api', phone, 'sent', waData);
     return { success: true, messageId: log.id, ...waData };
 }
@@ -13637,10 +12396,10 @@ async function makeAutoCall(phone, messageId, language = 'ar') {
         from: SHEIKHA_COMMUNICATIONS.phone.primary,
         timestamp: new Date().toISOString()
     };
-
+    
     // في الإنتاج، سيتم استخدام خدمة اتصال (Twilio Voice, etc.)
     console.log(`📞 مكالمة آلية إلى: ${phone}`);
-
+    
     const log = logNotification('auto_call', 'voice_api', phone, 'initiated', callData);
     return { success: true, callId: log.id, ...callData };
 }
@@ -13684,10 +12443,10 @@ async function sendPushNotification(userId, title, body, data = {}) {
         data,
         timestamp: new Date().toISOString()
     };
-
+    
     console.log(`🔔 Push إلى: ${userId}`);
     console.log(`   العنوان: ${title}`);
-
+    
     const log = logNotification('push', 'fcm', userId, 'sent', pushData);
     return { success: true, notificationId: log.id, ...pushData };
 }
@@ -13705,11 +12464,11 @@ app.get('/api/communications/settings', (req, res) => {
 // API: إرسال بريد إلكتروني
 app.post('/api/communications/send-email', async (req, res) => {
     const { to, subject, body, template, templateData } = req.body;
-
+    
     if (!to || !subject || !body) {
         return res.status(400).json({ success: false, error: 'البيانات ناقصة' });
     }
-
+    
     try {
         const result = await sendEmail(to, subject, body, template);
         res.json(result);
@@ -13721,11 +12480,11 @@ app.post('/api/communications/send-email', async (req, res) => {
 // API: إرسال SMS
 app.post('/api/communications/send-sms', async (req, res) => {
     const { phone, message, template, templateData } = req.body;
-
+    
     if (!phone || !message) {
         return res.status(400).json({ success: false, error: 'رقم الهاتف والرسالة مطلوبان' });
     }
-
+    
     try {
         const result = await sendSMS(phone, message);
         res.json(result);
@@ -13737,11 +12496,11 @@ app.post('/api/communications/send-sms', async (req, res) => {
 // API: إرسال WhatsApp
 app.post('/api/communications/send-whatsapp', async (req, res) => {
     const { phone, message, mediaUrl } = req.body;
-
+    
     if (!phone || !message) {
         return res.status(400).json({ success: false, error: 'رقم الهاتف والرسالة مطلوبان' });
     }
-
+    
     try {
         const result = await sendWhatsApp(phone, message, mediaUrl);
         res.json(result);
@@ -13753,11 +12512,11 @@ app.post('/api/communications/send-whatsapp', async (req, res) => {
 // API: مكالمة آلية
 app.post('/api/communications/auto-call', async (req, res) => {
     const { phone, messageId, language } = req.body;
-
+    
     if (!phone) {
         return res.status(400).json({ success: false, error: 'رقم الهاتف مطلوب' });
     }
-
+    
     try {
         const result = await makeAutoCall(phone, messageId, language);
         res.json(result);
@@ -13769,11 +12528,11 @@ app.post('/api/communications/auto-call', async (req, res) => {
 // API: Push Notification
 app.post('/api/communications/send-push', async (req, res) => {
     const { userId, title, body, data } = req.body;
-
+    
     if (!userId || !title || !body) {
         return res.status(400).json({ success: false, error: 'البيانات ناقصة' });
     }
-
+    
     try {
         const result = await sendPushNotification(userId, title, body, data);
         res.json(result);
@@ -13785,14 +12544,14 @@ app.post('/api/communications/send-push', async (req, res) => {
 // API: الرد الآلي
 app.post('/api/communications/auto-reply', (req, res) => {
     const { message, channel, sender } = req.body;
-
+    
     if (!message) {
         return res.status(400).json({ success: false, error: 'الرسالة مطلوبة' });
     }
-
+    
     const reply = getAutoReply(message);
     logNotification('auto_reply', channel || 'general', sender || 'unknown', 'replied', { original: message, reply });
-
+    
     res.json({
         success: true,
         reply,
@@ -13803,16 +12562,16 @@ app.post('/api/communications/auto-reply', (req, res) => {
 // API: سجل الإشعارات
 app.get('/api/communications/log', (req, res) => {
     const { limit = 50, channel, status } = req.query;
-
+    
     let filtered = NOTIFICATION_LOG;
-
+    
     if (channel) {
         filtered = filtered.filter(n => n.channel === channel);
     }
     if (status) {
         filtered = filtered.filter(n => n.status === status);
     }
-
+    
     res.json({
         success: true,
         total: filtered.length,
@@ -13828,9 +12587,9 @@ app.get('/api/communications/stats', (req, res) => {
         byStatus: {},
         last24Hours: 0
     };
-
+    
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-
+    
     NOTIFICATION_LOG.forEach(n => {
         stats.byChannel[n.channel] = (stats.byChannel[n.channel] || 0) + 1;
         stats.byStatus[n.status] = (stats.byStatus[n.status] || 0) + 1;
@@ -13838,7 +12597,7 @@ app.get('/api/communications/stats', (req, res) => {
             stats.last24Hours++;
         }
     });
-
+    
     res.json({
         success: true,
         stats,
@@ -13849,30 +12608,30 @@ app.get('/api/communications/stats', (req, res) => {
 // API: إرسال إشعار متعدد القنوات
 app.post('/api/communications/notify', async (req, res) => {
     const { userId, type, data, channels = ['email', 'push'] } = req.body;
-
+    
     const template = MESSAGE_TEMPLATES[type];
     if (!template) {
         return res.status(400).json({ success: false, error: 'نوع الإشعار غير موجود' });
     }
-
+    
     const results = [];
-
+    
     // البحث عن بيانات المستخدم (محاكاة)
     const user = { email: data.email || 'user@example.com', phone: data.phone || '+966500000000' };
-
+    
     for (const channel of channels) {
         try {
             let result;
             const templateContent = template.ar;
             let body = templateContent.body;
             let sms = templateContent.sms;
-
+            
             // استبدال المتغيرات
             Object.keys(data).forEach(key => {
                 body = body.replace(`{${key}}`, data[key]);
                 if (sms) sms = sms.replace(`{${key}}`, data[key]);
             });
-
+            
             switch (channel) {
                 case 'email':
                     result = await sendEmail(user.email, templateContent.subject, body, type);
@@ -13887,13 +12646,13 @@ app.post('/api/communications/notify', async (req, res) => {
                     result = await sendPushNotification(userId, templateContent.subject, body);
                     break;
             }
-
+            
             results.push({ channel, ...result });
         } catch (error) {
             results.push({ channel, success: false, error: error.message });
         }
     }
-
+    
     res.json({
         success: true,
         type,
@@ -13904,14 +12663,14 @@ app.post('/api/communications/notify', async (req, res) => {
 // API: تحديث إعدادات الإشعارات
 app.post('/api/communications/settings', (req, res) => {
     const { emailEnabled, smsEnabled, whatsappEnabled, pushEnabled, autoCallEnabled, autoReplyEnabled } = req.body;
-
+    
     if (emailEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.emailEnabled = emailEnabled;
     if (smsEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.smsEnabled = smsEnabled;
     if (whatsappEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.whatsappEnabled = whatsappEnabled;
     if (pushEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.pushEnabled = pushEnabled;
     if (autoCallEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.autoCallEnabled = autoCallEnabled;
     if (autoReplyEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.autoReplyEnabled = autoReplyEnabled;
-
+    
     res.json({
         success: true,
         settings: SHEIKHA_COMMUNICATIONS.settings
@@ -13931,21 +12690,8 @@ app.get('/api/comms/channels', (req, res) => {
     res.json({ success: true, channels: commsEngine.channels });
 });
 app.get('/api/comms/providers', (req, res) => {
-    if (typeof commsEngine === 'undefined' || !commsEngine) {
-        return res.json({
-            success: true,
-            status: 'fallback',
-            providers: [],
-            message: 'Communications engine is not loaded yet.'
-        });
-    }
-
-    return res.json({
-        success: true,
-        providers: commsEngine.getProviders
-            ? commsEngine.getProviders()
-            : []
-    });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, providers: commsEngine.providers });
 });
 app.get('/api/comms/templates', (req, res) => {
     if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
@@ -14176,7 +12922,7 @@ app.get('/api/channels/sharia/foundation', (req, res) => {
 app.get('/api/hijri/today', (req, res) => {
     const hijriDate = getCurrentHijriDate();
     const occasions = getIslamicOccasions(hijriDate.month, hijriDate.day);
-
+    
     res.json({
         success: true,
         bismillah: 'بسم الله الرحمن الرحيم',
@@ -14193,13 +12939,13 @@ app.get('/api/hijri/today', (req, res) => {
 // API: تحويل من ميلادي إلى هجري
 app.get('/api/hijri/convert/to-hijri', (req, res) => {
     const { year, month, day } = req.query;
-
+    
     if (!year || !month || !day) {
         return res.status(400).json({ success: false, error: 'يرجى تحديد السنة والشهر واليوم' });
     }
-
+    
     const hijri = gregorianToHijri(parseInt(year), parseInt(month), parseInt(day));
-
+    
     res.json({
         success: true,
         gregorian: { year: parseInt(year), month: parseInt(month), day: parseInt(day) },
@@ -14214,18 +12960,18 @@ app.get('/api/hijri/convert/to-hijri', (req, res) => {
 // API: تحويل من هجري إلى ميلادي
 app.get('/api/hijri/convert/to-gregorian', (req, res) => {
     const { year, month, day } = req.query;
-
+    
     if (!year || !month || !day) {
         return res.status(400).json({ success: false, error: 'يرجى تحديد السنة والشهر واليوم الهجري' });
     }
-
+    
     const gregorian = hijriToGregorian(parseInt(year), parseInt(month), parseInt(day));
-
+    
     res.json({
         success: true,
-        hijri: {
-            year: parseInt(year),
-            month: parseInt(month),
+        hijri: { 
+            year: parseInt(year), 
+            month: parseInt(month), 
             day: parseInt(day),
             monthName: HIJRI_MONTHS[parseInt(month) - 1].name,
             formatted: formatHijriDate(parseInt(year), parseInt(month), parseInt(day))
@@ -14248,7 +12994,7 @@ app.get('/api/hijri/months', (req, res) => {
 // API: المناسبات الإسلامية
 app.get('/api/hijri/occasions', (req, res) => {
     const { month, day } = req.query;
-
+    
     if (month && day) {
         const occasions = getIslamicOccasions(parseInt(month), parseInt(day));
         res.json({ success: true, occasions });
@@ -14285,13 +13031,13 @@ app.get('/api/islamic/principles', (req, res) => {
 // API: التحقق من شرعية المعاملة
 app.post('/api/islamic/validate-transaction', (req, res) => {
     const { transaction } = req.body;
-
+    
     if (!transaction) {
         return res.status(400).json({ success: false, error: 'بيانات المعاملة مطلوبة' });
     }
-
+    
     const validation = validateIslamicTransaction(transaction);
-
+    
     res.json({
         success: true,
         validation,
@@ -14302,13 +13048,13 @@ app.post('/api/islamic/validate-transaction', (req, res) => {
 // API: حساب الزكاة
 app.post('/api/islamic/calculate-zakat', (req, res) => {
     const { amount, goldPricePerGram } = req.body;
-
+    
     if (!amount || amount <= 0) {
         return res.status(400).json({ success: false, error: 'المبلغ مطلوب' });
     }
-
+    
     const zakat = calculateZakat(amount, goldPricePerGram);
-
+    
     res.json({
         success: true,
         bismillah: 'بسم الله الرحمن الرحيم',
@@ -14321,7 +13067,7 @@ app.post('/api/islamic/calculate-zakat', (req, res) => {
 app.get('/api/islamic/prayer-times', (req, res) => {
     const prayerTimes = getApproximatePrayerTimes();
     const isJumuah = isJumuahTime();
-
+    
     res.json({
         success: true,
         prayerTimes,
@@ -14377,15 +13123,15 @@ app.get('/api/i18n/languages', (req, res) => {
 // API: ترجمة نص
 app.post('/api/i18n/translate', async (req, res) => {
     const { text, targetLang, sourceLang = 'ar' } = req.body;
-
+    
     if (!text || !targetLang) {
         return res.status(400).json({ success: false, error: 'النص واللغة المستهدفة مطلوبان' });
     }
-
+    
     if (!SUPPORTED_LANGUAGES[targetLang]) {
         return res.status(400).json({ success: false, error: 'اللغة غير مدعومة' });
     }
-
+    
     try {
         const translation = await autoTranslate(text, targetLang, sourceLang);
         res.json({
@@ -14404,16 +13150,16 @@ app.post('/api/i18n/translate', async (req, res) => {
 // API: ترجمة مجموعة نصوص
 app.post('/api/i18n/translate-batch', async (req, res) => {
     const { texts, targetLang, sourceLang = 'ar' } = req.body;
-
+    
     if (!texts || !Array.isArray(texts) || !targetLang) {
         return res.status(400).json({ success: false, error: 'النصوص واللغة المستهدفة مطلوبان' });
     }
-
+    
     try {
         const translations = await Promise.all(
             texts.map(text => autoTranslate(text, targetLang, sourceLang))
         );
-
+        
         res.json({
             success: true,
             translations: texts.map((text, i) => ({
@@ -14431,11 +13177,11 @@ app.post('/api/i18n/translate-batch', async (req, res) => {
 // API: ترجمة كائن (منتج، متجر، إلخ)
 app.post('/api/i18n/translate-object', async (req, res) => {
     const { object, targetLang, fields = [] } = req.body;
-
+    
     if (!object || !targetLang) {
         return res.status(400).json({ success: false, error: 'الكائن واللغة المستهدفة مطلوبان' });
     }
-
+    
     try {
         const translated = await translateObject(object, targetLang, fields);
         res.json({
@@ -14452,7 +13198,7 @@ app.post('/api/i18n/translate-object', async (req, res) => {
 // API: الحصول على القاموس
 app.get('/api/i18n/dictionary', (req, res) => {
     const { lang } = req.query;
-
+    
     if (lang && SUPPORTED_LANGUAGES[lang]) {
         const dictionary = {};
         for (const [ar, translations] of Object.entries(TRANSLATIONS)) {
@@ -14478,14 +13224,14 @@ app.get('/api/i18n/dictionary', (req, res) => {
 // API: إضافة ترجمة مخصصة (للمحتوى المستخدم)
 app.post('/api/i18n/add-translation', async (req, res) => {
     const { arabicText, translations } = req.body;
-
+    
     if (!arabicText || !translations || typeof translations !== 'object') {
         return res.status(400).json({ success: false, error: 'النص العربي والترجمات مطلوبة' });
     }
-
+    
     // إضافة للقاموس
     TRANSLATIONS[arabicText] = translations;
-
+    
     res.json({
         success: true,
         message: 'تم إضافة الترجمة بنجاح',
@@ -14497,21 +13243,21 @@ app.post('/api/i18n/add-translation', async (req, res) => {
 // API: ترجمة صفحة كاملة
 app.post('/api/i18n/translate-page', async (req, res) => {
     const { content, targetLang } = req.body;
-
+    
     if (!content || !targetLang) {
         return res.status(400).json({ success: false, error: 'المحتوى واللغة مطلوبان' });
     }
-
+    
     try {
         let translatedContent = content;
-
+        
         // ترجمة جميع النصوص العربية
         for (const [ar, translations] of Object.entries(TRANSLATIONS)) {
             if (translations[targetLang]) {
                 translatedContent = translatedContent.replace(new RegExp(ar, 'g'), translations[targetLang]);
             }
         }
-
+        
         res.json({
             success: true,
             original: content,
@@ -14527,14 +13273,14 @@ app.post('/api/i18n/translate-page', async (req, res) => {
 // API: ترجمة محتوى المستخدم (منتج، بحث، منتدى)
 app.post('/api/i18n/translate-user-content', async (req, res) => {
     const { contentType, contentId, content, targetLangs = ['en'] } = req.body;
-
+    
     if (!content) {
         return res.status(400).json({ success: false, error: 'المحتوى مطلوب' });
     }
-
+    
     try {
         const results = {};
-
+        
         for (const lang of targetLangs) {
             if (SUPPORTED_LANGUAGES[lang]) {
                 if (typeof content === 'string') {
@@ -14544,7 +13290,7 @@ app.post('/api/i18n/translate-user-content', async (req, res) => {
                 }
             }
         }
-
+        
         res.json({
             success: true,
             contentType,
@@ -14585,7 +13331,7 @@ let SHIPMENTS = [];
 
 app.post('/api/logistics/shipments', authRequired, (req, res) => {
     const { origin, destination, cargo, weight, transportType, scheduledDate } = req.body;
-
+    
     const shipment = {
         id: 'SHP-' + Date.now(),
         traderId: req.user.id,
@@ -14599,7 +13345,7 @@ app.post('/api/logistics/shipments', authRequired, (req, res) => {
         trackingNumber: 'TRK' + Math.random().toString(36).substr(2, 9).toUpperCase(),
         createdAt: new Date().toISOString()
     };
-
+    
     SHIPMENTS.push(shipment);
     res.json({ success: true, shipment });
 });
@@ -14632,11 +13378,11 @@ let RESEARCH_PAPERS = [
 app.get('/api/research/papers', (req, res) => {
     const { category, search, year } = req.query;
     let papers = [...RESEARCH_PAPERS];
-
+    
     if (category) papers = papers.filter(p => p.category === category);
     if (year) papers = papers.filter(p => p.year === parseInt(year));
     if (search) papers = papers.filter(p => p.title.includes(search) || p.abstract.includes(search));
-
+    
     res.json({ success: true, papers, count: papers.length });
 });
 
@@ -14654,14 +13400,14 @@ app.get('/api/research/categories', (req, res) => {
 app.post('/api/research/ai-query', async (req, res) => {
     const { query } = req.body;
     if (!query) return res.status(400).json({ success: false, error: 'السؤال مطلوب' });
-
+    
     // Simulate AI response
-    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}":
-
+    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}": 
+    
     يعتبر هذا الموضوع من المواضيع المهمة في قطاع المعادن والسكراب. بناءً على الدراسات المتوفرة، نجد أن هناك عدة عوامل تؤثر على هذا المجال...
-
+    
     للمزيد من التفاصيل، يمكنك الاطلاع على الأبحاث ذات الصلة في مركز الأبحاث.`;
-
+    
     res.json({ success: true, query, response, relatedPapers: RESEARCH_PAPERS.slice(0, 2) });
 });
 
@@ -14685,25 +13431,25 @@ let FORUM_EXPERTS = [
 app.get('/api/forum/topics', (req, res) => {
     const { category, search, sort } = req.query;
     let topics = [...FORUM_TOPICS];
-
+    
     if (category) topics = topics.filter(t => t.category === category);
     if (search) topics = topics.filter(t => t.title.includes(search));
     if (sort === 'views') topics.sort((a, b) => b.views - a.views);
     if (sort === 'replies') topics.sort((a, b) => b.replies - a.replies);
-
+    
     // Pinned topics first
     topics.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
-
+    
     res.json({ success: true, topics, count: topics.length });
 });
 
 app.post('/api/forum/topics', authRequired, (req, res) => {
     const { title, content, category } = req.body;
-
+    
     if (!title || !content) {
         return res.status(400).json({ success: false, error: 'العنوان والمحتوى مطلوبان' });
     }
-
+    
     const topic = {
         id: 'T' + Date.now(),
         title,
@@ -14715,7 +13461,7 @@ app.post('/api/forum/topics', authRequired, (req, res) => {
         createdAt: new Date().toISOString(),
         pinned: false
     };
-
+    
     FORUM_TOPICS.unshift(topic);
     res.json({ success: true, topic });
 });
@@ -14739,8 +13485,8 @@ app.get('/api/forum/categories', (req, res) => {
 app.get('/api/forum/search', (req, res) => {
     const { q } = req.query;
     if (!q) return res.json({ success: true, results: [] });
-
-    const results = FORUM_TOPICS.filter(t =>
+    
+    const results = FORUM_TOPICS.filter(t => 
         t.title.includes(q) || (t.content && t.content.includes(q))
     );
     res.json({ success: true, results, query: q });
@@ -14758,21 +13504,21 @@ app.get('/api/forum/search', (req, res) => {
 app.get('/api/admin/file', (req, res) => {
     const filename = req.query.name || req.query.path; // Support both 'name' and 'path'
     if (!filename) return res.status(400).json({ success: false, error: 'اسم الملف مطلوب' });
-
+    
     // Security: only allow certain file types and paths
     const allowedExtensions = ['.js', '.html', '.css', '.json', '.md', '.txt', '.env'];
     const ext = path.extname(filename).toLowerCase();
     if (!allowedExtensions.includes(ext)) {
         return res.status(403).json({ success: false, error: 'نوع الملف غير مسموح' });
     }
-
+    
     // Prevent directory traversal (block ..)
     if (filename.includes('..')) {
         return res.status(403).json({ success: false, error: 'مسار غير مسموح' });
     }
-
+    
     let filePath;
-
+    
     // Allow paths starting with specific directories
     if (filename.startsWith('public/') || filename.startsWith('lib/') || filename.startsWith('data/') || filename.startsWith('docs/')) {
         filePath = path.join(__dirname, filename);
@@ -14782,7 +13528,7 @@ app.get('/api/admin/file', (req, res) => {
         // Default: assume it's in public folder
         filePath = path.join(__dirname, 'public', filename);
     }
-
+    
     try {
         if (fs.existsSync(filePath)) {
             const content = fs.readFileSync(filePath, 'utf8');
@@ -14799,25 +13545,25 @@ app.get('/api/admin/file', (req, res) => {
 app.post('/api/admin/file', (req, res) => {
     const filename = req.body.name || req.body.path; // Support both 'name' and 'path'
     const content = req.body.content;
-
+    
     if (!filename || content === undefined) {
         return res.status(400).json({ success: false, error: 'اسم الملف والمحتوى مطلوبان' });
     }
-
+    
     // Security checks
     const allowedExtensions = ['.js', '.html', '.css', '.json', '.md', '.txt'];
     const ext = path.extname(filename).toLowerCase();
     if (!allowedExtensions.includes(ext)) {
         return res.status(403).json({ success: false, error: 'نوع الملف غير مسموح' });
     }
-
+    
     // Prevent directory traversal
     if (filename.includes('..')) {
         return res.status(403).json({ success: false, error: 'مسار غير مسموح' });
     }
-
+    
     let filePath;
-
+    
     // Allow paths starting with specific directories
     if (filename.startsWith('public/') || filename.startsWith('lib/') || filename.startsWith('data/') || filename.startsWith('docs/')) {
         filePath = path.join(__dirname, filename);
@@ -14827,14 +13573,14 @@ app.post('/api/admin/file', (req, res) => {
         // Default: save in public folder
         filePath = path.join(__dirname, 'public', filename);
     }
-
+    
     try {
         // Create directory if it doesn't exist
         const dir = path.dirname(filePath);
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
-
+        
         fs.writeFileSync(filePath, content, 'utf8');
         res.json({ success: true, message: 'تم الحفظ بنجاح', filename });
     } catch (e) {
@@ -14862,7 +13608,7 @@ app.get('/api/admin/stats', (req, res) => {
 app.get('/api/server/health', (req, res) => {
     const uptime = process.uptime();
     const memUsage = process.memoryUsage();
-
+    
     res.json({
         success: true,
         status: 'healthy',
@@ -14902,7 +13648,7 @@ app.get('/api/admin/users', (req, res) => {
         ...USERS.map(u => ({ ...u, type: 'user' })),
         ...TRADERS.map(t => ({ id: t.id, name: t.name || t.storeName, email: t.email, role: 'trader', type: 'trader' }))
     ];
-
+    
     res.json({
         success: true,
         users: allUsers,
@@ -14922,13 +13668,13 @@ app.get('/api/admin/logs', (req, res) => {
 // Admin execute command (limited)
 app.post('/api/admin/execute', (req, res) => {
     const { command } = req.body;
-
+    
     // Only allow safe commands
     const safeCommands = ['npm --version', 'node --version', 'ls', 'pwd'];
     if (!safeCommands.some(c => command.startsWith(c))) {
         return res.status(403).json({ success: false, error: 'الأمر غير مسموح' });
     }
-
+    
     // For security, we just return mock output
     res.json({
         success: true,
@@ -14982,7 +13728,7 @@ app.get('/api/scm/blockchain', (req, res) => {
 
 app.post('/api/scm/documents', authRequired, (req, res) => {
     const { type, shipmentId, data } = req.body;
-
+    
     const document = {
         id: 'DOC-' + Date.now(),
         type,
@@ -14992,7 +13738,7 @@ app.post('/api/scm/documents', authRequired, (req, res) => {
         createdAt: new Date().toISOString(),
         downloadUrl: `/api/documents/${Date.now()}.pdf`
     };
-
+    
     res.json({ success: true, document });
 });
 
@@ -15013,7 +13759,7 @@ app.post('/api/ai/conversations', (req, res) => {
         timestamp: new Date().toISOString()
     };
     AI_CONVERSATIONS.push(conversation);
-
+    
     // Extract and save knowledge
     if (content && content.length > 20) {
         AI_KNOWLEDGE.push({
@@ -15023,7 +13769,7 @@ app.post('/api/ai/conversations', (req, res) => {
             timestamp: new Date().toISOString()
         });
     }
-
+    
     res.json({ success: true, conversation, totalConversations: AI_CONVERSATIONS.length });
 });
 
@@ -15097,11 +13843,11 @@ app.post('/api/shipping/connect', (req, res) => {
     const { companyId, apiKey, accountNumber } = req.body;
     const company = SHIPPING_COMPANIES.find(c => c.id === companyId);
     if (!company) return res.status(404).json({ success: false, error: 'الشركة غير موجودة' });
-
+    
     company.status = 'connected';
     company.credentials = { apiKey: apiKey?.substring(0, 4) + '****', accountNumber };
     company.connectedAt = new Date().toISOString();
-
+    
     res.json({ success: true, message: `تم الربط مع ${company.name} بنجاح`, company });
 });
 
@@ -15143,7 +13889,7 @@ app.get('/api/shipments', (req, res) => {
     let shipments = [...ACTIVE_SHIPMENTS];
     if (status) shipments = shipments.filter(s => s.status === status);
     if (carrier) shipments = shipments.filter(s => s.carrier === carrier);
-
+    
     res.json({
         success: true,
         shipments,
@@ -15160,13 +13906,13 @@ app.get('/api/shipments', (req, res) => {
 app.get('/api/shipments/:id/track', (req, res) => {
     const shipment = ACTIVE_SHIPMENTS.find(s => s.id === req.params.id);
     if (!shipment) return res.status(404).json({ success: false, error: 'الشحنة غير موجودة' });
-
+    
     const trackingHistory = [
         { timestamp: '2024-02-01T08:00:00Z', status: 'picked_up', location: shipment.from, description: 'تم الاستلام من المرسل' },
         { timestamp: '2024-02-01T14:00:00Z', status: 'in_transit', location: 'مركز الفرز', description: 'في الطريق إلى مركز الفرز' },
         { timestamp: '2024-02-02T06:00:00Z', status: 'in_transit', location: shipment.currentLocation, description: 'في الطريق إلى الوجهة' }
     ];
-
+    
     res.json({ success: true, shipment, trackingHistory });
 });
 
@@ -15193,7 +13939,7 @@ app.post('/api/shipments', (req, res) => {
 // Calculate shipping rates
 app.post('/api/shipping/rates', (req, res) => {
     const { from, to, weight, dimensions, type } = req.body;
-
+    
     const rates = SHIPPING_COMPANIES.filter(c => c.status === 'connected').map(company => ({
         carrier: company.id,
         carrierName: company.name,
@@ -15203,7 +13949,7 @@ app.post('/api/shipping/rates', (req, res) => {
             { service: 'freight', price: Math.floor(weight * 5 + 100), eta: '5-7 أيام' }
         ]
     }));
-
+    
     res.json({ success: true, rates, cheapest: rates[0], fastest: rates[0] });
 });
 
@@ -15219,11 +13965,11 @@ let WHATSAPP_QUEUE = [];
 app.get('/api/notifications', (req, res) => {
     const { userId, unread, type } = req.query;
     let notifications = [...NOTIFICATIONS];
-
+    
     if (userId) notifications = notifications.filter(n => n.userId === userId || n.userId === 'all');
     if (unread === 'true') notifications = notifications.filter(n => !n.read);
     if (type) notifications = notifications.filter(n => n.type === type);
-
+    
     res.json({
         success: true,
         notifications: notifications.slice(-50).reverse(),
@@ -15235,7 +13981,7 @@ app.get('/api/notifications', (req, res) => {
 // Create notification
 app.post('/api/notifications', (req, res) => {
     const { userId, type, title, message, data, channels } = req.body;
-
+    
     const notification = {
         id: 'NOT-' + Date.now(),
         userId: userId || 'all',
@@ -15247,12 +13993,12 @@ app.post('/api/notifications', (req, res) => {
         read: false,
         createdAt: new Date().toISOString()
     };
-
+    
     NOTIFICATIONS.push(notification);
-
+    
     // Broadcast via WebSocket to all connected clients
     broadcastNotification(notification);
-
+    
     // Queue WhatsApp if requested
     if (channels?.includes('whatsapp')) {
         WHATSAPP_QUEUE.push({
@@ -15262,7 +14008,7 @@ app.post('/api/notifications', (req, res) => {
             createdAt: new Date().toISOString()
         });
     }
-
+    
     res.json({ success: true, notification });
 });
 
@@ -15270,7 +14016,7 @@ app.post('/api/notifications', (req, res) => {
 app.put('/api/notifications/:id/read', (req, res) => {
     const notification = NOTIFICATIONS.find(n => n.id === req.params.id);
     if (!notification) return res.status(404).json({ success: false, error: 'الإشعار غير موجود' });
-
+    
     notification.read = true;
     notification.readAt = new Date().toISOString();
     res.json({ success: true, notification });
@@ -15291,7 +14037,7 @@ app.put('/api/notifications/read-all', (req, res) => {
 // Subscribe to push notifications
 app.post('/api/notifications/subscribe', (req, res) => {
     const { subscription, userId, deviceInfo } = req.body;
-
+    
     const sub = {
         id: 'SUB-' + Date.now(),
         subscription,
@@ -15300,7 +14046,7 @@ app.post('/api/notifications/subscribe', (req, res) => {
         active: true,
         createdAt: new Date().toISOString()
     };
-
+    
     PUSH_SUBSCRIPTIONS.push(sub);
     res.json({ success: true, subscriptionId: sub.id });
 });
@@ -15326,7 +14072,7 @@ app.get('/api/notifications/whatsapp-queue', (req, res) => {
 // Send WhatsApp notification
 app.post('/api/notifications/whatsapp', (req, res) => {
     const { phone, message, template } = req.body;
-
+    
     const waMessage = {
         id: 'WA-' + Date.now(),
         phone,
@@ -15335,12 +14081,12 @@ app.post('/api/notifications/whatsapp', (req, res) => {
         status: 'sent',
         sentAt: new Date().toISOString()
     };
-
+    
     // Generate WhatsApp link
     const waLink = `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
-
-    res.json({
-        success: true,
+    
+    res.json({ 
+        success: true, 
         waMessage,
         waLink,
         instruction: 'افتح الرابط لإرسال الرسالة عبر واتساب'
@@ -15350,15 +14096,15 @@ app.post('/api/notifications/whatsapp', (req, res) => {
 // Send bulk WhatsApp
 app.post('/api/notifications/whatsapp-bulk', (req, res) => {
     const { phones, message, template } = req.body;
-
+    
     const results = (phones || []).map(phone => ({
         phone,
         link: `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`,
         status: 'ready'
     }));
-
-    res.json({
-        success: true,
+    
+    res.json({ 
+        success: true, 
         count: results.length,
         results,
         message: `تم تجهيز ${results.length} رسالة للإرسال`
@@ -15368,7 +14114,7 @@ app.post('/api/notifications/whatsapp-bulk', (req, res) => {
 // Deal/Transaction alerts
 app.post('/api/notifications/deal-alert', (req, res) => {
     const { dealId, buyerId, sellerId, product, amount, type } = req.body;
-
+    
     const alertTypes = {
         'new_order': { title: '🛒 طلب جديد!', msg: `طلب جديد على ${product}` },
         'order_accepted': { title: '✅ تم قبول الطلب', msg: `تم قبول طلبك على ${product}` },
@@ -15377,12 +14123,12 @@ app.post('/api/notifications/deal-alert', (req, res) => {
         'delivered': { title: '📦 تم التسليم', msg: `تم تسليم ${product} بنجاح` },
         'price_alert': { title: '📈 تنبيه سعر', msg: `تغير سعر ${product}` }
     };
-
+    
     const alertInfo = alertTypes[type] || { title: '🔔 تنبيه', msg: 'لديك تنبيه جديد' };
-
+    
     // Create notifications for both parties
     const notifications = [];
-
+    
     if (buyerId) {
         notifications.push({
             id: 'NOT-' + Date.now() + '-buyer',
@@ -15396,7 +14142,7 @@ app.post('/api/notifications/deal-alert', (req, res) => {
             createdAt: new Date().toISOString()
         });
     }
-
+    
     if (sellerId) {
         notifications.push({
             id: 'NOT-' + Date.now() + '-seller',
@@ -15410,20 +14156,20 @@ app.post('/api/notifications/deal-alert', (req, res) => {
             createdAt: new Date().toISOString()
         });
     }
-
+    
     NOTIFICATIONS.push(...notifications);
     notifications.forEach(n => broadcastNotification(n));
-
+    
     res.json({ success: true, notifications, count: notifications.length });
 });
 
 // Price change alerts
 app.post('/api/notifications/price-alert', (req, res) => {
     const { metal, oldPrice, newPrice, change } = req.body;
-
+    
     const direction = newPrice > oldPrice ? '📈 ارتفاع' : '📉 انخفاض';
     const changePercent = ((newPrice - oldPrice) / oldPrice * 100).toFixed(2);
-
+    
     const notification = {
         id: 'NOT-' + Date.now(),
         userId: 'all',
@@ -15435,10 +14181,10 @@ app.post('/api/notifications/price-alert', (req, res) => {
         read: false,
         createdAt: new Date().toISOString()
     };
-
+    
     NOTIFICATIONS.push(notification);
     broadcastNotification(notification);
-
+    
     res.json({ success: true, notification });
 });
 
@@ -15460,17 +14206,18 @@ app.get('/api/notifications/templates', (req, res) => {
 
 // Broadcast notification helper
 function broadcastNotification(notification) {
-    const data = JSON.stringify({
-        type: 'notification',
+    const data = JSON.stringify({ 
+        type: 'notification', 
         notification,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString() 
     });
-    clients.forEach(client => {
+    clients.forEach(client => { 
         if (client.readyState === WebSocket.OPEN) {
-            client.send(data);
+            client.send(data); 
         }
     });
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 السوق السعودي المجهز مسبقاً - Preloaded Saudi Market
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -15482,15 +14229,19 @@ try {
         SAUDI_MARKET_DATA = JSON.parse(fs.readFileSync(marketPath, 'utf8'));
         console.log(`[Data] Loaded ${(SAUDI_MARKET_DATA.preloadedCompanies || []).length} preloaded companies`);
     }
+} catch (e) {
+    console.log('[Data] saudi-market-preloaded.json not found');
+}
+
 // جلب جميع الشركات المجهزة مسبقاً
 app.get('/api/market/preloaded', (req, res) => {
     const sector = req.query.sector;
     let companies = SAUDI_MARKET_DATA.preloadedCompanies || [];
-
+    
     if (sector && sector !== 'all') {
         companies = companies.filter(c => c.sector === sector);
     }
-
+    
     res.json({
         success: true,
         total: companies.length,
@@ -15504,11 +14255,11 @@ app.get('/api/market/preloaded', (req, res) => {
 app.get('/api/market/preloaded/:id', (req, res) => {
     const id = req.params.id;
     const company = (SAUDI_MARKET_DATA.preloadedCompanies || []).find(c => c.companyId === id);
-
+    
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     res.json({
         success: true,
         company: company,
@@ -15522,21 +14273,21 @@ app.get('/api/market/preloaded/:id', (req, res) => {
 app.get('/api/market/search', (req, res) => {
     const query = (req.query.q || '').toLowerCase();
     const sector = req.query.sector;
-
+    
     let companies = SAUDI_MARKET_DATA.preloadedCompanies || [];
-
+    
     if (query) {
-        companies = companies.filter(c =>
+        companies = companies.filter(c => 
             c.nameAr.toLowerCase().includes(query) ||
             (c.nameEn && c.nameEn.toLowerCase().includes(query)) ||
             (c.products || []).some(p => p.name.toLowerCase().includes(query))
         );
     }
-
+    
     if (sector && sector !== 'all') {
         companies = companies.filter(c => c.sector === sector);
     }
-
+    
     res.json({
         success: true,
         query: query,
@@ -15550,7 +14301,7 @@ app.get('/api/market/search', (req, res) => {
 app.post('/api/companies/quick-register', express.json(), async (req, res) => {
     try {
         const data = req.body;
-
+        
         // إنشاء سجل الشركة من البيانات المجهزة
         const company = {
             companyId: data.companyId,
@@ -15572,12 +14323,12 @@ app.post('/api/companies/quick-register', express.json(), async (req, res) => {
             gaps: data.gaps || [],
             opportunities: data.opportunities || []
         };
-
+        
         // إضافة للسجل
         if (!COMPANIES_REGISTRY.registeredCompanies) {
             COMPANIES_REGISTRY.registeredCompanies = [];
         }
-
+        
         // التحقق من عدم التكرار
         const existingIndex = COMPANIES_REGISTRY.registeredCompanies.findIndex(c => c.companyId === company.companyId);
         if (existingIndex >= 0) {
@@ -15585,7 +14336,7 @@ app.post('/api/companies/quick-register', express.json(), async (req, res) => {
         } else {
             COMPANIES_REGISTRY.registeredCompanies.push(company);
         }
-
+        
         // حفظ في الملف
         try {
             const registryPath = path.join(__dirname, 'data', 'companies-registry.json');
@@ -15593,9 +14344,9 @@ app.post('/api/companies/quick-register', express.json(), async (req, res) => {
         } catch (e) {
             console.log('[Error] Could not save registry:', e.message);
         }
-
+        
         addSystemLog('success', 'QuickRegister', `Quick registered: ${company.nameAr}`);
-
+        
         res.json({
             success: true,
             message: 'تم التسجيل السريع بنجاح!',
@@ -15636,11 +14387,11 @@ app.get('/api/market/blocks', (req, res) => {
 app.get('/api/market/gaps/:companyId', (req, res) => {
     const id = req.params.companyId;
     const company = (SAUDI_MARKET_DATA.preloadedCompanies || []).find(c => c.companyId === id);
-
+    
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-
+    
     const analysis = {
         company: { id: company.companyId, name: company.nameAr },
         gaps: company.gaps || [],
@@ -15649,7 +14400,7 @@ app.get('/api/market/gaps/:companyId', (req, res) => {
         supplyChainPosition: findCompanyInSupplyChain(id),
         potentialPartners: findPotentialPartners(company)
     };
-
+    
     res.json({
         success: true,
         analysis: analysis,
@@ -15680,12 +14431,13 @@ function findCompanyInSupplyChain(companyId) {
         }
     }
     return null;
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 function suggestBlocksForCompany(company) {
     const blocks = ((SAUDI_MARKET_DATA.blockDesignSystem || {}).blocks || []);
     const suggestions = [];
     const companyGaps = (company.gaps || []).map(g => g.area);
-
+    
     for (const block of blocks) {
         const solvedGaps = block.gapsSolved || [];
         const relevance = solvedGaps.filter(g => companyGaps.some(cg => g.includes(cg))).length;
@@ -15698,26 +14450,26 @@ function suggestBlocksForCompany(company) {
             });
         }
     }
-
+    
     return suggestions;
 }
 
 function findPotentialPartners(company) {
     const partners = [];
     const allCompanies = SAUDI_MARKET_DATA.preloadedCompanies || [];
-
+    
     // البحث عن شركاء محتملين بناءً على القطاع وسلسلة التوريد
     for (const other of allCompanies) {
         if (other.companyId === company.companyId) continue;
-
+        
         // شركاء في نفس سلسلة التوريد
         if (other.sector !== company.sector) {
-            const hasComplementary =
+            const hasComplementary = 
                 (company.sector === 'scrap' && ['steel', 'aluminum'].includes(other.sector)) ||
                 (company.sector === 'steel' && ['scrap', 'logistics'].includes(other.sector)) ||
                 (company.sector === 'mining' && ['logistics', 'storage'].includes(other.sector)) ||
                 (company.sector === 'gold' && ['mining'].includes(other.sector));
-
+            
             if (hasComplementary) {
                 partners.push({
                     companyId: other.companyId,
@@ -15728,41 +14480,41 @@ function findPotentialPartners(company) {
             }
         }
     }
-
+    
     return partners.slice(0, 5);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🛠️ APIs التطوير المتكامل (Development Engine - Sheikha + OpenAI/Ollama)
+// 🛠️ APIs التطوير المتكامل (Development Engine - Cursor + Claude)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // حالة محرك التطوير
 app.get('/api/development/status', (req, res) => {
     const openaiEnabled = !!OPENAI_API_KEY;
-    const claudeEnabled = SHEIKHA_ENABLE_ANTHROPIC && !!ANTHROPIC_API_KEY;
+    const claudeEnabled = !!ANTHROPIC_API_KEY;
     const devEngineEnabled = !!DevelopmentEngine;
-
+    
     res.json({
         success: true,
         data: {
             status: devEngineEnabled ? 'active' : 'limited',
             engines: {
-                anthropicLegacy: {
+                claude: {
                     enabled: claudeEnabled,
                     model: ANTHROPIC_MODEL,
-                    status: claudeEnabled ? '🟢 متصل بإذن صريح' : '⚪ غير مستخدم حالياً',
-                    description: 'مزود خارجي اختياري، معطّل افتراضياً لصالح Sheikha-Core المحلي'
+                    status: claudeEnabled ? '🟢 متصل' : '⚪ غير مفعّل',
+                    description: 'Claude Opus 4.6 - أقوى نموذج ذكاء اصطناعي في العالم (فبراير 2026)'
                 },
                 openai: {
                     enabled: openaiEnabled,
                     model: OPENAI_MODEL,
                     status: openaiEnabled ? '🟢 متصل' : '⚪ غير مفعّل',
-                    description: 'مزود OpenAI-compatible اختياري عند الحاجة'
+                    description: 'GPT-5.2 - للمساعدة العامة'
                 },
-                sheikhaIde: {
-                    enabled: false,
-                    status: '⚪ يستخدم امتداد Sheikha/VS Code حالياً',
-                    description: 'التكامل الحالي عبر Sheikha Extension وSheikha AI Gateway'
+                cursor: {
+                    enabled: true,
+                    status: '🟢 جاهز للتكامل',
+                    description: 'Cursor IDE - بيئة تطوير متقدمة'
                 }
             },
             templates: devEngineEnabled ? DevelopmentEngine.listTemplates() : [],
@@ -15771,7 +14523,7 @@ app.get('/api/development/status', (req, res) => {
                 'تحليل وتصحيح الأخطاء',
                 'إنشاء APIs',
                 'إنشاء واجهات',
-                'تكامل مع Sheikha IDE وVS Code'
+                'تكامل مع Cursor IDE'
             ]
         }
     });
@@ -15782,7 +14534,7 @@ app.get('/api/development/templates', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: DevelopmentEngine.listTemplates()
@@ -15792,41 +14544,41 @@ app.get('/api/development/templates', (req, res) => {
 // إنشاء كود من قالب
 app.post('/api/development/generate', express.json(), async (req, res) => {
     const { template, variables } = req.body;
-
+    
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-
+    
     const result = DevelopmentEngine.generateFromTemplate(template, variables || {});
-
+    
     if (!result) {
         return res.status(400).json({ success: false, message: 'القالب غير موجود' });
     }
-
+    
     res.json({
         success: true,
         data: result
     });
 });
 
-// إعدادات IDE legacy للتوافق فقط
+// إعدادات Cursor الموصى بها
 app.get('/api/development/cursor-config', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: DevelopmentEngine.getCursorSettings()
     });
 });
 
-// قواعد IDE legacy للتوافق فقط
+// قواعد Cursor للمشروع
 app.get('/api/development/cursor-rules', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: {
@@ -15836,54 +14588,53 @@ app.get('/api/development/cursor-rules', (req, res) => {
     });
 });
 
-// إعدادات Anthropic legacy للتوافق فقط
+// إعدادات Claude للمشروع
 app.get('/api/development/claude-config', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: DevelopmentEngine.generateClaudeConfig()
     });
 });
 
-// طلب تطوير legacy عبر Anthropic - معطّل افتراضياً
+// طلب تطوير باستخدام Claude
 app.post('/api/development/claude', express.json(), async (req, res) => {
     const { task, code, type = 'general' } = req.body;
-
-    if (!SHEIKHA_ENABLE_ANTHROPIC || !ANTHROPIC_API_KEY) {
+    
+    if (!ANTHROPIC_API_KEY) {
         return res.json({
             success: false,
-            provider: 'anthropic-legacy-disabled',
-            message: 'المسار الخارجي غير مستخدم حالياً. استخدم Sheikha-Core المحلي عبر /api/sheikha/ai-gateway/ask.',
-            howToFix: 'للتفعيل الاستثنائي فقط: SHEIKHA_ENABLE_ANTHROPIC=true مع مفتاح مزود خارجي صالح.'
+            message: 'Claude غير مفعّل. يرجى إضافة ANTHROPIC_API_KEY في ملف .env',
+            howToFix: 'أضف السطر التالي في .env:\nANTHROPIC_API_KEY=sk-ant-your-key-here'
         });
     }
-
+    
     try {
-        const systemPrompt = DevelopmentEngine
+        const systemPrompt = DevelopmentEngine 
             ? DevelopmentEngine.getClaudePrompt(type)
             : 'أنت مطور خبير. أجب بالعربية وقدم كود جاهز للاستخدام.';
-
+        
         const messages = [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: code ? `${task}\n\nالكود:\n\`\`\`\n${code}\n\`\`\`` : task }
         ];
-
+        
         const result = await callClaudeChat(messages, 4000);
-
+        
         if (result.error) {
             return res.json({ success: false, message: result.error, detail: result.detail });
         }
-
+        
         res.json({
             success: true,
             response: result.reply,
             model: result.model,
             provider: result.provider
         });
-
+        
     } catch (e) {
         res.status(500).json({ success: false, message: 'خطأ: ' + e.message });
     }
@@ -15892,23 +14643,23 @@ app.post('/api/development/claude', express.json(), async (req, res) => {
 // طلب تحليل كود
 app.post('/api/development/analyze', express.json(), async (req, res) => {
     const { code, language = 'javascript' } = req.body;
-
+    
     if (!code) {
         return res.status(400).json({ success: false, message: 'يرجى إرسال الكود' });
     }
-
-    // استخدام Anthropic legacy للتحليل عند التفعيل الصريح فقط
+    
+    // استخدام Claude للتحليل المتقدم
     if (ANTHROPIC_API_KEY) {
-        const systemPrompt = DevelopmentEngine
+        const systemPrompt = DevelopmentEngine 
             ? DevelopmentEngine.getClaudePrompt('analyze')
             : 'حلل الكود التالي وقدم تقريراً بالعربية.';
-
+        
         try {
             const result = await callClaudeChat([
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: `\`\`\`${language}\n${code}\n\`\`\`` }
             ], 3000);
-
+            
             return res.json({
                 success: true,
                 analysis: result.reply,
@@ -15919,7 +14670,7 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
             // fallback to OpenAI
         }
     }
-
+    
     // Fallback to OpenAI
     if (OPENAI_API_KEY) {
         try {
@@ -15927,7 +14678,7 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
                 { role: 'system', content: 'أنت محلل كود خبير. حلل الكود وقدم تقريراً بالعربية.' },
                 { role: 'user', content: `\`\`\`${language}\n${code}\n\`\`\`` }
             ], 2000, 0.5);
-
+            
             return res.json({
                 success: true,
                 analysis: result.reply,
@@ -15938,29 +14689,21 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
             return res.json({ success: false, message: 'خطأ في التحليل: ' + e.message });
         }
     }
-
-    const localResult = await callLocalSheikhaCoreChat([
-        { role: 'system', content: 'أنت محلل كود خبير. حلل الكود وقدم تقريراً بالعربية.' },
-        { role: 'user', content: `\`\`\`${language}\n${code}\n\`\`\`` }
-    ], { mode: 'development-analyze' });
-
+    
     return res.json({
-        success: !localResult.error,
-        analysis: localResult.reply,
-        model: localResult.model,
-        provider: localResult.provider,
-        message: localResult.error ? localResult.error : undefined
+        success: false,
+        message: 'لا يوجد نموذج AI متصل. أضف OPENAI_API_KEY أو ANTHROPIC_API_KEY في .env'
     });
 });
 
 // طلب إصلاح خطأ
 app.post('/api/development/debug', express.json(), async (req, res) => {
     const { code, error, context = '' } = req.body;
-
+    
     if (!code || !error) {
         return res.status(400).json({ success: false, message: 'يرجى إرسال الكود والخطأ' });
     }
-
+    
     const prompt = `أصلح الخطأ التالي:
 
 الخطأ:
@@ -15975,14 +14718,14 @@ ${context ? `سياق إضافي: ${context}` : ''}
 
 قدم الكود المصحح مع شرح للتغييرات.`;
 
-    // استخدام Anthropic legacy للتصحيح عند التفعيل الصريح فقط
+    // استخدام Claude للتصحيح
     if (ANTHROPIC_API_KEY) {
         try {
             const result = await callClaudeChat([
                 { role: 'system', content: DevelopmentEngine?.getClaudePrompt('debug') || 'أصلح الخطأ وقدم الحل بالعربية.' },
                 { role: 'user', content: prompt }
             ], 3000);
-
+            
             return res.json({
                 success: true,
                 fix: result.reply,
@@ -15993,7 +14736,7 @@ ${context ? `سياق إضافي: ${context}` : ''}
             // fallback
         }
     }
-
+    
     // Fallback to OpenAI
     if (OPENAI_API_KEY) {
         try {
@@ -16001,7 +14744,7 @@ ${context ? `سياق إضافي: ${context}` : ''}
                 { role: 'system', content: 'أنت خبير في تصحيح الأخطاء. أصلح الخطأ وقدم الحل بالعربية.' },
                 { role: 'user', content: prompt }
             ], 2000, 0.3);
-
+            
             return res.json({
                 success: true,
                 fix: result.reply,
@@ -16012,19 +14755,8 @@ ${context ? `سياق إضافي: ${context}` : ''}
             return res.json({ success: false, message: 'خطأ: ' + e.message });
         }
     }
-
-    const localResult = await callLocalSheikhaCoreChat([
-        { role: 'system', content: 'أنت خبير في تصحيح الأخطاء. أصلح الخطأ وقدم الحل بالعربية.' },
-        { role: 'user', content: prompt }
-    ], { mode: 'development-debug' });
-
-    return res.json({
-        success: !localResult.error,
-        fix: localResult.reply,
-        model: localResult.model,
-        provider: localResult.provider,
-        message: localResult.error ? localResult.error : undefined
-    });
+    
+    return res.json({ success: false, message: 'لا يوجد نموذج AI متصل' });
 });
 
 // [تم توحيد المسارات المكررة — /api/market/preloaded و /api/market/preloaded/:id الأصليان أعلاه]
@@ -16037,30 +14769,30 @@ ${context ? `سياق إضافي: ${context}` : ''}
 app.post('/api/sheikha/smart-chat', express.json(), async (req, res) => {
     try {
         const { companyName, message, companyId } = req.body;
-
+        
         // بناء الاستشارة الذكية
         let consultation = null;
         let aiResponse = '';
-
+        
         if (SheikaAIEngine) {
             consultation = SheikaAIEngine.buildSmartConsultation(companyName, message);
-
+            
             // البحث عن بيانات إضافية للشركة
             const companyData = PRELOADED_MARKET.preloadedCompanies?.find(
                 c => c.companyId === companyId || c.nameAr?.includes(companyName)
             );
-
+            
             if (companyData) {
                 consultation.companyData = companyData;
             }
-
+            
             // تحويل لرسالة
             aiResponse = SheikaAIEngine.consultationToMessage(consultation);
         } else {
             // رد افتراضي إذا المحرك غير متوفر
             aiResponse = `أهلاً وسهلاً بـ ${companyName}! 🌟\n\nأنا شيخة، مساعدتكم الذكية في عالم المعادن والسكراب.\n\nكيف يمكنني مساعدتكم اليوم؟`;
         }
-
+        
         // إرسال للـ AI للتحسين إذا كان متوفراً
         let enhancedResponse = aiResponse;
         if (OPENAI_API_KEY) {
@@ -16088,7 +14820,7 @@ ${aiResponse}
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: message }
                 ], 1500, 0.7);
-
+                
                 if (result.reply) {
                     enhancedResponse = result.reply;
                 }
@@ -16096,7 +14828,7 @@ ${aiResponse}
                 console.log('AI enhancement failed, using base response');
             }
         }
-
+        
         res.json({
             success: true,
             response: enhancedResponse,
@@ -16104,10 +14836,10 @@ ${aiResponse}
             aiName: 'شيخة',
             model: 'sheikha-advanced'
         });
-
+        
     } catch (e) {
-        res.status(500).json({
-            success: false,
+        res.status(500).json({ 
+            success: false, 
             message: 'خطأ في المحادثة: ' + e.message,
             response: 'عذراً، حدث خطأ. يرجى المحاولة مرة أخرى.'
         });
@@ -16117,13 +14849,13 @@ ${aiResponse}
 // تحليل مفهوم لغوي
 app.get('/api/sheikha/analyze-concept/:word', (req, res) => {
     const word = req.params.word;
-
+    
     if (!SheikaAIEngine) {
         return res.json({ success: false, message: 'محرك التحليل غير متوفر' });
     }
-
+    
     const analysis = SheikaAIEngine.analyzeConceptMeaning(word);
-
+    
     if (!analysis) {
         return res.json({
             success: true,
@@ -16134,7 +14866,7 @@ app.get('/api/sheikha/analyze-concept/:word', (req, res) => {
             }
         });
     }
-
+    
     res.json({
         success: true,
         data: {
@@ -16148,13 +14880,13 @@ app.get('/api/sheikha/analyze-concept/:word', (req, res) => {
 // اكتشاف التشابهات
 app.post('/api/sheikha/discover-similarities', express.json(), (req, res) => {
     const { topic } = req.body;
-
+    
     if (!SheikaAIEngine) {
         return res.json({ success: false, message: 'محرك التحليل غير متوفر' });
     }
-
+    
     const similarities = SheikaAIEngine.discoverSimilarities(topic);
-
+    
     res.json({
         success: true,
         data: {
@@ -16167,13 +14899,13 @@ app.post('/api/sheikha/discover-similarities', express.json(), (req, res) => {
 // تحليل أهداف الشركة
 app.post('/api/sheikha/analyze-goals', express.json(), (req, res) => {
     const { goals, sector } = req.body;
-
+    
     if (!SheikaAIEngine) {
         return res.json({ success: false, message: 'محرك التحليل غير متوفر' });
     }
-
+    
     const analysis = SheikaAIEngine.analyzeGoalsAndSuggest(goals, sector);
-
+    
     res.json({
         success: true,
         data: {
@@ -16187,7 +14919,7 @@ app.post('/api/sheikha/analyze-goals', express.json(), (req, res) => {
 // الترحيب الذكي بالشركة
 app.get('/api/sheikha/greeting/:companyName', (req, res) => {
     const companyName = decodeURIComponent(req.params.companyName);
-
+    
     if (!SheikaAIEngine) {
         return res.json({
             success: true,
@@ -16197,9 +14929,9 @@ app.get('/api/sheikha/greeting/:companyName', (req, res) => {
             }
         });
     }
-
+    
     const greeting = SheikaAIEngine.generateSmartGreeting(companyName);
-
+    
     res.json({
         success: true,
         data: greeting
@@ -16212,23 +14944,25 @@ app.get('/api/sheikha/greeting/:companyName', (req, res) => {
 
 let ArabicEngine = null;
 try {
-    // P0-1: LAZY (L2) - arabic-language-engine.js
-    /*     ArabicEngine = require('./lib/arabic-language-engine.js'); */
-    console.log('⏸️ [LAZY] arabic-language-engine.js — سيُحمّل عند الطلب');
+    ArabicEngine = require('./lib/arabic-language-engine.js');
     console.log('✅ محرك اللغة العربية الشامل - تم التحميل');
+} catch (e) {
+    console.log('⚠️ محرك اللغة العربية غير متوفر:', e.message);
+}
+
 // ─── تحليل جملة عربية ─────────────────────────────────────────────────────────
 app.post('/api/arabic/analyze', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     const { جملة, sentence } = req.body;
     const نص = جملة || sentence;
-
+    
     if (!نص) {
         return res.status(400).json({ success: false, message: 'الجملة مطلوبة' });
     }
-
+    
     try {
         const تحليل = ArabicEngine.محرك_العربية.حلل_الجملة(نص);
         res.json({
@@ -16246,14 +14980,14 @@ app.post('/api/arabic/parse-word', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     const { كلمة, word } = req.body;
     const الكلمة = كلمة || word;
-
+    
     if (!الكلمة) {
         return res.status(400).json({ success: false, message: 'الكلمة مطلوبة' });
     }
-
+    
     try {
         const تحليل = ArabicEngine.محرك_العربية.حلل_الكلمة(الكلمة);
         res.json({
@@ -16271,14 +15005,14 @@ app.post('/api/arabic/translate-code', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     const { كود, code, direction = 'to-js' } = req.body;
     const الكود = كود || code;
-
+    
     if (!الكود) {
         return res.status(400).json({ success: false, message: 'الكود مطلوب' });
     }
-
+    
     try {
         let نتيجة;
         if (direction === 'to-js' || direction === 'إلى-جافاسكربت') {
@@ -16286,7 +15020,7 @@ app.post('/api/arabic/translate-code', (req, res) => {
         } else {
             نتيجة = ArabicEngine.محرك_العربية.ترجم_إلى_العربية(الكود);
         }
-
+        
         res.json({
             success: true,
             data: {
@@ -16306,9 +15040,9 @@ app.get('/api/arabic/grammar/:rule', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     const { rule } = req.params;
-
+    
     try {
         const شرح = ArabicEngine.محرك_العربية.اشرح_قاعدة(decodeURIComponent(rule));
         res.json({
@@ -16326,7 +15060,7 @@ app.get('/api/arabic/grammar', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     try {
         const قواعد = ArabicEngine.محرك_العربية.قواعد_النحو_الكاملة();
         res.json({
@@ -16344,7 +15078,7 @@ app.get('/api/arabic/morphology', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     try {
         const قواعد = ArabicEngine.محرك_العربية.قواعد_الصرف_الكاملة();
         res.json({
@@ -16362,7 +15096,7 @@ app.get('/api/arabic/rhetoric', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     try {
         const قواعد = ArabicEngine.محرك_العربية.قواعد_البلاغة_الكاملة();
         res.json({
@@ -16380,14 +15114,14 @@ app.post('/api/arabic/rhetoric/analyze', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     const { نص, text } = req.body;
     const النص = نص || text;
-
+    
     if (!النص) {
         return res.status(400).json({ success: false, message: 'النص مطلوب' });
     }
-
+    
     try {
         const تحليل = ArabicEngine.محرك_العربية.حلل_بلاغياً(النص);
         res.json({
@@ -16405,15 +15139,15 @@ app.post('/api/arabic/syllogism', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     const { الكبرى, الصغرى, major, minor } = req.body;
     const مقدمة_كبرى = الكبرى || major;
     const مقدمة_صغرى = الصغرى || minor;
-
+    
     if (!مقدمة_كبرى || !مقدمة_صغرى) {
         return res.status(400).json({ success: false, message: 'المقدمة الكبرى والصغرى مطلوبتان' });
     }
-
+    
     try {
         const نتيجة = ArabicEngine.محرك_العربية.قياس_منطقي(مقدمة_كبرى, مقدمة_صغرى);
         res.json({
@@ -16431,7 +15165,7 @@ app.get('/api/arabic/programming/keywords', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: {
@@ -16449,7 +15183,7 @@ app.get('/api/arabic/logic', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: ArabicEngine.المنطق_العربي,
@@ -16480,23 +15214,25 @@ app.get('/api/arabic/status', (req, res) => {
 
 let ArabicParserEngine = null;
 try {
-    // P0-1: LAZY (L2) - arabic-parser-engine.js
-    /*     ArabicParserEngine = require('./lib/arabic-parser-engine.js'); */
-    console.log('⏸️ [LAZY] arabic-parser-engine.js — سيُحمّل عند الطلب');
+    ArabicParserEngine = require('./lib/arabic-parser-engine.js');
     console.log('✅ محرك الإعراب والتحليل النحوي المتقدم - تم التحميل');
+} catch (e) {
+    console.log('⚠️ محرك الإعراب غير متوفر:', e.message);
+}
+
 // ─── إعراب جملة كاملة ────────────────────────────────────────────────────────
 app.post('/api/arabic/parse', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     const { جملة, sentence, text } = req.body;
     const نص = جملة || sentence || text;
-
+    
     if (!نص) {
         return res.status(400).json({ success: false, message: 'الجملة مطلوبة' });
     }
-
+    
     try {
         const تحليل = ArabicParserEngine.محرك.أعرب_الجملة(نص);
         res.json({
@@ -16514,14 +15250,14 @@ app.post('/api/arabic/parse/model', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     const { جملة, sentence, text } = req.body;
     const نص = جملة || sentence || text;
-
+    
     if (!نص) {
         return res.status(400).json({ success: false, message: 'الجملة مطلوبة' });
     }
-
+    
     try {
         const نموذج = ArabicParserEngine.محرك.نمذج_للبرمجة(نص);
         // تحويل الدوال إلى نتائج
@@ -16536,7 +15272,7 @@ app.post('/api/arabic/parse/model', (req, res) => {
             هل_فعلية: نموذج.هل_فعلية(),
             هل_اسمية: نموذج.هل_اسمية()
         };
-
+        
         res.json({
             success: true,
             data: نموذج_مُصدَّر,
@@ -16552,14 +15288,14 @@ app.post('/api/arabic/parse/word-type', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     const { كلمة, word } = req.body;
     const الكلمة = كلمة || word;
-
+    
     if (!الكلمة) {
         return res.status(400).json({ success: false, message: 'الكلمة مطلوبة' });
     }
-
+    
     try {
         const نوع = ArabicParserEngine.محرك.حدد_نوع_الكلمة(الكلمة);
         res.json({
@@ -16580,24 +15316,24 @@ app.post('/api/arabic/parse/case-marker', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     const { كلمة, word, حالة, grammatical_case } = req.body;
     const الكلمة = كلمة || word;
     const الحالة = حالة || grammatical_case;
-
+    
     if (!الكلمة || !الحالة) {
         return res.status(400).json({ success: false, message: 'الكلمة والحالة الإعرابية مطلوبتان' });
     }
-
+    
     // التحقق من صحة الحالة
     const حالات_صحيحة = ['رفع', 'نصب', 'جر', 'جزم'];
     if (!حالات_صحيحة.includes(الحالة)) {
-        return res.status(400).json({
-            success: false,
+        return res.status(400).json({ 
+            success: false, 
             message: 'الحالة الإعرابية غير صحيحة. الحالات المتاحة: ' + حالات_صحيحة.join('، ')
         });
     }
-
+    
     try {
         const علامة = ArabicParserEngine.محرك.حدد_علامة_الإعراب(الكلمة, الحالة);
         res.json({
@@ -16619,7 +15355,7 @@ app.get('/api/arabic/parse/prepositions', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: ArabicParserEngine.حروف_الجر,
@@ -16632,7 +15368,7 @@ app.get('/api/arabic/parse/kana-sisters', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: ArabicParserEngine.كان_وأخواتها,
@@ -16645,7 +15381,7 @@ app.get('/api/arabic/parse/inna-sisters', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: ArabicParserEngine.إن_وأخواتها,
@@ -16658,7 +15394,7 @@ app.get('/api/arabic/parse/adverbs', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: {
@@ -16674,7 +15410,7 @@ app.get('/api/arabic/parse/pronouns', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: ArabicParserEngine.الضمائر,
@@ -16687,7 +15423,7 @@ app.get('/api/arabic/parse/conjunctions', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     res.json({
         success: true,
         data: ArabicParserEngine.حروف_العطف,
@@ -16722,20 +15458,20 @@ app.post('/api/arabic/parse/batch', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-
+    
     const { جمل, sentences } = req.body;
     const قائمة_الجمل = جمل || sentences;
-
+    
     if (!قائمة_الجمل || !Array.isArray(قائمة_الجمل)) {
         return res.status(400).json({ success: false, message: 'قائمة الجمل مطلوبة (مصفوفة)' });
     }
-
+    
     try {
         const نتائج = قائمة_الجمل.map(جملة => ({
             الجملة: جملة,
             التحليل: ArabicParserEngine.محرك.أعرب_الجملة(جملة)
         }));
-
+        
         res.json({
             success: true,
             data: نتائج,
@@ -16918,7 +15654,8 @@ if (pilotEngine) {
         pilotEngine.recordError({ message: String(reason) }, { path: 'unhandledRejection', method: 'SYSTEM' });
         console.error('🔴 رفض غير معالج:', reason);
     });
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧪 PILOT ENGINE API — نقاط نهاية التشغيل التجريبي + AL/ML + الإنتاج الذكي
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -18582,132 +17319,6 @@ app.get('/api/segments/sharia-marketing', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🤝 API — محرك المجتمعات
 // ═══════════════════════════════════════════════════════════════════════════════
-const readExecutiveRuntimeJson = (relativePath) => {
-    try {
-        const fullPath = path.join(__dirname, relativePath);
-        if (!fs.existsSync(fullPath)) {
-            return null;
-        }
-        return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
-    } catch (_error) {
-        return null;
-    }
-};
-
-app.get('/api/identity/status', (req, res) => {
-    const report = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
-    const status = String(report?.status || 'UNKNOWN');
-    const score = Number(report?.score || 0);
-
-    res.json({
-        success: true,
-        status,
-        score,
-        generatedAt: report?.generatedAt || null,
-        passedChecks: report?.totalPassed || null,
-        totalChecks: report?.totalChecks || null
-    });
-});
-
-app.get('/api/runtime/status', (req, res) => {
-    const community = readExecutiveRuntimeJson('runtime/community/sheikha-community-modeling-report.json');
-    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
-
-    const runtimeReady = Boolean(
-        identity?.status === 'ACTIVE' &&
-        community?.status === 'KHAYR_ACTIVE' &&
-        community?.modeling?.formationReady === true
-    );
-
-    res.json({
-        success: true,
-        status: runtimeReady ? 'READY' : 'CHECK_REQUIRED',
-        pid: process.pid,
-        uptimeSeconds: Math.floor(process.uptime()),
-        services: {
-            identity: identity?.status || 'UNKNOWN',
-            community: community?.status || 'UNKNOWN'
-        },
-        generatedAt: new Date().toISOString()
-    });
-});
-
-app.get('/api/governance/status', (req, res) => {
-    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
-    const community = readExecutiveRuntimeJson('runtime/community/sheikha-community-modeling-report.json');
-
-    const score = Number(identity?.score || 0);
-    const formationReady = community?.modeling?.formationReady === true;
-    const governanceReady = score >= 95 && formationReady;
-
-    res.json({
-        success: true,
-        status: governanceReady ? 'GOVERNED' : 'REVIEW_REQUIRED',
-        complianceScore: score,
-        riskLevel: governanceReady ? 'LOW' : score >= 80 ? 'MEDIUM' : 'HIGH',
-        formationReady,
-        generatedAt: new Date().toISOString()
-    });
-});
-
-app.get('/api/production/truth-gate', (req, res) => {
-    const closureReport = readExecutiveRuntimeJson('runtime/production-hardening/sheikha-production-hardening-closure-v1-report.json');
-    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
-
-    const score = Number(identity?.score || 0);
-    const passed = score >= 95;
-
-    res.json({
-        success: true,
-        status: passed ? 'PASSED' : 'REVIEW_REQUIRED',
-        score,
-        source: closureReport ? 'production-hardening-closure-v1' : 'identity-v2-fallback',
-        generatedAt: new Date().toISOString()
-    });
-});
-
-app.get('/api/metrics', (req, res) => {
-    const community = readExecutiveRuntimeJson('runtime/community/sheikha-community-modeling-report.json');
-    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
-
-    const communityTypes = Number(community?.modeling?.communityTypes || 0);
-    const digitalTools = Number(community?.modeling?.digitalTools || 0);
-    const identityScore = Number(identity?.score || 0);
-
-    res.json({
-        success: true,
-        metrics: {
-            identityScore,
-            communityTypes,
-            digitalTools,
-            formationReady: community?.modeling?.formationReady === true,
-            liveServices: [
-                identity?.status === 'ACTIVE',
-                community?.status === 'KHAYR_ACTIVE'
-            ].filter(Boolean).length
-        },
-        generatedAt: new Date().toISOString()
-    });
-});
-
-app.get('/api/performance', (req, res) => {
-    const ops = typeof OPERATIONS_STATS !== 'undefined'
-        ? OPERATIONS_STATS
-        : { totalLogged: 0, totalEssential: 0, cloudQueueLength: 0, cloudLastSync: null };
-
-    res.json({
-        success: true,
-        performance: {
-            operationsTotal: ops.totalLogged,
-            operationsEssential: ops.totalEssential,
-            cloudQueueLength: ops.cloudQueueLength,
-            cloudLastSync: ops.cloudLastSync,
-            uptimeSeconds: Math.floor(process.uptime())
-        },
-        generatedAt: new Date().toISOString()
-    });
-});
-
 app.get('/api/community/dashboard', (req, res) => {
     if (!communityEngine) return res.json({ success: false, message: 'Community Engine غير مفعّل' });
     res.json({ success: true, ...communityEngine.getDashboard() });
@@ -18874,11 +17485,12 @@ try { ORDERS = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8')); } catch(_) {}
 // ═══ P0-1: LAZY — منظومة ضخمة جداً، السوق الأساسي يكفي في L0 ═══
 /* LAZY: Digital Market Ecosystem (full)
 try {
-    // P0-1: LAZY-DISABLED (UNKNOWN) - sheikha-digital-market-ecosystem.js
-    // const digitalMarketEcosystem = require('./lib/sheikha-digital-market-ecosystem.js');
-    console.log('⏸️ [LAZY] sheikha-digital-market-ecosystem.js — سيُحمّل عند الطلب');
+    const digitalMarketEcosystem = require('./lib/sheikha-digital-market-ecosystem.js');
     digitalMarketEcosystem(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Digital Market Ecosystem — منظومة السوق الرقمي المتكامل مفعّلة');
+} catch (e) {
+    console.log('⚠️ Digital Market Ecosystem غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Digital Market Ecosystem — يُحمّل عند الطلب (السوق الأساسي نشط)');
 
@@ -18886,74 +17498,91 @@ console.log('⏸️ [LAZY] Digital Market Ecosystem — يُحمّل عند ال
 // ═══ P0-1: LAZY — عمليات موسعة، ليست حرجة عند startup ═══
 /* LAZY: Digital Operations Engine
 try {
-    // P0-1: LAZY-DISABLED (L2) - sheikha-digital-operations-engine.js
-    // const digitalOpsEngine = require('./lib/sheikha-digital-operations-engine.js');
-    console.log('⏸️ [LAZY] sheikha-digital-operations-engine.js — سيُحمّل عند الطلب');
+    const digitalOpsEngine = require('./lib/sheikha-digital-operations-engine.js');
     digitalOpsEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Digital Operations Engine — محرك العمليات الرقمية الشامل مفعّل');
+} catch (e) {
+    console.log('⚠️ Digital Operations Engine غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Digital Operations Engine — يُحمّل عند الطلب');
 
 // ═══ محرك التحسين المستمر — Kaizen ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-continuous-improvement-engine.js
-    /*     const kaizenEngine = require('./lib/sheikha-continuous-improvement-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-continuous-improvement-engine.js — سيُحمّل عند الطلب');
+    const kaizenEngine = require('./lib/sheikha-continuous-improvement-engine.js');
     kaizenEngine(app);
     console.log('✅ Kaizen Engine — محرك التحسين المستمر مفعّل');
+} catch (e) {
+    console.log('⚠️ Kaizen Engine غير متوفر:', e.message);
+}
+
 // ═══ منظومة التعلم والتدريب والمعرفة الرقمية ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-digital-learning-engine.js
-    /*     const learningEngine = require('./lib/sheikha-digital-learning-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-digital-learning-engine.js — سيُحمّل عند الطلب');
+    const learningEngine = require('./lib/sheikha-digital-learning-engine.js');
     learningEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Learning Engine — منظومة التعلم والتدريب الرقمي مفعّلة');
+} catch (e) {
+    console.log('⚠️ Learning Engine غير متوفر:', e.message);
+}
+
 // ═══ محرك لوحات التحكم الشامل ═══
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-dashboards-engine.js
-    /*     const dashboardsEngine = require('./lib/sheikha-dashboards-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-dashboards-engine.js — سيُحمّل عند الطلب');
+    const dashboardsEngine = require('./lib/sheikha-dashboards-engine.js');
     dashboardsEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS });
     console.log('✅ Dashboards Engine — محرك لوحات التحكم الشامل مفعّل');
+} catch (e) {
+    console.log('⚠️ Dashboards Engine غير متوفر:', e.message);
+}
+
 // ═══ منظومة المجتمع الرقمي والأساسي الشاملة ═══
 try {
     const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js');
-    console.log('✅ sheikha-digital-community-ecosystem.js loaded');
     communityEcosystem(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Community Ecosystem — منظومة المجتمع الرقمي الشاملة مفعّلة');
+} catch (e) {
+    console.log('⚠️ Community Ecosystem غير متوفر:', e.message);
+}
+
 // ═══ رياض الجنة — بيت العلم ودار المعرفة ومصنع الابتكار ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-riyad-aljannah-engine.js
-    /*     const riyadEngine = require('./lib/sheikha-riyad-aljannah-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-riyad-aljannah-engine.js — سيُحمّل عند الطلب');
+    const riyadEngine = require('./lib/sheikha-riyad-aljannah-engine.js');
     riyadEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Riyad Al-Jannah — رياض الجنة مفعّلة');
+} catch (e) {
+    console.log('⚠️ Riyad Al-Jannah غير متوفر:', e.message);
+}
+
 // ═══ منصة شيخة التعليمية الجاهزة — محتوى + أدوات + تراخيص + تسويق ═══
 // ═══ P0-1: LAZY — منصة تعليمية ضخمة، ليست حرجة عند startup ═══
 /* LAZY: Educational Launchpad
 try {
-    // P0-1: LAZY-DISABLED (L1) - sheikha-educational-launchpad-engine.js
-    // const eduLaunchpad = require('./lib/sheikha-educational-launchpad-engine.js');
-    console.log('⏸️ [LAZY] sheikha-educational-launchpad-engine.js — سيُحمّل عند الطلب');
+    const eduLaunchpad = require('./lib/sheikha-educational-launchpad-engine.js');
     eduLaunchpad(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Edu Launchpad — المنصة التعليمية الجاهزة مفعّلة');
+} catch (e) {
+    console.log('⚠️ Edu Launchpad غير متوفر:', e.message);
+}
 */
 console.log('⏸️ [LAZY] Educational Launchpad — يُحمّل عند الطلب');
 
 // ═══ منظومة تعليم القرآن والسنة والشريعة الرقمية ═══
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-quran-sunnah-education.js
-    /*     const quranEdu = require('./lib/sheikha-quran-sunnah-education.js'); */
-    console.log('⏸️ [LAZY] sheikha-quran-sunnah-education.js — سيُحمّل عند الطلب');
+    const quranEdu = require('./lib/sheikha-quran-sunnah-education.js');
     quranEdu(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Quran Education — منظومة تعليم القرآن والسنة مفعّلة');
+} catch (e) {
+    console.log('⚠️ Quran Education غير متوفر:', e.message);
+}
+
 // ═══ محرك الهيكل التنظيمي والتنفيذي والمخطط الرقمي + تغذية AI بالكتاب والسنة ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-org-execution-engine.js
-    /*     const orgExecEngine = require('./lib/sheikha-org-execution-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-org-execution-engine.js — سيُحمّل عند الطلب');
+    const orgExecEngine = require('./lib/sheikha-org-execution-engine.js');
     orgExecEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ OrgExec Engine — محرك الهيكل التنظيمي والتنفيذي + تغذية AI مفعّل');
+} catch (e) {
+    console.log('⚠️ OrgExec Engine غير متوفر:', e.message);
+}
+
 // ─── أنواع العقود ────────────────────────────────────────────────────────────
 const CONTRACT_TYPES = {
     supply:       { id: 'supply', nameAr: 'عقد توريد', nameEn: 'Supply Contract', icon: '📦', category: 'trade' },
@@ -19312,9 +17941,8 @@ console.log('   📡 APIs: /api/contracts, /api/orders, /api/my-supply-chain-sta
 // ═══════════════════════════════════════════════════════════════════════════════
 let greenCircularEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-green-circular-engine
-    /*     const SheikhaGreenCircularEngine = require('./lib/sheikha-green-circular-engine'); */
-    greenCircularEngine = resolveOptionalEngine('SheikhaGreenCircularEngine', 'Green+Circular');
+    const SheikhaGreenCircularEngine = require('./lib/sheikha-green-circular-engine');
+    greenCircularEngine = new SheikhaGreenCircularEngine();
     console.log('✅ [Green+Circular] منظومة شيخة الخضراء والاقتصاد الدائري — مُفعّلة');
     const dash = greenCircularEngine.getDashboard();
     console.log(`   📗 الأساس الشرعي: ${dash.summary.quranVerses} آية + ${dash.summary.hadith} حديث`);
@@ -19325,6 +17953,10 @@ try {
     console.log(`   🏅 الشهادات: ${dash.summary.certifications} شهادة`);
     console.log(`   📜 العقود الخضراء: ${dash.summary.greenContractTypes} نوع`);
     console.log(`   🤖 أنظمة رقمية: ${dash.summary.digitalSystems} نظام`);
+} catch(e) {
+    console.warn('⚠️ [Green+Circular] لم يتم تحميل المنظومة:', e.message);
+}
+
 // ─── Green & Circular Economy APIs ───────────────────────────────
 // 📊 لوحة منظومة شيخة الخضراء
 app.get('/api/green/dashboard', (req, res) => {
@@ -19537,12 +18169,9 @@ try {
     console.log('      GET  /api/ai-core/production/health — صحة النظام');
     console.log('      GET  /api/ai-core/capabilities — القدرات الكاملة');
     console.log('      GET  /api/ai-core/status — حالة المحركات');
-// Optional AI status reports are independent of AI-Core boot success.
-const {
-    OPTIONAL_AI_STATUS_MOUNTS,
-    mountOptionalAiStatusRoutes
-} = require('./lib/fabric-bootstrap/optional-ai-status-routes');
-mountOptionalAiStatusRoutes(app);
+} catch (e) {
+    console.warn('⚠️ [AI-Core] لم يتم تحميل منظومة RAG/Agents:', e.message);
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // ⚙️ منظومة المعادن والسكراب والأسواق — مرقمنة بالكتاب والسنة
@@ -19550,16 +18179,18 @@ mountOptionalAiStatusRoutes(app);
 // ═══════════════════════════════════════════════════════════════════════════════
 let metalsScrapMarketsEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-metals-scrap-markets-engine
-    /*     const MSMEngine = require('./lib/sheikha-metals-scrap-markets-engine'); */
-    console.log('⏸️ [LAZY] sheikha-metals-scrap-markets-engine — سيُحمّل عند الطلب');
-    metalsScrapMarketsEngine = resolveOptionalEngine('MSMEngine', 'Metals+Scrap+Markets');
+    const MSMEngine = require('./lib/sheikha-metals-scrap-markets-engine');
+    metalsScrapMarketsEngine = new MSMEngine();
     const d = metalsScrapMarketsEngine.getDashboard();
     console.log('✅ [Metals+Scrap+Markets] منظومة المعادن والسكراب والأسواق — مُفعّلة');
     console.log(`   ⚙️ المعادن: ${d.metals.total} (${d.metals.precious} ثمين + ${d.metals.base} أساسي + ${d.metals.strategic} استراتيجي)`);
     console.log(`   ♻️ السكراب: ${d.scrap.ferrousGrades} حديدي + ${d.scrap.copperGrades} نحاس + ${d.scrap.aluminumGrades} ألمنيوم + ${d.scrap.eWasteTypes} إلكتروني`);
     console.log(`   📊 الأسواق: ${d.markets.globalExchanges} بورصة + ${d.markets.marketPrinciples} مبدأ شرعي + ${d.markets.contractTypes} نوع عقد`);
     console.log(`   📗 الأساس الشرعي: ${d.metals.quranVerses} آية + ${d.metals.hadith} حديث`);
+} catch(e) {
+    console.warn('⚠️ [Metals+Scrap+Markets] خطأ:', e.message);
+}
+
 // ─── APIs: منظومة المعادن ─────────────────────────────────────
 app.get('/api/metals/dashboard', (req, res) => {
     if (!metalsScrapMarketsEngine) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -19619,202 +18250,6 @@ app.get('/api/scrap/quality-standards', (req, res) => {
 });
 
 // ─── APIs: منظومة الأسواق ─────────────────────────────────────
-app.get('/api/markets/status', (req, res) => {
-    res.json({
-        success: true,
-        organization: 'SHEIKHA Markets Organization',
-        markets: {
-            metals: metalsMarket.getStatus()
-        },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/smart-cities/status', (req, res) => {
-    res.json({
-        success: true,
-        organization: 'SHEIKHA Smart Cities Organization',
-        data: smartCities.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/supply-chain/status', (req, res) => {
-    res.json({
-        success: true,
-        organization: 'SHEIKHA Supply Chain Organization',
-        data: supplyChain.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/recycling/status', (req, res) => {
-    res.json({
-        success: true,
-        organization: 'SHEIKHA Recycling Organization',
-        data: recycling.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/traceability/status', (req, res) => {
-    res.json({
-        success: true,
-        runtime: 'SHEIKHA Traceability Runtime',
-        data: traceability.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/space/status', (req, res) => {
-    res.json({
-        success: true,
-        organization: 'SHEIKHA Space Organization',
-        data: space.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/communications/runtime/status', (req, res) => {
-    res.json({
-        success: true,
-        organization: 'SHEIKHA Communications Organization',
-        data: communicationsRuntime.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/legislative/status', (req, res) => {
-    res.json({
-        success: true,
-        system: 'SHEIKHA Legislative System',
-        data: legislative.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/arbitration/status', (req, res) => {
-    res.json({
-        success: true,
-        system: 'SHEIKHA Judicial and Arbitration System',
-        data: arbitration.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/education/status', (req, res) => {
-    res.json({
-        success: true,
-        system: 'SHEIKHA Knowledge and Education System',
-        data: education.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/innovation/status', (req, res) => {
-    res.json({
-        success: true,
-        system: 'SHEIKHA Innovation and Exploration System',
-        data: innovation.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/knowledge-graph/status', (req, res) => {
-    res.json({
-        success: true,
-        system: 'SHEIKHA Global Knowledge Graph',
-        data: knowledgeGraph.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/hs/runtime/status', (req, res) => {
-    res.json({
-        success: true,
-        registry: hsRuntimeRegistry.meta,
-        chapters: hsRuntimeRegistry.chapters,
-        layers: hsRuntimeRegistry.layers,
-        strategicSources: hsRuntimeRegistry.strategicSources,
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/neural-sync/status', (req, res) => {
-    res.json({
-        success: true,
-        ...getNeuralCellsStatus(__dirname),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/root-neural-cells/status', (req, res) => {
-    res.json({
-        success: true,
-        data: rootNeuralCells.getStatus(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/root-system/status', (req, res) => {
-    res.json({
-        success: true,
-        rootSystem: rootSystemRegistry,
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/control-center/status', (req, res) => {
-    res.json({
-        success: true,
-        controlCenter: {
-            runtime: runtimeCoreProfile,
-            organizations: runtimeRegistry.organizations,
-            layers: rootSystemRegistry.layers,
-            markets: {
-                metals: metalsMarket.getStatus(),
-                smartCities: smartCities.getStatus()
-            },
-            supplyChain: supplyChain.getStatus(),
-            recycling: recycling.getStatus(),
-            traceability: traceability.getStatus(),
-            space: space.getStatus(),
-            communications: communicationsRuntime.getStatus(),
-            legislative: legislative.getStatus(),
-            arbitration: arbitration.getStatus(),
-            education: education.getStatus(),
-            innovation: innovation.getStatus(),
-            knowledgeGraph: knowledgeGraph.getStatus(),
-            consulting: consulting.getStatus(),
-            rootNeuralCells: rootNeuralCells.getStatus(),
-            neuralCells: getNeuralCellsStatus(__dirname),
-            hsRegistry: hsRuntimeRegistry.meta
-        },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/civilizational/status', (req, res) => {
-    res.json({
-        success: true,
-        platform: 'SHEIKHA Civilizational Operating System',
-        root: rootSystemRegistry.root,
-        systems: rootSystemRegistry.systems,
-        council: rootSystemRegistry.globalCouncil,
-        organizations: runtimeRegistry.organizations,
-        timestamp: new Date().toISOString()
-    });
-});
-
-// ─── API: الهيكل المؤسسي العالمي ─────────────────────────────
-app.get('/api/organizations/status', (req, res) => {
-    res.json({
-        success: true,
-        organizations: runtimeRegistry.organizations,
-        timestamp: new Date().toISOString()
-    });
-});
-
 app.get('/api/markets/exchanges', (req, res) => {
     if (!metalsScrapMarketsEngine) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
     res.json({ success: true, البورصات: metalsScrapMarketsEngine.markets.globalExchanges });
@@ -19855,13 +18290,15 @@ console.log('   📡 Markets APIs: /api/markets/exchanges, /api/markets/islamic-
 // ═══════════════════════════════════════════════════════════════════════════════
 let metalsGlobalData = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-metals-global-data
-    /*     const MGD = require('./lib/sheikha-metals-global-data'); */
-    console.log('⏸️ [LAZY] sheikha-metals-global-data — سيُحمّل عند الطلب');
-    metalsGlobalData = resolveOptionalEngine('MGD', 'Global Metals Data');
+    const MGD = require('./lib/sheikha-metals-global-data');
+    metalsGlobalData = new MGD();
     const gd = metalsGlobalData.getDashboard();
     console.log(`✅ [Global Metals Data] بيانات ${gd.metalsCount} معدن عالمية — مصادر + إنتاج + احتياطي + تكاليف`);
     console.log(`   📗 الأساس الشرعي: ${gd.islamicFoundation.verses} آية + ${gd.islamicFoundation.miningRules} حكم تعدين`);
+} catch(e) {
+    console.warn('⚠️ [Global Metals Data] خطأ:', e.message);
+}
+
 // بيانات المعدن الشاملة
 app.get('/api/metals/global/:key', (req, res) => {
     if (!metalsGlobalData) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -19916,12 +18353,15 @@ console.log('   📡 Global Data APIs: /api/metals/global/:key, /api/metals/saud
 // ═══════════════════════════════════════════════════════════════════════════════
 let scrapGlobalData = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-scrap-global-data
-    /*     const SGD = require('./lib/sheikha-scrap-global-data'); */
-    scrapGlobalData = resolveOptionalEngine('SGD', 'Scrap Global Data');
+    const SGD = require('./lib/sheikha-scrap-global-data');
+    scrapGlobalData = new SGD();
     const sd = scrapGlobalData.getDashboard();
     console.log(`✅ [Scrap Global Data] ${sd.typesCount} نوع سكراب | ${sd.historicalEras} حقبة تاريخية | ${sd.saudiSmelters} مصهر سعودي`);
     console.log(`   📗 الأساس الشرعي: ${sd.shariaEvidence} دليل | مشاكل البيع بدون عقد: ${sd.contractIssues} | حلول ذكية: ${sd.smartContractFeatures}`);
+} catch(e) {
+    console.warn('⚠️ [Scrap Global Data] خطأ:', e.message);
+}
+
 // لوحة التحكم
 app.get('/api/scrap/global/dashboard', (req, res) => {
     if (!scrapGlobalData) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -19998,13 +18438,15 @@ console.log('   📡 Scrap Global APIs: /api/scrap/history, /api/scrap/type/:key
 // ═══════════════════════════════════════════════════════════════════════════════
 let metalsHSHistory = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-metals-hs-history
-    /*     const MHH = require('./lib/sheikha-metals-hs-history'); */
-    console.log('⏸️ [LAZY] sheikha-metals-hs-history — سيُحمّل عند الطلب');
-    metalsHSHistory = resolveOptionalEngine('MHH', 'HS+History');
+    const MHH = require('./lib/sheikha-metals-hs-history');
+    metalsHSHistory = new MHH();
     const hd = metalsHSHistory.getDashboard();
     console.log(`✅ [HS+History] ${hd.hsCodes.total} كود HS | ${hd.history.eras} حقبة تاريخية | ${hd.history.quranMentions} ذكر قرآني للمعادن`);
     console.log(`   📦 أقسام HS: حديد ${hd.hsCodes.iron} | ألمنيوم ${hd.hsCodes.aluminum} | نحاس ${hd.hsCodes.copper} | ثمينة ${hd.hsCodes.precious}`);
+} catch(e) {
+    console.warn('⚠️ [HS+History] خطأ:', e.message);
+}
+
 // لوحة التحكم
 app.get('/api/hs/dashboard', (req, res) => {
     if (!metalsHSHistory) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -20070,13 +18512,15 @@ console.log('   📡 History APIs: /api/metals/history, /api/metals/history/:ind
 // ═══════════════════════════════════════════════════════════════════════════════
 let metalsNetworks = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-metals-networks-map
-    /*     const MNM = require('./lib/sheikha-metals-networks-map'); */
-    console.log('⏸️ [LAZY] sheikha-metals-networks-map — سيُحمّل عند الطلب');
-    metalsNetworks = resolveOptionalEngine('MNM', 'Networks+Map');
+    const MNM = require('./lib/sheikha-metals-networks-map');
+    metalsNetworks = new MNM();
     const nd = metalsNetworks.getDashboard();
     console.log(`✅ [Networks+Map] ${nd.networks} شبكة | ${nd.totalNodes} نقطة جغرافية | ${nd.metals} معدن (عرض/طلب)`);
     nd.networkList.forEach(n => console.log(`   🔗 ${n.name}: ${n.nodes} نقطة`));
+} catch(e) {
+    console.warn('⚠️ [Networks+Map] خطأ:', e.message);
+}
+
 app.get('/api/networks/dashboard', (req, res) => {
     if (!metalsNetworks) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
     res.json({ success: true, ...metalsNetworks.getDashboard() });
@@ -20138,11 +18582,12 @@ console.log('   📡 Networks APIs: /api/networks/dashboard, /api/networks/suppl
 // ═══════════════════════════════════════════════════════════════════════════════
 let autoSalvage = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-auto-salvage
-    /*     const AS = require('./lib/sheikha-auto-salvage'); */
-    autoSalvage = resolveOptionalEngine('AS', 'Auto Salvage');
+    const AS = require('./lib/sheikha-auto-salvage');
+    autoSalvage = new AS();
     const asd = autoSalvage.getDashboard();
     console.log(`✅ [Auto Salvage] سوق التشليح: ${asd.saudi.salvageYards} ساحة | ${asd.saudi.elvAnnual} سيارة/سنة | ${asd.saudi.marketValue}/سنة`);
+} catch(e) { console.warn('⚠️ [Auto Salvage] خطأ:', e.message); }
+
 app.get('/api/salvage/dashboard', (req, res) => {
     if (!autoSalvage) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...autoSalvage.getDashboard() });
@@ -20175,12 +18620,12 @@ console.log('   📡 Salvage APIs: /api/salvage/dashboard, /api/salvage/global, 
 // ═══════════════════════════════════════════════════════════════════════════════
 let logistics = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-logistics-supply-chain
-    /*     const LSC = require('./lib/sheikha-logistics-supply-chain'); */
-    console.log('⏸️ [LAZY] sheikha-logistics-supply-chain — سيُحمّل عند الطلب');
-    logistics = resolveOptionalEngine('LSC', 'Logistics');
+    const LSC = require('./lib/sheikha-logistics-supply-chain');
+    logistics = new LSC();
     const ld = logistics.getDashboard();
     console.log(`✅ [Logistics] ${ld.stats.ports} ميناء | ${ld.stats.airports} مطار | ${ld.stats.pipelines} خط أنابيب | ${ld.stats.railways} سكة حديد | ${ld.stats.gapAnalysis} فجوة`);
+} catch(e) { console.warn('⚠️ [Logistics] خطأ:', e.message); }
+
 app.get('/api/logistics/supply-chain-dashboard', (req, res) => {
     if (!logistics) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...logistics.getDashboard() });
@@ -20217,12 +18662,12 @@ console.log('   📡 Logistics APIs: /api/logistics/ports, /api/logistics/airpor
 // ═══════════════════════════════════════════════════════════════════════════════
 let tradeHistory = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-trade-networks-history
-    /*     const TNH = require('./lib/sheikha-trade-networks-history'); */
-    console.log('⏸️ [LAZY] sheikha-trade-networks-history — سيُحمّل عند الطلب');
-    tradeHistory = resolveOptionalEngine('TNH', 'Trade History');
+    const TNH = require('./lib/sheikha-trade-networks-history');
+    tradeHistory = new TNH();
     const td = tradeHistory.getDashboard();
     console.log(`✅ [Trade History] ${td.stats.historicalEras} حقبة | ${td.stats.tradeRoutes} طريق | ${td.stats.tradeNetworks} شبكة | ${td.stats.modernNetworks} شبكة حديثة | ${td.stats.mapPoints} نقطة خريطة`);
+} catch(e) { console.warn('⚠️ [Trade History] خطأ:', e.message); }
+
 app.get('/api/trade-history/dashboard', (req, res) => {
     if (!tradeHistory) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...tradeHistory.getDashboard() });
@@ -20251,6 +18696,7 @@ app.get('/api/trade-history/network-analysis', (req, res) => {
     if (!tradeHistory) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...tradeHistory.getNetworkAnalysis() });
 });
+console.log('   📡 Trade History APIs: /api/trade-history/dashboard, /api/trade-history/cosmic-origins, /api/trade-history/prophet-era, /api/trade-history/modern-networks, /api/trade-history/routes-map, /api/trade-history/attraction-strategy, /api/trade-history/network-analysis');
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 👑 الريادة والقيادة والحوكمة — الهيكلة التنظيمية + المنظمات + القوافل + الشبكات
@@ -20258,11 +18704,12 @@ app.get('/api/trade-history/network-analysis', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 let leadership = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-leadership-governance
-    /*     const LG = require('./lib/sheikha-leadership-governance'); */
-    leadership = resolveOptionalEngine('LG', 'Leadership');
+    const LG = require('./lib/sheikha-leadership-governance');
+    leadership = new LG();
     const ld = leadership.getDashboard();
     console.log(`✅ [Leadership] ${ld.stats.leadershipPrinciples} مبدأ قيادة | ${ld.stats.organizationalLayers} طبقة تنظيمية | ${ld.stats.organizations} منظمة | ${ld.stats.caravans} قافلة | ${ld.stats.networks} شبكة | ${ld.stats.historicalEras} حقبة`);
+} catch(e) { console.warn('⚠️ [Leadership] خطأ:', e.message); }
+
 app.get('/api/leadership/dashboard', (req, res) => {
     if (!leadership) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...leadership.getDashboard() });
@@ -20307,12 +18754,12 @@ console.log('   📡 Leadership APIs: /api/leadership/dashboard, /api/leadership
 // ═══════════════════════════════════════════════════════════════════════════════
 let metalsBank = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-metals-bank
-    /*     const MB = require('./lib/sheikha-metals-bank'); */
-    console.log('⏸️ [LAZY] sheikha-metals-bank — سيُحمّل عند الطلب');
-    metalsBank = resolveOptionalEngine('MB', 'Metals Bank');
+    const MB = require('./lib/sheikha-metals-bank');
+    metalsBank = new MB();
     const md = metalsBank.getDashboard();
     console.log(`✅ [Metals Bank] ${md.stats.preciousMetals} ثمين | ${md.stats.baseMetals} أساسي | ${md.stats.rareMetals} نادر | ${md.stats.scrapTypes} سكراب | ${md.stats.tradingContracts} عقد | ${md.stats.vaultLocations} خزنة | ${md.stats.shariaEvidence} دليل شرعي`);
+} catch(e) { console.warn('⚠️ [Metals Bank] خطأ:', e.message); }
+
 app.get('/api/metals-bank/dashboard', (req, res) => {
     if (!metalsBank) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...metalsBank.getDashboard() });
@@ -20357,11 +18804,12 @@ console.log('   📡 Metals Bank APIs: /api/metals-bank/dashboard, /api/metals-b
 // ═══════════════════════════════════════════════════════════════════════════════
 let licensesReg = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-licenses-registry
-    /*     const LR = require('./lib/sheikha-licenses-registry'); */
-    licensesReg = resolveOptionalEngine('LR', 'Licenses');
+    const LR = require('./lib/sheikha-licenses-registry');
+    licensesReg = new LR();
     const ld = licensesReg.getDashboard();
     console.log(`✅ [Licenses] ${ld.stats.commercialActivities} نشاط تجاري | ${ld.stats.essentialLicenses} ترخيص | ${ld.stats.certificates} شهادة | ${ld.stats.saudiAuthorities} جهة | ${ld.stats.timelinePhases} مرحلة`);
+} catch(e) { console.warn('⚠️ [Licenses] خطأ:', e.message); }
+
 app.get('/api/licenses/dashboard', (req, res) => {
     if (!licensesReg) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...licensesReg.getDashboard() });
@@ -20406,11 +18854,12 @@ console.log('   📡 Licenses APIs: /api/licenses/dashboard, /api/licenses/actua
 // ═══════════════════════════════════════════════════════════════════════════════
 let officialDocs = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-official-documents
-    /*     const OD = require('./lib/sheikha-official-documents'); */
-    officialDocs = resolveOptionalEngine('OD', 'Official Docs');
+    const OD = require('./lib/sheikha-official-documents');
+    officialDocs = new OD();
     const od = officialDocs.getDashboard();
     console.log(`✅ [Official Docs] ${od.stats.officialDocTemplates} قالب | ${od.stats.stampDesigns} ختم | ${od.stats.signatureTypes} توقيع | ${od.stats.autoFillForms} نموذج آلي | ${od.stats.governmentForms} حكومي | ${od.stats.commercialForms} تجاري`);
+} catch(e) { console.warn('⚠️ [Official Docs] خطأ:', e.message); }
+
 app.get('/api/official-docs/dashboard', (req, res) => {
     if (!officialDocs) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...officialDocs.getDashboard() });
@@ -20451,12 +18900,12 @@ console.log('   📡 Official Docs APIs: /api/official-docs/dashboard, /api/offi
 // ═══════════════════════════════════════════════════════════════════════════════
 let archiveEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-archive-engine
-    /*     const AE = require('./lib/sheikha-archive-engine'); */
-    console.log('⏸️ [LAZY] sheikha-archive-engine — سيُحمّل عند الطلب');
-    archiveEngine = resolveOptionalEngine('AE', 'Archive');
+    const AE = require('./lib/sheikha-archive-engine');
+    archiveEngine = new AE();
     const ad = archiveEngine.getDashboard();
     console.log(`✅ [Archive] ${ad.stats.archiveCategories} فئة أرشفة | ${ad.stats.documentClasses} تصنيف وثائق | ${ad.stats.indexingLevels} مستوى فهرسة | ${ad.stats.retentionPolicies} سياسة حفظ | ${ad.stats.autoWorkflows} سير عمل آلي | ${ad.stats.securityLevels} مستوى أمان | أساس: ${ad.stats.calendarBasis}`);
+} catch(e) { console.warn('⚠️ [Archive] خطأ:', e.message); }
+
 app.get('/api/archive/dashboard', (req, res) => {
     if (!archiveEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...archiveEngine.getDashboard() });
@@ -20505,12 +18954,12 @@ console.log('   📡 Archive APIs: /api/archive/dashboard, /api/archive/structur
 // ═══════════════════════════════════════════════════════════════════════════════
 let accountingEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-accounting-engine
-    /*     const ACE = require('./lib/sheikha-accounting-engine'); */
-    console.log('⏸️ [LAZY] sheikha-accounting-engine — سيُحمّل عند الطلب');
-    accountingEngine = resolveOptionalEngine('ACE', 'Accounting');
+    const ACE = require('./lib/sheikha-accounting-engine');
+    accountingEngine = new ACE();
     const acd = accountingEngine.getDashboard();
     console.log(`✅ [Accounting] ${acd.stats.chartOfAccounts} شجرة حسابات | ${acd.stats.accountCategories} حساب | ${acd.stats.financialStatements} قائمة مالية | ${acd.stats.automationWorkflows} سير عمل آلي | ${acd.stats.archiveIntegrations} تكامل أرشفة | ${acd.stats.shariaRules} ضابط شرعي | أساس: ${acd.stats.calendarBasis}`);
+} catch(e) { console.warn('⚠️ [Accounting] خطأ:', e.message); }
+
 app.get('/api/accounting/dashboard', (req, res) => {
     if (!accountingEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...accountingEngine.getDashboard() });
@@ -20543,11 +18992,12 @@ console.log('   📡 Accounting APIs: /api/accounting/dashboard, /api/accounting
 // ═══════════════════════════════════════════════════════════════════════════════
 let govPlatformsEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-gov-platforms-engine
-    /*     const GPE = require('./lib/sheikha-gov-platforms-engine'); */
-    govPlatformsEngine = resolveOptionalEngine('GPE', 'GovPlatforms');
+    const GPE = require('./lib/sheikha-gov-platforms-engine');
+    govPlatformsEngine = new GPE();
     const gpd = govPlatformsEngine.getDashboard();
     console.log(`✅ [GovPlatforms] ${gpd.stats.govPlatforms} منصة حكومية | ${gpd.stats.autoUploadFlows} سير رفع آلي | ${gpd.stats.carrierIntegrations} ناقل | ${gpd.stats.portSystems} ميناء | ${gpd.stats.sheikhaDocuments} وثيقة شيخة | ${gpd.stats.operationPhases} مرحلة عملية | ${gpd.stats.analyticsKPIs} مؤشر أداء | ${gpd.stats.backgroundProcesses} عملية خلفية | أساس: ${gpd.stats.calendarBasis}`);
+} catch(e) { console.warn('⚠️ [GovPlatforms] خطأ:', e.message); }
+
 app.get('/api/gov-platforms/dashboard', (req, res) => {
     if (!govPlatformsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...govPlatformsEngine.getDashboard() });
@@ -20581,12 +19031,12 @@ console.log('   📡 Gov Platforms APIs: /api/gov-platforms/dashboard, /api/gov-
 // ═══════════════════════════════════════════════════════════════════════════════
 let logisticsManagementEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-logistics-management-engine
-    /*     const LME = require('./lib/sheikha-logistics-management-engine'); */
-    console.log('⏸️ [LAZY] sheikha-logistics-management-engine — سيُحمّل عند الطلب');
-    logisticsManagementEngine = resolveOptionalEngine('LME', 'LogisticsManagement');
+    const LME = require('./lib/sheikha-logistics-management-engine');
+    logisticsManagementEngine = new LME();
     const lmd = logisticsManagementEngine.getDashboard();
     console.log(`✅ [LogisticsManagement] ${lmd.totalModules} وحدة | ${lmd.registeredCarriers} ناقل مسجل | ${lmd.openSourceDataSources} مصدر مفتوح | ${lmd.integrationPoints} نقطة تكامل | TMS+WMS+OMS+YMS+FMS+CMS+AI`);
+} catch(e) { console.warn('⚠️ [LogisticsManagement] خطأ:', e.message); }
+
 app.get('/api/logistics-mgmt/dashboard', (req, res) => {
     if (!logisticsManagementEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...logisticsManagementEngine.getDashboard() });
@@ -20635,11 +19085,12 @@ console.log('   📡 Logistics Management APIs: /api/logistics-mgmt/dashboard, /
 // ═══════════════════════════════════════════════════════════════════════════════
 let materialsSpecsEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-materials-specs-engine
-    /*     const MSE = require('./lib/sheikha-materials-specs-engine'); */
-    materialsSpecsEngine = resolveOptionalEngine('MSE', 'MaterialsSpecs');
+    const MSE = require('./lib/sheikha-materials-specs-engine');
+    materialsSpecsEngine = new MSE();
     const msd = materialsSpecsEngine.getDashboard();
     console.log(`✅ [MaterialsSpecs] ${msd.stats.metalCategories} فئات معادن | ${msd.stats.totalProducts} منتج | ${msd.stats.hsCodes} كود HS | ${msd.stats.standards} معيار | ${msd.stats.userIndustries} صناعة | ${msd.stats.geographicSources} مصدر جغرافي | ${msd.stats.islamicReferences} مرجع شرعي`);
+} catch(e) { console.warn('⚠️ [MaterialsSpecs] خطأ:', e.message); }
+
 app.get('/api/materials/dashboard', (req, res) => {
     if (!materialsSpecsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...materialsSpecsEngine.getDashboard() });
@@ -20676,11 +19127,12 @@ console.log('   📡 Materials APIs: /api/materials/dashboard, /api/materials/is
 // ═══════════════════════════════════════════════════════════════════════════════
 let readinessEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-readiness-compliance-engine
-    /*     const RCE = require('./lib/sheikha-readiness-compliance-engine'); */
-    readinessEngine = resolveOptionalEngine('RCE', 'Readiness');
+    const RCE = require('./lib/sheikha-readiness-compliance-engine');
+    readinessEngine = new RCE();
     const rcd = readinessEngine.getDashboard();
     console.log(`✅ [Readiness] ${rcd.stats.saudiPlatforms} منصة سعودية | ${rcd.stats.saudiLaws} نظام سعودي | ${rcd.stats.internationalRegions} مناطق دولية | ${rcd.stats.countriesSupported} دولة | ${rcd.stats.internationalStandards} معيار دولي | ${rcd.stats.tradeAgreements} اتفاقية تجارية | ${rcd.stats.digitalIntegrationPoints} نقطة تكامل رقمي | ${rcd.stats.shariaRules} قاعدة شرعية`);
+} catch(e) { console.warn('⚠️ [Readiness] خطأ:', e.message); }
+
 app.get('/api/readiness/dashboard', (req, res) => {
     if (!readinessEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...readinessEngine.getDashboard() });
@@ -20709,11 +19161,12 @@ console.log('   📡 Readiness APIs: /api/readiness/dashboard, /api/readiness/sa
 // ═══════════════════════════════════════════════════════════════════════════════
 let wisdomEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-wisdom-power-engine
-    /*     const WPE = require('./lib/sheikha-wisdom-power-engine'); */
-    wisdomEngine = resolveOptionalEngine('WPE', 'WisdomPower');
+    const WPE = require('./lib/sheikha-wisdom-power-engine');
+    wisdomEngine = new WPE();
     const wpd = wisdomEngine.getDashboard();
     console.log(`✅ [WisdomPower] ${wpd.totalModules} وحدة | AI:${wpd.domains.AI.modules} | Systems:${wpd.domains.Systems.modules} | Computing:${wpd.domains.Computing.modules} | Tech:${wpd.domains.Technology.modules} | Mgmt:${wpd.domains.Management.modules} | Eng:${wpd.domains.Engineering.modules} | Sci:${wpd.domains.Science.modules} | ${wpd.islamicReferences} مرجع شرعي`);
+} catch(e) { console.warn('⚠️ [WisdomPower] خطأ:', e.message); }
+
 app.get('/api/wisdom/dashboard', (req, res) => {
     if (!wisdomEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...wisdomEngine.getDashboard() });
@@ -20750,12 +19203,12 @@ console.log('   📡 Wisdom APIs: /api/wisdom/dashboard, /api/wisdom/islamic, /a
 // ═══════════════════════════════════════════════════════════════════════════════
 let metalsImpactEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-metals-impact-engine
-    /*     const MIE = require('./lib/sheikha-metals-impact-engine'); */
-    console.log('⏸️ [LAZY] sheikha-metals-impact-engine — سيُحمّل عند الطلب');
-    metalsImpactEngine = resolveOptionalEngine('MIE', 'MetalsImpact');
+    const MIE = require('./lib/sheikha-metals-impact-engine');
+    metalsImpactEngine = new MIE();
     const mid = metalsImpactEngine.getDashboard();
     console.log(`✅ [MetalsImpact] ${mid.stats.metalsTracked} معدن | ${mid.stats.impactDimensions} أبعاد أثر | ${mid.stats.hsCodesCovered} كود HS | ${mid.stats.sdgAlignment} هدف SDG | ${mid.stats.kpis} مؤشر | ${mid.stats.islamicReferences} مرجع شرعي | ${mid.stats.backgroundProcesses} عملية خلفية`);
+} catch(e) { console.warn('⚠️ [MetalsImpact] خطأ:', e.message); }
+
 app.get('/api/metals-impact/dashboard', (req, res) => {
     if (!metalsImpactEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...metalsImpactEngine.getDashboard() });
@@ -20788,12 +19241,12 @@ console.log('   📡 Metals Impact APIs: /api/metals-impact/dashboard, /api/meta
 // ═══════════════════════════════════════════════════════════════════════════════
 let metalsMeasurementEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-metals-measurement-engine
-    /*     const MME = require('./lib/sheikha-metals-measurement-engine'); */
-    console.log('⏸️ [LAZY] sheikha-metals-measurement-engine — سيُحمّل عند الطلب');
-    metalsMeasurementEngine = resolveOptionalEngine('MME', 'MetalsMeasurement');
+    const MME = require('./lib/sheikha-metals-measurement-engine');
+    metalsMeasurementEngine = new MME();
     const mmd = metalsMeasurementEngine.getDashboard();
     console.log(`✅ [MetalsMeasurement] ${mmd.stats.propheticMeasures} مقياس نبوي | ${mmd.stats.scientificMeasures} مقياس علمي | ${mmd.stats.economicMeasures} مقياس اقتصادي | ${mmd.stats.classificationAxes} محاور تصنيف | ${mmd.stats.metalsClassified} معدن | ${mmd.stats.backgroundProcesses} عملية خلفية | ${mmd.stats.wisdomDisplayRules} قاعدة عرض حكيم | ${mmd.stats.islamicReferences} مرجع شرعي`);
+} catch(e) { console.warn('⚠️ [MetalsMeasurement] خطأ:', e.message); }
+
 app.get('/api/metals-measure/dashboard', (req, res) => {
     if (!metalsMeasurementEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...metalsMeasurementEngine.getDashboard() });
@@ -20826,11 +19279,12 @@ console.log('   📡 Metals Measurement APIs: /api/metals-measure/dashboard, /ap
 // ═══════════════════════════════════════════════════════════════════════════════
 let logicEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-logic-engine
-    /*     const LE = require('./lib/sheikha-logic-engine'); */
-    logicEngine = resolveOptionalEngine('LE', 'Logic');
+    const LE = require('./lib/sheikha-logic-engine');
+    logicEngine = new LE();
     const ld = logicEngine.getDashboard();
     console.log(`✅ [Logic] ${ld.stats.quranicLogicPrinciples} مبدأ قرآني | ${ld.stats.propheticReasoningMethods} منهج نبوي | ${ld.stats.decisionFrameworks} إطار قرار | ${ld.stats.logicalFallacies} مغالطة منطقية | ${ld.stats.businessLogicRules} قاعدة تجارية | ${ld.stats.aiReasoningModels} نموذج AI`);
+} catch(e) { console.warn('⚠️ [Logic] خطأ:', e.message); }
+
 app.get('/api/logic/dashboard', (req, res) => {
     if (!logicEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...logicEngine.getDashboard() });
@@ -20863,10 +19317,12 @@ console.log('   📡 Logic APIs: /api/logic/dashboard, /api/logic/quranic, /api/
 // ═══════════════════════════════════════════════════════════════════════════════
 let quantumStatsEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-quantum-stats-engine
-    /*     const QSE = require('./lib/sheikha-quantum-stats-engine'); */
-    quantumStatsEngine = resolveOptionalEngine('QSE', 'QuantumStats');
+    const QSE = require('./lib/sheikha-quantum-stats-engine');
+    quantumStatsEngine = new QSE();
     const qd = quantumStatsEngine.getDashboard();
+    console.log(`✅ [QuantumStats] ${qd.stats.cosmicMeasures} مقياس كوني | ${qd.stats.propheticEraData} بيانات نبوية | ${qd.stats.earthMeasures} مقياس أرضي | ${qd.stats.heavensMeasures} مقياس سماوي | ${qd.stats.metalQuantities} كمية معدنية | ${qd.stats.systemMetrics} مقياس أنظمة | ${qd.stats.backgroundProcesses} عملية خلفية | ${qd.stats.islamicReferences} مرجع شرعي`);
+} catch(e) { console.warn('⚠️ [QuantumStats] خطأ:', e.message); }
+
 app.get('/api/quantum-stats/dashboard', (req, res) => {
     if (!quantumStatsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...quantumStatsEngine.getDashboard() });
@@ -20899,6 +19355,7 @@ app.get('/api/quantum-stats/background', (req, res) => {
     if (!quantumStatsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...quantumStatsEngine.getBackgroundAndDisplay() });
 });
+console.log('   📡 Quantum Stats APIs: /api/quantum-stats/dashboard, /api/quantum-stats/divine, /api/quantum-stats/cosmic-timeline, /api/quantum-stats/earth, /api/quantum-stats/heavens, /api/quantum-stats/quantum-computing, /api/quantum-stats/systems-metrics, /api/quantum-stats/background');
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🔗 منظومة شيخة — دمج المنطق والحكمة بكل العلوم والأنظمة
@@ -20906,11 +19363,12 @@ app.get('/api/quantum-stats/background', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 let wisdomFusionEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-wisdom-fusion-engine
-    /*     const WFE = require('./lib/sheikha-wisdom-fusion-engine'); */
-    wisdomFusionEngine = resolveOptionalEngine('WFE', 'WisdomFusion');
+    const WFE = require('./lib/sheikha-wisdom-fusion-engine');
+    wisdomFusionEngine = new WFE();
     const wfd = wisdomFusionEngine.getDashboard();
     console.log(`✅ [WisdomFusion] ${wfd.stats.fusionDomains} مجال مدموج | ${wfd.stats.wisdomPrinciples} مبدأ حكمة | ${wfd.stats.crossDomainRules} قاعدة عابرة | ${wfd.stats.integrationPoints} نقطة تكامل | ${wfd.stats.logicLayers} طبقة منطق | ${wfd.stats.backgroundProcesses} عملية خلفية | ${wfd.stats.islamicFoundations} مرجع شرعي`);
+} catch(e) { console.warn('⚠️ [WisdomFusion] خطأ:', e.message); }
+
 app.get('/api/wisdom-fusion/dashboard', (req, res) => {
     if (!wisdomFusionEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...wisdomFusionEngine.getDashboard() });
@@ -20943,11 +19401,12 @@ console.log('   📡 Wisdom Fusion APIs: /api/wisdom-fusion/dashboard, /api/wisd
 // ═══════════════════════════════════════════════════════════════════════════════
 let qurayshEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-quraysh-journey-engine
-    /*     const QJE = require('./lib/sheikha-quraysh-journey-engine'); */
-    qurayshEngine = resolveOptionalEngine('QJE', 'Quraysh');
+    const QJE = require('./lib/sheikha-quraysh-journey-engine');
+    qurayshEngine = new QJE();
     const qjd = qurayshEngine.getDashboard();
     console.log(`✅ [Quraysh] ${qjd.stats.divineBlessing} نِعَم إلهية | ${qjd.stats.tradeRoutes} مسار تجاري | ${qjd.stats.partnerCountries} دولة شريكة | ${qjd.stats.securityLayers} طبقة أمان | ${qjd.stats.gratitudePractices} ممارسة شكر | ${qjd.stats.backgroundProcesses} عملية خلفية`);
+} catch(e) { console.warn('⚠️ [Quraysh] خطأ:', e.message); }
+
 app.get('/api/quraysh/dashboard', (req, res) => {
     if (!qurayshEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...qurayshEngine.getDashboard() });
@@ -20984,11 +19443,12 @@ console.log('   📡 Quraysh APIs: /api/quraysh/dashboard, /api/quraysh/ilaf, /a
 // ═══════════════════════════════════════════════════════════════════════════════
 let learningEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-learning-engine
-    /*     const SLE = require('./lib/sheikha-learning-engine'); */
-    learningEngine = resolveOptionalEngine('SLE', 'Learning');
+    const SLE = require('./lib/sheikha-learning-engine');
+    learningEngine = new SLE();
     const sld = learningEngine.getDashboard();
     console.log(`✅ [Learning] ${sld.stats.learningDomains} مجال تعلم | ${sld.stats.quranicKnowledgeVerses} آية علم | ${sld.stats.machineLearningModels} نموذج ML | ${sld.stats.wisdomLessons} درس حكمة | ${sld.stats.continuousProcesses} عملية مستمرة | ${sld.stats.knowledgeSources} مصدر معرفة`);
+} catch(e) { console.warn('⚠️ [Learning] خطأ:', e.message); }
+
 app.get('/api/learning/dashboard', (req, res) => {
     if (!learningEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...learningEngine.getDashboard() });
@@ -21021,11 +19481,12 @@ console.log('   📡 Learning APIs: /api/learning/dashboard, /api/learning/divin
 // ═══════════════════════════════════════════════════════════════════════════════
 let walaaBaraaEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-walaa-baraa-engine
-    /*     const WBE = require('./lib/sheikha-walaa-baraa-engine'); */
-    walaaBaraaEngine = resolveOptionalEngine('WBE', 'WalaaBaraa');
+    const WBE = require('./lib/sheikha-walaa-baraa-engine');
+    walaaBaraaEngine = new WBE();
     const wbd = walaaBaraaEngine.getDashboard();
     console.log(`✅ [WalaaBaraa] ${wbd.stats.walaaFoundations} أساس ولاء | ${wbd.stats.baraaShields} درع براء | ${wbd.stats.protectionLayers} طبقة حماية | ${wbd.stats.rejectionRules} قاعدة رفض | ${wbd.stats.victoryPrinciples} مبدأ نصر | ${wbd.stats.backgroundProcesses} عملية خلفية | ${wbd.stats.islamicReferences} مرجع شرعي`);
+} catch(e) { console.warn('⚠️ [WalaaBaraa] خطأ:', e.message); }
+
 app.get('/api/walaa-baraa/dashboard', (req, res) => {
     if (!walaaBaraaEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...walaaBaraaEngine.getDashboard() });
@@ -21054,12 +19515,12 @@ console.log('   📡 Walaa-Baraa APIs: /api/walaa-baraa/dashboard, /api/walaa-ba
 // ═══════════════════════════════════════════════════════════════════════════════
 let tradeLegacyEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-trade-legacy-engine
-    /*     const TLE = require('./lib/sheikha-trade-legacy-engine'); */
-    console.log('⏸️ [LAZY] sheikha-trade-legacy-engine — سيُحمّل عند الطلب');
-    tradeLegacyEngine = resolveOptionalEngine('TLE', 'TradeLegacy');
+    const TLE = require('./lib/sheikha-trade-legacy-engine');
+    tradeLegacyEngine = new TLE();
     const tld = tradeLegacyEngine.getDashboard();
     console.log(`✅ [TradeLegacy] ${tld.stats.historicalNetworks} شبكة تاريخية | ${tld.stats.tradersAnalyzed} تاجر | ${tld.stats.goodsCategories} بضاعة | ${tld.stats.sheikhGoals} هدف شيخة | ${tld.stats.backgroundGoals} هدف خلفي | ${tld.stats.islamicReferences} مرجع شرعي | إن شاء الله`);
+} catch(e) { console.warn('⚠️ [TradeLegacy] خطأ:', e.message); }
+
 app.get('/api/trade-legacy/dashboard', (req, res) => {
     if (!tradeLegacyEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...tradeLegacyEngine.getDashboard() });
@@ -21088,10 +19549,11 @@ console.log('   📡 Trade Legacy APIs: /api/trade-legacy/dashboard, /api/trade-
 // ═══════════════════════════════════════════════════════════════════════════════
 let adabAnbiyaEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-adab-anbiya-engine
-    /*     const AAE = require('./lib/sheikha-adab-anbiya-engine'); */
-    adabAnbiyaEngine = resolveOptionalEngine('AAE', 'Private');
+    const AAE = require('./lib/sheikha-adab-anbiya-engine');
+    adabAnbiyaEngine = new AAE();
     console.log('✅ [🔒 Private] أدب الأنبياء والمقام المباح — مُفعّل — سري وخاص للمالك فقط');
+} catch(e) { console.warn('⚠️ [Private] خطأ:', e.message); }
+
 // حماية: كل API يتطلب مفتاح المالك في الترويسة
 const ownerAuth = (req, res, next) => {
     const key = req.headers['x-owner-key'] || req.query.ownerKey;
@@ -21129,12 +19591,12 @@ app.get('/api/private/adab/background', ownerAuth, (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 let trustAuthEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-trust-auth-engine
-    /*     const TAE = require('./lib/sheikha-trust-auth-engine'); */
-    console.log('⏸️ [LAZY] sheikha-trust-auth-engine — سيُحمّل عند الطلب');
-    trustAuthEngine = resolveOptionalEngine('TAE', 'TrustAuth');
+    const TAE = require('./lib/sheikha-trust-auth-engine');
+    trustAuthEngine = new TAE();
     const tad = trustAuthEngine.getDashboard();
     console.log(`✅ [TrustAuth] ${tad.stats.trustPillars} ركائز أمانة | ${tad.stats.authLayers} طبقة مصادقة | ${tad.stats.reliabilityMetrics} مقياس موثوقية | ${tad.stats.authMethods} طريقة auth | ${tad.stats.rbacRoles} دور صلاحية | ${tad.stats.securityProtocols} بروتوكول أمان | ${tad.stats.islamicTrustPrinciples} مبدأ أمانة إسلامي | ${tad.stats.backgroundProcesses} عملية خلفية | الأمين ﷺ`);
+} catch(e) { console.warn('⚠️ [TrustAuth] خطأ:', e.message); }
+
 app.get('/api/trust-auth/dashboard', (req, res) => {
     if (!trustAuthEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...trustAuthEngine.getDashboard() });
@@ -21163,103 +19625,13 @@ console.log('   📡 Trust-Auth APIs: /api/trust-auth/dashboard, /api/trust-auth
 
 // ═══ MASTER ARCHITECTURE ENGINE — الهيكل والمخطط المتقن الشامل ═══
 let architectureEngine = null;
-const buildArchitectureFallback = () => {
-    const generatedAt = new Date().toISOString();
-    const layers = [
-        { name: 'foundation', status: 'active' },
-        { name: 'runtime-control-plane', status: 'active' },
-        { name: 'governance', status: 'active' },
-        { name: 'observability', status: 'active' },
-        { name: 'release-gate', status: 'stabilization-required' }
-    ];
-
-    const apiBlueprint = [
-        '/api/health',
-        '/api/runtime/status',
-        '/api/governance/status',
-        '/api/metrics',
-        '/api/performance',
-        '/api/community/dashboard',
-        '/api/community/types',
-        '/api/community/tools'
-    ];
-
-    return {
-        getDashboard() {
-            return {
-                status: 'fallback-active',
-                architectureMaturity: 'enterprise-advancing',
-                activeLayers: layers.filter((layer) => layer.status === 'active').length,
-                totalLayers: layers.length,
-                generatedAt
-            };
-        },
-        getFoundation() {
-            return {
-                status: 'ready',
-                runtime: 'modular-runtime',
-                generatedAt
-            };
-        },
-        getArchitectureLayers() {
-            return {
-                layers,
-                generatedAt
-            };
-        },
-        getDataFlow() {
-            return {
-                flow: [
-                    'identity -> governance',
-                    'community -> metrics',
-                    'metrics -> executive observatory'
-                ],
-                generatedAt
-            };
-        },
-        getInfrastructure() {
-            return {
-                services: ['pm2', 'node-runtime', 'community-cycle', 'identity-auto'],
-                generatedAt
-            };
-        },
-        getVisualBlueprint() {
-            return {
-                blueprint: 'runtime-control-observability-governance',
-                generatedAt
-            };
-        },
-        getDesignPrinciples() {
-            return {
-                principles: ['resilience', 'governance-first', 'observable-runtime', 'safe-release-batching'],
-                generatedAt
-            };
-        },
-        getAPIBlueprint() {
-            return {
-                apis: apiBlueprint,
-                generatedAt
-            };
-        },
-        getBackgroundAndDisplay() {
-            return {
-                display: 'architecture-fallback-mode',
-                generatedAt
-            };
-        }
-    };
-};
-
 try {
-    const architectureEngineModulePath = path.join(__dirname, 'lib', 'sheikha-master-architecture-engine.js');
-    if (fs.existsSync(architectureEngineModulePath)) {
-        const SheikhaArchitectureEngine = require('./lib/sheikha-master-architecture-engine.js');
-        architectureEngine = new SheikhaArchitectureEngine();
-        console.log('✅ 🏗️ Master Architecture Engine — الهيكل والمخطط المتقن الشامل — 100 محرك في 10 طبقات — مُفعّل');
-    } else {
-        architectureEngine = buildArchitectureFallback();
-        console.log('⚠️ Architecture engine module غير موجود — fallback mode active');
-    }
+    const SheikhaArchitectureEngine = require('./lib/sheikha-master-architecture-engine.js');
+    architectureEngine = new SheikhaArchitectureEngine();
+    console.log('✅ 🏗️ Master Architecture Engine — الهيكل والمخطط المتقن الشامل — 100 محرك في 10 طبقات — مُفعّل');
+} catch (e) {
+    console.log('⚠️ Architecture Engine غير متوفر:', e.message);
+}
 app.get('/api/architecture/dashboard', (req, res) => {
     if (!architectureEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...architectureEngine.getDashboard() });
@@ -21301,11 +19673,12 @@ console.log('   📡 Architecture APIs: /api/architecture/dashboard, /foundation
 // ═══ SHEIKHA OS V2 — نظام التشغيل الوكيلي الذكي ═══
 let agenticOSEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-os-v2-agentic-engine.js
-    /*     const SheikhaAgenticOSEngine = require('./lib/sheikha-os-v2-agentic-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-os-v2-agentic-engine.js — سيُحمّل عند الطلب');
+    const SheikhaAgenticOSEngine = require('./lib/sheikha-os-v2-agentic-engine.js');
     agenticOSEngine = new SheikhaAgenticOSEngine();
     console.log('✅ 🖥️ Sheikha OS V2 (Agentic AI) — نظام التشغيل الوكيلي الذكي — أفضل من HUMAIN ONE — مُفعّل');
+} catch (e) {
+    console.log('⚠️ Agentic OS Engine غير متوفر:', e.message);
+}
 app.get('/api/sheikha-os-v2/dashboard', (req, res) => {
     if (!agenticOSEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...agenticOSEngine.getDashboard() });
@@ -21342,11 +19715,12 @@ console.log('   📡 Sheikha OS V2 APIs: /api/sheikha-os-v2/dashboard, /competit
 // ═══════════════════════════════════════════════════════════════════════════════
 let customsClearanceEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-customs-clearance-automation-engine
-        const CCAE = require('./lib/sheikha-customs-clearance-automation-engine');
+    const CCAE = require('./lib/sheikha-customs-clearance-automation-engine');
     customsClearanceEngine = new CCAE();
     const ccd = customsClearanceEngine.getDashboard();
     console.log(`✅ [CustomsClearance] أتمتة التخليص الجمركي — ${Object.keys(ccd.systems).length} أنظمة | ${ccd.transportChannels.length} قنوات نقل | ${ccd.governmentPlatforms.length} منصات حكومية | قاعدة بيانات متكاملة`);
+} catch(e) { console.warn('⚠️ [CustomsClearance] خطأ:', e.message); }
+
 // لوحة التحكم الرئيسية
 app.get('/api/customs/dashboard', (req, res) => {
     if (!customsClearanceEngine) return res.status(503).json({ error: 'غير مفعل' });
@@ -21474,11 +19848,12 @@ console.log('   📦 Customs Clearance APIs: /api/customs/dashboard, /transport-
 // ═══════════════════════════════════════════════════════════════════════════════
 let powerEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-ultimate-power-engine
-        const PE = require('./lib/sheikha-ultimate-power-engine');
+    const PE = require('./lib/sheikha-ultimate-power-engine');
     powerEngine = new PE();
     const pd = powerEngine.getDashboard();
     console.log(`✅ [UltimatePower] محرك القوة المطلقة — ${pd.totalPowers} قوة رقمية | ${pd.totalBackgroundOperations} عملية خلفية | بالكتاب والسنة`);
+} catch(e) { console.warn('⚠️ [UltimatePower] خطأ:', e.message); }
+
 // لوحة التحكم
 app.get('/api/power/dashboard', (req, res) => {
     if (!powerEngine) return res.status(503).json({ error: 'غير مفعل' });
@@ -21523,11 +19898,12 @@ console.log('   ⚡ Ultimate Power Engine APIs: /api/power/dashboard, /islamic-f
 // ═══════════════════════════════════════════════════════════════════════════════
 let paymentsEngine = null;
 try {
-    // P0-1: BLOCKED (ملف مفقود) - sheikha-payments-engine
-        const PME = require('./lib/sheikha-payments-engine');
+    const PME = require('./lib/sheikha-payments-engine');
     paymentsEngine = new PME();
     const pd = paymentsEngine.getDashboard();
     console.log(`✅ [Payments] قوة المدفوعات — ${pd.stats.totalPaymentMethods} وسيلة دفع | ${pd.stats.activeNow} مفعّلة | ${pd.stats.shariaChecks} فحص شرعي | بيان أجور شفاف`);
+} catch(e) { console.warn('⚠️ [Payments] خطأ:', e.message); }
+
 app.get('/api/payments/dashboard', (req, res) => {
     if (!paymentsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...paymentsEngine.getDashboard() });
@@ -21710,26 +20086,6 @@ app.get('/api/sunnah/display-policy', (req, res) => {
 });
 
 // API — ملخص كل شيء يعمل
-app.get('/api/sheikha/activation-status', (req, res) => {
-  res.json({
-    success: true,
-    status: 'active',
-    service: 'sheikha-main-portal',
-    runtime: {
-      mode: 'enterprise',
-      path: '/opt/sheikha/current',
-      branch: 'stable/runtime-baseline'
-    },
-    endpoints: {
-      health: '/api/health',
-      enterprise: '/api/enterprise/status',
-      comms: '/api/comms/providers'
-    },
-    message: 'منظومة شيخة مفعّلة والمسارات الأساسية موحّدة.',
-    timestamp: new Date().toISOString()
-  });
-});
-
 app.get('/api/sheikha/status', (req, res) => {
     res.json({
         بسم_الله: 'بسم الله الرحمن الرحيم',
@@ -21846,2175 +20202,13 @@ app.get('/api/taqwa/system', (req, res) => {
 console.log('   🛡️ Taqwa APIs: /api/taqwa/dashboard, /api/taqwa/system');
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// � LIVE CHAT APIs — التحدث المباشر مع شيخة
+// 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
-app.post('/api/sheikha/live-chat', express.json(), (req, res) => {
-  const message = String(req.body?.message || '').trim();
-
-  if (!message) {
-    return res.status(400).json({
-      success: false,
-      message: 'اكتب رسالة لشيخة أولًا.'
-    });
-  }
-
-  return res.json({
-    success: true,
-    mode: 'guided-operational-assistant',
-    reply: `استلمت طلبك: ${message}\nسأتعامل معه كتحليل وتشغيل وتطوير آمن تحت إدارة الإنسان.`,
-    capabilities: {
-      talk: true,
-      write: true,
-      analyze: true,
-      editByRequest: true,
-      autonomousDeploy: false
-    },
-    nextAction: 'اعرض عليّ الملف أو المسار أو المهمة المطلوبة للتطوير.'
-  });
-});
-console.log('   💬 Live Chat API: /api/sheikha/live-chat');
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🧠 Sheikha VSIX + Root Neural MCP APIs — توافق امتداد VS Code
-// ═══════════════════════════════════════════════════════════════════════════════
-const getSheikhaNeuralMcpSdk = () => optionalRequire('./lib/runtime/engines/neural-mcp-sdk') || {};
-let sheikhaIslamicIntelligenceEngineInstance = null;
-let sheikhaAIFoundationsNeuralNetworkInstance = null;
-
-function getSheikhaIslamicIntelligenceEngine() {
-    if (sheikhaIslamicIntelligenceEngineInstance) {
-        return sheikhaIslamicIntelligenceEngineInstance;
-    }
-
-    const Engine = optionalRequire('./lib/sheikha-islamic-intelligence-engine');
-    if (typeof Engine !== 'function') {
-        return null;
-    }
-
-    sheikhaIslamicIntelligenceEngineInstance = new Engine({ root: process.cwd() });
-    return sheikhaIslamicIntelligenceEngineInstance;
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-function getSheikhaAIFoundationsNeuralNetwork() {
-    if (sheikhaAIFoundationsNeuralNetworkInstance) {
-        return sheikhaAIFoundationsNeuralNetworkInstance;
-    }
-
-    const Network = optionalRequire('./lib/sheikha-ai-foundations-neural-network');
-    if (typeof Network !== 'function') {
-        return null;
-    }
-
-    sheikhaAIFoundationsNeuralNetworkInstance = new Network({ root: process.cwd() });
-    return sheikhaAIFoundationsNeuralNetworkInstance;
-}
-
-function isAIFoundationsRequest(message) {
-    return /ذكاء|اصطناعي|صناعي|تعلم الآلة|تعلم عميق|شبكات عصبية|خلايا عصبية|neural|machine learning|deep learning|nlp|computer vision|generative|agi|bci|quantum|agents|خوارزم|بيانات|رياضيات/i.test(String(message || ''));
-}
-
-function getSheikhaVsixStatus() {
-    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
-    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
-    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
-    const mcpStatus = typeof neuralMcpSdk.getStatus === 'function'
-        ? neuralMcpSdk.getStatus()
-        : { status: 'fallback', mcpEnabled: false };
-    const rootStatus = rootNeuralCells && typeof rootNeuralCells.getStatus === 'function'
-        ? rootNeuralCells.getStatus()
-        : { status: 'fallback', activeCells: 0 };
-
-    return {
-        name: 'Sheikha',
-        status: 'active',
-        version: '1.0.6',
-        backend: 'sheikha-main-portal',
-        model: process.env.AI_LLM_MODEL || process.env.SHEIKHA_CORE_MODEL || process.env.OPENAI_MODEL || 'Sheikha-Core',
-        supportedLanguages: [
-            'sheikha-sabil',
-            'php',
-            'javascript',
-            'typescript',
-            'python',
-            'go',
-            'rust',
-            'csharp',
-            'java',
-            'html',
-            'css',
-            'json',
-            'markdown',
-            'bash',
-            'sql'
-        ],
-        capabilities: [
-            'chat',
-            'inline-completions',
-            'agent-mode',
-            'programming',
-            'sheikha-sabil-language',
-            'php-runtime',
-            'polyglot-interpreter',
-            'ide-runtime',
-            'git-runtime',
-            'github-integration',
-            'gitlab-integration',
-            'debugging',
-            'editing',
-            'api',
-            'publish',
-            'routes',
-            'root-neural-cells',
-            'mcp-sdk',
-            'islamic-intelligence',
-            'ai-foundations-neural-network',
-            'deep-learning-governance',
-            'quran-sunnah-training',
-            'sharia-guardrails'
-        ],
-        neural: {
-            enabled: true,
-            rootNeuralCells: rootStatus,
-            mcpSdk: mcpStatus
-        },
-        islamicIntelligence: {
-            enabled: !!islamicIntelligence,
-            status: islamicIntelligence && typeof islamicIntelligence.getStatus === 'function'
-                ? islamicIntelligence.getStatus()
-                : { status: 'fallback' }
-        },
-        aiFoundations: {
-            enabled: !!aiFoundations,
-            status: aiFoundations && typeof aiFoundations.getStatus === 'function'
-                ? aiFoundations.getStatus()
-                : { status: 'fallback' }
-        }
-    };
-}
-
-function makeSheikhaReply(message, language) {
-    const text = String(message || '').trim();
-    const lang = language || 'auto';
-    return [
-        `Sheikha جاهزة. استلمت طلبك: ${text || 'تشغيل'}.`,
-        `الوضع: برمجة + تحليل + تحرير + Debug + API + MCP SDK.`,
-        `اللغة/السياق: ${lang}.`,
-        'الشبكة العصبية الجذرية مفعّلة كطبقة تشغيل وتحكم، مع بقاء التنفيذ تحت مراجعة الإنسان.'
-    ].join('\n');
-}
-
-function sheikhaStatusHandler(_req, res) {
-    return res.json({
-        success: true,
-        data: getSheikhaVsixStatus(),
-        message: 'Sheikha VSIX backend is active',
-        timestamp: new Date().toISOString()
-    });
-}
-
-async function sheikhaChatHandler(req, res) {
-    const message = req.body && (req.body.message || req.body.prompt || req.body.instruction);
-    const language = req.body && req.body.language;
-    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
-    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
-    let responseData = null;
-    let reply = makeSheikhaReply(message, language);
-
-    const aiGateway = optionalRequire('./core/ai-gateway/sheikha-ai-gateway');
-    const selfTraining = optionalRequire('./core/ai-gateway/sheikha-core-self-training');
-    const requestedModel = req.body && req.body.model && req.body.model !== 'sheikha-base'
-        ? req.body.model
-        : undefined;
-
-    if (aiGateway && typeof aiGateway.askSheikhaCore === 'function' && String(message || '').trim()) {
-        try {
-            const coreResult = await aiGateway.askSheikhaCore({
-                prompt: String(message),
-                model: requestedModel || aiGateway.DEFAULT_MODEL,
-                context: {
-                    source: 'vscode-extension-chat',
-                    route: '/api/sheikha/chat',
-                    language,
-                    codeContext: req.body && req.body.codeContext,
-                    history: req.body && Array.isArray(req.body.history) ? req.body.history : []
-                }
-            });
-
-            if (coreResult && coreResult.success) {
-                const training = selfTraining && typeof selfTraining.recordSelfTrainingSample === 'function'
-                    ? selfTraining.recordSelfTrainingSample({
-                        prompt: message,
-                        output: coreResult.output,
-                        model: coreResult.model,
-                        source: 'vscode-extension-chat',
-                        context: {
-                            source: 'vscode-extension-chat',
-                            language,
-                            mode: coreResult.mode,
-                            codeContext: req.body && req.body.codeContext,
-                            history: req.body && Array.isArray(req.body.history) ? req.body.history : []
-                        }
-                    })
-                    : null;
-
-                return res.json({
-                    success: true,
-                    data: {
-                        reply: coreResult.output || 'Sheikha-Core جاهزة.',
-                        codeSnippet: null,
-                        provider: coreResult.provider,
-                        mode: coreResult.mode,
-                        model: coreResult.model,
-                        inferenceModel: coreResult.inferenceModel,
-                        localModelOnline: coreResult.localModelOnline,
-                        localGenerationOnline: coreResult.localGenerationOnline,
-                        fallbackReason: coreResult.fallbackReason,
-                        codeAnalysis: coreResult.codeAnalysis,
-                        selfTraining: training ? training.record : null,
-                        neural: getSheikhaVsixStatus().neural,
-                        islamicIntelligence: getSheikhaVsixStatus().islamicIntelligence,
-                        aiFoundations: getSheikhaVsixStatus().aiFoundations
-                    },
-                    timestamp: new Date().toISOString()
-                });
-            }
-        } catch (err) {
-            reply = `${reply}\n\nتنبيه: تعذر استخدام Sheikha-Core مباشرة (${err.message}).`;
-        }
-    }
-
-    try {
-        if (aiFoundations && isAIFoundationsRequest(message) && typeof aiFoundations.query === 'function') {
-            responseData = aiFoundations.query({
-                message,
-                language,
-                codeContext: req.body && req.body.codeContext,
-                source: 'vscode-extension'
-            });
-            reply = responseData.reply;
-        } else if (islamicIntelligence && typeof islamicIntelligence.reply === 'function') {
-            responseData = islamicIntelligence.reply({
-                message,
-                language,
-                codeContext: req.body && req.body.codeContext,
-                source: 'vscode-extension'
-            });
-            reply = responseData.reply;
-        } else if (rootNeuralCells && typeof rootNeuralCells.reply === 'function') {
-            reply = await rootNeuralCells.reply(String(message || ''), {
-                language,
-                codeContext: req.body && req.body.codeContext,
-                source: 'vscode-extension'
-            });
-        }
-    } catch (err) {
-        reply = `${reply}\n\nتنبيه: تعذر استخدام الرد العصبي المباشر (${err.message}).`;
-    }
-
-    return res.json({
-        success: true,
-        data: {
-            reply,
-            codeSnippet: null,
-            neural: getSheikhaVsixStatus().neural,
-            islamicIntelligence: getSheikhaVsixStatus().islamicIntelligence,
-            aiFoundations: responseData && responseData.aiFoundations ? responseData.aiFoundations : getSheikhaVsixStatus().aiFoundations
-        },
-        timestamp: new Date().toISOString()
-    });
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-function sheikhaCompletionsHandler(req, res) {
-    const language = req.body && req.body.language ? req.body.language : 'code';
-    return res.json({
-        success: true,
-        data: {
-            completions: [
-                {
-                    label: 'Sheikha: تحقق آمن',
-                    text: `// Sheikha ${language}: تحقق من المدخلات ثم نفذ المنطق بأمان\n`,
-                    detail: 'اقتراح Sheikha آمن'
-                }
-            ]
-        },
-        timestamp: new Date().toISOString()
-    });
-}
-
-function sheikhaAgentHandler(req, res) {
-    const task = req.body && req.body.task ? String(req.body.task) : 'تشغيل وكيل Sheikha';
-    return res.json({
-        success: true,
-        data: {
-            task,
-            status: 'queued',
-            steps: [
-                'فهم المهمة',
-                'فحص المسارات المعتمدة',
-                'اقتراح تعديل آمن',
-                'انتظار اعتماد المستخدم قبل التغيير'
-            ]
-        },
-        timestamp: new Date().toISOString()
-    });
-}
-
-function sheikhaInlineChatHandler(req, res) {
-    const selectedCode = req.body && req.body.selectedCode ? String(req.body.selectedCode) : '';
-    const instruction = req.body && (req.body.instruction || req.body.prompt) ? String(req.body.instruction || req.body.prompt) : '';
-    return res.json({
-        success: true,
-        data: {
-            explanation: `Sheikha حللت الطلب المضمّن: ${instruction || 'تحليل الكود'}.`,
-            modifiedCode: instruction.toLowerCase().includes('refactor') ? selectedCode : null
-        },
-        timestamp: new Date().toISOString()
-    });
-}
-
-function sheikhaExtensionsSyncHandler(req, res) {
-    const extensions = Array.isArray(req.body && req.body.extensions) ? req.body.extensions : [];
-    return res.json({
-        success: true,
-        data: {
-            synced: true,
-            count: extensions.length,
-            reason: req.body && req.body.reason ? req.body.reason : 'manual'
-        },
-        timestamp: new Date().toISOString()
-    });
-}
-
-function sheikhaExtensionsLiveHandler(_req, res) {
-    return res.json({
-        success: true,
-        data: {
-            status: 'active',
-            extensionId: 'sheikha.sheikha',
-            capabilities: getSheikhaVsixStatus().capabilities
-        },
-        timestamp: new Date().toISOString()
-    });
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🖥️ SHEIKHA COMPUTER ARCHITECTURE GOVERNANCE API ENDPOINTS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-// API 1: Global Computer Architecture Governance Status
-app.get('/api/sheikha/computer-architecture/global-status', (_req, res) => {
-  try {
-    const computerGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-computer-architecture-governance');
-    const status = computerGovernance.getGlobalStatus();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_COMPUTER_ARCHITECTURE_GLOBAL_STATUS',
-      status: status
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load Computer Architecture Governance',
-      message: error.message
-    });
-  }
-});
-
-// API 2: Get All Computer Layers
-app.get('/api/sheikha/computer-architecture/layers', (_req, res) => {
-  try {
-    const computerGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-computer-architecture-governance');
-    const layers = [];
-    for (let i = 0; i <= 7; i++) {
-      const layerNames = ['physics_electronics', 'core_hardware', 'protocols_interfaces', 'operating_system', 'network_protocols', 'applications', 'user_interface', 'governance'];
-      const layer = computerGovernance.getLayerDetails(`layer_${i}_${layerNames[i]}`);
-      if (layer && layer.name) layers.push(layer);
-    }
-    res.json({
-      success: true,
-      route: 'SHEIKHA_COMPUTER_ARCHITECTURE_LAYERS',
-      total_layers: layers.length,
-      layers: layers
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load layers',
-      message: error.message
-    });
-  }
-});
-
-// API 3: Firmware & BIOS/UEFI Status
-app.get('/api/sheikha/computer-architecture/firmware-status', (_req, res) => {
-  try {
-    const firmwareGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-firmware-uefi-bios-governance');
-    const status = firmwareGovernance.getStatus();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_FIRMWARE_GOVERNANCE_STATUS',
-      status: status
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load Firmware Governance',
-      message: error.message
-    });
-  }
-});
-
-// API 4: OSI Protocol Stack (All 7 Layers)
-app.get('/api/sheikha/computer-architecture/osi-protocol-stack', (_req, res) => {
-  try {
-    const osiStack = require('./runtime/sheikha-osi-protocol-stack/v1/sheikha-osi-protocol-stack-complete');
-    const status = osiStack.getStatus();
-    const layers = osiStack.getAllLayers();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_OSI_PROTOCOL_STACK',
-      status: status,
-      layers: layers
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load OSI Protocol Stack',
-      message: error.message
-    });
-  }
-});
-
-// API 5: Specific OSI Layer Details
-app.get('/api/sheikha/computer-architecture/osi-layer/:layer', (req, res) => {
-  try {
-    const osiStack = require('./runtime/sheikha-osi-protocol-stack/v1/sheikha-osi-protocol-stack-complete');
-    const layerName = req.params.layer.toUpperCase();
-    const layer = osiStack.getLayerDetails(layerName);
-    if (!layer || layer.error) {
-      return res.status(404).json({
-        success: false,
-        error: 'Layer not found',
-        layer: layerName
-      });
-    }
-    res.json({
-      success: true,
-      route: 'SHEIKHA_OSI_LAYER_DETAILS',
-      layer: layer
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load OSI Layer',
-      message: error.message
-    });
-  }
-});
-
-// API 6: Operating Systems Federation
-app.get('/api/sheikha/computer-architecture/operating-systems', (_req, res) => {
-  try {
-    const osFamily = require('./runtime/sheikha-operating-systems-federation/v1/sheikha-operating-systems-federation');
-    const status = osFamily.getStatus();
-    const allOS = osFamily.getAllOperatingSystems();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_OPERATING_SYSTEMS_FEDERATION',
-      status: status,
-      total_systems: allOS.length,
-      systems: allOS
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load Operating Systems',
-      message: error.message
-    });
-  }
-});
-
-// API 7: Get Specific OS Family
-app.get('/api/sheikha/computer-architecture/operating-systems/:family', (req, res) => {
-  try {
-    const osFamily = require('./runtime/sheikha-operating-systems-federation/v1/sheikha-operating-systems-federation');
-    const familyName = req.params.family.toLowerCase();
-    
-    let systems = [];
-    if (familyName === 'windows') systems = osFamily.getWindowsSystems();
-    else if (familyName === 'linux') systems = osFamily.getLinuxDistributions();
-    else if (familyName === 'macos') systems = osFamily.getMacOSSystems();
-    else if (familyName === 'mobile') systems = osFamily.getMobileOperatingSystems();
-    else if (familyName === 'embedded') systems = osFamily.getEmbeddedSystems();
-    else if (familyName === 'hypervisors') systems = osFamily.getHypervisors();
-    else {
-      return res.status(404).json({
-        success: false,
-        error: 'OS family not found',
-        family: familyName
-      });
-    }
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_OS_FAMILY_DETAILS',
-      family: familyName,
-      systems: systems
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load OS family',
-      message: error.message
-    });
-  }
-});
-
-// API 8: Hardware Abstraction Layer
-app.get('/api/sheikha/computer-architecture/hardware-abstraction', (_req, res) => {
-  try {
-    const hardwareLayer = require('./runtime/sheikha-hardware-abstraction-layer/v1/sheikha-hardware-abstraction-layer');
-    const status = hardwareLayer.getStatus();
-    const devices = hardwareLayer.getAllHardwareDevices();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_HARDWARE_ABSTRACTION_LAYER',
-      status: status,
-      total_categories: devices.length,
-      devices: devices
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load Hardware Abstraction Layer',
-      message: error.message
-    });
-  }
-});
-
-// API 9: Get Specific Hardware Category
-app.get('/api/sheikha/computer-architecture/hardware/:category', (req, res) => {
-  try {
-    const hardwareLayer = require('./runtime/sheikha-hardware-abstraction-layer/v1/sheikha-hardware-abstraction-layer');
-    const category = req.params.category.toUpperCase();
-    const devices = hardwareLayer.getDeviceCategory(category);
-    
-    if (devices.length === 0) {
-      return res.status(404).json({
-        success: false,
-        error: 'Hardware category not found',
-        category: category
-      });
-    }
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_HARDWARE_CATEGORY',
-      category: category,
-      devices: devices
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load hardware category',
-      message: error.message
-    });
-  }
-});
-
-// API 10: Global Compliance Check
-app.post('/api/sheikha/computer-architecture/compliance-check', express.json(), (req, res) => {
-  try {
-    const computerGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-computer-architecture-governance');
-    const component = req.body?.component || 'SYSTEM';
-    const type = req.body?.type || 'COMPLETE';
-    const result = computerGovernance.performGlobalComplianceCheck(component, type);
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_GLOBAL_COMPLIANCE_CHECK',
-      component: component,
-      compliance_result: result
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Compliance check failed',
-      message: error.message
-    });
-  }
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🌍 SHEIKHA PROGRAMMING LANGUAGES GOVERNANCE API ENDPOINTS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-// API 1: Master Language Governance Global Status
-app.get('/api/sheikha/programming-languages/global-status', (_req, res) => {
-  try {
-    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
-    const status = masterGovernance.getGlobalStatus();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_PROGRAMMING_LANGUAGES_GLOBAL_STATUS',
-      status: status,
-      universe_coverage: '7,000-9,000 programming languages'
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load Programming Languages Governance',
-      message: error.message
-    });
-  }
-});
-
-// API 2: All Language Abstraction Layers
-app.get('/api/sheikha/programming-languages/layers', (_req, res) => {
-  try {
-    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
-    const layers = masterGovernance.getAllLayers();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_PROGRAMMING_LANGUAGE_LAYERS',
-      total_layers: layers.length,
-      layers: layers,
-      description: 'From Machine Code (Layer 0) to Esoteric Languages (Layer 7)'
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load language layers',
-      message: error.message
-    });
-  }
-});
-
-// API 3: Specific Language Layer Details
-app.get('/api/sheikha/programming-languages/layers/:layer', (req, res) => {
-  try {
-    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
-    const layerKey = req.params.layer.toUpperCase();
-    const layer = masterGovernance.getLayerDetails(layerKey);
-    
-    if (layer.error) {
-      return res.status(404).json({
-        success: false,
-        error: 'Layer not found',
-        available_layers: ['LAYER_0_MACHINE_CODE', 'LAYER_1_ASSEMBLY', 'LAYER_2_MID_LEVEL', 'LAYER_3_HIGH_LEVEL', 'LAYER_4_VERY_HIGH_LEVEL', 'LAYER_5_PARADIGM_SPECIFIC', 'LAYER_6_SPECIALIZED_DOMAINS', 'LAYER_7_ESOTERIC_CHALLENGE']
-      });
-    }
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_LANGUAGE_LAYER_DETAILS',
-      layer: layer
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load layer details',
-      message: error.message
-    });
-  }
-});
-
-// API 4: All Programming Paradigms
-app.get('/api/sheikha/programming-languages/paradigms', (_req, res) => {
-  try {
-    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
-    const paradigms = masterGovernance.getAllParadigms();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_PROGRAMMING_PARADIGMS',
-      total_paradigms: paradigms.length,
-      paradigms: paradigms,
-      description: 'OOP, Functional, Logical, Procedural, Reactive, Declarative'
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load paradigms',
-      message: error.message
-    });
-  }
-});
-
-// API 5: All Language Families
-app.get('/api/sheikha/programming-languages/families', (_req, res) => {
-  try {
-    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
-    const families = masterGovernance.getAllFamilies();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_LANGUAGE_FAMILIES',
-      total_families: families.length,
-      families: families
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load language families',
-      message: error.message
-    });
-  }
-});
-
-// API 6: Language Statistics
-app.get('/api/sheikha/programming-languages/statistics', (_req, res) => {
-  try {
-    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
-    const stats = masterGovernance.getLanguageStatistics();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_LANGUAGE_STATISTICS',
-      statistics: stats
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load statistics',
-      message: error.message
-    });
-  }
-});
-
-// API 7: Programming Languages Compliance Check
-app.post('/api/sheikha/programming-languages/compliance-check', express.json(), (req, res) => {
-  try {
-    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
-    const component = req.body?.component || 'LANGUAGE_ECOSYSTEM';
-    const type = req.body?.type || 'COMPLETE';
-    const result = masterGovernance.performGlobalComplianceCheck(component, type);
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_LANGUAGE_COMPLIANCE_CHECK',
-      component: component,
-      compliance_result: result
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Compliance check failed',
-      message: error.message
-    });
-  }
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 📚 SHEIKHA PROGRAMMING LANGUAGES ENCYCLOPEDIA API ENDPOINTS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-// API 8: All Programming Languages
-app.get('/api/sheikha/programming-languages/encyclopedia/all-languages', (_req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const languages = encyclopedia.getAllLanguages();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_ALL_PROGRAMMING_LANGUAGES',
-      total_languages: languages.length,
-      languages: languages,
-      universe_total: '7,000-9,000 programming languages'
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load programming languages',
-      message: error.message
-    });
-  }
-});
-
-// API 9: All Language Families (Encyclopedia)
-app.get('/api/sheikha/programming-languages/encyclopedia/families', (_req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const families = encyclopedia.getAllFamilies();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_LANGUAGE_FAMILIES_ENCYCLOPEDIA',
-      total_families: families.length,
-      families: families
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load families',
-      message: error.message
-    });
-  }
-});
-
-// API 10: Languages by Category
-app.get('/api/sheikha/programming-languages/encyclopedia/category/:category', (req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const category = req.params.category;
-    const languages = encyclopedia.getLanguagesByCategory(category);
-    
-    if (languages.length === 0) {
-      return res.status(404).json({
-        success: false,
-        error: 'Category not found',
-        category: category,
-        available_categories: ['The Giants', 'Modern Systems', 'Data Science & Analytics', 'Legacy/Historical', 'Functional Programming', 'Web Specialized', 'Data & Databases', 'Government & Military', 'Telecommunications', 'Enterprise', 'Esoteric', 'Logic & Constraint', 'Educational', 'Scientific Computing', 'Markup & Configuration', 'Domain Specific Languages (DSLs)']
-      });
-    }
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_LANGUAGES_BY_CATEGORY',
-      category: category,
-      total_families: languages.length,
-      families: languages
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load category',
-      message: error.message
-    });
-  }
-});
-
-// API 11: Encyclopedia Statistics
-app.get('/api/sheikha/programming-languages/encyclopedia/statistics', (_req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const stats = encyclopedia.getStatistics();
-    res.json({
-      success: true,
-      route: 'SHEIKHA_LANGUAGE_ENCYCLOPEDIA_STATISTICS',
-      statistics: stats
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load statistics',
-      message: error.message
-    });
-  }
-});
-
-// API 12: The GIANTS - Tier 1 Languages (Python, JavaScript, Java, C#, C++)
-app.get('/api/sheikha/programming-languages/tier/1-giants', (_req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const languages = encyclopedia.getAllLanguages();
-    const giants = languages.filter(l => l.tier === 'TIER_1_GIANT');
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_TIER_1_GIANTS',
-      description: 'Languages that power the world',
-      total: giants.length,
-      languages: giants
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load TIER 1 languages',
-      message: error.message
-    });
-  }
-});
-
-// API 13: Modern Systems - Tier 2 Languages (Rust, Go, Swift, Kotlin)
-app.get('/api/sheikha/programming-languages/tier/2-modern-systems', (_req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const languages = encyclopedia.getAllLanguages();
-    const modern = languages.filter(l => l.tier === 'TIER_2_MODERN_SYSTEMS');
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_TIER_2_MODERN_SYSTEMS',
-      description: 'Modern infrastructure and systems languages',
-      total: modern.length,
-      languages: modern
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load TIER 2 languages',
-      message: error.message
-    });
-  }
-});
-
-// API 14: Legacy - Tier 4 Languages (COBOL, Fortran, Lisp, Ada)
-app.get('/api/sheikha/programming-languages/tier/4-legacy', (_req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const languages = encyclopedia.getAllLanguages();
-    const legacy = languages.filter(l => l.tier === 'TIER_4_LEGACY');
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_TIER_4_LEGACY',
-      description: 'Historical languages still in use',
-      total: legacy.length,
-      languages: legacy,
-      note: 'Many power critical infrastructure (banking, government, science)'
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load TIER 4 languages',
-      message: error.message
-    });
-  }
-});
-
-// API 15: Esoteric Languages (Brainfuck, Whitespace, Chef, Piet)
-app.get('/api/sheikha/programming-languages/esoteric', (_req, res) => {
-  try {
-    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
-    const families = encyclopedia.getAllFamilies();
-    const esoteric = families.filter(f => f.category === 'Esoteric');
-    
-    res.json({
-      success: true,
-      route: 'SHEIKHA_ESOTERIC_LANGUAGES',
-      description: 'Challenge, artistic, and joke programming languages',
-      total_families: esoteric.length,
-      families: esoteric
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: 'Failed to load esoteric languages',
-      message: error.message
-    });
-  }
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-
-app.get('/api/sheikha/extension/status', sheikhaStatusHandler);
-// Disabled: legacy chat is governed by routes/sheikha-unified-chat-fabric.js
-// app.post('/api/sheikha/chat', express.json(), sheikhaChatHandler);
-app.post('/api/sheikha/completions', express.json(), sheikhaCompletionsHandler);
-app.post('/api/sheikha/agent', express.json(), sheikhaAgentHandler);
-app.post('/api/sheikha/inline-chat', express.json(), sheikhaInlineChatHandler);
-app.post('/api/sheikha/extensions-sync', express.json(), sheikhaExtensionsSyncHandler);
-app.get('/api/sheikha/extensions-live', sheikhaExtensionsLiveHandler);
-
-app.get('/api/sheikha/islamic-intelligence/status', (_req, res) => {
-    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
-    return res.json({
-        success: !!islamicIntelligence,
-        data: islamicIntelligence && typeof islamicIntelligence.getStatus === 'function'
-            ? islamicIntelligence.getStatus()
-            : { status: 'unavailable' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.post('/api/sheikha/islamic-intelligence/query', express.json(), (req, res) => {
-    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
-    if (!islamicIntelligence || typeof islamicIntelligence.reply !== 'function') {
-        return res.status(503).json({ success: false, message: 'منظومة الذكاء الإسلامي غير متاحة' });
-    }
-
-    return res.json({
-        success: true,
-        data: islamicIntelligence.reply(req.body || {}),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.post('/api/sheikha/islamic-intelligence/train', express.json(), (req, res) => {
-    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
-    if (!islamicIntelligence || typeof islamicIntelligence.promoteTrainingSession !== 'function') {
-        return res.status(503).json({ success: false, message: 'منظومة التدريب الإسلامي غير متاحة' });
-    }
-
-    const registryEntry = islamicIntelligence.promoteTrainingSession(req.body || {});
-    return res.json({
-        success: true,
-        message: 'تمت ترقية نموذج الذكاء الإسلامي لشيخة',
-        data: {
-            registryEntry,
-            status: islamicIntelligence.getStatus()
-        },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha/ai-foundations/status', (_req, res) => {
-    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
-    return res.json({
-        success: !!aiFoundations,
-        data: aiFoundations && typeof aiFoundations.getStatus === 'function'
-            ? aiFoundations.getStatus()
-            : { status: 'unavailable' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.post('/api/sheikha/ai-foundations/query', express.json(), (req, res) => {
-    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
-    if (!aiFoundations || typeof aiFoundations.query !== 'function') {
-        return res.status(503).json({ success: false, message: 'شبكة أساسيات الذكاء الاصطناعي غير متاحة' });
-    }
-
-    return res.json({
-        success: true,
-        data: aiFoundations.query(req.body || {}),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.post('/api/sheikha/ai-foundations/train', express.json(), (req, res) => {
-    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
-    if (!aiFoundations || typeof aiFoundations.promoteTrainingSession !== 'function') {
-        return res.status(503).json({ success: false, message: 'تدريب شبكة أساسيات الذكاء الاصطناعي غير متاح' });
-    }
-
-    const registryEntry = aiFoundations.promoteTrainingSession(req.body || {});
-    return res.json({
-        success: true,
-        message: 'تمت ترقية شبكة أساسيات الذكاء الاصطناعي لشيخة',
-        data: {
-            registryEntry,
-            status: aiFoundations.getStatus()
-        },
-        timestamp: new Date().toISOString()
-    });
-});
-
-const legacySheikhaExtensionPrefix = '/api/sheikha/' + 'co' + 'pilot';
-app.get(`${legacySheikhaExtensionPrefix}/status`, sheikhaStatusHandler);
-app.post(`${legacySheikhaExtensionPrefix}/chat`, express.json(), sheikhaChatHandler);
-app.post(`${legacySheikhaExtensionPrefix}/completions`, express.json(), sheikhaCompletionsHandler);
-app.post(`${legacySheikhaExtensionPrefix}/agent`, express.json(), sheikhaAgentHandler);
-app.post(`${legacySheikhaExtensionPrefix}/inline-chat`, express.json(), sheikhaInlineChatHandler);
-app.post(`${legacySheikhaExtensionPrefix}/extensions-sync`, express.json(), sheikhaExtensionsSyncHandler);
-app.get(`${legacySheikhaExtensionPrefix}/extensions-live`, sheikhaExtensionsLiveHandler);
-
-app.post('/api/sheikha/ai/neural-network-activation', express.json(), (_req, res) => {
-    return res.json({
-        success: true,
-        data: getSheikhaVsixStatus().neural,
-        message: 'تم تفعيل شبكة الخلايا العصبية الجذرية مع MCP SDK',
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha/neural-mcp/status', (_req, res) => {
-    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
-    return res.json({
-        success: true,
-        data: typeof neuralMcpSdk.getStatus === 'function' ? neuralMcpSdk.getStatus() : { status: 'fallback' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha/neural-mcp/tools', (_req, res) => {
-    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
-    return res.json({
-        success: true,
-        data: typeof neuralMcpSdk.getTools === 'function' ? neuralMcpSdk.getTools() : [],
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.post('/api/sheikha/neural-mcp/tools/:name', express.json(), async (req, res) => {
-    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
-    if (typeof neuralMcpSdk.executeTool !== 'function') {
-        return res.status(503).json({ success: false, message: 'MCP SDK غير متوفر' });
-    }
-    const result = await neuralMcpSdk.executeTool(req.params.name, req.body || {});
-    return res.json({ success: !result.error, data: result, timestamp: new Date().toISOString() });
-});
-
-try {
-    const {
-        getEnterpriseVsCodeGitIntegrationStatus,
-        getEnterpriseGitServiceStatus,
-        buildPullMergeRequestPlan,
-        buildEnterpriseWorkPlan
-    } = require('./lib/sheikha-enterprise-vscode-git-integration');
-
-    app.get('/api/sheikha/enterprise-vscode-git/status', (_req, res) => {
-        return res.json(getEnterpriseVsCodeGitIntegrationStatus({ cwd: process.cwd() }));
-    });
-
-    app.post('/api/sheikha/enterprise-vscode-git/status', express.json(), (req, res) => {
-        return res.json(getEnterpriseVsCodeGitIntegrationStatus({
-            cwd: process.cwd(),
-            vscodeExtensions: req.body && req.body.extensions
-        }));
-    });
-
-    app.post('/api/sheikha/enterprise-vscode-git/work-plan', express.json(), (req, res) => {
-        return res.json(buildEnterpriseWorkPlan(req.body || {}));
-    });
-
-    app.get('/api/sheikha/enterprise-git-service/status', (_req, res) => {
-        return res.json(getEnterpriseGitServiceStatus({ cwd: process.cwd() }));
-    });
-
-    app.post('/api/sheikha/enterprise-git-service/status', express.json(), (req, res) => {
-        return res.json(getEnterpriseGitServiceStatus({
-            cwd: process.cwd(),
-            vscodeExtensions: req.body && req.body.extensions,
-            provider: req.body && req.body.provider
-        }));
-    });
-
-    app.post('/api/sheikha/enterprise-git-service/pr-mr-plan', express.json(), (req, res) => {
-        return res.json(buildPullMergeRequestPlan(req.body || {}));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha Enterprise VS Code/Git integration inactive:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-    const {
-        getGoverningOsLayerStatus,
-        buildPackagePlan,
-        buildUniversalIntegrationPlan
-    } = require('./lib/sheikha-governing-os-layer');
-
-    app.get('/api/sheikha/governing-os/status', (_req, res) => {
-        return res.json(getGoverningOsLayerStatus());
-    });
-
-    app.post('/api/sheikha/governing-os/status', express.json(), (req, res) => {
-        return res.json(getGoverningOsLayerStatus({
-            extensions: req.body && req.body.extensions
-        }));
-    });
-
-    app.post('/api/sheikha/governing-os/package-plan', express.json(), (req, res) => {
-        return res.json(buildPackagePlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/governing-os/universal-integration-plan', express.json(), (req, res) => {
-        return res.json(buildUniversalIntegrationPlan(req.body || {}));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha Governing OS layer inactive:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-    const {
-        getAiServiceProviderStatus,
-        getCertifiedAiProviderCertificate,
-        buildAiServicePublishPlan,
-        buildSystemIntegrationProviderPlan
-    } = require('./lib/sheikha-ai-service-provider-runtime');
-
-    app.get('/api/sheikha/ai-service-provider/status', (_req, res) => {
-        return res.json(getAiServiceProviderStatus({ cwd: process.cwd() }));
-    });
-
-    app.post('/api/sheikha/ai-service-provider/status', express.json(), (req, res) => {
-        return res.json(getAiServiceProviderStatus({
-            cwd: process.cwd(),
-            extensions: req.body && req.body.extensions
-        }));
-    });
-
-    app.get('/api/sheikha/ai-service-provider/certification', (_req, res) => {
-        return res.json(getCertifiedAiProviderCertificate({ cwd: process.cwd() }));
-    });
-
-    app.post('/api/sheikha/ai-service-provider/certification', express.json(), (req, res) => {
-        return res.json(getCertifiedAiProviderCertificate({
-            cwd: process.cwd(),
-            extensions: req.body && req.body.extensions
-        }));
-    });
-
-    app.post('/api/sheikha/ai-service-provider/publish-plan', express.json(), (req, res) => {
-        return res.json(buildAiServicePublishPlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/ai-service-provider/integration-plan', express.json(), (req, res) => {
-        return res.json(buildSystemIntegrationProviderPlan(req.body || {}));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha AI service provider runtime inactive:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-    const {
-        getEnterpriseIdeRuntimeStatus,
-        buildEnterpriseDevelopmentEnvironment,
-        buildIdeSubscriptionModel,
-        buildIndustryAndTechnologyServicesPlan
-    } = require('./lib/sheikha-enterprise-ide-runtime');
-
-    app.get('/api/sheikha/enterprise-ide/status', (_req, res) => {
-        return res.json(getEnterpriseIdeRuntimeStatus({ cwd: process.cwd() }));
-    });
-
-    app.post('/api/sheikha/enterprise-ide/status', express.json(), (req, res) => {
-        return res.json(getEnterpriseIdeRuntimeStatus({
-            cwd: process.cwd(),
-            extensions: req.body && req.body.extensions,
-            modelMode: req.body && req.body.modelMode
-        }));
-    });
-
-    app.post('/api/sheikha/enterprise-ide/development-environment', express.json(), (req, res) => {
-        return res.json(buildEnterpriseDevelopmentEnvironment(req.body || {}));
-    });
-
-    app.post('/api/sheikha/enterprise-ide/subscription-model', express.json(), (req, res) => {
-        return res.json(buildIdeSubscriptionModel(req.body || {}));
-    });
-
-    app.post('/api/sheikha/enterprise-ide/industry-services-plan', express.json(), (req, res) => {
-        return res.json(buildIndustryAndTechnologyServicesPlan(req.body || {}));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha Enterprise IDE runtime inactive:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-    const {
-        getUniversalToolsFabricStatus,
-        activateUniversalToolsFabric,
-        buildUniversalToolsIntegrationPlan,
-        buildToolActivationPlan
-    } = require('./lib/sheikha-universal-tools-fabric');
-
-    app.get('/api/sheikha/universal-tools-fabric/status', (_req, res) => {
-        return res.json(getUniversalToolsFabricStatus({ cwd: process.cwd() }));
-    });
-
-    app.post('/api/sheikha/universal-tools-fabric/status', express.json(), (req, res) => {
-        return res.json(getUniversalToolsFabricStatus({
-            cwd: process.cwd(),
-            extensions: req.body && req.body.extensions,
-            modelMode: req.body && req.body.modelMode
-        }));
-    });
-
-    app.post('/api/sheikha/universal-tools-fabric/activate', express.json(), (req, res) => {
-        return res.json(activateUniversalToolsFabric({
-            cwd: process.cwd(),
-            ...(req.body || {})
-        }));
-    });
-
-    app.post('/api/sheikha/universal-tools-fabric/integration-plan', express.json(), (req, res) => {
-        return res.json(buildUniversalToolsIntegrationPlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/universal-tools-fabric/tool-plan', express.json(), (req, res) => {
-        return res.json(buildToolActivationPlan(req.body || {}));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha Universal Tools Fabric inactive:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-    const {
-        getSheikhaCoreStatus,
-        activateSheikhaCore,
-        buildSheikhaCoreArchitecture,
-        getSheikhaEditorStatus,
-        getUsageMeteringStatus,
-        recordUsageEvent,
-        buildProviderKeysPolicy
-    } = require('./lib/sheikha-core-runtime');
-
-    app.get('/api/sheikha/core/status', (_req, res) => {
-        return res.json(getSheikhaCoreStatus({ cwd: process.cwd() }));
-    });
-
-    app.post('/api/sheikha/core/status', express.json(), (req, res) => {
-        return res.json(getSheikhaCoreStatus({
-            cwd: process.cwd(),
-            extensions: req.body && req.body.extensions,
-            modelMode: req.body && req.body.modelMode
-        }));
-    });
-
-    app.post('/api/sheikha/core/activate', express.json(), (req, res) => {
-        return res.json(activateSheikhaCore({
-            cwd: process.cwd(),
-            ...(req.body || {})
-        }));
-    });
-
-    app.post('/api/sheikha/core/architecture', express.json(), (req, res) => {
-        return res.json(buildSheikhaCoreArchitecture(req.body || {}));
-    });
-
-    app.get('/api/sheikha/editor/status', (_req, res) => {
-        return res.json(getSheikhaEditorStatus());
-    });
-
-    app.post('/api/sheikha/editor/status', express.json(), (req, res) => {
-        return res.json(getSheikhaEditorStatus(req.body || {}));
-    });
-
-    app.get('/api/sheikha/provider-keys/policy', (_req, res) => {
-        return res.json(buildProviderKeysPolicy());
-    });
-
-    app.get('/api/sheikha/usage-metering/status', (_req, res) => {
-        return res.json(getUsageMeteringStatus());
-    });
-
-    app.post('/api/sheikha/usage-metering/event', express.json(), (req, res) => {
-        return res.json(recordUsageEvent(req.body || {}));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha-Core runtime inactive:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ═══════════════════════════════════════════════════════════════════════════════
-// �🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
-// ═══════════════════════════════════════════════════════════════════════════════
-
-// --- Runtime & Observability (inserted before 404 handler) ---
-const runtimeContractsModule = optionalRequire('./lib/runtime/contracts');
-if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContracts === 'function') {
-    runtimeContractsModule.registerRuntimeContracts(app, {
-        fs, path, processVersion: process.version, runtimeCore, observability,
-        ring: SHEIKHA_RUNTIME_RING, gitMetadata: GIT_METADATA, fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
-        env: { helmet, compression, rateLimit, PORT, NODE_VERSION: process.env.NODE_VERSION, PM2_RUNTIME: process.env.PM2_RUNTIME, SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS, SHEIKHA_RUNTIME_STRICT_FINGERPRINT, serverStartTime: SERVER_START_TIME }, port: PORT
-    });
-} else {
-    console.log('⚠️ Runtime contracts غير متوفرة — سيتم تسجيل fallback محلي');
-    app.get('/api/runtime', (req, res) => {
-        return res.status(200).json({
-            success: true,
-            data: { mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback', contractsVersion: 'fallback-v1', ring: SHEIKHA_RUNTIME_RING || 'fallback', loaded: false, startedAt: SERVER_START_TIME, uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000), fingerprint: { status: RUNTIME_FINGERPRINT_STATUS || 'unknown' } },
-            message: 'تم جلب حالة التشغيل بنجاح', timestamp: new Date().toISOString()
-        });
-    });
-    app.get('/api/sheikha-node/status', (req, res) => {
-        return res.status(200).json({ success: true, data: { status: 'online', mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback', ring: SHEIKHA_RUNTIME_RING || 'fallback', startedAt: SERVER_START_TIME, uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000) }, message: 'حالة العقدة تعمل', timestamp: new Date().toISOString() });
-    });
-    app.get('/api/observability/summary', (req, res) => {
-        return res.status(200).json({ success: true, data: { status: 'active', type: 'observability-summary', timestamp: new Date().toISOString() }, message: 'ملخص المراقبة', timestamp: new Date().toISOString() });
-    });
-}
-
-
-// ─────────────────────────────────────────────────────────────
-// Sheikha AI Neural Cell Network API
-// ─────────────────────────────────────────────────────────────
-try {
-    const {
-        evaluateSheikhaAINetwork,
-        SHEIKHA_AI_NEURAL_CELLS,
-        getNeuralNetworkStatus,
-        buildProductionPlan,
-        buildUniversalHalalRuntimePlan,
-        getTawheedFoundations,
-        getProgrammingRuntimeStatus,
-        getMarkupRuntimeStatus,
-        getNeuralRuntimeRegistry,
-        getSupremeRootNeuralFabricStatus,
-        activateSupremeRootNeuralFabric,
-        orchestrateSupremeRootNeuralFabric,
-        validateCompleteRootNeuralIntegration,
-        getRuntimeCell,
-        hotLoadRuntimeCell,
-        injectRuntimeCell,
-        interpretProgrammingRequest,
-        buildGitEditingPlan,
-        getReadWritePublishRuntimeStatus,
-        buildReadWritePublishPlan,
-        setNeuralNetworkActiveState,
-        retrainNeuralNetwork
-    } = require('./core/neural/sheikha-ai-neural-cell-network');
-
-    app.get('/api/sheikha/ai-neural-cell-network/status', (_req, res) => {
-        res.json({
-            ...getNeuralNetworkStatus(),
-            cellsCount: Object.keys(SHEIKHA_AI_NEURAL_CELLS).length,
-            mode: 'deterministic-governed-analysis',
-            message: 'شبكة خلايا Sheikha العصبية الجذرية مفعلة'
-        });
-    });
-
-    app.post('/api/sheikha/ai-neural-cell-network/activate', express.json(), (req, res) => {
-        const active = req.body && Object.prototype.hasOwnProperty.call(req.body, 'activate')
-            ? Boolean(req.body.activate)
-            : true;
-        const status = setNeuralNetworkActiveState(active);
-        res.json({
-            success: true,
-            status: active ? 'active' : 'inactive',
-            data: status,
-            message: active
-                ? 'تم تفعيل شبكة خلايا Sheikha العصبية الجذرية'
-                : 'تم إيقاف شبكة خلايا Sheikha العصبية الجذرية مؤقتًا'
-        });
-    });
-
-    app.post('/api/sheikha/ai-neural-cell-network/retrain', express.json(), (req, res) => {
-        res.json(retrainNeuralNetwork(req.body || {}));
-    });
-
-    app.post('/api/sheikha/ai-neural-cell-network/production-plan', express.json(), (req, res) => {
-        res.json(buildProductionPlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/ai-neural-cell-network/universal-halal-runtime', express.json(), (req, res) => {
-        res.json(buildUniversalHalalRuntimePlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/ai-neural-cell-network/evaluate', express.json(), (req, res) => {
-        res.json(evaluateSheikhaAINetwork(req.body || {}));
-    });
-
-    app.get('/api/sheikha/tawheed-foundations', (_req, res) => {
-        res.json(getTawheedFoundations());
-    });
-
-    app.get('/api/sheikha/languages', (_req, res) => {
-        const runtime = getProgrammingRuntimeStatus();
-        const markup = getMarkupRuntimeStatus();
-        res.json({
-            success: true,
-            data: {
-                primaryLanguage: runtime.language,
-                primaryMarkupLanguage: markup.language,
-                languages: runtime.supportedLanguages,
-                markupLanguages: markup.supportedMarkupLanguages,
-                languageFamilies: runtime.languageFamilies,
-                php: 'active',
-                ide: runtime.ide,
-                interpreter: runtime.interpreter
-            },
-            message: 'لغات Sheikha البرمجية والترميزية والمفسر متعدد اللغات مفعلة'
-        });
-    });
-
-    app.get('/api/sheikha/language/status', (_req, res) => {
-        res.json(getProgrammingRuntimeStatus());
-    });
-
-    app.get('/api/sheikha/markup/status', (_req, res) => {
-        res.json(getMarkupRuntimeStatus());
-    });
-
-    app.get('/api/sheikha/neural-runtime-registry/status', (_req, res) => {
-        res.json(getNeuralRuntimeRegistry());
-    });
-
-    app.get('/api/sheikha/neural-runtime-registry/cells', (_req, res) => {
-        res.json(getNeuralRuntimeRegistry());
-    });
-
-    app.get('/api/sheikha/supreme-root-neural-fabric/status', (_req, res) => {
-        res.json(getSupremeRootNeuralFabricStatus());
-    });
-
-    app.post('/api/sheikha/supreme-root-neural-fabric/activate', express.json(), (req, res) => {
-        res.json(activateSupremeRootNeuralFabric(req.body || {}));
-    });
-
-    app.post('/api/sheikha/supreme-root-neural-fabric/orchestrate', express.json(), (req, res) => {
-        res.json(orchestrateSupremeRootNeuralFabric(req.body || {}));
-    });
-
-    app.get('/api/sheikha/root-neural-integration/status', (_req, res) => {
-        res.json(validateCompleteRootNeuralIntegration({ activate: false }));
-    });
-
-    app.post('/api/sheikha/root-neural-integration/activate', express.json(), (req, res) => {
-        res.json(validateCompleteRootNeuralIntegration({
-            ...(req.body || {}),
-            activate: true
-        }));
-    });
-
-    app.post('/api/sheikha/supreme-root-neural-fabric/validate', express.json(), (req, res) => {
-        res.json(validateCompleteRootNeuralIntegration(req.body || {}));
-    });
-
-    app.get('/api/sheikha/neural-runtime-registry/cells/:id', (req, res) => {
-        res.json(getRuntimeCell(req.params.id));
-    });
-
-    app.post('/api/sheikha/neural-runtime-registry/cells/:id/hot-load', express.json(), (req, res) => {
-        res.json(hotLoadRuntimeCell(req.params.id, req.body || {}));
-    });
-
-    app.post('/api/sheikha/neural-runtime-registry/cells/:id/inject', express.json(), (req, res) => {
-        res.json(injectRuntimeCell(req.params.id, req.body || {}));
-    });
-
-    app.post('/api/sheikha/language/interpret', express.json(), (req, res) => {
-        res.json(interpretProgrammingRequest(req.body || {}));
-    });
-
-    app.get('/api/sheikha/ide/status', (_req, res) => {
-        const runtime = getProgrammingRuntimeStatus();
-        res.json({
-            success: true,
-            status: 'active',
-            ide: runtime.ide,
-            capabilities: ['edit', 'debug', 'run', 'interpret', 'php', 'git', 'github', 'gitlab', 'mcp-sdk', 'neural-cells'],
-            language: runtime.language,
-            timestamp: new Date().toISOString()
-        });
-    });
-
-    app.get('/api/sheikha/git/status', (_req, res) => {
-        res.json({
-            success: true,
-            status: 'active',
-            data: buildGitEditingPlan({ target: 'working-tree' }).runtime,
-            message: 'Sheikha Git Runtime مفعّل للتحرير الآمن في Git/GitHub/GitLab'
-        });
-    });
-
-    app.post('/api/sheikha/git/edit-plan', express.json(), (req, res) => {
-        res.json(buildGitEditingPlan(req.body || {}));
-    });
-
-    app.get('/api/sheikha/read-write-publish/status', (_req, res) => {
-        res.json(getReadWritePublishRuntimeStatus());
-    });
-
-    app.post('/api/sheikha/read-write-publish/plan', express.json(), (req, res) => {
-        res.json(buildReadWritePublishPlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/read-write-publish/evaluate', express.json(), (req, res) => {
-        res.json(buildReadWritePublishPlan({
-            ...(req.body || {}),
-            action: (req.body && req.body.action) || 'evaluate'
-        }));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha AI Neural Cell Network route inactive:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ─────────────────────────────────────────────────────────────
-// Sheikha AI Gateway API
-// ─────────────────────────────────────────────────────────────
-try {
-    const {
-        askSheikhaCore,
-        getSheikhaGatewayStatus,
-        DEFAULT_MODEL
-    } = require('./core/ai-gateway/sheikha-ai-gateway');
-    const {
-        recordSelfTrainingSample,
-        getSelfTrainingStatus,
-        buildTrainingReviewPlan
-    } = require('./core/ai-gateway/sheikha-core-self-training');
-    const {
-        getContinuousLearningStatus,
-        buildDailyLearningPlan,
-        ingestLearningEvent,
-        runLearningCycle
-    } = require('./core/ai-gateway/sheikha-continuous-learning-runtime');
-    const {
-        getJdkRootNeuralStatus,
-        buildJdkEnterprisePlan,
-        evaluateJdkEnvironment
-    } = require('./core/development/sheikha-jdk-root-neural-cell');
-
-    app.get('/api/sheikha/ai-gateway/status', async (_req, res) => {
-        res.json(await getSheikhaGatewayStatus());
-    });
-
-
-app.post('/api/sheikha/ai-gateway/ask', express.json(), async (req, res) => {
-    const { prompt = '', mode = 'chat', context = {} } = req.body || {};
-    const wantsSystemReport =
-        /(تقرير\s*عن\s*النظام|كتابة\s*تقرير\s*عن\s*النظام|حالة\s*النظام|system\s*report|runtime\s*report)/i.test(String(prompt));
-
-    if (wantsSystemReport) {
-        return res.json({
-            success: true,
-            provider: 'Sheikha-Core',
-            model: 'Sheikha-Core',
-            mode: 'governed-fast-operational',
-            localModelOnline: true,
-            fallbackReason: null,
-            context: {
-                source: context.source || 'unknown',
-                mode
-            },
-            output: `تقرير Sheikha التشغيلي الكامل:
-
-1. حالة التشغيل:
-- PM2: ACTIVE
-- Ollama: ACTIVE
-- Sheikha-Core: ONLINE
-- AI Gateway: ACTIVE
-- Runtime Drift: NO_DRIFT عند آخر تحقق
-- VS Code Extension: متصل عبر ai-gateway/ask
-
-2. طبقات التكامل:
-- VS Code Extension
-- AI Gateway
-- Sheikha-Core
-- Ollama Runtime
-- PM2 Runtime
-- Git Governance
-- Runtime Drift Detection
-
-3. نتيجة الفحص:
-- لا يوجد fallback.
-- لا يوجد ollama_timeout.
-- الطلب وصل عبر prompt.
-- المسار التشغيلي السريع يعمل قبل تحليل الكود.
-
-4. الضوابط:
-- لا تنفيذ مؤثر بدون مراجعة بشرية.
-- لا نشر قبل git diff و node --check.
-- لا اعتماد قبل NO_DRIFT.
-
-5. التوصية:
-- متابعة فحص endpoint بعد كل تعديل.
-- إبقاء تقارير النظام على المسار السريع.
-- إبقاء تحليل الكود في مسار مستقل حتى لا يلتقط تقارير التشغيل.`
-        });
-    }
-
-        const result = await askSheikhaCore(req.body || {});
-        res.json(result);
-    });
-
-    app.get('/api/sheikha/core-chat/status', async (_req, res) => {
-        const gateway = await getSheikhaGatewayStatus();
-        res.json({
-            success: true,
-            status: 'active',
-            name: 'Sheikha-Core Chat',
-            mode: 'local-first-governed-chat',
-            model: DEFAULT_MODEL,
-            gateway,
-            selfTraining: getSelfTrainingStatus(),
-            governance: gateway.governance,
-            message: 'Sheikha-Core مفعلة كمسار الشات الأساسي مع تدريب ذاتي محكوم.',
-            timestamp: new Date().toISOString()
-        });
-    });
-
-    app.post('/api/sheikha/core-chat/ask', express.json(), async (req, res) => {
-        const payload = req.body || {};
-        const prompt = payload.prompt || payload.message || payload.instruction;
-        const model = payload.model && payload.model !== 'sheikha-base' ? payload.model : DEFAULT_MODEL;
-        const result = await askSheikhaCore({
-            ...payload,
-            prompt,
-            model,
-            context: {
-                ...(payload.context || {}),
-                source: payload.context && payload.context.source ? payload.context.source : 'sheikha-core-chat',
-                route: '/api/sheikha/core-chat/ask',
-                language: payload.language || (payload.context && payload.context.language) || 'auto'
-            }
-        });
-
-        const training = result && result.success
-            ? recordSelfTrainingSample({
-                prompt,
-                output: result.output,
-                model: result.model,
-                source: 'sheikha-core-chat',
-                context: {
-                    ...(payload.context || {}),
-                    language: payload.language || (payload.context && payload.context.language) || 'auto',
-                    mode: result.mode
-                }
-            })
-            : null;
-
-        res.json({
-            ...result,
-            chat: {
-                status: result && result.success ? 'answered' : 'failed',
-                primary: 'Sheikha-Core',
-                selfTraining: training ? training.record : null
-            }
-        });
-    });
-
-    app.get('/api/sheikha/self-training/status', (_req, res) => {
-        res.json(getSelfTrainingStatus());
-    });
-
-    app.post('/api/sheikha/self-training/record', express.json(), (req, res) => {
-        res.json(recordSelfTrainingSample(req.body || {}));
-    });
-
-    app.post('/api/sheikha/self-training/review-plan', express.json(), (req, res) => {
-        res.json(buildTrainingReviewPlan(req.body || {}));
-    });
-
-    app.get('/api/sheikha/continuous-learning/status', (_req, res) => {
-        res.json(getContinuousLearningStatus());
-    });
-
-    app.get('/api/sheikha/continuous-learning/daily-plan', (_req, res) => {
-        res.json(buildDailyLearningPlan());
-    });
-
-    app.post('/api/sheikha/continuous-learning/daily-plan', express.json(), (req, res) => {
-        res.json(buildDailyLearningPlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/continuous-learning/ingest', express.json(), (req, res) => {
-        res.json(ingestLearningEvent(req.body || {}));
-    });
-
-    app.post('/api/sheikha/continuous-learning/cycle', express.json(), (req, res) => {
-        res.json(runLearningCycle(req.body || {}));
-    });
-
-    app.get('/api/sheikha/jdk/status', (_req, res) => {
-        res.json(getJdkRootNeuralStatus());
-    });
-
-    app.post('/api/sheikha/jdk/plan', express.json(), (req, res) => {
-        res.json(buildJdkEnterprisePlan(req.body || {}));
-    });
-
-    app.post('/api/sheikha/jdk/evaluate', express.json(), (req, res) => {
-        res.json(evaluateJdkEnvironment(req.body || {}));
-    });
-} catch (err) {
-    console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ─────────────────────────────────────────────────────────────
-// Sheikha Root Orchestration API
-// ─────────────────────────────────────────────────────────────
-try {
-
-
-    console.log('✅ Sheikha Root Orchestration API active');
-} catch (error) {
-    console.warn('⚠️ Sheikha Root Orchestration API unavailable:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {
-
-try {
-  app.use('/api/database/sqlserver', require('./routes/database/sqlserver.routes'));
-
-console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
-} catch (error) {
-  console.warn('[SHEIKHA] SQL Server routes not mounted:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-    app.use('/api/architecture', require('./routes/architecture.routes'));
-    console.log('✅ Sheikha Architecture API active');
-} catch (error) {
-    console.warn('⚠️ Sheikha Architecture API unavailable:', error.message);
-}
-
-
-
-try {
-  app.use('/api/sheikha/action-first-chat-apex/v1', require('./routes/action-first-chat-apex/sheikha-action-first-chat-apex-routes'));
-app.use('/api/sheikha/local-coding-fastpath/v1', require('./routes/local-coding-fastpath/sheikha-local-coding-fastpath-routes'));
-app.use('/api/sheikha/living-conversation-apex/v1', require('./routes/living-conversation-apex/sheikha-living-conversation-apex-routes'));
-app.use('/api/sheikha/chat-fabric-v2', require('./routes/chat-fabric-v2/sheikha-chat-fabric-v2-routes'));
-  console.log('✅ Sheikha Chat Fabric V2 API mounted');
-} catch (error) {
-  console.warn('⚠️ Sheikha Chat Fabric V2 API unavailable:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ─────────────────────────────────────────────────────────────
-// Sheikha Unified Chat Control Fabric API
-// ─────────────────────────────────────────────────────────────
-try {
-  app.use('/api/sheikha/chat-fabric', require('./routes/chat-fabric/sheikha-chat-fabric-routes'));
-  console.log('✅ Sheikha Chat Fabric API mounted');
-} catch (err) {
-  console.error('⚠️ Sheikha Chat Fabric API mount failed:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_CANONICAL_RUNTIME_ROUTE
-try {
-
-  console.log('✅ Canonical Runtime Status API mounted');
-// SHEIKHA_CANONICAL_RUNTIME_GATEWAY
-app.use('/api/runtime-root', require('./routes/runtime-root'));
-
-
-// SHEIKHA_RUNTIME_ROOT_SINGLETON
-app.use(
-  '/api/runtime-root',
-  require('./routes/runtime-root')
-);
-
-try {
-  const { getKernelStatus } = require('./core/kernel');
-
-
-// SHEIKHA_KERNEL_CONTROL_PLANE
-try {
-  const kernelControlPlane = require('./core/kernel/control-plane/sheikha-kernel-control-plane');
-
-  app.get('/api/kernel/control-plane/status', (_req, res) => {
-    return res.json(kernelControlPlane.status());
-  });
-
-  app.post('/api/kernel/control-plane/boot', (_req, res) => {
-    return res.json(kernelControlPlane.boot());
-  });
-
-  console.log('✅ SHEIKHA Kernel Control Plane mounted');
-app.get('/api/kernel/status', (_req, res) => {
-    return res.json(getKernelStatus());
-  });
-
-  app.get('/api/sheikha/kernel/status', (_req, res) => {
-    return res.json(getKernelStatus());
-  });
-
-  console.log('✅ Sheikha Sovereign Kernel API mounted');
-} catch (err) {
-  console.warn('⚠️ Sheikha Sovereign Kernel API unavailable:', err.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_PROVIDER_GATEWAY_ROUTE
-app.use('/api/kernel/provider-gateway', require('./routes/kernel/provider-gateway'));
-
-
-// SHEIKHA_RUNTIME_AUTHORITY
-try {
-  const runtimeGuard = require('./core/kernel/security/runtime-guard');
-
-  app.get('/api/runtime/authority', (_req, res) => {
-    return res.json(runtimeGuard.verify());
-  });
-
-  console.log('✅ SHEIKHA Runtime Authority mounted');
-// SHEIKHA_STORAGE_GOVERNOR_ROUTE
-try {
-  app.use('/api/storage', require('./routes/storage/governor'));
-  console.log('✅ SHEIKHA Storage Governor mounted');
-// SHEIKHA_STORAGE_HEALTH_ROUTE
-try {
-  app.use('/api/storage/reports', require('./routes/storage/reports/health'));
-  console.log('✅ SHEIKHA Storage Health mounted');
-// SHEIKHA_CANONICAL_ENFORCEMENT_ROUTES
-try {
-  const enforcer = require('./core/kernel/enforcement/canonical-runtime-enforcer');
-  const divergence = require('./core/kernel/divergence/divergence-detector');
-
-  app.get('/api/runtime/enforcement', (_req, res) => res.json(enforcer.status()));
-  app.get('/api/runtime/divergence', (_req, res) => res.json(divergence.scan()));
-
-  console.log('✅ SHEIKHA Canonical Enforcement mounted');
-// SHEIKHA_DATA_PIPELINE_ROUTE
-try {
-  app.use('/api/data/pipeline', require('./routes/data/pipeline'));
-  console.log('✅ SHEIKHA Data Intelligence Pipeline mounted');
-// SHEIKHA_MEMORY_GOVERNOR_ROUTE
-try {
-  app.use('/api/memory', require('./routes/memory/governor'));
-  console.log('✅ SHEIKHA Memory Governor mounted');
-// SHEIKHA_RUNTIME_INTELLIGENCE_ROUTE
-try {
-  app.use('/api/intelligence', require('./routes/intelligence/orchestrator'));
-  console.log('✅ SHEIKHA Runtime Intelligence mounted');
-// SHEIKHA_HARDWARE_INSPIRED_AI_ROUTE
-try {
-  app.use('/api/architecture/ai-computer', require('./routes/hardware-inspired/architecture'));
-  console.log('✅ SHEIKHA Hardware-Inspired AI Architecture mounted');
-// SHEIKHA_INTEGRATED_SYSTEM_FABRIC_ROUTE
-try {
-  app.use('/api/fabric/integrated-system', require('./routes/integration-fabric/fabric'));
-  console.log('✅ SHEIKHA Integrated Hardware/Software Fabric mounted');
-// SHEIKHA_RUNTIME_FABRIC_ROUTE
-try {
-  app.use('/api/runtime/fabric', require('./routes/runtime/fabric'));
-  console.log('✅ SHEIKHA Runtime Fabric mounted');
-// SHEIKHA_RUNTIME_MOTHERBOARD_ROUTE
-try {
-  app.use('/api/motherboard/runtime', require('./routes/motherboard/runtime-motherboard'));
-  console.log('✅ SHEIKHA Runtime Motherboard mounted');
-// SHEIKHA_RUNTIME_SYNCHRONIZATION_ROUTE
-try {
-  app.use('/api/synchronization', require('./routes/synchronization/runtime-synchronization'));
-  console.log('✅ SHEIKHA Runtime Synchronization mounted');
-// SHEIKHA_UNIFIED_RUNTIME_BUS_V2_ROUTE
-try {
-  app.use('/api/bus/runtime', require('./routes/bus/runtime-bus'));
-  console.log('✅ SHEIKHA Unified Runtime Bus V2 mounted');
-// SHEIKHA_RUNTIME_MEMORY_FABRIC_ROUTE
-try {
-  app.use('/api/memory', require('./routes/memory/runtime-memory'));
-  console.log('✅ SHEIKHA Runtime Memory Fabric mounted');
-// SHEIKHA_SYSTEM_READINESS_ROUTE
-try {
-  app.use('/api/readiness/system', require('./routes/readiness/system-readiness'));
-  console.log('✅ SHEIKHA System Readiness mounted');
-// SHEIKHA_HEALTH_RESOURCE_ROUTE
-try {
-  app.use('/api/health-governor', require('./routes/health/system-health'));
-  console.log('✅ SHEIKHA Health & Resource Governor mounted');
-// SHEIKHA_RUNTIME_BUS_ROUTE
-try {
-  app.use('/api/runtime-bus', require('./routes/bus/runtime-bus'));
-  console.log('✅ SHEIKHA Runtime Bus mounted');
-// SHEIKHA_EXECUTION_SCHEDULER_ROUTE
-try {
-  app.use('/api/scheduler/execution', require('./routes/scheduler/execution-scheduler'));
-  console.log('✅ SHEIKHA Execution Scheduler mounted');
-// SHEIKHA_RESOURCE_GOVERNOR_ROUTE
-try {
-  app.use('/api/resources', require('./routes/resources/resource-governor'));
-  console.log('✅ SHEIKHA Resource Governor mounted');
-// SHEIKHA_RUNTIME_SIGNAL_ROUTE
-try {
-  app.use('/api/signals/runtime', require('./routes/signals/runtime-signals'));
-  console.log('✅ SHEIKHA Runtime Signal Fabric mounted');
-// SHEIKHA_RUNTIME_TELEMETRY_ROUTE
-try {
-  app.use('/api/telemetry/runtime', require('./routes/telemetry/runtime-telemetry'));
-  console.log('✅ SHEIKHA Runtime Telemetry mounted');
-// SHEIKHA_RUNTIME_ORCHESTRATION_ROUTE
-try {
-  app.use('/api/orchestration/runtime', require('./routes/orchestration/runtime-orchestrator'));
-  console.log('✅ SHEIKHA Runtime Orchestration mounted');
-// SHEIKHA_RUNTIME_SCHEDULER_ROUTE
-try {
-  app.use('/api/scheduler/runtime', require('./routes/scheduler/runtime-scheduler'));
-  console.log('✅ SHEIKHA Runtime Scheduler mounted');
-// SHEIKHA_UNIFIED_RUNTIME_FABRIC_ROUTE
-try {
-  app.use('/api/fabric/unified-runtime', require('./routes/fabric/unified-runtime-fabric'));
-  console.log('✅ SHEIKHA Unified Runtime Fabric mounted');
-// SHEIKHA_RUNTIME_RESOURCE_ROUTE
-try {
-  app.use('/api/resources/runtime', require('./routes/resources/runtime-resources'));
-
-  console.log(
-  );
-// SHEIKHA_DATACENTER_SUPERCOMPUTE_ROUTE
-try {
-  app.use('/api/supercompute/datacenter', require('./routes/supercompute/datacenter-supercompute'));
-  console.log('✅ SHEIKHA Datacenter Supercompute Fabric mounted');
-// SHEIKHA_DISTRIBUTED_CLUSTER_ROUTE
-try {
-  app.use('/api/distributed/runtime', require('./routes/distributed/runtime-distributed-cluster'));
-
-  console.log(
-  );
-// SHEIKHA_RUNTIME_CONTROL_PLANE_ROUTE
-try {
-  app.use('/api/control-plane/runtime', require('./routes/control-plane/runtime-control-plane'));
-
-  console.log(
-  );
-// SHEIKHA_RUNTIME_HEALTH_ROUTE
-try {
-  app.use('/api/health/runtime', require('./routes/health/runtime-health'));
-
-  console.log(
-  );
-// SHEIKHA_ISLAMIC_ROOT_GOVERNANCE_ROUTE
-try {
-  app.use('/api/root/islamic-governance', require('./routes/root/islamic-governance'));
-  console.log('✅ SHEIKHA Islamic Root Governance mounted');
-// SHEIKHA_SUPREME_ISLAMIC_GOVERNANCE_ROUTE
-try {
-  app.use('/api/root/supreme-islamic-governance', require('./routes/root/supreme-islamic-governance'));
-  console.log('✅ SHEIKHA Supreme Islamic Governance mounted');
-// SHEIKHA_ROOT_SYSTEMS_ROUTE
-try {
-  app.use('/api/root/systems', require('./routes/root/systems/root-systems'));
-  console.log('✅ SHEIKHA Root Systems Fabric mounted');
-// SHEIKHA_ROOT_CIVILIZATION_GRAPH_ROUTE
-try {
-  app.use('/api/root/civilization-graph', require('./routes/root/civilization/root-civilization-graph'));
-  console.log('✅ SHEIKHA Root Civilization Graph mounted');
-const sheikhaRuntimeRoutes =
-require('./routes/runtime/sheikha-runtime-routes');
-
-app.use('/api/runtime', sheikhaRuntimeRoutes);
-
-
-// SHEIKHA_SQLSERVER_QUERY_GATEWAY
-try {
-  app.use('/api/database/sqlserver', require('./routes/database/sqlserver-query.routes'));
-  console.log('✅ SHEIKHA SQL Query Gateway mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA SQL Query Gateway failed:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_DATA_FABRIC_STATUS
-try {
-  app.use('/api/data-fabric', require('./routes/data-fabric/status.routes'));
-  console.log('✅ SHEIKHA Data Fabric Status mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Data Fabric Status failed:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_NEURAL_CLUSTER_STATUS
-try {
-  app.use(
-    '/api/neural-cluster',
-    require('./routes/neural-cluster/status.routes')
-  );
-
-  console.log('✅ SHEIKHA Neural Cluster mounted');
-
-} catch (error) {
-
-  console.warn(
-    '⚠️ SHEIKHA Neural Cluster failed:',
-    error.message
-  );
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_UNIFIED_DATA_HEALTH
-try {
-  app.use('/api/data-fabric', require('./routes/data-fabric/unified-health.routes'));
-  console.log('✅ SHEIKHA Unified Data Health mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Unified Data Health failed:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_POSTGRESQL_RUNTIME_CORE
-try {
-  app.use('/api/data-fabric/postgresql', require('./routes/data-fabric/postgresql/status.routes'));
-  console.log('✅ SHEIKHA PostgreSQL Runtime Core mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA PostgreSQL Runtime Core failed:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_REDIS_NEURAL_CACHE
-try {
-  app.use(
-    '/api/data-fabric/redis',
-    require('./routes/data-fabric/redis/status.routes')
-  );
-
-  console.log('✅ SHEIKHA Redis Neural Cache mounted');
-} catch (error) {
-  console.warn(
-    '⚠️ SHEIKHA Redis Neural Cache failed:',
-    error.message
-  );
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_MONGODB_DOCUMENT_FABRIC
-try {
-  app.use('/api/data-fabric/mongodb', require('./routes/data-fabric/mongodb/status.routes'));
-  console.log('✅ SHEIKHA MongoDB Document Fabric mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA MongoDB Document Fabric failed:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_UNIFIED_HEALTH_PLATFORM
-try {
-  app.use(
-    '/api/data-fabric',
-    require('./routes/data-fabric/unified-health.routes')
-  );
-
-  console.log('✅ SHEIKHA Unified Health Platform mounted');
-} catch (error) {
-  console.warn(
-    '⚠️ SHEIKHA Unified Health Platform failed:',
-    error.message
-  );
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_DYNAMIC_FABRIC_BOOTSTRAP
-try {
-
-  const {
-    loadFabricRoutes
-  } = require('./lib/fabric-bootstrap/fabric-bootstrap-loader');
-
-  const mountedRoutes =
-    loadFabricRoutes(app, { excludedMounts: OPTIONAL_AI_STATUS_MOUNTS });
-
-  console.log(
-    '✅ SHEIKHA Dynamic Fabric Bootstrap ACTIVE',
-    mountedRoutes.length
-  );
-
-} catch (error) {
-
-  console.warn(
-    '⚠️ SHEIKHA Dynamic Fabric Bootstrap failed:',
-    error.message
-  );
-
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-app.use(
-  '/api/runtime/introspection',
-  require('./routes/runtime/introspection/routes.routes')
-);
-
-/**
- * Sheikha Protocol v1 Runtime + Universal API Integration
- */
-app.get('/api/sheikha/protocol/status', (req, res) => {
-  const result = runSheikhaProtocol({
-    actor: 'api',
-    action: 'protocol_status',
-    target: 'runtime'
-  });
-  res.json({ success: true, data: result, message: 'Sheikha Protocol active' });
-});
-
-app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
-  const result = runSheikhaProtocol(req.body || {});
-  res.status(result.decision.executable ? 200 : 403).json({
-    success: result.decision.executable,
-    data: result,
-    message: result.decision.reason
-  });
-});
-
-
-
-
-
-// SHEIKHA_COMMERCIAL_SALES_V1_BEFORE_404
-try {
-  const {
-    mountCommercialSales
-  } = require(
-    './routes/commercial-sales/' +
-    'sheikha-commercial-sales-mount-v1'
-  );
-
-  const commercialSalesMount = mountCommercialSales(
-    app,
-    {
-      dataDir:
-        process.env.SHEIKHA_COMMERCIAL_DATA_DIR
-    }
-  );
-
-  console.log(
-    '[Sheikha] Commercial sales v1 mounted',
-    {
-      apiBasePath:
-        commercialSalesMount.apiBasePath,
-      staticBasePath:
-        commercialSalesMount.staticBasePath,
-      paymentCaptureEnabled:
-        commercialSalesMount.paymentCaptureEnabled,
-      officialTaxInvoiceEnabled:
-        commercialSalesMount.officialTaxInvoiceEnabled
-    }
-  );
-} catch (commercialSalesMountError) {
-  console.error(
-    '[Sheikha] Commercial sales v1 mount failed:',
-    commercialSalesMountError.message
-  );
-
-  if (process.env.NODE_ENV === 'production') {
-    throw commercialSalesMountError;
-  }
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// SHEIKHA_INFINITE_AGENT_BEFORE_404 — local descriptors and synthetic simulation.
-const sheikhaInfiniteAgentRouter = require(
-  './routes/sheikha-infinite-agent/sheikha-infinite-agent-routes'
-);
-const sheikhaNaturalEngineeringRouter = sheikhaInfiniteAgentRouter.createNaturalRouter();
-app.use('/api/infinite-agent', sheikhaInfiniteAgentRouter);
-app.use('/api/sheikha-kernel', sheikhaInfiniteAgentRouter);
-app.use('/api/cosmic-engineering', sheikhaNaturalEngineeringRouter);
-app.use('/api/cosmic', sheikhaNaturalEngineeringRouter);
-
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
             success: false,
-
-
-error: 'not_found',
+            error: 'not_found',
             message: 'المسار غير موجود — The requested API endpoint does not exist.',
             path: req.path,
             timestamp: new Date().toISOString()
@@ -24051,23 +20245,14 @@ a:hover{transform:translateY(-2px)}
 // ═══════════════════════════════════════════════════════════════════════════════
 // ⚠️ Global Error Handler — معالج الأخطاء الآمن
 // ═══════════════════════════════════════════════════════════════════════════════
-
-// SHEIKHA_GLOBAL_IDENTITY
-app.use('/.well-known', express.static('.well-known'));
-app.use('/governance', express.static('governance'));
-
-
 app.use((err, req, res, _next) => {
     console.error('🔴 خطأ:', { message: err.message, url: req.originalUrl, method: req.method, ip: req.ip, timestamp: new Date().toISOString() });
     if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
-    const corsOriginDenied = err.message === 'CORS_ORIGIN_DENIED';
-    const statusCode = corsOriginDenied ? 403 : err.statusCode || err.status || 500;
+    const statusCode = err.statusCode || err.status || 500;
     res.status(statusCode).json({
         success: false,
-        error: corsOriginDenied ? 'cors_origin_denied' : 'internal_error',
-        message: corsOriginDenied
-            ? 'المصدر غير مصرح له بالوصول إلى هذه الواجهة.'
-            : statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
+        error: 'internal_error',
+        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
         timestamp: new Date().toISOString()
     });
 });
@@ -24118,11 +20303,11 @@ app.get('/api/mind/lexicon/search', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 let quranAIEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-quran-ai-foundations
-        const { QuranAIFoundationsEngine } = require('./lib/sheikha-quran-ai-foundations');
-    console.log('⏸️ [LAZY] sheikha-quran-ai-foundations — سيُحمّل عند الطلب');
+    const { QuranAIFoundationsEngine } = require('./lib/sheikha-quran-ai-foundations');
     quranAIEngine = new QuranAIFoundationsEngine();
     console.log(`   📖 [QuranAI] محرك الأسس القرآنية — ${Object.keys(quranAIEngine.foundations).length} مفهوم | ${quranAIEngine.humanCreation.stages.length} مرحلة خلق | يعمل بالخلفية`);
+} catch (e) { console.warn('⚠️ QuranAI:', e.message); }
+
 // ─── مساهمة سلمان أحمد بن سلمان الراجح — علمياً لله سبحانه ───
 const salmanContribution = {
     بسم_الله: 'بسم الله الرحمن الرحيم',
@@ -24252,35 +20437,29 @@ app.get('/api/quran-ai/islamic-logic', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 let smartMarketEngine = null;
 try {
-    if (process.env.SHEIKHA_EAGER_SMART_MARKET === '1') {
-        smartMarketEngine = require('./lib/sheikha-smart-market-engine');
-    }
-    if (smartMarketEngine && typeof smartMarketEngine.registerAPIs === 'function') {
-        smartMarketEngine.registerAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
-        console.log('✅ [SmartMarket] نظام السوق الرقمي الذكي — 7 أنظمة متكاملة');
-    } else {
-        console.log('⏸️ [LAZY] sheikha-smart-market-engine — سيُحمّل عند الطلب');
-    }
+    smartMarketEngine = require('./lib/sheikha-smart-market-engine');
+    smartMarketEngine.registerAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
+    console.log('✅ [SmartMarket] نظام السوق الرقمي الذكي — 7 أنظمة متكاملة');
+} catch (e) { console.warn('⚠️ SmartMarket:', e.message); }
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const HOST = process.env.HOST || (process.env.K_SERVICE ? '0.0.0.0' : '127.0.0.1');
-const MAX_PORT_FALLBACK_ATTEMPTS = 10;
-const REQUESTED_PORT = Number(PORT) || 8080;
-
-function onServerStarted(activePort) {
-    addSystemLog('success', 'Server', `Server started on port ${activePort}`);
+const server = app.listen(PORT, HOST, () => {
+    console.log(`SHEIKHA Global Runtime Platform listening on http://${HOST}:${PORT}`);
+    addSystemLog('success', 'Server', `SHEIKHA Global Runtime Platform started on http://${HOST}:${PORT}`);
 
     // ═══ تفعيل محرك الأتمتة v2.0 — تسجيل APIs + بدء الجدولة ═══
     if (automationEngine) {
         try {
             automationEngine.registerRoutes(app);
-            automationEngine.startScheduler();
-            console.log(`⚙️ Automation Engine v2.0 — الجدولة فعّالة | ${automationEngine.kpis.cronJobsActive} مهمة مجدولة | n8n bridge: مُفعَّل`);
+            if (process.env.SHEIKHA_ENABLE_CRON === 'true') automationEngine.startScheduler();
+            console.log('[Sheikha] Automation routes loaded; scheduling requires SHEIKHA_ENABLE_CRON=true');
         } catch (e) {
             console.log('⚠️ خطأ في تفعيل الأتمتة:', e.message);
-} catch (e) { console.error('[SHEIKHA V44 GOVERNED] BOUND_BY_QURAN_SUNNAH:', e.message); }
+        }
+    }
 
     // ═══ تسجيل مسارات منظومة التطوير ═══
     if (devPlatformEngine) {
@@ -24289,39 +20468,15 @@ function onServerStarted(activePort) {
             console.log(`🛠️ Dev Platform v1.0 — SDK: ${devPlatformEngine.sdk.modules.length} وحدة | MCP: ${devPlatformEngine.mcp.tools.length} أداة | IDE: ${devPlatformEngine.ide.supportedIDEs.length} بيئة`);
         } catch (e) {
             console.log('⚠️ خطأ في تفعيل منظومة التطوير:', e.message);
-} catch (e) { console.error('[SHEIKHA V44 GOVERNED] BOUND_BY_QURAN_SUNNAH:', e.message); }
+        }
+    }
 
     console.log(`
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
-║                           Sheikha Metals & Scrap Market - Main Portal                                              ║
-╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║   🌐 http://localhost:${activePort}                                                                                     ║
-║   ⚙️  محرك الأتمتة v2.0 — أقوى من n8n — مُفعَّل                                                                    ║
-║   🔗 تكامل n8n المؤسسي: /api/automation/n8n/webhook                                                               ║
-║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+SHEIKHA Global Runtime Platform
+منصة شيخة التشغيلية العالمية الموحّدة للصناعة والتجارة وسلاسل الإمداد والتدوير والمدن الذكية
+SHEIKHA UGIT-RP | http://${HOST}:${PORT}
 `);
-let server;
-function startServerWithFallback(port, attempt = 0) {
-// SHEIKHA V43.98 INTEGRATION - NO CONFLICT
-try {
-  const mindsRoutes = require('./routes/minds');
-  app.use('/api/minds', mindsRoutes);
-  console.log('✅ SHEIKHA V43.98 MINDS ACTIVE');
-    server = app.listen(port, HOST, () => {
-        onServerStarted(port);
-    });
-
-    server.on('error', (err) => {
-        if (err && err.code === 'EADDRINUSE' && attempt < MAX_PORT_FALLBACK_ATTEMPTS) {
-            const nextPort = port + 1;
-            console.warn(`⚠️ المنفذ ${port} مستخدم — جارٍ المحاولة على ${nextPort}`);
-            return startServerWithFallback(nextPort, attempt + 1);
-        console.error('❌ تعذّر تشغيل الخادم:', err && err.message ? err.message : err);
-        process.exit(1);
-    });
-startServerWithFallback(REQUESTED_PORT);
+});
 
 // WebSocket
 const wss = new WebSocket.Server({ server });
@@ -24336,283 +20491,22 @@ wss.on('connection', (ws) => {
 function broadcastPrices() {
     const data = JSON.stringify({ type: 'priceUpdate', prices: LIVE_PRICES, timestamp: new Date().toISOString() });
     clients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-// ─────────────────────────────────────────────────────────────
-// Sheikha Sovereign Union Federation API
-// ─────────────────────────────────────────────────────────────
-const getSovereignFederation = () => optionalRequire('./runtime/sheikha-sovereign-union-federation/v1/sheikha-sovereign-union-federation-v1') || {};
-
-app.get('/api/sheikha/sovereign-union/status', (_req, res) => {
-    const sovereignFederation = getSovereignFederation();
-    return res.json({
-        success: true,
-        data: typeof sovereignFederation.getStatus === 'function' ? sovereignFederation.getStatus() : { status: 'fallback', system: 'SOVEREIGN_FEDERATION' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha/sovereign-union/compatibility-matrix', (_req, res) => {
-    const sovereignFederation = getSovereignFederation();
-    return res.json({
-        success: true,
-        data: typeof sovereignFederation.getCompatibilityMatrix === 'function' ? sovereignFederation.getCompatibilityMatrix() : { status: 'fallback' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha/sovereign-union/federated-consensus', (_req, res) => {
-    const sovereignFederation = getSovereignFederation();
-    return res.json({
-        success: true,
-        data: typeof sovereignFederation.getFederatedConsensus === 'function' ? sovereignFederation.getFederatedConsensus() : { status: 'fallback' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha/sovereign-union/aerospace-integration', (_req, res) => {
-    const sovereignFederation = getSovereignFederation();
-    return res.json({
-        success: true,
-        data: typeof sovereignFederation.getAerospaceIntegration === 'function' ? sovereignFederation.getAerospaceIntegration() : { status: 'fallback' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/sheikha/sovereign-union/supercomputing', (_req, res) => {
-    const sovereignFederation = getSovereignFederation();
-    return res.json({
-        success: true,
-        data: typeof sovereignFederation.getSupercomputingIntegration === 'function' ? sovereignFederation.getSupercomputingIntegration() : { status: 'fallback' },
-        timestamp: new Date().toISOString()
-    });
-});
-
-// ═══════════════════════════════════════════════════════════════
-// 🌍 SHEIKHA UNIVERSAL PROGRAMMING LANGUAGE ENDPOINTS
-// لغة شيخة البرمجية الكونية - النقاط النهائية
-// ═══════════════════════════════════════════════════════════════
-
-const getSheikhaLanguageCompiler = () => {
-    try {
-        return require('./runtime/sheikha-programming-language-universal/v1/sheikha-universal-compiler');
-    } catch (e) {
-        return null;
-    }
-};
-
-const getSheikhaLanguageGovernance = () => {
-    try {
-        return require('./runtime/sheikha-programming-language-universal/v1/sheikha-language-governance');
-    } catch (e) {
-        return null;
-    }
-};
-
-// GET /api/sheikha/language/status - Get Language System Status
-app.get('/api/sheikha/language/status', (_req, res) => {
-    const compiler = getSheikhaLanguageCompiler();
-    
-    if (!compiler) {
-        return res.status(503).json({
-            success: false,
-            error: 'Language compiler not available',
-            timestamp: new Date().toISOString()
-        });
-    }
-
-    return res.json({
-        success: true,
-        system: 'SHEIKHA_UNIVERSAL_PROGRAMMING_LANGUAGE_V1',
-        status: 'ACTIVE_GLOBAL_GOVERNANCE',
-        data: compiler.getStatus ? compiler.getStatus() : {
-            status: 'ACTIVE',
-            version: '1.0.0'
-        },
-        timestamp: new Date().toISOString()
-    });
-});
-
-// POST /api/sheikha/language/compile - Compile Sheikha Code
-app.post('/api/sheikha/language/compile', (req, res) => {
-    const compiler = getSheikhaLanguageCompiler();
-    
-    if (!compiler) {
-        return res.status(503).json({ error: 'Compiler not available' });
-    }
-
-    const { code, target_language = 'JAVASCRIPT', options = {} } = req.body;
-
-    if (!code) {
-        return res.status(400).json({ error: 'Code is required' });
-    }
-
-    const result = compiler.compile ? compiler.compile(code, target_language, options) : {
-        success: true,
-        target_language: target_language,
-        status: 'COMPILED'
-    };
-
-    return res.json({
-        success: true,
-        compilation: result,
-        timestamp: new Date().toISOString()
-    });
-});
-
-// GET /api/sheikha/language/targets - Get Supported Target Languages
-app.get('/api/sheikha/language/targets', (_req, res) => {
-    const compiler = getSheikhaLanguageCompiler();
-    
-    if (!compiler) {
-        return res.status(503).json({ error: 'Compiler not available' });
-    }
-
-    const languages = compiler.getSupportedLanguages ? compiler.getSupportedLanguages() : {
-        languages: [],
-        count: 0
-    };
-
-    return res.json({
-        success: true,
-        data: languages,
-        timestamp: new Date().toISOString()
-    });
-});
-
-// GET /api/sheikha/language/stdlib - Get Standard Library Modules
-app.get('/api/sheikha/language/stdlib', (_req, res) => {
-    const compiler = getSheikhaLanguageCompiler();
-    
-    if (!compiler) {
-        return res.status(503).json({ error: 'Compiler not available' });
-    }
-
-    const stdlib = compiler.getStdlibModules ? compiler.getStdlibModules() : {
-        modules: [],
-        count: 0
-    };
-
-    return res.json({
-        success: true,
-        data: stdlib,
-        timestamp: new Date().toISOString()
-    });
-});
-
-// POST /api/sheikha/language/governance-check - Perform Governance Check
-app.post('/api/sheikha/language/governance-check', (req, res) => {
-    const governance = getSheikhaLanguageGovernance();
-    
-    if (!governance) {
-        return res.status(503).json({ error: 'Governance engine not available' });
-    }
-
-    const { code, target_languages = [] } = req.body;
-
-    if (!code) {
-        return res.status(400).json({ error: 'Code is required' });
-    }
-
-    const check = governance.performFullCheck ? 
-        governance.performFullCheck(code, target_languages) : {
-        all_compliant: true,
-        governance_verification: 'COMPLETE'
-    };
-
-    return res.json({
-        success: true,
-        governance_check: check,
-        timestamp: new Date().toISOString()
-    });
-});
-
-// GET /api/sheikha/language/governance/status - Get Governance Layer Status
-app.get('/api/sheikha/language/governance/status', (_req, res) => {
-    const governance = getSheikhaLanguageGovernance();
-    
-    if (!governance) {
-        return res.status(503).json({ error: 'Governance engine not available' });
-    }
-
-    const status = governance.getStatus ? governance.getStatus() : {
-        system: 'SHEIKHA_LANGUAGE_GOVERNANCE_LAYER',
-        status: 'ACTIVE'
-    };
-
-    return res.json({
-        success: true,
-        data: status,
-        timestamp: new Date().toISOString()
-    });
-});
-
-// ─────────────────────────────────────────────────────────────
-// Sheikha Unified System Status API
-// ─────────────────────────────────────────────────────────────
-try {
-  const runtime = require('./core/runtime/sheikha-runtime');
-  const ai = require('./core/ai/sheikha-ai');
-  const enterprise = require('./core/enterprise/sheikha-enterprise');
-  const ide = require('./core/ide/sheikha-ide');
-  const os = require('./core/os/sheikha-os');
-
-  app.get('/api/sheikha/system/status', (_req, res) => {
-    res.json({
-      success: true,
-      name: 'Sheikha Unified System',
-      status: 'active',
-      runtime,
-      ai,
-      enterprise,
-      ide,
-      os,
-      timestamp: new Date().toISOString()
-    });
-  });
-} catch (error) {
-  console.error('Sheikha system status API failed:', error.message);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-try {} catch(e){} catch (error) {
 }
 
 let runtimeShutdownRequested = false;
-
-function shutdownRuntime(signal) {
+function shutdownRuntime() {
     if (runtimeShutdownRequested) return;
     runtimeShutdownRequested = true;
-    console.log(`[SHEIKHA_RUNTIME_SHUTDOWN_REQUESTED] signal=${signal}`);
-
-    const forcedExit = setTimeout(() => {
-        console.error('[SHEIKHA_RUNTIME_SHUTDOWN_TIMEOUT]');
-        process.exit(1);
-    }, 10000);
+    const forcedExit = setTimeout(() => process.exit(1), 10000);
     forcedExit.unref();
-
-    try {
-        clients.forEach((client) => client.terminate());
-        wss.close();
-    } catch (error) {
-        console.warn('[SHEIKHA_RUNTIME_WEBSOCKET_CLOSE_WARNING]', error.message);
-    }
-
-    const finish = (error = null) => {
+    clients.forEach(client => client.terminate());
+    wss.close();
+    server.close(error => {
         clearTimeout(forcedExit);
-        if (error) {
-            console.error('[SHEIKHA_RUNTIME_SHUTDOWN_FAILED]', error.message || error);
-            process.exit(1);
-        }
-        console.log('[SHEIKHA_RUNTIME_CLEAN_SHUTDOWN_OK]');
-        process.exit(0);
-    };
+        process.exit(error ? 1 : 0);
+    });
+}
+process.once('SIGTERM', shutdownRuntime);
+process.once('SIGINT', shutdownRuntime);
 
-    if (!server || !server.listening) {
-        finish();
-        return;
-    }
-    server.close(finish);
-} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
-process.once('SIGTERM', () => shutdownRuntime('SIGTERM'));
-process.once('SIGINT', () => shutdownRuntime('SIGINT'));
-
-// SHEIKHA V43.92 - COSMIC & INFINITE AGENT ATOMIC ROUTES
-try {
+// Fix: ensure Cloud Run PORT binding
