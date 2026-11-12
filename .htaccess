@@ -1,0 +1,16 @@
+ErrorDocument 404 /404.html
+AddType text/plain .txt
+AddType text/markdown .md
+AddType application/xml .xml
+AddType application/json .json
+
+<IfModule mod_headers.c>
+  Header always set Link "</llms.txt>; rel="llms-txt", </index.md>; rel="alternate"; type="text/markdown", </.well-known/mcp/server-card.json>; rel="mcp-server-card""
+  Header always set Access-Control-Allow-Origin "*"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_ACCEPT} text/markdown [NC]
+  RewriteRule ^$ /index.md [L]
+</IfModule>
