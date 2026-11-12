@@ -1,12 +1,11 @@
 {
   "name": "sheikha-operating-system",
-  "version": "1.0.85",
+  "version": "2.4.0",
   "description": "SHEIKHA V185 ALL COMPUTING SCIENCES — 741/5741/12464 — 12 roots 741 topics — 38 MCP C251-C288 — 10 ENGINES ∞ — BOUND_BY_QURAN_SUNNAH",
   "main": "server.js",
   "engines": {
-    "node": "^20.0.0 || ^22.0.0 || ^25.0.0",
-    "pm2": ">=6.0.0",
-    "vscode": "^1.85.0"
+    "node": ">=20.0.0 <=25.x",
+    "npm": ">=10.0.0"
   },
   "scripts": {
     "ops:ai-governor:azure-sft:preflight:v1": "node tools/training/inspect-sheikha-azure-sft-preflight-v1.js",
@@ -16,7 +15,7 @@
     "ops:production-change-admission-enforcement:v1": "node tools/activation/sheikha-production-change-admission-enforcement-plane-v1.js",
     "ops:production-change-admission:v1": "node tools/activation/sheikha-production-change-admission-gate-v1.js",
     "ops:integrative-awareness:v1": "node tools/activation/sheikha-integrative-awareness-fabric-v1.js",
-    "start": "node store-7788.js",
+    "start": "node server.js",
     "studio:start": "node sheikha-studio-server.js",
     "ops:sheikha-cloud:observability:harden:v1": "bash tools/sheikha-cloud/harden-local-observability-v1.sh",
     "start:proxy": "node scripts/proxy-8081.js",
@@ -267,7 +266,7 @@
     "copilot:dev": "node scripts/sheikha-copilot-server.js",
     "stop": "node scripts/kill-port.js",
     "restart": "npm run stop; sleep 1; npm start",
-    "dev": "node --max-old-space-size=2048 --watch server.js",
+    "dev": "node store-7788.js",
     "ops:neural:auto": "bash scripts/neural-auto.sh",
     "ops:neural:php:activate": "php scripts/activate-root-neural-php.php",
     "ops:neural:php:activate:force": "SHEIKHA_FORCE_ENABLE_ALL=true php scripts/activate-root-neural-php.php",
@@ -930,7 +929,7 @@
     "sheikha-ai-capabilities:test": "node tests/sheikha-ai-capability-fabric.test.js",
     "sheikha-ai-capabilities:status": "node scripts/sheikha-ai-capabilities-status.js",
     "build": "node build-hostinger-dist.js",
-    "preview": "node store-7788.js"
+    "preview": "node server.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
