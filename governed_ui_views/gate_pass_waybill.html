@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوليصة شحن وتصريح خروج بوابة رسمي (Official Waybill & Gate Pass) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --crimson:#e11d48; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.68; }
+    .ctrl-panel {
+      max-width:1080px; margin:0 auto 18px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:16px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+    .ctrl-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px; }
+    @media(max-width:850px){ .ctrl-grid { grid-template-columns:1fr 1fr; } }
+    input, select {
+      width:100%; padding:8px 10px; border-radius:8px; border:1px solid #475569;
+      background:#1e293b; color:#fff; font-family:inherit; font-size:0.82rem;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .sheet {
+      max-width:1080px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:32px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .doc-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    .red-seal-strip {
+      background:#fff1f2; border:2px solid var(--crimson); border-radius:10px;
+      padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    @media(max-width:750px){ .info-grid { grid-template-columns:1fr; } }
+    .info-box { background:#f8fafc; border:1px solid var(--border); border-right:4px solid var(--navy); border-radius:10px; padding:12px 14px; font-size:0.86rem; }
+    table { width:100%; border-collapse:collapse; font-size:0.86rem; margin:14px 0; }
+    th, td { border:1px solid var(--border); padding:10px 12px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    .sign-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px; }
+    .sign-card { border:1.5px dashed var(--navy); border-radius:10px; padding:12px; text-align:center; font-size:0.8rem; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .ctrl-panel { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="ctrl-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong style="font-size:1rem;color:#34d399;">🚛🔒 أداة إصدار بوليصة الشحن وتصريح خروج البوابة بالختم الأحمر (/gate-pass)</strong>
+        <div style="font-size:0.78rem;color:#cbd5e1;">عدّل بيانات السائق واللوحة والحاوية ليتحدث تصريح الخروج وبوليصة الشحن فوراً للطباعة كـ PDF</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn" onclick="window.print()">🖨️ طباعة البوليصة وتصريح الخروج (PDF)</button>
+        <a href="/ariba-package" class="btn" style="background:var(--blue);">🗂️ حزمة تقديم أرامكو</a>
+        <a href="/unified-work" class="btn" style="background:#475569;">🏢 مركز العمل الموحد</a>
+      </div>
+    </div>
+
+    <div class="ctrl-grid">
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">جهة الوصول (المصهر / المصنع المستلم):</label>
+        <input id="gp-dest" value="مصنع الخليج لدرفلة وسبائك الألمنيوم — الدمام الصناعية الثانية" oninput="updateGatePass()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">اسم السائق ورقم الهوية/الجوال:</label>
+        <input id="gp-driver" value="محمد أرشد خان | هوية: 2458910234 | 0558901234" oninput="updateGatePass()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">رقم لوحة الشاحنة ورقم الحاوية:</label>
+        <input id="gp-truck" value="أ ب ج 8421 (سعودي) | حاوية: SHKU-409821-7" oninput="updateGatePass()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">رقم الختم الأمني الأحمر (Red Seal #):</label>
+        <input id="gp-seal" value="RED-SEAL-KSA-88412" oninput="updateGatePass()" />
+      </div>
+    </div>
+  </section>
+
+  <main class="sheet">
+    <header class="doc-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.7rem;">بوليصة شحن بري وتصريح خروج بوابة رسمي (Waybill & Gate Pass)</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية، المملكة العربية السعودية | سجل تجاري: <code>2051263653</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div><b>رقم البوليصة (BOL No):</b> <code>BOL-SHK-2026-901</code></div>
+        <div><b>رقم تصريح البوابة:</b> <code>GP-SHK-2026-501</code></div>
+        <div><b>كود الوثيقة (DMS):</b> <code>SHK-LOG-BOL-009</code></div>
+      </div>
+    </header>
+
+    <div class="red-seal-strip">
+      <div>
+        <strong style="color:var(--crimson);font-size:0.95rem;">🔴 توثيق قفل الحاوية بـ «الختم الأمني الأحمر» (Red Security Seal Custody):</strong>
+        <div style="font-size:0.84rem;margin-top:2px;">الشاحنة والحاوية: <b id="v-truck">...</b></div>
+      </div>
+      <div style="background:var(--crimson);color:#fff;padding:6px 14px;border-radius:8px;font-weight:900;font-size:0.88rem;">
+        رقم الختم الأحمر: <code id="v-seal">RED-SEAL-KSA-88412</code> ✓
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box">
+        <strong>1. بيانات المُرسِل ونقطة الانطلاق (Shipper / Origin):</strong>
+        <div style="margin-top:4px;"><b>الجهة المرسلة:</b> مؤسسة سلمان أحمد بن سلمان الراجح التجارية (ساحة ومستودع شيخة المركزي — الخبر)</div>
+        <div><b>مرجع مورد أرامكو وأريبا:</b> Vendor ID: <code>S11488084</code> | ANID: <code>AN11235091112</code></div>
+      </div>
+      <div class="info-box" style="border-right-color:var(--emerald);">
+        <strong>2. بيانات المستلِم والناقل (Consignee & Carrier):</strong>
+        <div style="margin-top:4px;"><b>جهة الوصول والتفريغ:</b> <b id="v-dest">...</b></div>
+        <div><b>بيانات السائق المستلم للعهدة:</b> <span id="v-driver">...</span></div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الرمز الجمركي</th>
+          <th>وصف الشحنة والمواصفة الفنية (ISRI & XRF Grade)</th>
+          <th>مرجع المحضر والعقد</th>
+          <th>الوزن القائم (Gross)</th>
+          <th>الوزن الفارغ (Tare)</th>
+          <th>الوزن الصافي المعتمد (Net)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>7404.00.10</code></td>
+          <td><b>نحاس أحمر نقي وكابلات مفروزة (Berry Bare Bright — XRF 99.92%)</b></td>
+          <td><code>GRN-SHK-5001 | PO-201</code></td>
+          <td>38.50 طن</td>
+          <td>13.52 طن</td>
+          <td style="font-weight:900;color:var(--emerald);font-size:0.95rem;">24.98 طن متري</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box" style="margin-top:12px;">
+      <strong>إقرار استلام العهدة وسلامة الختم الأحمر:</strong>
+      <div>يقر السائق الموضحة بياناته أعلاه باستلام الشحنة والحاوية سليمة ومقفلة بالختم الأمني الأحمر المذكور أعلاه، ويتعهد بعدم فتح الحاوية أو كسر الختم الأحمر إلا في بوابة المصهر/المستلم النهائي وبحضور مسؤول الاستلام المختص.</div>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-card"><b>مسؤول المستودع والعُهد</b><br><br>التوقيع: ........................</div>
+      <div class="sign-card"><b>مراقب الجودة والختم الأحمر (QC)</b><br><br>التوقيع: ........................</div>
+      <div class="sign-card"><b>إقرار وتوقيع السائق الناقل</b><br><br>التوقيع: ........................</div>
+      <div class="sign-card"><b>ختم أمن البوابة والمستلم النهائي</b><br><br>التوقيع: ........................</div>
+    </div>
+  </main>
+
+  <script>
+    function updateGatePass() {
+      document.getElementById('v-dest').innerText = document.getElementById('gp-dest').value;
+      document.getElementById('v-driver').innerText = document.getElementById('gp-driver').value;
+      document.getElementById('v-truck').innerText = document.getElementById('gp-truck').value;
+      document.getElementById('v-seal').innerText = document.getElementById('gp-seal').value;
+    }
+    updateGatePass();
+  </script>
+</body>
+</html>

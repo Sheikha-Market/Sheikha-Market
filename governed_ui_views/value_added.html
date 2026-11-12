@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منظومة وحاسبة القيمة المضافة لشيخة (Sheikha Value-Added & ROI Engine)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f8fafc; --surface:#ffffff; --primary:#047857; --dark:#0f172a; --gold:#b45309; --blue:#0284c7; --border:#cbd5e1; --muted:#475569; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:var(--dark); line-height:1.68; user-select:none; }
+    .topbar { background:var(--dark); color:#fff; padding:16px 26px; display:flex; justify-content:space-between; align-items:center; border-bottom:4px solid #fde047; flex-wrap:wrap; gap:12px; }
+    .container { max-width:1400px; margin:22px auto; padding:0 18px; }
+    .hero { background:linear-gradient(135deg,#064e3b,#0f172a,#047857); color:#fff; border-radius:18px; padding:26px; margin-bottom:22px; border-right:6px solid #fde047; box-shadow:0 12px 28px rgba(0,0,0,0.08); }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.03); }
+    h3 { margin:0 0 14px; font-size:1.16rem; color:var(--primary); border-bottom:2px solid #f1f5f9; padding-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+    .grid-2 { display:grid; grid-template-columns:1.15fr 1fr; gap:18px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+    @media(max-width:960px){ .grid-2 { grid-template-columns:1fr; } }
+    table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+    th, td { border:1px solid #e2e8f0; padding:11px 12px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    input, select { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-family:inherit; margin-bottom:8px; font-size:0.9rem; }
+    .btn { background:var(--primary); color:#fff; border:none; padding:10px 18px; border-radius:8px; font-family:inherit; font-weight:800; cursor:pointer; text-decoration:none; display:inline-block; font-size:0.88rem; }
+    .badge { background:#dcfce7; color:#166534; padding:4px 10px; border-radius:999px; font-weight:900; font-size:0.78rem; }
+    .roi-box { background:#ecfdf5; border:2px solid #10b981; border-radius:12px; padding:16px; text-align:center; }
+    .roi-val { font-size:1.55rem; font-weight:900; color:var(--primary); margin:4px 0; }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <div class="topbar">
+    <div>
+      <strong style="font-size:1.26rem;color:#fde047;">💎📈 منظومة وحاسبة القيمة المضافة لشيخة (Sheikha Value-Added & Industrial ROI Engine)</strong>
+      <div style="font-size:0.82rem;color:#cbd5e1;">بسم الله — منظومة شيخة للتجارة والصناعة والمعادن | تعظيم قيمة الطن المعدني • توفير الوقت والتكلفة • الحماية الشرعية والنظامية والتقنية</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="/bot" target="_blank" class="btn" style="background:#fde047;color:#0f172a;">🔥 طلب المنتج الأولي الآن (250 ريال - /bot)</a>
+      <a href="/ops" class="btn" style="background:var(--gold);">⚖️ غرفة العمليات (/ops)</a>
+      <a href="/market-of-markets" class="btn" style="background:var(--blue);">🏛️ سوق الأسواق (/market-of-markets)</a>
+      <a href="/ip-protection" class="btn" style="background:#dc2626;">🔒 حماية الملكية الفكرية</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <span style="background:#fde047;color:#0f172a;padding:4px 14px;border-radius:999px;font-weight:900;font-size:0.82rem;">💎 لماذا تتعاقد المصانع والتجار والمقاولون عبر شيخة؟</span>
+      <h2 id="va-head" style="margin:10px 0 6px;font-size:1.42rem;"></h2>
+      <p id="va-stmt" style="margin:0;color:#d1fae5;font-size:0.96rem;"></p>
+    </div>
+
+    <!-- 1. حاسبة القيمة المضافة والعائد المباشر للعميل (Interactive Value-Added & ROI Calculator) -->
+    <div class="card" style="border:2px solid var(--primary);">
+      <h3><span>🧮 حاسبة القيمة المضافة والوفر المالي والصناعي المباشر عند التعامل عبر بورصة شيخة</span> <span class="badge">احسب مكسبك الفوري</span></h3>
+      <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:16px;">
+        <div>
+          <label style="font-weight:800;font-size:0.85rem;">اختر الصنف المعدني أو الصناعي:</label>
+          <select id="calc-metal" onchange="computeValueAdded()" style="margin:4px 0 0;">
+            <option value="31200|4.2">نحاس أحمر نقي وكابلات (31,200 ريال/طن)</option>
+            <option value="7550|9.15">ألمنيوم صناعي وسبائك (7,550 ريال/طن)</option>
+            <option value="1520|1.67">حديد سكراب ثقيل HMS 1&2 (1,520 ريال/طن)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-weight:800;font-size:0.85rem;">الكمية الشهرية المتداولة (بالطن):</label>
+          <input id="calc-tons" type="number" value="25" oninput="computeValueAdded()" style="margin:4px 0 0;" />
+        </div>
+        <div>
+          <label style="font-weight:800;font-size:0.85rem;">نوع العملية في شيخة:</label>
+          <select id="calc-mode" onchange="computeValueAdded()" style="margin:4px 0 0;">
+            <option value="0.12">فرز قياسي + بيع مباشر في البورصة (+12% قيمة مضافة)</option>
+            <option value="0.24">فرز + صهر وتحويل إلى سبائك نقية (+24% قيمة مضافة)</option>
+          </select>
+        </div>
+        <a href="/bot" target="_blank" class="btn" style="padding:11px 20px;">⚡ ابدأ التعاقد عبر البوت الآن</a>
+      </div>
+
+      <div class="grid-4">
+        <div class="roi-box">
+          <div style="font-size:0.82rem;color:var(--muted);font-weight:800;">إجمالي قيمة الشحنة القياسية</div>
+          <div id="r-base" class="roi-val">780,000 ريال</div>
+          <small>بتسعيرة بورصة شيخة الفورية</small>
+        </div>
+        <div class="roi-box" style="background:#fffbeb;border-color:#f59e0b;">
+          <div style="font-size:0.82rem;color:#92400e;font-weight:800;">💎 صافي القيمة المضافة والربح الإضافي</div>
+          <div id="r-gain" class="roi-val" style="color:#b45309;">+93,600 ريال</div>
+          <small>مقارنة بالبيع العشوائي غير المفروز</small>
+        </div>
+        <div class="roi-box" style="background:#f0f9ff;border-color:#0284c7;">
+          <div style="font-size:0.82rem;color:#0369a1;font-weight:800;">⏱️ الوفر في وقت التعاقد والفوترة</div>
+          <div id="r-time" class="roi-val" style="color:#0284c7;">60 ثانية فقط</div>
+          <small>بدلاً من 5 إلى 7 أيام عمل تقليدية</small>
+        </div>
+        <div class="roi-box">
+          <div style="font-size:0.82rem;color:var(--muted);font-weight:800;">🌱 القيمة البيئية الموثقة (شهادة خضراء)</div>
+          <div id="r-co2" class="roi-val">105 طن CO2</div>
+          <small>وفر كربوني موثق على SheikhaChain</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. جدول أركان القيمة المضافة الستة -->
+    <div class="card">
+      <h3><span>📊 مصفوفة القيمة المضافة الشاملة لشيخة (مقارنة السوق التقليدي vs منظومة شيخة)</span> <span class="badge">6 أبعاد تنافسية حاسمة</span></h3>
+      <table>
+        <thead>
+          <tr><th>الرمز</th><th>محور القيمة المضافة</th><th>الوضع التقليدي قبل شيخة</th><th>القيمة المضافة الفورية مع شيخة</th><th>الأثر والعائد المباشر</th></tr>
+        </thead>
+        <tbody id="tb-pillars"></tbody>
+      </table>
+    </div>
+
+    <!-- 3. القيمة المضافة المخصصة لكل شريحة عملاء -->
+    <div class="card">
+      <h3><span>🤝 القيمة المضافة المخصصة لكل شريك وعميل في المنظومة</span> <span class="badge">عائد مضمون لكل الأطراف</span></h3>
+      <div class="grid-4" id="stakeholders-grid"></div>
+    </div>
+  </div>
+
+  <div style="background:#0f172a;color:#fde047;text-align:center;padding:10px;font-size:0.8rem;font-weight:800;border-top:2px solid #b45309;">
+    🔒 جميع حقوق الملكية الفكرية ونماذج القيمة المضافة محفوظة حصرياً لمنظومة شيخة (SHK-IP-SOVEREIGN-2026-001) • يُمنع النسخ أو الإفصاح بدون إذن خطي.
+  </div>
+
+  <script>
+    function computeValueAdded() {
+      const parts = document.getElementById('calc-metal').value.split('|');
+      const price = Number(parts[0]) || 31200;
+      const co2Factor = Number(parts[1]) || 4.2;
+      const tons = Math.max(1, Number(document.getElementById('calc-tons').value) || 25);
+      const gainPct = Number(document.getElementById('calc-mode').value) || 0.12;
+
+      const baseVal = Math.round(price * tons);
+      const addedVal = Math.round(baseVal * gainPct);
+      const co2Saved = +(tons * co2Factor).toFixed(1);
+
+      document.getElementById('r-base').innerText = baseVal.toLocaleString() + ' ريال';
+      document.getElementById('r-gain').innerText = '+' + addedVal.toLocaleString() + ' ريال';
+      document.getElementById('r-co2').innerText = co2Saved.toLocaleString() + ' طن CO2';
+    }
+
+    async function loadValueAdded() {
+      const r = await fetch('/api/value-added');
+      const d = await r.json();
+      document.getElementById('va-head').innerText = d.headline || '';
+      document.getElementById('va-stmt').innerText = d.core_statement || '';
+
+      const tb = document.getElementById('tb-pillars');
+      tb.innerHTML = '';
+      (d.value_pillars || []).forEach(p => {
+        tb.innerHTML += '<tr><td><b>' + p.code + '</b></td><td><b style="color:var(--primary);">' + p.dimension + '</b></td><td style="color:#dc2626;">' + p.before_sheikha + '</td><td style="font-weight:700;">' + p.with_sheikha + '</td><td><span class="badge">' + p.quantified_gain + '</span></td></tr>';
+      });
+
+      const sg = document.getElementById('stakeholders-grid');
+      sg.innerHTML = '';
+      (d.stakeholder_value || []).forEach(s => {
+        sg.innerHTML += '<div style="background:#f8fafc;border:1px solid var(--border);border-top:4px solid var(--gold);padding:16px;border-radius:12px;"><strong style="color:var(--dark);display:block;margin-bottom:6px;font-size:0.95rem;">' + s.stakeholder + '</strong><span style="font-size:0.86rem;color:var(--muted);">' + s.benefits + '</span></div>';
+      });
+
+      computeValueAdded();
+    }
+    loadValueAdded();
+  </script>
+</body>
+</html>

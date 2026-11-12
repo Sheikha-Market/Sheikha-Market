@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محضر الاستلام الرسمي وتقرير فحص النقاوة والختم الأحمر والعهدة (GRN & QC Report) | شيخة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#d4af37; --gold-bright:#fde047; --cyan:#00f2fe; --emerald:#10b981; --crimson:#f43f5e; --bg:#02060d; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:var(--bg); color:#f8fafc; padding:20px; line-height:1.7; }
+    .bar {
+      max-width:1160px; margin:0 auto 16px; background:rgba(8,18,36,0.96); border:1.5px solid var(--gold);
+      border-radius:14px; padding:12px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:linear-gradient(135deg,var(--gold-bright),var(--gold)); color:#02060d; border:none;
+      padding:8px 16px; border-radius:8px; font-family:inherit; font-weight:900; font-size:0.8rem; cursor:pointer; text-decoration:none;
+    }
+    .sheet {
+      max-width:1160px; margin:0 auto; background:#040b16; border:2px solid var(--gold);
+      border-radius:18px; padding:26px; box-shadow:0 20px 60px rgba(0,0,0,0.85);
+    }
+    .red-seal-banner {
+      background:linear-gradient(90deg, rgba(244,63,94,0.22), rgba(15,23,42,0.95));
+      border:2px solid var(--crimson); border-radius:12px; padding:12px 16px; margin-bottom:16px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .sec-box {
+      background:rgba(2,6,13,0.92); border:1px solid rgba(212,175,55,0.35); border-right:4px solid var(--emerald);
+      border-radius:12px; padding:13px; margin-bottom:12px; font-size:0.83rem;
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.8rem; margin:10px 0; }
+    th, td { border:1px solid rgba(212,175,55,0.35); padding:8px 10px; text-align:right; }
+    th { background:#09172e; color:var(--gold-bright); }
+    .sign-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:16px; }
+    .sign-card { border:1px dashed var(--gold); border-radius:10px; padding:10px; text-align:center; font-size:0.76rem; }
+    @media print {
+      body { background:#fff; color:#000; padding:0; }
+      .bar { display:none !important; }
+      .sheet { background:#fff; color:#000; border:2px solid #000; box-shadow:none; }
+      .red-seal-banner { background:#fff1f2; color:#000; border:2px solid #e11d48; }
+      .sec-box { background:#f8fafc; color:#000; border:1px solid #333; }
+      th { background:#e2e8f0; color:#000; border:1px solid #000; }
+      td { border:1px solid #000; color:#000; }
+      .sign-card { border:1px solid #000; color:#000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div>
+      <strong style="color:var(--gold-bright);font-size:1rem;">📋🔴 محضر الاستلام المخزني وتقرير فحص الجودة والنقاوة وتوثيق الختم الأحمر والعهدة (GRN & QC Certificate)</strong>
+      <div style="font-size:0.75rem;color:#cbd5e1;">وثيقة رسمية معتمدة من مدير الجودة، مراقب QC، مسؤول المستودع، منسق الأسطول، ومسؤول السلامة</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn" onclick="window.print()">🖨️ طباعة محضر الاستلام وتقرير الجودة (PDF)</button>
+      <a href="/qc-custody" class="btn" style="background:#00f2fe;">🔬 العودة لبوابة الجودة والعهد والتدريب</a>
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;border-bottom:2px solid var(--gold);padding-bottom:14px;margin-bottom:16px;">
+      <div>
+        <h1 style="font-family:'Amiri',serif;color:var(--gold-bright);font-size:1.58rem;">﷽ • محضر استلام شحنة وتقرير فحص النقاوة وتوثيق العهدة والختم الأحمر</h1>
+        <div style="font-size:0.85rem;font-weight:800;">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top) | سجل تجاري: 2051263653</div>
+      </div>
+      <div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.78rem;">
+        <div>رقم محضر الاستلام: <b id="g-id" style="color:#34d399;">GRN-SHK-5001</b></div>
+        <div>رقم سند العهدة: <b id="g-cust" style="color:var(--gold-bright);">CUST-SHK-301</b></div>
+        <div id="g-time">...</div>
+      </div>
+    </header>
+
+    <!-- شريط توثيق الختم الأحمر للحاوية -->
+    <div class="red-seal-banner">
+      <div>
+        <strong style="color:#fb7185;font-size:0.95rem;">🔴 توثيق حالة «الختم الأمني الأحمر» للحاوية (Red Security Seal Verification):</strong>
+        <div style="font-size:0.82rem;margin-top:2px;">رقم الحاوية: <code id="g-cont" style="color:#fff;font-weight:900;">...</code> | رقم الختم الأحمر: <code id="g-seal-no" style="color:var(--gold-bright);font-weight:900;">...</code></div>
+      </div>
+      <div id="g-seal-st" style="background:#10b981;color:#02060d;padding:6px 14px;border-radius:8px;font-weight:900;font-size:0.82rem;">...</div>
+    </div>
+
+    <div class="sec-box">
+      <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">أولاً: بيانات المورد المؤهل (KYC) والصنف المعدني والرمز الجمركي</strong>
+      <div>• <b>المورد المؤهل:</b> <b id="g-sup">...</b> | <b>الصنف والرمز الجمركي:</b> <span id="g-metal">...</span> (<code id="g-hs" style="color:var(--cyan);">...</code>)</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الوزن القائم (Gross)</th>
+          <th>الوزن الفارغ (Tare)</th>
+          <th>الوزن الصافي (Scale Net)</th>
+          <th>نقاوة الفحص الطيفي (XRF)</th>
+          <th>نسبة الشوائب المخصومة</th>
+          <th>الوزن الصافي المعتمد بعد الخصم</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="g-gross">...</td>
+          <td id="g-tare">...</td>
+          <td id="g-net" style="font-weight:900;">...</td>
+          <td id="g-xrf" style="color:#34d399;font-weight:900;">...</td>
+          <td id="g-imp" style="color:#fb7185;font-weight:900;">...</td>
+          <td id="g-acc" style="color:var(--gold-bright);font-weight:900;font-size:0.95rem;">...</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sec-box">
+      <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">ثانياً: تقرير الفحص الفني والخلو من الشوائب وتوثيق تسليم العهدة</strong>
+      <div>• <b>نتيجة فحص الشوائب والسلامة:</b> <span id="g-notes">...</span><br>
+      • <b>بيان العهدة المسلمة والموثقة:</b> <b id="g-items" style="color:#34d399;">...</b></div>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-card"><b>منظم ومدير الجودة (QC/QA)</b><br><span id="s-qc" style="color:#34d399;">...</span></div>
+      <div class="sign-card"><b>مسؤول المستودع والعهد</b><br><span id="s-wh" style="color:var(--gold-bright);">...</span></div>
+      <div class="sign-card"><b>مراقب الأسطول والختم الأحمر</b><br><span style="color:var(--cyan);">تمت المطابقة والتوثيق ✓</span></div>
+      <div class="sign-card"><b>مسؤول السلامة (HSE)</b><br><span id="s-hse" style="color:#34d399;">...</span></div>
+    </div>
+
+    <footer style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(212,175,55,0.4);padding-top:12px;margin-top:16px;font-size:0.75rem;">
+      <div><b>الاعتماد السيادي:</b> منظومة شيخة للجودة والمستودعات (Sheikha.top)</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:var(--gold-bright);">SHA256 SEAL: <span id="g-sha">0x...</span></div>
+    </footer>
+  </main>
+
+  <script>
+    async function loadGrnDoc() {
+      const r = await fetch('/api/qc-custody-state');
+      const d = await r.json();
+      const g = (d.custody_and_grn_records || [])[0];
+      if (!g) return;
+      document.getElementById('g-id').innerText = g.grn_id;
+      document.getElementById('g-cust').innerText = g.custody_id;
+      document.getElementById('g-time').innerText = g.timestamp;
+      document.getElementById('g-cont').innerText = g.container_no;
+      document.getElementById('g-seal-no').innerText = g.red_seal_number;
+      document.getElementById('g-seal-st').innerText = g.red_seal_status;
+      document.getElementById('g-sup').innerText = g.supplier_name;
+      document.getElementById('g-metal').innerText = g.metal_desc;
+      document.getElementById('g-hs').innerText = 'HS: ' + g.hs_code;
+      document.getElementById('g-gross').innerText = g.scale_gross_tons + ' طن';
+      document.getElementById('g-tare').innerText = g.scale_tare_tons + ' طن';
+      document.getElementById('g-net').innerText = g.scale_net_tons + ' طن';
+      document.getElementById('g-xrf').innerText = g.xrf_purity_pct + '%';
+      document.getElementById('g-imp').innerText = g.impurity_pct + '%';
+      document.getElementById('g-acc').innerText = g.net_accepted_tons + ' طن صافي معتمد';
+      document.getElementById('g-notes').innerText = g.impurity_notes;
+      document.getElementById('g-items').innerText = g.custody_items_handed;
+      document.getElementById('s-qc').innerText = g.qc_inspector_sign;
+      document.getElementById('s-wh').innerText = g.warehouse_officer_sign;
+      document.getElementById('s-hse').innerText = g.safety_officer_sign;
+      document.getElementById('g-sha').innerText = '0x' + g.sha256_seal;
+    }
+    loadGrnDoc();
+  </script>
+</body>
+</html>

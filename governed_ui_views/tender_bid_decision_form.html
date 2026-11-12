@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نموذج تقديم العطاءات والمناقصات ومحرك حساب الضمان البنكي (Tender Bid & Bank Guarantee) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --gold:#b45309; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.68; }
+    .ctrl-panel {
+      max-width:1080px; margin:0 auto 18px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:16px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+    .ctrl-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px; }
+    @media(max-width:850px){ .ctrl-grid { grid-template-columns:1fr 1fr; } }
+    input, select {
+      width:100%; padding:8px 10px; border-radius:8px; border:1px solid #475569;
+      background:#1e293b; color:#fff; font-family:inherit; font-size:0.82rem;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .sheet {
+      max-width:1080px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:32px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .doc-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    .ai-decision-bar {
+      background:#ecfdf5; border:2px solid var(--emerald); border-radius:10px;
+      padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .clause-box {
+      background:#f8fafc; border:1px solid var(--border); border-right:4px solid var(--navy);
+      border-radius:10px; padding:12px 16px; margin-bottom:12px; font-size:0.85rem;
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.84rem; margin:12px 0; }
+    th, td { border:1px solid var(--border); padding:9px 11px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    .sign-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px; }
+    .sign-box { border:1.5px dashed var(--navy); border-radius:10px; padding:14px; font-size:0.84rem; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .ctrl-panel { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="ctrl-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong style="font-size:1rem;color:#34d399;">🔨🧠 محرك تحليل قرار المناقصات وإصدار خطاب العطاء والضمان البنكي 5% (/tender-bid)</strong>
+        <div style="font-size:0.78rem;color:#cbd5e1;">أدخل بيانات المناقصة أو المزاد ليحسب المحرك تلقائياً قيمة الضمان البنكي الابتدائي (5%) وصافي الجدوى الاقتصادية</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn" onclick="window.print()">🖨️ طباعة وثيقة العطاء والضمان البنكي (PDF)</button>
+        <a href="/procurement-outreach" class="btn" style="background:var(--blue);">📨 مركز المراسلات والحزمة</a>
+        <a href="/unified-work" class="btn" style="background:#475569;">🏢 مركز العمل الموحد</a>
+      </div>
+    </div>
+
+    <div class="ctrl-grid">
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">الجهة الطارحة للمناقصة / المزاد:</label>
+        <input id="tb-entity" value="شركة أرامكو السعودية / إدارة مبيعات المواد الفائضة والسكراب" oninput="updateTender()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">رقم المناقصة وموضوع العطاء:</label>
+        <input id="tb-ref" value="TND-2026-994 | شراء وإخلاء دفعة كابلات نحاس وحديد فائض" oninput="updateTender()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">الكمية الإجمالية (طن) × سعر العطاء للطن (ر.س):</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <input id="tb-qty" type="number" value="100" min="1" oninput="updateTender()" />
+          <input id="tb-bid-price" type="number" value="1410" min="1" oninput="updateTender()" />
+        </div>
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">سعر البيع المتوقع للمصهر (ر.س/طن):</label>
+        <input id="tb-sell-price" type="number" value="1520" min="1" oninput="updateTender()" />
+      </div>
+    </div>
+  </section>
+
+  <main class="sheet">
+    <header class="doc-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.7rem;">بسم الله الرحمن الرحيم • نموذج تقديم عطاء مناقصة وطلب ضمان بنكي ابتدائي (5%)</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية، المملكة العربية السعودية | سجل تجاري: <code>2051263653</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div><b>رقم وثيقة العطاء:</b> <code>BID-SHK-2026-401</code></div>
+        <div><b>كود ضبط الوثيقة (DMS):</b> <code>SHK-TND-BID-012</code></div>
+        <div><b>مورد أرامكو وأريبا:</b> <code>S11488084 | AN11235091112</code></div>
+      </div>
+    </header>
+
+    <div class="ai-decision-bar">
+      <div>
+        <strong style="color:#065f46;font-size:0.92rem;">🧠 توصية محرك التحليل المالي وقواعد القرار الآلي (Decision Engine Output):</strong>
+        <div style="font-size:0.84rem;margin-top:2px;" id="v-decision-text">...</div>
+      </div>
+      <div style="background:#059669;color:#fff;padding:6px 14px;border-radius:8px;font-weight:900;font-size:0.86rem;">
+        صافي الربح التقديري للصفقة: <span id="v-profit">11,000.00 ر.س</span>
+      </div>
+    </div>
+
+    <div class="clause-box">
+      <strong>أولاً: بيانات الجهة المستفيدة وموضوع المناقصة / المزاد</strong>
+      <div><b>الجهة الموجه لها العطاء:</b> السادة / <b id="v-entity">...</b> المحترمين</div>
+      <div><b>مرجع وموضوع المناقصة:</b> <code id="v-ref" style="font-weight:800;">...</code></div>
+    </div>
+
+    <div class="clause-box">
+      <strong>ثانياً: الجدول المالي للعطاء وحساب خطاب الضمان البنكي الابتدائي (5% Bid Bond)</strong>
+      <table>
+        <thead>
+          <tr>
+            <th>إجمالي الكمية (طن متري)</th>
+            <th>سعر العطاء للطن (ر.س)</th>
+            <th>قيمة العطاء قبل الضريبة</th>
+            <th>ضريبة القيمة المضافة (15%)</th>
+            <th>إجمالي قيمة العطاء شامل الضريبة</th>
+            <th>قيمة الضمان البنكي الابتدائي (5%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="v-qty" style="font-weight:800;">100 طن</td>
+            <td id="v-bprice">1,410.00 ر.س</td>
+            <td id="v-net">141,000.00 ر.س</td>
+            <td id="v-vat">21,150.00 ر.س</td>
+            <td id="v-grand" style="font-weight:900;color:var(--blue);">162,150.00 ر.س</td>
+            <td id="v-bond" style="font-weight:900;color:var(--emerald);background:#ecfdf5;">8,107.50 ر.س</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="clause-box">
+      <strong>ثالثاً: الالتزامات الفنية واللوجستية ومعايير السلامة (HSE & Red Seal Compliance)</strong>
+      <div>1. تلتزم المؤسسة بتوفير الأسطول، الحاويات الصناعية (20/40 ياردة)، ومعدات التحميل والرفع لإخلاء المواد خلال المهلة النظامية المحددة في كراسة الشروط.</div>
+      <div>2. تطبيق كامل ضوابط السلامة المهنية والبيئية (HSE Policy — ISO 45001)، والتوزين الإلكتروني المعتمد، وتوثيق الحاويات بـ <b>الختم الأمني الأحمر (Red Security Seal)</b>.</div>
+      <div>3. يصدر خطاب الضمان البنكي الابتدائي (5%) والسداد النهائي عبر حساب المؤسسة الرسمي لدى <b>مصرف الإنماء — آيبان: <code>SA4005000068206162118000</code></b>.</div>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-box">
+        <strong>مقدّم العطاء (المورد المعتمد):</strong>
+        <div style="margin-top:4px;">مؤسسة سلمان أحمد بن سلمان الراجح التجارية</div>
+        <div style="margin-top:4px;">المدير العام: سلمان أحمد بن سلمان الراجح</div>
+        <div style="margin-top:16px;">التوقيع والختم الرسمي: .........................................</div>
+      </div>
+      <div class="sign-box">
+        <strong>بيانات الاعتماد البنكي والضريبي:</strong>
+        <div style="margin-top:4px;">السجل التجاري: <code>2051263653</code> | الرقم الضريبي: <code>310000000000003</code></div>
+        <div style="margin-top:4px;">رقم مورد أرامكو: <code>S11488084</code> | شبكة أريبا: <code>AN11235091112</code></div>
+        <div style="margin-top:16px;">مصرف الإنماء: <code>SA4005000068206162118000</code></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function updateTender() {
+      const entity = document.getElementById('tb-entity').value.trim() || 'الجهة الطارحة للمناقصة';
+      const ref = document.getElementById('tb-ref').value.trim() || 'TND-2026';
+      const qty = Math.max(1, Number(document.getElementById('tb-qty').value || 1));
+      const bidPrice = Math.max(0, Number(document.getElementById('tb-bid-price').value || 0));
+      const sellPrice = Math.max(0, Number(document.getElementById('tb-sell-price').value || 0));
+
+      const net = qty * bidPrice;
+      const vat = net * 0.15;
+      const grand = net + vat;
+      const bond5 = grand * 0.05;
+      const marginPerTon = sellPrice - bidPrice;
+      const totalProfit = marginPerTon * qty;
+
+      document.getElementById('v-entity').innerText = entity;
+      document.getElementById('v-ref').innerText = ref;
+      document.getElementById('v-qty').innerText = qty.toLocaleString() + ' طن';
+      document.getElementById('v-bprice').innerText = bidPrice.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('v-net').innerText = net.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('v-vat').innerText = vat.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('v-grand').innerText = grand.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('v-bond').innerText = bond5.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('v-profit').innerText = totalProfit.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+
+      const decEl = document.getElementById('v-decision-text');
+      if (marginPerTon >= 80) {
+        decEl.innerText = '✅ عطاء مجدٍ اقتصادياً (هامش الطن +' + marginPerTon.toLocaleString() + ' ر.س) — يوصى بإصدار الضمان البنكي الابتدائي 5% وتقديم العرض.';
+      } else {
+        decEl.innerText = '⚠️ تنبيه: هامش الربح للطن (' + marginPerTon.toLocaleString() + ' ر.س) منخفض مقارنة بتكاليف النقل والقص — يفضل مراجعة سعر العطاء.';
+      }
+    }
+    updateTender();
+  </script>
+</body>
+</html>

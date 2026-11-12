@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز تحكم منظومة وتطبيق شيخة (Sheikha Workstation & App Layer) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --gold:#b45309; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.66; }
+    .no-print {
+      max-width:1180px; margin:0 auto 16px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:16px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .btn.blue { background:var(--blue); }
+    .sheet {
+      max-width:1180px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:30px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .doc-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    .layer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:18px; }
+    @media(max-width:900px){ .layer-grid { grid-template-columns:1fr; } }
+    .layer-card {
+      background:#f8fafc; border:1px solid var(--border); border-right:5px solid var(--emerald);
+      border-radius:10px; padding:14px; font-size:0.84rem;
+    }
+    .layer-card strong { font-size:0.95rem; color:var(--navy); display:block; margin-bottom:4px; }
+    table { width:100%; border-collapse:collapse; font-size:0.83rem; margin:12px 0; }
+    th, td { border:1px solid var(--border); padding:9px 10px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    .ok-badge { background:#ecfdf5; color:#065f46; padding:3px 9px; border-radius:6px; font-weight:900; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .no-print { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <div>
+      <strong style="font-size:1rem;color:#34d399;">🖥️⚙️ مركز تحكم بيئة وتطبيق شيخة (Sheikha Workstation, App & Bots Layer — /sheikha-os)</strong>
+      <div style="font-size:0.78rem;color:#cbd5e1;">توثيق الطبقات الست: البير ميتال، بيئة النظام، ضبط النواة، تطبيق سطح المكتب، السكربتات، وخدمة المانيفست</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn" onclick="window.print()">🖨️ طباعة وثيقة بنية النظام والتطبيق (PDF)</button>
+      <a href="/deal-room" class="btn blue">💼 غرفة إغلاق الصفقة</a>
+      <a href="/master-index" class="btn" style="background:#475569;">🏛️ الفهرس التنفيذي الشامل</a>
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.7rem;">مواصفة بيئة تشغيل وتطبيق وسكربتات شيخة (Sheikha Workstation & Application Stack)</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية | سجل تجاري: <code>2051263653</code> | رقم مورد أرامكو: <code>S11488084</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div><b>كود ضبط الوثيقة (DMS):</b> <code>SHK-SYS-APP-018</code></div>
+        <div><b>أمر الطرفية الموحد:</b> <code>sheikha-os</code></div>
+        <div><b>تطبيق سطح المكتب:</b> <code>sheikha-enterprise.desktop</code></div>
+      </div>
+    </header>
+
+    <div class="layer-grid">
+      <div class="layer-card">
+        <strong>1️⃣ البير ميتال والعتاد (Hardware Layer)</strong>
+        <div>يعمل مباشرة على عتاد محطة العمل <code>pop-os (x86_64)</code> بعدد <b>22 أنوية معالجة</b> مخصصة لخدمة قواعد البيانات وتوليد الوثائق الفوري.</div>
+      </div>
+      <div class="layer-card" style="border-right-color:var(--blue);">
+        <strong>2️⃣ بيئة النظام والنواة (OS & Kernel Layer)</strong>
+        <div>يعمل فوق نواة لينكس المستقرة <code>Linux 7.2.15-76070215-generic</code> مع غلاف أوامر <code>sheikha-os</code> لإدارة النظام بضغطة زر.</div>
+      </div>
+      <div class="layer-card" style="border-right-color:var(--gold);">
+        <strong>3️⃣ التطبيق والروبوتات والمانيفست (App & Bots)</strong>
+        <div>تطبيق سطح مكتب مستقل (App Mode) + 4 روبوتات برمجية (Scripts) + خدمة <code>sheikha-system.service</code> للتشغيل التلقائي.</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الطبقة الهندسية</th>
+          <th>المكون البرمجي المثبت على الجهاز</th>
+          <th>أمر التشغيل أو المسار الفعلي</th>
+          <th>الوظيفة العملية للمؤسسة</th>
+          <th>الحالة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1. العتاد (Bare-Metal)</b></td>
+          <td>محطة العمل الفعلية (x86_64 / 22 Cores)</td>
+          <td><code>Hardware Direct Execution</code></td>
+          <td>معالجة محلية فورية دون تأخير سحابي وحفظ كامل للبيانات</td>
+          <td><span class="ok-badge">مفعّل 100%</span></td>
+        </tr>
+        <tr>
+          <td><b>2. طبقة النظام (OS CLI)</b></td>
+          <td>أمر التحكم المركزي بنظام شيخة</td>
+          <td><code>~/.local/bin/sheikha-os</code></td>
+          <td>تشغيل التطبيق والصفقات وفحص السكربتات بأمر واحد في الطرفية</td>
+          <td><span class="ok-badge">مفعّل 100%</span></td>
+        </tr>
+        <tr>
+          <td><b>3. النواة (Kernel Layer)</b></td>
+          <td>نواة لينكس القياسية (7.2.15-76070215-generic)</td>
+          <td><code>TCP Port 7788 Socket</code></td>
+          <td>إدارة اتصالات الخادم المحلي والذاكرة والملفات بأعلى ثبات</td>
+          <td><span class="ok-badge">مفعّل 100%</span></td>
+        </tr>
+        <tr>
+          <td><b>4. السوفتوير والتطبيق (App)</b></td>
+          <td>تطبيق سطح مكتب شيخة المستقل</td>
+          <td><code>sheikha-enterprise.desktop</code></td>
+          <td>فتح المنظومة في نافذة تطبيق مخصصة لإصدار العقود والفواتير</td>
+          <td><span class="ok-badge">مفعّل 100%</span></td>
+        </tr>
+        <tr>
+          <td><b>5. الروبوتات (Scripts)</b></td>
+          <td>سكربتات الأتمتة وحساب الصفقات والـ PDF</td>
+          <td><code>sheikha_watchdog_bot.sh</code></td>
+          <td>توليد 18 وثيقة PDF، حساب ضريبة ZATCA، ومراقبة الخادم آلياً</td>
+          <td><span class="ok-badge">مفعّل 100%</span></td>
+        </tr>
+        <tr>
+          <td><b>6. المانيفست والسيستم</b></td>
+          <td>خدمة التشغيل التلقائي المستمر</td>
+          <td><code>sheikha-system.service</code></td>
+          <td>ضمان عمل المنظومة تلقائياً في الخلفية وإعادة التشغيل الذاتي</td>
+          <td><span class="ok-badge">مفعّل 100%</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

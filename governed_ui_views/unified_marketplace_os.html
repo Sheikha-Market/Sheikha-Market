@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="shk-root">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منظومة شيخة: السوق المفتوح والمصنع المظلم الذاتي | SHEIKHA® Open Market & Lights-Out Dark Factory V50000</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #02050b;
+      --panel-bg: rgba(7, 15, 30, 0.90);
+      --card-bg: rgba(4, 9, 19, 0.95);
+      --gold: #d4af37;
+      --gold-bright: #fde047;
+      --cyan: #00f2fe;
+      --emerald: #10b981;
+      --crimson: #f43f5e;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(212, 175, 55, 0.36);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg-obsidian);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.58;
+    }
+
+    .shell { max-width: 1580px; margin: 0 auto; padding: 10px 16px 36px; }
+
+    /* 1. شريط البورصة والملكية الفكرية */
+    .ticker-bar {
+      background: linear-gradient(90deg, #010307, #09172e, #010307);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 6px 14px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+      font-size: 0.74rem; margin-bottom: 10px;
+    }
+    .ticker-bar code { color: var(--gold-bright); font-family: 'JetBrains Mono', monospace; font-weight: 800; }
+    .badge-ip {
+      background: rgba(212, 175, 55, 0.16); border: 1px solid var(--gold); color: var(--gold-bright);
+      padding: 2px 10px; border-radius: 999px; font-weight: 800; font-size: 0.69rem;
+    }
+
+    /* 2. الترويسة السيادية */
+    .top-header {
+      background: var(--panel-bg); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-bottom: 2px solid var(--cyan);
+      border-radius: 16px; padding: 12px 18px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+      margin-bottom: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.75);
+    }
+    .emblem {
+      width: 50px; height: 50px; border-radius: 13px;
+      background: radial-gradient(circle, var(--gold-bright), var(--gold));
+      color: #02050b; font-family: 'Amiri', serif; font-size: 1.8rem; font-weight: 700;
+      display: grid; place-items: center; border: 2px solid #fff;
+      box-shadow: 0 0 22px rgba(253, 224, 71, 0.5);
+    }
+    .main-h1 {
+      font-size: 1.2rem; font-weight: 900;
+      background: linear-gradient(90deg, #fff, var(--gold-bright), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* 3. شريط قياسات المصنع المظلم الحي (Lights-Out Telemetry Strip) */
+    .telemetry-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 14px;
+    }
+    @media(max-width: 1150px) { .telemetry-grid { grid-template-columns: repeat(3, 1fr); } }
+    .tel-box {
+      background: var(--card-bg); border: 1px solid rgba(0, 242, 254, 0.32);
+      border-right: 4px solid var(--emerald); border-radius: 11px; padding: 8px 11px;
+    }
+    .tel-box small { font-size: 0.68rem; color: var(--muted); display: block; }
+    .tel-box strong { font-family: 'JetBrains Mono', sans-serif; font-size: 1.08rem; color: var(--gold-bright); font-weight: 900; }
+    .tel-box span { font-size: 0.66rem; color: var(--cyan); display: block; }
+
+    /* 4. شاشة محاكاة المصنع المظلم الحية (Interactive Dark Factory Floor Canvas) */
+    .dark-floor-panel {
+      background: var(--panel-bg); border: 1.5px solid rgba(0, 242, 254, 0.45);
+      border-radius: 18px; padding: 14px; margin-bottom: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(0, 242, 254, 0.05);
+    }
+    #darkFactoryCanvas {
+      width: 100%; height: 220px; background: #010308;
+      border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 12px; display: block; margin: 8px 0;
+    }
+    .cells-strip {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 8px;
+    }
+    @media(max-width: 1050px) { .cells-strip { grid-template-columns: 1fr; } }
+    .cell-card {
+      background: rgba(2, 7, 16, 0.95); border: 1px solid rgba(16, 185, 129, 0.4);
+      border-top: 2px solid var(--cyan); border-radius: 10px; padding: 8px 10px; font-size: 0.72rem;
+    }
+    .cell-card strong { color: var(--gold-bright); display: block; font-size: 0.76rem; }
+
+    /* 5. التقسيم المزدوج: (يمين: السوق المفتوح الكامل للتبضع) + (يسار: إدارة العمليات المظلمة والحاسبة الميتالورجية) */
+    .dual-workspace {
+      display: grid; grid-template-columns: 1.25fr 1fr; gap: 16px; align-items: start;
+    }
+    @media(max-width: 1150px) { .dual-workspace { grid-template-columns: 1fr; } }
+
+    .section-box {
+      background: var(--panel-bg); border: 1px solid var(--border);
+      border-top: 3px solid var(--gold-bright); border-radius: 18px; padding: 16px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.75);
+    }
+    .sec-head {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25); padding-bottom: 8px; margin-bottom: 12px;
+    }
+    .sec-head h2 { font-size: 1rem; font-weight: 900; color: var(--gold-bright); }
+
+    .market-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 10px;
+    }
+    .mkt-item {
+      background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 13px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;
+      transition: 0.2s;
+    }
+    .mkt-item:hover { border-color: var(--cyan); box-shadow: 0 0 20px rgba(0, 242, 254, 0.2); }
+    .hs-tag {
+      background: rgba(0, 242, 254, 0.12); color: var(--cyan); border: 1px solid rgba(0, 242, 254, 0.35);
+      padding: 2px 7px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 800;
+    }
+
+    .shk-btn {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+      color: #02050b; border: none; padding: 8px 13px; border-radius: 8px;
+      font-family: inherit; font-weight: 900; font-size: 0.76rem; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px; text-decoration: none;
+    }
+    .shk-btn.cyan { background: linear-gradient(135deg, var(--cyan), #0284c7); color: #010409; }
+    .shk-btn.emerald { background: linear-gradient(135deg, #34d399, #059669); color: #010906; }
+
+    input, select {
+      width: 100%; padding: 8px 10px; background: #01040a; color: #fff;
+      border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 8px;
+      font-family: inherit; font-size: 0.78rem; margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <!-- 1. شريط البورصة وحفظ الملكية الفكرية لشيخة -->
+    <div class="ticker-bar">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <span>⚡ نحاس (HS 7404.00.10): <code>31,200 SAR/MT</code></span>
+        <span>💿 علب ألمنيوم (HS 7602.00.10): <code>8,950 SAR/MT</code></span>
+        <span>🏗️ حديد ثقيل (HS 7204.49.10): <code>1,520 SAR/MT</code></span>
+        <span>🏦 تسوية مصرف الإنماء الآلية: <code>SA4005000068206162118000</code></span>
+      </div>
+      <span class="badge-ip">© ملكية فكرية وتصميم حصري لمنظومة شيخة SHEIKHA® IP — المصنع المظلم والسوق المفتوح V50000</span>
+    </div>
+
+    <!-- 2. الترويسة السيادية -->
+    <header class="top-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="emblem">ش</div>
+        <div>
+          <h1 class="main-h1">منظومة شيخة: السوق المفتوح الكامل ومحرك عمليات «المصنع المظلم» (SHEIKHA® Dark Factory & Open Exchange)</h1>
+          <div style="font-size:0.74rem;color:var(--muted);">
+            واجهة سوق مفتوح للتبضع الفوري للجمهور والمصانع • وتنفيذ خلفي ذاتي 100% كالمصنع المظلم (صفر تدخل بشري من القبان الليزري والفرز والكبس حتى فرن المصهر)
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="shk-btn emerald" onclick="triggerDarkFactoryCycle('SHK-DARK-7602A','7602.00.10',50,8950,0.94,'تشغيل فوري لدورة المصنع المظلم (50 طن ألمنيوم UBC)')">
+          🤖 إطلاق دورة مصنع مظلم فورية (Zero-Human Run)
+        </button>
+        <a href="/tax-report" class="shk-btn cyan">🧾 السجل الزكوي (ZATCA)</a>
+      </div>
+    </header>
+
+    <!-- 3. مؤشرات المصنع المظلم الحية (Lights-Out Telemetry) -->
+    <section class="telemetry-grid">
+      <div class="tel-box">
+        <small>🌑 نمط التشغيل العملياتي</small>
+        <strong style="color:#34d399;">LIGHTS-OUT 100%</strong>
+        <span>تدخل بشري: 0.0% (أتمتة كاملة)</span>
+      </div>
+      <div class="tel-box">
+        <small>⚙️ كفاءة معدات المصنع المظلم (OEE)</small>
+        <strong id="t-oee">99.4%</strong>
+        <span>12 خلية روبوتية + 18 عربة AGV</span>
+      </div>
+      <div class="tel-box">
+        <small>⚡ سرعة المعالجة والفرز الحالية</small>
+        <strong id="t-rate">68.5 MT / ساعة</strong>
+        <span>فرز XRF + قص 800T + كبس 320Bar</span>
+      </div>
+      <div class="tel-box">
+        <small>📅 الإنتاج الآلي اليومي الموثق</small>
+        <strong id="t-daily">1,644 MT / يوم</strong>
+        <span>عمل متواصل 24/7 في الظلام</span>
+      </div>
+      <div class="tel-box">
+        <small>🏆 القدرة الإنتاجية السنوية للمصنع</small>
+        <strong id="t-annual">600,060 MT / سنة</strong>
+        <span>إمداد مباشر للمصاهر وخطوط الإنتاج</span>
+      </div>
+      <div class="tel-box">
+        <small>🔋 وفر الطاقة في المصنع المظلم</small>
+        <strong style="color:#34d399;">-42% استهلاك</strong>
+        <span>صفر إضاءة وتكييف + جدولة ذكية</span>
+      </div>
+    </section>
+
+    <!-- 4. شاشة رادار وخلايا المصنع المظلم الـ 5 (Lights-Out Factory Floor Digital Twin) -->
+    <section class="dark-floor-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <strong style="color:var(--gold-bright);font-size:0.94rem;">
+          🌑🤖 التوأم الرقمي الحي لخطوط «المصنع المظلم» (SHEIKHA® Lights-Out Autonomous Factory Floor — 5 Cells):
+        </strong>
+        <span id="dark-live-status" style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#34d399;">
+          [DARK-OS]: ALL 5 ROBOTIC CELLS & 18 AGVs RUNNING IN TOTAL DARKNESS ●
+        </span>
+      </div>
+
+      <!-- لوحة الرسم الحي لحركة السيور والليزر وعربات AGV والروبوتات داخل المصنع المظلم -->
+      <canvas id="darkFactoryCanvas"></canvas>
+
+      <!-- الخلايا الـ 5 للمصنع المظلم -->
+      <div class="cells-strip" id="dark-cells-container"></div>
+    </section>
+
+    <!-- 5. المساحة المزدوجة: (يمين: السوق المفتوح الكامل للتبضع) + (يسار: الحاسبة الميتالورجية وسجل دورات المصنع المظلم) -->
+    <div class="dual-workspace">
+
+      <!-- يمين: السوق المفتوح الكامل (Open Metal Exchange) -->
+      <section class="section-box">
+        <div class="sec-head">
+          <div>
+            <h2>🛒 1. سوق شيخة المفتوح للتبضع الفوري وعقود التوريد (Open Marketplace)</h2>
+            <div style="font-size:0.73rem;color:var(--muted);">أي عملية شراء من السوق المفتوح تُوجَّه آلياً في نفس الثانية إلى خلايا المصنع المظلم للفرز والكبس والشحن للمصهر</div>
+          </div>
+          <span class="badge-ip">مربوط بـ HS Codes</span>
+        </div>
+
+        <div class="market-grid" id="open-market-grid"></div>
+      </section>
+
+      <!-- يسار: الحاسبة الميتالورجية التفاعلية + سجل التشغيل الذاتي للمصنع المظلم -->
+      <section class="section-box">
+        <div class="sec-head">
+          <h2>🧪🔥 2. الحاسبة الميتالورجية والبيئية + سجل أوامر المصنع المظلم (End-to-End Log)</h2>
+          <span style="font-family:monospace;font-size:0.7rem;color:var(--cyan);">FURNACE YIELD & BOL</span>
+        </div>
+
+        <!-- الحاسبة الميتالورجية المدمجة -->
+        <div style="background:rgba(1,5,12,0.94);border:1px solid rgba(0,242,254,0.35);border-radius:12px;padding:12px;margin-bottom:12px;">
+          <label style="font-size:0.75rem;color:var(--gold-bright);font-weight:800;display:block;margin-bottom:4px;">اختر الرمز الجمركي والصنف لحساب صافي الانصهار وتنفيذ دورة مصنع مظلم:</label>
+          <select id="df-calc-hs" onchange="updateDarkCalc()">
+            <option value="7404.00.10|نحاس أحمر نقي Berry|31200|0.98|3.80">HS 7404.00.10 — نحاس أحمر نقي (Berry) | استرداد المصهر: 98%</option>
+            <option value="7602.00.10|علب ألمنيوم مكبوسة UBC|8950|0.94|9.10" selected>HS 7602.00.10 — علب ألمنيوم مكبوسة (UBC) | استرداد المصهر: 94%</option>
+            <option value="7204.49.10|حديد ثقيل مقصوص HMS 1&2|1520|0.94|1.58">HS 7204.49.10 — حديد ثقيل مقصوص (HMS 1&2) | استرداد المصهر: 94%</option>
+            <option value="7204.21.00|فولاذ مقاوم للصدأ 304/316|5800|0.95|4.20">HS 7204.21.00 — استنلس ستيل (Sabot 304/316) | استرداد المصهر: 95%</option>
+          </select>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <input id="df-calc-tons" type="number" value="50" min="1" oninput="updateDarkCalc()" placeholder="الكمية بالطن" />
+            <input id="df-calc-buyer" value="مصنع الخليج للسبائك والدرفلة — الدمام" placeholder="اسم العميل / المصهر" />
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center;margin-bottom:8px;font-size:0.73rem;">
+            <div style="background:rgba(16,185,129,0.12);border:1px solid #10b981;border-radius:8px;padding:6px;">
+              <small style="color:#cbd5e1;display:block;">صافي المصهر</small>
+              <strong id="dc-molten" style="color:#34d399;font-family:monospace;">47.00 MT</strong>
+            </div>
+            <div style="background:rgba(0,242,254,0.1);border:1px solid #00f2fe;border-radius:8px;padding:6px;">
+              <small style="color:#cbd5e1;display:block;">الوفر الكربوني</small>
+              <strong id="dc-co2" style="color:#00f2fe;font-family:monospace;">-455.0t CO₂</strong>
+            </div>
+            <div style="background:rgba(212,175,55,0.12);border:1px solid var(--gold);border-radius:8px;padding:6px;">
+              <small style="color:#cbd5e1;display:block;">الإجمالي (شامل 15%)</small>
+              <strong id="dc-sar" style="color:var(--gold-bright);font-family:monospace;">514,625 ر.س</strong>
+            </div>
+          </div>
+
+          <button class="shk-btn" style="width:100%;padding:10px;" onclick="launchCustomDarkRun()">
+            ⚡ تفويض المصنع المظلم بتنفيذ الشحنة وإصدار البوليصة والفاتورة الزكوية آلياً
+          </button>
+        </div>
+
+        <div style="font-size:0.8rem;font-weight:900;color:var(--gold-bright);margin-bottom:6px;">
+          📡 سجل الدورات المنفذة ذاتياً في المصنع المظلم (Lights-Out Execution Ledger):
+        </div>
+        <div id="dark-runs-feed" style="max-height:260px;overflow-y:auto;display:grid;gap:8px;"></div>
+      </section>
+
+    </div>
+
+    <!-- 6. المولد الآلي لعقود التوريد السنوية الذكية (SLA) بين المصنع المظلم والمصاهر وخطوط الإنتاج -->
+    <section class="section-box" style="margin-top:16px;border-top:3px solid #10b981;">
+      <div class="sec-head">
+        <div>
+          <h2>📜🤖 3. المولد الآلي لعقود التوريد السنوية المجدولة (Smart Annual SLA) بين «المصنع المظلم» والمصاهر وخطوط الإنتاج</h2>
+          <div style="font-size:0.74rem;color:var(--muted);">توليد عقود سنوية ملزمة بمؤشرات النقاوة الطيفية (XRF) ودقة التوريد (OTIF 99.5%) وشروط الجزاءات والعلاوات والتسوية الآلية</div>
+        </div>
+        <a href="/sla-contract" target="_blank" class="shk-btn cyan">🖨️ معاينة وطباعة وثيقة العقد السنوي الرسمي (PDF)</a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.05fr 1.25fr;gap:16px;">
+        <!-- نموذج إصدار عقد توريد سنوي ذكي جديد -->
+        <div style="background:rgba(1,5,12,0.94);border:1px solid rgba(16,185,129,0.4);border-radius:12px;padding:13px;">
+          <label style="font-size:0.75rem;color:var(--gold-bright);font-weight:800;display:block;margin-bottom:4px;">1. اسم المصهر أو مصنع خط الإنتاج المتعاقد:</label>
+          <input id="sla-client" value="شركة اتحاد المصاهر الوطنية للصلب والمعادن — الجبيل الصناعية" />
+
+          <label style="font-size:0.75rem;color:var(--gold-bright);font-weight:800;display:block;margin-bottom:4px;">2. الصنف المعدني والرمز الجمركي (HS Code & ISRI):</label>
+          <select id="sla-metal">
+            <option value="7602.00.10|Taldon (UBC 320-Bar)|بالات علب ألمنيوم مكبوسة لخطوط الإنتاج|8950|99.1|94.0|9.1">HS 7602.00.10 — بالات علب ألمنيوم مكبوسة (UBC) | 8,950 ر.س/طن</option>
+            <option value="7404.00.10|Berry / Candy Copper|نحاس أحمر نقي وكابلات مفروزة|31200|99.9|98.0|3.8">HS 7404.00.10 — نحاس أحمر نقي وكابلات (Berry) | 31,200 ر.س/طن</option>
+            <option value="7204.49.10|HMS 1 & HMS 2|حديد ثقيل مقصوص لأفران القوس الكهربائي|1520|98.0|94.0|1.58">HS 7204.49.10 — حديد فولاذي ثقيل مقصوص (HMS 1&2) | 1,520 ر.س/طن</option>
+            <option value="7204.21.00|Sabot 304/316|فولاذ مقاوم للصدأ مفروز طيفياً|5800|98.5|95.0|4.2">HS 7204.21.00 — استنلس ستيل (Sabot 304/316) | 5,800 ر.س/طن</option>
+          </select>
+
+          <label style="font-size:0.75rem;color:var(--gold-bright);font-weight:800;display:block;margin-bottom:4px;">3. الدفعة الشهرية المجدولة بالطن (يُحسب منها السنوي والأسبوعي آلياً):</label>
+          <input id="sla-monthly-tons" type="number" value="300" min="10" placeholder="الكمية الشهرية بالطن" />
+
+          <button class="shk-btn emerald" style="width:100%;padding:11px;margin-top:4px;" onclick="issueNewAnnualSla()">
+            ⚡ إبرام عقد التوريد السنوي الذكي وربطه بخلايا المصنع المظلم
+          </button>
+          <div id="sla-feedback" style="margin-top:6px;font-size:0.74rem;color:#34d399;font-weight:800;"></div>
+        </div>
+
+        <!-- قائمة العقود السنوية النشطة ومؤشرات التزامها -->
+        <div id="sla-contracts-list" style="max-height:285px;overflow-y:auto;display:grid;gap:8px;"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. محاكاة المصنع المظلم البصرية الحية (Canvas 60FPS: AGVs + Laser XRF + Baler + Smelter)
+    // =========================================================================
+    const cvs = document.getElementById('darkFactoryCanvas');
+    const ctx = cvs.getContext('2d');
+    let W = 1200, H = 220;
+    function rsz() {
+      const rect = cvs.getBoundingClientRect();
+      W = cvs.width = rect.width || 1200;
+      H = cvs.height = 220;
+    }
+    window.addEventListener('resize', rsz);
+    setTimeout(rsz, 50);
+
+    let tick = 0;
+    let pulseBurst = 0;
+    const packets = Array.from({ length: 9 }, (_, i) => ({
+      progress: i / 9,
+      metalColor: i % 3 === 0 ? '#fde047' : (i % 2 === 0 ? '#00f2fe' : '#10b981'),
+      code: i % 3 === 0 ? 'HS:7404 Cu' : (i % 2 === 0 ? 'HS:7602 UBC' : 'HS:7204 HMS')
+    }));
+
+    function drawDarkFactoryFloor() {
+      tick++;
+      if (pulseBurst > 0) pulseBurst *= 0.95;
+      ctx.clearRect(0, 0, W, H);
+
+      // شبكة أرضية المصنع المظلم (رؤية ليلية بالأشعة تحت الحمراء والليزر)
+      ctx.strokeStyle = 'rgba(0, 242, 254, 0.08)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (let y = 0; y < H; y += 35) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+      // خط الإنتاج الرئيسي والسيور الناقلة وعربات AGV
+      const lineY = H * 0.56;
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.06, lineY);
+      ctx.lineTo(W * 0.94, lineY);
+      ctx.stroke();
+
+      // المحطات الـ 5 داخل المصنع المظلم
+      const stations = [
+        { x: W * 0.12, title: 'CELL-01: LIDAR SCALE', sub: 'قبان ليزري آلي', color: '#00f2fe' },
+        { x: W * 0.31, title: 'CELL-02: XRF & EDDY', sub: 'فرز طيفي ومغناطيسي', color: '#10b981' },
+        { x: W * 0.50, title: 'CELL-03: 800T SHEAR/BALE', sub: 'قص وكبس روبوتي', color: '#fde047' },
+        { x: W * 0.69, title: 'CELL-04: 18 AGV SILOS', sub: 'تخزين مظلم ذكي', color: '#00f2fe' },
+        { x: W * 0.88, title: 'CELL-05: SMELTER EAF', sub: 'فرن الصهر والفوترة', color: '#f43f5e' }
+      ];
+
+      // تحريك الشحنات وعربات AGV عبر خلايا المصنع المظلم
+      packets.forEach(pk => {
+        pk.progress = (pk.progress + 0.0022 + pulseBurst * 0.006) % 1;
+        const px = W * 0.92 - pk.progress * (W * 0.84);
+        ctx.fillStyle = pk.metalColor;
+        ctx.fillRect(px - 18, lineY - 14, 36, 20);
+        ctx.strokeStyle = '#ffffff';
+        ctx.strokeRect(px - 18, lineY - 14, 36, 20);
+        ctx.fillStyle = '#02050b';
+        ctx.font = '800 9px JetBrains Mono';
+        ctx.textAlign = 'center';
+        ctx.fillText(pk.code, px, lineY - 1);
+      });
+
+      // رسم الخلايا الروبوتية وأشعة الليزر
+      stations.forEach((st, idx) => {
+        // شعاع مسح ليزري عمودي
+        const beamAlpha = 0.25 + Math.abs(Math.sin(tick * 0.06 + idx)) * 0.45;
+        ctx.strokeStyle = st.color;
+        ctx.globalAlpha = beamAlpha;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(st.x, 28);
+        ctx.lineTo(st.x, lineY + 25);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // برج الخلية الروبوتية
+        ctx.fillStyle = '#050d1a';
+        ctx.strokeStyle = st.color;
+        ctx.lineWidth = 2;
+        ctx.fillRect(st.x - 58, 18, 116, 44);
+        ctx.strokeRect(st.x - 58, 18, 116, 44);
+
+        ctx.fillStyle = st.color;
+        ctx.font = '800 10px JetBrains Mono';
+        ctx.textAlign = 'center';
+        ctx.fillText(st.title, st.x, 35);
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = '700 11px Tajawal';
+        ctx.fillText(st.sub, st.x, 52);
+
+        // عقدة الربط على السير
+        ctx.fillStyle = st.color;
+        ctx.beginPath();
+        ctx.arc(st.x, lineY, 8 + Math.sin(tick * 0.08 + idx) * 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawDarkFactoryFloor);
+    }
+    requestAnimationFrame(drawDarkFactoryFloor);
+
+    // =========================================================================
+    // 2. تحميل بيانات السوق المفتوح والمصنع المظلم وتنفيذ الأوامر الذاتية
+    // =========================================================================
+    async function loadDarkFactoryAndMarket() {
+      const r = await fetch('/api/dark-factory-state');
+      const d = await r.json();
+
+      const tel = d.dark_factory_telemetry || {};
+      document.getElementById('t-oee').innerText = (tel.oee_efficiency_pct || 99.4) + '%';
+      document.getElementById('t-rate').innerText = (tel.live_throughput_tons_hr || 68.5) + ' MT/ساعة';
+      document.getElementById('t-daily').innerText = Number(tel.daily_autonomous_tons || 1644).toLocaleString() + ' طن/يوم';
+      document.getElementById('t-annual').innerText = Number(tel.annual_autonomous_tons || 600060).toLocaleString() + ' طن/سنة';
+
+      // عرض الخلايا الـ 5
+      const cellsBox = document.getElementById('dark-cells-container');
+      cellsBox.innerHTML = (d.autonomous_cells || []).map(c =>
+        '<div class="cell-card">' +
+          '<strong>🤖 ' + c.name + '</strong>' +
+          '<div style="color:#cbd5e1;margin-top:3px;">🔧 ' + c.machine + '</div>' +
+          '<div style="color:#34d399;margin-top:3px;font-family:monospace;">⚡ ' + c.speed_rate + ' | ● ' + c.status + '</div>' +
+        '</div>'
+      ).join('');
+
+      // عرض معروضات السوق المفتوح
+      const mGrid = document.getElementById('open-market-grid');
+      mGrid.innerHTML = (d.open_market_listings || []).map(item =>
+        '<div class="mkt-item">' +
+          '<div>' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
+              '<span class="hs-tag">HS: ' + item.hs_code + ' (' + item.isri + ')</span>' +
+              '<small style="color:#34d399;font-family:monospace;">Yield: ' + Math.round(item.furnace_yield * 100) + '%</small>' +
+            '</div>' +
+            '<strong style="color:#fff;font-size:0.86rem;display:block;margin-bottom:5px;">' + item.title + '</strong>' +
+            '<div style="font-size:0.73rem;color:var(--muted);margin-bottom:8px;">' +
+              '🏭 <b>المصدر الآلي:</b> ' + item.seller + '<br>' +
+              '⚖️ <b>المتاح الفوري:</b> <span style="color:#fff;font-weight:800;">' + item.available_tons + ' طن</span> | 🌿 <b>الوفر:</b> -' + item.co2_saved + 't CO₂/طن<br>' +
+              '🤖 <b>الجاهزية:</b> <span style="color:var(--cyan);">' + item.auto_ready + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;border-top:1px dashed rgba(212,175,55,0.28);padding-top:8px;">' +
+            '<strong style="color:var(--gold-bright);font-family:monospace;font-size:0.96rem;">' + Number(item.price_sar).toLocaleString() + ' ر.س/طن</strong>' +
+            '<button class="shk-btn" onclick="triggerDarkFactoryCycle('' + item.sku + '','' + item.hs_code + '',25,' + item.price_sar + ',' + item.furnace_yield + ','تبضع فوري من السوق المفتوح: ' + item.title + '')">🛒 شراء وتشغيل المصنع المظلم</button>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+
+      // عرض سجل دورات المصنع المظلم
+      const runsFeed = document.getElementById('dark-runs-feed');
+      runsFeed.innerHTML = (d.autonomous_runs_log || []).map(r =>
+        '<div style="background:var(--card-bg);border:1px solid rgba(16,185,129,0.4);border-right:4px solid var(--gold-bright);border-radius:10px;padding:9px 11px;font-size:0.74rem;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<strong style="color:var(--gold-bright);font-family:monospace;">🌑 ' + r.run_id + ' | HS: ' + r.hs_code + '</strong>' +
+            '<code style="color:#34d399;font-weight:900;">' + Number(r.total_sar_with_vat).toLocaleString() + ' ر.س</code>' +
+          '</div>' +
+          '<div style="color:#f8fafc;margin-top:3px;">🏢 <b>العملية:</b> ' + r.buyer_or_project + '</div>' +
+          '<div style="color:var(--cyan);font-family:monospace;font-size:0.69rem;margin-top:2px;">🤖 المسار: ' + r.agv_assigned + '</div>' +
+          '<div style="color:#cbd5e1;margin-top:2px;">⚖️ الخام: <b>' + r.tons + ' طن</b> → صافي المعدن السائل بالمصهر: <b style="color:#34d399;">' + r.molten_yield_tons + ' طن</b> | بوليصة: <code>' + r.bol_id + '</code> | فاتورة: <code>' + r.zatca_order_id + '</code></div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function updateDarkCalc() {
+      const p = document.getElementById('df-calc-hs').value.split('|');
+      const price = Number(p[2]), yFactor = Number(p[3]), co2 = Number(p[4]);
+      const tons = Math.max(1, Number(document.getElementById('df-calc-tons').value || 50));
+      document.getElementById('dc-molten').innerText = (tons * yFactor).toFixed(2) + ' طن سائل';
+      document.getElementById('dc-co2').innerText = '-' + (tons * co2).toFixed(1) + 't CO₂';
+      document.getElementById('dc-sar').innerText = Math.round(tons * price * 1.15).toLocaleString() + ' ر.س';
+    }
+
+    function launchCustomDarkRun() {
+      const p = document.getElementById('df-calc-hs').value.split('|');
+      const tons = Math.max(1, Number(document.getElementById('df-calc-tons').value || 50));
+      const buyer = document.getElementById('df-calc-buyer').value.trim();
+      triggerDarkFactoryCycle('SHK-CUSTOM', p[0], tons, Number(p[2]), Number(p[3]), buyer + ' — ' + p[1]);
+    }
+
+    async function triggerDarkFactoryCycle(sku, hsCode, tons, priceSar, yieldFactor, buyerName) {
+      pulseBurst = 1.0;
+      document.getElementById('dark-live-status').innerText = '⚡ [DARK-FACTORY EXECUTING]: LIDAR SCALE -> XRF SORT -> 320-BAR BALE -> AGV -> SMELTER...';
+      const r = await fetch('/api/dark-factory-execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sku: sku,
+          hs_code: hsCode,
+          tons: tons,
+          price_sar: priceSar,
+          furnace_yield: yieldFactor,
+          buyer_name: buyerName
+        })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        document.getElementById('dark-live-status').innerText =
+          '✅ [COMPLETED IN TOTAL DARKNESS]: ' + d.run.run_id + ' | BOL: ' + d.run.bol_id + ' | ZATCA: ' + d.run.zatca_order_id;
+        await loadDarkFactoryAndMarket();
+    
+    async function loadTendersAndAuctions() {
+      const r = await fetch('/api/tenders-auctions-state');
+      const d = await r.json();
+      const box = document.getElementById('tenders-live-list');
+      if (!box) return;
+      box.innerHTML = (d.active_tenders || []).map(t =>
+        '<div style="background:var(--card-bg);border:1px solid rgba(212,175,55,0.38);border-right:4px solid #f43f5e;border-radius:11px;padding:10px 12px;font-size:0.74rem;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<strong style="color:var(--gold-bright);font-family:monospace;">🔨 ' + t.tender_id + ' | HS: ' + t.hs_code + '</strong>' +
+            '<code style="color:#34d399;font-weight:900;">إجمالي الترسية: ' + Number(t.total_award_value_with_vat_sar).toLocaleString() + ' ر.س</code>' +
+          '</div>' +
+          '<div style="color:#fff;font-weight:800;margin-top:3px;">🏛️ ' + t.issuer_entity + ' — ' + t.title + '</div>' +
+          '<div style="color:#cbd5e1;margin-top:3px;">' +
+            '⚖️ <b>الكمية:</b> ' + Number(t.quantity_tons).toLocaleString() + ' طن | ' +
+            '💰 <b>أفضل عطاء فائز:</b> <span style="color:var(--gold-bright);font-weight:900;">' + Number(t.best_current_bid_sar).toLocaleString() + ' ر.س/طن</span> | ' +
+            '🏦 <b>الضمان البنكي (5%):</b> ' + Number(t.bid_bond_5pct_sar).toLocaleString() + ' ر.س' +
+          '</div>' +
+          '<div style="color:var(--cyan);font-size:0.69rem;margin-top:3px;font-family:monospace;">🤖 ' + t.dark_factory_routing + ' | AI Score: ' + t.Composite_ai_score + '%</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    async function submitAndAwardAutonomousTender() {
+      const tType = document.getElementById('tnd-type').value;
+      const issuer = document.getElementById('tnd-issuer').value.trim();
+      const parts = document.getElementById('tnd-metal').value.split('|');
+      const tons = Number(document.getElementById('tnd-tons').value || 500);
+      const bidPrice = Number(document.getElementById('tnd-price').value || 1490);
+
+      const r = await fetch('/api/tender-bid-execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tender_type: tType,
+          issuer_entity: issuer,
+          hs_code: parts[0],
+          isri_code: parts[1],
+          title: parts[2] + ' (' + tons + ' طن)',
+          xrf_purity: parts[3],
+          quantity_tons: tons,
+          bid_price_sar: bidPrice
+        })
+      });
+      const d = await r.json();
+      if (d.ok && d.tender) {
+        document.getElementById('tnd-feedback').innerHTML =
+          '✅ <b>تمت الترسية الآلية بنجاح:</b> <code>' + d.tender.tender_id +
+          '</code> | الضمان البنكي 5%: <b>' + Number(d.tender.bid_bond_5pct_sar).toLocaleString() +
+          ' ر.س</b> — <a href="/tender-award" target="_blank" style="color:var(--gold-bright);">اضغط هنا لطباعة محضر الترسية</a>';
+        await loadTendersAndAuctions();
+      }
+    }
+
+    setTimeout(loadTendersAndAuctions, 250);
+
+    
+    async function loadSlaContracts() {
+      const r = await fetch('/api/sla-contracts-state');
+      const d = await r.json();
+      const box = document.getElementById('sla-contracts-list');
+      if (!box) return;
+      box.innerHTML = (d.active_sla_contracts || []).map(c =>
+        '<div style="background:var(--card-bg);border:1px solid rgba(0,242,254,0.38);border-right:4px solid #10b981;border-radius:11px;padding:10px 12px;font-size:0.74rem;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<strong style="color:var(--gold-bright);font-family:monospace;">📜 ' + c.sla_id + ' | HS: ' + c.hs_code + '</strong>' +
+            '<code style="color:#34d399;font-weight:900;">' + Number(c.annual_total_sar).toLocaleString() + ' ر.س / سنة</code>' +
+          '</div>' +
+          '<div style="color:#fff;font-weight:800;margin-top:3px;">🏭 ' + c.smelter_client + ' — (' + c.metal_ar + ')</div>' +
+          '<div style="color:#cbd5e1;margin-top:3px;">' +
+            '⚖️ <b>الالتزام السنوي:</b> ' + Number(c.annual_tons).toLocaleString() + ' طن (' + c.monthly_batch_tons + ' طن/شهر • ' + c.weekly_batch_tons + ' طن/أسبوع) | ' +
+            '🔬 <b>نقاوة XRF:</b> ≥' + c.guaranteed_xrf_purity_pct + '% | ⏱️ <b>OTIF:</b> ' + c.otif_delivery_target_pct + '%' +
+          '</div>' +
+          '<div style="color:var(--cyan);font-size:0.69rem;margin-top:3px;">⚖️ <b>شرط الجزاء والضبط:</b> ' + c.penalty_clause + '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    async function issueNewAnnualSla() {
+      const client = document.getElementById('sla-client').value.trim();
+      const parts = document.getElementById('sla-metal').value.split('|');
+      const monthly = Number(document.getElementById('sla-monthly-tons').value || 300);
+
+      const r = await fetch('/api/sla-contract-issue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          smelter_client: client,
+          hs_code: parts[0],
+          isri_grade: parts[1],
+          metal_ar: parts[2],
+          unit_price_sar: Number(parts[3]),
+          xrf_purity: Number(parts[4]),
+          furnace_yield: Number(parts[5]),
+          co2_factor: Number(parts[6]),
+          monthly_tons: monthly
+        })
+      });
+      const d = await r.json();
+      if (d.ok && d.sla_contract) {
+        document.getElementById('sla-feedback').innerHTML =
+          '✅ <b>تم إبرام العقد السنوي الذكي:</b> <code>' + d.sla_contract.sla_id +
+          '</code> بإجمالي سنوي <b>' + Number(d.sla_contract.annual_total_sar).toLocaleString() +
+          ' ر.س</b> — <a href="/sla-contract" target="_blank" style="color:var(--gold-bright);">اضغط هنا لطباعة العقد</a>';
+        await loadSlaContracts();
+      }
+    }
+
+    setTimeout(loadSlaContracts, 150);
+
+      }
+    }
+
+    updateDarkCalc();
+    loadDarkFactoryAndMarket();
+  </script>
+</body>
+</html>

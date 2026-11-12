@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سجل العملاء وإدارة الصفقات الميدانية النشطة (B2B CRM & Deal Pipeline) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --gold:#b45309; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.65; }
+    .no-print {
+      max-width:1180px; margin:0 auto 16px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:16px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+    .form-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:10px; }
+    @media(max-width:950px){ .form-grid { grid-template-columns:1fr 1fr; } }
+    input, select {
+      width:100%; padding:8px 10px; border-radius:8px; border:1px solid #475569;
+      background:#1e293b; color:#fff; font-family:inherit; font-size:0.82rem;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 15px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .sheet {
+      max-width:1180px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:30px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .header-doc {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    .kpi-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:18px; }
+    @media(max-width:800px){ .kpi-3 { grid-template-columns:1fr; } }
+    .kpi-box { background:#f8fafc; border:1px solid var(--border); border-right:4px solid var(--navy); border-radius:10px; padding:12px 16px; }
+    .kpi-box small { color:#475569; font-size:0.78rem; display:block; }
+    .kpi-box strong { font-size:1.22rem; font-weight:900; display:block; margin-top:2px; }
+    table { width:100%; border-collapse:collapse; font-size:0.83rem; margin:12px 0; }
+    th, td { border:1px solid var(--border); padding:9px 10px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    tr:nth-child(even) { background:#f8fafc; }
+    .stage-pill { background:#ecfdf5; color:#065f46; padding:3px 8px; border-radius:6px; font-weight:800; font-size:0.74rem; display:inline-block; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .no-print { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="no-print">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong style="font-size:1rem;color:#34d399;">🤝📈 نظام إدارة علاقات العملاء وتتبع الصفقات الميدانية النشطة (/crm-pipeline)</strong>
+        <div style="font-size:0.78rem;color:#cbd5e1;">أضف أي مصنع أو تاجر جديد لتتبعه في خط أنابيب المبيعات وربطه بعرض السعر أو العقد المناسب</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn" onclick="window.print()">🖨️ طباعة تقرير الصفقات والعملاء (PDF)</button>
+        <a href="/procurement-outreach" class="btn" style="background:var(--blue);">📨 مركز المراسلات وتحميل الـ ZIP</a>
+        <a href="/unified-work" class="btn" style="background:#475569;">🏢 مركز العمل الموحد</a>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <input id="c-comp" value="مصنع الوطنية لسحب الأسلاك والمعادن" placeholder="اسم الشركة / المصنع / الساحة" />
+      <input id="c-city" value="الدمام — الصناعية الأولى" placeholder="المدينة / الموقع" />
+      <select id="c-prod">
+        <option value="7404.00.10 | دفعة نحاس أحمر نقي Berry (XRF ≥ 99.90%)|179400|4750">صفقة نحاس Berry (179,400 ر.س شامل الضريبة)</option>
+        <option value="7602.00.10 | دفعة بالات ألمنيوم مكبوس UBC (320-Bar)|102925|4500">صفقة ألمنيوم UBC (102,925 ر.س شامل الضريبة)</option>
+        <option value="7204.49.10 | دفعة حديد ثقيل مقصوص HMS 1&2|87400|4000">صفقة حديد ثقيل HMS (87,400 ر.س شامل الضريبة)</option>
+        <option value="9999.00.00 | باقة تأهيل المورد ودليل الـ 50 مصنعاً|250|250">باقة تأهيل المورد (250 ر.س صافي)</option>
+      </select>
+      <select id="c-stage">
+        <option value="STAGE-2 (تم إرسال عرض السعر الرسمي والملف التعريفي)|/quotation">مرحلة 2: إرسال عرض سعر (/quotation)</option>
+        <option value="STAGE-3 (تم توقيع أمر الشراء PO وجارٍ الفحص والشحن)|/purchase-order">مرحلة 3: توقيع أمر شراء (/purchase-order)</option>
+        <option value="STAGE-4 (تم التسليم بالختم الأحمر وإصدار فاتورة ZATCA)|/tax-invoice">مرحلة 4: تسليم وفوترة (/tax-invoice)</option>
+      </select>
+      <button class="btn" onclick="addCrmDeal()">+ إدراج الصفقة في السجل</button>
+    </div>
+  </section>
+
+  <main class="sheet">
+    <header class="header-doc">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.7rem;">تقرير سجل العملاء وإدارة الصفقات التجارية النشطة (B2B CRM Pipeline)</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية | سجل تجاري: <code>2051263653</code> | رقم مورد أرامكو: <code>S11488084</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div><b>كود ضبط الوثيقة (DMS):</b> <code>SHK-CRM-PIP-013</code></div>
+        <div><b>معرف شبكة أريبا:</b> <code>AN11235091112</code></div>
+        <div><b>حساب التسوية (مصرف الإنماء):</b> <code>SA4005000068206162118000</code></div>
+      </div>
+    </header>
+
+    <section class="kpi-3">
+      <div class="kpi-box" style="border-right-color:var(--blue);">
+        <small>عدد الصفقات والعملاء النشطين (Active B2B Deals)</small>
+        <strong style="color:var(--blue);" id="k-count">0 صفقات</strong>
+      </div>
+      <div class="kpi-box" style="border-right-color:var(--navy);">
+        <small>إجمالي قيمة الصفقات الجارية شامل الضريبة (Pipeline GMV)</small>
+        <strong id="k-gmv">0.00 ر.س</strong>
+      </div>
+      <div class="kpi-box" style="border-right-color:var(--emerald);">
+        <small>صافي الربح التشغيلي المتوقع للمؤسسة (Net Margin)</small>
+        <strong style="color:var(--emerald);" id="k-margin">0.00 ر.س</strong>
+      </div>
+    </section>
+
+    <table>
+      <thead>
+        <tr>
+          <th>رقم الصفقة</th>
+          <th>العميل / المصنع / الساحة</th>
+          <th>الصنف والرمز الجمركي</th>
+          <th>المرحلة الحالية والوثيقة المرتبطة</th>
+          <th>القيمة الإجمالية (شامل VAT)</th>
+          <th>صافي هامش المؤسسة</th>
+        </tr>
+      </thead>
+      <tbody id="tb-crm"></tbody>
+    </table>
+
+    <footer style="display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--navy);padding-top:12px;margin-top:20px;font-size:0.82rem;">
+      <div><b>اعتماد الإدارة التجارية والعامة:</b> سلمان أحمد بن سلمان الراجح</div>
+      <div><b>نظام إدارة الوثائق (ISO 9001 DMS):</b> SHK-CRM-PIP-013</div>
+    </footer>
+  </main>
+
+  <script>
+    async function loadCrm() {
+      const r = await fetch('/api/crm-pipeline-state');
+      const d = await r.json();
+      const s = d.summary || {};
+
+      document.getElementById('k-count').innerText = (s.active_deals_count || 0) + ' صفقات نشطة';
+      document.getElementById('k-gmv').innerText = Number(s.total_pipeline_gmv_sar || 0).toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('k-margin').innerText = Number(s.expected_net_profit_sar || 0).toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+
+      document.getElementById('tb-crm').innerHTML = (d.deals || []).map(dl =>
+        '<tr>' +
+          '<td><code>' + dl.deal_id + '</code></td>' +
+          '<td><b>' + dl.company_name + '</b><br><small style="color:#475569;">📍 ' + dl.city + '</small></td>' +
+          '<td>' + dl.product_hs + '</td>' +
+          '<td><span class="stage-pill">' + dl.stage + '</span><br><a href="' + dl.linked_doc + '" target="_blank" style="font-size:0.75rem;color:#0284c7;font-weight:800;text-decoration:none;">فتح الوثيقة المرتبطة (' + dl.linked_doc + ') ↗</a></td>' +
+          '<td style="font-weight:800;">' + Number(dl.deal_value_vat_sar).toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س</td>' +
+          '<td style="font-weight:900;color:var(--emerald);">+' + Number(dl.net_margin_sar).toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س</td>' +
+        '</tr>'
+      ).join('');
+    }
+
+    async function addCrmDeal() {
+      const comp = document.getElementById('c-comp').value.trim();
+      const city = document.getElementById('c-city').value.trim();
+      const pParts = document.getElementById('c-prod').value.split('|');
+      const sParts = document.getElementById('c-stage').value.split('|');
+
+      const r = await fetch('/api/crm-pipeline-add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company_name: comp,
+          city: city,
+          product_hs: pParts[0] + ' | ' + pParts[1],
+          deal_value_vat_sar: Number(pParts[2]),
+          net_margin_sar: Number(pParts[3]),
+          stage: sParts[0],
+          linked_doc: sParts[1]
+        })
+      });
+      if (r.ok) await loadCrm();
+    }
+
+    loadCrm();
+  </script>
+</body>
+</html>

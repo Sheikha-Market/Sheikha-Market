@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز الرد الآلي وعروض أسعار واتساب الفورية (/whatsapp-hub) | سوق شيخة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#d4af37; --gold-bright:#fde047; --emerald:#10b981; --navy:#0d254c; --bg:#020b08; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:#f8fafc; padding:18px; }
+    .hub-box {
+      max-width:1140px; margin:0 auto; background:rgba(4,20,16,0.94); border:2px solid var(--gold);
+      border-radius:22px; padding:22px; box-shadow:0 20px 55px rgba(0,0,0,0.85);
+    }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:14px; }
+    @media(max-width:900px){ .grid { grid-template-columns:1fr; } }
+    .card {
+      background:rgba(1,8,6,0.9); border:1.5px solid rgba(212,175,55,0.45);
+      border-radius:16px; padding:16px;
+    }
+    .card h3 { margin:0 0 10px; color:var(--gold-bright); font-size:0.98rem; border-bottom:1px solid rgba(212,175,55,0.28); padding-bottom:6px; }
+    input, select, textarea {
+      width:100%; padding:9px 12px; background:#010504; color:#fff; border:1px solid var(--gold);
+      border-radius:10px; font-family:inherit; font-size:0.84rem; margin-bottom:8px;
+    }
+    textarea { height:155px; color:#6ee7b7; line-height:1.6; resize:vertical; }
+    .btn {
+      background:linear-gradient(135deg,var(--gold-bright),var(--gold)); color:#020b08;
+      border:none; padding:9px 15px; border-radius:999px; font-family:inherit; font-weight:900;
+      font-size:0.8rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    }
+    .btn.wa { background:#10b981; color:#020b08; }
+  </style>
+</head>
+<body>
+  <div class="hub-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:2px solid var(--gold);padding-bottom:12px;">
+      <div>
+        <strong style="font-size:1.25rem;color:var(--gold-bright);">💬⚡ مركز شيخة للردود الآلية الترحيبية وعروض أسعار واتساب الفورية (/whatsapp-hub)</strong>
+        <div style="font-size:0.78rem;color:#cbd5e1;">توليد ردود ترحيبية وعروض أسعار فورية مربوطة بالآيبان (SA4005000068206162118000) وبوابة (/bot)</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/master" class="btn">👑 المركز السيادي (/master)</a>
+        <a href="/pmf-lab" class="btn" style="background:#38bdf8;">📊 رادار التحصيل (/pmf-lab)</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- 1. الرد الترحيبي الجاهز لأي مستفسر جديد -->
+      <div class="card">
+        <h3>1️⃣ الرد الترحيبي الفوري للمستفسرين من حراج والواتساب</h3>
+        <input id="wa-client-phone" placeholder="رقم جوال التاجر لإرسال الرد مباشرة (مثال: 966501234567) — اختياري" />
+        <select id="wa-template-type" onchange="updateWelcomeTemplate()">
+          <option value="WELCOME">🌟 رد ترحيبي شامل (باقة 250 ر.س + توريد المعادن)</option>
+          <option value="DEPOSIT">⚡ رد تفعيل الدفعة الفورية (143.75 ر.س شامل الضريبة)</option>
+          <option value="RECEIPT">✅ رد تأكيد استلام الحوالة البنكية وتسليم الدليل</option>
+        </select>
+        <textarea id="wa-welcome-text"></textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn" onclick="copyBox('wa-welcome-text')">📋 نسخ الرد للحافظة</button>
+          <button class="btn wa" onclick="sendDirectWhatsApp('wa-welcome-text')">🟢 فتح وإرسال مباشر بالواتساب</button>
+        </div>
+      </div>
+
+      <!-- 2. حاسبة ومولد عرض السعر الفوري لشحنات المعادن (نحاس / ألمنيوم / حديد) -->
+      <div class="card">
+        <h3>2️⃣ مولد عرض السعر الفوري لشحنات المعادن (RFQ Instant Quote)</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <select id="q-metal" onchange="generateInstantMetalQuote()">
+            <option value="نحاس كاثود/كابلات نقي (XRF 99.94%)|31200">⚡ نحاس نقي (31,200 ر.س/طن)</option>
+            <option value="ألمنيوم نقي مفروز ومكبوس|8950">💿 ألمنيوم مفروز (8,950 ر.س/طن)</option>
+            <option value="حديد ثقيل مفروز (HMS 1&2)|1520">🏗️ حديد ثقيل HMS (1,520 ر.س/طن)</option>
+          </select>
+          <input id="q-tons" type="number" value="10" min="1" oninput="generateInstantMetalQuote()" placeholder="الكمية بالطن" />
+        </div>
+        <textarea id="wa-quote-text"></textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn" onclick="copyBox('wa-quote-text')">📋 نسخ عرض السعر</button>
+          <button class="btn wa" onclick="sendDirectWhatsApp('wa-quote-text')">🟢 إرسال عرض السعر بالواتساب</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const botUrl = "https://sheikha.top/bot";
+    const guideUrl = "https://sheikha.top/api/download-50-factories-guide";
+
+    function updateWelcomeTemplate() {
+      const t = document.getElementById('wa-template-type').value;
+      const box = document.getElementById('wa-welcome-text');
+      if (t === 'WELCOME') {
+        box.value =
+          "السلام عليكم ورحمة الله وبركاته، حياكم الله في منظومة وسوق شيخة للتجارة والصناعة والمعادن بالخبر (مؤسسة سلمان أحمد بن سلمان الراجح التجارية).
+
+" +
+          "يسعدنا خدمتكم عبر مسارين فوريين:
+" +
+          "1️⃣ استلام الدليل الموثق لـ 50 مصنعاً وساحة معادن وسكراب بالمملكة + شهادة العضوية وعقد التوريد المعتمد:
+" +
+          "• قيمة الباقة الكاملة: 250 ر.س (أو دفعة التفعيل الفوري: 143.75 ر.س شاملة الضريبة).
+" +
+          "• حساب التحويل المعتمد (مصرف الإنماء): SA4005000068206162118000
+" +
+          "• رابط التوثيق والاستلام الآلي الفوري خلال 30 ثانية:
+" + botUrl + "
+
+" +
+          "2️⃣ لحجز شحنات المعادن المفروزة (نحاس / ألمنيوم / حديد HMS) أو حاوية 40 ياردة، تفضل بتزويدنا بالصنف والكمية بالطن ليصلك عرض السعر الرسمي فوراً.";
+      } else if (t === 'DEPOSIT') {
+        box.value =
+          "حياكم الله، لتفعيل عضوية التوريد واستلام (دليل الـ 50 مصنعاً وساحة معادن بالمملكة + العقد المبدئي) فوراً:
+" +
+          "• قيمة دفعة التفعيل الفوري: 143.75 ريال فقط (شاملة الضريبة).
+" +
+          "• الآيبان المعتمد (مصرف الإنماء — مؤسسة سلمان أحمد بن سلمان الراجح التجارية):
+" +
+          "SA4005000068206162118000
+" +
+          "• بعد التحويل، اضغط تأكيد في البوت ليظهر لك رابط التحميل والشهادة فوراً:
+" + botUrl;
+      } else {
+        box.value =
+          "حياكم الله، تم استلام وتوثيق حوالتكم الكريمة بنجاح في حساب المؤسسة بمصرف الإنماء، وإصدار فاتورتكم الضريبية الزكوية وعقد التوريد المعتمد.
+" +
+          "📥 تفضل بتحميل الدليل الموثق للـ 50 مصنعاً وساحة مباشرة عبر الرابط:
+" + guideUrl;
+      }
+    }
+
+    function generateInstantMetalQuote() {
+      const parts = document.getElementById('q-metal').value.split('|');
+      const metalName = parts[0];
+      const unitPrice = parseFloat(parts[1]);
+      const tons = Math.max(1, parseFloat(document.getElementById('q-tons').value || '1'));
+      const netTotal = unitPrice * tons;
+      const vat = netTotal * 0.15;
+      const grandTotal = netTotal + vat;
+
+      document.getElementById('wa-quote-text').value =
+        "﷽ • عرض سعر رسمي مبدئي — منظومة وسوق شيخة للمعادن (الخبر)
+" +
+        "----------------------------------------
+" +
+        "• الصنف: " + metalName + "
+" +
+        "• الكمية: " + tons + " طن متري (شامل الوزن الإلكتروني المعتمد والفحص الطيفي XRF)
+" +
+        "• سعر الطن الصافي: " + unitPrice.toLocaleString() + " ر.س
+" +
+        "• الإجمالي قبل الضريبة: " + netTotal.toLocaleString() + " ر.س
+" +
+        "• ضريبة القيمة المضافة (15%): " + vat.toLocaleString() + " ر.س
+" +
+        "• الإجمالي الكلي شامل الضريبة: " + grandTotal.toLocaleString() + " ر.س
+" +
+        "----------------------------------------
+" +
+        "لتثبيت العرض وإصدار عقد التوريد (RFQ → CRM) عبر باقة الانطلاق (250 ر.س) في البوت الرسمي:
+" + botUrl;
+    }
+
+    function copyBox(id) {
+      const el = document.getElementById(id);
+      el.select();
+      navigator.clipboard.writeText(el.value);
+    }
+
+    function sendDirectWhatsApp(boxId) {
+      const txt = document.getElementById(boxId).value;
+      let phone = document.getElementById('wa-client-phone').value.replace(/[^0-9]/g, '');
+      if (phone.startsWith('05')) phone = '966' + phone.slice(1);
+      const url = phone ? ('https://wa.me/' + phone + '?text=' + encodeURIComponent(txt)) : ('https://wa.me/?text=' + encodeURIComponent(txt));
+      window.open(url, '_blank');
+    }
+
+    updateWelcomeTemplate();
+    generateInstantMetalQuote();
+  </script>
+</body>
+</html>

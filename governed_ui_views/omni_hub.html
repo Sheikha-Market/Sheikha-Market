@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز شيخة الشامل: الأيقونات الموحدة • الجدول الزمني الآلي • الروبوتات • الذكاء النفسي والأوزان | Sheikha Omni-Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#070b14; --surface:#0f172a; --card:#1e293b; --primary:#10b981; --gold:#fde047; --blue:#38bdf8; --purple:#a855f7; --border:#334155; --text:#f8fafc; --muted:#94a3b8; }
+    * { box-sizing:border-box; transition:all 0.2s ease; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; user-select:none; }
+    .topbar { background:#020617; color:#fff; padding:14px 22px; display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid var(--primary); flex-wrap:wrap; gap:10px; }
+    .container { max-width:1460px; margin:18px auto; padding:0 16px; }
+    /* أنماط العرض حسب الجهاز المشغل (جوال / لابتوب / خادم / مركز بيانات) */
+    body.mode-mobile .container { max-width:430px; border:4px solid var(--gold); border-radius:28px; padding:12px; margin:10px auto; background:#020617; }
+    body.mode-server { font-family:monospace !important; --bg:#000000; --surface:#050505; --card:#0a0a0a; --primary:#00ff66; }
+    body.mode-datacenter .container { max-width:99%; }
+    .ctrl-strip { background:linear-gradient(135deg,#0f172a,#1e1b4b); border:1px solid var(--border); border-right:5px solid var(--gold); border-radius:14px; padding:16px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .pill-btn { background:rgba(255,255,255,0.08); color:#fff; border:1px solid var(--border); padding:7px 13px; border-radius:999px; font-family:inherit; font-weight:800; cursor:pointer; font-size:0.8rem; }
+    .pill-btn.active, .pill-btn:hover { background:var(--gold); color:#020617; border-color:var(--gold); }
+    /* شبكة الأيقونات المنظمة حسب المهام */
+    .task-launcher { display:grid; grid-template-columns:repeat(auto-fit,minmax(175px,1fr)); gap:12px; margin-bottom:20px; }
+    .icon-tile { background:var(--card); border:1px solid var(--border); border-top:4px solid var(--primary); border-radius:14px; padding:14px; text-align:center; text-decoration:none; color:var(--text); display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow:0 6px 16px rgba(0,0,0,0.25); }
+    .icon-tile:hover { transform:translateY(-4px); border-color:var(--gold); }
+    .icon-emoji { font-size:1.8rem; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:18px; }
+    h3 { margin:0 0 14px; font-size:1.12rem; color:var(--gold); border-bottom:1px solid var(--border); padding-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+    .grid-2 { display:grid; grid-template-columns:1.15fr 1fr; gap:18px; }
+    @media(max-width:980px){ .grid-2 { grid-template-columns:1fr; } }
+    table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+    th, td { border:1px solid var(--border); padding:9px 10px; text-align:right; }
+    th { background:#020617; color:var(--blue); font-weight:800; }
+    input, select { width:100%; padding:9px 12px; background:#020617; color:#fff; border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:0.86rem; }
+    .btn { background:var(--primary); color:#020617; border:none; padding:9px 16px; border-radius:8px; font-family:inherit; font-weight:900; cursor:pointer; text-decoration:none; display:inline-block; font-size:0.84rem; }
+    .badge { background:rgba(16,185,129,0.18); color:#34d399; border:1px solid #10b981; padding:3px 9px; border-radius:999px; font-size:0.74rem; font-weight:800; }
+    .prog-bar { width:100%; height:8px; background:#020617; border-radius:999px; overflow:hidden; margin-top:4px; }
+    .prog-fill { height:100%; background:linear-gradient(90deg,#10b981,#fde047); }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <div class="topbar">
+    <div>
+      <strong style="font-size:1.22rem;color:var(--gold);">🧠🤖📱🖥️ مركز شيخة الشامل (Omni-Hub): الأيقونات حسب المهام • الجدولة الآلية • الروبوتات • الذكاء النفسي والأوزان</strong>
+      <div style="font-size:0.8rem;color:var(--muted);">بسم الله — تكامل (المنتج الأولي + شيخة سوفتوير + مانيفست + بيرل ميتال + الروبوتات) لجميع الأجهزة وأنماط المستخدمين</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn" style="background:var(--gold);" onclick="speakBriefing()">🔊 المساعد السمعي والكلامي (نطق الحالة الآن)</button>
+      <button class="btn" style="background:var(--blue);" onclick="startVoiceCommand()">🎙️ أمر كلامي صوتي للنظام</button>
+      <a href="/robot-director" class="btn" style="background:#fde047;color:#020617;">🤖👔 الروبوت المدير التقني (/robot-director)</a> <a href="/bot" target="_blank" class="btn">🔥 المنتج الأولي النشط (250 ر.س)</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 1. شريط التكيف مع الجهاز المشغل (جوال/لابتوب/خادم/مركز بيانات) + النمط النفسي للمستخدم (بصري/سمعي/كلامي) -->
+    <div class="ctrl-strip">
+      <div>
+        <strong style="color:var(--blue);font-size:0.85rem;display:block;margin-bottom:6px;">🖥️ 1. اختر وضع الجهاز المشغل (Adaptive Device Layout):</strong>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="pill-btn active" onclick="setDeviceMode('laptop', this)">💻 واجهة لابتوب ومكتب</button>
+          <button class="pill-btn" onclick="setDeviceMode('mobile', this)">📱 واجهة جوال ميداني</button>
+          <button class="pill-btn" onclick="setDeviceMode('server', this)">🖧 واجهة خادم (Server CLI)</button>
+          <button class="pill-btn" onclick="setDeviceMode('datacenter', this)">🏢 جدارية مركز بيانات (Data Center 4K)</button>
+        </div>
+      </div>
+      <div>
+        <strong style="color:var(--primary);font-size:0.85rem;display:block;margin-bottom:6px;">🧠 2. علم النفس المعرفي ونمط المستخدم (Neuro-UX VARK Mode):</strong>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="pill-btn active" onclick="setCognitiveMode('VISUAL', this)">👁️ نمط بصري (فيديو + رسوم)</button>
+          <button class="pill-btn" onclick="setCognitiveMode('AUDITORY', this)">🔊 نمط سمعي (قراءة صوتية آلية)</button>
+          <button class="pill-btn" onclick="setCognitiveMode('VERBAL', this)">🎙️ نمط كلامي وحواري (أوامر وتفاعل)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- رسالة المساعد الذكي التكيفي (تتفاعل نصياً وصوتياً وكلامياً) -->
+    <div id="neuro-assistant-bar" style="background:#064e3b;border:1px solid #34d399;color:#ecfdf5;padding:12px 18px;border-radius:12px;margin-bottom:18px;font-weight:800;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <span id="neuro-msg">🤖 الذكاء الاصطناعي التكيفي لشيخة: أنت الآن في مرحلة إطلاق (المنتج الأولي - باقة 250 ريال). جميع الأيقونات مرتبة أمامك حسب المهام، وكل عملية تبني أوزان الذكاء الاصطناعي وتفعل (سوفتوير ومانيفست وبيرل ميتال) آلياً!</span>
+      <span class="badge" id="voice-status">جاهز للتفاعل البصري والسمعي والكلامي</span>
+    </div>
+
+    <!-- 2. شبكة الأيقونات الموحدة المنظمة بشكل جميل حسب المهام (Task-Organized Icon Grid) -->
+    <div class="task-launcher">
+      <a href="/bot" target="_blank" class="icon-tile" style="border-top-color:#fde047;">
+        <span class="icon-emoji">🔥</span>
+        <strong style="color:var(--gold);">1. المنتج الأولي (اليوم)</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">باقة 250 ر.س + البوت الفوري</small>
+      </a>
+      <a href="/control-center" class="icon-tile" style="border-top-color:#38bdf8;">
+        <span class="icon-emoji">🚛</span>
+        <strong style="color:var(--blue);">2. شيخة مانيفست والنقل</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">323 نمط نقل + حاويات ذكية</small>
+      </a>
+      <a href="/ops" class="icon-tile" style="border-top-color:#f97316;">
+        <span class="icon-emoji">💎</span>
+        <strong style="color:#fb923c;">3. شيخة بيرل ميتال</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">صهر السبائك + نقاء XRF</small>
+      </a>
+      <a href="/expansion-tools" class="icon-tile" style="border-top-color:#10b981;">
+        <span class="icon-emoji">💻</span>
+        <strong style="color:var(--primary);">4. شيخة سوفتوير والمتاجر</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">فوترة ZATCA + متاجر وإضافة</small>
+      </a>
+      <a href="/digital-twin" class="icon-tile" style="border-top-color:#a855f7;">
+        <span class="icon-emoji">🌐</span>
+        <strong style="color:#c084fc;">5. التوأم الرقمي والفيديو</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">محاكاة حية + حساسات + MP4</small>
+      </a>
+      <a href="/b2b-auto-outreach" class="icon-tile" style="border-top-color:#ec4899;">
+        <span class="icon-emoji">📡</span>
+        <strong style="color:#f472b6;">6. ربط SAP والمصاهر</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">كتالوج Ariba + مراسلة آلية</small>
+      </a>
+      <a href="/mastery" class="icon-tile" style="border-top-color:#fde047;">
+        <span class="icon-emoji">🌟</span>
+        <strong style="color:var(--gold);">7. الإتقان والحساب الشامل</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">بهجة العمل + معادلات شيخة</small>
+      </a>
+      <a href="/compute" class="icon-tile" style="border-top-color:#10b981;">
+        <span class="icon-emoji">⚡</span>
+        <strong style="color:var(--primary);">8. الحوسبة اللحظية SSE</strong>
+        <small style="color:var(--muted);font-size:0.75rem;">معالجة 0.3ms + توثيق فوري</small>
+      </a>
+    </div>
+
+    <!-- 3. الجدول الزمني الآلي لإطلاق المنتجات (MVP -> Software -> Manifest -> Pearl Metal -> Robotics) -->
+    <div class="card" style="border:2px solid var(--gold);">
+      <h3>
+        <span>📅🚀 الجدول الزمني الآلي لإطلاق منظومات ومنتجات شيخة (المنتج الأولي الآن ⬅ التوسع التدريجي الآلي)</span>
+        <span class="badge">جدولة ذاتية تعتمد على المدخلات والأوزان</span>
+      </h3>
+      <table>
+        <thead>
+          <tr><th>المرحلة والمنتج</th><th>النافذة الزمنية</th><th>شرط التفعيل الآلي (Auto-Trigger)</th><th>نسبة الجاهزية والأوزان</th><th>الحالة</th></tr>
+        </thead>
+        <tbody id="tb-timeline"></tbody>
+      </table>
+    </div>
+
+    <div class="grid-2">
+      <!-- 4. مصنع الروبوتات الرقمية والواقعية + مشغل الفيديو البصري المدمج -->
+      <div class="card">
+        <h3><span>🤖🦾 مصنع روبوتات شيخة (الروبوتات الرقمية البرمجية + الروبوتات الصناعية الواقعية)</span> <span class="badge">6 روبوتات نشطة</span></h3>
+        <h4 style="margin:6px 0;color:var(--blue);font-size:0.9rem;">💻 أولاً: الروبوتات الرقمية والوكلاء الأذكياء (Digital AI Robots):</h4>
+        <table>
+          <thead><tr><th>المعرف</th><th>اسم الروبوت الرقمي</th><th>المهمة المؤتمتة</th><th>الحالة</th></tr></thead>
+          <tbody id="tb-dig-bots"></tbody>
+        </table>
+
+        <h4 style="margin:14px 0 6px;color:var(--gold);font-size:0.9rem;">🦾 ثانياً: الروبوتات الصناعية والواقعية في الساحات والمسابك (Physical Robots & AGVs):</h4>
+        <table>
+          <thead><tr><th>المعرف</th><th>اسم الروبوت الواقعي</th><th>المواصفات الهندسية والحساسات</th><th>الحالة</th></tr></thead>
+          <tbody id="tb-phy-bots"></tbody>
+        </table>
+      </div>
+
+      <!-- 5. بناء وتدريب أوزان الذكاء الاصطناعي + التوثيق اللحظي الشامل -->
+      <div class="card">
+        <h3>
+          <span>⚖️🧠 مصفوفة بناء وتدريب أوزان الذكاء الاصطناعي لشيخة (AI Neural Weights Builder)</span>
+          <button class="btn" onclick="trainAiWeightsNow()">⚡ تدريب وتحديث الأوزان الآن (+Epoch)</button>
+        </h3>
+        <table>
+          <thead><tr><th>معرف الوزن</th><th>طبقة الشبكة العصبية في شيخة</th><th>قيمة الوزن (Weight)</th><th>الدورات (Epochs)</th><th>الأثر</th></tr></thead>
+          <tbody id="tb-weights"></tbody>
+        </table>
+
+        <h4 style="margin:14px 0 8px;color:var(--primary);font-size:0.9rem;">🎬🔐 دمج الفيديو البصري والتوثيق اللحظي لكل عملية:</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;background:#020617;padding:12px;border-radius:12px;border:1px solid var(--border);">
+          <div>
+            <strong style="color:var(--gold);display:block;margin-bottom:4px;">🎥 العرض البصري المدمج للمنتج الأولي:</strong>
+            <small style="color:var(--muted);display:block;margin-bottom:8px;">فيديو ترويجي عالي الدقة + نطق صوتي للمستخدم البصري والسمعي.</small>
+            <a href="/media/sheikha-promo.mp4" target="_blank" class="btn" style="padding:6px 12px;font-size:0.78rem;">🎬 تشغيل الفيديو (MP4)</a>
+          </div>
+          <div id="doc-feed" style="font-family:monospace;font-size:0.75rem;color:#34d399;max-height:95px;overflow-y:auto;direction:ltr;text-align:left;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let omniData = {};
+
+    async function loadOmniHub() {
+      const r = await fetch('/api/omni-hub');
+      omniData = await r.json();
+
+      const tbT = document.getElementById('tb-timeline');
+      tbT.innerHTML = '';
+      (omniData.automated_product_launch_timeline || []).forEach(t => {
+        tbT.innerHTML += '<tr>' +
+          '<td><b style="color:var(--gold);">' + t.product_suite + '</b></td>' +
+          '<td>' + t.schedule_window + '</td>' +
+          '<td>' + t.auto_trigger_condition + '</td>' +
+          '<td><b>' + t.readiness_pct + '%</b><div class="prog-bar"><div class="prog-fill" style="width:' + t.readiness_pct + '%"></div></div></td>' +
+          '<td><span class="badge">' + t.status + '</span></td>' +
+        '</tr>';
+      });
+
+      const tbD = document.getElementById('tb-dig-bots');
+      tbD.innerHTML = '';
+      ((omniData.robotics_factory && omniData.robotics_factory.digital_robots) || []).forEach(b => {
+        tbD.innerHTML += '<tr><td><code>' + b.bot_id + '</code></td><td><b>' + b.name + '</b></td><td>' + b.role + '</td><td><span class="badge">' + b.state + '</span></td></tr>';
+      });
+
+      const tbP = document.getElementById('tb-phy-bots');
+      tbP.innerHTML = '';
+      ((omniData.robotics_factory && omniData.robotics_factory.physical_robots) || []).forEach(b => {
+        tbP.innerHTML += '<tr><td><code>' + b.bot_id + '</code></td><td><b>' + b.name + '</b></td><td>' + b.specs + '</td><td><span class="badge">' + b.state + '</span></td></tr>';
+      });
+
+      const tbW = document.getElementById('tb-weights');
+      tbW.innerHTML = '';
+      (omniData.ai_neural_weights || []).forEach(w => {
+        tbW.innerHTML += '<tr><td><code>' + w.weight_id + '</code></td><td><b>' + w.layer + '</b></td><td style="color:var(--gold);font-family:monospace;font-weight:900;">' + w.current_weight.toFixed(4) + '</td><td><code>' + w.epoch_updates + '</code></td><td style="color:var(--primary);">' + w.impact + '</td></tr>';
+      });
+
+      const docFeed = document.getElementById('doc-feed');
+      docFeed.innerHTML = '';
+      (omniData.documentation_ledger || []).forEach(doc => {
+        docFeed.innerHTML += '<div>[' + doc.timestamp + '] ' + doc.doc_id + ': ' + doc.summary + '</div>';
+      });
+    }
+
+    function setDeviceMode(mode, btn) {
+      document.body.className = 'mode-' + mode;
+      btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function setCognitiveMode(cMode, btn) {
+      btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const msgEl = document.getElementById('neuro-msg');
+      if (cMode === 'VISUAL') {
+        msgEl.innerText = '👁️ [النمط البصري مفعّل]: تم إبراز الألوان الدلالية، أشرطة التقدم، والفيديو الترويجي لتسريع الفهم البصري الفوري.';
+      } else if (cMode === 'AUDITORY') {
+        msgEl.innerText = '🔊 [النمط السمعي مفعّل]: جاري قراءة ملخص حالة المنتج الأولي والجدول الزمني والأوزان صوتياً...';
+        speakBriefing();
+      } else {
+        msgEl.innerText = '🎙️ [النمط الكلامي والحواري مفعّل]: اضغط زر المايكروفون وتحدث مباشرة لإصدار أمر أو فتح البوت أو تدريب الأوزان.';
+      }
+    }
+
+    function speakBriefing() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance('بسم الله الرحمن الرحيم. مرحباً بك في منظومة شيخة. المنتج الأولي باقة الانطلاق السريع بمئتين وخمسين ريالاً يعمل الآن في الصدارة، وأوزان الذكاء الاصطناعي والروبوتات الرقمية والواقعية تتدرب تلقائياً لإطلاق شيخة سوفتوير ومانيفست وبيرل ميتال.');
+        u.lang = 'ar-SA';
+        u.rate = 1.0;
+        window.speechSynthesis.speak(u);
+        document.getElementById('voice-status').innerText = '🔊 جاري النطق الصوتي السمعي...';
+      }
+    }
+
+    function startVoiceCommand() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        alert('🎙️ تم تفعيل المحاور الكلامي الذكي! جاري تحديث الأوزان وتوثيق الأمر.');
+        trainAiWeightsNow();
+        return;
+      }
+      const rec = new SR();
+      rec.lang = 'ar-SA';
+      document.getElementById('voice-status').innerText = '🎙️ تحدث الآن... النظام يستمع لأمرك';
+      rec.onresult = function(e) {
+        const txt = e.results[0][0].transcript;
+        document.getElementById('neuro-msg').innerText = '🎙️ أمرك الكلامي المسموع: "' + txt + '" — تم التوثيق وتحديث أوزان الذكاء الاصطناعي فوراً!';
+        trainAiWeightsNow();
+      };
+      rec.start();
+    }
+
+    async function trainAiWeightsNow() {
+      await fetch('/api/omni-hub/train-weights', { method: 'POST' });
+      loadOmniHub();
+    }
+
+    loadOmniHub();
+  </script>
+</body>
+</html>

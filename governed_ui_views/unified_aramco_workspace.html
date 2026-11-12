@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز العمل الموحد ومتطلبات تسجيل أرامكو | منظومة شيخة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f8fafc; --navy:#0f172a; --blue:#0284c7; --emerald:#059669; --gold:#b45309; --card:#ffffff; --border:#e2e8f0; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:var(--bg); color:var(--navy); padding:20px; line-height:1.65; }
+    .container { max-width:1320px; margin:0 auto; }
+    .header {
+      background:var(--navy); color:#fff; border-radius:16px; padding:20px 24px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:9px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.84rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    }
+    .btn.blue { background:var(--blue); }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; }
+    @media(max-width:950px){ .grid-3 { grid-template-columns:1fr; } }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
+    .card h2 { font-size:1.05rem; color:var(--navy); border-bottom:2px solid #f1f5f9; padding-bottom:8px; margin-bottom:12px; }
+    table { width:100%; border-collapse:collapse; font-size:0.86rem; }
+    th, td { border-bottom:1px solid var(--border); padding:10px; text-align:right; }
+    th { background:#f1f5f9; font-weight:800; }
+    .badge { padding:3px 10px; border-radius:6px; font-size:0.75rem; font-weight:800; background:#ecfdf5; color:var(--emerald); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1 style="font-size:1.3rem;">مركز العمل الموحد: إدارة السوق + تكامل النظام + تأهيل مورد أرامكو</h1>
+        <p style="font-size:0.84rem;color:#cbd5e1;margin-top:4px;">مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سجل: 2051263653) • مصرف الإنماء: SA4005000068206162118000</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/gtm-launch" class="btn">1. غرفة مبيعات المنتج الأول</a>
+        <a href="/sheikha-os" class="btn blue">2. البوابة الإدارية والمواصفات</a>
+        <a href="/qc-custody" class="btn" style="background:#475569;">3. الجودة ومحاضر الاستلام</a>
+      </div>
+    </header>
+
+    <div class="grid-3">
+      <div class="card">
+        <h2>المسار الأول: المبيعات والسوق الفعلي</h2>
+        <p style="font-size:0.86rem;color:#475569;margin-bottom:10px;">التركيز العملي على تسويق باقة التأهيل (250 ر.س) وتوريد شحنات النحاس والألمنيوم الموثقة.</p>
+        <a href="/gtm-launch" class="btn">فتح شاشة الإطلاق والمبيعات</a>
+      </div>
+      <div class="card">
+        <h2>المسار الثاني: الوثائق الفنية والجودة</h2>
+        <p style="font-size:0.86rem;color:#475569;margin-bottom:10px;">إصدار صحائف المواصفات الفنية (Datasheets)، محاضر الاستلام (GRN)، والفواتير الضريبية (ZATCA).</p>
+        <a href="/datasheet" class="btn blue">فتح الداتا شيت والوثائق</a>
+      </div>
+      <div class="card">
+        <h2>المسار الثالث: ملف تسجيل مورد أرامكو</h2>
+        <p style="font-size:0.86rem;color:#475569;margin-bottom:10px;">متابعة استكمال الأوراق الرسمية والفنية للتسجيل في نظام الموردين (Aramco SAP Ariba).</p>
+        <button class="btn" style="background:var(--navy);" onclick="window.print()">طباعة قائمة متطلبات أرامكو</button>
+      </div>
+    </div>
+
+    <section class="card">
+      <h2>قائمة التحقق من متطلبات وإرشادات تسجيل الموردين في أرامكو السعودية (Aramco Supplier Registration Checklist)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>رمز المتطلب</th>
+            <th>الوثيقة أو المتطلب النظامي</th>
+            <th>التصنيف</th>
+            <th>الحالة الحالية</th>
+          </tr>
+        </thead>
+        <tbody id="aramco-tb"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    async function loadUnifiedWork() {
+      const r = await fetch('/api/aramco-unified-state');
+      const d = await r.json();
+      document.getElementById('aramco-tb').innerHTML = (d.aramco_checklist || []).map(c =>
+        '<tr>' +
+          '<td><code>' + c.id + '</code></td>' +
+          '<td><b>' + c.title + '</b></td>' +
+          '<td>' + c.category + '</td>' +
+          '<td><span class="badge">' + c.status + '</span></td>' +
+        '</tr>'
+      ).join('');
+    }
+    loadUnifiedWork();
+  </script>
+</body>
+</html>

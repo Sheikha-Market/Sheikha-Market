@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وثيقة عقد التوريد السنوي الذكي واتفاقية مستوى الخدمة (SLA) | منظومة شيخة Sheikha.top</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#d4af37; --gold-bright:#fde047; --cyan:#00f2fe; --emerald:#10b981; --bg:#02060d; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:var(--bg); color:#f8fafc; padding:22px; line-height:1.7; }
+    .action-bar {
+      max-width:1160px; margin:0 auto 16px; background:rgba(8,18,36,0.95); border:1.5px solid var(--gold);
+      border-radius:14px; padding:12px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:linear-gradient(135deg,var(--gold-bright),var(--gold)); color:#02060d; border:none;
+      padding:8px 16px; border-radius:8px; font-family:inherit; font-weight:900; font-size:0.8rem; cursor:pointer; text-decoration:none;
+    }
+    .contract-sheet {
+      max-width:1160px; margin:0 auto; background:#050d1a; border:2px solid var(--gold);
+      border-radius:18px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.85);
+    }
+    .c-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;
+      border-bottom:2px solid var(--gold); padding-bottom:16px; margin-bottom:18px;
+    }
+    .clause-box {
+      background:rgba(2,6,13,0.9); border:1px solid rgba(212,175,55,0.35); border-right:4px solid var(--emerald);
+      border-radius:12px; padding:14px; margin-bottom:12px; font-size:0.84rem;
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.8rem; margin:12px 0; }
+    th, td { border:1px solid rgba(212,175,55,0.35); padding:9px 10px; text-align:right; }
+    th { background:#09172e; color:var(--gold-bright); }
+    @media print {
+      body { background:#fff; color:#000; padding:0; }
+      .action-bar { display:none !important; }
+      .contract-sheet { background:#fff; color:#000; border:2px solid #000; box-shadow:none; }
+      .clause-box { background:#f8fafc; color:#000; border:1px solid #333; }
+      th { background:#e2e8f0; color:#000; border:1px solid #000; }
+      td { border:1px solid #000; color:#000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="action-bar">
+    <div>
+      <strong style="color:var(--gold-bright);font-size:1rem;">📜⚖️ وثيقة عقد التوريد السنوي الذكي واتفاقية مستوى الخدمة (Smart SLA Contract)</strong>
+      <div style="font-size:0.75rem;color:#cbd5e1;">مربوطة ذاتياً بخلايا المصنع المظلم وبورصة المعادن وحساب مصرف الإنماء والفوترة الزكوية (ZATCA)</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ العقد الرسمي (PDF)</button>
+      <a href="/sheikha-os" class="btn" style="background:#00f2fe;">🌑 العودة للمصنع المظلم والسوق المفتوح</a>
+    </div>
+  </div>
+
+  <main class="contract-sheet" id="sla-sheet-content">
+    <header class="c-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;color:var(--gold-bright);font-size:1.6rem;">﷽ • عقد توريد معادن سنوي ذكي واتفاقية مستوى خدمة (SLA)</h1>
+        <div style="font-size:0.86rem;font-weight:800;">الطرف الأول (المورد والمشغل السيادي للمصنع المظلم): مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة شيخة (Sheikha.top)</div>
+        <div style="font-size:0.78rem;color:#94a3b8;">السجل التجاري: <code>2051263653</code> | الخبر، المملكة العربية السعودية | آيبان التسوية (مصرف الإنماء): <code>SA4005000068206162118000</code></div>
+      </div>
+      <div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.78rem;">
+        <div>رقم العقد الذكي: <b id="c-id" style="color:#34d399;">SLA-SHK-...</b></div>
+        <div>الرمز الجمركي: <b id="c-hs" style="color:var(--gold-bright);">HS ...</b></div>
+        <div>حالة التنفيذ: <span style="color:#00f2fe;">LIGHTS-OUT AUTOPILOT</span></div>
+      </div>
+    </header>
+
+    <div class="clause-box">
+      <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">البند الأول: الطرف الثاني (المصهر / المصنع المتعاقد) وموضوع العقد</strong>
+      <div>يتعاقد الطرف الأول عبر خطوط «المصنع المظلم الذاتي» على الفرز الطيفي، القص، الكبس، والتوريد المجدول لصالح الطرف الثاني: <b id="c-client" style="color:#34d399;">...</b>، للصنف المعدني: <b id="c-metal">...</b> وفق مواصفة المنظمة العالمية (<code id="c-isri">...</code>).</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الكمية السنوية المجدولة</th>
+          <th>الدفعة الشهرية</th>
+          <th>الدفعة الأسبوعية</th>
+          <th>نقاوة XRF المضمونة</th>
+          <th>استرداد الفرن (Yield)</th>
+          <th>التزام التوريد (OTIF)</th>
+          <th>الإجمالي السنوي (شامل الضريبة 15%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="t-ann" style="font-weight:900;">...</td>
+          <td id="t-mon">...</td>
+          <td id="t-wk">...</td>
+          <td id="t-xrf" style="color:#34d399;font-weight:900;">...</td>
+          <td id="t-yld">...</td>
+          <td id="t-otif" style="color:#00f2fe;font-weight:900;">...</td>
+          <td id="t-val" style="color:var(--gold-bright);font-weight:900;">...</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="clause-box">
+      <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">البند الثاني: مؤشرات الأداء (KPIs)، الجزاءات الآلية، وعلاوة النقاوة</strong>
+      <div>• <b>معيار الضبط والجزاءات الآلية:</b> <span id="c-pen">...</span><br>
+      • <b>معيار الحوافز والعلاوات:</b> <span id="c-bon">...</span></div>
+    </div>
+
+    <div class="clause-box">
+      <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">البند الثالث: مسار الأتمتة في المصنع المظلم والائتمان الكربوني الأخضر</strong>
+      <div>• <b>الخلايا الروبوتية المخصصة للعقد:</b> <code id="c-cells" style="color:#00f2fe;">...</code><br>
+      • <b>الوفر الكربوني السنوي الموثق (ISO-14040 LCA):</b> يمنع هذا العقد انبعاث <b id="c-co2" style="color:#34d399;">...</b> طن من غاز ثاني أكسيد الكربون سنوياً.<br>
+      • <b>حفظ الملكية الفكرية:</b> كافة الخوارزميات، التصاميم، وهياكل التشغيل مملوكة حصرياً لمنظومة شيخة (SHEIKHA® IP).</div>
+    </div>
+
+    <footer style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(212,175,55,0.4);padding-top:14px;margin-top:18px;font-size:0.78rem;">
+      <div><b>توقيع وختم الطرف الأول:</b> مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سوق شيخة)</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:var(--gold-bright);">DIGITAL SEAL: <span id="c-seal">0x...</span></div>
+    </footer>
+  </main>
+
+  <script>
+    async function loadLatestSlaContract() {
+      const r = await fetch('/api/sla-contracts-state');
+      const d = await r.json();
+      const c = (d.active_sla_contracts || [])[0];
+      if (!c) return;
+      document.getElementById('c-id').innerText = c.sla_id;
+      document.getElementById('c-hs').innerText = 'HS: ' + c.hs_code;
+      document.getElementById('c-client').innerText = c.smelter_client;
+      document.getElementById('c-metal').innerText = c.metal_ar;
+      document.getElementById('c-isri').innerText = c.isri_grade;
+      document.getElementById('t-ann').innerText = Number(c.annual_tons).toLocaleString() + ' طن/سنة';
+      document.getElementById('t-mon').innerText = Number(c.monthly_batch_tons).toLocaleString() + ' طن/شهر';
+      document.getElementById('t-wk').innerText = Number(c.weekly_batch_tons).toLocaleString() + ' طن/أسبوع';
+      document.getElementById('t-xrf').innerText = '≥ ' + c.guaranteed_xrf_purity_pct + '%';
+      document.getElementById('t-yld').innerText = c.guaranteed_furnace_yield_pct + '%';
+      document.getElementById('t-otif').innerText = c.otif_delivery_target_pct + '%';
+      document.getElementById('t-val').innerText = Number(c.annual_total_sar).toLocaleString() + ' ر.س';
+      document.getElementById('c-pen').innerText = c.penalty_clause;
+      document.getElementById('c-bon').innerText = c.bonus_clause;
+      document.getElementById('c-cells').innerText = c.assigned_dark_cells;
+      document.getElementById('c-co2').innerText = Number(c.annual_co2_saved_tons).toLocaleString();
+      document.getElementById('c-seal').innerText = '0x' + c.sha256_seal;
+    }
+    loadLatestSlaContract();
+  </script>
+</body>
+</html>

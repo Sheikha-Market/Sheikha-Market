@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نشرة الأسعار اليومية لشراء وتوريد المعادن والسكراب | منظومة وسوق شيخة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --gold:#b45309; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.65; }
+    .no-print {
+      max-width:1060px; margin:0 auto 16px; background:var(--navy); color:#fff; border-radius:12px;
+      padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:9px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.84rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .sheet {
+      max-width:1060px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:30px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .header-doc {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.88rem; margin:14px 0; }
+    th, td { border:1px solid var(--border); padding:10px 12px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    tr:nth-child(even) { background:#f8fafc; }
+    .price-buy { color:#0284c7; font-weight:900; }
+    .price-sell { color:#059669; font-weight:900; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .no-print { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <div>
+      <strong>📊 نشرة الأسعار اليومية الرسمية لشراء وتوريد المعادن والسكراب (/daily-prices)</strong>
+      <div style="font-size:0.78rem;color:#cbd5e1;">جاهزة للطباعة كـ PDF أو نسخ النص لإرساله للموردين والمصانع عبر واتساب</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn" onclick="copyBulletinWhatsapp()">📲 نسخ النشرة للواتساب</button>
+      <button class="btn" style="background:var(--blue);" onclick="window.print()">🖨️ طباعة النشرة اليومية (PDF)</button>
+      <a href="/ariba-package" class="btn" style="background:#475569;">🗂️ حزمة تقديم أرامكو</a>
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="header-doc">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.7rem;">نشرة الأسعار اليومية المعتمدة لتجارة وتوريد المعادن</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر — الدمام — الجبيل — الرياض | سجل تجاري: <code>2051263653</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.84rem;line-height:1.6;">
+        <div><b>تاريخ النشرة:</b> 12 نوفمبر 2026م</div>
+        <div><b>مرجع المورد:</b> Aramco ID: <code>S11488084</code></div>
+        <div><b>التسوية البنكية:</b> مصرف الإنماء</div>
+      </div>
+    </header>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الرمز الجمركي</th>
+          <th>الصنف المعدني والمواصفة القياسية (ISRI Grade)</th>
+          <th>نقاوة الفحص (XRF)</th>
+          <th>سعر الشراء من الموردين (ر.س/طن)</th>
+          <th>سعر التوريد للمصاهر (ر.س/طن)</th>
+          <th>حالة الطلب</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>7404.00.10</code></td>
+          <td><b>نحاس أحمر نقي وكابلات مقشرة (Berry / Candy)</b></td>
+          <td>≥ 99.90%</td>
+          <td class="price-buy">30,250 ر.س</td>
+          <td class="price-sell">31,200 ر.س</td>
+          <td>طلب مرتفع جداً (شراء فوري)</td>
+        </tr>
+        <tr>
+          <td><code>7404.00.20</code></td>
+          <td><b>نحاس أصفر وبرونز نظيف (Honey Brass)</b></td>
+          <td>≥ 98.50%</td>
+          <td class="price-buy">20,600 ر.س</td>
+          <td class="price-sell">21,400 ر.س</td>
+          <td>طلب مستقر</td>
+        </tr>
+        <tr>
+          <td><code>7602.00.10</code></td>
+          <td><b>بالات علب ألمنيوم مكبوسة (Taldon UBC 320-Bar)</b></td>
+          <td>≥ 99.10%</td>
+          <td class="price-buy">8,500 ر.س</td>
+          <td class="price-sell">8,950 ر.س</td>
+          <td>طلب مرتفع لخطوط الإنتاج</td>
+        </tr>
+        <tr>
+          <td><code>7602.00.20</code></td>
+          <td><b>قطاعات ومسبوكات وجنوط ألمنيوم نقية (Tense / Tread)</b></td>
+          <td>≥ 99.00%</td>
+          <td class="price-buy">8,900 ر.س</td>
+          <td class="price-sell">9,400 ر.س</td>
+          <td>طلب مرتفع</td>
+        </tr>
+        <tr>
+          <td><code>7204.21.00</code></td>
+          <td><b>فولاذ مقاوم للصدأ — استنلس ستيل (Sabot 304 / 316)</b></td>
+          <td>≥ 98.50%</td>
+          <td class="price-buy">5,350 ر.س</td>
+          <td class="price-sell">5,800 ر.س</td>
+          <td>طلب صناعي مستمر</td>
+        </tr>
+        <tr>
+          <td><code>7204.49.10</code></td>
+          <td><b>حديد فولاذي ثقيل مقصوص بالمقاس (HMS 1 & HMS 2)</b></td>
+          <td>≥ 98.00%</td>
+          <td class="price-buy">1,410 ر.س</td>
+          <td class="price-sell">1,520 ر.س</td>
+          <td>عقود توريد للمصاهر</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="background:#f8fafc;border:1px solid var(--border);border-right:4px solid var(--emerald);border-radius:10px;padding:12px 16px;font-size:0.84rem;margin-top:14px;">
+      <strong>ضوابط الاستلام والتسوية المالية المعتمدة:</strong>
+      <div>1. الأسعار أعلاه للطن المتري الصافي في أرض الساحة (الخبر / الدمام) قبل ضريبة القيمة المضافة (15%)، وتخضع الشحنات لفحص النقاوة الطيفية (XRF) وخصم نسبة الشوائب الفعلية.</div>
+      <div>2. يتم السداد والتحويل البنكي الفوري فور إصدار محضر الاستلام المخزني (GRN) وتوثيق الختم الأمني الأحمر للحاويات عبر حساب المؤسسة في مصرف الإنماء: <code>SA4005000068206162118000</code>.</div>
+    </div>
+  </main>
+
+  <script>
+    function copyBulletinWhatsapp() {
+      const txt = "📊 *نشرة الأسعار اليومية المعتمدة — منظومة وسوق شيخة للمعادن (Sheikha.top)*
+" +
+        "مؤسسة سلمان أحمد بن سلمان الراجح التجارية (الخبر - سجل: 2051263653)
+" +
+        "----------------------------------------
+" +
+        "🔹 *نحاس أحمر نقي (Berry - HS 7404):* شراء 30,250 | توريد 31,200 ر.س/طن
+" +
+        "🔹 *نحاس أصفر (Honey - HS 7404):* شراء 20,600 | توريد 21,400 ر.س/طن
+" +
+        "🔹 *بالات علب ألمنيوم (UBC - HS 7602):* شراء 8,500 | توريد 8,950 ر.س/طن
+" +
+        "🔹 *قطاعات ألمنيوم (Tense - HS 7602):* شراء 8,900 | توريد 9,400 ر.س/طن
+" +
+        "🔹 *استنلس ستيل 304/316 (HS 7204):* شراء 5,350 | توريد 5,800 ر.س/طن
+" +
+        "🔹 *حديد ثقيل مقصوص (HMS 1&2):* شراء 1,410 | توريد 1,520 ر.س/طن
+" +
+        "----------------------------------------
+" +
+        "✅ فحص نقاوة XRF معتمد + توثيق الختم الأحمر + تسوية بنكية فورية عبر مصرف الإنماء:
+" +
+        "IBAN: SA4005000068206162118000
+" +
+        "🌐 للتعاقد وتأهيل الموردين: https://sheikha.top";
+      navigator.clipboard.writeText(txt);
+      alert("تم نسخ نشرة الأسعار اليومية للواتساب بنجاح ✓");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المعمارية الشاملة للبنية التحتية والفوقية والخلفية وتشغيل الـ 12 نطاقاً وفروعها الـ 36 (/full-architecture)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --gold:#b45309; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:18px; line-height:1.62; }
+    .no-print {
+      max-width:1240px; margin:0 auto 14px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 15px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .btn.blue { background:var(--blue); }
+    .sheet {
+      max-width:1240px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:26px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .doc-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;
+      border-bottom:3px solid var(--navy); padding-bottom:12px; margin-bottom:14px;
+    }
+    .tiers-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:14px; }
+    .tier-card { background:#f8fafc; border:1px solid var(--border); border-top:4px solid var(--navy); border-radius:10px; padding:10px; font-size:0.78rem; }
+    .tier-card strong { font-size:0.86rem; display:block; margin-bottom:3px; color:var(--navy); }
+    table { width:100%; border-collapse:collapse; font-size:0.78rem; margin:8px 0; }
+    th, td { border:1px solid var(--border); padding:7px 8px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    tr:nth-child(even) { background:#f8fafc; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .no-print { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <div>
+      <strong style="font-size:0.98rem;color:#34d399;">🌐🏛️ المعمارية الشاملة للبنية التحتية والفوقية والخلفية وتشغيل الـ 12 نطاقاً وفروعها الـ 36 (/full-architecture)</strong>
+      <div style="font-size:0.76rem;color:#cbd5e1;">اضغط على أي نطاق أساسي أو فرعي في الجدول لاختبار التوجيه المباشر للبوابة المخصصة له</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn" onclick="window.print()">🖨️ طباعة المعمارية الشاملة (PDF)</button>
+      <a href="/deal-room" class="btn blue">💼 غرفة إغلاق الصفقة</a>
+      <a href="/master-index" class="btn" style="background:#475569;">🏛️ الفهرس التنفيذي</a>
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.55rem;">المعمارية الهندسية الشاملة (البنية التحتية، الخلفية، الفوقية، والإدارة) للنطاقات الـ 12 وفروعها الـ 36</h1>
+        <div style="font-weight:800;font-size:0.9rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.78rem;color:#475569;">سجل تجاري: <code>2051263653</code> | مورد أرامكو: <code>S11488084</code> | أريبا: <code>AN11235091112</code> | مصرف الإنماء: <code>SA4005000068206162118000</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.78rem;line-height:1.5;">
+        <div><b>كود ضبط الوثيقة (DMS):</b> <code>SHK-ARC-FUL-020</code></div>
+        <div><b>البوابات النشطة:</b> <code>12 Roots + 36 Subdomains = 48 Active Gateways</code></div>
+      </div>
+    </header>
+
+    <section class="tiers-grid">
+      <div class="tier-card" style="border-top-color:var(--navy);"><strong>1️⃣ البنية التحتية (Infrastructure)</strong><div>خادم البير ميتال (22 CPU Cores)، نواة Linux 7.2.15، وخزنة قواعد بيانات الـ JSON المحلية.</div></div>
+      <div class="tier-card" style="border-top-color:var(--blue);"><strong>2️⃣ البنية الخلفية (Backend & Router)</strong><div>محرك <code>store-7788.js</code>، موجه النطاقات والفروع <code>/vhost/*</code>، و4 روبوتات برمجية.</div></div>
+      <div class="tier-card" style="border-top-color:var(--emerald);"><strong>3️⃣ البنية الفوقية (Superstructure)</strong><div>21 بوابة وواجهة تشغيلية (العروض، العقود، الفحص XRF، الختم الأحمر، وفواتير ZATCA).</div></div>
+      <div class="tier-card" style="border-top-color:var(--gold);"><strong>4️⃣ الإدارة والحوكمة (Governance)</strong><div>ضبط الوثائق القياسي (ISO 9001 DMS)، سجل الصفقات (CRM)، وتطبيق سطح المكتب.</div></div>
+    </section>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>النطاق الأساسي (Root)</th>
+          <th>الفروع السيادية النشطة (Active Subdomain Pillars)</th>
+          <th>التخصص المؤسسي في الهيكلة</th>
+          <th>البوابة الفوقية المرتبطة</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td><b>01</b></td>
+        <td><a href="/vhost/sheikha.top" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.top ↗</a></td>
+        <td><a href='/vhost/hq.sheikha.top' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>hq.sheikha.top ↗</a> <a href='/vhost/ariba.sheikha.top' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>ariba.sheikha.top ↗</a> <a href='/vhost/gov.sheikha.top' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>gov.sheikha.top ↗</a></td>
+        <td><b>القيادة العليا والمنظومة الأم (أرامكو S11488084)</b></td>
+        <td><a href="/master-index" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/master-index ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>02</b></td>
+        <td><a href="/vhost/sheikha.market" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.market ↗</a></td>
+        <td><a href='/vhost/copper.sheikha.market' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>copper.sheikha.market ↗</a> <a href='/vhost/aluminum.sheikha.market' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>aluminum.sheikha.market ↗</a> <a href='/vhost/steel.sheikha.market' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>steel.sheikha.market ↗</a></td>
+        <td><b>بورصة وسوق المعادن الفوري (HS 7404/7602/7204)</b></td>
+        <td><a href="/daily-prices" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/daily-prices ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>03</b></td>
+        <td><a href="/vhost/sheikha.app" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.app ↗</a></td>
+        <td><a href='/vhost/erp.sheikha.app' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>erp.sheikha.app ↗</a> <a href='/vhost/grn.sheikha.app' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>grn.sheikha.app ↗</a> <a href='/vhost/pos.sheikha.app' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>pos.sheikha.app ↗</a></td>
+        <td><b>تطبيق المنصة التشغيلي الموحد</b></td>
+        <td><a href="/unified-work" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/unified-work ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>04</b></td>
+        <td><a href="/vhost/sheikha.money" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.money ↗</a></td>
+        <td><a href='/vhost/alinma.sheikha.money' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>alinma.sheikha.money ↗</a> <a href='/vhost/zatca.sheikha.money' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>zatca.sheikha.money ↗</a> <a href='/vhost/ledger.sheikha.money' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>ledger.sheikha.money ↗</a></td>
+        <td><b>الخزينة والتسويات والفوترة الضريبية (مصرف الإنماء)</b></td>
+        <td><a href="/treasury-ledger" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/treasury-ledger ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>05</b></td>
+        <td><a href="/vhost/sheikha.capital" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.capital ↗</a></td>
+        <td><a href='/vhost/tenders.sheikha.capital' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>tenders.sheikha.capital ↗</a> <a href='/vhost/sla.sheikha.capital' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>sla.sheikha.capital ↗</a> <a href='/vhost/bonds.sheikha.capital' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>bonds.sheikha.capital ↗</a></td>
+        <td><b>المناقصات والضمانات البنكية 5% وعقود SLA</b></td>
+        <td><a href="/tender-bid" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/tender-bid ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>06</b></td>
+        <td><a href="/vhost/sheikha.shop" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.shop ↗</a></td>
+        <td><a href='/vhost/deals.sheikha.shop' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>deals.sheikha.shop ↗</a> <a href='/vhost/kyc.sheikha.shop' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>kyc.sheikha.shop ↗</a> <a href='/vhost/orders.sheikha.shop' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>orders.sheikha.shop ↗</a></td>
+        <td><b>غرفة إغلاق الصفقات الفورية وباقات التأهيل</b></td>
+        <td><a href="/deal-room" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/deal-room ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>07</b></td>
+        <td><a href="/vhost/sheikha.cloud" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.cloud ↗</a></td>
+        <td><a href='/vhost/dms.sheikha.cloud' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>dms.sheikha.cloud ↗</a> <a href='/vhost/vault.sheikha.cloud' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>vault.sheikha.cloud ↗</a> <a href='/vhost/backup.sheikha.cloud' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>backup.sheikha.cloud ↗</a></td>
+        <td><b>سحابة الوثائق القياسية ISO 9001 DMS</b></td>
+        <td><a href="/methodologies-dms" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/methodologies-dms ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>08</b></td>
+        <td><a href="/vhost/sheikha.digital" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.digital ↗</a></td>
+        <td><a href='/vhost/xrf.sheikha.digital' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>xrf.sheikha.digital ↗</a> <a href='/vhost/redseal.sheikha.digital' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>redseal.sheikha.digital ↗</a> <a href='/vhost/bol.sheikha.digital' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>bol.sheikha.digital ↗</a></td>
+        <td><b>التحقق الرقمي للختم الأحمر وبوليصة الشحن</b></td>
+        <td><a href="/gate-pass" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/gate-pass ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>09</b></td>
+        <td><a href="/vhost/sheikha.dev" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.dev ↗</a></td>
+        <td><a href='/vhost/api.sheikha.dev' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>api.sheikha.dev ↗</a> <a href='/vhost/kernel.sheikha.dev' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>kernel.sheikha.dev ↗</a> <a href='/vhost/bots.sheikha.dev' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>bots.sheikha.dev ↗</a></td>
+        <td><b>بيئة المطورين والنواة والروبوتات البرمجية</b></td>
+        <td><a href="/sheikha-os" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/sheikha-os ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>10</b></td>
+        <td><a href="/vhost/sheikha.site" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.site ↗</a></td>
+        <td><a href='/vhost/profile.sheikha.site' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>profile.sheikha.site ↗</a> <a href='/vhost/iktva.sheikha.site' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>iktva.sheikha.site ↗</a> <a href='/vhost/iso.sheikha.site' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>iso.sheikha.site ↗</a></td>
+        <td><b>الموقع التعريفي الرسمي وتأهيل الموردين</b></td>
+        <td><a href="/company-profile" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/company-profile ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>11</b></td>
+        <td><a href="/vhost/sheikha.me" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.me ↗</a></td>
+        <td><a href='/vhost/ceo.sheikha.me' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>ceo.sheikha.me ↗</a> <a href='/vhost/procurement.sheikha.me' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>procurement.sheikha.me ↗</a> <a href='/vhost/vip.sheikha.me' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>vip.sheikha.me ↗</a></td>
+        <td><b>التواصل التنفيذي ومراسلات مديري المشتريات</b></td>
+        <td><a href="/procurement-outreach" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/procurement-outreach ↗</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>12</b></td>
+        <td><a href="/vhost/sheikha.click" target="_blank" style="font-weight:900;color:#059669;font-family:monospace;font-size:0.88rem;text-decoration:none;">sheikha.click ↗</a></td>
+        <td><a href='/vhost/wa.sheikha.click' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>wa.sheikha.click ↗</a> <a href='/vhost/call.sheikha.click' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>call.sheikha.click ↗</a> <a href='/vhost/yards.sheikha.click' target='_blank' style='background:#e0f2fe;color:#0369a1;padding:2px 6px;border-radius:4px;margin-left:4px;text-decoration:none;font-family:monospace;font-size:0.76rem;'>yards.sheikha.click ↗</a></td>
+        <td><b>الوصول السريع لدليل المصانع والساحات</b></td>
+        <td><a href="/target-directory" target="_blank" style="font-weight:800;color:#0284c7;text-decoration:none;">/target-directory ↗</a></td>
+      </tr>
+    
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

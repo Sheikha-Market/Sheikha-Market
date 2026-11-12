@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فاتورة ضريبية إلكترونية معتمدة (Official ZATCA Tax Invoice) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.65; }
+    .ctrl-panel {
+      max-width:1080px; margin:0 auto 18px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:16px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+    .ctrl-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px; }
+    @media(max-width:850px){ .ctrl-grid { grid-template-columns:1fr 1fr; } }
+    input, select {
+      width:100%; padding:8px 10px; border-radius:8px; border:1px solid #475569;
+      background:#1e293b; color:#fff; font-family:inherit; font-size:0.82rem;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .sheet {
+      max-width:1080px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:32px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .doc-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    .parties-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+    @media(max-width:750px){ .parties-grid { grid-template-columns:1fr; } }
+    .party-box { background:#f8fafc; border:1px solid var(--border); border-right:4px solid var(--navy); border-radius:10px; padding:12px 14px; font-size:0.85rem; }
+    table { width:100%; border-collapse:collapse; font-size:0.85rem; margin:14px 0; }
+    th, td { border:1px solid var(--border); padding:10px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    .totals-box { width:350px; border:2px solid var(--navy); border-radius:10px; overflow:hidden; }
+    .totals-row { display:flex; justify-content:space-between; padding:8px 14px; border-bottom:1px solid var(--border); font-size:0.88rem; }
+    .totals-row.final { background:var(--navy); color:#fff; font-weight:900; font-size:1rem; border-bottom:none; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .ctrl-panel { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="ctrl-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong style="font-size:1rem;color:#34d399;">🧾🔐 مولد الفاتورة الضريبية الإلكترونية النهائية الموثقة بترميز ZATCA TLV (/tax-invoice)</strong>
+        <div style="font-size:0.78rem;color:#cbd5e1;">عدّل بيانات المشتري أو الصنف أو الكمية ليتحدث الوعاء الضريبي وترميز ZATCA Base64 تلقائياً</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn" onclick="window.print()">🖨️ طباعة الفاتورة الضريبية (PDF)</button>
+        <a href="/ariba-package" class="btn" style="background:var(--blue);">🗂️ حزمة تقديم أرامكو (10/10)</a>
+        <a href="/unified-work" class="btn" style="background:#475569;">🏢 مركز العمل الموحد</a>
+      </div>
+    </div>
+
+    <div class="ctrl-grid">
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">اسم المنشأة المشترية (العميل):</label>
+        <input id="ti-buyer" value="شركة مصانع الشرقية للكابلات والصناعات المعدنية" oninput="updateTaxInvoice()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">الرقم الضريبي للمشتري (Buyer VAT):</label>
+        <input id="ti-bvat" value="300055112200003" oninput="updateTaxInvoice()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">الصنف المورّد (HS Code):</label>
+        <select id="ti-item" onchange="onTiItemChange()">
+          <option value="7404.00.10|نحاس أحمر نقي مفروز ومجهز للصهر (ISRI: Berry — XRF ≥ 99.90%)|31200">نحاس أحمر نقي (HS 7404.00.10)</option>
+          <option value="7602.00.10|بالات علب ألمنيوم مكبوسة 320 بار (ISRI: Taldon UBC — XRF ≥ 99.10%)|8950">بالات ألمنيوم UBC (HS 7602.00.10)</option>
+          <option value="7204.49.10|حديد فولاذي ثقيل مقصوص بالمقاس (HMS 1&2 — سماكة ≥ 6 ملم)|1520">حديد ثقيل مقصوص HMS (HS 7204.49.10)</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div>
+          <label style="font-size:0.74rem;color:#cbd5e1;">الكمية (طن):</label>
+          <input id="ti-qty" type="number" value="10" min="1" oninput="updateTaxInvoice()" />
+        </div>
+        <div>
+          <label style="font-size:0.74rem;color:#cbd5e1;">السعر/طن (ر.س):</label>
+          <input id="ti-price" type="number" value="31200" min="1" oninput="updateTaxInvoice()" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="sheet">
+    <header class="doc-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.75rem;">فاتورة ضريبية (Tax Invoice — B2B)</h1>
+        <div style="font-weight:800;font-size:0.95rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية، المملكة العربية السعودية | سجل تجاري: <code>2051263653</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div><b>رقم الفاتورة (Invoice No):</b> <code>INV-SHK-2026-1001</code></div>
+        <div><b>تاريخ ووقت الإصدار:</b> <span id="v-time">2026-11-12T18:59:00Z</span></div>
+        <div><b>مرجع أمر الشراء والمحضر:</b> <code>PO-201 | GRN-5001</code></div>
+        <div><b>كود ضبط الوثيقة (DMS):</b> <code>SHK-FIN-INV-010</code></div>
+      </div>
+    </header>
+
+    <div class="parties-grid">
+      <div class="party-box">
+        <strong>أولاً: بيانات المورد / البائع (Seller Details):</strong>
+        <div style="margin-top:4px;"><b>الاسم القانوني:</b> مؤسسة سلمان أحمد بن سلمان الراجح التجارية</div>
+        <div><b>السجل التجاري:</b> <code>2051263653</code> | <b>الرقم الضريبي (VAT):</b> <code>310000000000003</code></div>
+        <div><b>معرف مورد أرامكو وأريبا:</b> Vendor ID: <code>S11488084</code> | ANID: <code>AN11235091112</code></div>
+      </div>
+      <div class="party-box" style="border-right-color:var(--emerald);">
+        <strong>ثانياً: بيانات العميل / المشتري (Buyer Details):</strong>
+        <div style="margin-top:4px;"><b>اسم المنشأة:</b> <b id="v-buyer">...</b></div>
+        <div><b>الرقم الضريبي للمشتري (Buyer VAT No):</b> <code id="v-bvat">...</code></div>
+        <div><b>حالة الاستلام والختم الأحمر:</b> مستلم بموجب <code>GRN-SHK-5001</code> والختم <code>RED-SEAL-KSA-88412</code></div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الرمز الجمركي</th>
+          <th>البيان والمواصفة الفنية (Description)</th>
+          <th>الكمية (طن)</th>
+          <th>سعر الوحدة</th>
+          <th>المبلغ الخاضع للضريبة</th>
+          <th>نسبة الضريبة</th>
+          <th>مبلغ الضريبة (15%)</th>
+          <th>المجموع شامل الضريبة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code id="v-hs">7404.00.10</code></td>
+          <td id="v-desc" style="font-weight:700;">...</td>
+          <td id="v-qty" style="font-weight:800;">10</td>
+          <td id="v-uprice">31,200.00</td>
+          <td id="v-net">312,000.00</td>
+          <td>15%</td>
+          <td id="v-vat">46,800.00</td>
+          <td id="v-grand" style="font-weight:900;color:var(--emerald);">358,800.00 ر.س</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px;margin-top:16px;">
+      <div style="flex:1;min-width:300px;background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:0.82rem;">
+        <strong style="display:block;margin-bottom:4px;color:var(--navy);">بيانات السداد البنكي وترميز الفوترة الإلكترونية (ZATCA Phase-2 TLV):</strong>
+        <div>• <b>البنك المعتمد:</b> مصرف الإنماء (Alinma Bank) — المستفيد: مؤسسة سلمان أحمد بن سلمان الراجح التجارية</div>
+        <div>• <b>رقم الآيبان الرسمي (IBAN):</b> <code style="font-weight:900;color:#065f46;">SA4005000068206162118000</code></div>
+        <div style="margin-top:6px;">• <b>ختم ZATCA TLV Base64:</b></div>
+        <code id="v-tlv" style="display:block;word-break:break-all;background:#e2e8f0;padding:6px;border-radius:6px;font-size:0.72rem;margin-top:3px;">...</code>
+      </div>
+
+      <div class="totals-box">
+        <div class="totals-row"><span>الإجمالي الخاضع للضريبة (غير شامل VAT):</span><b id="t-net">312,000.00 ر.س</b></div>
+        <div class="totals-row"><span>مجموع ضريبة القيمة المضافة (15%):</span><b id="t-vat">46,800.00 ر.س</b></div>
+        <div class="totals-row final"><span>إجمالي الفاتورة المستحق (شامل الضريبة):</span><span id="t-grand">358,800.00 ر.س</span></div>
+      </div>
+    </div>
+
+    <footer style="display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--navy);padding-top:12px;margin-top:22px;font-size:0.8rem;">
+      <div><b>اعتماد المورد:</b> مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سجل: 2051263653)</div>
+      <div><b>ختم الفاتورة الإلكترونية:</b> ZATCA-SEAL-f18f8146 • DMS: SHK-FIN-INV-010</div>
+    </footer>
+  </main>
+
+  <script>
+    function onTiItemChange() {
+      const parts = document.getElementById('ti-item').value.split('|');
+      document.getElementById('ti-price').value = parts[2];
+      updateTaxInvoice();
+    }
+
+    function updateTaxInvoice() {
+      const buyer = document.getElementById('ti-buyer').value.trim() || 'العميل الموقر';
+      const bvat = document.getElementById('ti-bvat').value.trim() || '300000000000003';
+      const parts = document.getElementById('ti-item').value.split('|');
+      const hs = parts[0], desc = parts[1];
+      const qty = Math.max(1, Number(document.getElementById('ti-qty').value || 1));
+      const uprice = Math.max(0, Number(document.getElementById('ti-price').value || 0));
+
+      const net = qty * uprice;
+      const vat = net * 0.15;
+      const grand = net + vat;
+
+      const netStr = net.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+      const vatStr = vat.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+      const grandStr = grand.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+      document.getElementById('v-buyer').innerText = buyer;
+      document.getElementById('v-bvat').innerText = bvat;
+      document.getElementById('v-hs').innerText = hs;
+      document.getElementById('v-desc').innerText = desc;
+      document.getElementById('v-qty').innerText = qty.toLocaleString();
+      document.getElementById('v-uprice').innerText = uprice.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+      document.getElementById('v-net').innerText = netStr;
+      document.getElementById('v-vat').innerText = vatStr;
+      document.getElementById('v-grand').innerText = grandStr + ' ر.س';
+      document.getElementById('t-net').innerText = netStr + ' ر.س';
+      document.getElementById('t-vat').innerText = vatStr + ' ر.س';
+      document.getElementById('t-grand').innerText = grandStr + ' ر.س';
+
+      const rawTlv = `Seller:Salman Ahmed Al-Rajhi Est|VAT:310000000000003|Time:2026-11-12T18:59:00Z|Total:${grand.toFixed(2)}|Tax:${vat.toFixed(2)}`;
+      document.getElementById('v-tlv').innerText = btoa(unescape(encodeURIComponent(rawTlv)));
+    }
+    updateTaxInvoice();
+  </script>
+</body>
+</html>

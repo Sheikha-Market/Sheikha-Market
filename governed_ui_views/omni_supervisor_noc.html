@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز التحكم الأعلى والمراقبة اللحظية والسوبر فايزور والتمويل الإسلامي | SHEIKHA® Omni-Supervisor V90000</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #010409;
+      --panel: rgba(6, 14, 28, 0.92);
+      --card: rgba(3, 8, 18, 0.95);
+      --gold: #d4af37;
+      --gold-bright: #fde047;
+      --cyan: #00f2fe;
+      --emerald: #10b981;
+      --crimson: #f43f5e;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(212, 175, 55, 0.38);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.58; padding: 12px 16px 36px; }
+    .shell { max-width: 1580px; margin: 0 auto; }
+
+    .top-bar {
+      background: linear-gradient(90deg, #010307, #0a192f, #010307);
+      border: 1px solid var(--border); border-radius: 10px; padding: 6px 14px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+      font-size: 0.74rem; margin-bottom: 10px;
+    }
+    .top-bar code { color: var(--gold-bright); font-family: 'JetBrains Mono', monospace; font-weight: 800; }
+    .ip-tag { background: rgba(212,175,55,0.16); border: 1px solid var(--gold); color: var(--gold-bright); padding: 2px 10px; border-radius: 999px; font-weight: 800; font-size: 0.69rem; }
+
+    .header-noc {
+      background: var(--panel); border: 1px solid var(--border); border-bottom: 2px solid var(--gold-bright);
+      border-radius: 16px; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+    }
+    .emblem {
+      width: 50px; height: 50px; border-radius: 13px; background: radial-gradient(circle, var(--gold-bright), var(--gold));
+      color: #010409; font-family: 'Amiri', serif; font-size: 1.8rem; font-weight: 700; display: grid; place-items: center; border: 2px solid #fff;
+    }
+    .h1-noc {
+      font-size: 1.2rem; font-weight: 900;
+      background: linear-gradient(90deg, #fff, var(--gold-bright), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .shk-btn {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color: #010409;
+      border: none; padding: 8px 14px; border-radius: 8px; font-family: inherit; font-weight: 900;
+      font-size: 0.76rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+    }
+    .shk-btn.cyan { background: linear-gradient(135deg, var(--cyan), #0284c7); }
+    .shk-btn.emerald { background: linear-gradient(135deg, #34d399, #059669); }
+
+    /* الأركان القيادية الأربعة (السوبر فايزور + المدير + الحارس + الواتش اللحظي) */
+    .pillars-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+    @media(max-width: 1100px) { .pillars-4 { grid-template-columns: repeat(2, 1fr); } }
+    .pillar-card {
+      background: var(--card); border: 1px solid rgba(0, 242, 254, 0.35);
+      border-top: 3px solid var(--gold-bright); border-radius: 13px; padding: 11px 13px;
+    }
+    .pillar-card strong { color: var(--gold-bright); font-size: 0.86rem; display: flex; justify-content: space-between; }
+    .pillar-card small { color: var(--muted); font-size: 0.72rem; display: block; margin-top: 4px; }
+    .pillar-metric { font-family: 'JetBrains Mono', monospace; color: #34d399; font-size: 0.95rem; font-weight: 900; margin-top: 6px; display: block; }
+
+    /* شبكة الـ 22 نواة معالج حقيقية في لوحة المراقبة اللحظية */
+    .cores-22-grid {
+      display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; margin: 8px 0 14px;
+    }
+    @media(max-width: 900px) { .cores-22-grid { grid-template-columns: repeat(6, 1fr); } }
+    .core-cell {
+      background: #020813; border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 7px;
+      padding: 5px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem;
+    }
+    .core-cell b { color: var(--cyan); display: block; }
+    .core-cell span { color: #34d399; font-weight: 800; }
+
+    .grid-2 { display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; align-items: start; }
+    @media(max-width: 1150px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    .box {
+      background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--emerald);
+      border-radius: 16px; padding: 16px; box-shadow: 0 18px 45px rgba(0,0,0,0.75);
+    }
+    .box-head {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25); padding-bottom: 8px; margin-bottom: 12px;
+    }
+    .box-head h2 { font-size: 0.98rem; font-weight: 900; color: var(--gold-bright); }
+
+    input, select {
+      width: 100%; padding: 8px 10px; background: #01040a; color: #fff;
+      border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 8px;
+      font-family: inherit; font-size: 0.78rem; margin-bottom: 8px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+    th, td { border: 1px solid rgba(212, 175, 55, 0.28); padding: 7px 8px; text-align: right; }
+    th { background: #040b18; color: var(--gold-bright); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <div class="top-bar">
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <span>🛡️ السوبر فايزور: <code>SUPERVISOR-V90000 ONLINE</code></span>
+        <span>🧠 المدير الذاتي: <code>AI-DIRECTOR ACTIVE</code></span>
+        <span>⚡ الحارس الخالد: <code>WATCHDOG 24/7</code></span>
+        <span>🏦 تسوية التمويل الإسلامي (مصرف الإنماء): <code>SA4005000068206162118000</code></span>
+      </div>
+      <span class="ip-tag">© ملكية فكرية وتصميم حصري لمنظومة شيخة SHEIKHA® IP — القيادة الشاملة والتمويل الإسلامي</span>
+    </div>
+
+    <header class="header-noc">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="emblem">ش</div>
+        <div>
+          <h1 class="h1-noc">مركز تحكم شيخة الأعلى: السوبر فايزور • المدير • الحارس • المراقبة اللحظية • وبوابة التمويل الإسلامي</h1>
+          <div style="font-size:0.74rem;color:var(--muted);">
+            حوكمة شرعية وتقنية شاملة (المرابحة، الاستصناع، السَّلَم، والاعتمادات المستندية الذكية) + مراقبة حية لـ 22 نواة معالج وخلايا المصنع المظلم
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/sheikha-os" class="shk-btn cyan">🌑 السوق المفتوح والمصنع المظلم (/sheikha-os)</a>
+        <a href="/tax-report" class="shk-btn emerald">🧾 السجل الضريبي الزكوي</a>
+        <button class="shk-btn" onclick="window.print()">🖨️ طباعة تقرير القيادة والتمويل (PDF)</button>
+      </div>
+    </header>
+
+    <!-- الأركان الأربعة للقيادة والمراقبة اللحظية -->
+    <section class="pillars-4">
+      <div class="pillar-card">
+        <strong><span>1. السوبر فايزور (Supervisor)</span><span style="color:#34d399;">● ACTIVE</span></strong>
+        <small>إدارة العمليات الحية وموازنة الـ 22 نواة معالج</small>
+        <span class="pillar-metric" id="p-sup-mhz">22 CORES • 3,400 MHz</span>
+      </div>
+      <div class="pillar-card">
+        <strong><span>2. المدير التنفيذي (AI Director)</span><span style="color:var(--cyan);">● AUTOPILOT</span></strong>
+        <small>توجيه الصفقات والمصنع المظلم والاعتمادات</small>
+        <span class="pillar-metric" id="p-dir-ops">6 ENGINES SYNCED</span>
+      </div>
+      <div class="pillar-card">
+        <strong><span>3. الحارس الخالد (Watchdog)</span><span style="color:var(--gold-bright);">● GUARDING</span></strong>
+        <small>استشفاء ذاتي فوري للخادم 7788 والنفق السحابي</small>
+        <span class="pillar-metric" id="p-wch-uptime">UPTIME: 99.99% (0 DOWN)</span>
+      </div>
+      <div class="pillar-card">
+        <strong><span>4. المراقبة اللحظية (Live Watch)</span><span style="color:#34d399;">● 0.38ms</span></strong>
+        <small>حرارة العتاد، الطاقة، وسقف التمويل الإسلامي</small>
+        <span class="pillar-metric" id="p-fin-util">8,296,350 SAR ACTIVE LC</span>
+      </div>
+    </section>
+
+    <!-- مصفوفة المراقبة اللحظية لـ 22 نواة معالج حقيقية (Real-Time 22 CPU Cores Watch) -->
+    <section class="box" style="margin-bottom:16px;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+        <strong style="font-size:0.84rem;color:var(--gold-bright);">📡 لوحة المراقبة اللحظية للعتاد الفيزيائي (Live Watch — 22 Physical CPU Cores & Power Telemetry):</strong>
+        <span id="live-hw-summary" style="font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:#34d399;">Connecting to Real-Time Hardware Stream...</span>
+      </div>
+      <div class="cores-22-grid" id="cores-watch-grid"></div>
+    </section>
+
+    <div class="grid-2">
+      <!-- يمين: بوابة التمويل الإسلامي والاعتمادات المستندية الذكية (المرابحة، الاستصناع، السلم) -->
+      <section class="box">
+        <div class="box-head">
+          <h2>🕌🏦 1. بوابة التمويل الإسلامي والاعتمادات المستندية الذكية (المرابحة • الاستصناع • السَّلَم)</h2>
+          <span class="ip-tag">BOUND BY QURAN & SUNNAH</span>
+        </div>
+
+        <div style="background:rgba(1,5,12,0.95);border:1px solid rgba(16,185,129,0.45);border-radius:12px;padding:12px;margin-bottom:12px;">
+          <label style="font-size:0.74rem;color:var(--gold-bright);font-weight:800;display:block;margin-bottom:4px;">1. اختر صيغة العقد والاعتماد الإسلامي الذكي:</label>
+          <select id="fin-mode">
+            <option value="MURABAHA|4.5">🕌 عقد مرابحة سلعية إسلامية (تمويل شراء شحنات ومزادات سكراب جاهزة — هامش ربح معلوم 4.5%)</option>
+            <option value="ISTISNAA|5.0">🏭 عقد استصناع صناعي (تمويل فرز وقص وكبس بالات المعادن في المصنع المظلم — هامش 5.0%)</option>
+            <option value="SALAM|3.5">🌾 عقد سَلَم تمويلي مجدول (تعجيل رأس المال مقابل توريد معادن مضبوطة النقاوة XRF — هامش 3.5%)</option>
+          </select>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <input id="fin-entity" value="شركة حديد للصناعات الفولاذية — الجبيل" placeholder="الجهة المستفيدة / المصهر" />
+            <input id="fin-commodity" value="500 طن حديد ثقيل مقصوص HMS 1&2 (HS 7204.49.10)" placeholder="وصف البضاعة والرمز الجمركي" />
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <input id="fin-cost" type="number" value="760000" min="1000" placeholder="رأس المال / التكلفة الأساسية (ر.س)" />
+            <input id="fin-hs" value="7204.49.10" placeholder="الرمز الجمركي HS Code" />
+          </div>
+
+          <button class="shk-btn emerald" style="width:100%;padding:10px;" onclick="issueIslamicSmartLC()">
+            ⚡ إصدار الاعتماد المستندي الإسلامي الذكي وربطه بالقبان و XRF ومصرف الإنماء
+          </button>
+          <div id="fin-feedback" style="margin-top:6px;font-size:0.74rem;color:#34d399;font-weight:800;"></div>
+        </div>
+
+        <div id="islamic-contracts-feed" style="max-height:290px;overflow-y:auto;display:grid;gap:8px;"></div>
+      </section>
+
+      <!-- يسار: جدول السوبر فايزور والمدير والحارس لجميع محركات المنظومة -->
+      <section class="box">
+        <div class="box-head">
+          <h2>🎛️🛡️ 2. مصفوفة السوبر فايزور والمدير والحارس (Omni-Supervisor & Services Matrix)</h2>
+          <button class="shk-btn cyan" style="padding:5px 10px;font-size:0.7rem;" onclick="loadSupervisorAndFinance()">🔄 تحديث نبض السوبر فايزور</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>كود المحرك</th>
+              <th>النظام السيادي المراقَب</th>
+              <th>الدور القيادي</th>
+              <th>الحالة الحية</th>
+              <th>الجاهزية</th>
+            </tr>
+          </thead>
+          <tbody id="sup-services-tbody"></tbody>
+        </table>
+
+        <div style="margin-top:14px;background:rgba(2,8,18,0.92);border:1px solid var(--gold);border-radius:12px;padding:12px;font-size:0.76rem;">
+          <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">👑 أوامر المدير التنفيذي والسوبر فايزور الفورية (Quick Executive Actions):</strong>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+            <a href="/sheikha-os" class="shk-btn">🌑 فتح السوق والمصنع المظلم</a>
+            <a href="/sla-contract" target="_blank" class="shk-btn cyan">📜 عقود التوريد السنوية SLA</a>
+            <a href="/tender-award" target="_blank" class="shk-btn emerald">🔨 محاضر ترسية المناقصات</a>
+            <a href="/api/sheikha-ip-certificate" target="_blank" class="shk-btn">🛡️ شهادة الملكية الفكرية لشيخة</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <script>
+    // بناء شبكة الـ 22 نواة معالج في لوحة المراقبة اللحظية
+    const coresGrid = document.getElementById('cores-watch-grid');
+    coresGrid.innerHTML = Array.from({ length: 22 }, (_, i) =>
+      '<div class="core-cell"><b>CORE #' + (i + 1) + '</b><span id="c-mhz-' + i + '">3400 MHz</span></div>'
+    ).join('');
+
+    // الاتصال بالبث الحي للعتاد (SSE Live Hardware Watch)
+    const evt = new EventSource('/api/live-pulse');
+    evt.onmessage = e => {
+      const p = JSON.parse(e.data);
+      const mhz = p.cpu_mhz || 3400;
+      const temp = p.cpu_temp_c || 47;
+      const watts = p.power_watts || 45;
+      document.getElementById('p-sup-mhz').innerText = '22 CORES • ' + mhz + ' MHz';
+      document.getElementById('live-hw-summary').innerText =
+        'CPU AVG: ' + mhz + ' MHz | TEMP: ' + temp + '°C | POWER: ' + watts + ' W | COPPER SPOT: ' + (p.copper_spot_sar || 31200).toLocaleString() + ' SAR/MT';
+
+      if (p.per_core_mhz && p.per_core_mhz.length) {
+        p.per_core_mhz.slice(0, 22).forEach((val, idx) => {
+          const el = document.getElementById('c-mhz-' + idx);
+          if (el) el.innerText = Math.round(val) + ' MHz';
+        });
+      }
+    };
+
+    async function loadSupervisorAndFinance() {
+      const r = await fetch('/api/islamic-finance-supervisor-state');
+      const d = await r.json();
+
+      document.getElementById('p-fin-util').innerText =
+        Number(d.supervisor_telemetry.utilized_islamic_finance_sar || 0).toLocaleString() + ' SAR LC';
+
+      const tb = document.getElementById('sup-services-tbody');
+      tb.innerHTML = (d.supervisor_services_matrix || []).map(s =>
+        '<tr>' +
+          '<td><code style="color:var(--cyan);">' + s.service_code + '</code></td>' +
+          '<td><b>' + s.name + '</b></td>' +
+          '<td style="color:#cbd5e1;">' + s.role + '</td>' +
+          '<td><span style="color:#34d399;font-weight:900;">● ' + s.status + '</span></td>' +
+          '<td style="font-family:monospace;color:var(--gold-bright);">' + s.uptime + '</td>' +
+        '</tr>'
+      ).join('');
+
+      const feed = document.getElementById('islamic-contracts-feed');
+      feed.innerHTML = (d.islamic_finance_contracts || []).map(c =>
+        '<div style="background:var(--card);border:1px solid rgba(212,175,55,0.38);border-right:4px solid #10b981;border-radius:11px;padding:10px 12px;font-size:0.74rem;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<strong style="color:var(--gold-bright);font-family:monospace;">🕌 ' + c.fin_id + ' | ' + c.lc_no + '</strong>' +
+            '<code style="color:#34d399;font-weight:900;">الإجمالي الشرعي: ' + Number(c.total_murabaha_sar).toLocaleString() + ' ر.س</code>' +
+          '</div>' +
+          '<div style="color:#fff;font-weight:800;margin-top:3px;">' + c.contract_mode + ' — ' + c.beneficiary_entity + '</div>' +
+          '<div style="color:#cbd5e1;margin-top:3px;">' +
+            '📦 <b>البضاعة:</b> ' + c.commodity_desc + '<br>' +
+            '💰 <b>رأس المال:</b> ' + Number(c.principal_cost_sar).toLocaleString() + ' ر.س | <b>الربح المتفق عليه (' + c.agreed_profit_rate_pct + '%):</b> ' + Number(c.profit_margin_sar).toLocaleString() + ' ر.س | <b>ضريبة 15%:</b> ' + Number(c.vat_15_sar).toLocaleString() + ' ر.س' +
+          '</div>' +
+          '<div style="color:var(--cyan);font-size:0.69rem;margin-top:3px;">🔒 ' + c.smart_lc_conditions + '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    async function issueIslamicSmartLC() {
+      const modeParts = document.getElementById('fin-mode').value.split('|');
+      const entity = document.getElementById('fin-entity').value.trim();
+      const comm = document.getElementById('fin-commodity').value.trim();
+      const cost = Number(document.getElementById('fin-cost').value || 760000);
+      const hs = document.getElementById('fin-hs').value.trim();
+
+      const r = await fetch('/api/islamic-finance-issue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          mode_type: modeParts[0],
+          profit_rate_pct: Number(modeParts[1]),
+          beneficiary_entity: entity,
+          commodity_desc: comm,
+          principal_cost_sar: cost,
+          hs_code: hs
+        })
+      });
+      const d = await r.json();
+      if (d.ok && d.contract) {
+        document.getElementById('fin-feedback').innerHTML =
+          '✅ <b>تم إصدار الاعتماد الإسلامي الذكي:</b> <code>' + d.contract.lc_no +
+          '</code> بإجمالي <b>' + Number(d.contract.total_murabaha_sar).toLocaleString() + ' ر.س</b> وربطه بالسوبر فايزور والمصنع المظلم!';
+        await loadSupervisorAndFinance();
+      }
+    }
+
+    loadSupervisorAndFinance();
+  </script>
+</body>
+</html>

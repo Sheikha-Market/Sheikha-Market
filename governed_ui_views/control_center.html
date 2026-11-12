@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم الرئيسية ونظام شيخة 4.0 للوجستيات والحاويات الذكية وإدارة المشاريع (End-to-End)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f1f5f9; --surface:#ffffff; --primary:#047857; --dark:#0f172a; --gold:#b45309; --blue:#0284c7; --purple:#6d28d9; --border:#cbd5e1; --muted:#475569; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:var(--dark); line-height:1.65; user-select:none; }
+    .topbar { background:var(--dark); color:#fff; padding:16px 26px; display:flex; justify-content:space-between; align-items:center; border-bottom:4px solid #fde047; flex-wrap:wrap; gap:12px; }
+    .container { max-width:1440px; margin:20px auto; padding:0 18px; }
+    .role-bar { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; border-radius:16px; padding:20px 24px; margin-bottom:20px; border-right:6px solid #10b981; box-shadow:0 10px 25px rgba(0,0,0,0.08); }
+    .role-btns { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .role-btn { background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25); padding:9px 15px; border-radius:10px; font-family:inherit; font-weight:800; cursor:pointer; font-size:0.84rem; transition:0.2s; }
+    .role-btn.active, .role-btn:hover { background:#fde047; color:#0f172a; border-color:#fde047; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-bottom:20px; }
+    .kpi-card { background:var(--surface); border:1px solid var(--border); border-top:4px solid var(--primary); border-radius:12px; padding:16px; box-shadow:0 4px 10px rgba(0,0,0,0.03); }
+    .kpi-val { font-size:1.25rem; font-weight:900; color:var(--primary); margin-top:6px; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.03); }
+    h3 { margin:0 0 14px; font-size:1.15rem; color:var(--primary); border-bottom:2px solid #f1f5f9; padding-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+    .grid-2 { display:grid; grid-template-columns:1.15fr 1fr; gap:18px; }
+    @media(max-width:980px){ .grid-2 { grid-template-columns:1fr; } }
+    table { width:100%; border-collapse:collapse; font-size:0.86rem; }
+    th, td { border:1px solid #e2e8f0; padding:10px 12px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    input, select { width:100%; padding:9px 12px; border:1px solid var(--border); border-radius:8px; font-family:inherit; margin-bottom:8px; font-size:0.88rem; }
+    .btn { background:var(--primary); color:#fff; border:none; padding:9px 16px; border-radius:8px; font-family:inherit; font-weight:800; cursor:pointer; text-decoration:none; display:inline-block; font-size:0.84rem; }
+    .badge { background:#dcfce7; color:#166534; padding:3px 10px; border-radius:999px; font-weight:800; font-size:0.75rem; display:inline-block; }
+    .e2e-track { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-top:12px; }
+    .e2e-step { background:#f8fafc; border:1px solid #cbd5e1; border-right:4px solid var(--blue); border-radius:8px; padding:10px; font-size:0.82rem; }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <div class="topbar">
+    <div>
+      <strong style="font-size:1.25rem;color:#fde047;">🎛️🚢🚛 لوحة التحكم الرئيسية ونظام شيخة 4.0: الأسطول والحاويات الذكية (Odoo/Maximo/Trukker/Naql) • الشحن الدولي • المشاريع E2E</strong>
+      <div style="font-size:0.82rem;color:#cbd5e1;">بسم الله — منظومة شيخة للتجارة والصناعة والمعادن | لوحات تحكم مخصصة حسب المستخدم • ربط البورصة بالنقل الدولي والمحلي • العقود الطويلة</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="/compute" class="btn" style="background:#10b981;color:#fff;">⚡ حوسبة شيخة اللحظية (/compute)</a> <a href="/mastery" class="btn" style="background:#10b981;color:#fff;">🌟❤️ الإتقان وبهجة العمل والحساب الشامل (/mastery)</a> <a href="/omni-hub" class="btn" style="background:#38bdf8;color:#0f172a;">🧠🤖 الأيقونات والروبوتات والأوزان (/omni-hub)</a> <a href="/robot-director" class="btn" style="background:#fde047;color:#020617;">🤖👔 الروبوت المدير التقني (/robot-director)</a> <a href="/bot" target="_blank" class="btn" style="background:#fde047;color:#0f172a;">🔥 المنتج الأولي الفوري (250 ر.س - /bot)</a>
+      <a href="/b2b-auto-outreach" class="btn" style="background:var(--blue);">📡 ربط SAP والمصاهر</a>
+      <a href="/digital-twin" class="btn" style="background:#a855f7;color:#fff;">🌐🛰️ التوأم الرقمي والمحاكاة والحساسات (/digital-twin)</a> <a href="/ops" class="btn" style="background:var(--gold);">⚖️ غرفة عمليات البورصة (/ops)</a>
+      <a href="/market-of-markets" class="btn" style="background:var(--purple);">🏛️ سوق الأسواق (13 قطاعاً)</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 1. محول لوحات تحكم المستخدمين المخصصة حسب كل دور (Adaptive User Role Dashboard Switcher) -->
+    <div class="role-bar">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <span style="background:#10b981;color:#fff;padding:3px 12px;border-radius:999px;font-weight:900;font-size:0.78rem;">👤 تخصيص لوحة التحكم الذكي (Role-Based Adaptive UI)</span>
+          <h2 id="role-title" style="margin:8px 0 4px;font-size:1.35rem;color:#fde047;"></h2>
+          <p id="role-focus" style="margin:0;color:#e2e8f0;font-size:0.92rem;"></p>
+        </div>
+      </div>
+      <div class="role-btns">
+        <button class="role-btn active" onclick="switchRole('SOVEREIGN_ADMIN', this)">👑 1. القيادة السيادية والمالك</button>
+        <button class="role-btn" onclick="switchRole('SCRAP_SUPPLIER', this)">♻️ 2. تاجر ومورد السكراب</button>
+        <button class="role-btn" onclick="switchRole('SMELTER_FACTORY', this)">🏭 3. المصهر والمصنع (B2B)</button>
+        <button class="role-btn" onclick="switchRole('FLEET_LOGISTICS', this)">🚛 4. مدير الأسطول والحاويات</button>
+        <button class="role-btn" onclick="switchRole('PROJECT_PMO', this)">🏗️ 5. مدير المشاريع والعقود الطويلة</button>
+        <button class="role-btn" onclick="switchRole('GLOBAL_EXPORT', this)">🚢 6. الشحن الدولي والجمارك</button>
+      </div>
+    </div>
+
+    <!-- مؤشرات المستخدم المختار + روابطه السريعة -->
+    <div id="role-kpis" class="kpi-grid"></div>
+    <div id="role-links" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;"></div>
+
+    
+    <!-- قسم إضافي شامل: مصفوفة شيخة لطبقات اللوجستيات (1PL إلى 10PL) وكافة أنماط النقل الـ 323 -->
+    <div class="card" style="border:2px solid #0284c7;">
+      <h3>
+        <span>🌐🚛🚢🚆✈️ منظومة شيخة الشاملة لكافة أنواع النقل واللوجستيات: طبقات (1PL ⬅ 10PL) + مصفوفة الـ (323) نمط نقل عالمي ومحلي</span>
+        <span class="badge" style="background:#e0f2fe;color:#0369a1;">323 نمط نقل مفعّل باسم شيخة</span>
+      </h3>
+      <div id="vectors-grid" class="kpi-grid" style="margin-bottom:16px;"></div>
+      <table>
+        <thead>
+          <tr><th>طبقة اللوجستيات (PL Tier)</th><th>المسمى التشغيلي في منظومة شيخة</th><th>عدد الأنماط المفعّلة</th><th>الأنظمة والمنصات المربوطة</th></tr>
+        </thead>
+        <tbody id="tb-pl-tiers"></tbody>
+      </table>
+    </div>
+
+    <!-- 2. نظام شيخة 4.0: إدارة النقل واللوجستيات والأسطول والحاويات الذكية والشحن الدولي -->
+    <div class="card">
+      <h3>
+        <span>🚛🚢🛰️ نظام شيخة 4.0: إدارة النقل والأسطول والحاويات الذكية والشحن الدولي (Odoo Fleet • Maximo • Trukker • Naql • FASAH)</span>
+        <span class="badge">متصل بالبورصة والأقمار الصناعية</span>
+      </h3>
+
+      <div style="background:#f0fdf4;border:1px solid #86efac;padding:12px;border-radius:10px;margin-bottom:14px;display:grid;grid-template-columns:1fr 1fr 1.2fr 1fr auto;gap:8px;align-items:center;">
+        <select id="fl-type" style="margin:0;">
+          <option value="حاوية شحن دولي ذكية 40ft (FOB Dammam Export)">🚢 حاوية شحن دولي ذكية 40ft (تصدير)</option>
+          <option value="قاطرة تريلا + حاوية سكراب 40 ياردة (Roll-off Truck)">🚛 تريلا + حاوية سكراب 40 ياردة (محلي)</option>
+          <option value="معدات مناولة وكبس (Maximo Asset)">⚙️ معدات مناولة وكبس (Maximo)</option>
+        </select>
+        <select id="fl-erp" style="margin:0;">
+          <option value="Odoo Fleet + Trukker + منصة نقل (TGA)">Odoo Fleet + Trukker + نقل</option>
+          <option value="FASAH + Maersk EDI + Satellite IoT">فسح الجمركية + Maersk + ستالايت</option>
+          <option value="IBM Maximo EAM + Sheikha Weighbridge">IBM Maximo + القبان الذكي</option>
+        </select>
+        <input id="fl-route" value="الخبر / الدمام ⬅ ميناء الملك عبدالعزيز (تصدير دولي)" placeholder="خط السير / الوجهة" style="margin:0;" />
+        <input id="fl-cargo" value="25 طن سبائك ونحاس مفروز (مربوط بالبورصة)" placeholder="الحمولة والكمية" style="margin:0;" />
+        <button class="btn" onclick="dispatchSmartFleet()">🚀 توجيه وجدولة الوحدة آلياً</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>رقم الوحدة / الحاوية</th><th>نوع الأصل اللوجستي</th><th>الأنظمة المدمجة (ERP / Naql / Fasah)</th><th>خط السير والربط بالبورصة</th><th>الحمولة وقراءة الحساسات الذكية (IoT)</th><th>الحالة والبوليصة</th></tr>
+        </thead>
+        <tbody id="tb-fleet"></tbody>
+      </table>
+    </div>
+
+    <!-- 3. إدارة المشاريع الكبرى والعقود طويلة الأجل والاتفاقيات وجدولة المشروع الكامل (End-to-End PMO) -->
+    <div class="card">
+      <h3>
+        <span>📅🏗️ إدارة المشاريع الكبرى، العقود طويلة الأجل (LTA)، وجدولة المشروع الكامل (End-to-End Project Lifecycle)</span>
+        <span class="badge">حوكمة وجدولة متكاملة E2E</span>
+      </h3>
+
+      <div style="background:#f8fafc;border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:16px;display:grid;grid-template-columns:1.2fr 1.2fr 0.8fr 0.8fr auto;gap:8px;align-items:center;">
+        <input id="pj-client" value="شركة الصناعات والمقاولات الوطنية — الجبيل والخبر" placeholder="اسم العميل / صاحب المشروع" style="margin:0;" />
+        <input id="pj-type" value="عقد توريد وإدارة رجيع طويل الأجل (سنتان - End-to-End)" placeholder="نوع العقد والاتفاقية" style="margin:0;" />
+        <input id="pj-vol" value="3,600 طن متري" placeholder="إجمالي الكمية" style="margin:0;" />
+        <input id="pj-val" value="9,500,000 ريال" placeholder="قيمة العقد الإجمالية" style="margin:0;" />
+        <button class="btn" style="background:var(--blue);" onclick="createE2EProject()">➕ اعتماد وجدولة مشروع E2E</button>
+      </div>
+
+      <div id="projects-container"></div>
+    </div>
+  </div>
+
+  <script>
+    let masterData = {};
+    let currentRole = 'SOVEREIGN_ADMIN';
+
+    async function loadControlCenter() {
+      const r = await fetch('/api/control-center');
+      masterData = await r.json();
+      renderRoleView(currentRole);
+      renderFleetTable();
+
+      const rPl = await fetch('/api/logistics-323');
+      const dPl = await rPl.json();
+      const vGrid = document.getElementById('vectors-grid');
+      if (vGrid) {
+        vGrid.innerHTML = '';
+        (dPl.major_transport_vectors || []).forEach(v => {
+          vGrid.innerHTML += '<div class="kpi-card" style="border-top-color:#0284c7;"><strong style="color:#0f172a;display:block;margin-bottom:4px;">' + v.vector + '</strong><span style="font-size:0.82rem;color:#475569;">' + v.details + '</span></div>';
+        });
+      }
+      const tbPl = document.getElementById('tb-pl-tiers');
+      if (tbPl) {
+        tbPl.innerHTML = '';
+        (dPl.pl_tiers_summary || []).forEach(t => {
+          tbPl.innerHTML += '<tr><td><b style="color:#0284c7;">' + t.tier + '</b></td><td><b>' + t.name + '</b></td><td><span class="badge">' + t.modes_count + ' نمط نقل قياسي</span></td><td><code>' + t.systems + '</code></td></tr>';
+        });
+      }
+    
+      renderProjectsE2E();
+    }
+
+    function switchRole(roleKey, btnEl) {
+      currentRole = roleKey;
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderRoleView(roleKey);
+    }
+
+    function renderRoleView(roleKey) {
+      const roles = masterData.user_personas_dashboards || {};
+      const r = roles[roleKey] || roles['SOVEREIGN_ADMIN'] || {};
+      document.getElementById('role-title').innerText = r.role_name || '';
+      document.getElementById('role-focus').innerText = 'نطاق التركيز والصلاحيات: ' + (r.focus || '');
+
+      const kGrid = document.getElementById('role-kpis');
+      kGrid.innerHTML = '';
+      (r.kpis || []).forEach(k => {
+        kGrid.innerHTML += '<div class="kpi-card"><div style="font-size:0.82rem;color:var(--muted);font-weight:800;">' + k.label + '</div><div class="kpi-val">' + k.val + '</div></div>';
+      });
+
+      const lDiv = document.getElementById('role-links');
+      lDiv.innerHTML = '';
+      (r.quick_links || []).forEach(l => {
+        lDiv.innerHTML += '<a href="' + l.url + '" target="_blank" class="btn" style="background:var(--dark);color:#fde047;">' + l.title + '</a>';
+      });
+    }
+
+    function renderFleetTable() {
+      const tb = document.getElementById('tb-fleet');
+      tb.innerHTML = '';
+      (masterData.integrated_fleet_systems || []).forEach(u => {
+        tb.innerHTML += '<tr>' +
+          '<td><code>' + u.unit_id + '</code></td>' +
+          '<td><b>' + u.asset_type + '</b></td>' +
+          '<td><span class="badge" style="background:#e0f2fe;color:#0369a1;">' + u.integrated_erp + '</span></td>' +
+          '<td><b>' + u.route + '</b></td>' +
+          '<td><b style="color:var(--primary);">' + u.cargo + '</b><br><small style="color:var(--muted);">' + u.iot_telemetry + '</small></td>' +
+          '<td><span class="badge">' + u.status + '</span><br><a href="/waybill/' + u.unit_id + '" target="_blank" style="font-size:0.76rem;color:var(--blue);font-weight:800;">📄 بوليصة الشحن</a></td>' +
+        '</tr>';
+      });
+    }
+
+    function renderProjectsE2E() {
+      const box = document.getElementById('projects-container');
+      box.innerHTML = '';
+      (masterData.long_term_contracts_and_projects_e2e || []).forEach(p => {
+        let stepsHtml = '';
+        (p.e2e_phases || []).forEach(ph => {
+          stepsHtml += '<div class="e2e-step"><strong style="display:block;color:var(--dark);">' + ph.phase + '</strong><span style="color:var(--primary);font-weight:800;">' + ph.state + ' (' + ph.pct + '%)</span></div>';
+        });
+        box.innerHTML += '<div style="border:1px solid #cbd5e1;border-radius:12px;padding:16px;margin-bottom:14px;background:#ffffff;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:1px solid #f1f5f9;padding-bottom:10px;">' +
+            '<div><code style="font-weight:900;color:var(--blue);">' + p.project_id + '</code> — <b style="font-size:1.05rem;">' + p.client + '</b> <span class="badge">' + p.contract_type + '</span></div>' +
+            '<div style="font-weight:900;color:var(--primary);">الكمية: ' + p.total_volume + ' | القيمة: ' + p.contract_value_sar + '</div>' +
+          '</div>' +
+          '<div class="e2e-track">' + stepsHtml + '</div>' +
+        '</div>';
+      });
+    }
+
+    async function dispatchSmartFleet() {
+      await fetch('/api/control-center/dispatch-fleet', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          asset_type: document.getElementById('fl-type').value,
+          integrated_erp: document.getElementById('fl-erp').value,
+          route: document.getElementById('fl-route').value,
+          cargo: document.getElementById('fl-cargo').value
+        })
+      });
+      loadControlCenter();
+    }
+
+    async function createE2EProject() {
+      await fetch('/api/control-center/create-project', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          client: document.getElementById('pj-client').value,
+          contract_type: document.getElementById('pj-type').value,
+          total_volume: document.getElementById('pj-vol').value,
+          contract_value_sar: document.getElementById('pj-val').value
+        })
+      });
+      loadControlCenter();
+    }
+
+    loadControlCenter();
+  </script>
+</body>
+</html>
