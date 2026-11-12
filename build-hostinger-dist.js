@@ -101,3 +101,36 @@ fs.writeFileSync(path.join(distDir, '.htaccess'), htaccess, 'utf8');
 fs.writeFileSync(path.join(__dirname, '.htaccess'), htaccess, 'utf8');
 
 console.log('✅ [Sheikha Build] تم بناء مجلد dist/ المتكامل بنجاح لجميع النطاقات الـ 12 ومعايير الوكلاء الـ 18!');
+
+// إضافة ملفات _headers و _redirects القياسية لمنصة Cloudflare Pages
+const cfHeaders = [
+  "/*",
+  "  X-Content-Type-Options: nosniff",
+  "  Referrer-Policy: strict-origin-when-cross-origin",
+  "  Access-Control-Allow-Origin: *",
+  "  Link: </llms.txt>; rel=\"llms-txt\", </index.md>; rel=\"alternate\"; type=\"text/markdown\", </.well-known/mcp/server-card.json>; rel=\"mcp-server-card\"",
+  "",
+  "/robots.txt",
+  "  Content-Type: text/plain; charset=utf-8",
+  "",
+  "/llms.txt",
+  "  Content-Type: text/plain; charset=utf-8",
+  "",
+  "/index.md",
+  "  Content-Type: text/markdown; charset=utf-8",
+  "",
+  "/sitemap.xml",
+  "  Content-Type: application/xml; charset=utf-8",
+  "",
+  "/.well-known/mcp/server-card.json",
+  "  Content-Type: application/json; charset=utf-8",
+  ""
+].join("\n");
+fs.writeFileSync(path.join(distDir, '_headers'), cfHeaders, 'utf8');
+
+const cfRedirects = [
+  "/home / 301",
+  "/* /404.html 404"
+].join("\n");
+fs.writeFileSync(path.join(distDir, '_redirects'), cfRedirects, 'utf8');
+
