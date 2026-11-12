@@ -928,7 +928,9 @@
     "sheikha-ai-provider:test": "node tests/sheikha-ai-provider-hierarchy.test.js",
     "sheikha-ai-provider:status": "node scripts/sheikha-ai-provider-status.js",
     "sheikha-ai-capabilities:test": "node tests/sheikha-ai-capability-fabric.test.js",
-    "sheikha-ai-capabilities:status": "node scripts/sheikha-ai-capabilities-status.js"
+    "sheikha-ai-capabilities:status": "node scripts/sheikha-ai-capabilities-status.js",
+    "build": "node build-hostinger-dist.js",
+    "preview": "node store-7788.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
