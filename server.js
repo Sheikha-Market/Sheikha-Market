@@ -356,6 +356,9 @@ const server = http.createServer((req, res) => {
     });
     return res.end(localizeDomain(fs.readFileSync(path.join(__dirname, 'governed_ui_views/master_index_13_docs.html'), 'utf8')));
   }
+
+
+  
   if (rawUrlPath === '/.well-known/mcp/server-card.json' || rawUrlPath === '/api/mcp') {
     res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' });
     return res.end(fs.readFileSync(path.join(__dirname, '.well-known/mcp/server-card.json'), 'utf8'));
@@ -384,7 +387,7 @@ const server = http.createServer((req, res) => {
     { match: ['sheikha.click', 'click.sheikha.top', 'wa.sheikha.click'], target: '/target-directory' },
     { match: ['hq.sheikha.top'], target: '/master-index' }
   ];
-  if (reqPath === '/' && reqHost && reqHost !== '127.0.0.1' && reqHost !== 'localhost') {
+  if (false && reqPath === '/' && reqHost && reqHost !== '127.0.0.1' && reqHost !== 'localhost') {
     for (const rule of routeRules) {
       if (rule.match.some(m => reqHost === m || reqHost.endsWith('.' + m))) {
         res.writeHead(302, { 'Location': rule.target });
