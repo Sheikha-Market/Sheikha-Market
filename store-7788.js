@@ -319,21 +319,42 @@ const uiHtml = `<!DOCTYPE html>
 
 const server = http.createServer((req, res) => {
 
-  // === PRIORITY 0: AGENT-READINESS & WEBMCP EXACT ROUTES ===
+  // === PRIORITY 0: DYNAMIC 12-DOMAIN AGENT-READINESS & WEBMCP EXACT ROUTES ===
   const rawUrlPath = String(req.url || '/').split('?')[0];
+  const rawHost = String((req.headers && req.headers.host) || 'sheikha.top').split(':')[0].toLowerCase();
+  const activeDomain = (rawHost && rawHost !== '127.0.0.1' && rawHost !== 'localhost') ? rawHost : 'sheikha.top';
+  const activeOrigin = 'https://' + activeDomain;
+  const localizeDomain = (txt) => String(txt || '').replace(/https:\/\/sheikha\.top/g, activeOrigin);
+
   res.setHeader('Link', '</llms.txt>; rel="llms-txt", </index.md>; rel="alternate"; type="text/markdown", </.well-known/mcp/server-card.json>; rel="mcp-server-card"');
 
   if (rawUrlPath === '/robots.txt') {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
-    return res.end(fs.readFileSync(path.join(__dirname, 'robots.txt'), 'utf8'));
+    return res.end(localizeDomain(fs.readFileSync(path.join(__dirname, 'robots.txt'), 'utf8')));
   }
   if (rawUrlPath === '/sitemap.xml') {
     res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'no-store' });
-    return res.end(fs.readFileSync(path.join(__dirname, 'sitemap.xml'), 'utf8'));
+    return res.end(localizeDomain(fs.readFileSync(path.join(__dirname, 'sitemap.xml'), 'utf8')));
   }
   if (rawUrlPath === '/llms.txt' || rawUrlPath === '/llms-full.txt' || rawUrlPath === '/index.md') {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
-    return res.end(fs.readFileSync(path.join(__dirname, 'llms.txt'), 'utf8'));
+    return res.end(localizeDomain(fs.readFileSync(path.join(__dirname, 'llms.txt'), 'utf8')));
+  }
+  if (rawUrlPath === '/.well-known/mcp/server-card.json' || rawUrlPath === '/api/mcp') {
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' });
+    return res.end(localizeDomain(fs.readFileSync(path.join(__dirname, '.well-known/mcp/server-card.json'), 'utf8')));
+  }
+  const reqAccept = String((req.headers && req.headers.accept) || '').toLowerCase();
+  if (rawUrlPath === '/' && reqAccept.includes('text/markdown')) {
+    res.writeHead(200, { 'Content-Type': 'text/markdown; charset=utf-8', 'Cache-Control': 'no-store' });
+    return res.end(localizeDomain(fs.readFileSync(path.join(__dirname, 'llms.txt'), 'utf8')));
+  }
+  if (rawUrlPath === '/' || rawUrlPath === '/index.html') {
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Link': '</llms.txt>; rel="llms-txt", </index.md>; rel="alternate"; type="text/markdown", </.well-known/mcp/server-card.json>; rel="mcp-server-card"'
+    });
+    return res.end(localizeDomain(fs.readFileSync(path.join(__dirname, 'governed_ui_views/master_index_13_docs.html'), 'utf8')));
   }
   if (rawUrlPath === '/.well-known/mcp/server-card.json' || rawUrlPath === '/api/mcp') {
     res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' });
