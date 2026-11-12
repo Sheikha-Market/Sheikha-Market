@@ -359,6 +359,9 @@ const server = http.createServer((req, res) => {
 
 
   
+
+
+  
   if (rawUrlPath === '/.well-known/mcp/server-card.json' || rawUrlPath === '/api/mcp') {
     res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' });
     return res.end(fs.readFileSync(path.join(__dirname, '.well-known/mcp/server-card.json'), 'utf8'));
