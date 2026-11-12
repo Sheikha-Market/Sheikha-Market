@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة القبان وسندات القبض وأوامر الفسح الميدانية (/weighbridge) | سوق شيخة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#d4af37; --gold-bright:#fde047; --emerald:#10b981; --cyan:#38bdf8; --navy:#0d254c; --bg:#020b08; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:#f8fafc; padding:18px; }
+    .top-nav {
+      max-width:1320px; margin:0 auto 14px auto; background:rgba(4,20,16,0.94); border:2px solid var(--gold);
+      border-radius:16px; padding:12px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:rgba(13,37,76,0.9); color:#fff; border:1px solid var(--gold); padding:8px 14px;
+      border-radius:999px; font-family:inherit; font-weight:800; font-size:0.78rem; cursor:pointer;
+      text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    }
+    .btn.primary { background:linear-gradient(135deg,var(--gold-bright),var(--gold)); color:#020b08; border-color:#fff; }
+    .main-grid {
+      max-width:1320px; margin:0 auto; display:grid; grid-template-columns:1.1fr 1.15fr; gap:16px;
+    }
+    @media(max-width:980px){ .main-grid { grid-template-columns:1fr; } }
+    .panel {
+      background:rgba(4,20,16,0.9); border:1.5px solid rgba(212,175,55,0.5); border-radius:18px; padding:16px;
+      box-shadow:0 16px 40px rgba(0,0,0,0.7);
+    }
+    .panel h3 {
+      margin:0 0 10px; color:var(--gold-bright); font-size:0.98rem; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:6px;
+    }
+    .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+    label { font-size:0.73rem; color:#cbd5e1; display:block; margin-bottom:2px; }
+    input, select {
+      width:100%; padding:8px 10px; background:#010605; color:#fff; border:1px solid var(--gold);
+      border-radius:8px; font-family:inherit; font-size:0.82rem; margin-bottom:8px;
+    }
+    .voucher-card {
+      background:#03120e; border:2px solid var(--gold-bright); border-radius:16px; padding:18px;
+      line-height:1.65; font-size:0.8rem;
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.74rem; margin-top:10px; }
+    th, td { border:1px solid rgba(212,175,55,0.3); padding:6px 8px; text-align:right; }
+    th { background:rgba(13,37,76,0.9); color:var(--gold-bright); }
+
+    @media print {
+      body { background:#fff; color:#000; padding:0; }
+      .top-nav, .no-print { display:none !important; }
+      .main-grid { display:block; }
+      .voucher-card { background:#fff; color:#000; border:2px solid #000; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-nav">
+    <div>
+      <strong style="font-size:1.18rem;color:var(--gold-bright);">⚖️🚛🧾 بوابة شيخة لإصدار تذاكر القبان وسندات القبض وأوامر الفسح الميدانية (/weighbridge)</strong>
+      <div style="font-size:0.76rem;color:#cbd5e1;">ربط مباشر بين الميزان الإلكتروني (Gross/Tare/Net) والفحص الطيفي (XRF) وسند القبض البنكي (مصرف الإنماء: SA4005000068206162118000)</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="/master" class="btn primary">👑 المركز السيادي (/master)</a>
+      <a href="/whatsapp-hub" class="btn" style="background:#10b981;color:#020b08;">💬 مركز الواتساب (/whatsapp-hub)</a>
+      <a href="/tax-report" class="btn">🖨️ التقرير الضريبي (/tax-report)</a>
+    </div>
+  </header>
+
+  <main class="main-grid">
+    <!-- 1. نموذج القبان الإلكتروني وإصدار أمر التسليم -->
+    <section class="panel no-print">
+      <h3>⚖️ 1. تسجيل وزنة شاحنة جديدة وإصدار سند قبض وأمر فسح</h3>
+
+      <div class="row-2">
+        <div>
+          <label>اسم المنشأة (العميل / المورد):</label>
+          <input id="wb-company" value="شركة الخليج للصناعات المعدنية والمقاولات" />
+        </div>
+        <div>
+          <label>رقم لوحة الشاحنة واسم السائق:</label>
+          <input id="wb-truck" value="ح ط د 7490 - السائق: سالم الدوسري" />
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div>
+          <label>الصنف المعدني وسعر الطن الصافي:</label>
+          <select id="wb-metal" onchange="calcWeighbridgeLive()">
+            <option value="نحاس كاثود / كابلات نقي|31200|99.94%">⚡ نحاس كاثود نقي (31,200 ر.س/طن)</option>
+            <option value="ألمنيوم نقي مفروز ومكبوس|8950|99.20%">💿 ألمنيوم مفروز (8,950 ر.س/طن)</option>
+            <option value="حديد ثقيل مفروز (HMS 1&2)|1520|98.50%">🏗️ حديد ثقيل HMS (1,520 ر.س/طن)</option>
+          </select>
+        </div>
+        <div>
+          <label>نتيجة الفحص الطيفي للنقاوة (XRF Purity):</label>
+          <input id="wb-xrf" value="99.94% (مطابق للمواصفات القياسية)" />
+        </div>
+      </div>
+
+      <div class="row-3">
+        <div>
+          <label>الوزن القائم Gross (كجم):</label>
+          <input id="wb-gross" type="number" value="38500" oninput="calcWeighbridgeLive()" />
+        </div>
+        <div>
+          <label>الوزن الفارغ Tare (كجم):</label>
+          <input id="wb-tare" type="number" value="13500" oninput="calcWeighbridgeLive()" />
+        </div>
+        <div>
+          <label>الصافي Net (بالطن المتري):</label>
+          <input id="wb-net-tons" readonly style="color:#fde047;font-weight:900;" />
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+        <button class="btn primary" onclick="issueWeighbridgeVoucher()">⚡ اعتماد الوزنة وإصدار سند القبض وتصريح الفسح</button>
+      </div>
+
+      <h3 style="margin-top:16px;">📋 سجل تذاكر القبان وسندات القبض الصادرة:</h3>
+      <div style="max-height:190px;overflow-y:auto;">
+        <table>
+          <thead><tr><th>رقم التذكرة والسند</th><th>المنشأة والشاحنة</th><th>الصافي</th><th>الإجمالي (شامل الضريبة)</th></tr></thead>
+          <tbody id="wb-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2. وثيقة سند القبض وتصريح فسح البوابة القابلة للطباعة والإرسال -->
+    <section class="panel">
+      <h3 class="no-print">🧾 2. وثيقة سند القبض وتصريح فسح الميزان (جاهزة للطباعة أو الإرسال بالواتساب)</h3>
+
+      <div class="voucher-card" id="voucher-print-area">
+        <div style="display:flex;justify-content:space-between;border-bottom:2px solid var(--gold);padding-bottom:8px;margin-bottom:10px;">
+          <div>
+            <strong style="font-family:'Amiri',serif;font-size:1.3rem;color:var(--gold-bright);">﷽ • منظومة وسوق شيخة للمعادن والصناعة</strong>
+            <div style="font-size:0.75rem;">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — الخبر (CR: 2051263653)</div>
+          </div>
+          <div style="text-align:left;font-family:monospace;font-size:0.75rem;">
+            <div>تذكرة قبان: <b id="v-ticket" style="color:#34d399;">WB-SHK-8001</b></div>
+            <div>سند قبض: <b id="v-voucher" style="color:#fde047;">RV-SHK-9001</b></div>
+            <div id="v-time">...</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;background:rgba(1,6,5,0.65);padding:10px;border-radius:10px;margin-bottom:10px;">
+          <div><b>المنشأة:</b> <span id="v-comp">...</span></div>
+          <div><b>بيانات الشاحنة:</b> <span id="v-truck">...</span></div>
+          <div><b>الصنف المعدني:</b> <span id="v-metal">...</span></div>
+          <div><b>شهادة نقاوة XRF:</b> <span id="v-xrf" style="color:#34d399;font-weight:900;">...</span></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin-bottom:10px;">
+          <div style="border:1px solid var(--gold);border-radius:8px;padding:6px;">
+            <small>الوزن القائم (Gross)</small><br><strong id="v-gross">... كجم</strong>
+          </div>
+          <div style="border:1px solid var(--gold);border-radius:8px;padding:6px;">
+            <small>الوزن الفارغ (Tare)</small><br><strong id="v-tare">... كجم</strong>
+          </div>
+          <div style="border:1.5px solid #10b981;border-radius:8px;padding:6px;background:rgba(16,185,129,0.12);">
+            <small>الوزن الصافي المعتمد (Net)</small><br><strong id="v-net" style="color:#fde047;font-size:1.05rem;">... طن</strong>
+          </div>
+        </div>
+
+        <div style="border-top:1px dashed rgba(212,175,55,0.4);padding-top:8px;font-size:0.82rem;">
+          <div><b>القيمة الصافية قبل الضريبة:</b> <span id="v-net-sar">...</span> ر.س | <b>ضريبة القيمة المضافة (15%):</b> <span id="v-vat-sar">...</span> ر.س</div>
+          <div style="font-size:1.05rem;color:#34d399;font-weight:900;margin-top:4px;">
+            💰 إجمالي سند القبض المستحق (شامل الضريبة): <span id="v-total-sar">...</span> ريال سعودي
+          </div>
+          <div style="font-size:0.75rem;margin-top:4px;">
+            🏦 حساب التسوية المعتمد (مصرف الإنماء): <code style="color:#fde047;font-weight:900;">SA4005000068206162118000</code>
+          </div>
+          <div style="font-family:monospace;font-size:0.68rem;color:#38bdf8;margin-top:4px;">
+            DIGITAL SEAL: <span id="v-seal">0x...</span> | STATUS: GATE PASS AUTHORIZED ✅
+          </div>
+        </div>
+      </div>
+
+      <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+        <button class="btn primary" onclick="window.print()">🖨️ طباعة تصريح الفسح وسند القبض (PDF)</button>
+        <button class="btn" style="background:#10b981;color:#020b08;" onclick="shareVoucherWhatsApp()">🟢 إرسال السند وتذكرة القبان بالواتساب</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let currentTickets = [];
+    let selectedTicket = null;
+
+    function calcWeighbridgeLive() {
+      const gross = Math.max(0, parseFloat(document.getElementById('wb-gross').value || '0'));
+      const tare = Math.max(0, parseFloat(document.getElementById('wb-tare').value || '0'));
+      const netKg = Math.max(0, gross - tare);
+      const netTons = (netKg / 1000).toFixed(3);
+      document.getElementById('wb-net-tons').value = netTons + ' طن (' + netKg.toLocaleString() + ' كجم)';
+
+      const parts = document.getElementById('wb-metal').value.split('|');
+      if (parts[2]) document.getElementById('wb-xrf').value = parts[2] + ' (فحص طيفي معتمد)';
+    }
+    calcWeighbridgeLive();
+
+    async function loadWeighbridgeTickets() {
+      const r = await fetch('/api/weighbridge-state');
+      const d = await r.json();
+      currentTickets = d.tickets || [];
+      const tb = document.getElementById('wb-table-body');
+      tb.innerHTML = currentTickets.map((t, idx) =>
+        '<tr style="cursor:pointer;" onclick="displayTicket(' + idx + ')">' +
+          '<td><code>' + t.ticket_id + '</code><br><small style="color:#fde047;">' + t.voucher_id + '</small></td>' +
+          '<td><b>' + t.company_name + '</b><br><small>' + t.truck_plate + '</small></td>' +
+          '<td style="color:#34d399;font-weight:900;">' + t.net_tons + ' طن</td>' +
+          '<td style="color:#fde047;font-weight:900;">' + Number(t.total_sar).toLocaleString() + ' ر.س</td>' +
+        '</tr>'
+      ).join('');
+      if (currentTickets.length > 0) displayTicket(0);
+    }
+    loadWeighbridgeTickets();
+
+    function displayTicket(idx) {
+      const t = currentTickets[idx];
+      if (!t) return;
+      selectedTicket = t;
+      document.getElementById('v-ticket').innerText = t.ticket_id;
+      document.getElementById('v-voucher').innerText = t.voucher_id;
+      document.getElementById('v-time').innerText = t.timestamp;
+      document.getElementById('v-comp').innerText = t.company_name;
+      document.getElementById('v-truck').innerText = t.truck_plate;
+      document.getElementById('v-metal').innerText = t.metal_type;
+      document.getElementById('v-xrf').innerText = t.xrf_purity;
+      document.getElementById('v-gross').innerText = Number(t.gross_kg).toLocaleString() + ' كجم';
+      document.getElementById('v-tare').innerText = Number(t.tare_kg).toLocaleString() + ' كجم';
+      document.getElementById('v-net').innerText = t.net_tons + ' طن (' + Number(t.net_kg).toLocaleString() + ' كجم)';
+      document.getElementById('v-net-sar').innerText = Number(t.net_amount_sar).toLocaleString();
+      document.getElementById('v-vat-sar').innerText = Number(t.vat_sar).toLocaleString();
+      document.getElementById('v-total-sar').innerText = Number(t.total_sar).toLocaleString();
+      document.getElementById('v-seal').innerText = '0x' + t.sha256_seal;
+    }
+
+    async function issueWeighbridgeVoucher() {
+      const comp = document.getElementById('wb-company').value.trim();
+      const truck = document.getElementById('wb-truck').value.trim();
+      const parts = document.getElementById('wb-metal').value.split('|');
+      const metalName = parts[0];
+      const unitPrice = parseFloat(parts[1]);
+      const xrf = document.getElementById('wb-xrf').value.trim();
+      const gross = parseFloat(document.getElementById('wb-gross').value || '0');
+      const tare = parseFloat(document.getElementById('wb-tare').value || '0');
+
+      const r = await fetch('/api/weighbridge-issue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company_name: comp,
+          truck_plate: truck,
+          metal_type: metalName,
+          unit_price_sar: unitPrice,
+          xrf_purity: xrf,
+          gross_kg: gross,
+          tare_kg: tare
+        })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        await loadWeighbridgeTickets();
+        if ('speechSynthesis' in window) {
+          const u = new SpeechSynthesisUtterance('تم اعتماد وزنة القبان وإصدار سند القبض وتصريح الفسح برقم ' + d.ticket.ticket_id);
+          u.lang = 'ar-SA';
+          window.speechSynthesis.speak(u);
+        }
+      }
+    }
+
+    function shareVoucherWhatsApp() {
+      if (!selectedTicket) return;
+      const t = selectedTicket;
+      const msg =
+        "﷽ • تذكرة قبان وسند قبض وتصريح فسح رسمي — سوق شيخة (الخبر)
+" +
+        "----------------------------------------
+" +
+        "• رقم تذكرة الميزان: " + t.ticket_id + " | سند القبض: " + t.voucher_id + "
+" +
+        "• المنشأة: " + t.company_name + "
+" +
+        "• الشاحنة: " + t.truck_plate + "
+" +
+        "• الصنف: " + t.metal_type + " (نقاوة XRF: " + t.xrf_purity + ")
+" +
+        "• الوزن الصافي المعتمد: " + t.net_tons + " طن (" + Number(t.net_kg).toLocaleString() + " كجم)
+" +
+        "• الإجمالي المستحق (شامل الضريبة 15%): " + Number(t.total_sar).toLocaleString() + " ر.س
+" +
+        "• آيبان مصرف الإنماء: SA4005000068206162118000
+" +
+        "• الختم الرقمي: 0x" + t.sha256_seal;
+      window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    }
+  </script>
+</body>
+</html>

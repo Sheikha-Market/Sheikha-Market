@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز حوسبة شيخة اللحظية الفائقة (Sheikha Real-Time Sovereign Compute Engine)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#090d16; --surface:#111827; --primary:#10b981; --gold:#fde047; --blue:#38bdf8; --border:#1f2937; --text:#f8fafc; --muted:#94a3b8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; user-select:none; }
+    .topbar { background:#030712; color:#fff; padding:16px 26px; display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid var(--primary); flex-wrap:wrap; gap:12px; }
+    .container { max-width:1440px; margin:20px auto; padding:0 18px; }
+    .pulse-dot { display:inline-block; width:12px; height:12px; background:#10b981; border-radius:50%; box-shadow:0 0 12px #10b981; animation:pulse 1s infinite alternate; margin-left:8px; }
+    @keyframes pulse { from{transform:scale(0.85);opacity:0.6;} to{transform:scale(1.25);opacity:1;} }
+    .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:20px; }
+    .kpi-card { background:var(--surface); border:1px solid var(--border); border-top:4px solid var(--primary); border-radius:12px; padding:16px; }
+    .kpi-val { font-size:1.5rem; font-weight:900; color:var(--gold); font-family:monospace; margin-top:4px; }
+    .grid-2 { display:grid; grid-template-columns:1.1fr 1fr; gap:18px; }
+    @media(max-width:980px){ .grid-2 { grid-template-columns:1fr; } }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:18px; }
+    h3 { margin:0 0 12px; font-size:1.1rem; color:var(--blue); border-bottom:1px solid var(--border); padding-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+    table { width:100%; border-collapse:collapse; font-size:0.86rem; }
+    th, td { border:1px solid var(--border); padding:10px; text-align:right; }
+    th { background:#030712; color:var(--gold); }
+    .btn { background:var(--primary); color:#030712; border:none; padding:9px 16px; border-radius:8px; font-family:inherit; font-weight:900; cursor:pointer; text-decoration:none; display:inline-block; font-size:0.84rem; }
+    .terminal-box { background:#030712; border:1px solid #047857; border-radius:10px; padding:12px; font-family:monospace; font-size:0.82rem; color:#34d399; height:270px; overflow-y:auto; direction:ltr; text-align:left; }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <div class="topbar">
+    <div>
+      <strong style="font-size:1.25rem;color:var(--primary);"><span class="pulse-dot"></span>⚡🖥️ مركز حوسبة شيخة اللحظية الفائقة (Sheikha Real-Time Sovereign Compute Engine)</strong>
+      <div style="font-size:0.82rem;color:var(--muted);">بسم الله — معالجة لحظية بالذاكرة الحية (In-Memory Sub-Millisecond Compute) • بث مباشر SSE • تسعير ومطابقة وتشفير فوري</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="/control-center" class="btn" style="background:var(--gold);">🎛️ لوحة التحكم الرئيسية (/control-center)</a>
+      <a href="/bot" target="_blank" class="btn" style="background:var(--blue);">🤖 البوت والمنتج الأولي (/bot)</a>
+      <a href="/digital-twin" class="btn" style="background:#a855f7;color:#fff;">🌐🛰️ التوأم الرقمي والمحاكاة والحساسات (/digital-twin)</a> <a href="/ops" class="btn" style="background:#fff;">⚖️ غرفة العمليات (/ops)</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 1. عدادات الحوسبة اللحظية الحية (تتحدث كل ثانية تلقائياً عبر SSE) -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div style="font-size:0.8rem;color:var(--muted);">نبض الحوسبة اللحظية (Compute Tick)</div>
+        <div id="c-tick" class="kpi-val">#0</div>
+        <small style="color:var(--primary);">بث SSE متصل لحظياً (Zero-Latency)</small>
+      </div>
+      <div class="kpi-card" style="border-top-color:var(--blue);">
+        <div style="font-size:0.8rem;color:var(--muted);">زمن الاستجابة والمعالجة (Latency)</div>
+        <div id="c-lat" class="kpi-val" style="color:var(--blue);">0.42 ms</div>
+        <small style="color:var(--muted);">معالجة في الذاكرة الحية (RAM)</small>
+      </div>
+      <div class="kpi-card" style="border-top-color:var(--gold);">
+        <div style="font-size:0.8rem;color:var(--muted);">الذاكرة النشطة ووقت التشغيل</div>
+        <div id="c-mem" class="kpi-val">48 MB</div>
+        <small id="c-up" style="color:var(--muted);">Uptime: 0s</small>
+      </div>
+      <div class="kpi-card" style="border-top-color:#a855f7;">
+        <div style="font-size:0.8rem;color:var(--muted);">مؤشر النحاس اللحظي (Millberry Live)</div>
+        <div id="c-cu" class="kpi-val" style="color:#a855f7;">31,200 SAR</div>
+        <small style="color:var(--primary);">مربوط ببورصة LME والخبر لحظياً</small>
+      </div>
+      <div class="kpi-card" style="border-top-color:#ec4899;">
+        <div style="font-size:0.8rem;color:var(--muted);">بصمة التشفير اللحظية (Live SHA-256)</div>
+        <div id="c-hash" class="kpi-val" style="color:#ec4899;font-size:1.05rem;">0xSHK...</div>
+        <small style="color:var(--muted);">توليد وتدقيق مستمر للكتل</small>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- 2. جدول التسعير والحوسبة اللحظية للبورصة والـ 323 نمط نقل -->
+      <div class="card">
+        <h3><span>📊 مصفوفة التسعير والمطابقة اللحظية للبورصة واللوجستيات (Live Compute Matrix)</span> <span style="color:var(--primary);font-size:0.8rem;">تحديث تلقائي كل ثانية ⚡</span></h3>
+        <table>
+          <thead>
+            <tr><th>الأصل / المحرك المحوسب</th><th>القراءة اللحظية الحية</th><th>معادلة الحوسبة الآلية</th><th>حالة النواة</th></tr>
+          </thead>
+          <tbody id="tb-live-matrix"></tbody>
+        </table>
+
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn" onclick="triggerInstantComputeBurst()">🚀 تنفيذ دفعة حوسبة ومطابقة فورية (Compute Burst)</button>
+          <a href="/b2b-auto-outreach" class="btn" style="background:var(--blue);">📡 مزامنة مع كتالوج SAP Ariba</a>
+        </div>
+      </div>
+
+      <!-- 3. شاشة سجل تدفق العمليات اللحظية (Real-Time Compute Stream Log) -->
+      <div class="card">
+        <h3><span>🖥️ سجل البث الحي لنواة حوسبة شيخة (Live Telemetry & Compute Stream)</span> <span id="stream-status" style="color:var(--primary);font-size:0.8rem;">🟢 ONLINE STREAMING</span></h3>
+        <div id="compute-log" class="terminal-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const logBox = document.getElementById('compute-log');
+    function appendLog(line) {
+      const div = document.createElement('div');
+      div.innerText = line;
+      logBox.prepend(div);
+      if (logBox.children.length > 40) logBox.removeChild(logBox.lastChild);
+    }
+
+    // اتصال بث حي ومستمر (Server-Sent Events) مع خادم شيخة 7788
+    const evtSource = new EventSource('/api/compute-stream');
+    evtSource.onmessage = function(event) {
+      const d = JSON.parse(event.data);
+      document.getElementById('c-tick').innerText = '#' + d.tick;
+      document.getElementById('c-lat').innerText = d.latency_ms + ' ms';
+      document.getElementById('c-mem').innerText = d.rss_mb + ' MB';
+      document.getElementById('c-up').innerText = 'Uptime: ' + d.uptime_sec + 's | Load: ' + d.cpu_load;
+      document.getElementById('c-cu').innerText = d.copper_spot_sar.toLocaleString() + ' SAR';
+      document.getElementById('c-hash').innerText = d.live_hash.slice(0, 16) + '...';
+
+      const tb = document.getElementById('tb-live-matrix');
+      tb.innerHTML = '';
+      (d.matrix || []).forEach(r => {
+        tb.innerHTML += '<tr><td><b>' + r.engine + '</b></td><td style="color:var(--gold);font-family:monospace;font-weight:900;">' + r.val + '</td><td>' + r.formula + '</td><td style="color:var(--primary);font-weight:800;">' + r.state + '</td></tr>';
+      });
+
+      appendLog('[' + d.timestamp + '] TICK #' + d.tick + ' | CU=' + d.copper_spot_sar + ' SAR | HMS=' + d.hms_spot_sar + ' SAR | HASH=' + d.live_hash.slice(0,18) + ' | LATENCY=' + d.latency_ms + 'ms');
+    };
+
+    async function triggerInstantComputeBurst() {
+      const r = await fetch('/api/compute-burst', { method: 'POST' });
+      const d = await r.json();
+      appendLog('⚡ [BURST EXECUTED]: ' + d.message + ' | Hash: ' + d.burst_hash);
+    }
+  </script>
+</body>
+</html>

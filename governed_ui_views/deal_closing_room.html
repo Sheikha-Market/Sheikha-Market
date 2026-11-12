@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>غرفة عمليات إغلاق الصفقة الأولى وحاسبة الأرباح الصافية (/deal-room) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --gold:#d97706; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.65; }
+    .container { max-width:1240px; margin:0 auto; }
+    .header {
+      background:var(--navy); color:#fff; border-radius:16px; padding:20px 24px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:18px;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:9px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.83rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .btn.blue { background:var(--blue); }
+    .grid-2 { display:grid; grid-template-columns:1.1fr 0.9fr; gap:16px; margin-bottom:16px; }
+    @media(max-width:950px){ .grid-2 { grid-template-columns:1fr; } }
+    .card { background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.05); }
+    .card h2 { font-size:1.05rem; border-bottom:2px solid #f1f5f9; padding-bottom:8px; margin-bottom:12px; color:var(--navy); }
+    .calc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+    label { font-size:0.78rem; font-weight:700; color:#475569; display:block; margin-bottom:3px; }
+    input, select, textarea {
+      width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border);
+      font-family:inherit; font-size:0.85rem; background:#f8fafc; color:var(--navy);
+    }
+    .profit-banner {
+      background:#ecfdf5; border:2px solid var(--emerald); border-radius:12px; padding:14px;
+      display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center; margin-top:10px;
+    }
+    .profit-banner strong { font-size:1.2rem; color:#065f46; display:block; }
+    .step-links { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:12px; }
+    @media(max-width:900px){ .step-links { grid-template-columns:1fr 1fr; } }
+    .step-card {
+      background:#f8fafc; border:1px solid var(--border); border-top:4px solid var(--navy);
+      border-radius:10px; padding:10px; text-align:center; font-size:0.78rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1 style="font-size:1.3rem;">💼💰 غرفة عمليات إغلاق الصفقة الأولى وحاسبة الأرباح الصافية (/deal-room)</h1>
+        <div style="font-size:0.82rem;color:#cbd5e1;margin-top:4px;">
+          منهجية البيع المضمون (Back-to-Back Deal Execution) • حساب التسوية: مصرف الإنماء SA4005000068206162118000
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/master-index" class="btn blue">🏛️ الفهرس التنفيذي (13 وثيقة)</a>
+        <a href="/crm-pipeline" class="btn">📈 سجل الصفقات (CRM)</a>
+      </div>
+    </header>
+
+    <div class="grid-2">
+      <section class="card">
+        <h2>1️⃣ حاسبة هندسة الصفقة وصافي الربح المضمون (Deal Profit Simulator)</h2>
+        <div class="calc-grid">
+          <div>
+            <label>الصنف المتداول في الصفقة:</label>
+            <select id="d-item" onchange="onDealPreset()">
+              <option value="نحاس أحمر نقي مفروز (ISRI: Berry — HS 7404.00.10)|10|30000|31200|250">نحاس أحمر نقي Berry (10 طن)</option>
+              <option value="بالات علب ألمنيوم مكبوسة 320 بار (UBC — HS 7602.00.10)|20|8350|8950|150">بالات ألمنيوم مكبوس UBC (20 طن)</option>
+              <option value="حديد فولاذي ثقيل مقصوص بالمقاس (HMS 1&2 — HS 7204.49.10)|50|1370|1520|70">حديد ثقيل مقصوص HMS (50 طن)</option>
+            </select>
+          </div>
+          <div>
+            <label>الكمية المتفق عليها (طن متري):</label>
+            <input id="d-qty" type="number" value="10" min="1" oninput="calcDeal()" />
+          </div>
+          <div>
+            <label>سعر الشراء من ساحة المورد (ر.س/طن قبل الضريبة):</label>
+            <input id="d-buy" type="number" value="30000" min="1" oninput="calcDeal()" />
+          </div>
+          <div>
+            <label>سعر البيع للمصنع المشتري (ر.س/طن قبل الضريبة):</label>
+            <input id="d-sell" type="number" value="31200" min="1" oninput="calcDeal()" />
+          </div>
+          <div>
+            <label>تكلفة النقل والقبان والختم الأحمر (ر.س/طن):</label>
+            <input id="d-ops" type="number" value="250" min="0" oninput="calcDeal()" />
+          </div>
+          <div>
+            <label>اسم المصنع المشتري (لإدراجه في الرسالة والعقد):</label>
+            <input id="d-factory" value="شركة مصانع الشرقية للكابلات والصناعات المعدنية" oninput="calcDeal()" />
+          </div>
+        </div>
+
+        <div class="profit-banner">
+          <div><small>إجمالي فاتورة البيع للمصنع (شامل 15%)</small><strong id="r-sell-vat">358,800.00 ر.س</strong></div>
+          <div><small>إجمالي سداد المورد والنقل (شامل 15%)</small><strong id="r-buy-vat" style="color:#0f172a;">347,875.00 ر.س</strong></div>
+          <div><small>صافي ربحك المودع في مصرف الإنماء</small><strong id="r-net-profit" style="color:#059669;font-size:1.35rem;">+9,500.00 ر.س</strong></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2️⃣ رسائل الإغلاق الفوري عبر الواتساب (اضغط لنسخ الرسالة وإرسالها)</h2>
+        <label>أ) رسالة حجز البضاعة الموجهة لصاحب ساحة السكراب (المورد):</label>
+        <textarea id="msg-supplier" style="height:88px;margin-bottom:8px;"></textarea>
+        <button class="btn" style="margin-bottom:12px;" onclick="navigator.clipboard.writeText(document.getElementById('msg-supplier').value);this.innerText='تم نسخ رسالة المورد ✓'">📋 نسخ رسالة حجز المورد</button>
+
+        <label>ب) رسالة عرض التوريد الموجهة لمدير مشتريات المصنع (المشتري):</label>
+        <textarea id="msg-buyer" style="height:98px;margin-bottom:8px;"></textarea>
+        <button class="btn blue" onclick="navigator.clipboard.writeText(document.getElementById('msg-buyer').value);this.innerText='تم نسخ رسالة المصنع ✓'">📋 نسخ رسالة مدير مشتريات المصنع</button>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>3️⃣ مسار إصدار مستندات الصفقة الخمسة بالترتيب (اضغط على كل خطوة لإصدار وثيقتها)</h2>
+      <div class="step-links">
+        <div class="step-card" style="border-top-color:var(--blue);">
+          <b>الخطوة 1: عرض السعر</b>
+          <p style="margin:6px 0;color:#475569;">أرسل عرض السعر الرسمي للمصنع</p>
+          <a href="/quotation" target="_blank" class="btn blue" style="width:100%;">04. إصدار عرض السعر</a>
+        </div>
+        <div class="step-card" style="border-top-color:var(--navy);">
+          <b>الخطوة 2: تثبيت العقد</b>
+          <p style="margin:6px 0;color:#475569;">وقّع أمر الشراء الملزم مع المصنع</p>
+          <a href="/purchase-order" target="_blank" class="btn" style="width:100%;background:var(--navy);">05. إصدار أمر الشراء</a>
+        </div>
+        <div class="step-card" style="border-top-color:var(--gold);">
+          <b>الخطوة 3: الفحص والاستلام</b>
+          <p style="margin:6px 0;color:#475569;">افحص النقاوة واقفل بالختم الأحمر</p>
+          <a href="/grn-report" target="_blank" class="btn" style="width:100%;background:var(--gold);">03. محضر الاستلام GRN</a>
+        </div>
+        <div class="step-card" style="border-top-color:#e11d48;">
+          <b>الخطوة 4: الشحن والبوابة</b>
+          <p style="margin:6px 0;color:#475569;">سلّم السائق تصريح الخروج والبوليصة</p>
+          <a href="/gate-pass" target="_blank" class="btn" style="width:100%;background:#e11d48;">09. بوليصة الشحن</a>
+        </div>
+        <div class="step-card" style="border-top-color:var(--emerald);">
+          <b>الخطوة 5: الفاتورة والتحصيل</b>
+          <p style="margin:6px 0;color:#475569;">أصدر فاتورة ZATCA وحصّل في الإنماء</p>
+          <a href="/tax-invoice" target="_blank" class="btn" style="width:100%;">10. الفاتورة الضريبية</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function onDealPreset() {
+      const p = document.getElementById('d-item').value.split('|');
+      document.getElementById('d-qty').value = p[1];
+      document.getElementById('d-buy').value = p[2];
+      document.getElementById('d-sell').value = p[3];
+      document.getElementById('d-ops').value = p[4];
+      calcDeal();
+    }
+
+    function calcDeal() {
+      const itemFull = document.getElementById('d-item').value.split('|')[0];
+      const qty = Math.max(1, Number(document.getElementById('d-qty').value || 1));
+      const buy = Math.max(0, Number(document.getElementById('d-buy').value || 0));
+      const sell = Math.max(0, Number(document.getElementById('d-sell').value || 0));
+      const ops = Math.max(0, Number(document.getElementById('d-ops').value || 0));
+      const factory = document.getElementById('d-factory').value.trim() || 'المصنع المشتري';
+
+      const totalBuyVat = (qty * buy * 1.15) + (qty * ops * 1.15);
+      const totalSellVat = (qty * sell * 1.15);
+      const netProfit = qty * (sell - buy - ops);
+
+      document.getElementById('r-sell-vat').innerText = totalSellVat.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('r-buy-vat').innerText = totalBuyVat.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+      document.getElementById('r-net-profit').innerText = (netProfit >= 0 ? '+' : '') + netProfit.toLocaleString(undefined,{minimumFractionDigits:2}) + ' ر.س';
+
+      document.getElementById('msg-supplier').value =
+        `السلام عليكم، معكم مؤسسة سلمان أحمد الراجح التجارية (سوق شيخة للمعادن - الخبر).
+` +
+        `مطلوب حجز كمية (${qty} طن) من صنف: ${itemFull} بسعر ${buy.toLocaleString()} ر.س/طن (صافي على القبان الإلكتروني وخالٍ من الشوائب). الدفع تحويل بنكي فوري من مصرف الإنماء عند التحميل وإصدار محضر الفحص GRN.`;
+
+      document.getElementById('msg-buyer').value =
+        `سعادة مدير المشتريات في ${factory} الموقر،
+` +
+        `السلام عليكم، يسر مؤسسة سلمان أحمد الراجح التجارية (سجل: 2051263653 | مورد أرامكو: S11488084) تأكيد جاهزية توريد دفعة فورية: (${qty} طن) من ${itemFull} مفحوصة مخبرياً (XRF) ومختومة بالختم الأمني الأحمر بسعر ${sell.toLocaleString()} ر.س/طن (توريد تسليم مصنعكم). مرفق عرض السعر الرسمي وأمر الشراء للاعتماد.`;
+    }
+    calcDeal();
+  </script>
+</body>
+</html>

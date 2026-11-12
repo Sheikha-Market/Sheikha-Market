@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="shk-root">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منظومة شيخة لعقل السكراب الذاتي وإدارة المشاريع من المنزل للمصهر | SHEIKHA® Brain-OS V30000</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #02060f;
+      --panel: rgba(8, 17, 34, 0.88);
+      --card: rgba(4, 10, 22, 0.94);
+      --gold: #d4af37;
+      --gold-bright: #fde047;
+      --cyan: #00f2fe;
+      --emerald: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(212, 175, 55, 0.38);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    #neuralBg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.38; }
+    .shell { position: relative; z-index: 10; max-width: 1560px; margin: 0 auto; padding: 12px 18px 40px; }
+
+    /* الشريط البورصي وحفظ الملكية الفكرية الكاملة لشيخة */
+    .top-bar {
+      background: linear-gradient(90deg, #01040a, #0a192f, #01040a);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 7px 16px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+      font-size: 0.75rem; margin-bottom: 12px;
+    }
+    .top-bar code { color: var(--gold-bright); font-family: 'JetBrains Mono', monospace; font-weight: 800; }
+    .ip-badge {
+      background: rgba(212, 175, 55, 0.16); border: 1px solid var(--gold); color: var(--gold-bright);
+      padding: 3px 11px; border-radius: 999px; font-weight: 800; font-size: 0.7rem;
+    }
+
+    /* الترويسة السيادية */
+    .header-box {
+      background: var(--panel); backdrop-filter: blur(18px);
+      border: 1px solid var(--border); border-bottom: 2px solid var(--cyan);
+      border-radius: 18px; padding: 14px 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+      margin-bottom: 14px; box-shadow: 0 18px 45px rgba(0,0,0,0.7);
+    }
+    .crest {
+      width: 54px; height: 54px; border-radius: 14px;
+      background: radial-gradient(circle, var(--gold-bright), var(--gold));
+      color: #02060f; font-family: 'Amiri', serif; font-size: 1.9rem; font-weight: 700;
+      display: grid; place-items: center; border: 2px solid #fff;
+      box-shadow: 0 0 25px rgba(253, 224, 71, 0.55);
+    }
+    .h1-title {
+      font-size: 1.25rem; font-weight: 900;
+      background: linear-gradient(90deg, #fff, var(--gold-bright), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .lang-row { display: flex; gap: 5px; background: #01050c; padding: 4px; border-radius: 10px; border: 1px solid rgba(0,242,254,0.35); }
+    .l-btn {
+      background: transparent; color: #cbd5e1; border: none; padding: 5px 10px;
+      border-radius: 7px; font-family: inherit; font-weight: 800; font-size: 0.72rem; cursor: pointer;
+    }
+    .l-btn.active, .l-btn:hover { background: var(--gold-bright); color: #02060f; }
+
+    /* شريط مؤشرات الإنتاجية الشاملة للموازين الآلية والتخزين (يومي / أسبوعي / شهري / سنوي) */
+    .yield-strip {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 16px;
+    }
+    @media(max-width: 1150px) { .yield-strip { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
+    .y-card {
+      background: var(--card); border: 1px solid rgba(0, 242, 254, 0.3);
+      border-right: 4px solid var(--gold-bright); border-radius: 12px; padding: 10px 12px;
+    }
+    .y-card small { font-size: 0.7rem; color: var(--muted); display: block; }
+    .y-card strong { font-family: 'JetBrains Mono', sans-serif; font-size: 1.12rem; color: var(--gold-bright); font-weight: 900; }
+    .y-card span { font-size: 0.68rem; color: var(--emerald); display: block; }
+
+    /* شريط اختيار الدور في سلسلة الإمداد (7 أدوار) */
+    .roles-bar {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 16px;
+    }
+    @media(max-width: 1100px) { .roles-bar { grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); } }
+    .r-pill {
+      background: var(--card); border: 1px solid var(--border); border-radius: 11px;
+      padding: 8px; text-align: center; cursor: pointer; transition: 0.2s;
+    }
+    .r-pill.active, .r-pill:hover {
+      background: linear-gradient(135deg, rgba(212,175,55,0.25), rgba(0,242,254,0.15));
+      border-color: var(--gold-bright); box-shadow: 0 0 18px rgba(253,224,71,0.35);
+    }
+    .r-pill strong { font-size: 0.78rem; display: block; color: #fff; }
+    .r-pill small { font-size: 0.66rem; color: var(--cyan); }
+
+    /* الشبكة الرئيسية الثلاثية:
+       1. إدارة المشاريع الذاتية من المنزل (بضغطة أو بلا ضغطة زر)
+       2. عقل السكراب الحي والآلات والموانئ وخطوط الألمنيوم
+       3. الموازين الآلية وقدرات الساحات وتأجير التخزين والعمالة والسوق */
+    .main-matrix {
+      display: grid; grid-template-columns: 1.1fr 1.25fr; gap: 16px; margin-bottom: 16px;
+    }
+    @media(max-width: 1180px) { .main-matrix { grid-template-columns: 1fr; } }
+
+    .box {
+      background: var(--panel); backdrop-filter: blur(18px);
+      border: 1px solid var(--border); border-top: 3px solid var(--gold-bright);
+      border-radius: 18px; padding: 16px; box-shadow: 0 18px 45px rgba(0,0,0,0.7);
+    }
+    .box-head {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25); padding-bottom: 8px; margin-bottom: 12px;
+    }
+    .box-head h2 { font-size: 0.98rem; font-weight: 900; color: var(--gold-bright); }
+
+    .shk-btn {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+      color: #02060f; border: none; padding: 9px 14px; border-radius: 9px;
+      font-family: inherit; font-weight: 900; font-size: 0.78rem; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
+    }
+    .shk-btn.cyan { background: linear-gradient(135deg, var(--cyan), #0284c7); color: #010409; }
+    .shk-btn.emerald { background: linear-gradient(135deg, #34d399, #059669); color: #010906; }
+
+    input, select, textarea {
+      width: 100%; padding: 8px 10px; background: #01050c; color: #fff;
+      border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 8px;
+      font-family: inherit; font-size: 0.78rem; margin-bottom: 8px;
+    }
+
+    /* بطاقة عقل السكراب الحي (Brain-per-Scrap Node Card) */
+    .brain-card {
+      background: var(--card); border: 1.5px solid rgba(0, 242, 254, 0.4);
+      border-right: 4px solid var(--emerald); border-radius: 14px;
+      padding: 12px; margin-bottom: 10px; font-size: 0.76rem;
+    }
+    .stage-track {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 8px 0;
+    }
+    .st-step {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 6px; padding: 4px; text-align: center; font-size: 0.65rem; font-weight: 800;
+    }
+    .st-step.done { background: rgba(16, 185, 129, 0.22); border-color: var(--emerald); color: #34d399; }
+
+    /* بطاقات الساحات والموازين الآلية والآلات والتأجير */
+    .yard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 12px; }
+    .yard-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 13px; font-size: 0.75rem;
+    }
+    .mch-badge {
+      display: block; background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.28);
+      border-radius: 7px; padding: 5px 8px; margin-top: 4px; font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="neuralBg"></canvas>
+
+  <div class="shell">
+    <!-- 1. شريط البورصة وحفظ الملكية الفكرية لشيخة -->
+    <div class="top-bar">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <span>⚡ نحاس شيخة (XRF 99.94%): <code>31,200 ر.س/طن</code></span>
+        <span>💿 بالات علب ألمنيوم (UBC): <code>8,950 ر.س/طن</code></span>
+        <span>🏗️ حديد ثقيل (HMS 1&2): <code>1,520 ر.س/طن</code></span>
+        <span>🏦 تسوية مصرف الإنماء: <code>SA4005000068206162118000</code></span>
+      </div>
+      <span class="ip-badge">© ملكية فكرية وتصميم حصري لمنظومة شيخة SHEIKHA® IP — عقل السكراب الذاتي V30000</span>
+    </div>
+
+    <!-- 2. الترويسة السيادية + اللغات الـ 6 -->
+    <header class="header-box">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="crest">ش</div>
+        <div>
+          <h1 class="h1-title" id="ui-h1">منظومة شيخة لعقل السكراب الذاتي وإدارة المشاريع الشاملة (SHEIKHA® Brain-OS)</h1>
+          <div style="font-size:0.75rem;color:var(--muted);" id="ui-sub">
+            إتمام العمليات End-to-End من المنزل (بضغطة زر أو بلا ضغطة زر عبر الحساسات والجدولة) • إدارة الموانئ وخطوط الألمنيوم والموازين وتأجير التخزين والعمالة حتى المصهر
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button class="shk-btn emerald" id="zero-click-toggle" onclick="toggleZeroClickAutopilot()">
+          🤖 وضع التشغيل الذاتي بلا ضغطة زر (Zero-Click Sensor Autopilot): مفعل ●
+        </button>
+        <div class="lang-row">
+          <button class="l-btn active" onclick="switchLang('ar', this)">🇸🇦 العربية</button>
+          <button class="l-btn" onclick="switchLang('en', this)">🇬🇧 EN</button>
+          <button class="l-btn" onclick="switchLang('ur', this)">🇵🇰 اردو</button>
+          <button class="l-btn" onclick="switchLang('hi', this)">🇮🇳 हिन्दी</button>
+          <button class="l-btn" onclick="switchLang('bn', this)">🇧🇩 বাংলা</button>
+          <button class="l-btn" onclick="switchLang('tl', this)">🇵🇭 TL</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3. شريط قراءات الموازين الآلية والقدرة الإنتاجية (يومي / أسبوعي / شهري / سنوي) وسعة التخزين -->
+    <section class="yield-strip">
+      <div class="y-card">
+        <small>⚖️ إجمالي الموازين الآلية الحية الآن</small>
+        <strong id="k-live-tons">1,477.5 MT</strong>
+        <span>قراءة حساسات القبان اللحظية</span>
+      </div>
+      <div class="y-card">
+        <small>📅 القدرة الإنتاجية اليومية للسكراب</small>
+        <strong id="k-daily">223 MT / يوم</strong>
+        <span>مجموع إنتاج الساحات ونقاط التجميع</span>
+      </div>
+      <div class="y-card">
+        <small>📊 القدرة الإنتاجية الأسبوعية</small>
+        <strong id="k-weekly">1,561 MT / أسبوع</strong>
+        <span>فرز وتقطيع وكبس قياسي</span>
+      </div>
+      <div class="y-card">
+        <small>📈 القدرة الإنتاجية الشهرية</small>
+        <strong id="k-monthly">6,690 MT / شهر</strong>
+        <span>عقود توريد المصاهر وخطوط الإنتاج</span>
+      </div>
+      <div class="y-card">
+        <small>🏆 القدرة الإنتاجية السنوية الموثقة</small>
+        <strong id="k-annual">81,395 MT / سنة</strong>
+        <span>إجمالي الناتج السنوي لسلسلة شيخة</span>
+      </div>
+      <div class="y-card">
+        <small>🏢 سعة التخزين المتاحة للتأجير الفوري</small>
+        <strong id="k-storage">7,522.5 MT</strong>
+        <span>+ 92 عامل فرز جاهزين للتوجيه</span>
+      </div>
+    </section>
+
+    <!-- 4. شريط الأدوار الـ 7 في سلسلة الإمداد (لتكييف لوحة التحكم والصلاحيات) -->
+    <section class="roles-bar">
+      <div class="r-pill" onclick="setRoleView('COLLECTOR', this)"><strong>1. جامع وموقع تجميع</strong><small>ميزان آلي وإنتاج يومي</small></div>
+      <div class="r-pill" onclick="setRoleView('CONTRACTOR', this)"><strong>2. مقاول وموقع هدم</strong><small>جدولة حاويات وحساسات</small></div>
+      <div class="r-pill" onclick="setRoleView('PORT_GOV', this)"><strong>3. ميناء ومزاد حكومي</strong><small>مواعيد البواخر والفسح</small></div>
+      <div class="r-pill" onclick="setRoleView('TRANSPORTER', this)"><strong>4. ناقل وحاويات</strong><small>سحب آلي وتتبع للمصهر</small></div>
+      <div class="r-pill active" onclick="setRoleView('YARD', this)"><strong>5. ساحة فرز وتخزين</strong><small>آلات + تأجير ساحات وعمالة</small></div>
+      <div class="r-pill" onclick="setRoleView('PROD_LINE', this)"><strong>6. خط إنتاج (علب ألمنيوم)</strong><small>توريد مجدول وتخزين</small></div>
+      <div class="r-pill" onclick="setRoleView('SMELTER', this)"><strong>7. مصهر معادن نهائي</strong><small>استلام الشحنات والفوترة</small></div>
+    </section>
+
+    <!-- 5. المصفوفة التشغيلية العليا: (يمين: إطلاق المشاريع والعقود من المنزل بضغطة أو بلا ضغطة) + (يسار: عقل السكراب الحي لكل شحنة وآلة) -->
+    <div class="main-matrix">
+
+      <!-- يمين: مركز التعاقد وإدارة المشروع الكامل من المنزل (End-to-End Project & Sensor Scheduler) -->
+      <section class="box">
+        <div class="box-head">
+          <h2>🏠⚡ 1. إتمام وإدارة المشروع كاملاً من المنزل (بضغطة زر أو بلا ضغطة زر عبر الحساسات)</h2>
+          <span class="ip-badge" id="role-active-label">لوحة التحكم التكيفية الشاملة</span>
+        </div>
+
+        <label style="font-size:0.75rem;color:var(--gold-bright);font-weight:800;">اختر نوع العملية أو العقد الذاتي الشامل (End-to-End):</label>
+        <select id="proj-type" onchange="fillProjectTemplate()">
+          <option value="ALU_LINE">🥫 مشروع خط إنتاج علب الألمنيوم (تجميع + فرز + كبس + تخزين + توريد مجدول لخط الإنتاج)</option>
+          <option value="PORT_SHIP">🚢 مشروع شحنة سكراب الميناء / المزاد الحكومي (جدولة وصول الباخرة + سحب + فرز + للمصهر)</option>
+          <option value="SENSOR_ZERO">📡 عقد الجولات الذاتية بالحساسات (بلا ضغطة زر — سحب تلقائي عند وصول الميزان الآلي 20 طن)</option>
+          <option value="RENT_STORAGE">🏢 عقد تأجير ساحة تخزين سكراب + تأجير عمالة فرز ومعدات كبس مع التوريد للمصهر</option>
+          <option value="DIRECT_BUY">🛒 شراء مباشر من السوق المفتوح مع إدارة النقل والفرز والتسليم لباب المصنع</option>
+        </select>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <input id="p-client" value="مصنع الخليج لدرفلة وسبائك الألمنيوم — الدمام" placeholder="اسم العميل / المصنع / المقاول" />
+          <select id="p-trigger">
+            <option value="ZERO_CLICK_SENSOR">📡 بلا ضغطة زر (تلقائي عبر حساس الوزن والجدولة)</option>
+            <option value="ONE_CLICK_HOME">👆 بضغطة زر واحدة من المنزل (End-to-End)</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <input id="p-tons" type="number" value="50" placeholder="الكمية المجدولة (طن)" />
+          <input id="p-rent-tons" type="number" value="150" placeholder="حجز سعة تخزين (طن)" />
+          <input id="p-workers" type="number" value="10" placeholder="تأجير عمال فرز (عدد)" />
+        </div>
+
+        <textarea id="p-desc" style="height:58px;color:#34d399;">إدارة مشروع متكامل بواسطة شيخة: تجميع علب الألمنيوم من نقاط التجميع، وزنها بالميزان الآلي، فرزها وكبسها بمكبس 320 بار، تخزينها في ساحة الخبر، وتوريدها حسب الجدول لخط الإنتاج والمصهر.</textarea>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="shk-btn" style="flex:1;padding:11px;" onclick="launchAutonomousProject()">
+            🚀 تفويض شيخة بإدارة المشروع كاملاً حتى وصول السكراب للمصهر + إصدار عقد وفاتورة ZATCA
+          </button>
+        </div>
+        <div id="proj-feedback" style="margin-top:8px;font-size:0.76rem;color:#34d399;font-weight:800;"></div>
+      </section>
+
+      <!-- يسار: عقل السكراب الحي (Brain-per-Scrap) وتتبع كل مرحلة وكل معدة حتى المصهر -->
+      <section class="box">
+        <div class="box-head">
+          <h2>🧠🔬 2. «عقل السكراب الحي» (Brain-per-Scrap): تتبع ذري لكل شحنة وآلة وميناء حتى المصهر</h2>
+          <span style="font-size:0.72rem;color:var(--cyan);font-family:monospace;">LIVE COGNITIVE NODES</span>
+        </div>
+
+        <div id="scrap-brains-container" style="max-height:335px;overflow-y:auto;"></div>
+      </section>
+
+    </div>
+
+    <!-- 6. القسم السفلي: الساحات، الموازين الآلية، القدرات الإنتاجية (يومي/شهري/سنوي)، الآلات، وتأجير التخزين والعمالة -->
+    <section class="box">
+      <div class="box-head">
+        <h2>⚖️🏭👷 3. رادار الساحات ومواقع التجميع والميناء: الميزان الآلي، القدرة الإنتاجية، الآلات، وتأجير التخزين والعمالة</h2>
+        <div style="display:flex;gap:8px;">
+          <a href="/tax-report" class="shk-btn emerald">🧾 التقرير الضريبي الزكوي (PDF/CSV)</a>
+          <a href="/api/download-50-factories-guide" target="_blank" class="shk-btn">📥 دليل الـ 50 مصنعاً وساحة</a>
+        </div>
+      </div>
+
+      <div class="yard-grid" id="yards-capabilities-grid"></div>
+    </section>
+
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. تحميل بيانات عقل السكراب، الساحات، الإنتاجية، الآلات، والعقود المجدولة
+    // =========================================================================
+    let brainState = null;
+    let zeroClickInterval = null;
+
+    async function loadCognitiveBrainOS() {
+      const r = await fetch('/api/cognitive-brain-state');
+      const d = await r.json();
+      brainState = d;
+
+      // حساب إجماليات الموازين الآلية والقدرات الإنتاجية والتخزينية
+      let liveTons = 0, daily = 0, weekly = 0, monthly = 0, annual = 0, storage = 0;
+      (d.yards_and_hubs || []).forEach(y => {
+        liveTons += Number(y.auto_scale_live_tons || 0);
+        daily += Number(y.daily_yield_tons || 0);
+        weekly += Number(y.weekly_yield_tons || 0);
+        monthly += Number(y.monthly_yield_tons || 0);
+        annual += Number(y.annual_yield_tons || 0);
+        storage += Number(y.available_storage_for_rent_tons || 0);
+      });
+
+      document.getElementById('k-live-tons').innerText = liveTons.toLocaleString() + ' طن';
+      document.getElementById('k-daily').innerText = daily.toLocaleString() + ' طن/يوم';
+      document.getElementById('k-weekly').innerText = weekly.toLocaleString() + ' طن/أسبوع';
+      document.getElementById('k-monthly').innerText = monthly.toLocaleString() + ' طن/شهر';
+      document.getElementById('k-annual').innerText = annual.toLocaleString() + ' طن/سنة';
+      document.getElementById('k-storage').innerText = storage.toLocaleString() + ' طن متاح';
+
+      // عرض بطاقات "عقل السكراب" لكل مشروع وشحنة
+      const bBox = document.getElementById('scrap-brains-container');
+      bBox.innerHTML = (d.smart_scrap_brains || []).map(b =>
+        '<div class="brain-card">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<strong style="color:var(--gold-bright);font-size:0.84rem;">🧠 ' + b.brain_id + ' — ' + b.project_title + '</strong>' +
+            '<code style="color:#34d399;font-weight:900;">' + b.net_tons + ' طن صافي</code>' +
+          '</div>' +
+          '<div style="margin-top:4px;color:#cbd5e1;">' +
+            '🏢 <b>العميل:</b> ' + b.client_name + ' | 📡 <b>آلية التفعيل:</b> <span style="color:var(--cyan);">' + b.trigger_mode + '</span><br>' +
+            '🧬 <b>بصمة المعدن:</b> ' + b.material_dna + ' | 📍 <b>الموقع الحالي:</b> ' + b.origin_node + '<br>' +
+            '⚙️ <b>الآلة والمعدة العاملة الآن:</b> <span style="color:var(--gold-bright);">' + b.active_machine + '</span><br>' +
+            '🏢 <b>التخزين والعمالة المخصصة:</b> حجز تخزين <b>' + b.rented_storage_tons + ' طن</b> + <b>' + b.rented_workers_count + ' عمال فرز</b><br>' +
+            '🔥 <b>الوجهة النهائية (المصهر/خط الإنتاج):</b> <span style="color:#34d399;font-weight:800;">' + b.smelter_destination + '</span>' +
+          '</div>' +
+          '<div class="stage-track">' +
+            '<div class="st-step done">1. حساس وتجميع</div>' +
+            '<div class="st-step done">2. ميزان آلي</div>' +
+            '<div class="st-step done">3. فرز XRF</div>' +
+            '<div class="st-step done">4. قص/كبس وتخزين</div>' +
+            '<div class="st-step done">5. تسليم المصهر ✓</div>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+
+      // عرض بطاقات الساحات والموانئ والموازين الآلية والآلات والتأجير
+      const yGrid = document.getElementById('yards-capabilities-grid');
+      yGrid.innerHTML = (d.yards_and_hubs || []).map(y =>
+        '<div class="yard-box">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(212,175,55,0.25);padding-bottom:6px;margin-bottom:8px;">' +
+            '<strong style="color:var(--gold-bright);font-size:0.86rem;">📍 ' + y.name + '</strong>' +
+            '<code style="color:var(--cyan);">' + y.yard_id + '</code>' +
+          '</div>' +
+          '<div>⚖️ <b>قراءة الميزان الآلي الآن:</b> <span style="color:#34d399;font-weight:900;">' + y.auto_scale_live_tons + ' طن</span> (السعة الكلية: ' + y.max_storage_capacity_tons + ' طن)</div>' +
+          '<div>🏢 <b>مساحة التخزين المتاحة للتأجير:</b> <span style="color:var(--gold-bright);font-weight:800;">' + y.available_storage_for_rent_tons + ' طن</span> | 👷 <b>عمالة الفرز المتاحة للإيجار:</b> ' + y.available_sorting_workers + ' عامل</div>' +
+          '<div style="background:rgba(1,5,12,0.9);border-radius:8px;padding:6px 8px;margin:6px 0;font-family:monospace;font-size:0.7rem;color:#cbd5e1;">' +
+            '📊 إنتاج السكراب: يومي (<b>' + y.daily_yield_tons + 't</b>) • أسبوعي (<b>' + y.weekly_yield_tons + 't</b>) • شهري (<b>' + y.monthly_yield_tons + 't</b>) • سنوي (<b>' + y.annual_yield_tons + 't</b>)' +
+          '</div>' +
+          '<div style="font-weight:800;color:var(--cyan);margin-top:4px;">⚙️ الآلات والمعدات المتصلة بعقل الساحة:</div>' +
+          (y.machines || []).map(m =>
+            '<span class="mch-badge">🔧 <b>' + m.name + '</b> — القدرة: ' + m.rate + ' [<span style="color:#34d399;">' + m.status + '</span>]</span>'
+          ).join('') +
+        '</div>'
+      ).join('');
+    }
+
+    function fillProjectTemplate() {
+      const t = document.getElementById('proj-type').value;
+      const desc = document.getElementById('p-desc');
+      if (t === 'ALU_LINE') {
+        document.getElementById('p-client').value = 'مصنع الخليج لدرفلة وسبائك الألمنيوم — الدمام';
+        desc.value = 'إدارة مشروع متكامل بواسطة شيخة: تجميع علب الألمنيوم (UBC)، وزنها بالميزان الآلي، فرزها وكبسها بمكبس 320 بار، تخزينها، وتوريدها حسب الجدولة لخط الإنتاج والمصهر.';
+      } else if (t === 'PORT_SHIP') {
+        document.getElementById('p-client').value = 'شركة اتحاد المصاهر الوطنية — الجبيل (شحنة ميناء/حكومي)';
+        desc.value = 'جدولة استلام باخرة سكراب في الميناء / مناقصة حكومية: تخليص آلي، وزن محوري في الميناء، نقل لساحة شيخة، قص هيدروليكي 800 طن، وتوريد مباشر للمصهر.';
+      } else if (t === 'SENSOR_ZERO') {
+        document.getElementById('p-client').value = 'مجمع الصناعات المعدنية والمقاولات — الخبر';
+        desc.value = 'عقد جولات ذاتية بالحساسات (بلا ضغطة زر): عند وصول وزن الحاوية في موقع العميل إلى 20 طن، تتحرك شاحنة شيخة تلقائياً للسحب والفرز والكبس والتسليم للمصهر.';
+      } else if (t === 'RENT_STORAGE') {
+        document.getElementById('p-client').value = 'مؤسسة الصقر لتجارة المعادن والسكراب';
+        desc.value = 'تأجير سعة تخزين 150 طن في ساحة شيخة + تأجير 10 عمال فرز ومكبس هيدروليكي لتجهيز البضاعة وبيعها للمصهر بأعلى سعر.';
+      } else {
+        document.getElementById('p-client').value = 'شركة الرواد للصناعات والسبائك — الرياض';
+        desc.value = 'شراء مباشر من السوق المفتوح مع تفويض شيخة بإدارة الفحص الطيفي XRF والنقل والتسليم النهائي لباب المصنع.';
+      }
+    }
+
+    async function launchAutonomousProject() {
+      const payload = {
+        project_type: document.getElementById('proj-type').value,
+        client_name: document.getElementById('p-client').value.trim(),
+        trigger_mode: document.getElementById('p-trigger').value,
+        net_tons: Number(document.getElementById('p-tons').value || 50),
+        rented_storage_tons: Number(document.getElementById('p-rent-tons').value || 150),
+        rented_workers_count: Number(document.getElementById('p-workers').value || 10),
+        description: document.getElementById('p-desc').value.trim()
+      };
+      const fb = document.getElementById('proj-feedback');
+      fb.innerText = '⏳ جاري إنشاء عقل السكراب للمشروع وحجز الميزان الآلي والتخزين والعمالة والآلات وإصدار فاتورة ZATCA...';
+
+      const r = await fetch('/api/cognitive-brain-launch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const d = await r.json();
+      if (d.ok) {
+        fb.innerHTML = '✅ <b>تم تفعيل المشروع الذاتي الكامل بنجاح!</b> رقم عقل السكراب: <code>' + d.brain.brain_id +
+          '</code> | الفاتورة الزكوية: <code>' + d.invoice.order_id + '</code> — شيخة تدير الدورة الآن بالكامل حتى المصهر.';
+        await loadCognitiveBrainOS();
+      }
+    }
+
+    // وضع التشغيل الذاتي بلا ضغطة زر (يحاكي استشعار حساسات الموازين في الساحات والميناء)
+    let autoPilotOn = true;
+    function toggleZeroClickAutopilot() {
+      autoPilotOn = !autoPilotOn;
+      const btn = document.getElementById('zero-click-toggle');
+      btn.innerText = autoPilotOn
+        ? '🤖 وضع التشغيل الذاتي بلا ضغطة زر (Zero-Click Sensor Autopilot): مفعل ●'
+        : '⏸️ وضع التشغيل الذاتي بلا ضغطة زر: متوقف مؤقتاً';
+    }
+
+    function setRoleView(roleCode, el) {
+      document.querySelectorAll('.r-pill').forEach(p => p.classList.remove('active'));
+      if (el) el.classList.add('active');
+      document.getElementById('role-active-label').innerText = 'صلاحية نشطة: ' + roleCode;
+    }
+
+    function switchLang(lang, btn) {
+      document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('shk-root').dir = (lang === 'ar' || lang === 'ur') ? 'rtl' : 'ltr';
+    }
+
+    // خلفية الشبكة العصبية
+    const cvs = document.getElementById('neuralBg');
+    const ctx = cvs.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    function rsz() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+    window.addEventListener('resize', rsz); rsz();
+    const nodes = Array.from({length: 26}, () => ({ x: Math.random()*W, y: Math.random()*H, vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5 }));
+    function drawBg() {
+      ctx.clearRect(0,0,W,H);
+      nodes.forEach(n => {
+        n.x = (n.x + n.vx + W) % W; n.y = (n.y + n.vy + H) % H;
+        ctx.fillStyle = '#fde047'; ctx.beginPath(); ctx.arc(n.x, n.y, 2, 0, Math.PI*2); ctx.fill();
+      });
+      for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+          const dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+          if(dist < 170){
+            ctx.strokeStyle = 'rgba(0, 242, 254, ' + (1 - dist/170)*0.22 + ')';
+            ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(drawBg);
+    }
+    requestAnimationFrame(drawBg);
+
+    loadCognitiveBrainOS();
+  </script>
+</body>
+</html>

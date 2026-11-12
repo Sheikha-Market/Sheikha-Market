@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل المنهجيات العلمية وإدارة الوثائق القياسية واللوائح التنظيمية (DMS & Bylaws) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.68; }
+    .no-print {
+      max-width:1140px; margin:0 auto 16px; background:var(--navy); color:#fff; border-radius:12px;
+      padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 15px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .sheet {
+      max-width:1140px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:32px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .header-doc {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    h1 { font-family:'Amiri',serif; font-size:1.7rem; color:var(--navy); }
+    h2 { font-size:1.05rem; color:var(--navy); background:#f8fafc; border-right:4px solid var(--emerald); padding:8px 12px; margin:18px 0 10px; }
+    table { width:100%; border-collapse:collapse; font-size:0.84rem; margin:10px 0; }
+    th, td { border:1px solid var(--border); padding:9px 11px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    tr:nth-child(even) { background:#f8fafc; }
+    .badge { background:#ecfdf5; color:#065f46; padding:3px 9px; border-radius:6px; font-weight:800; font-size:0.74rem; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .no-print { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <div>
+      <strong>📚⚖️ دليل المنهجيات العلمية، سجل ضبط الوثائق القياسية (ISO 9001 DMS)، واللوائح التنظيمية (/methodologies-dms)</strong>
+      <div style="font-size:0.78rem;color:#cbd5e1;">وثيقة حوكمة شاملة جاهزة للطباعة كـ PDF وإرفاقها في ملف تأهيل أرامكو والمصانع</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn" onclick="window.print()">🖨️ طباعة الدليل واللوائح (PDF)</button>
+      <a href="/ariba-package" class="btn" style="background:var(--blue);">🗂️ حزمة تقديم أرامكو</a>
+      <a href="/unified-work" class="btn" style="background:#475569;">🏢 مركز العمل الموحد</a>
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="header-doc">
+      <div>
+        <h1>دليل المنهجيات العلمية، إدارة الوثائق القياسية (DMS)، واللوائح التنظيمية</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية، المملكة العربية السعودية | سجل تجاري: <code>2051263653</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div><b>كود الوثيقة:</b> <code>SHK-GOV-REG-007</code></div>
+        <div><b>مرجع مورد أرامكو:</b> <code>S11488084</code></div>
+        <div><b>معرف شبكة أريبا:</b> <code>AN11235091112</code></div>
+      </div>
+    </header>
+
+    <h2>أولاً: المنهجيات العلمية والقياسية المعتمدة في الفحص والتصنيف والإنتاج (Scientific Methodologies)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:14%;">كود المنهجية</th>
+          <th style="width:28%;">اسم المنهجية العلمية</th>
+          <th style="width:20%;">المعيار المرجعي الدولي</th>
+          <th>التطبيق الفعلي في عمليات المؤسسة</th>
+        </tr>
+      </thead>
+      <tbody id="tb-methodologies"></tbody>
+    </table>
+
+    <h2>ثانياً: السجل المركزي لضبط وإدارة الوثائق القياسية (Controlled Document Management Register — ISO 9001 DMS)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:16%;">رمز الوثيقة</th>
+          <th>عنوان الوثيقة الرسمية</th>
+          <th style="width:10%;">الإصدار</th>
+          <th style="width:14%;">حالة الاعتماد</th>
+          <th style="width:28%;">ملف الـ PDF المحفوظ في الحزمة</th>
+        </tr>
+      </thead>
+      <tbody id="tb-dms"></tbody>
+    </table>
+
+    <h2>ثالثاً: اللوائح التنظيمية والسياسات الحاكمة للمنشأة والامتثال (Corporate Bylaws & Compliance Policies)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">رقم اللائحة</th>
+          <th style="width:30%;">اسم اللائحة التنظيمية</th>
+          <th>نطاق التطبيق والإلزام النظامي</th>
+        </tr>
+      </thead>
+      <tbody id="tb-bylaws"></tbody>
+    </table>
+
+    <footer style="display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--navy);padding-top:14px;margin-top:22px;font-size:0.82rem;">
+      <div><b>اعتماد الإدارة العامة وضبط الجودة:</b> سلمان أحمد بن سلمان الراجح</div>
+      <div><b>حساب التسوية الرسمي (مصرف الإنماء):</b> <code>SA4005000068206162118000</code></div>
+    </footer>
+  </main>
+
+  <script>
+    async function loadDmsAndBylaws() {
+      const r = await fetch('/api/methodologies-dms-state');
+      const d = await r.json();
+
+      document.getElementById('tb-methodologies').innerHTML = (d.scientific_methodologies || []).map(m =>
+        '<tr>' +
+          '<td><code>' + m.code + '</code></td>' +
+          '<td><b>' + m.title + '</b></td>' +
+          '<td><code>' + m.standard_ref + '</code></td>' +
+          '<td>' + m.application + '</td>' +
+        '</tr>'
+      ).join('');
+
+      document.getElementById('tb-dms').innerHTML = (d.controlled_documents_register || []).map(doc =>
+        '<tr>' +
+          '<td><code>' + doc.doc_code + '</code></td>' +
+          '<td><a href="' + doc.route + '" target="_blank" style="color:#0284c7;font-weight:800;text-decoration:none;">' + doc.title + ' ↗</a></td>' +
+          '<td><code>' + doc.version + '</code></td>' +
+          '<td><span class="badge">' + doc.status + ' ✓</span></td>' +
+          '<td><code>' + doc.pdf_file + '</code></td>' +
+        '</tr>'
+      ).join('');
+
+      document.getElementById('tb-bylaws').innerHTML = (d.regulatory_bylaws || []).map(b =>
+        '<tr>' +
+          '<td><code>' + b.bylaw_id + '</code></td>' +
+          '<td><b>' + b.title + '</b></td>' +
+          '<td>' + b.scope + '</td>' +
+        '</tr>'
+      ).join('');
+    }
+    loadDmsAndBylaws();
+  </script>
+</body>
+</html>

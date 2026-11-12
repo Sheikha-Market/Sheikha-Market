@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مانيفست التشغيل الفعلي وحالة البير ميتال والروبوتات البرمجية (/system-manifest) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.66; }
+    .no-print {
+      max-width:1160px; margin:0 auto 16px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:16px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:8px 16px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-block;
+    }
+    .btn.blue { background:var(--blue); }
+    .sheet {
+      max-width:1160px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:30px; box-shadow:0 10px 28px rgba(0,0,0,0.06);
+    }
+    .doc-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px;
+      border-bottom:3px solid var(--navy); padding-bottom:14px; margin-bottom:18px;
+    }
+    .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px; }
+    @media(max-width:850px){ .kpi-grid { grid-template-columns:1fr 1fr; } }
+    .kpi-card { background:#f8fafc; border:1px solid var(--border); border-right:4px solid var(--emerald); border-radius:10px; padding:12px; }
+    .kpi-card small { color:#475569; font-size:0.76rem; display:block; }
+    .kpi-card strong { font-size:1.02rem; font-weight:900; display:block; margin-top:3px; }
+    h2 { font-size:1rem; background:#f8fafc; border-right:4px solid var(--navy); padding:8px 12px; margin:16px 0 10px; }
+    table { width:100%; border-collapse:collapse; font-size:0.83rem; margin:10px 0; }
+    th, td { border:1px solid var(--border); padding:9px 10px; text-align:right; }
+    th { background:#0f172a; color:#fff; font-weight:800; }
+    .status-ok { background:#ecfdf5; color:#065f46; font-weight:900; padding:3px 10px; border-radius:6px; display:inline-block; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .no-print { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <div>
+      <strong style="font-size:1rem;color:#34d399;">⚙️🤖 مانيفست التشغيل الفعلي وحالة البير ميتال والكيرنل والروبوتات البرمجية (/system-manifest)</strong>
+      <div style="font-size:0.78rem;color:#cbd5e1;">توثيق الجاهزية التشغيلية للعتاد (Pop!_OS Bare-Metal) والسوفتوير وأتمتة الوثائق على المنفذ 7788</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn" onclick="window.print()">🖨️ طباعة وثيقة المانيفست التقني (PDF)</button>
+      <a href="/deal-room" class="btn blue">💼 غرفة إغلاق الصفقة</a>
+      <a href="/master-index" class="btn" style="background:#475569;">🏛️ الفهرس التنفيذي الشامل</a>
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header class="doc-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.7rem;">مانيفست البنية التحتية التقنية وجاهزية البير ميتال والروبوتات البرمجية (System Manifest)</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية | سجل تجاري: <code>2051263653</code> | رقم مورد أرامكو: <code>S11488084</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div><b>كود ضبط الوثيقة (DMS):</b> <code>SHK-TECH-MNF-017</code></div>
+        <div><b>ملف المانيفست:</b> <code>sheikha_system_manifest.json</code></div>
+        <div><b>حالة التشغيل المباشر:</b> <span class="status-ok">PRODUCTION READY 100%</span></div>
+      </div>
+    </header>
+
+    <section class="kpi-grid">
+      <div class="kpi-card"><small>1. خادم البير ميتال (Bare-Metal Host)</small><strong>pop-os (x86_64)</strong></div>
+      <div class="kpi-card"><small>2. نواة نظام التشغيل (Linux Kernel)</small><strong>Linux 7.2.15-76070215-generic</strong></div>
+      <div class="kpi-card"><small>3. المعالجة والحوسبة (CPU Cores)</small><strong>22 Logical Cores Active</strong></div>
+      <div class="kpi-card"><small>4. محرك السوفتوير والمنفذ الرئيسي</small><strong>Node.js • Port 7788 Active</strong></div>
+    </section>
+
+    <h2>أولاً: حالة الروبوتات البرمجية ومحركات الأتمتة العاملة في المنظومة (Active Software Bots)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>كود الروبوت البرمجي</th>
+          <th>اسم الروبوت / المحرك الآلي</th>
+          <th>المهمة التشغيلية المباشرة في التجارة</th>
+          <th>المسار المرتبط</th>
+          <th>الحالة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>BOT-01-PDF</code></td>
+          <td><b>روبوت الطباعة والحزم الآلي (PDF & ZIP Packaging Bot)</b></td>
+          <td>تحويل العقود والفواتير إلى ملفات PDF قياسية وحزمها في ملف ZIP واحد</td>
+          <td><code>/download-submission-pack.zip</code></td>
+          <td><span class="status-ok">نشط 100%</span></td>
+        </tr>
+        <tr>
+          <td><code>BOT-02-ZATCA</code></td>
+          <td><b>روبوت الفوترة والضريبة (ZATCA TLV & VAT Bot)</b></td>
+          <td>حساب ضريبة القيمة المضافة 15% وتوليد ختم Base64 TLV الفوري</td>
+          <td><code>/tax-invoice</code></td>
+          <td><span class="status-ok">نشط 100%</span></td>
+        </tr>
+        <tr>
+          <td><code>BOT-03-DEAL</code></td>
+          <td><b>روبوت هندسة الصفقات والمناقصات (Deal & Bid Engine Bot)</b></td>
+          <td>حساب صافي الربح، الضمان البنكي الابتدائي 5%، وتوليد رسائل الواتساب</td>
+          <td><code>/deal-room | /tender-bid</code></td>
+          <td><span class="status-ok">نشط 100%</span></td>
+        </tr>
+        <tr>
+          <td><code>BOT-04-WATCHDOG</code></td>
+          <td><b>روبوت المراقبة الذاتية (Auto-Heal Watchdog Script)</b></td>
+          <td>مراقبة الخادم على المنفذ 7788 وإعادة تشغيله تلقائياً (`sheikha_watchdog_bot.sh`)</td>
+          <td><code>/system-manifest</code></td>
+          <td><span class="status-ok">نشط 100%</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>ثانياً: خلاصة الجاهزية للتشغيل التجاري المباشر</h2>
+    <p style="font-size:0.86rem;background:#f8fafc;padding:12px;border:1px solid var(--border);border-radius:10px;">
+      جميع طبقات <b>العتاد (Bare-Metal)</b>، <b>النواة (Linux Kernel)</b>، <b>ملف المانيفست (`sheikha_system_manifest.json`)</b>، <b>الروبوتات البرمجية الأربعة</b>، و<b>الوثائق السبع عشرة (00 إلى 16)</b> تعمل الآن بشكل متكامل وجاهزة للتشغيل التجاري المباشر وإغلاق الصفقات دون الحاجة لأي إعدادات إضافية.
+    </p>
+  </main>
+</body>
+</html>

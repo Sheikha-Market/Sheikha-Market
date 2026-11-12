@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أمر شراء وعقد توريد معادن مختصر (Official Purchase Order & Supply Agreement) | مؤسسة سلمان أحمد الراجح التجارية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#0f172a; --emerald:#059669; --blue:#0284c7; --border:#cbd5e1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:#f1f5f9; color:var(--navy); padding:20px; line-height:1.68; }
+    .ctrl-panel {
+      max-width:1080px; margin:0 auto 18px; background:var(--navy); color:#fff; border-radius:14px;
+      padding:18px 22px; box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+    .ctrl-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px; }
+    @media(max-width:850px){ .ctrl-grid { grid-template-columns:1fr 1fr; } }
+    input, select {
+      width:100%; padding:8px 10px; border-radius:8px; border:1px solid #475569;
+      background:#1e293b; color:#fff; font-family:inherit; font-size:0.84rem;
+    }
+    .btn {
+      background:var(--emerald); color:#fff; border:none; padding:9px 18px; border-radius:8px;
+      font-family:inherit; font-weight:800; font-size:0.84rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    }
+    .sheet {
+      max-width:1080px; margin:0 auto; background:#ffffff; border:2px solid var(--navy);
+      border-radius:14px; padding:34px; box-shadow:0 10px 30px rgba(0,0,0,0.06);
+    }
+    .doc-header {
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;
+      border-bottom:3px solid var(--navy); padding-bottom:16px; margin-bottom:18px;
+    }
+    .clause-box {
+      background:#f8fafc; border:1px solid var(--border); border-right:4px solid var(--navy);
+      border-radius:10px; padding:12px 16px; margin-bottom:14px; font-size:0.86rem;
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.86rem; margin:14px 0; }
+    th, td { border:1px solid var(--border); padding:10px 12px; text-align:right; }
+    th { background:#f8fafc; font-weight:800; color:var(--navy); }
+    .sign-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
+    .sign-box { border:1.5px dashed var(--navy); border-radius:12px; padding:16px; font-size:0.86rem; }
+    @media print {
+      body { background:#fff; padding:0; }
+      .ctrl-panel { display:none !important; }
+      .sheet { border:none; box-shadow:none; padding:12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- لوحة تخصيص أمر الشراء وعقد التوريد (تختفي عند الطباعة) -->
+  <section class="ctrl-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong style="font-size:1rem;color:#34d399;">📝 أداة إعداد أمر الشراء وعقد التوريد التجاري المختصر (PO & Supply Contract Builder)</strong>
+        <div style="font-size:0.78rem;color:#cbd5e1;">أدخل بيانات المشتري والكمية وطريقة التسليم ليتحدث العقد الرسمي أدناه ويكون جاهزاً للتوقيع والطباعة كـ PDF</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ العقد وأمر الشراء (PDF)</button>
+        <a href="/quotation" class="btn" style="background:var(--blue);">🧾 عرض السعر (/quotation)</a>
+        <a href="/unified-work" class="btn" style="background:#475569;">🏢 مركز العمل الموحد</a>
+      </div>
+    </div>
+
+    <div class="ctrl-grid">
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">اسم الطرف الثاني (المشتري / المصنع):</label>
+        <input id="po-buyer" value="شركة مصانع الشرقية للكابلات والصناعات المعدنية" oninput="updatePO()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">رقم السجل التجاري للطرف الثاني:</label>
+        <input id="po-buyer-cr" value="2050XXXXXX" oninput="updatePO()" />
+      </div>
+      <div>
+        <label style="font-size:0.74rem;color:#cbd5e1;">الصنف المتعاقد عليه (HS Code):</label>
+        <select id="po-item" onchange="onPoItemChange()">
+          <option value="7404.00.10|نحاس أحمر نقي مفروز ومجهز للصهر (ISRI: Berry / Candy — نقاوة XRF ≥ 99.90%)|31200">نحاس أحمر نقي (HS 7404.00.10)</option>
+          <option value="7602.00.10|بالات علب ألمنيوم مكبوسة بضغط 320 بار (ISRI: Taldon UBC — نقاوة ≥ 99.10%)|8950">بالات ألمنيوم UBC (HS 7602.00.10)</option>
+          <option value="7204.49.10|حديد فولاذي ثقيل مقصوص بالمقاس لأفران الصهر (HMS 1&2 — سماكة ≥ 6 ملم)|1520">حديد ثقيل مقصوص HMS (HS 7204.49.10)</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div>
+          <label style="font-size:0.74rem;color:#cbd5e1;">الكمية (طن):</label>
+          <input id="po-qty" type="number" value="10" min="1" oninput="updatePO()" />
+        </div>
+        <div>
+          <label style="font-size:0.74rem;color:#cbd5e1;">السعر/طن (ر.س):</label>
+          <input id="po-price" type="number" value="31200" min="1" oninput="updatePO()" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- وثيقة أمر الشراء وعقد التوريد الجاهزة للطباعة والتوقيع -->
+  <main class="sheet">
+    <header class="doc-header">
+      <div>
+        <h1 style="font-family:'Amiri',serif;font-size:1.7rem;">بسم الله الرحمن الرحيم • عقد توريد معادن وأمر شراء معتمد</h1>
+        <div style="font-weight:800;font-size:0.94rem;color:var(--emerald);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)</div>
+        <div style="font-size:0.82rem;color:#475569;">الخبر، المنطقة الشرقية، المملكة العربية السعودية | سجل تجاري: <code>2051263653</code></div>
+      </div>
+      <div style="text-align:left;font-size:0.82rem;line-height:1.6;">
+        <div style="font-size:1rem;font-weight:900;color:var(--navy);">PURCHASE ORDER & SUPPLY CONTRACT</div>
+        <div><b>رقم العقد وأمر الشراء:</b> <code>PO-SHK-2026-201</code></div>
+        <div><b>مرجع عرض السعر:</b> <code>QT-SHK-2026-104</code></div>
+        <div><b>تاريخ الإبرام:</b> 2026-11-12</div>
+      </div>
+    </header>
+
+    <div class="clause-box">
+      <strong style="display:block;margin-bottom:4px;color:var(--navy);">البند الأول: أطراف التعاقد</strong>
+      <div>1. <b>الطرف الأول (البائع / المورد):</b> مؤسسة سلمان أحمد بن سلمان الراجح التجارية، سجل تجاري رقم (<code>2051263653</code>)، ومقرها مدينة الخبر (رقم مورد أرامكو: <code>S11488084</code>).</div>
+      <div>2. <b>الطرف الثاني (المشتري):</b> السادة / <b id="c-buyer">...</b>، سجل تجاري رقم (<code id="c-buyer-cr">...</code>).</div>
+    </div>
+
+    <div class="clause-box">
+      <strong style="display:block;margin-bottom:4px;color:var(--navy);">البند الثاني: موضوع التوريد، المواصفات الفنية، والقيمة المالية</strong>
+      <div>اتفق الطرفان بكامل الأهلية المعتبرة شرعاً ونظاماً على قيام الطرف الأول بتوريد البضاعة الموضحة أدناه لصالح الطرف الثاني وفق المواصفات والأسعار التالية:</div>
+      <table>
+        <thead>
+          <tr>
+            <th>الرمز الجمركي</th>
+            <th>الصنف والمواصفة الفنية المعتمدة</th>
+            <th>الكمية (طن متري)</th>
+            <th>سعر الطن (ر.س)</th>
+            <th>الصافي قبل الضريبة</th>
+            <th>ضريبة القيمة المضافة (15%)</th>
+            <th>الإجمالي الكلي شامل الضريبة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code id="c-hs" style="font-weight:800;">7404.00.10</code></td>
+            <td id="c-desc" style="font-weight:700;">...</td>
+            <td id="c-qty" style="font-weight:800;">10</td>
+            <td id="c-uprice">31,200.00</td>
+            <td id="c-net">312,000.00 ر.س</td>
+            <td id="c-vat">46,800.00 ر.س</td>
+            <td id="c-grand" style="font-weight:900;color:var(--emerald);">358,800.00 ر.س</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="clause-box">
+      <strong style="display:block;margin-bottom:4px;color:var(--navy);">البند الثالث: فحص الجودة، التوزين، والختم الأمني الأحمر</strong>
+      <div>1. يلتزم الطرف الأول بتسليم الشحنة مطابقة لنسبة النقاوة المحددة في صحيفة المواصفات الفنية (Datasheet) ومفحوصة بجهاز التحليل الطيفي (XRF)، وخالية من الشوائب غير المعدنية أو المواد المحظورة.</div>
+      <div>2. يُعتمد الوزن الصافي الصادر من الميزان الإلكتروني المعتمد بموجب تذكرة قبان رسمية ومحضر استلام مخزني (GRN)، وتُسلّم الحاويات مقفلة بـ <b>الختم الأمني الأحمر المرقم (Red Security Seal)</b>.</div>
+    </div>
+
+    <div class="clause-box" style="border-right-color:var(--emerald);background:#ecfdf5;">
+      <strong style="display:block;margin-bottom:4px;color:#065f46;">البند الرابع: شروط الدفع والتسوية البنكية والفوترة الضريبية (ZATCA)</strong>
+      <div>1. يتم سداد القيمة الإجمالية للعقد وقدرها (<b id="c-grand-txt">358,800.00 ر.س</b>) عبر حوالة بنكية مباشرة أو اعتماد مستندي إلى الحساب الرسمي للطرف الأول:</div>
+      <div style="margin-top:4px;font-weight:800;color:#065f46;">
+        • اسم البنك: مصرف الإنماء (Alinma Bank) | اسم المستفيد: مؤسسة سلمان أحمد بن سلمان الراجح التجارية | الآيبان (IBAN): <code>SA4005000068206162118000</code>
+      </div>
+      <div>2. يصدر الطرف الأول فاتورة ضريبية إلكترونية معتمدة من هيئة الزكاة والضريبة والجمارك (ZATCA) فور إتمام التسوية البنكية واستلام الشحنة.</div>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-box">
+        <strong>الطرف الأول (المورد / البائع):</strong>
+        <div style="margin-top:6px;">مؤسسة سلمان أحمد بن سلمان الراجح التجارية</div>
+        <div style="margin-top:6px;">الاسم: سلمان أحمد بن سلمان الراجح</div>
+        <div style="margin-top:18px;">التوقيع والختم الرسمي: .........................................</div>
+      </div>
+      <div class="sign-box">
+        <strong>الطرف الثاني (المشتري / المعتمِد لأمر الشراء):</strong>
+        <div style="margin-top:6px;" id="s-buyer">...</div>
+        <div style="margin-top:6px;">الاسم والصفة: .....................................................</div>
+        <div style="margin-top:18px;">التوقيع والختم الرسمي: .........................................</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function onPoItemChange() {
+      const parts = document.getElementById('po-item').value.split('|');
+      document.getElementById('po-price').value = parts[2];
+      updatePO();
+    }
+
+    function updatePO() {
+      const buyer = document.getElementById('po-buyer').value.trim() || 'العميل الموقر';
+      const buyerCr = document.getElementById('po-buyer-cr').value.trim() || '—';
+      const parts = document.getElementById('po-item').value.split('|');
+      const hs = parts[0], desc = parts[1];
+      const qty = Math.max(1, Number(document.getElementById('po-qty').value || 1));
+      const uprice = Math.max(0, Number(document.getElementById('po-price').value || 0));
+
+      const net = qty * uprice;
+      const vat = net * 0.15;
+      const grand = net + vat;
+      const grandFmt = grand.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + ' ر.س';
+
+      document.getElementById('c-buyer').innerText = buyer;
+      document.getElementById('s-buyer').innerText = buyer;
+      document.getElementById('c-buyer-cr').innerText = buyerCr;
+      document.getElementById('c-hs').innerText = hs;
+      document.getElementById('c-desc').innerText = desc;
+      document.getElementById('c-qty').innerText = qty.toLocaleString();
+      document.getElementById('c-uprice').innerText = uprice.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+      document.getElementById('c-net').innerText = net.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + ' ر.س';
+      document.getElementById('c-vat').innerText = vat.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + ' ر.س';
+      document.getElementById('c-grand').innerText = grandFmt;
+      document.getElementById('c-grand-txt').innerText = grandFmt;
+    }
+
+    updatePO();
+  </script>
+</body>
+</html>

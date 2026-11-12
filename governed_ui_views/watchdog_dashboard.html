@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حارس شيخة الذاتي المستمر 24/7 (/watchdog) | Systemd & Cloudflare Tunnel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#d4af37; --gold-bright:#fde047; --emerald:#10b981; --navy:#0d254c; --bg:#01080e; }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:#f8fafc;
+      padding:22px;
+    }
+    .w-box {
+      max-width:980px; margin:0 auto; background:rgba(3,16,24,0.92); border:2px solid var(--gold);
+      border-radius:22px; padding:24px; box-shadow:0 20px 55px rgba(0,0,0,0.85);
+    }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:16px 0; }
+    .card {
+      background:rgba(1,8,14,0.9); border:1px solid rgba(212,175,55,0.45);
+      border-right:4px solid var(--emerald); border-radius:14px; padding:12px 14px;
+    }
+    .card small { color:#cbd5e1; font-size:0.75rem; display:block; }
+    .card strong { color:var(--gold-bright); font-size:1.25rem; font-weight:900; font-family:monospace; }
+    .btn {
+      background:linear-gradient(135deg,var(--gold-bright),var(--gold)); color:#01080e;
+      border:none; padding:9px 16px; border-radius:999px; font-family:inherit; font-weight:900;
+      font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="w-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:2px solid var(--gold);padding-bottom:14px;">
+      <div>
+        <strong style="font-size:1.28rem;color:var(--gold-bright);">🛡️⚡ حارس شيخة الذاتي المستمر 24/7 (Systemd & Tunnel Watchdog)</strong>
+        <div style="font-size:0.8rem;color:#cbd5e1;">مراقبة واستشفاء تلقائي كل 10 ثوانٍ للخادم (7788) وللرابط السحابي الخارجي دون انقطاع</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/master" class="btn">👑 المركز السيادي (/master)</a>
+        <a href="/tax-report" class="btn" style="background:#10b981;">🖨️ التقرير الضريبي (/tax-report)</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <small>حالة خدمة الحارس (Systemd)</small>
+        <strong id="w-status" style="color:#34d399;">ACTIVE 24/7</strong>
+      </div>
+      <div class="card">
+        <small>معرف عملية الخادم (Port 7788 PID)</small>
+        <strong id="w-store-pid">...</strong>
+      </div>
+      <div class="card">
+        <small>عمليات الاستشفاء الذاتي (Auto-Heals)</small>
+        <strong id="w-heals">0</strong>
+      </div>
+      <div class="card">
+        <small>آخر فحص نبض (Last Check)</small>
+        <strong id="w-time" style="font-size:0.95rem;">...</strong>
+      </div>
+    </div>
+
+    <div style="background:rgba(16,185,129,0.12);border:1.5px solid #10b981;border-radius:16px;padding:16px;">
+      <div style="font-size:0.86rem;color:var(--gold-bright);font-weight:900;margin-bottom:6px;">🌐 رابط بوابة العملاء الخارجي المحمي بالحارس الذاتي:</div>
+      <div id="w-bot-url" style="font-family:monospace;font-size:1.05rem;color:#34d399;font-weight:900;word-break:break-all;margin-bottom:10px;">...</div>
+      <button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('w-bot-url').innerText)">📋 نسخ رابط البوت الخارجي للنشر</button>
+    </div>
+  </div>
+
+  <script>
+    async function loadWatchdog() {
+      const r = await fetch('/api/watchdog-status');
+      const d = await r.json();
+      document.getElementById('w-status').innerText = d.status || 'IMMORTAL_24_7_ACTIVE';
+      document.getElementById('w-store-pid').innerText = 'PID ' + (d.store_7788_pid || 'ACTIVE');
+      document.getElementById('w-heals').innerText = d.auto_heals_count || 0;
+      document.getElementById('w-time').innerText = d.last_check || new Date().toISOString().slice(0, 19);
+      document.getElementById('w-bot-url').innerText = d.live_bot_checkout_url || 'https://sheikha.top/bot';
+    }
+    loadWatchdog();
+    setInterval(loadWatchdog, 3000);
+  </script>
+</body>
+</html>

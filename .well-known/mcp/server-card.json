@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0",
+  "spec": "SEP-1649",
+  "name": "sheikha-industrial-metals-mcp",
+  "title": "Sheikha Industrial Metals & Scrap B2B Exchange MCP Server",
+  "description": "B2B industrial metals pricing, technical datasheets (HS 7404/7602/7204), instant quotation, and SAP Ariba cXML integration for Salman Ahmed bin Salman Al-Rajhi Trading Est. (Aramco Vendor S11488084).",
+  "version": "1.2.0",
+  "vendor": {
+    "name": "Salman Ahmed bin Salman Al-Rajhi Trading Est.",
+    "commercialRegistration": "2051263653",
+    "aramcoVendorId": "S11488084",
+    "sapAribaNetworkId": "AN11235091112",
+    "url": "https://sheikha.top"
+  },
+  "endpoint": "https://sheikha.top/api/mcp",
+  "transport": {
+    "type": "http",
+    "url": "https://sheikha.top/api/mcp"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": true
+  },
+  "tools": [
+    {
+      "name": "get_metal_spot_prices",
+      "description": "Returns current SAR/MT B2B buy and sell prices for Copper Berry (HS 7404.00.10), Aluminum UBC (HS 7602.00.10), and Ferrous Steel HMS 1&2 (HS 7204.49.10).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "commodity": {
+            "type": "string",
+            "enum": [
+              "copper_berry",
+              "aluminum_ubc",
+              "steel_hms",
+              "all"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "calculate_b2b_quote",
+      "description": "Calculates total B2B supply quote including 15% ZATCA VAT and Alinma Bank settlement details for a specified metal and quantity in Metric Tons.",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "commodity",
+          "quantity_mt"
+        ],
+        "properties": {
+          "commodity": {
+            "type": "string",
+            "enum": [
+              "copper_berry",
+              "aluminum_ubc",
+              "steel_hms"
+            ]
+          },
+          "quantity_mt": {
+            "type": "number",
+            "minimum": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محضر الترسية الآلي للمناقصة والمزاد والضمان البنكي | منظومة شيخة Sheikha.top</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#d4af37; --gold-bright:#fde047; --cyan:#00f2fe; --emerald:#10b981; --bg:#02060d; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Tajawal',sans-serif; background:var(--bg); color:#f8fafc; padding:22px; line-height:1.7; }
+    .top-bar {
+      max-width:1160px; margin:0 auto 16px; background:rgba(8,18,36,0.95); border:1.5px solid var(--gold);
+      border-radius:14px; padding:12px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    }
+    .btn {
+      background:linear-gradient(135deg,var(--gold-bright),var(--gold)); color:#02060d; border:none;
+      padding:8px 16px; border-radius:8px; font-family:inherit; font-weight:900; font-size:0.8rem; cursor:pointer; text-decoration:none;
+    }
+    .sheet {
+      max-width:1160px; margin:0 auto; background:#050d1a; border:2px solid var(--gold);
+      border-radius:18px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.85);
+    }
+    .box {
+      background:rgba(2,6,13,0.9); border:1px solid rgba(212,175,55,0.35); border-right:4px solid var(--cyan);
+      border-radius:12px; padding:14px; margin-bottom:12px; font-size:0.84rem;
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.8rem; margin:12px 0; }
+    th, td { border:1px solid rgba(212,175,55,0.35); padding:9px 10px; text-align:right; }
+    th { background:#09172e; color:var(--gold-bright); }
+    @media print {
+      body { background:#fff; color:#000; padding:0; }
+      .top-bar { display:none !important; }
+      .sheet { background:#fff; color:#000; border:2px solid #000; box-shadow:none; }
+      .box { background:#f8fafc; color:#000; border:1px solid #333; }
+      th { background:#e2e8f0; color:#000; border:1px solid #000; }
+      td { border:1px solid #000; color:#000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div>
+      <strong style="color:var(--gold-bright);font-size:1rem;">⚖️🏛️ وثيقة محضر الترسية الآلي للمناقصة / المزاد الحكومي وإشعار الضمان البنكي</strong>
+      <div style="font-size:0.75rem;color:#cbd5e1;">صادرة آلياً من محرك شيخة للمزايدة العكسية والمصنع المظلم (V70000)</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ محضر الترسية الرسمي (PDF)</button>
+      <a href="/sheikha-os" class="btn" style="background:#00f2fe;">🌑 العودة للمصنع المظلم والسوق المفتوح</a>
+    </div>
+  </div>
+
+  <main class="sheet">
+    <header style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;border-bottom:2px solid var(--gold);padding-bottom:14px;margin-bottom:16px;">
+      <div>
+        <h1 style="font-family:'Amiri',serif;color:var(--gold-bright);font-size:1.58rem;">﷽ • محضر ترسية مناقصة / مزاد معادن رسمي وأمر تشغيل المصنع المظلم</h1>
+        <div style="font-size:0.85rem;font-weight:800;">المنظم السيادي ومركز التسوية: مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة شيخة (Sheikha.top)</div>
+        <div style="font-size:0.77rem;color:#94a3b8;">سجل تجاري: <code>2051263653</code> (الخبر) | حساب الضمان والتسوية المعتمد (مصرف الإنماء): <code>SA4005000068206162118000</code></div>
+      </div>
+      <div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.78rem;">
+        <div>رقم المناقصة: <b id="aw-id" style="color:#34d399;">TND-...</b></div>
+        <div>الرمز الجمركي: <b id="aw-hs" style="color:var(--gold-bright);">HS ...</b></div>
+        <div>تقييم الذكاء الاصطناعي: <b id="aw-score" style="color:#00f2fe;">99.2%</b></div>
+      </div>
+    </header>
+
+    <div class="box">
+      <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">أولاً: بيانات الجهة الطارحة والمنشأة الفائزة بالترسية</strong>
+      <div>• <b>نوع العملية:</b> <span id="aw-type">...</span><br>
+      • <b>الجهة الطارحة (المصهر / الجهة الحكومية / الميناء):</b> <b id="aw-issuer" style="color:#fff;">...</b><br>
+      • <b>عنوان المناقصة والمواصفة:</b> <span id="aw-title">...</span> (<code id="aw-isri" style="color:var(--cyan);">...</code>)<br>
+      • <b>الجهة الفائزة بالترسية الآلية:</b> <b id="aw-winner" style="color:#34d399;">...</b></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الكمية الإجمالية</th>
+          <th>السعر المرجعي/الافتتاحي</th>
+          <th>سعر الترسية الفائز/طن</th>
+          <th>نقاوة XRF المضمونة</th>
+          <th>الضمان البنكي الابتدائي (5%)</th>
+          <th>الإجمالي الكلي للترسية (شامل ضريبة 15%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="aw-tons" style="font-weight:900;">...</td>
+          <td id="aw-base">...</td>
+          <td id="aw-bid" style="color:#34d399;font-weight:900;">...</td>
+          <td id="aw-xrf" style="color:#00f2fe;font-weight:900;">...</td>
+          <td id="aw-bond">...</td>
+          <td id="aw-total" style="color:var(--gold-bright);font-weight:900;">...</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box">
+      <strong style="color:var(--gold-bright);display:block;margin-bottom:4px;">ثانياً: مسار التنفيذ الذاتي في «المصنع المظلم» والفوترة الزكوية (ZATCA)</strong>
+      <div>• <b>مسار الأتمتة المظلمة المعتمد:</b> <code id="aw-route" style="color:#34d399;">...</code><br>
+      • <b>إقرار الملكية الفكرية:</b> هذا المحضر والخوارزمية الحاسوبية المولدة له ملكية فكرية خالصة لمنظومة شيخة (SHEIKHA® IP).</div>
+    </div>
+
+    <footer style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(212,175,55,0.4);padding-top:14px;margin-top:16px;font-size:0.78rem;">
+      <div><b>الاعتماد السيادي الآلي:</b> محرك مناقصات ومزادات شيخة (Sheikha.top)</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:var(--gold-bright);">SEAL: <span id="aw-seal">0x...</span></div>
+    </footer>
+  </main>
+
+  <script>
+    async function loadAwardDoc() {
+      const r = await fetch('/api/tenders-auctions-state');
+      const d = await r.json();
+      const t = (d.active_tenders || [])[0];
+      if (!t) return;
+      document.getElementById('aw-id').innerText = t.tender_id;
+      document.getElementById('aw-hs').innerText = 'HS: ' + t.hs_code;
+      document.getElementById('aw-score').innerText = t.Composite_ai_score + '% AI SCORE';
+      document.getElementById('aw-type').innerText = t.tender_type;
+      document.getElementById('aw-issuer').innerText = t.issuer_entity;
+      document.getElementById('aw-title').innerText = t.title;
+      document.getElementById('aw-isri').innerText = t.isri_code;
+      document.getElementById('aw-winner').innerText = t.best_bidder_name;
+      document.getElementById('aw-tons').innerText = Number(t.quantity_tons).toLocaleString() + ' طن متري';
+      document.getElementById('aw-base').innerText = Number(t.ceiling_or_floor_price_sar).toLocaleString() + ' ر.س';
+      document.getElementById('aw-bid').innerText = Number(t.best_current_bid_sar).toLocaleString() + ' ر.س/طن';
+      document.getElementById('aw-xrf').innerText = t.guaranteed_xrf_purity;
+      document.getElementById('aw-bond').innerText = Number(t.bid_bond_5pct_sar).toLocaleString() + ' ر.س';
+      document.getElementById('aw-total').innerText = Number(t.total_award_value_with_vat_sar).toLocaleString() + ' ر.س';
+      document.getElementById('aw-route').innerText = t.dark_factory_routing;
+      document.getElementById('aw-seal').innerText = '0x' + t.sha256_seal;
+    }
+    loadAwardDoc();
+  </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز التوأم الرقمي، المحاكاة الحية (Simulation)، المستشعرات، وتوليد الفيديو والبصريات | منظومة شيخة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#060b14; --surface:#0f172a; --card:#1e293b; --primary:#10b981; --gold:#fde047; --blue:#38bdf8; --purple:#a855f7; --border:#334155; --text:#f8fafc; --muted:#94a3b8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; user-select:none; }
+    .topbar { background:#020617; color:#fff; padding:15px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid var(--blue); flex-wrap:wrap; gap:12px; }
+    .container { max-width:1460px; margin:18px auto; padding:0 16px; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:18px; box-shadow:0 8px 25px rgba(0,0,0,0.35); }
+    h3 { margin:0 0 14px; font-size:1.12rem; color:var(--gold); border-bottom:1px solid var(--border); padding-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+    .grid-2 { display:grid; grid-template-columns:1.25fr 1fr; gap:18px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
+    @media(max-width:1024px){ .grid-2 { grid-template-columns:1fr; } }
+    table { width:100%; border-collapse:collapse; font-size:0.84rem; }
+    th, td { border:1px solid var(--border); padding:9px 10px; text-align:right; }
+    th { background:#020617; color:var(--blue); font-weight:800; }
+    input, select { width:100%; padding:8px 10px; background:#020617; color:#fff; border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:0.86rem; }
+    .btn { background:var(--primary); color:#020617; border:none; padding:9px 15px; border-radius:8px; font-family:inherit; font-weight:900; cursor:pointer; text-decoration:none; display:inline-block; font-size:0.84rem; }
+    .sensor-box { background:var(--card); border:1px solid var(--border); border-right:4px solid var(--primary); border-radius:10px; padding:12px; }
+    .badge { background:rgba(16,185,129,0.18); color:#34d399; border:1px solid #10b981; padding:2px 9px; border-radius:999px; font-size:0.74rem; font-weight:800; }
+    canvas { width:100%; height:340px; background:#020617; border:2px solid var(--blue); border-radius:12px; display:block; }
+    .audit-box { background:#020617; border:1px solid var(--primary); border-radius:10px; padding:10px; font-family:monospace; font-size:0.8rem; color:#34d399; height:230px; overflow-y:auto; direction:ltr; text-align:left; }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <div class="topbar">
+    <div>
+      <strong style="font-size:1.22rem;color:var(--gold);">🌐🎛️🛰️ مركز شيخة للتوأم الرقمي (Digital Twin) • المحاكاة الحية (Simulation) • المستشعرات • توليد الفيديو والتوثيق اللحظي</strong>
+      <div style="font-size:0.8rem;color:var(--muted);">بسم الله — منظومة شيخة للتجارة والصناعة والمعادن | إدارة وتوثيق لحظي لكل العمليات + محاكاة الساحات والقبان والأفران والميناء</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="/compute" class="btn" style="background:var(--blue);">⚡ الحوسبة اللحظية (/compute)</a>
+      <a href="/control-center" class="btn" style="background:var(--gold);">🎛️ لوحة التحكم والـ 323 نمط نقل</a>
+      <a href="/mastery" class="btn" style="background:#10b981;color:#fff;">🌟❤️ الإتقان وبهجة العمل والحساب الشامل (/mastery)</a> <a href="/omni-hub" class="btn" style="background:#38bdf8;color:#0f172a;">🧠🤖 الأيقونات والروبوتات والأوزان (/omni-hub)</a> <a href="/bot" target="_blank" class="btn">🔥 البوت والمنتج الأولي (250 ر.س)</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid-2">
+      <!-- 1. شاشة التوأم الرقمي الحي واستوديو توليد الفيديو والبصريات (60FPS Canvas + Video Recorder) -->
+      <div class="card">
+        <h3>
+          <span>🎬🌐 المسرح البصري للتوأم الرقمي واستوديو توليد الفيديو الآلي (Live Digital Twin & AI Video Render)</span>
+          <span class="badge" id="twin-fps">60 FPS • LIVE TELEMETRY</span>
+        </h3>
+        <canvas id="twinCanvas" width="1280" height="620"></canvas>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;justify-content:space-between;align-items:center;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn" style="background:var(--gold);" onclick="recordTwinVideo()">⏺️ تسجيل وتصدير فيديو التوأم الرقمي (HD WebM)</button>
+            <button class="btn" style="background:var(--blue);" onclick="snapshotTwinVisual()">📸 استخراج صورة هندسية عالية الدقة (PNG 4K)</button>
+            <a href="/media/sheikha-promo.mp4" download class="btn" style="background:var(--purple);color:#fff;">📥 فيديو المنتج الترويجي (MP4)</a>
+          </div>
+          <span id="rec-status" style="color:var(--gold);font-weight:900;font-size:0.84rem;">🟢 جاهز للتسجيل البصري الفوري</span>
+        </div>
+      </div>
+
+      <!-- 2. مختبر المحاكاة الهندسية والمالية (What-If Simulation Engine) -->
+      <div class="card">
+        <h3>
+          <span>🧪📐 محرك المحاكاة والسيناريوهات العلمية (Discrete-Event & Monte Carlo Simulation)</span>
+          <span class="badge">تحديث فوري للتوأم الرقمي</span>
+        </h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">كمية التدفق في المحاكاة (طن):</label>
+            <input id="sim-tons" type="number" value="150" oninput="updateSimPreview()" />
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">المعدن / خط المعالجة:</label>
+            <select id="sim-metal" onchange="updateSimPreview()">
+              <option value="31200|0.975|4.2">نحاس Millberry + صهر بيرل ميتال (31,200 ر.س)</option>
+              <option value="7550|0.96|9.15">ألمنيوم صناعي + سبائك ADC12 (7,550 ر.س)</option>
+              <option value="1520|0.98|1.67">حديد ثقيل HMS 1&2 + كبس هيدروليكي (1,520 ر.س)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">سرعة الأسطول والحاويات (1PL-10PL):</label>
+            <select id="sim-speed" onchange="updateSimPreview()">
+              <option value="1.6">سرعة قياسية (Odoo Fleet + Naql)</option>
+              <option value="2.8">سرعة مضاعفة (قطار سار + حاويات ذكية)</option>
+              <option value="4.0">أقصى سرعة طوارئ (توريد فوري 24/7)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">حرارة فرن الصهر (°C):</label>
+            <input id="sim-temp" type="number" value="1160" oninput="updateSimPreview()" />
+          </div>
+        </div>
+        <button class="btn" style="width:100%;margin-bottom:12px;" onclick="executeAndLogSimulation()">⚡ تشغيل المحاكاة وتوثيق النتائج في السجل اللحظي</button>
+
+        <div class="grid-3" style="margin-bottom:12px;">
+          <div class="sensor-box">
+            <small style="color:var(--muted);">الإيراد المتوقع بالمحاكاة</small>
+            <div id="s-rev" style="font-size:1.2rem;font-weight:900;color:var(--gold);">4,563,000 ر.س</div>
+          </div>
+          <div class="sensor-box" style="border-right-color:var(--blue);">
+            <small style="color:var(--muted);">صافي الربح بعد الصهر (18%)</small>
+            <div id="s-prof" style="font-size:1.2rem;font-weight:900;color:var(--blue);">821,340 ر.س</div>
+          </div>
+          <div class="sensor-box" style="border-right-color:var(--purple);">
+            <small style="color:var(--muted);">الوزن الصافي والوفر الكربوني</small>
+            <div id="s-co2" style="font-size:1.05rem;font-weight:900;color:#c084fc;">146.2 طن | -630T CO2</div>
+          </div>
+        </div>
+
+        <h4 style="margin:8px 0 6px;color:var(--blue);font-size:0.9rem;">📋 سجل تجارب المحاكاة الموثقة:</h4>
+        <div style="max-height:135px;overflow-y:auto;">
+          <table>
+            <thead><tr><th>رقم التجربة</th><th>الإيراد المتوقع</th><th>الربح الصافي</th><th>وفر الكربون</th><th>بصمة التوثيق</th></tr></thead>
+            <tbody id="tb-sim-logs"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. شبكة المستشعرات والحساسات الصناعية والفضائية الحية (SCADA & IoT Sensor Grid) -->
+    <div class="card">
+      <h3>
+        <span>📡🔬 متابعة المستشعرات والحساسات الحية (Weighbridge Load Cells • Radiation Portal • XRF • Furnace Temp • Satellite GNSS)</span>
+        <span class="badge">قراءة وتحديث لحظي كل ثانية</span>
+      </h3>
+      <div id="sensors-grid" class="grid-3"></div>
+    </div>
+
+    <!-- 4. المنهجيات العلمية المفعّلة + سجل التوثيق اللحظي الشامل لكل العمليات -->
+    <div class="grid-2">
+      <div class="card">
+        <h3><span>🧬📚 المنهجيات العلمية والهندسية المدمجة في إدارة العمليات</span> <span class="badge">تطبيق آلي 100%</span></h3>
+        <table>
+          <thead><tr><th>الرمز</th><th>المنهجية العلمية / الهندسية</th><th>التطبيق الفعلي في عمليات شيخة</th></tr></thead>
+          <tbody id="tb-methods"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>
+          <span>🔐⚡ سجل الإدارة والتوثيق اللحظي الشامل لكل العمليات (Real-Time Immutable Operations Audit Log)</span>
+          <button class="btn" style="padding:4px 10px;font-size:0.76rem;" onclick="logManualAuditEvent()">➕ توثيق عملية ميدانية فورية</button>
+        </h3>
+        <div id="audit-stream" class="audit-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let simSpeed = 1.6;
+    let simTons = 150;
+    let furnaceTemp = 1160;
+    let liveCopperPrice = 31200;
+    let liveTick = 0;
+
+    // 1. محرك رسم وتحريك التوأم الرقمي ثلاثي/ثنائي الأبعاد (60FPS Interactive Industrial Digital Twin Canvas)
+    const canvas = document.getElementById('twinCanvas');
+    const ctx = canvas.getContext('2d');
+    const nodes = [
+      { x: 130, y: 310, title: '1. ساحات التجميع', sub: 'الخبر والدمام (50 ساحة)', color: '#10b981' },
+      { x: 380, y: 310, title: '2. القبان الذكي IoT', sub: 'SNS-WB-01 (±5kg)', color: '#38bdf8' },
+      { x: 640, y: 310, title: '3. الفرز البصري XRF', sub: 'نقاوة 99.94% آلياً', color: '#fde047' },
+      { x: 900, y: 310, title: '4. أفران بيرل ميتال', sub: 'صهر السبائك 1160°C', color: '#f97316' },
+      { x: 1150, y: 310, title: '5. ميناء الدمام والبورصة', sub: 'شحن دولي + ZATCA', color: '#a855f7' }
+    ];
+    const packets = Array.from({ length: 14 }, (_, i) => ({ progress: (i * 0.07) % 1, lane: i % 2 }));
+
+    function drawDigitalTwin() {
+      ctx.fillStyle = '#020617';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // شبكة هندسية خلفية (CAD / Digital Twin Grid)
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < canvas.width; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
+      for (let y = 0; y < canvas.height; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+
+      // ترويسة التوأم الرقمي داخل الفيديو/الكانفاس
+      ctx.fillStyle = '#fde047';
+      ctx.font = 'bold 26px Tajawal, Tahoma';
+      ctx.textAlign = 'center';
+      ctx.fillText('بسم الله — التوأم الرقمي الحي لمنظومة وبورصة شيخة (الخبر ⬅ القبان ⬅ الصهر ⬅ ميناء الدمام)', 640, 52);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 19px monospace';
+      ctx.fillText('LIVE TICK #' + liveTick + ' | CU SPOT: ' + liveCopperPrice + ' SAR/T | SIM FLOW: ' + simTons + ' TONS | FURNACE: ' + furnaceTemp + '°C', 640, 88);
+
+      // خطوط الأنابيب والمسارات اللوجستية بين المحطات الخمس
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 18;
+      ctx.beginPath();
+      ctx.moveTo(nodes[0].x, nodes[0].y);
+      ctx.lineTo(nodes[4].x, nodes[4].y);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#047857';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(nodes[0].x, nodes[0].y);
+      ctx.lineTo(nodes[4].x, nodes[4].y);
+      ctx.stroke();
+
+      // تحريك الشحنات والحاويات الذكية على المسار
+      packets.forEach((p, idx) => {
+        p.progress += 0.0018 * simSpeed;
+        if (p.progress > 1) p.progress = 0;
+        const px = nodes[0].x + (nodes[4].x - nodes[0].x) * p.progress;
+        const py = nodes[0].y + (p.lane === 0 ? -14 : 14);
+        ctx.fillStyle = p.progress > 0.65 ? '#fde047' : '#34d399';
+        ctx.beginPath();
+        ctx.arc(px, py, 8, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // رسم المحطات الصناعية الخمس ومؤشرات الحساسات فوقها
+      nodes.forEach((n, idx) => {
+        ctx.fillStyle = '#0f172a';
+        ctx.strokeStyle = n.color;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.roundRect(n.x - 95, n.y - 75, 190, 150, 16);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = n.color;
+        ctx.font = 'bold 19px Tajawal, Tahoma';
+        ctx.fillText(n.title, n.x, n.y - 25);
+
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = '15px Tajawal, Tahoma';
+        ctx.fillText(n.sub, n.x, n.y + 8);
+
+        ctx.fillStyle = '#10b981';
+        ctx.font = 'bold 14px monospace';
+        const sensorVal = idx === 3 ? (furnaceTemp + '°C OK') : (idx === 1 ? (simTons + 'T NET') : 'ONLINE 100%');
+        ctx.fillText(sensorVal, n.x, n.y + 42);
+      });
+
+      // شريط التوثيق السفلي داخل الكانفاس
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = 'bold 16px Tajawal, Tahoma';
+      ctx.fillText('🔒 موثق لحظياً على سلسلة كتل شيخة شين (SheikhaChain SHA-256) • جميع الحقوق محفوظة SHK-IP-SOVEREIGN-2026-001', 640, 580);
+
+      requestAnimationFrame(drawDigitalTwin);
+    }
+    requestAnimationFrame(drawDigitalTwin);
+
+    // 2. تحديث حسابات المحاكاة الفورية
+    function updateSimPreview() {
+      simTons = Math.max(1, Number(document.getElementById('sim-tons').value) || 150);
+      simSpeed = Number(document.getElementById('sim-speed').value) || 1.6;
+      furnaceTemp = Number(document.getElementById('sim-temp').value) || 1160;
+      const parts = document.getElementById('sim-metal').value.split('|');
+      const price = Number(parts[0]) || 31200;
+      const yieldFactor = Number(parts[1]) || 0.975;
+      const co2Factor = Number(parts[2]) || 4.2;
+
+      const netTons = +(simTons * yieldFactor).toFixed(1);
+      const rev = Math.round(netTons * price);
+      const prof = Math.round(rev * 0.18);
+      const co2 = +(simTons * co2Factor).toFixed(1);
+
+      document.getElementById('s-rev').innerText = rev.toLocaleString() + ' ر.س';
+      document.getElementById('s-prof').innerText = prof.toLocaleString() + ' ر.س';
+      document.getElementById('s-co2').innerText = netTons + ' طن | -' + co2 + 'T CO2';
+      nodes[3].sub = 'صهر السبائك ' + furnaceTemp + '°C';
+    }
+
+    async function executeAndLogSimulation() {
+      updateSimPreview();
+      const parts = document.getElementById('sim-metal').value.split('|');
+      await fetch('/api/digital-twin/simulate', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          tons: simTons,
+          price: Number(parts[0]),
+          yield_factor: Number(parts[1]),
+          co2_factor: Number(parts[2]),
+          temp: furnaceTemp
+        })
+      });
+      loadTwinData();
+    }
+
+    async function logManualAuditEvent() {
+      await fetch('/api/digital-twin/audit', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          module: 'MANUAL_OPS_VERIFY',
+          operation: 'توثيق ومطابقة فورية لحساسات القبان والأفران والشحنات (' + simTons + ' طن)'
+        })
+      });
+      loadTwinData();
+    }
+
+    // 3. تسجيل وتصدير فيديو التوأم الرقمي مباشرة بصيغة WebM عالية الدقة
+    function recordTwinVideo() {
+      const statusEl = document.getElementById('rec-status');
+      statusEl.innerText = '🔴 جاري تسجيل فيديو التوأم الرقمي (4 ثوانٍ HD)...';
+      const stream = canvas.captureStream(30);
+      const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+      const chunks = [];
+      recorder.ondataavailable = e => chunks.push(e.data);
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'Sheikha_Digital_Twin_Simulation_HD.webm';
+        a.click();
+        statusEl.innerText = '✅ تم توليد وتنزيل فيديو التوأم الرقمي بنجاح!';
+      };
+      recorder.start();
+      setTimeout(() => recorder.stop(), 4000);
+    }
+
+    function snapshotTwinVisual() {
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/png');
+      a.download = 'Sheikha_Digital_Twin_Blueprint_HD.png';
+      a.click();
+    }
+
+    // 4. قراءة بيانات التوأم الرقمي والحساسات وسجل التوثيق اللحظي
+    async function loadTwinData() {
+      const r = await fetch('/api/digital-twin');
+      const d = await r.json();
+
+      const sGrid = document.getElementById('sensors-grid');
+      sGrid.innerHTML = '';
+      (d.sensors_matrix || []).forEach(s => {
+        sGrid.innerHTML += '<div class="sensor-box">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">' +
+            '<code style="color:var(--gold);font-weight:900;">' + s.sensor_id + '</code>' +
+            '<span class="badge">' + s.health + '</span>' +
+          '</div>' +
+          '<strong style="display:block;font-size:0.92rem;color:#fff;">' + s.zone + '</strong>' +
+          '<small style="color:var(--muted);display:block;margin-bottom:6px;">' + s.type + '</small>' +
+          '<div style="background:#020617;padding:6px 10px;border-radius:6px;color:var(--blue);font-weight:800;font-size:0.85rem;">📡 ' + s.metric + '</div>' +
+        '</div>';
+      });
+
+      const tbSim = document.getElementById('tb-sim-logs');
+      tbSim.innerHTML = '';
+      (d.simulation_logs || []).forEach(sim => {
+        tbSim.innerHTML += '<tr><td><code>' + sim.sim_id + '</code></td><td style="color:var(--gold);font-weight:800;">' + Number(sim.projected_revenue_sar).toLocaleString() + ' ر.س</td><td style="color:var(--primary);font-weight:800;">' + Number(sim.projected_profit_sar).toLocaleString() + ' ر.س</td><td>-' + sim.co2_saved_tons + 'T CO2</td><td><code>' + sim.hash.slice(0,12) + '...</code></td></tr>';
+      });
+
+      const tbM = document.getElementById('tb-methods');
+      tbM.innerHTML = '';
+      (d.scientific_methodologies_active || []).forEach(m => {
+        tbM.innerHTML += '<tr><td><code>' + m.code + '</code></td><td><b style="color:var(--gold);">' + m.name + '</b></td><td>' + m.purpose + '</td></tr>';
+      });
+
+      const auditBox = document.getElementById('audit-stream');
+      auditBox.innerHTML = '';
+      (d.realtime_audit_ledger || []).forEach(ev => {
+        const div = document.createElement('div');
+        div.style.marginBottom = '6px';
+        div.innerText = '[' + ev.timestamp + '] ' + ev.event_id + ' | ' + ev.module + ' -> ' + ev.operation + ' | ' + ev.proof_hash;
+        auditBox.appendChild(div);
+      });
+    }
+
+    // ربط التوأم الرقمي ببث الحوسبة اللحظي SSE لتحديث القيم والحساسات كل ثانية تلقائياً
+    const sse = new EventSource('/api/compute-stream');
+    sse.onmessage = function(ev) {
+      const data = JSON.parse(ev.data);
+      liveTick = data.tick;
+      liveCopperPrice = data.copper_spot_sar;
+    };
+
+    updateSimPreview();
+    loadTwinData();
+  </script>
+</body>
+</html>

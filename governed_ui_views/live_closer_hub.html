@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>غرفة عمليات الإغلاق الفوري (5/5 Target Closer) | سوق شيخة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#d4af37; --gold-bright:#fde047; --emerald:#10b981; --navy:#0d254c; --bg:#020b08; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Tajawal',Tahoma,sans-serif; background:var(--bg); color:#f8fafc; padding:18px; }
+    .box {
+      max-width:1180px; margin:0 auto; background:rgba(4,20,16,0.95); border:2px solid var(--gold);
+      border-radius:22px; padding:22px; box-shadow:0 20px 55px rgba(0,0,0,0.85);
+    }
+    .progress-bar-wrap {
+      background:#010605; border:2px solid var(--gold); border-radius:999px; height:34px;
+      overflow:hidden; margin:14px 0; position:relative;
+    }
+    .progress-fill {
+      background:linear-gradient(90deg, #10b981, #fde047); height:100%; width:60%;
+      transition:width 0.5s ease;
+    }
+    .progress-text {
+      position:absolute; inset:0; display:grid; place-items:center; font-weight:900;
+      color:#fff; text-shadow:0 1px 4px #000; font-size:0.9rem;
+    }
+    .grid { display:grid; grid-template-columns:1.1fr 1fr; gap:16px; margin-top:14px; }
+    @media(max-width:900px){ .grid { grid-template-columns:1fr; } }
+    .card {
+      background:rgba(1,8,6,0.92); border:1.5px solid rgba(212,175,55,0.45);
+      border-radius:16px; padding:16px;
+    }
+    .card h3 { margin:0 0 10px; color:var(--gold-bright); font-size:0.98rem; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:6px; }
+    input, select, textarea {
+      width:100%; padding:9px 12px; background:#010504; color:#fff; border:1px solid var(--gold);
+      border-radius:10px; font-family:inherit; font-size:0.84rem; margin-bottom:8px;
+    }
+    .btn {
+      background:linear-gradient(135deg,var(--gold-bright),var(--gold)); color:#020b08;
+      border:none; padding:9px 15px; border-radius:999px; font-family:inherit; font-weight:900;
+      font-size:0.82rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    }
+    .btn.emerald { background:#10b981; color:#020b08; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong style="font-size:1.28rem;color:var(--gold-bright);">🎯⚡ غرفة عمليات الإغلاق الفوري للهدف الأولي (5/5 Sales Closer — /closer)</strong>
+        <div style="font-size:0.78rem;color:#cbd5e1;">متابعة ردود حراج ومجموعات الواتساب وتوثيق الصفقتين الرابعة والخامسة على حساب مصرف الإنماء (SA4005000068206162118000)</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/master" class="btn">👑 المركز السيادي (/master)</a>
+        <a href="/tax-report" class="btn emerald">🖨️ التقرير الضريبي (/tax-report)</a>
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-fill" id="target-fill"></div>
+      <div class="progress-text" id="target-label">جاري التحميل...</div>
+    </div>
+
+    <div class="grid">
+      <!-- 1. تسجيل وإغلاق صفقة واردة فوراً -->
+      <div class="card">
+        <h3>💰 1. إغلاق وتوثيق صفقة واردة من حراج / واتساب فوراً</h3>
+        <input id="c-name" placeholder="اسم المنشأة أو التاجر (مثال: مؤسسة الصقر للمعادن والمقاولات - الدمام)" />
+        <input id="c-phone" placeholder="رقم جوال العميل (05XXXXXXXX)" />
+        <select id="c-amt">
+          <option value="250">⭐ باقة الانطلاق الكاملة + دليل 50 مصنعاً وعقد توريد (250.00 ر.س)</option>
+          <option value="143.75">⚡ دفعة التفعيل الفوري + الدليل والعقد المبدئي (143.75 ر.س)</option>
+        </select>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn" onclick="closeDealNow()">⚡ اعتماد التحويل وإصدار الفاتورة الزكوية والدليل</button>
+          <button class="btn emerald" onclick="closeRemainingTwoDemo()">🚀 محاكاة إغلاق الصفقتين المتبقيتين (الوصول لـ 5/5)</button>
+        </div>
+        <div id="close-msg" style="margin-top:10px;font-size:0.82rem;color:#34d399;font-weight:800;"></div>
+      </div>
+
+      <!-- 2. معالج اعتراضات وأسئلة التجار السريع -->
+      <div class="card">
+        <h3>💬 2. الرد الذكي الفوري على استفسارات التجار المتكررة</h3>
+        <select id="faq-select" onchange="updateFaqReply()">
+          <option value="Q1">❓ التاجر يسأل: ماذا أستفيد من باقة الـ 250 ريال؟</option>
+          <option value="Q2">❓ التاجر يسأل: كيف أستلم الدليل والعقد بعد التحويل؟</option>
+          <option value="Q3">❓ التاجر يسأل: عندي كمية سكراب/نحاس أريد بيعها أو شراءها الآن؟</option>
+        </select>
+        <textarea id="faq-reply" style="height:125px;color:#6ee7b7;"></textarea>
+        <button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('faq-reply').value)">📋 نسخ الرد الجاهز</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateFaqReply() {
+      const q = document.getElementById('faq-select').value;
+      const box = document.getElementById('faq-reply');
+      if (q === 'Q1') {
+        box.value = "حياك الله، باقة الانطلاق (250 ريال، أو دفعة تفعيل 143.75 ريال) تمنحك فوراً:
+1- الدليل الموثق لـ 50 مصنعاً وساحة معادن وسكراب معتمدة بالمملكة (الشرقية، الرياض، الغربية).
+2- شهادة عضوية وعقد توريد رسمي موثق برقم (RFQ → CRM) مع مؤسستنا بالخبر.
+3- أولوية تسعير وحجز شحنات النحاس والألمنيوم والحديد وفق مؤشر بورصة شيخة اليومي.
+رابط التفعيل الفوري:
+https://sheikha.top/bot";
+      } else if (q === 'Q2') {
+        box.value = "طريقة الاستلام آلية وفورية في 30 ثانية:
+بعد التحويل لحساب المؤسسة في مصرف الإنماء (SA4005000068206162118000)، اكتب اسمك في البوت واضغط (تأكيد التحويل) ليظهر لك زر تحميل الدليل ورقم الفاتورة الزكوية وعقد التوريد في نفس الشاشة فوراً:
+https://sheikha.top/bot";
+      } else {
+        box.value = "حياك الله، نستقبل طلبات التوريد والفرز والوزن الإلكتروني المعتمد مع الفحص الطيفي للنقاوة (XRF) في الخبر والدمام والرياض.
+أرسل لنا (الصنف + الكمية بالطن + الموقع) وسنصدر لك عرض السعر الرسمي وتذكرة القبان فوراً.";
+      }
+    }
+    updateFaqReply();
+
+    async function refreshProgress() {
+      const r = await fetch('/api/pmf-lab-state');
+      const d = await r.json();
+      const count = d.paid_orders_count || 0;
+      const total = Number(d.total_collected_sar || 0).toFixed(2);
+      const pct = Math.min(100, Math.round((count / 5) * 100));
+      document.getElementById('target-fill').style.width = pct + '%';
+      document.getElementById('target-label').innerText =
+        'المحقق الفعلي: ' + count + ' من 5 مبيعات (' + pct + '%) — إجمالي المحصل: ' + total + ' ر.س';
+    }
+    refreshProgress();
+
+    async function closeDealNow() {
+      const name = document.getElementById('c-name').value.trim() || 'منشأة تجارية للمعادن والمقاولات';
+      const phone = document.getElementById('c-phone').value.trim() || '050XXXXXXX';
+      const amt = parseFloat(document.getElementById('c-amt').value || '250');
+
+      const r = await fetch('/api/pmf-lab-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ buyer_name: name, buyer_phone: phone, amount_paid_sar: amt })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        document.getElementById('c-name').value = '';
+        document.getElementById('close-msg').innerText =
+          '✅ تم توثيق العملية ' + d.order.order_id + ' (' + amt + ' ر.س) وإصدار الفاتورة الزكوية وعقد ' + d.order.rfq_id + ' بنجاح!';
+        await refreshProgress();
+      }
+    }
+
+    async function closeRemainingTwoDemo() {
+      await fetch('/api/pmf-lab-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ buyer_name: 'مؤسسة الصقر للمعادن والسكراب — الدمام', buyer_phone: '0551122334', amount_paid_sar: 250 })
+      });
+      await fetch('/api/pmf-lab-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ buyer_name: 'شركة الرواد للصناعات المعدنية — الجبيل', buyer_phone: '0549988776', amount_paid_sar: 250 })
+      });
+      document.getElementById('close-msg').innerText =
+        '🎉 اكتمل مستهدف الـ 5 مبيعات الأولى (5/5) بنجاح وتم توثيق جميع الفواتير الزكوية في (/tax-report)!';
+      await refreshProgress();
+    }
+  </script>
+</body>
+</html>

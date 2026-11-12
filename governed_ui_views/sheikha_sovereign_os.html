@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منظومة وسوق شيخة للإدارة المتكاملة وسلاسل إمداد المعادن | البوابة الإدارية والهندسية الموحدة V130000</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030812;
+      --panel: rgba(8, 18, 36, 0.94);
+      --card: rgba(4, 10, 22, 0.96);
+      --gold: #d4af37;
+      --gold-bright: #fde047;
+      --cyan: #00f2fe;
+      --emerald: #10b981;
+      --crimson: #f43f5e;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); padding: 14px 18px 36px; line-height: 1.65; }
+    .shell { max-width: 1560px; margin: 0 auto; }
+
+    /* الترويسة الإدارية الواضحة */
+    .exec-header {
+      background: var(--panel); border: 1px solid rgba(212,175,55,0.45); border-bottom: 3px solid var(--gold-bright);
+      border-radius: 18px; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+    }
+    .emblem {
+      width: 52px; height: 52px; border-radius: 14px; background: radial-gradient(circle, var(--gold-bright), var(--gold));
+      color: #030812; font-family: 'Amiri', serif; font-size: 1.85rem; font-weight: 700; display: grid; place-items: center; border: 2px solid #fff;
+    }
+    .btn {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color: #030812;
+      border: none; padding: 9px 16px; border-radius: 9px; font-family: inherit; font-weight: 900;
+      font-size: 0.8rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn.cyan { background: linear-gradient(135deg, var(--cyan), #0284c7); }
+    .btn.emerald { background: linear-gradient(135deg, #34d399, #059669); }
+
+    /* شريط اختيار مستوى اللغة حسب المستخدم (إداري وتجاري / فني وهندسي وداتا شيت / ميداني وتشغيلي) */
+    .persona-bar {
+      background: rgba(5, 13, 28, 0.95); border: 1.5px solid var(--cyan); border-radius: 16px;
+      padding: 12px 18px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .mode-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .m-tab {
+      background: var(--card); color: #cbd5e1; border: 1px solid rgba(212,175,55,0.35);
+      padding: 8px 16px; border-radius: 10px; font-family: inherit; font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: 0.2s;
+    }
+    .m-tab.active, .m-tab:hover {
+      background: var(--gold-bright); color: #030812; border-color: #fff; box-shadow: 0 0 18px rgba(253,224,71,0.4);
+    }
+
+    /* المراحل الإدارية الأربع المتسلسلة بوضوح تام */
+    .workflow-4-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px;
+    }
+    @media(max-width: 1150px) { .workflow-4-steps { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width: 700px) { .workflow-4-steps { grid-template-columns: 1fr; } }
+
+    .step-col {
+      background: var(--panel); border: 1px solid rgba(212,175,55,0.38); border-top: 4px solid var(--gold-bright);
+      border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .step-col h2 { font-size: 0.98rem; color: var(--gold-bright); border-bottom: 1px solid rgba(212,175,55,0.25); padding-bottom: 8px; margin-bottom: 10px; }
+    .action-item {
+      background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-right: 3px solid var(--emerald);
+      border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+    }
+    .action-item:hover { border-color: var(--gold-bright); transform: translateX(-3px); }
+    .action-item strong { color: #fff; display: block; font-size: 0.85rem; margin-bottom: 2px; }
+    .action-item span { color: var(--muted); font-size: 0.75rem; display: block; }
+
+    /* جدول الأصناف وصحائف البيانات الفنية (Datasheets) */
+    .ds-section {
+      background: var(--panel); border: 1px solid rgba(212,175,55,0.4); border-top: 3px solid var(--cyan);
+      border-radius: 18px; padding: 18px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 10px; }
+    th, td { border: 1px solid rgba(212,175,55,0.3); padding: 10px; text-align: right; }
+    th { background: #071428; color: var(--gold-bright); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <!-- 1. الترويسة الإدارية الواضحة -->
+    <header class="exec-header">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="emblem">ش</div>
+        <div>
+          <h1 style="font-size:1.24rem;font-weight:900;color:var(--gold-bright);" id="main-h1">
+            منظومة وسوق شيخة للإدارة الشاملة وتجارة وصناعة المعادن (Sheikha.top)
+          </h1>
+          <div style="font-size:0.78rem;color:#cbd5e1;" id="main-sub">
+            مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سجل: 2051263653) • إدارة متكاملة بلغة إدارية واضحة مع توفير صحائف المواصفات الفنية والهندسية (Datasheets) حسب المستخدم
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/datasheet" target="_blank" class="btn">📐 فتح وطباعة الداتا شيت الفني (Datasheets)</a>
+        <a href="/master-book" target="_blank" class="btn cyan">📖 الدستور والكتالوج الشامل</a>
+        <a href="/monitor" class="btn emerald">👁️ شاشة المراقبة الحية</a>
+      </div>
+    </header>
+
+    <!-- 2. شريط تبديل لغة العرض حسب المستخدم (إداري وتجاري / فني وهندسي / ميداني وتشغيلي) -->
+    <section class="persona-bar">
+      <div>
+        <strong style="color:var(--gold-bright);font-size:0.9rem;">👤 اختر طريقة عرض المحتوى والمصطلحات حسب دورك الوظيفي:</strong>
+        <div style="font-size:0.75rem;color:var(--muted);">يتم تكييف جميع العناوين والشروحات أدناه فوراً لتناسب الإدارة العليا، أو المهندسين، أو مشرفي الساحة</div>
+      </div>
+      <div class="mode-tabs">
+        <button class="m-tab active" id="tab-admin" onclick="setLanguagePersona('ADMIN')">🏛️ 1. الوضع الإداري والتجاري (مفهوم وواضح للإدارة والتجار)</button>
+        <button class="m-tab" id="tab-eng" onclick="setLanguagePersona('ENG')">🔬 2. الوضع الهندسي والفني (مواصفات قياسية و Datasheet)</button>
+        <button class="m-tab" id="tab-field" onclick="setLanguagePersona('FIELD')">🚛 3. الوضع الميداني والتشغيلي (للساحات والمستودع والأسطول)</button>
+      </div>
+    </section>
+
+    <!-- 3. الهيكل الإداري المتسلسل في 4 مراحل واضحة ومترابطة -->
+    <section class="workflow-4-steps" id="steps-4-container"></section>
+
+    <!-- 4. جدول المنتجات المعتمدة وبطاقات المواصفات الفنية (Datasheets) جاهزة للطباعة -->
+    <section class="ds-section">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h2 style="font-size:1.05rem;color:var(--gold-bright);">📐📄 دليل المنتجات المعتمدة وصحائف البيانات الفنية والهندسية (Official Product Datasheets)</h2>
+          <div style="font-size:0.76rem;color:var(--muted);">يجمع الوصف الإداري والتجاري الواضح مع إمكانية فتح الداتا شيت الهندسي الكامل لكل صنف</div>
+        </div>
+        <a href="/datasheet" target="_blank" class="btn cyan">🖨️ استعراض وطباعة جميع صحائف الـ Datasheet (PDF)</a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>كود المواصفة والرمز الجمركي</th>
+            <th>الاسم الإداري والتجاري للصنف</th>
+            <th>الملخص الإداري / المواصفة الهندسية (حسب اختيارك)</th>
+            <th>العائد الصافي بعد الصهر</th>
+            <th>السعر المرجعي / طن</th>
+            <th>صحيفة البيانات (Datasheet)</th>
+          </tr>
+        </thead>
+        <tbody id="ds-table-body"></tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <script>
+    const PERSONA_CONTENT = {
+      ADMIN: {
+        h1: 'منظومة وسوق شيخة للإدارة الشاملة وتجارة وصناعة المعادن (الوضع الإداري والتجاري الواضح)',
+        steps: [
+          {
+            title: 'المرحلة 1: السوق المفتوح واستقبال الطلبات والتعاقد',
+            items: [
+              { t: '🛒 سوق التبضع والعروض المفتوح', d: 'عرض كميات النحاس والألمنيوم والحديد المتاحة بالطن والسعر الواضح للشراء المباشر.', url: '/sheikha-os' },
+              { t: '📋 تأهيل واعتماد الموردين', d: 'التحقق الإداري والقانوني من السجل التجاري للمورد ومشروعية مصدر البضاعة.', url: '/qc-custody' },
+              { t: '🔨 المناقصات والمزادات الحكومية', d: 'إدارة عطاءات المصانع ومزادات الموانئ واحتساب الضمان البنكي الابتدائي (5%).', url: '/tender-award' }
+            ]
+          },
+          {
+            title: 'المرحلة 2: الرقابة، فحص الجودة، وتوثيق المستودعات',
+            items: [
+              { t: '🔬 إدارة وضبط الجودة واستبعاد الشوائب', d: 'فحص البضاعة المستلمة والتأكد من نقاوتها وخصم وزن أي شوائب غير معدنية.', url: '/qc-custody' },
+              { t: '🔴 توثيق العُهد والختم الأمني الأحمر', d: 'مطابقة أرقام الأختام الحمراء على الحاويات وتوثيق استلام وتسليم العهدة رسمياً.', url: '/grn-report' },
+              { t: '🎓 التدريب وتأهيل الكوادر الميدانية', d: 'إصدار تعليمات عمل واضحة ومترجمة لفرق الساحات والمستودعات والسلامة.', url: '/qc-custody' }
+            ]
+          },
+          {
+            title: 'المرحلة 3: التشغيل الآلي والمعالجة والفرز والقياس',
+            items: [
+              { t: '⚖️ الميزان الإلكتروني المعتمد', d: 'تسجيل الوزن القائم والفارغ والصافي للشاحنات والحاويات بدقة وأمانة تامة.', url: '/weighbridge' },
+              { t: '🏭 خطوط الفرز والقص والكبس الآلية', d: 'تجهيز المعادن وتقطيعها وكبسها آلياً لتطابق اشتراطات مصانع الصهر.', url: '/ monitor' },
+              { t: '🎛️ مركز الإشراف والمراقبة العامة', d: 'متابعة لحظية لكفاءة سير العمل على مدار الساعة دون انقطاع.', url: '/supervisor' }
+            ]
+          },
+          {
+            title: 'المرحلة 4: العقود، التمويل الإسلامي، والفوترة الزكوية',
+            items: [
+              { t: '📜 عقود التوريد السنوية المجدولة للمصانع', d: 'اتفاقيات توريد طويلة الأجل تضمن التزام الكميات والمواعيد والجودة.', url: '/sla-contract' },
+              { t: '🕌 التمويل الإسلامي والاعتمادات (مصرف الإنماء)', d: 'تمويل الصفقات بصيغ المرابحة والاستصناع والسَّلَم عبر حساب المؤسسة المعتمد.', url: '/supervisor' },
+              { t: '🧾 الفواتير الضريبية الزكوية والتقارير المالية', d: 'إصدار الفواتير الضريبية المعتمدة وبوالص الشحن ومحاضر الاستلام النهائية.', url: '/tax-report' }
+            ]
+          }
+        ]
+      },
+      ENG: {
+        h1: 'منظومة شيخة الهندسية والتقنية للميتالورجيا والأتمتة الصناعية (الوضع الهندسي والفني)',
+        steps: [
+          {
+            title: '1. البوابات الذكية والتصنيف القياسي (HS & ISRI Intake)',
+            items: [
+              { t: '🌍 الترميز الجمركي والمواصفات القياسية', d: 'تصنيف الشحنات وفق الفصول (7204 - 8549) ومعايير ISRI (Berry, Taldon, HMS 1&2).', url: '/datasheet' },
+              { t: '📡 الاستشعار والوزن الليزري (LiDAR & Load-Cells)', d: 'قراءة آلية للأوزان المحورية والمسح ثلاثي الأبعاد للحمولة.', url: '/weighbridge' },
+              { t: '🔐 بروتوكول الختم الأمني (Red Bolt Seal)', d: 'التحقق الرقمي من سلامة أختام الحاويات العابرة للموانئ.', url: '/grn-report' }
+            ]
+          },
+          {
+            title: '2. المختبر الطيفي وضبط الجودة (XRF & QA/QC)',
+            items: [
+              { t: '🔬 التحليل الطيفي بالأشعة السينية (XRF Assay)', d: 'تحديد النسب الذرية للعناصر (Cu, Al, Fe, Cr, Ni) في 0.2 ثانية.', url: '/qc-custody' },
+              { t: '⚖️ معادلة خصم الشوائب والعائد الصافي', d: 'حساب الوزن القابل للصهر بعد استبعاد الأكاسيد والرطوبة والخبث (Slag).', url: '/grn-report' },
+              { t: '🦺 الفحص الإشعاعي والسلامة المهنية (HSE)', d: 'مسح الشحنات ضد المصادر المشعة والأسطوانات المغلقة المضغوطة.', url: '/qc-custody' }
+            ]
+          },
+          {
+            title: '3. خلايا المصنع المظلم والأتمتة (Lights-Out Plant)',
+            items: [
+              { t: '🧲 الفصل المغناطيسي والتيار الدوامي (Eddy-Current)', d: 'عزل المعادن غير الحديدية بقوة لورنتز الكهرومغناطيسية.', url: '/monitor' },
+              { t: '🗜️ القص الهيدروليكي (800T) والكبس (320-Bar)', d: 'رفع الكثافة الحجمية للخردة لتسريع الانصهار الحراري في أفران EAF.', url: '/datasheet' },
+              { t: '🤖 أسطول النقل الذاتي (18 AGVs) و22 نواة معالج', d: 'مناولة آلية في الظلام بإشراف السوبر فايزور والحارس الذاتي.', url: '/supervisor' }
+            ]
+          },
+          {
+            title: '4. المخرجات الهندسية، الـ Datasheet، والتكامل الرقمي',
+            items: [
+              { t: '📐 صحائف البيانات الفنية (Technical Datasheets)', d: 'وثائق المواصفات الكيميائية والميكانيكية المعتمدة لكل صنف.', url: '/datasheet' },
+              { t: '🌿 حساب البصمة الكربونية والوفر الطاقي (ISO-14040)', d: 'توثيق وفر الطاقة (95% للألمنيوم، 85% للنحاس، 74% للحديد).', url: '/master-book' },
+              { t: '🔐 الفوترة المشفرة (ZATCA TLV) والاعتمادات الذكية', d: 'ربط برمجي مباشر مع حساب مصرف الإنماء وبوالص الشحن.', url: '/tax-report' }
+            ]
+          }
+        ]
+      },
+      FIELD: {
+        h1: 'بوابة العمليات الميدانية لساحات ومستودعات وأسطول شيخة (الوضع الميداني المبسط)',
+        steps: [
+          {
+            title: 'أولاً: استلام الشاحنة عند بوابة الساحة',
+            items: [
+              { t: '🚛 فحص أوراق السائق وتصريح الدخول', d: 'التأكد من اسم المورد ورقم اللوحة ونوع المعدن المحمل.', url: '/weighbridge' },
+              { t: '🔴 فحص القفل والختم الأحمر على الحاوية', d: 'تصوير رقم الختم الأحمر والتأكد أنه غير مكسور قبل فتح الحاوية.', url: '/qc-custody' },
+              { t: '⚖️ وزن الشاحنة (ملآن وفارغ)', d: 'تسجيل وزن الدخول ووزن الخروج على الميزان لإخراج الصافي.', url: '/weighbridge' }
+            ]
+          },
+          {
+            title: 'ثانياً: التنزيل والفحص وتسليم العهدة',
+            items: [
+              { t: '🔍 فحص نظافة السكراب من الشوائب', d: 'التأكد من عدم وجود تراب أو بلاستيك أو زيوت أو أسطوانات غاز مغلقة.', url: '/qc-custody' },
+              { t: '🔑 تسجيل استلام وتسليم العُهد', d: 'توثيق تسليم الحاويات وأجهزة الفحص والمفاتيح للمسؤول المختص.', url: '/grn-report' },
+              { t: '📋 طباعة محضر استلام البضاعة (GRN)', d: 'إصدار سند استلام رسمي موقع من الجودة والمستودع والسلامة.', url: '/grn-report' }
+            ]
+          },
+          {
+            title: 'ثالثاً: الفرز والقص والكبس والتخزين',
+            items: [
+              { t: '⚡ عزل النحاس والألمنيوم عن الحديد', d: 'فرز كل معدن في مساره المخصص حسب النوع والسماكة.', url: '/qc-custody' },
+              { t: '🗜️ تشغيل المقص والمكبس الهيدروليكي', d: 'قص الحديد الطويل وكبس الصاج وعلب الألمنيوم في مكعبات جاهزة.', url: '/monitor' },
+              { t: '🎓 تعليمات العمل المترجمة بـ 6 لغات', d: 'بطاقات إرشادية واضحة بالعربية والأردية والهندية والبنغالية والفلبينية.', url: '/qc-custody' }
+            ]
+          },
+          {
+            title: 'رابعاً: التحميل للمصهر وإصدار الفاتورة',
+            items: [
+              { t: '🚢 إصدار بوليصة الشحن وتصريح الخروج', d: 'تجهيز أوراق الشحنة المتجهة إلى المصهر أو الميناء.', url: '/sla-contract' },
+              { t: '🧾 إصدار الفاتورة وسند الصرف البنكي', d: 'اعتماد الوزن الصافي النهائي للتحويل عبر مصرف الإنماء.', url: '/tax-report' },
+              { t: '👁️ شاشة متابعة الساحة الحية', d: 'مراقبة كافة الشحنات والآلات العاملة في الساحة الآن.', url: '/monitor' }
+            ]
+          }
+        ]
+      }
+    };
+
+    let currentPersona = 'ADMIN';
+    let catalogData = [];
+
+    function setLanguagePersona(mode) {
+      currentPersona = mode;
+      document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + mode.toLowerCase()).classList.add('active');
+
+      const cfg = PERSONA_CONTENT[mode] || PERSONA_CONTENT.ADMIN;
+      document.getElementById('main-h1').innerText = cfg.h1;
+
+      const box = document.getElementById('steps-4-container');
+      box.innerHTML = cfg.steps.map(st =>
+        '<div class="step-col">' +
+          '<h2>' + st.title + '</h2>' +
+          '<div>' +
+            st.items.map(it =>
+              '<div class="action-item" onclick="window.open('' + it.url + '','_blank')">' +
+                '<strong>' + it.t + '</strong>' +
+                '<span>' + it.d + '</span>' +
+              '</div>'
+            ).join('') +
+          '</div>' +
+        '</div>'
+      ).join('');
+
+      renderDatasheetTable();
+    }
+
+    async function loadDatasheetsCatalog() {
+      const r = await fetch('/api/datasheets-state');
+      const d = await r.json();
+      catalogData = d.datasheets_catalog || [];
+      renderDatasheetTable();
+    }
+
+    function renderDatasheetTable() {
+      const tb = document.getElementById('ds-table-body');
+      tb.innerHTML = catalogData.map(s => {
+        const desc = currentPersona === 'ENG'
+          ? ('<b style="color:#34d399;">[مواصفة هندسية]:</b> ' + s.chemical_specs + ' | ' + s.physical_engineering_specs)
+          : ('<b style="color:var(--gold-bright);">[ملخص إداري]:</b> ' + s.admin_summary);
+        return '<tr>' +
+          '<td><code style="color:var(--gold-bright);font-weight:900;">' + s.ds_id + '</code><br><small style="color:var(--cyan);font-family:monospace;">HS: ' + s.hs_code + '</small></td>' +
+          '<td><b>' + s.product_name_admin + '</b><br><small style="color:var(--muted);">' + s.sector_origin + '</small></td>' +
+          '<td>' + desc + '</td>' +
+          '<td style="color:#34d399;font-weight:800;">' + s.furnace_recovery_yield + '</td>' +
+          '<td style="color:var(--gold-bright);font-weight:900;font-family:monospace;">' + Number(s.ref_price_sar_ton).toLocaleString() + ' ر.س</td>' +
+          '<td><a href="/datasheet" target="_blank" class="btn" style="padding:6px 12px;font-size:0.74rem;">📐 فتح الداتا شيت PDF</a></td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    setLanguagePersona('ADMIN');
+    loadDatasheetsCatalog();
+  </script>
+</body>
+</html>
