@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-SHEIKHA Robotics Foundry — Autonomous Native Core Engine (v1.0.0)
-يعمل ذاتياً بدون إضافات خارجية: كينماتيكا، توأم رقمي، استيعاب مجسمات 3D، وبوابة سلامة R0-R4.
+SHEIKHA Robotics Foundry — Autonomous Native Core Engine v1.0.0
+يعمل ذاتياً بدون إضافات خارجية.
 الحوكمة: BOUND_BY_QURAN_SUNNAH | قاعدة: لا ضرر ولا ضرار
 """
 import hashlib, json, math, os, time
@@ -17,7 +17,10 @@ def compute_forward_kinematics(theta1_deg=30.0, theta2_deg=45.0, theta3_deg=-15.
     x = round(reach_xy * math.cos(t1), 4)
     y = round(reach_xy * math.sin(t1), 4)
     z = round(L1 + L2 * math.sin(t2) + L3 * math.sin(t2 + t3), 4)
-    return {"end_effector_xyz_m": {"x": x, "y": y, "z": z}, "angles_deg": [theta1_deg, theta2_deg, theta3_deg]}
+    return {
+        "end_effector_xyz_m": {"x": x, "y": y, "z": z},
+        "angles_deg": [theta1_deg, theta2_deg, theta3_deg]
+    }
 
 def run_simulation_and_safety_gate():
     with open(URDF_PATH, "rb") as f:
@@ -33,12 +36,12 @@ def run_simulation_and_safety_gate():
         "urdf_model": "sheikha_industrial_arm_6dof.urdf",
         "urdf_sha256": urdf_sha256,
         "digital_twin_kinematics": kinematics,
-        "safety_levels": {
+        "safety_activation_gates": {
             "R0_architecture_and_ip": "VERIFIED_ACTIVE",
-            "R1_plugin_knowledge_assimilation": "ACTIVE (External plugins used for initial training only)",
+            "R1_plugin_knowledge_assimilation": "ACTIVE_DISTILLING_TO_FOUNDRY",
             "R2_kinematics_and_digital_twin_sim": "VERIFIED_LOCAL_EXECUTION",
             "R3_sensor_and_ros2_bridge": "ISOLATED_LAB_READY",
-            "R4_physical_hardware_actuation": "LOCKED_REQUIRES_ESTOP_AND_HUMAN_SIGN_OFF"
+            "R4_physical_hardware_actuation": "HARD_LOCKED_PERMANENT (Requires E-Stop + Torque Limits + Human Safety Sign-off)"
         },
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     }

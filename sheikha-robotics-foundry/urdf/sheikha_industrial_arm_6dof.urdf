@@ -1,18 +1,23 @@
 <?xml version="1.0"?>
-<!-- الملكية الفكرية الحصرية: مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) -->
-<!-- SHEIKHA Robotics Foundry — Native 6-DOF Industrial Metal-Sorting & Assay Arm -->
+<!-- 
+  الملكية الفكرية الحصرية: مؤسسة سلمان أحمد بن سلمان الراجح للتجارة
+  CR: 2051263653 | الرقم الموحد: 7036121197
+  SHEIKHA Robotics Foundry — Native 6-DOF Industrial Metal-Sorting & Assay Arm
+  الحوكمة: BOUND_BY_QURAN_SUNNAH | قاعدة: لا ضرر ولا ضرر
+  R4 PHYSICAL MOTION: LOCKED PERMANENTLY — أي حركة مادية تتطلب E-Stop + Human Sign-off
+-->
 <robot name="sheikha_industrial_arm_6dof_v1">
   <link name="base_link">
-    <visual><geometry><cylinder length="0.15" radius="0.20"/></geometry></visual>
+    <visual><geometry><cylinder length="0.15" radius="0.20"/></geometry><material name="sheikha_red"><color rgba="0.8 0.1 0.1 1"/></material></visual>
   </link>
   <link name="shoulder_link">
-    <visual><geometry><cylinder length="0.40" radius="0.10"/></geometry></visual>
+    <visual><geometry><cylinder length="0.40" radius="0.10"/></geometry><material name="sheikha_red"/></visual>
   </link>
   <link name="elbow_link">
-    <visual><geometry><cylinder length="0.35" radius="0.08"/></geometry></visual>
+    <visual><geometry><cylinder length="0.35" radius="0.08"/></geometry><material name="sheikha_red"/></visual>
   </link>
   <link name="wrist_assay_sensor_link">
-    <visual><geometry><box size="0.12 0.12 0.10"/></geometry></visual>
+    <visual><geometry><box size="0.12 0.12 0.10"/></geometry><material name="sheikha_gold"><color rgba="0.9 0.7 0.1 1"/></material></visual>
   </link>
   <joint name="joint_1_base_yaw" type="revolute">
     <parent link="base_link"/><child link="shoulder_link"/>
