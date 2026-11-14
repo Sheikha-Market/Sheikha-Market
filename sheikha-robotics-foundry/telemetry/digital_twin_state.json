@@ -1,0 +1,29 @@
+{
+  "foundry": "SHEIKHA Robotics Foundry (شيخة للروبوتات — محرك ذاتي أصيل)",
+  "version": "1.0.0",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653)",
+  "governance": "BOUND_BY_QURAN_SUNNAH (لا ضرر ولا ضرار)",
+  "autonomy_mode": "NATIVE_SELF_HOSTED_ZERO_PLUGIN_DEPENDENCY",
+  "urdf_model": "sheikha_industrial_arm_6dof.urdf",
+  "urdf_sha256": "8ab4e50019bc4350523647259fc20c279da55bed8b178cc3ba4745fcf4bced6c",
+  "digital_twin_kinematics": {
+    "end_effector_xyz_m": {
+      "x": 0.5204,
+      "y": 0.3644,
+      "z": 0.5268
+    },
+    "angles_deg": [
+      35.0,
+      40.0,
+      -20.0
+    ]
+  },
+  "safety_levels": {
+    "R0_architecture_and_ip": "VERIFIED_ACTIVE",
+    "R1_plugin_knowledge_assimilation": "ACTIVE (External plugins used for initial training only)",
+    "R2_kinematics_and_digital_twin_sim": "VERIFIED_LOCAL_EXECUTION",
+    "R3_sensor_and_ros2_bridge": "ISOLATED_LAB_READY",
+    "R4_physical_hardware_actuation": "LOCKED_REQUIRES_ESTOP_AND_HUMAN_SIGN_OFF"
+  },
+  "timestamp": "2026-11-14T21:30:37Z"
+}
