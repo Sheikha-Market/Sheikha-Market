@@ -1,0 +1,117 @@
+{
+  "success": true,
+  "version": "5.1.0",
+  "report_title": "التقرير اليومي الموحد للإنتاج والمراقبة والحارس ومدير الإنتاج والمشرف العام (Sheikha Command & Control v5.1.0)",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653)",
+  "location": "Al Khobar, Eastern Province, Saudi Arabia",
+  "timestamp": "2026-11-15T23:33:51.913Z",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "supervisor": {
+    "role": "المشرف العام السيادي (Sheikha Sovereign Supervisor)",
+    "overall_system_state": "MASTER_PRODUCTION_LIVE_24_7",
+    "active_workers_verified": "13/13 ACTIVE",
+    "active_domains_verified": "38/38 MAPPED (HTTP 200)",
+    "executive_directive": "استمرار الإنتاج المظلم على مدار الساعة، ومتابعة تنفيذ مهام الصفقة SHK-2026-001 وأوامر شراء الزوار آلياً."
+  },
+  "production_manager": {
+    "role": "مدير الإنتاج التجاري والصناعي والمعرفي (Daily Production Manager)",
+    "daily_commercial_kpis": {
+      "registered_visitors_and_buyers": 2,
+      "commercial_orders_issued_count": 2,
+      "commercial_orders_gross_value_sar": 795800,
+      "flagship_deal_shk_2026_001_net_profit_sar": 9500,
+      "settlement_bank_iban": "SA4005000068206162118000 (Alinma Bank)"
+    },
+    "daily_ai_and_kernel_production": {
+      "sovereign_model": "sheikha-sovereign-llm-v1",
+      "production_weights_r2": "weights/sheikha-lora-production/adapter_model.safetensors (8,676,008 bytes | 192 Tensors)",
+      "weights_sha256": "51ffa2ce56875be592105c512f9c700ce44bfe2135783e1570a3cdaf1fdac64e",
+      "gpu_engine": "NVIDIA GeForce RTX 4060 (8.60 TFLOPS BF16 - PASS)",
+      "sheikha_compiler": "shk-rustc v2.0.0 (.shk -> Sheikha-Rust Bare-Metal)"
+    },
+    "latest_commercial_orders": [
+      {
+        "order_id": "ORD-SHK-773404",
+        "company_name": "مصنع الشرقية للكابلات",
+        "product_name": "نحاس أحمر نقي Millberry 99.95%",
+        "quantity_mt": 10,
+        "total_sar": 397900,
+        "status": "CONFIRMED_AWAITING_BANK_TRANSFER",
+        "created_at": "2026-11-15T23:30:50.389Z"
+      },
+      {
+        "order_id": "ORD-SHK-427109",
+        "company_name": "مصنع الشرقية للكابلات",
+        "product_name": "نحاس أحمر نقي Millberry 99.95%",
+        "quantity_mt": 10,
+        "total_sar": 397900,
+        "status": "CONFIRMED_AWAITING_BANK_TRANSFER",
+        "created_at": "2026-11-15T23:28:11.338Z"
+      }
+    ],
+    "dark_factory_deals_pipeline": [
+      {
+        "deal_id": "SHK-2026-001",
+        "commodity": "Copper Millberry 99.95% (ISRI Berry)",
+        "quantity_mt": 10,
+        "net_profit_sar": 9500,
+        "reinvest_70_sar": 6650,
+        "reserve_20_sar": 1900,
+        "waqf_10_sar": 950,
+        "stage": "QUOTATION_AND_CONTRACT_READY_AWAITING_WEIGHBRIDGE"
+      }
+    ]
+  },
+  "guardian": {
+    "role": "حارس البوابات والأوزان والعقود الشرعية (Sheikha Sovereign Guardian)",
+    "security_and_shariah_gates": {
+      "p1_write_auth_guard": "ENFORCED_HTTP_401_ON_UNAUTHORIZED_MUTATION",
+      "zatca_invoice_weighbridge_gate": "LOCKED_UNTIL_DUAL_WEIGHBRIDGE_AND_RED_SEAL_VERIFIED",
+      "robotics_r4_physical_actuation": "HARD_LOCKED (Requires E-Stop + Human Safety Sign-off — لا ضرر ولا ضرار)",
+      "local_hash_chain_guard": "PASS (sheikha-guard verified)",
+      "zero_trust_casb_posture": "ACTIVE (Google Workspace & GCP Monitored)"
+    }
+  },
+  "monitoring_and_followup": {
+    "role": "رادار المراقبة والمتابعة المستمرة (24/7 Monitoring & Follow-up)",
+    "cloud_cron_heartbeat": "ACTIVE (0 */6 * * * — Works when PC is OFF)",
+    "local_systemd_timer": "ACTIVE (Every 15m — Persistent=true)",
+    "field_dispatches_tracking": [
+      {
+        "dispatch_id": "FLD-001-YARD",
+        "step_number": 1,
+        "field_task": "حجز 10 طن نحاس Millberry 99.95% من ساحات سكراب الدمام/الخبر",
+        "execution_state": "AUTO_SCHEDULED_0730_AST",
+        "weighbridge_status": "TARE_AND_GROSS_REQUIRED"
+      },
+      {
+        "dispatch_id": "FLD-002-BUYER",
+        "step_number": 2,
+        "field_task": "إرسال عرض السعر 04_Quotation (397,900 ر.س) وأمر الشراء 05_PO للمصنع",
+        "execution_state": "AUTO_DISPATCH_ACTIVE",
+        "weighbridge_status": "BUYER_PO_WEBHOOK_READY"
+      },
+      {
+        "dispatch_id": "FLD-003-3PL",
+        "step_number": 3,
+        "field_task": "توجيه الشاحنة وإصدار تصريح البوابة 09_Gate_Pass وقفل الختم الأحمر",
+        "execution_state": "STANDBY_ON_PO_CONFIRM",
+        "weighbridge_status": "AWAITING_SEAL_PHOTO_HASH"
+      },
+      {
+        "dispatch_id": "FLD-004-GRN",
+        "step_number": 4,
+        "field_task": "مطابقة قبان المصنع وإصدار محضر 03_GRN والفاتورة الضريبية 10_Tax_Invoice",
+        "execution_state": "AUTO_TRIGGER_ON_ARRIVAL",
+        "weighbridge_status": "TOLERANCE_MAX_0.2_PERCENT"
+      },
+      {
+        "dispatch_id": "FLD-005-BANK",
+        "step_number": 5,
+        "field_task": "تحصيل 397,900 ر.س في مصرف الإنماء وتوزيع صافي الربح (+9,500 ر.س: 70/20/10)",
+        "execution_state": "ALGORITHMIC_SETTLEMENT_READY",
+        "weighbridge_status": "RECONCILED_WITH_GRN"
+      }
+    ]
+  }
+}
