@@ -1,0 +1,40 @@
+{
+  "schema": "SHEIKHA_GPU_FOUNDRY_MAX_V2",
+  "mode": "ACTIVE_HARDWARE_MAX_ACCELERATION",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653)",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "utc": "2026-11-15T21:27:43.913706+00:00",
+  "hardware": {
+    "gpu_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "architecture": "NVIDIA Ada Lovelace (sm_89)",
+    "compute_capability": "8.9",
+    "multiprocessors_sm_count": 24,
+    "total_vram_mb": 7807.56,
+    "driver_and_telemetry": "NVIDIA GeForce RTX 4060 Laptop GPU, 595.104.02, P3, 46, 17.85 W, 1125 MHz, 7001 MHz, 8188 MiB, 938 MiB"
+  },
+  "cuda_and_pytorch_stack": {
+    "pytorch_version": "2.10.0+cu126",
+    "cuda_runtime": "12.6",
+    "cudnn_version": 91002,
+    "tf32_tensor_cores_enabled": true,
+    "bf16_native_supported": true,
+    "cudnn_benchmark_autotuner": true,
+    "flash_sdp_attention_enabled": true,
+    "mem_efficient_sdp_enabled": true,
+    "vram_allocator_policy": "expandable_segments:True,max_split_size_mb:128"
+  },
+  "measured_performance_benchmarks": {
+    "matmul_4096x4096_tflops": {
+      "TF32_TensorCore": 4.12,
+      "FP16_TensorCore": 8.53,
+      "BF16_AdaNative": 8.6
+    },
+    "flash_attention_1024seq_bf16_latency_ms": 17.916
+  },
+  "sheikha_workloads_accelerated": [
+    "1. Sheikha LoRA Weight Training (Qwen2.5 / Llama-3.x SFT -> .safetensors)",
+    "2. Sheikha Robotics Foundry (Kinematics, Vision OpenCV/ONNX & Digital Twin Physics)",
+    "3. Sheikha Optical & Spectral Metal Assay (Copper Millberry 99.95% Purity Inspection)",
+    "4. Local High-Speed Inference & Embeddings Generation"
+  ]
+}
