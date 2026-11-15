@@ -1,0 +1,40 @@
+// ============================================================================
+// بسم الله الرحمن الرحيم
+// المصنف السيادي: نواة شيخة الأصيلة بلغة شيخة البرمجية (Sheikha Native Kernel)
+// المالك: مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (سجل تجاري: 2051263653)
+// العقد اللغوي: SHEIKHA_LANGUAGE_BOOT_CONTRACT_V2 | ABI: SHEIKHA_NATIVE_RUST_ABI
+// ============================================================================
+
+ميثاق_النواة {
+    الحوكمة: "BOUND_BY_QURAN_SUNNAH",
+    الملكية: "Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)",
+    البيئة: "عتاد_مجرد_بدون_نظام_خارجي",
+    المعمارية: "x86_64_sheikha_bare_metal",
+    محرك_الترجمة: "shk-rustc-v2.0"
+}
+
+ثابت_عتاد منفذ_تسلسلي_أول: عنوان_منفذ = 0x3F8;
+ثابت_عتاد ذاكرة_شاشة_شيخة: عنوان_ذاكرة = 0xB8000;
+ثابت_عتاد عرض_الشاشة: عدد = 80;
+ثابت_عتاد ارتفاع_الشاشة: عدد = 25;
+
+دالة_سيادية منطق_نواة_شيخة_الأصيل() -> حالة_النظام {
+    تهيئة_منفذ_البرهان_التسلسلي(منفذ_تسلسلي_أول);
+    مسح_شاشة_شيخة(لون_أخضر_زمردي، خلفية_سوداء);
+
+    اطبع_برهان("================================================================================");
+    اطبع_برهان("  SHEIKHA NATIVE LANGUAGE KERNEL v2.0.0 (.shk -> Sheikha-Rust Native ABI)");
+    اطبع_برهان("  Owner: Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)");
+    اطبع_برهان("  Governance: BOUND_BY_QURAN_SUNNAH | Language: SHEIKHA (.shk)");
+    اطبع_برهان("================================================================================");
+    اطبع_برهان("kernel_version=2.0.0-shk-rust");
+    اطبع_برهان("governance_boundary=ACTIVE");
+    اطبع_برهان("boot_contract=SHEIKHA_BOOT_CONTRACT_V2");
+    اطبع_برهان("language_contract=SHEIKHA_LANGUAGE_BOOT_CONTRACT_V2");
+    اطبع_برهان("language_native_object=LINKED_AND_CALLED_VIA_SHEIKHA_RUST");
+    اطبع_برهان("language_native_abi=SHEIKHA_LANGUAGE_NATIVE_ABI_V2");
+    اطبع_برهان("language_kernel_logic=GENERATED_FROM_SHEIKHA_SOURCE_SHK");
+    اطبع_برهان("runtime_state=CONTROLLED_SOVEREIGN_HALT");
+
+    إرساء_آمن_للمعالج();
+}
