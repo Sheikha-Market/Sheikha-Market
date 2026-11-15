@@ -1,0 +1,95 @@
+{
+  "success": true,
+  "version": "3.7.0",
+  "engine": "محرك شيخة لأتمتة العمليات الميدانية واللوجستية بدون ضغطة زر (Sheikha Zero-Touch Field Operations Autopilot)",
+  "physical_presence_required": false,
+  "operation_model": "REMOTE_DIGITAL_DELEGATION_3PL_AND_WEIGHBRIDGE_TELEMETRY",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653)",
+  "field_automation_stages": [
+    {
+      "stage": 1,
+      "name": "الاستقطاب والحجز الميداني الآلي (Auto-Yard RFQ & Buyer Quotation)",
+      "schedule": "07:30 AM AST Daily Cron",
+      "mechanism": "يرسل طلبات حجز الكميات لساحات السكراب وعروض الأسعار (04_Quotation) للمصانع آلياً، ويستقبل تأكيدات أوامر الشراء عبر Webhook."
+    },
+    {
+      "stage": 2,
+      "name": "تحريك الأسطول الميداني عبر طرف ثالث (Autonomous 3PL Truck Dispatch)",
+      "mechanism": "يصدر أمر التحميل الآلي وتصريح البوابة (09_Gate_Pass) لشركة النقل مع مسار خرائط شيخة الأسرع دون الحاجة لمرافقة الشاحنة."
+    },
+    {
+      "stage": 3,
+      "name": "التوثيق الرقمي للفحص والختم الأحمر عن بُعد (Remote Assay, GPS & Red Seal Verification)",
+      "webhook_endpoint": "POST /field-ops/webhook/weighbridge",
+      "mechanism": "يرفع السائق أو الفاحص الميداني تذكرة القبان + قراءة XRF (99.95%) + صورة الختم الأحمر (SHK-RED-001) + إحداثيات GPS؛ فيتحقق منها النظام آلياً."
+    },
+    {
+      "stage": 4,
+      "name": "المطابقة المزدوجة للميازين والفوترة الفورية (Dual-Weighbridge Auto-GRN & ZATCA Invoice)",
+      "mechanism": "يطابق وزن قبان الساحة مع وزن قبان المصنع آلياً (فرق مسموح <= 0.2%)، ويصدر محضر 03_GRN والفاتورة الضريبية (397,900 ر.س) لحساب مصرف الإنماء."
+    }
+  ],
+  "active_field_dispatches_d1": [
+    {
+      "dispatch_id": "FLD-001-YARD",
+      "deal_id": "SHK-2026-001",
+      "step_number": 1,
+      "field_task": "حجز 10 طن نحاس Millberry 99.95% من ساحات سكراب الدمام/الخبر",
+      "automation_channel": "Auto-RFQ Dispatch + WhatsApp/Email Webhook",
+      "gps_target": "26.3927, 49.9777 (Dammam Scrap Yard)",
+      "red_seal_code": "SHK-RED-001",
+      "weighbridge_status": "TARE_AND_GROSS_REQUIRED",
+      "execution_state": "AUTO_SCHEDULED_0730_AST",
+      "updated_at": "2026-11-15 22:31:48"
+    },
+    {
+      "dispatch_id": "FLD-002-BUYER",
+      "deal_id": "SHK-2026-001",
+      "step_number": 2,
+      "field_task": "إرسال عرض السعر 04_Quotation (397,900 ر.س) وأمر الشراء 05_PO للمصنع",
+      "automation_channel": "B2B Portal + mail.sheikha.top Auto-Mailer",
+      "gps_target": "26.2570, 50.0890 (MODON Dammam 2nd Industrial)",
+      "red_seal_code": "SHK-RED-001",
+      "weighbridge_status": "BUYER_PO_WEBHOOK_READY",
+      "execution_state": "AUTO_DISPATCH_ACTIVE",
+      "updated_at": "2026-11-15 22:31:48"
+    },
+    {
+      "dispatch_id": "FLD-003-3PL",
+      "deal_id": "SHK-2026-001",
+      "step_number": 3,
+      "field_task": "توجيه الشاحنة وإصدار تصريح البوابة 09_Gate_Pass وقفل الختم الأحمر",
+      "automation_channel": "3PL Carrier API + GPS Seal Telemetry",
+      "gps_target": "Dhahran-Jubail Hwy (22 min route)",
+      "red_seal_code": "SHK-RED-001",
+      "weighbridge_status": "AWAITING_SEAL_PHOTO_HASH",
+      "execution_state": "STANDBY_ON_PO_CONFIRM",
+      "updated_at": "2026-11-15 22:31:48"
+    },
+    {
+      "dispatch_id": "FLD-004-GRN",
+      "deal_id": "SHK-2026-001",
+      "step_number": 4,
+      "field_task": "مطابقة قبان المصنع وإصدار محضر 03_GRN والفاتورة الضريبية 10_Tax_Invoice",
+      "automation_channel": "Dual-Weighbridge Auto-Reconcile + ZATCA TLV QR",
+      "gps_target": "MODON Weighbridge Station #2",
+      "red_seal_code": "SHK-RED-001",
+      "weighbridge_status": "TOLERANCE_MAX_0.2_PERCENT",
+      "execution_state": "AUTO_TRIGGER_ON_ARRIVAL",
+      "updated_at": "2026-11-15 22:31:48"
+    },
+    {
+      "dispatch_id": "FLD-005-BANK",
+      "deal_id": "SHK-2026-001",
+      "step_number": 5,
+      "field_task": "تحصيل 397,900 ر.س في مصرف الإنماء وتوزيع صافي الربح (+9,500 ر.س: 70/20/10)",
+      "automation_channel": "Alinma IBAN SA4005000068206162118000 + D1 Treasury",
+      "gps_target": "Al Khobar Financial Node",
+      "red_seal_code": "SHK-RED-001",
+      "weighbridge_status": "RECONCILED_WITH_GRN",
+      "execution_state": "ALGORITHMIC_SETTLEMENT_READY",
+      "updated_at": "2026-11-15 22:31:48"
+    }
+  ],
+  "governance": "BOUND_BY_QURAN_SUNNAH"
+}
