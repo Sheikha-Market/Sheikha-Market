@@ -1,0 +1,50 @@
+{
+  "model_brand": "sheikha-sovereign-llm-v1",
+  "owner": "Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "base_model": "Qwen/Qwen2.5-0.5B",
+  "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "bias": "none",
+    "task_type": "CAUSAL_LM",
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ]
+  },
+  "mode": "test",
+  "samples_count": 5,
+  "training_time_seconds": 3.4,
+  "created_at": "2026-11-15T21:32:52.576667+00:00",
+  "adapter_dir": "/home/sheikha/sheikha-foundry-weights/sheikha-lora-test-20261115-213248/adapter",
+  "files": {
+    "adapter_model.safetensors": {
+      "sha256": "adae749ec16f11e5b7646ddccaf18157957c74ac00bc7ad1903f9030358f5ba2",
+      "size_bytes": 8676008
+    },
+    "adapter_config.json": {
+      "sha256": "0fca55d8e844e24d0636db24db4c9fd8c7359198e0cc39fd1df7c2b20eaa2ab6",
+      "size_bytes": 1124
+    },
+    "chat_template.jinja": {
+      "sha256": "44d5f08f3f72b837eaad09f13a54c1f9f4eb58d75240334548b7fd52a5437fa5",
+      "size_bytes": 2427
+    },
+    "tokenizer.json": {
+      "sha256": "6cca9cef36deabc2e5ef4bca92e74eee002dffa3bff182f1d19a08675d1352df",
+      "size_bytes": 11422170
+    },
+    "tokenizer_config.json": {
+      "sha256": "ddb9f850ca6559a928bb25d511f72e3c6eff81395334a4e0eeec670448333d09",
+      "size_bytes": 697
+    },
+    "README.md": {
+      "sha256": "0b35ec1a77ff8ec03a2d6267aab8c306e71e3229d35712df1d4807686dd8a518",
+      "size_bytes": 5188
+    }
+  }
+}
