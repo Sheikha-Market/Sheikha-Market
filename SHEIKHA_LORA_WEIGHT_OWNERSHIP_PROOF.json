@@ -16,18 +16,18 @@
       "o_proj"
     ]
   },
-  "mode": "test",
+  "mode": "pilot",
   "samples_count": 5,
-  "training_time_seconds": 3.4,
-  "created_at": "2026-11-15T21:32:52.576667+00:00",
-  "adapter_dir": "/home/sheikha/sheikha-foundry-weights/sheikha-lora-test-20261115-213248/adapter",
+  "training_time_seconds": 3.22,
+  "created_at": "2026-11-15T21:37:13.918210+00:00",
+  "adapter_dir": "/home/sheikha/sheikha-foundry-weights/sheikha-lora-pilot-20261115-213709/adapter",
   "files": {
     "adapter_model.safetensors": {
-      "sha256": "adae749ec16f11e5b7646ddccaf18157957c74ac00bc7ad1903f9030358f5ba2",
+      "sha256": "dbc4542d2e1c95506ba222881c3607f8fdd20e01541cc0577aa67d2f9a2d71dd",
       "size_bytes": 8676008
     },
     "adapter_config.json": {
-      "sha256": "0fca55d8e844e24d0636db24db4c9fd8c7359198e0cc39fd1df7c2b20eaa2ab6",
+      "sha256": "9c1f38e8dba75ab80070a42716459716ae904c3fc5c03b054d46fb25f68e6699",
       "size_bytes": 1124
     },
     "chat_template.jinja": {
@@ -35,7 +35,7 @@
       "size_bytes": 2427
     },
     "tokenizer.json": {
-      "sha256": "6cca9cef36deabc2e5ef4bca92e74eee002dffa3bff182f1d19a08675d1352df",
+      "sha256": "d429fe753aea0ff87a94e86396d5508abb0d1d0e1f7a0d47c787ff72e0bf2691",
       "size_bytes": 11422170
     },
     "tokenizer_config.json": {
@@ -46,5 +46,11 @@
       "sha256": "0b35ec1a77ff8ec03a2d6267aab8c306e71e3229d35712df1d4807686dd8a518",
       "size_bytes": 5188
     }
+  },
+  "quality_validation": "PASS_VERIFIED_ON_RTX_4060",
+  "r2_cloud_backup": "sheikha-ads-storage/weights/sheikha-lora-v1/adapter_model.safetensors",
+  "tensor_integrity": {
+    "tensor_count": 192,
+    "nan_inf_count": 0
   }
 }
