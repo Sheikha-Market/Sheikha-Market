@@ -1,0 +1,21 @@
+# SHEIKHA NDM PILOT — ISOLATED CONFIG TEMPLATE (NOT ACTIVE UNTIL CREDENTIALS SET)
+# Host Interface: wlo1 (192.168.8.196/24) -> Gateway: 192.168.8.1 (MAC: 62:c3:bd:90:e1:7e)
+network_devices:
+  autodiscovery:
+    workers: 1
+    discovery_interval: 3600
+    loader: core
+    use_device_id_as_hostname: true
+    configs:
+      - network_address: 192.168.8.1/32
+        snmp_version: 3
+        port: 161
+        user: "REPLACE_LOCALLY"
+        authProtocol: SHA256
+        authKey: "REPLACE_LOCALLY"
+        privProtocol: AES
+        privKey: "REPLACE_LOCALLY"
+        tags:
+          - "site:sheikha-khobar"
+          - "environment:lab"
+          - "governance:BOUND_BY_QURAN_SUNNAH"

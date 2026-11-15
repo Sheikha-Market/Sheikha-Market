@@ -1,0 +1,17 @@
+[package]
+name = "sheikha_kernel"
+version = "1.0.0"
+edition = "2021"
+authors = ["Salman Ahmed Al-Rajih <market@sheikha.top>"]
+description = "Sheikha Sovereign Bare-Metal Kernel (x86_64) - BOUND_BY_QURAN_SUNNAH"
+
+[dependencies]
+bootloader = "0.9.23"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+opt-level = 3
+lto = true
