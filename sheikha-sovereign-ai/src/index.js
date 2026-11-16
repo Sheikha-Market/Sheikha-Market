@@ -28,7 +28,8 @@ const STRICT_MODEL_ALLOWLIST = {
   "@cf/meta/llama-3.3-70b-instruct": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
   "@cf/meta/llama-3.3-70b-instruct-fp8-fast": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
   "@cf/qwen/qwen2.5-coder-32b-instruct": "@cf/qwen/qwen2.5-coder-32b-instruct",
-  "@cf/google/gemma-4-26b-a4b-it": "@cf/google/gemma-4-26b-a4b-it",
+  "@cf/google/gemma-4-26b-a4b-it": "@cf/google/gemma-3-12b-it",
+  "@cf/google/gemma-3-12b-it": "@cf/google/gemma-3-12b-it",
   "@cf/deepseek/deepseek-v4-flash": "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
 };
 
@@ -55,17 +56,15 @@ function isAuthorized(request, env) {
 function unwrapAIResponse(res) {
   if (!res) return "";
   if (typeof res === "string") return res;
-  if (typeof res.response === "string") return res.response;
-  if (Array.isArray(res.choices) && res.choices.length > 0) {
-    const msg = res.choices[0].message;
+  if (typeof res.response === "string" && res.response.trim() !== "") return res.response;
+  const choices = res.choices || (res.response && res.response.choices);
+  if (Array.isArray(choices) && choices.length > 0) {
+    const msg = choices[0].message || choices[0];
     if (msg && typeof msg.content === "string" && msg.content.trim() !== "") return msg.content;
-    if (msg && typeof msg.reasoning_content === "string") return msg.reasoning_content;
+    if (msg && typeof msg.reasoning_content === "string" && msg.reasoning_content.trim() !== "") return msg.reasoning_content;
+    if (msg && typeof msg.reasoning === "string" && msg.reasoning.trim() !== "") return msg.reasoning;
   }
-  if (res.response && Array.isArray(res.response.choices) && res.response.choices.length > 0) {
-    const msg = res.response.choices[0].message;
-    if (msg && typeof msg.content === "string") return msg.content;
-  }
-  return JSON.stringify(res);
+  return typeof res === "object" ? JSON.stringify(res) : String(res);
 }
 
 const HARDENED_UI = `<!DOCTYPE html>
