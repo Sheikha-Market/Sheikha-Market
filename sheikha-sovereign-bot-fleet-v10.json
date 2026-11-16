@@ -1,0 +1,126 @@
+{
+  "schema": "SHEIKHA_SOVEREIGN_BOT_FLEET_V10",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "owner": "Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)",
+  "version": "10.0.0",
+  "created_at": "2026-11-16T09:00:00Z",
+  "total_bots": 42,
+  "categories": 10,
+  "fleet": {
+    "generative_ai": {
+      "count": 5,
+      "bots": [
+        {"id": "shaikha-mind", "name_ar": "شيخة مايند", "name_en": "ShaikhaMind", "function": "المحادثة والتحليل النصي", "model": "sheikha-sovereign-llm-v1"},
+        {"id": "shaikha-vision", "name_ar": "شيخة فيجن", "name_en": "ShaikhaVision", "function": "توليد وتعديل الصور", "model": "stable-diffusion-xl"},
+        {"id": "shaikha-cinema", "name_ar": "شيخة سينما", "name_en": "ShaikhaCinema", "function": "صناعة الفيديو", "model": "video-generation"},
+        {"id": "shaikha-voice", "name_ar": "شيخة فويس", "name_en": "ShaikhaVoice", "function": "الصوت والموسيقى", "model": "tts-arabic"},
+        {"id": "shaikha-code", "name_ar": "شيخة كود", "name_en": "ShaikhaCode", "function": "البرمجة وتطوير الأنظمة", "model": "code-llm"}
+      ]
+    },
+    "automation_agents": {
+      "count": 3,
+      "bots": [
+        {"id": "shaikha-autonomous", "name_ar": "شيخة أوتونوموس", "name_en": "ShaikhaAutonomous", "function": "وكيل ذكي مستقل", "model": "sheikha-sovereign-llm-v1"},
+        {"id": "shaikha-flow", "name_ar": "شيخة فلو", "name_en": "ShaikhaFlow", "function": "أتمتة العمليات الروبوتية RPA", "model": "workflow-engine"},
+        {"id": "shaikha-task", "name_ar": "شيخة تاسك", "name_en": "ShaikhaTask", "function": "جدولة المهام وإدارة المشاريع", "model": "task-scheduler"}
+      ]
+    },
+    "web_data": {
+      "count": 4,
+      "bots": [
+        {"id": "shaikha-spider", "name_ar": "شيخة سبايدر", "name_en": "ShaikhaSpider", "function": "عنكبوت محركات البحث", "model": "web-crawler"},
+        {"id": "shaikha-miner", "name_ar": "شيخة ماينر", "name_en": "ShaikhaMiner", "function": "كشط واستخراج البيانات", "model": "data-scraper"},
+        {"id": "shaikha-sentinel", "name_ar": "شيخة سنتينل", "name_en": "ShaikhaSentinel", "function": "مراقبة الخوادم والمواقع", "model": "monitor-engine"},
+        {"id": "shaikha-cortex", "name_ar": "شيخة كورتيكس", "name_en": "ShaikhaCortex", "function": "تحليل البيانات الضخمة", "model": "analytics-engine"}
+      ]
+    },
+    "communication_service": {
+      "count": 4,
+      "bots": [
+        {"id": "shaikha-assist", "name_ar": "شيخة أسيست", "name_en": "ShaikhaAssist", "function": "خدمة العملاء", "model": "sheikha-sovereign-llm-v1"},
+        {"id": "shaikha-connect", "name_ar": "شيخة كونكت", "name_en": "ShaikhaConnect", "function": "تطبيقات المراسلة", "model": "messaging-hub"},
+        {"id": "shaikha-aurora", "name_ar": "شيخة أورورا", "name_en": "ShaikhaAurora", "function": "المساعد الصوتي الذكي", "model": "voice-assistant"},
+        {"id": "shaikha-lingua", "name_ar": "شيخة لينغوا", "name_en": "ShaikhaLingua", "function": "الترجمة الفورية", "model": "translation-engine"}
+      ]
+    },
+    "finance_commerce": {
+      "count": 3,
+      "bots": [
+        {"id": "shaikha-quant", "name_ar": "شيخة كوانت", "name_en": "ShaikhaQuant", "function": "التداول المالي", "model": "trading-engine"},
+        {"id": "shaikha-smartbuy", "name_ar": "شيخة سمارت باي", "name_en": "ShaikhaSmartBuy", "function": "التسوق ومقارنة الأسعار", "model": "price-comparator"},
+        {"id": "shaikha-boost", "name_ar": "شيخة بوست", "name_en": "ShaikhaBoost", "function": "الإعلانات والتسويق الرقمي", "model": "ad-engine"}
+      ]
+    },
+    "cybersecurity": {
+      "count": 3,
+      "bots": [
+        {"id": "shaikha-shield", "name_ar": "شيخة شيلد", "name_en": "ShaikhaShield", "function": "الحماية وكشف التسلل", "model": "waf-engine"},
+        {"id": "shaikha-scan", "name_ar": "شيخة سكان", "name_en": "ShaikhaScan", "function": "فحص الثغرات", "model": "vulnerability-scanner"},
+        {"id": "shaikha-filter", "name_ar": "شيخة فلتر", "name_en": "ShaikhaFilter", "function": "مكافحة الرسائل المزعجة", "model": "spam-filter"}
+      ]
+    },
+    "gaming_entertainment": {
+      "count": 2,
+      "bots": [
+        {"id": "shaikha-play", "name_ar": "شيخة بلاي", "name_en": "ShaikhaPlay", "function": "الشخصيات الافتراضية NPC", "model": "game-ai"},
+        {"id": "shaikha-guard", "name_ar": "شيخة غارد", "name_en": "ShaikhaGuard", "function": "إدارة السيرفرات والألعاب", "model": "game-moderator"}
+      ]
+    },
+    "physical_robotics": {
+      "count": 4,
+      "bots": [
+        {"id": "shaikha-mechanica", "name_ar": "شيخة ميكانيكا", "name_en": "ShaikhaMechanica", "function": "الروبوت الصناعي", "model": "industrial-arm-6dof", "safety_gate": "R4_LOCKED"},
+        {"id": "shaikha-home", "name_ar": "شيخة هوم", "name_en": "ShaikhaHome", "function": "روبوت الخدمة والمنازل", "model": "service-bot", "safety_gate": "R4_LOCKED"},
+        {"id": "shaikha-pilot", "name_ar": "شيخة بايلوت", "name_en": "ShaikhaPilot", "function": "الملاحة والمركبات ذاتية القيادة", "model": "nav-engine", "safety_gate": "R4_LOCKED"},
+        {"id": "shaikha-medic", "name_ar": "شيخة ميديك", "name_en": "ShaikhaMedic", "function": "الروبوت الطبي والجراحي", "model": "medical-ai", "safety_gate": "R4_LOCKED"}
+      ]
+    },
+    "rd_integration": {
+      "count": 9,
+      "bots": [
+        {"id": "shaikha-nexus", "name_ar": "شيخة نيكسوس", "name_en": "ShaikhaNexus", "function": "التكامل الشامل — ربط 1400+ موصل", "model": "integration-hub"},
+        {"id": "shaikha-orchestra", "name_ar": "شيخة أوركسترا", "name_en": "ShaikhaOrchestra", "function": "تنسيق الوكلاء — توزيع المهام", "model": "orchestrator"},
+        {"id": "shaikha-sync", "name_ar": "شيخة سينك", "name_en": "ShaikhaSync", "function": "المزامنة الحية", "model": "sync-engine"},
+        {"id": "shaikha-scholar", "name_ar": "شيخة سكولار", "name_en": "ShaikhaScholar", "function": "البحث الأكاديمي", "model": "research-engine"},
+        {"id": "shaikha-spider-pro", "name_ar": "شيخة سبايدر برو", "name_en": "ShaikhaSpiderPro", "function": "الاستكشاف العميق", "model": "deep-crawler"},
+        {"id": "shaikha-synthesis", "name_ar": "شيخة سينثيسيس", "name_en": "ShaikhaSynthesis", "function": "ربط المعرفة ودمج المعلومات", "model": "knowledge-synthesizer"},
+        {"id": "shaikha-lab", "name_ar": "شيخة لاب", "name_en": "ShaikhaLab", "function": "المحاكاة والاختبار", "model": "simulation-engine"},
+        {"id": "shaikha-devops", "name_ar": "شيخة ديف أوبس", "name_en": "ShaikhaDevOps", "function": "التطوير المستمر CI/CD", "model": "devops-engine"},
+        {"id": "shaikha-evolve", "name_ar": "شيخة إيفولف", "name_en": "ShaikhaEvolve", "function": "التطوير الذاتي — تحسين مستمر", "model": "self-improvement"}
+      ]
+    },
+    "marketing_ecommerce": {
+      "count": 5,
+      "bots": [
+        {"id": "shaikha-digital-marketing", "name_ar": "شيخة ديجيتال ماركتنج", "name_en": "ShaikhaDigitalMarketing", "function": "التسويق الرقمي", "model": "sheikha-sovereign-llm-v1"},
+        {"id": "shaikha-content-marketing", "name_ar": "شيخة كونتنت ماركتنج", "name_en": "ShaikhaContentMarketing", "function": "تسويق المحتوى", "model": "sheikha-sovereign-llm-v1"},
+        {"id": "shaikha-social-media", "name_ar": "شيخة سوشال ميديا", "name_en": "ShaikhaSocialMedia", "function": "وسائل التواصل الاجتماعي", "model": "sheikha-sovereign-llm-v1"},
+        {"id": "shaikha-seo", "name_ar": "شيخة سيو", "name_en": "ShaikhaSEO", "function": "تحسين محركات البحث", "model": "sheikha-sovereign-llm-v1"},
+        {"id": "shaikha-brand-strategy", "name_ar": "شيخة براند ستراتيجي", "name_en": "ShaikhaBrandStrategy", "function": "استراتيجية العلامة التجارية", "model": "sheikha-sovereign-llm-v1"}
+      ]
+    }
+  },
+  "training_status": {
+    "model": "Qwen/Qwen2.5-1.5B",
+    "trainable_params": "36,929,536 (2.34%)",
+    "samples": 1455,
+    "domains": 30,
+    "loss_progression": [4.374, 2.684, 1.561, 1.089, 0.929, 0.659, 0.539, 0.501, 0.482, 0.456, 0.442],
+    "final_loss": 0.442,
+    "status": "TRAINING_IN_PROGRESS_58_PERCENT",
+    "gpu": "NVIDIA RTX 4060 Laptop (8.6 TFLOPS BF16)",
+    "weights_destination": "R2:weights/sheikha-lora-v1/"
+  },
+  "presentation_ready": {
+    "domains_active": 23,
+    "workers_active": 13,
+    "github_committed": true,
+    "r2_weights": true,
+    "dark_factory": true,
+    "field_ops": true,
+    "governance": "BOUND_BY_QURAN_SUNNAH",
+    "cost_monthly": "~$5-8",
+    "projected_annual_profit_sar": 456000,
+    "waqf_annual_sar": 45600
+  }
+}
