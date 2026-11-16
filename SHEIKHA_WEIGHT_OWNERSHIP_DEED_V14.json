@@ -1,36 +1,21 @@
 {
   "deed_id": "DEED-SHK-WEIGHTS-1.5B-2026-V14",
   "version": "14.0.0",
-  "title": "صك الملكية الحصرية لأوزان شيخة السيادية (1.58B Parameters | 29 Domains | 1,455 Samples)",
+  "title": "صك الملكية الحصرية لأوزان شيخة السيادية (1.58B Parameters | 36.9M LoRA | 29 Domains | 1,455 Samples)",
   "exclusive_owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
   "governance": "BOUND_BY_QURAN_SUNNAH",
-  "base_model": "Qwen/Qwen2.5-1.5B (1,580,643,840 Total Params)",
-  "trainable_lora_params": "36,929,536 (2.3364%)",
-  "gpu_hardware": "NVIDIA GeForce RTX 4060 Laptop GPU (45C Cool-down | 5616/8188 MiB VRAM | 8.60 TFLOPS BF16)",
-  "training_coverage": {
-    "total_samples": 1455,
-    "domains_count": 29,
-    "r2_dataset_files": 34,
-    "loss_convergence": "4.374 -> 0.4342 (-90.07% error reduction)",
-    "sectors": [
-      "Scientific (Physics, Chemistry, Biology, Math, Engineering)",
-      "Commercial (General Trade, E-Commerce, Intl Trade, Supply Chain, Logistics)",
-      "Industrial (Industry, Foundry, Product Dev, Innovation, Exploration)",
-      "Business (Entrepreneurship, Coaching, Leadership, Finance)",
-      "Marketing (Digital, Content, Social Media, SEO, Brand Strategy)",
-      "Islamic Sciences (Fiqh, Hadith, Tafsir, Aqidah, Islamic Finance)"
-    ]
-  },
+  "base_model": "Qwen/Qwen2.5-1.5B",
+  "total_params": 1580643840,
+  "trainable_lora_params": 36929536,
+  "training_speed_seconds": 259.13,
+  "samples_trained": 1455,
+  "domains_count": 29,
+  "final_loss": 0.0,
   "owned_weight_artifact": {
     "filename": "adapter_model.safetensors",
-    "size_bytes": 8676008,
-    "size_mb": 8.27,
-    "sha256_fingerprint": "51ffa2ce56875be592105c512f9c700ce44bfe2135783e1570a3cdaf1fdac64e"
+    "size_bytes": 147770496,
+    "size_mb": 140.92,
+    "sha256_fingerprint": "3cfe0251d0c14a5c2496486a62b9a7d0cbfa737fac1ef270fde7366ea4c9274f"
   },
-  "triple_vault_locations": {
-    "vault_1_local_nvme": "/home/sheikha/sheikha-sovereign-vault/production-weights/adapter_model.safetensors",
-    "vault_2_cloud_r2": "r2://sheikha-ads-storage/weights/sheikha-lora-production-1.5b/adapter_model.safetensors",
-    "vault_3_d1_and_github": "sheikha-unified-db (sheikha_owned_weights_vault) + GitHub Deed V14"
-  },
-  "issued_at": "2026-11-16T12:19:28.253812+00:00"
+  "completed_at": "2026-11-16T13:18:23.674391+00:00"
 }
