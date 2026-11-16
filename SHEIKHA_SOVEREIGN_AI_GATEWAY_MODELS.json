@@ -1,0 +1,81 @@
+{
+  "text_generation": [
+    {
+      "id": "@cf/meta/llama-3.1-8b-instruct-fast",
+      "name": "Llama 3.1 8B Fast",
+      "type": "chat"
+    },
+    {
+      "id": "@cf/meta/llama-3.3-70b-instruct",
+      "name": "Llama 3.3 70B",
+      "type": "chat"
+    },
+    {
+      "id": "@cf/qwen/qwen2.5-coder-32b-instruct",
+      "name": "Qwen 2.5 Coder 32B",
+      "type": "code"
+    },
+    {
+      "id": "@cf/google/gemma-4-26b-a4b-it",
+      "name": "Gemma 4 26B",
+      "type": "chat"
+    },
+    {
+      "id": "@cf/deepseek/deepseek-v4-flash",
+      "name": "DeepSeek V4 Flash",
+      "type": "chat"
+    }
+  ],
+  "text_embedding": [
+    {
+      "id": "@cf/baai/bge-large-en-v1.5",
+      "name": "BGE Large English",
+      "type": "embedding"
+    },
+    {
+      "id": "@cf/multilingual/e5-large",
+      "name": "Multilingual E5 Large",
+      "type": "embedding"
+    }
+  ],
+  "image_generation": [
+    {
+      "id": "@cf/black-forest-labs/flux-1-schnell",
+      "name": "FLUX.1 Schnell",
+      "type": "image"
+    }
+  ],
+  "text_to_speech": [
+    {
+      "id": "@cf/myshell-ai/melotts",
+      "name": "MeloTTS",
+      "type": "audio"
+    }
+  ],
+  "third_party": [
+    {
+      "id": "openai/gpt-4.1-mini",
+      "name": "GPT-4.1 Mini (via Gateway)",
+      "type": "chat"
+    },
+    {
+      "id": "openai/gpt-4o",
+      "name": "GPT-4o (via Gateway)",
+      "type": "chat"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4",
+      "name": "Claude Sonnet 4 (via Gateway)",
+      "type": "chat"
+    }
+  ],
+  "custom_weights": {
+    "name": "sheikha-sovereign-llm-v1",
+    "base": "Qwen/Qwen2.5-1.5B",
+    "adapter": "R2://sheikha-ads-storage/weights/sheikha-lora-production-1.5b/",
+    "params": "36,929,536",
+    "size": "141 MB",
+    "sha256": "1155d3cf4398930274baa6a51dabc6aadbea78bed9bb4bc02f9507f73de7ce9f",
+    "governance": "BOUND_BY_QURAN_SUNNAH"
+  }
+}
