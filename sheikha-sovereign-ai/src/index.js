@@ -58,7 +58,8 @@ function unwrapAIResponse(res) {
   if (typeof res.response === "string") return res.response;
   if (Array.isArray(res.choices) && res.choices.length > 0) {
     const msg = res.choices[0].message;
-    if (msg && typeof msg.content === "string") return msg.content;
+    if (msg && typeof msg.content === "string" && msg.content.trim() !== "") return msg.content;
+    if (msg && typeof msg.reasoning_content === "string") return msg.reasoning_content;
   }
   if (res.response && Array.isArray(res.response.choices) && res.response.choices.length > 0) {
     const msg = res.response.choices[0].message;
@@ -220,7 +221,7 @@ export default {
           ...userMessages.filter(m => m.role !== "system")
         ];
 
-        const maxTokens = Math.min(parseInt(body.max_tokens || "400", 10), parseInt(env.MAX_TOKENS_LIMIT || "512", 10));
+        const maxTokens = Math.min(parseInt(body.max_tokens || "800", 10), parseInt(env.MAX_TOKENS_LIMIT || "1024", 10));
 
         const rawResult = await env.AI.run(resolvedCfModel, {
           messages: fullMessages,
