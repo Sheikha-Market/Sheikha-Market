@@ -1,0 +1,10 @@
+name = "sheikha-sovereign-monitor"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[vars]
+GOVERNANCE = "BOUND_BY_QURAN_SUNNAH"
+OWNER = "Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)"
