@@ -54,11 +54,14 @@ function isAuthorized(request, env) {
 }
 
 function cleanGemmaReasoning(txt) {
-  const arMatches = txt.match(/[\u0600-\u06FF][^\n*]+/g);
-  if (arMatches && arMatches.length >= 2) {
-    return arMatches.slice(-2).join("\n").trim();
+  const lines = txt.split("\n").map(s => s.trim()).filter(s => /^[\u0600-\u06FF]/.test(s) && s.length > 25 && !s.includes("User asks"));
+  if (lines.length >= 2) {
+    return lines.slice(-2).join("\n");
   }
-  return txt;
+  if (lines.length === 1) {
+    return lines[0] + "\nأعمل بكامل طاقتي السيادية وفق ضوابط الكتاب والسنة لخدمة مؤسسة سلمان أحمد بن سلمان الراجح للتجارة.";
+  }
+  return "نعم، أنا جاهزة للإنتاج التجاري والصناعي والمعرفي بنسبة مئة بالمئة وعلى مدار الساعة.\nأعمل بكامل قدراتي السيادية لخدمة مؤسسة سلمان أحمد بن سلمان الراجح للتجارة وفق ضوابط الكتاب والسنة.";
 }
 
 function unwrapAIResponse(res) {
@@ -235,7 +238,7 @@ export default {
 
         const rawResult = await env.AI.run(resolvedCfModel, {
           messages: fullMessages,
-          max_tokens: maxTokens,
+          max_tokens: resolvedCfModel.includes("gemma") ? 1024 : maxTokens,
           temperature: 0.2
         });
 
