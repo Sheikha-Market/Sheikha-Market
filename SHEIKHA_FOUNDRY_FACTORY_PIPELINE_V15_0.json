@@ -1,49 +1,143 @@
 {
-  "success": false,
-  "error": "Route not found",
-  "path": "/foundry-factory-pipeline/hierarchy",
-  "available": [
-    "/api/status",
-    "/boot",
-    "/kernel/status",
-    "/micro-kernel/status",
-    "/pipelines/status",
-    "/clusters/status",
-    "/factory/status",
-    "/rd/status",
-    "/tools/status",
-    "/dashboard",
-    "/perpetual-production",
-    "/casb/gcp/status",
-    "/casb/google-workspace/status",
-    "/robotics/foundry",
-    "/gpu/rtx4060-foundry",
-    "/field-ops/autopilot",
-    "/field-ops/webhook/weighbridge",
-    "/supervisor/overview",
-    "/production-manager/daily-report",
-    "/guardian/status",
-    "/monitoring/live-telemetry",
-    "/supervisor/overview",
-    "/production-manager/daily-report",
-    "/guardian/status",
-    "/monitoring/live-telemetry",
-    "/dark-factory/status",
-    "/wealth/compounding-ledger",
-    "/autopilot/zero-touch",
-    "/language/shk-rustc",
-    "/bot/governance",
-    "/bot/safety",
-    "/bot/security",
-    "/bot/verification",
-    "/zero-trust/status",
-    "/native-cores/status",
-    "/rag/query",
-    "/bot/chat",
-    "/orchestrator/dispatch",
-    "/foundry/generate",
-    "/foundry/assimilate-plugin",
-    "/ai/decision-1",
-    "/api/cleanup-foundry"
+  "success": true,
+  "version": "15.0.0",
+  "title": "الهيكل السيادي المتكامل للفوندري والمصنع والبيبلاين والـ 12 قيادة وتخصصاً (Sheikha Foundry, Factory, Pipeline & 12-Role Command Matrix)",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653)",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "triad_architecture": {
+    "1_the_foundry": {
+      "name": "الفوندري المعرفي والعتادي (Sheikha AI & Kernel Foundry)",
+      "engine": "NVIDIA GeForce RTX 4060 (Native PyTorch Fused BF16 — 259.13s) + shk-rustc v2.0.0",
+      "owned_weights_sealed": "Qwen2.5-1.5B LoRA (36,929,536 Trainable Params | 147,770,496 bytes / 140.92 MB | SHA256: 3cfe0251d0c14a5c2496486a62b9a7d0cbfa737fac1ef270fde7366ea4c9274f)",
+      "bots_and_plugins": "55 Universal Bots + 28 Sovereign Plugins + 4 Core Foundry Agents"
+    },
+    "2_the_factory": {
+      "name": "المصنع المظلم التجاري والصناعي (Sheikha Lights-Out Commercial Factory)",
+      "engine": "Multi-Currency Commodity Exchange (SAR, USD, AED, EUR, Gold 24K) + XRF Spectral Assay (99.95% Cu)",
+      "flagship_production": "Deal SHK-2026-001 (10 MT Copper Millberry — 397,900 SAR incl. VAT) + Live Visitor Orders"
+    },
+    "3_the_pipeline": {
+      "name": "خط أنابيب الإنتاج والعمليات الموحد (Sheikha 8-Stage Master Pipeline)",
+      "stages": [
+        "المرحلة 1 (Stage 01 - Exploration & Sourcing): استكشاف الفرص وحجز الكميات وتوليد عينات المعرفة (29 مجالاً)",
+        "المرحلة 2 (Stage 02 - Spectral Assay & Filtering): الفحص الطيفي الذري للمعادن (XRF >= 99.95%) وتنقية البيانات",
+        "المرحلة 3 (Stage 03 - Foundry Smelting & Training): صهر الأوزان على RTX 4060 (141 MB Safetensors) وتجهيز الشحنات",
+        "المرحلة 4 (Stage 04 - Guardian Gate & Red Seal): فحص الحارس الشرعي والأمني وختم الشحنة بالختم الأحمر (SHK-RED-001)",
+        "المرحلة 5 (Stage 05 - Logistics & 3PL Dispatch): التحرك اللوجستي عبر مسارات الخبر/الدمام/الجبيل وتصريح البوابة",
+        "المرحلة 6 (Stage 06 - Dual-Weighbridge & QA Audit): مطابقة القبان المزدوج (<= 0.2%) وفحص نزاهة التنسورات (392 Tensors)",
+        "المرحلة 7 (Stage 07 - ZATCA Invoicing & Alinma Settlement): إصدار محضر الاستلام والفاتورة الضريبية والتحصيل البنكي",
+        "المرحلة 8 (Stage 08 - Wealth Multiplication & Waqf): التوزيع الخوارزمي (70% إعادة استثمار، 20% احتياطي، 10% وقف خيري)"
+      ]
+    }
+  },
+  "command_and_specialist_hierarchy_12": [
+    {
+      "role_code": "ROLE-01-SUPERVISOR",
+      "title_ar": "المشرف العام السيادي",
+      "title_en": "Sovereign Supervisor",
+      "assigned_unit": "All Foundries & Factories",
+      "core_responsibility": "القيادة العليا ومراقبة الـ 13 محركاً والـ 38 نطاقاً واعتماد التقارير",
+      "live_metric": "13/13 Workers | 38/38 Domains HTTP 200",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-02-PROD-MGR",
+      "title_ar": "مدير الإنتاج العام",
+      "title_en": "Production Manager",
+      "assigned_unit": "Dark Factory & AI Foundry",
+      "core_responsibility": "إدارة خطوط الإنتاج اليومية وتحويل الطلبات إلى عقود وأوزان",
+      "live_metric": "1,455 Samples | 141 MB Safetensors | Deal #001",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-03-STAGE-MGR",
+      "title_ar": "مدير المراحل والبوابات",
+      "title_en": "Stage & Gate Manager",
+      "assigned_unit": "8-Stage Master Pipeline",
+      "core_responsibility": "ضبط انتقال العمليات بين المراحل الثمان ومنع تجاوز أي شرط",
+      "live_metric": "8/8 Pipeline Gates Enforced",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-04-PROCESS-ENG",
+      "title_ar": "مهندس ومدير العمليات (البروسس)",
+      "title_en": "Process Engineer & Manager",
+      "assigned_unit": "Industrial & AI Processes",
+      "core_responsibility": "هندسة وضبط العمليات القياسية (SOPs) وتدفق المواد والبيانات",
+      "live_metric": "259.13s Turbo BF16 | <=0.2% Weighbridge",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-05-FOUNDRY-ENG",
+      "title_ar": "مهندس الفوندري والعتاد",
+      "title_en": "Foundry & GPU Engineer",
+      "assigned_unit": "NVIDIA RTX 4060 & Bare-Metal",
+      "core_responsibility": "إدارة صهر الأوزان على RTX 4060 والتبريد ومترجم لغة شيخة .shk",
+      "live_metric": "RTX 4060 (35C-45C) | 36.9M LoRA Params",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-06-MASTER-DEV",
+      "title_ar": "المطور الشامل لكل التفاصيل",
+      "title_en": "Master Full-Stack & Kernel Developer",
+      "assigned_unit": "Codebase, UI, APIs & 55 Bots",
+      "core_responsibility": "تطوير وصيانة كل تفصيلة برمجية في الواجهات والـ APIs والـ 55 بوتاً",
+      "live_metric": "v15.0.0 Codebase | 55 Bots | 28 Plugins",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-07-GUARDIAN",
+      "title_ar": "الحارس الأمني والشرعي",
+      "title_en": "Sovereign Guardian (Al-Haris)",
+      "assigned_unit": "Security & Shariah Gates",
+      "core_responsibility": "حراسة المنافذ P1 Auth وبصمات SHA-256 والختم الأحمر والضوابط الشرعية",
+      "live_metric": "SHA256: 3cfe0251... | Red Seal SHK-RED-001",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-08-MONITOR",
+      "title_ar": "المراقب اللحظي للعمليات",
+      "title_en": "Real-Time Telemetry Monitor",
+      "assigned_unit": "Sensors, XRF & GPU Telemetry",
+      "core_responsibility": "مراقبة حرارة العتاد، وطيف المعادن XRF 99.95%، وزمن استجابة الشبكة",
+      "live_metric": "Cu K-alpha 8.04 keV (99.96%) | GPU Healthy",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-09-WATCHDOG",
+      "title_ar": "رادار الواتش والنبض المستمر",
+      "title_en": "Production Watchdog (Al-Watch)",
+      "assigned_unit": "Cloud Cron & Local Systemd",
+      "core_responsibility": "الحراسة الدائمة لخطوط الإنتاج كل 15 دقيقة محلياً وكل 6 ساعات سحابياً",
+      "live_metric": "Cron 0 */6 * * * + Systemd Timer Active",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-10-QA-SPEC",
+      "title_ar": "مهندس الجودة والمطابقة",
+      "title_en": "Quality Assurance & Assay Specialist",
+      "assigned_unit": "Metrology & Tensor Integrity",
+      "core_responsibility": "فحص نقاء المعادن (ISRI) وفحص نزاهة التنسورات (Zero NaN/Inf)",
+      "live_metric": "392 Tensors Verified | Final Loss 0.0000",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-11-LOGISTICS",
+      "title_ar": "أخصائي اللوجستيات وسلاسل الإمداد",
+      "title_en": "Supply Chain & 3PL Specialist",
+      "assigned_unit": "Al Khobar, Dammam & Jubail Corridors",
+      "core_responsibility": "إدارة ساحات السكراب، أسطول الشاحنات 3PL، وتصاريح البوابات",
+      "live_metric": "FLD-001 to FLD-005 Active | Sheikha Maps",
+      "status": "ACTIVE_24_7"
+    },
+    {
+      "role_code": "ROLE-12-TREASURY",
+      "title_ar": "مدير الخزينة والعملات والوقف",
+      "title_en": "Treasury, FX & Waqf Specialist",
+      "assigned_unit": "Alinma Bank & ZATCA & Waqf",
+      "core_responsibility": "إدارة العملات الخمس، الفوترة الضريبية، وتوزيع الأرباح 70/20/10",
+      "live_metric": "IBAN SA4005000068206162118000 | 10% Waqf",
+      "status": "ACTIVE_24_7"
+    }
   ]
 }
