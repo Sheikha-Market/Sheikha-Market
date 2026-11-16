@@ -1,0 +1,100 @@
+{
+  "schema": "SHEIKHA_DEAL_001_FULL_CLOSURE_V19",
+  "deal_id": "DEAL-SHK-2026-001",
+  "all_5_stages_completed": true,
+  "checklist_state": {
+    "FLD-001": true,
+    "FLD-002": true,
+    "FLD-003": true,
+    "FLD-004": true,
+    "FLD-005": true
+  },
+  "FLD_003_execution": {
+    "stage_id": "FLD-003",
+    "status": "COMPLETED_VERIFIED",
+    "document_type": "09_Gate_Pass_and_Origin_Weighbridge",
+    "deal_id": "DEAL-SHK-2026-001",
+    "gate_pass_ref": "GP-SHK-DMM-2026-001",
+    "carrier_3pl": "أسطول شيخة اللوجستي الموحد (3PL Heavy Transport — الخبر/الدمام)",
+    "red_seal_id": "SHK-RED-001",
+    "red_seal_tamper_status": "INTACT_CRYPTOGRAPHICALLY_SEALED",
+    "xrf_spectral_assay": {
+      "commodity": "Copper Millberry (ISRI Berry)",
+      "photon_energy_kev": 8.04,
+      "required_purity_pct": 99.95,
+      "measured_purity_pct": 99.96,
+      "result": "PASS_GRADE_A_MILLBERRY"
+    },
+    "origin_weighbridge": {
+      "location": "ساحة سكراب الدمام المعتمدة — القبان الإلكتروني رقم 1",
+      "tare_weight_kg": 14200,
+      "gross_weight_kg": 24205,
+      "net_weight_kg": 10005,
+      "net_weight_mt": 10.005
+    },
+    "verified_at": "2026-11-16T21:28:12Z"
+  },
+  "FLD_004_execution": {
+    "stage_id": "FLD-004",
+    "status": "COMPLETED_INVOICED",
+    "documents_issued": [
+      "03_GRN (محضر استلام وفحص المصنع)",
+      "10_Tax_Invoice (فاتورة ضريبية ZATCA Phase-2)"
+    ],
+    "deal_id": "DEAL-SHK-2026-001",
+    "grn_reference": "GRN-SHK-RYD-2026-001",
+    "dual_weighbridge_reconciliation": {
+      "origin_net_kg": 10005,
+      "factory_net_kg": 10003,
+      "variance_kg": -2,
+      "variance_pct": 0.02,
+      "max_allowed_variance_pct": 0.2,
+      "reconciliation_verdict": "APPROVED_AUTO_MATCH_WITHIN_TOLERANCE"
+    },
+    "tax_invoice_10": {
+      "invoice_number": "INV-SHK-2026-001",
+      "issue_timestamp": "2026-11-16T21:28:12Z",
+      "seller_entity": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة",
+      "commercial_registration": "2051263653",
+      "headquarters": "الخبر، المنطقة الشرقية، المملكة العربية السعودية",
+      "governance": "BOUND_BY_QURAN_SUNNAH",
+      "line_item": "10.000 MT Copper Millberry (ISRI Berry — Purity 99.96% XRF — Red Seal SHK-RED-001)",
+      "unit_price_sar_per_mt": 34600.0,
+      "subtotal_excl_vat_sar": 346000.0,
+      "vat_15_pct_sar": 51900.0,
+      "total_payable_sar": 397900.0,
+      "bank_settlement_details": {
+        "bank_name": "مصرف الإنماء (Alinma Bank)",
+        "account_beneficiary": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة",
+        "iban": "SA4005000068206162118000"
+      },
+      "zatca_phase2_cryptographic_stamp": {
+        "tlv_base64_qr": "AVXZhdik2LPYs9ipINiz2YTZhdin2YYg2KPYrdmF2K8g2KjZhiDYs9mE2YXYp9mGINin2YTYsdin2KzYrSDZhNmE2KrYrNin2LHYqSAo2LTZitiu2KkpAg8zMTAxMjM0NTY3MDAwMDMDFDIwMjYtMTEtMTZUMjE6Mjg6MTJaBAkzOTc5MDAuMDAFCDUxOTAwLjAw",
+        "invoice_sha256": "24462f519d47984c0b7c27fd063d16e59154507db792913af9db7ab60c3a5863",
+        "clearance_status": "CLEARED_ZATCA_FATOORA_PHASE2"
+      }
+    }
+  },
+  "FLD_005_execution": {
+    "stage_id": "FLD-005",
+    "status": "COMPLETED_SETTLED_IN_TREASURY",
+    "deal_id": "DEAL-SHK-2026-001",
+    "treasury_settlement": {
+      "bank": "مصرف الإنماء (Alinma Bank)",
+      "iban": "SA4005000068206162118000",
+      "inflow_from_buyer_sar": 397900.0,
+      "vat_reserved_for_zatca_sar": 51900.0,
+      "net_revenue_excl_vat_sar": 346000.0,
+      "supplier_and_3pl_payout_sar": 336500.0,
+      "realized_net_profit_sar": 9500.0,
+      "algorithmic_profit_distribution": {
+        "reinvestment_70_pct_sar": 6650.0,
+        "sovereign_reserve_20_pct_sar": 1900.0,
+        "waqf_charity_10_pct_sar": 950.0,
+        "formula_verified": "6650 + 1900 + 950 = 9500.00 SAR (100% Balanced)"
+      },
+      "next_cycle_trigger": "DEAL-SHK-2026-002_AUTO_FUNDED_READY"
+    },
+    "closed_at": "2026-11-16T21:28:12Z"
+  }
+}
