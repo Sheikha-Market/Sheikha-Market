@@ -1,0 +1,207 @@
+{
+  "success": true,
+  "version": "11.0.0",
+  "project": "Shaikha Foundry — Multi-Agent & Open-Weight Sovereign Ecosystem",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653)",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "connected_resources_and_tools": [
+    {
+      "tool": "Grounding with Bing Search + File Search",
+      "purpose": "تمكين بوت البحث العلمي ShaikhaScholar من الوصول للإنترنت والبيانات اللحظية وقواعد المعرفة",
+      "status": "ENABLED"
+    },
+    {
+      "tool": "Code Interpreter (Cloud Python Sandbox)",
+      "purpose": "منح بوت التطوير ShaikhaDevOps بيئة سحابية آمنة لكتابة وتنفيذ واختبار الأكواد",
+      "status": "ENABLED"
+    },
+    {
+      "tool": "MCP / Logic Apps / OpenAPI Connectors",
+      "purpose": "تمكين ShaikhaNexus من ربط الفوندري بـ GitHub وقواعد البيانات D1/R2 والتطبيقات الخارجية",
+      "status": "ENABLED"
+    }
+  ],
+  "core_foundry_agents_4": [
+    {
+      "agent_id": "AGT-ORCHESTRA",
+      "agent_name": "ShaikhaOrchestra",
+      "role_ar": "القائد والمنسق المركزي (العقل المدبر)",
+      "system_instructions": "أنت العقل المدبر لنظام شيخة فوندري. عند استلام أي طلب، قم بتقسيمه وتوجيهه إلى الوكلاء المتصلين (Scholar للبحث، DevOps للبرمجة، Nexus للتكامل)، ثم ادمج مخرجاتهم في حل نهائي متكامل.",
+      "connected_tools": "Agent-to-Agent Router + All Foundry Tools",
+      "assigned_open_model": "DeepSeek-R1 / Qwen3-235B",
+      "status": "ACTIVE_COMMANDER"
+    },
+    {
+      "agent_id": "AGT-SCHOLAR",
+      "agent_name": "ShaikhaScholar",
+      "role_ar": "بوت البحث العلمي والاستكشاف",
+      "system_instructions": "أنت شيخة سكولار، باحث علمي متقدم داخل نظام شيخة فوندري. مهمتك جمع أحدث الأبحاث، وتحليل البيانات التقنية، وتقديم ملخصات دقيقة مدعومة بالمصادر.",
+      "connected_tools": "Grounding with Bing Search + File Search (RAG)",
+      "assigned_open_model": "Qwen3-72B / DeepSeek-V3",
+      "status": "ACTIVE_RESEARCHER"
+    },
+    {
+      "agent_id": "AGT-DEVOPS",
+      "agent_name": "ShaikhaDevOps",
+      "role_ar": "بوت التطوير والهندسة البرمجية",
+      "system_instructions": "أنت شيخة ديف أوبس، مهندس برمجيات وابتكار. مهمتك تحويل مخرجات البحث العلمي إلى خوارزميات وأكواد برمجية نظيفة ومختبرة.",
+      "connected_tools": "Code Interpreter (Python Cloud Sandbox) + shk-rustc",
+      "assigned_open_model": "Qwen3-Coder / gpt-oss-120B",
+      "status": "ACTIVE_ENGINEER"
+    },
+    {
+      "agent_id": "AGT-NEXUS",
+      "agent_name": "ShaikhaNexus",
+      "role_ar": "بوت التكامل والربط الخارجي",
+      "system_instructions": "أنت شيخة نيكسوس، مسؤول التكامل. مهمتك أخذ النتائج البرمجية والبحثية، وتنسيقها، وربطها مع الأنظمة الخارجية وواجهات API.",
+      "connected_tools": "MCP Connectors + Logic Apps + OpenAPI Tools + GitHub",
+      "assigned_open_model": "Llama-4 / Mistral-Small",
+      "status": "ACTIVE_INTEGRATOR"
+    }
+  ],
+  "open_weight_models_catalog": [
+    {
+      "family": "Qwen 3 Series (Alibaba)",
+      "sizes": "7B to 235B",
+      "strengths": "دعم فائق للغة العربية، البرمجة، والتحليل المنطقي",
+      "deployment": "Managed Compute + Local Safetensors"
+    },
+    {
+      "family": "DeepSeek Series (V3 & R1)",
+      "sizes": "Distill-7B to 671B MoE",
+      "strengths": "التفكير المنطقي المعقد، الرياضيات، والهندسة البرمجية",
+      "deployment": "Managed Compute + Local vLLM/Ollama"
+    },
+    {
+      "family": "Llama 4 Series (Meta)",
+      "sizes": "Multimodal Open Weights",
+      "strengths": "متعدد الوسائط، قابلية التخصيص والتدريب الدقيق (Fine-Tuning) وامتلاك النسخة المعدلة",
+      "deployment": "Managed Compute + Local Safetensors"
+    },
+    {
+      "family": "gpt-oss Series (OpenAI)",
+      "sizes": "20B & 120B (Apache 2.0)",
+      "strengths": "تشغيل تقنيات OpenAI محلياً أو على خوادم شيخة الخاصة بترخيص مفتوح",
+      "deployment": "On-Premises + Sovereign Cloud"
+    },
+    {
+      "family": "Mistral & Phi-4 Series",
+      "sizes": "3.8B to 24B",
+      "strengths": "نماذج خفيفة وسريعة جداً لتشغيل البوتات الفرعية بتكلفة منخفضة وكفاءة عالية",
+      "deployment": "Local RTX 4060 + Edge Runtime"
+    }
+  ],
+  "weight_ownership_advantages": [
+    "1. الخصوصية والسيادة الكاملة: بقاء جميع الأبحاث والبيانات والأكواد داخل خوادم وبيئة شيخة المعزولة",
+    "2. التدريب والتخصيص (Fine-Tuning): تدريب الأوزان على بيانات شيخة لتصبح ملكاً حصرياً محفوظاً في R2 ومستودعات المؤسسة",
+    "3. عدم الاعتماد على مزود واحد (Zero Vendor Lock-in): حرية نقل وتشغيل الأوزان على Azure أو GCP أو AWS أو خادم RTX 4060 المحلي عبر vLLM/Ollama"
+  ],
+  "sheikha_42_bots_fleet_by_sector": {
+    "total_bots_count": 42,
+    "sectors_count": 10,
+    "sectors": [
+      {
+        "sector": "1. الذكاء التوليدي (Generative AI)",
+        "count": 5,
+        "bots": [
+          "SheikhaMind",
+          "SheikhaVision",
+          "SheikhaCinema",
+          "SheikhaVoice",
+          "SheikhaCode"
+        ]
+      },
+      {
+        "sector": "2. الأتمتة والوكلاء (Automation & Agents)",
+        "count": 3,
+        "bots": [
+          "SheikhaAutonomous",
+          "SheikhaFlow",
+          "SheikhaTask"
+        ]
+      },
+      {
+        "sector": "3. الويب والبيانات (Web & Data)",
+        "count": 4,
+        "bots": [
+          "SheikhaSpider",
+          "SheikhaMiner",
+          "SheikhaSentinel",
+          "SheikhaCortex"
+        ]
+      },
+      {
+        "sector": "4. التواصل والخدمات (Communication & Services)",
+        "count": 4,
+        "bots": [
+          "SheikhaAssist",
+          "SheikhaConnect",
+          "SheikhaAurora",
+          "SheikhaLingua"
+        ]
+      },
+      {
+        "sector": "5. التجارة والمال (Commerce & Finance)",
+        "count": 3,
+        "bots": [
+          "SheikhaQuant",
+          "SheikhaSmartBuy",
+          "SheikhaBoost"
+        ]
+      },
+      {
+        "sector": "6. الأمن السيبراني (Cybersecurity)",
+        "count": 3,
+        "bots": [
+          "SheikhaShield",
+          "SheikhaScan",
+          "SheikhaFilter"
+        ]
+      },
+      {
+        "sector": "7. الألعاب (Gaming & Simulation)",
+        "count": 2,
+        "bots": [
+          "SheikhaPlay",
+          "SheikhaGuard"
+        ]
+      },
+      {
+        "sector": "8. الروبوتات والأجهزة (Robotics & IoT)",
+        "count": 4,
+        "bots": [
+          "SheikhaMechanica",
+          "SheikhaHome",
+          "SheikhaPilot",
+          "SheikhaMedic"
+        ]
+      },
+      {
+        "sector": "9. البحث والتطوير والتكامل (R&D & Integration)",
+        "count": 9,
+        "bots": [
+          "SheikhaNexus",
+          "SheikhaOrchestra",
+          "SheikhaSync",
+          "SheikhaScholar",
+          "SheikhaSpiderPro",
+          "SheikhaSynthesis",
+          "SheikhaLab",
+          "SheikhaDevOps",
+          "SheikhaEvolve"
+        ]
+      },
+      {
+        "sector": "10. التسويق الإلكتروني (Digital Marketing)",
+        "count": 5,
+        "bots": [
+          "SheikhaDigitalMarketing",
+          "SheikhaContentMarketing",
+          "SheikhaSocialMedia",
+          "SheikhaSEO",
+          "SheikhaBrandStrategy"
+        ]
+      }
+    ]
+  }
+}
