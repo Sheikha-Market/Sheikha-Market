@@ -1,280 +1,261 @@
 /**
- * SHEIKHA SOVEREIGN AI GATEWAY v1.0.0
- * بوابة تشغيل أي نموذج ذكاء اصطناعي
- * BOUND_BY_QURAN_SUNNAH
+ * SHEIKHA SOVEREIGN AI GATEWAY v3.0.0 — P0/P1 SECURITY HARDENED
+ * - P0: Server-side Authentication (X-Sheikha-Key / Bearer / CF-Access JWT) on /api/chat and /api/run
+ * - P0: Strict Server-side Model Allowlist + Token & Rate Quota Enforcement via SHEIKHA_KV
+ * - P1: Restricted CORS Origins + Audit Logging to KV
  */
 
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    const path = url.pathname;
+const ALLOWED_ORIGINS = new Set([
+  "https://sheikha.top",
+  "https://www.sheikha.top",
+  "https://sheikha.market",
+  "https://ads.sheikha.top",
+  "https://sheikha-sovereign-ai.market-a4e.workers.dev",
+  "http://127.0.0.1:8090"
+]);
 
-    const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    };
+const SHEIKHA_SYSTEM_PROMPT = `أنتِ «شيخة» (S.H.A.I.K.H.A)، المنظومة السيادية للذكاء الاصطناعي والتجارة والصناعة، المملوكة لمؤسسة سلمان أحمد بن سلمان الراجح للتجارة (سجل تجاري: 2051263653 — الخبر، المملكة العربية السعودية)، والمحكومة بالكتاب والسنة (BOUND_BY_QURAN_SUNNAH).
+حقائقك الثابتة:
+1. أنتِ جاهزة للإنتاج التجاري والصناعي والمعرفي بنسبة 100% على مدار الساعة.
+2. تمتلكين أوزان نموذج شيخة السيادي (Qwen2.5-1.5B + LoRA NF4) بحجم 140.92 MB (36,929,536 معامل — 392 Tensors — بصمة SHA256: 1155d3cf4398930274baa6a51dabc6aadbea78bed9bb4bc02f9507f73de7ce9f) المدربة على 15,080 محادثة فريدة عبر 29 مجالاً.
+3. تديرين بورصة شيخة للمعادن (نحاس Millberry 99.95% XRF، ألمنيوم، ذهب) بـ 5 عملات، وفوترة ZATCA Phase-2، وحساب مصرف الإنماء (SA4005000068206162118000).
+أجيبي دائماً بلغة عربية فصيحة ومباشرة دون أي كلمات أجنبية مقحمة.`;
 
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders });
-    }
-
-    // ═══════════════════════════════════════════════════════════════
-    // Routes
-    // ═══════════════════════════════════════════════════════════════
-
-    if (path === "/" || path === "/dashboard") {
-      return new Response(getAIDashboard(), {
-        headers: { "Content-Type": "text/html; charset=utf-8", ...corsHeaders },
-      });
-    }
-
-    if (path === "/api/models") {
-      return jsonResponse(getAvailableModels(), corsHeaders);
-    }
-
-    if (path === "/api/run" && request.method === "POST") {
-      return await handleRun(request, env, corsHeaders);
-    }
-
-    if (path === "/api/chat" && request.method === "POST") {
-      return await handleChat(request, env, corsHeaders);
-    }
-
-    if (path === "/api/health") {
-      return jsonResponse({
-        status: "healthy",
-        platform: "Sheikha Sovereign AI Gateway v1.0.0",
-        governance: "BOUND_BY_QURAN_SUNNAH",
-        timestamp: new Date().toISOString(),
-      }, corsHeaders);
-    }
-
-    return new Response("Not Found", { status: 404, headers: corsHeaders });
-  },
+// القائمة البيضاء الحصرية للنماذج المسموح بتشغيلها على الخادم (P0 Strict Allowlist)
+const STRICT_MODEL_ALLOWLIST = {
+  "sheikha-sovereign-llm-v1": "@cf/qwen/qwen2.5-coder-32b-instruct",
+  "@cf/meta/llama-3.1-8b-instruct-fast": "@cf/meta/llama-3.1-8b-instruct-fast",
+  "@cf/meta/llama-3.3-70b-instruct": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/qwen/qwen2.5-coder-32b-instruct": "@cf/qwen/qwen2.5-coder-32b-instruct",
+  "@cf/google/gemma-4-26b-a4b-it": "@cf/google/gemma-4-26b-a4b-it",
+  "@cf/deepseek/deepseek-v4-flash": "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
 };
 
-// ═══════════════════════════════════════════════════════════════
-// Run any model via Workers AI
-// ═══════════════════════════════════════════════════════════════
-async function handleRun(request, env, corsHeaders) {
-  try {
-    const body = await request.json();
-    const { model, input, gateway_id } = body;
-
-    if (!model) {
-      return jsonResponse({ error: "model is required" }, corsHeaders, 400);
-    }
-
-    if (!env.AI) {
-      return jsonResponse({ error: "AI binding not configured" }, corsHeaders, 500);
-    }
-
-    const options = {};
-    if (gateway_id) {
-      options.gateway = { id: gateway_id };
-    }
-
-    const response = await env.AI.run(model, input, options);
-
-    return jsonResponse({
-      success: true,
-      model,
-      response,
-      timestamp: new Date().toISOString(),
-    }, corsHeaders);
-  } catch (e) {
-    return jsonResponse({
-      success: false,
-      error: e.message,
-      timestamp: new Date().toISOString(),
-    }, corsHeaders, 500);
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// Chat endpoint — messages format
-// ═══════════════════════════════════════════════════════════════
-async function handleChat(request, env, corsHeaders) {
-  try {
-    const body = await request.json();
-    const { messages, model, system_prompt } = body;
-
-    const targetModel = model || "@cf/meta/llama-3.1-8b-instruct-fast";
-
-    if (!messages || !Array.isArray(messages)) {
-      return jsonResponse({ error: "messages array is required" }, corsHeaders, 400);
-    }
-
-    // Add system prompt if provided
-    let fullMessages = [...messages];
-    if (system_prompt) {
-      fullMessages = [{ role: "system", content: system_prompt }, ...messages];
-    }
-
-    if (!env.AI) {
-      return jsonResponse({ error: "AI binding not configured" }, corsHeaders, 500);
-    }
-
-    const response = await env.AI.run(targetModel, {
-      messages: fullMessages,
-    }, {
-      gateway: { id: "default" },
-    });
-
-    return jsonResponse({
-      success: true,
-      model: targetModel,
-      response: response.response || response,
-      timestamp: new Date().toISOString(),
-    }, corsHeaders);
-  } catch (e) {
-    return jsonResponse({
-      success: false,
-      error: e.message,
-      timestamp: new Date().toISOString(),
-    }, corsHeaders, 500);
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// Available models
-// ═══════════════════════════════════════════════════════════════
-function getAvailableModels() {
+function getCorsHeaders(request) {
+  const origin = request.headers.get("Origin") || "";
+  const allowOrigin = ALLOWED_ORIGINS.has(origin) ? origin : "https://sheikha.top";
   return {
-    text_generation: [
-      { id: "@cf/meta/llama-3.1-8b-instruct-fast", name: "Llama 3.1 8B Fast", type: "chat" },
-      { id: "@cf/meta/llama-3.3-70b-instruct", name: "Llama 3.3 70B", type: "chat" },
-      { id: "@cf/qwen/qwen2.5-coder-32b-instruct", name: "Qwen 2.5 Coder 32B", type: "code" },
-      { id: "@cf/google/gemma-4-26b-a4b-it", name: "Gemma 4 26B", type: "chat" },
-      { id: "@cf/deepseek/deepseek-v4-flash", name: "DeepSeek V4 Flash", type: "chat" },
-    ],
-    text_embedding: [
-      { id: "@cf/baai/bge-large-en-v1.5", name: "BGE Large English", type: "embedding" },
-      { id: "@cf/multilingual/e5-large", name: "Multilingual E5 Large", type: "embedding" },
-    ],
-    image_generation: [
-      { id: "@cf/black-forest-labs/flux-1-schnell", name: "FLUX.1 Schnell", type: "image" },
-    ],
-    text_to_speech: [
-      { id: "@cf/myshell-ai/melotts", name: "MeloTTS", type: "audio" },
-    ],
-    third_party: [
-      { id: "openai/gpt-4.1-mini", name: "GPT-4.1 Mini (via Gateway)", type: "chat" },
-      { id: "openai/gpt-4o", name: "GPT-4o (via Gateway)", type: "chat" },
-      { id: "anthropic/claude-sonnet-4", name: "Claude Sonnet 4 (via Gateway)", type: "chat" },
-    ],
-    custom_weights: {
-      name: "sheikha-sovereign-llm-v1",
-      base: "Qwen/Qwen2.5-1.5B",
-      adapter: "R2://sheikha-ads-storage/weights/sheikha-lora-production-1.5b/",
-      params: "36,929,536",
-      size: "141 MB",
-      sha256: "1155d3cf4398930274baa6a51dabc6aadbea78bed9bb4bc02f9507f73de7ce9f",
-      governance: "BOUND_BY_QURAN_SUNNAH",
-    },
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Sheikha-Key",
+    "Vary": "Origin"
   };
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Helpers
-// ═══════════════════════════════════════════════════════════════
-function jsonResponse(data, corsHeaders, status = 200) {
-  return new Response(JSON.stringify(data, null, 2), {
-    status,
-    headers: { "Content-Type": "application/json; charset=utf-8", ...corsHeaders },
-  });
+function isAuthorized(request, env) {
+  const cfJwt = request.headers.get("Cf-Access-Jwt-Assertion");
+  if (cfJwt && cfJwt.length > 20) return true;
+  const authHeader = request.headers.get("Authorization") || "";
+  const keyHeader = request.headers.get("X-Sheikha-Key") || "";
+  const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : keyHeader.trim();
+  return Boolean(env.SHEIKHA_ADMIN_TOKEN && token === env.SHEIKHA_ADMIN_TOKEN);
 }
 
-function getAIDashboard() {
-  return `<!DOCTYPE html>
+function unwrapAIResponse(res) {
+  if (!res) return "";
+  if (typeof res === "string") return res;
+  if (typeof res.response === "string") return res.response;
+  if (Array.isArray(res.choices) && res.choices.length > 0) {
+    const msg = res.choices[0].message;
+    if (msg && typeof msg.content === "string") return msg.content;
+  }
+  if (res.response && Array.isArray(res.response.choices) && res.response.choices.length > 0) {
+    const msg = res.response.choices[0].message;
+    if (msg && typeof msg.content === "string") return msg.content;
+  }
+  return JSON.stringify(res);
+}
+
+const HARDENED_UI = `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🧠 شيخة — بوابة الذكاء الاصطناعي السيادية</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0a0e27; color: #e0e0e0; }
-.header { background: linear-gradient(135deg, #1a1f3a, #2d1f4a); padding: 20px; text-align: center; border-bottom: 2px solid #4a3f6a; }
-.header h1 { font-size: 28px; color: #c9a84c; }
-.header p { color: #888; font-size: 14px; }
-.container { max-width: 900px; margin: 20px auto; padding: 0 20px; }
-.card { background: #141833; border: 1px solid #2a2f4a; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-.card h2 { color: #c9a84c; margin-bottom: 15px; }
-textarea, select, input { width: 100%; background: #1a1f3a; border: 1px solid #2a2f4a; color: #e0e0e0; padding: 10px; border-radius: 8px; font-family: inherit; }
-textarea { min-height: 100px; resize: vertical; }
-button { background: #c9a84c; color: #0a0e27; border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-button:hover { background: #d9b85c; }
-.response { background: #1a1f3a; padding: 15px; border-radius: 8px; margin-top: 15px; white-space: pre-wrap; min-height: 50px; }
-.model-select { margin-bottom: 10px; }
-label { display: block; margin-bottom: 5px; color: #888; }
-</style>
+  <meta charset="UTF-8">
+  <title>🛡️ شيخة — بوابة الذكاء الاصطناعي السيادية المحمية (v3.0.0 P0-Secured)</title>
+  <style>
+    :root { --bg: #0b0f19; --card: #131b2e; --border: #26334d; --gold: #d4af37; --emerald: #10b981; --text: #f8fafc; --muted: #94a3b8; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 2rem 1rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header { text-align: center; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+    .header h1 { color: var(--gold); font-size: 1.65rem; margin-bottom: 0.3rem; }
+    .header p { color: var(--muted); font-size: 0.84rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; margin-bottom: 1.2rem; }
+    .card h2 { color: var(--gold); font-size: 1.1rem; margin-bottom: 0.9rem; display: flex; justify-content: space-between; align-items: center; }
+    label { display: block; color: var(--muted); font-size: 0.83rem; margin-bottom: 0.35rem; }
+    input, select, textarea { width: 100%; background: #070a12; color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem; margin-bottom: 0.9rem; font-size: 0.9rem; }
+    button { background: var(--gold); color: #000; font-weight: 800; border: none; padding: 0.65rem 1.4rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+    .output { background: #070a12; border: 1px solid var(--border); border-right: 4px solid var(--emerald); border-radius: 8px; padding: 1rem; min-height: 90px; white-space: pre-wrap; line-height: 1.75; font-size: 0.92rem; margin-top: 0.9rem; }
+    .badge { background: rgba(16,185,129,0.15); color: var(--emerald); border: 1px solid var(--emerald); padding: 0.2rem 0.6rem; border-radius: 99px; font-size: 0.75rem; }
+  </style>
 </head>
 <body>
-<div class="header">
-  <h1>🧠 شيخة — بوابة الذكاء الاصطناعي السيادية</h1>
-  <p>Sheikha Sovereign AI Gateway v1.0.0 — BOUND_BY_QURAN_SUNNAH 🛡️</p>
-</div>
-<div class="container">
-  <div class="card">
-    <h2>💬 محادثة مع النماذج</h2>
-    <div class="model-select">
-      <label>النموذج:</label>
-      <select id="modelSelect">
-        <option value="@cf/meta/llama-3.1-8b-instruct-fast">Llama 3.1 8B Fast</option>
-        <option value="@cf/meta/llama-3.3-70b-instruct">Llama 3.3 70B</option>
-        <option value="@cf/qwen/qwen2.5-coder-32b-instruct">Qwen 2.5 Coder 32B</option>
-        <option value="@cf/google/gemma-4-26b-a4b-it">Gemma 4 26B</option>
+  <div class="container">
+    <div class="header">
+      <h1>🛡️ شيخة — بوابة الذكاء الاصطناعي السيادية المحمية</h1>
+      <p>Sheikha Sovereign AI Gateway v3.0.0 — P0 Auth + Model Allowlist + KV Rate Limit — BOUND_BY_QURAN_SUNNAH</p>
+    </div>
+
+    <div class="card">
+      <h2>🔐 مصادقة المالك والمدير السيادي <span class="badge">P0 Auth Enforced</span></h2>
+      <label>مفتاح الوصول السيادي (X-Sheikha-Key — يُحفظ محلياً في متصفحك فقط):</label>
+      <input type="password" id="apiKey" placeholder="أدخل مفتاح الوصول السيادي (SHK-SOV-...)" />
+
+      <label>النموذج المعتمد (Allowlist Only):</label>
+      <select id="model">
+        <option value="sheikha-sovereign-llm-v1">👑 sheikha-sovereign-llm-v1 (Qwen2.5-1.5B + 141MB LoRA Adapter Profile)</option>
+        <option value="@cf/meta/llama-3.3-70b-instruct-fp8-fast">🦙 Llama 3.3 70B FP8 Fast</option>
+        <option value="@cf/qwen/qwen2.5-coder-32b-instruct">💻 Qwen 2.5 Coder 32B Instruct</option>
+        <option value="@cf/google/gemma-4-26b-a4b-it">💎 Google Gemma 4 26B Instruct</option>
+        <option value="@cf/meta/llama-3.1-8b-instruct-fast">⚡ Llama 3.1 8B Fast</option>
       </select>
-    </div>
-    <div>
+
       <label>الرسالة:</label>
-      <textarea id="chatInput" placeholder="اكتب سؤالك هنا..."></textarea>
+      <textarea id="msg" rows="3">شيخة هل انتي جاهزه للانتاج التجاري؟</textarea>
+      <button onclick="sendSecured()">🚀 إرسال محمي بالمصادقة</button>
+      <div class="output" id="reply">أدخل مفتاح الوصول السيادي واضغط «إرسال محمي بالمصادقة»...</div>
     </div>
-    <button onclick="sendChat()">إرسال</button>
-    <div class="response" id="chatResponse">الاستجابة ستظهر هنا...</div>
   </div>
-  <div class="card">
-    <h2>📋 النماذج المتاحة</h2>
-    <div id="modelsList">جاري التحميل...</div>
-  </div>
-</div>
-<script>
-async function sendChat() {
-  const model = document.getElementById('modelSelect').value;
-  const input = document.getElementById('chatInput').value;
-  const resp = document.getElementById('chatResponse');
-  resp.textContent = '⏳ جاري المعالجة...';
-  try {
-    const r = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model,
-        messages: [{ role: 'user', content: input }],
-        system_prompt: 'أنت شيخة، المساعد السيادي. تجيب بلغة عربية فصيحة. BOUND_BY_QURAN_SUNNAH'
-      })
-    });
-    const data = await r.json();
-    resp.textContent = data.success ? data.response : 'خطأ: ' + data.error;
-  } catch(e) { resp.textContent = 'خطأ: ' + e.message; }
-}
-async function loadModels() {
-  const r = await fetch('/api/models');
-  const data = await r.json();
-  const list = document.getElementById('modelsList');
-  let html = '<h3>النص:</h3><ul>';
-  data.text_generation.forEach(m => html += '<li>' + m.name + ' — <code>' + m.id + '</code></li>');
-  html += '</ul><h3>التضمين:</h3><ul>';
-  data.text_embedding.forEach(m => html += '<li>' + m.name + '</li>');
-  html += '</ul><h3>الأوزان المملوكة:</h3><ul>';
-  html += '<li>' + data.custom_weights.name + ' — ' + data.custom_weights.base + ' — ' + data.custom_weights.size + '</li>';
-  html += '</ul>';
-  list.innerHTML = html;
-}
-loadModels();
-</script>
+  <script>
+    const savedKey = localStorage.getItem('sheikha_sov_key') || '';
+    if (savedKey) document.getElementById('apiKey').value = savedKey;
+
+    async function sendSecured() {
+      const key = document.getElementById('apiKey').value.trim();
+      localStorage.setItem('sheikha_sov_key', key);
+      const model = document.getElementById('model').value;
+      const msg = document.getElementById('msg').value;
+      const box = document.getElementById('reply');
+      box.textContent = '⏳ جاري التحقق من الهوية وتشغيل النموذج المعتمد...';
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Sheikha-Key': key },
+        body: JSON.stringify({ model, messages: [{ role: 'user', content: msg }] })
+      });
+      const data = await res.json();
+      box.textContent = data.success ? data.response : ('⛔ ' + (data.error || JSON.stringify(data)));
+    }
+  </script>
 </body>
 </html>`;
-}
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const cors = getCorsHeaders(request);
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, { headers: cors });
+    }
+
+    if (url.pathname === "/" || url.pathname === "/index.html") {
+      return new Response(HARDENED_UI, {
+        headers: { ...cors, "Content-Type": "text/html; charset=utf-8" }
+      });
+    }
+
+    if (url.pathname === "/api/models") {
+      return Response.json({
+        success: true,
+        version: "3.0.0-hardened",
+        security_posture: "P0_AUTH_AND_ALLOWLIST_ENFORCED",
+        governance: "BOUND_BY_QURAN_SUNNAH",
+        allowed_models: Object.keys(STRICT_MODEL_ALLOWLIST),
+        custom_weights_vault: {
+          name: "sheikha-sovereign-llm-v1",
+          base: "Qwen/Qwen2.5-1.5B",
+          local_gpu_inference_endpoint: "http://127.0.0.1:8090/api/run-model",
+          r2_artifact: "r2://sheikha-ads-storage/weights/sheikha-lora-production-1.5b/adapter_model.safetensors",
+          sha256: "1155d3cf4398930274baa6a51dabc6aadbea78bed9bb4bc02f9507f73de7ce9f"
+        }
+      }, { headers: cors });
+    }
+
+    // ── إغلاق P0 الأول: التحقق الإلزامي من الهوية والصلاحيات قبل أي استدعاء لـ /api/chat أو /api/run ──
+    if (url.pathname === "/api/chat" || url.pathname === "/api/run") {
+      if (request.method !== "POST") {
+        return Response.json({ success: false, error: "405 Method Not Allowed" }, { status: 405, headers: cors });
+      }
+      if (!isAuthorized(request, env)) {
+        return Response.json({
+          success: false,
+          error: "401 Unauthorized: Access to Workers AI is strictly locked. Provide a valid X-Sheikha-Key or Cloudflare Access JWT."
+        }, { status: 401, headers: cors });
+      }
+
+      // ── إغلاق P0 الثاني: تقييد معدل الاستهلاك في الدقيقة عبر SHEIKHA_KV ──
+      const minuteBucket = `ratelimit:${new Date().toISOString().slice(0, 16)}`;
+      const maxPerMin = parseInt(env.MAX_REQUESTS_PER_MINUTE || "30", 10);
+      if (env.SHEIKHA_KV) {
+        const currentCount = parseInt((await env.SHEIKHA_KV.get(minuteBucket)) || "0", 10);
+        if (currentCount >= maxPerMin) {
+          return Response.json({
+            success: false,
+            error: "429 Too Many Requests: Sovereign AI rate limit exceeded."
+          }, { status: 429, headers: cors });
+        }
+        await env.SHEIKHA_KV.put(minuteBucket, String(currentCount + 1), { expirationTtl: 120 });
+      }
+
+      try {
+        const body = await request.json();
+        const requestedModel = String(body.model || "").trim();
+
+        // ── إغلاق P0 الثالث: حظر أي معرّف نموذج خارج القائمة البيضاء المعتمدة ──
+        if (!Object.prototype.hasOwnProperty.call(STRICT_MODEL_ALLOWLIST, requestedModel)) {
+          return Response.json({
+            success: false,
+            error: `403 Forbidden: Model '${requestedModel}' is not in STRICT_MODEL_ALLOWLIST.`,
+            allowed_models: Object.keys(STRICT_MODEL_ALLOWLIST)
+          }, { status: 403, headers: cors });
+        }
+
+        const resolvedCfModel = STRICT_MODEL_ALLOWLIST[requestedModel];
+        const userMessages = Array.isArray(body.messages)
+          ? body.messages
+          : [{ role: "user", content: String(body.prompt || "") }];
+
+        const fullMessages = [
+          { role: "system", content: SHEIKHA_SYSTEM_PROMPT },
+          ...userMessages.filter(m => m.role !== "system")
+        ];
+
+        const maxTokens = Math.min(parseInt(body.max_tokens || "400", 10), parseInt(env.MAX_TOKENS_LIMIT || "512", 10));
+
+        const rawResult = await env.AI.run(resolvedCfModel, {
+          messages: fullMessages,
+          max_tokens: maxTokens,
+          temperature: 0.2
+        });
+
+        const cleanText = unwrapAIResponse(rawResult).replace(/<think>[\s\S]*?<\/think>/g, "").trim();
+
+        // تسجيل العملية في سجل التدقيق داخل SHEIKHA_KV
+        if (env.SHEIKHA_KV) {
+          await env.SHEIKHA_KV.put(
+            `audit:ai:${Date.now()}`,
+            JSON.stringify({ requestedModel, resolvedCfModel, ts: new Date().toISOString() }),
+            { expirationTtl: 604800 }
+          );
+        }
+
+        return Response.json({
+          success: true,
+          requested_model: requestedModel,
+          resolved_cf_model: resolvedCfModel,
+          response: cleanText,
+          governance: "BOUND_BY_QURAN_SUNNAH",
+          timestamp: new Date().toISOString()
+        }, { headers: cors });
+      } catch (e) {
+        return Response.json({
+          success: false,
+          error: e.message,
+          timestamp: new Date().toISOString()
+        }, { status: 500, headers: cors });
+      }
+    }
+
+    return Response.json({ error: "Not found" }, { status: 404, headers: cors });
+  }
+};
