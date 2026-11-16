@@ -1,10 +1,21 @@
 name = "sheikha-sovereign-monitor"
 main = "src/index.js"
-compatibility_date = "2026-11-01"
-
-[triggers]
-crons = ["*/5 * * * *"]
+compatibility_date = "2024-11-01"
+workers_dev = true
 
 [vars]
 GOVERNANCE = "BOUND_BY_QURAN_SUNNAH"
 OWNER = "Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)"
+SHEIKHA_ADMIN_TOKEN = "SHK-SOV-de0102b17a184d8684579ecc5f58597a0b9c7836f0303c10"
+
+[[kv_namespaces]]
+binding = "SHEIKHA_KV"
+id = "14e09179f8074666809df125e1f7a748"
+
+[[d1_databases]]
+binding = "UNIFIED_DB"
+database_name = "sheikha-unified-db"
+database_id = "094c8fe4-8588-4f5f-9bb0-a6d738159c7d"
+
+[triggers]
+crons = ["*/5 * * * *"]
