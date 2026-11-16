@@ -1,0 +1,52 @@
+{
+  "schema": "SHEIKHA_EXPERT_BOTS_REGISTRY_V1",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "owner": "Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)",
+  "version": "1.0.0",
+  "created_at": "2026-11-16T08:00:00Z",
+  "bot_fleet": {
+    "scientific": [
+      { "id": "bot-science-physics", "name": "Sheikha Physics Bot", "domain": "physics", "language": "ar", "status": "active" },
+      { "id": "bot-science-chemistry", "name": "Sheikha Chemistry Bot", "domain": "chemistry", "language": "ar", "status": "active" },
+      { "id": "bot-science-biology", "name": "Sheikha Biology Bot", "domain": "biology", "language": "ar", "status": "active" },
+      { "id": "bot-science-math", "name": "Sheikha Mathematics Bot", "domain": "mathematics", "language": "ar", "status": "active" },
+      { "id": "bot-science-engineering", "name": "Sheikha Engineering Bot", "domain": "engineering", "language": "ar", "status": "active" }
+    ],
+    "commercial": [
+      { "id": "bot-trade-general", "name": "Sheikha Trade Bot", "domain": "general_trade", "language": "ar", "status": "active" },
+      { "id": "bot-ecommerce", "name": "Sheikha E-Commerce Bot", "domain": "ecommerce", "language": "ar", "status": "active" },
+      { "id": "bot-international-trade", "name": "Sheikha International Trade Bot", "domain": "international_trade", "language": "ar", "status": "active" },
+      { "id": "bot-supply-chain", "name": "Sheikha Supply Chain Bot", "domain": "supply_chain", "language": "ar", "status": "active" },
+      { "id": "bot-logistics", "name": "Sheikha Logistics Bot", "domain": "logistics", "language": "ar", "status": "active" }
+    ],
+    "industrial": [
+      { "id": "bot-industry", "name": "Sheikha Industry Bot", "domain": "industry", "language": "ar", "status": "active" },
+      { "id": "bot-foundry", "name": "Sheikha Foundry Bot", "domain": "foundry", "language": "ar", "status": "active" },
+      { "id": "bot-products", "name": "Sheikha Product Bot", "domain": "product_development", "language": "ar", "status": "active" },
+      { "id": "bot-innovation", "name": "Sheikha Innovation Bot", "domain": "innovation", "language": "ar", "status": "active" },
+      { "id": "bot-exploration", "name": "Sheikha Exploration Bot", "domain": "exploration", "language": "ar", "status": "active" }
+    ],
+    "business": [
+      { "id": "bot-entrepreneurship", "name": "Sheikha Entrepreneurship Bot", "domain": "entrepreneurship", "language": "ar", "status": "active" },
+      { "id": "bot-business-coach", "name": "Sheikha Business Coach Bot", "domain": "business_coaching", "language": "ar", "status": "active" },
+      { "id": "bot-leadership", "name": "Sheikha Leadership Bot", "domain": "leadership", "language": "ar", "status": "active" },
+      { "id": "bot-finance", "name": "Sheikha Finance Bot", "domain": "finance", "language": "ar", "status": "active" }
+    ],
+    "islamic_sciences": [
+      { "id": "bot-fiqh", "name": "Sheikha Fiqh Bot", "domain": "fiqh", "language": "ar", "status": "active" },
+      { "id": "bot-hadith", "name": "Sheikha Hadith Bot", "domain": "hadith", "language": "ar", "status": "active" },
+      { "id": "bot-tafsir", "name": "Sheikha Tafsir Bot", "domain": "tafsir", "language": "ar", "status": "active" },
+      { "id": "bot-aqidah", "name": "Sheikha Aqidah Bot", "domain": "aqidah", "language": "ar", "status": "active" },
+      { "id": "bot-islamic-finance", "name": "Sheikha Islamic Finance Bot", "domain": "islamic_finance", "language": "ar", "status": "active" }
+    ]
+  },
+  "hybrid_integration": {
+    "mode": "PARALLEL_BALANCED_PRODUCTION",
+    "cloud_workers": 13,
+    "local_gpu": "RTX 4060",
+    "training_cycles_per_day": 4,
+    "samples_target_per_domain": 1000,
+    "ownership_model": "sheikha-sovereign-llm-v1",
+    "weight_destination": "R2:weights/sheikha-lora-v1/"
+  }
+}
