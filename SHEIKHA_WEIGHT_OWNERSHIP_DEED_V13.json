@@ -1,0 +1,26 @@
+{
+  "deed_id": "DEED-SHK-WEIGHTS-2026-V13",
+  "title": "صك الملكية الحصرية للأوزان والتدريب الموازي والريادة في الحوسبة والذكاء الاصطناعي",
+  "exclusive_owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "model_brand": "sheikha-sovereign-llm-v1 (S.H.A.I.K.H.A Core Weights)",
+  "parallel_production_condition": "ENFORCED_50_50_PARALLEL_DISTILLATION_AND_LOCAL_GPU_TRAINING",
+  "compute_leadership_engine": {
+    "local_gpu_foundry": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 50 | 8.60 TFLOPS BF16",
+    "native_kernel_compiler": "shk-rustc v2.0.0 (.shk -> Bare-Metal Rust x86_64)",
+    "cloud_edge_network": "13 Cloudflare Workers + 38 Domains + Google Developer Enterprise Hub + 55 Universal Bots"
+  },
+  "owned_weight_artifact": {
+    "filename": "adapter_model.safetensors",
+    "format": "HuggingFace PEFT / Safetensors (192 Tensors, BF16/FP32)",
+    "size_bytes": 8676008,
+    "sha256_fingerprint": "51ffa2ce56875be592105c512f9c700ce44bfe2135783e1570a3cdaf1fdac64e",
+    "corruption_check": "ZERO_NAN_INF_VERIFIED"
+  },
+  "triple_vault_storage_locations": {
+    "vault_1_local_nvme": "/home/sheikha/sheikha-sovereign-vault/production-weights/adapter_model.safetensors",
+    "vault_2_cloud_r2": "r2://sheikha-ads-storage/weights/sheikha-lora-production/adapter_model.safetensors",
+    "vault_3_d1_and_github": "sheikha-unified-db (table: sheikha_owned_weights_vault) + GitHub Manifest"
+  },
+  "issued_at": "2026-11-16T09:48:30.893269+00:00"
+}
