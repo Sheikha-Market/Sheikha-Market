@@ -1,0 +1,24 @@
+# مصفوفة تفويض شيخة السيادية (Sheikha Sovereign Authorization Matrix v18.0)
+governance: BOUND_BY_QURAN_SUNNAH
+owner: "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية"
+roles:
+  1_Sheikha_Supreme_Owner_and_General_Supervisor:
+    title: "المالك والمشرف العام لشيخة (سلمان أحمد بن سلمان الراجح — CR: 2051263653)"
+    permissions: ["ALL_SOVEREIGN_RESOURCES", "RELEASE_GATE_V17_SIGNOFF", "TREASURY_WAQF_CONTROL", "BREAK_GLASS_EMERGENCY"]
+    scope: "Global (Saudi Arabia, Google Global Branches, Cloudflare Edge, Local RTX 4060 Foundry)"
+  2_Sheikha_Foundry_and_AI_Architect:
+    title: "مهندس فوندري وأوزان شيخة (ROLE-05)"
+    permissions: ["TRAIN_LORA_WEIGHTS", "VERIFY_SHA256_VAULT", "DEPLOY_MODELS_ALLOWLIST"]
+    scope: "Sheikha Foundry (141MB Qwen2.5-1.5B + Google Vertex AI / Gemma 4)"
+  3_Sheikha_FullStack_and_Google_Bridge_Developer:
+    title: "مطور منصات شيخة وجسر قوقل العالمي (ROLE-06)"
+    permissions: ["DEPLOY_WORKERS_PAGES", "MANAGE_SHEIKHA_SDKS", "SYNC_GITHUB_MIRRORS"]
+    scope: "Sheikha Developers Portal & Collaborative Platforms"
+  4_Sheikha_DevOps_and_Pipeline_Commander:
+    title: "قائد عمليات وخط أنابيب شيخة (ROLE-03 & ROLE-04)"
+    permissions: ["ORCHESTRATE_8_STAGE_PIPELINE", "MANAGE_KUBERNETES_CLOUD_RUN", "ROTATE_SECRETS"]
+    scope: "Dark Factory & Multi-Cloud Infrastructure"
+  5_Sheikha_Shariah_and_Cyber_Guardian:
+    title: "الحارس الشرعي والأمني لشيخة (ROLE-07 — CISO & Shariah Auditor)"
+    permissions: ["ENFORCE_QURAN_SUNNAH_GOVERNANCE", "AUDIT_ALL_LOGS", "BLOCK_UNTRUSTED_MODELS", "ZATCA_NCA_COMPLIANCE"]
+    scope: "All 38 Domains, 15 Workers, 55 Bots & Financial Ledgers"
