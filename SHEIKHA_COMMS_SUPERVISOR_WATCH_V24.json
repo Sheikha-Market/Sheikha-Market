@@ -1,0 +1,69 @@
+{
+  "schema": "SHEIKHA_COMMS_WATCH_MANAGER_SUPERVISOR_V24",
+  "version": "24.0.0",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "command_hierarchy": {
+    "general_supervisor": {
+      "role_id": "ROLE-01",
+      "title": "المشرف العام على التواصل والحوكمة (Sovereign Communications Supervisor)",
+      "holder": "سلمان أحمد بن سلمان الراجح",
+      "mandate": "الاعتماد النهائي للمراسلات الاستراتيجية، حماية الملكية الفكرية للأوزان (141 MB)، ومنع أي تنازل عن الملكية أو مخالفة للضوابط الشرعية."
+    },
+    "communications_manager": {
+      "role_id": "ROLE-08",
+      "title": "مدير التواصل والشراكات الدولية الآلي (Autonomous Communications & Partnerships Manager)",
+      "bot_engine": "ShaikhaNexus + ShaikhaOrchestra",
+      "mandate": "فرز الرسائل الواردة، تحويل العناوين المرتدة إلى القنوات المعتمدة فوراً، جدولة الاجتماعات التقنية، ومتابعة SLA خلال 24 ساعة."
+    },
+    "watch_and_dsn_radar": {
+      "service": "sheikha-sovereign-monitor (5-Min Cron) + D1 Comms Ledger",
+      "status": "ACTIVE_24_7_WATCHING",
+      "capabilities": [
+        "رصد فوري لإشعارات التسليم والارتداد (DSN 550 / Mailer-Daemon)",
+        "تحويل تلقائي إلى العناوين الموثقة البديلة دون تدخل يدوي",
+        "حفظ سجل التدقيق الكامل في قاعدة بيانات D1 وخزنة SHEIKHA_KV"
+      ]
+    }
+  },
+  "live_inbox_audit_and_verified_routing_table": {
+    "1_Cloudflare": {
+      "verified_active_address": "partners@cloudflare.com",
+      "blocked_or_deprecated_address": "partnerships@cloudflare.com (Google Group Closed)",
+      "live_status": "DELIVERED & ACKNOWLEDGED (Ticket active — response within 24–48 business hours)",
+      "assigned_option": "Option A (P0 Edge Inference) & Proposal 4 (Zero-Trust Edge Blueprint)"
+    },
+    "2_Microsoft": {
+      "verified_active_address": "partnerlifecycle@microsoft.com",
+      "blocked_or_deprecated_address": "partnerships@microsoft.com (M365 Internal Group 550 5.7.193)",
+      "live_status": "DELIVERED TO PARTNER LIFECYCLE TEAM",
+      "assigned_option": "Option B (Azure Foundry BYOM) & Proposal 2 (Sheikha-Native Toolchain)"
+    },
+    "3_OpenAI": {
+      "verified_active_address": "partnersupport@openai.com, partnermarketing@openai.com",
+      "blocked_or_deprecated_address": "openaipartnernetwork@openai.com (No-Reply Notification Address)",
+      "live_status": "ONBOARDING COMPLETE (Admin Role Granted) & TECHNICAL ASSESSMENT SUBMITTED",
+      "assigned_option": "Option A/D & Proposal 3 (Hybrid GPT-4o + Sheikha 141MB Router)"
+    },
+    "4_Google_Cloud": {
+      "verified_active_address": "partnerships@google.com",
+      "live_status": "SENT & MONITORED (No DSN bounce — Active Watch)",
+      "assigned_option": "Option B (Vertex AI me-central2 Dammam) & Proposal 1 (XRF & 3PL AI Hub)"
+    },
+    "5_Dhahran_Techno_Valley_DTVC_KFUPM": {
+      "verified_active_address": "ventures@dtvc.com.sa",
+      "live_status": "POSITIVE_RESPONSE_RECEIVED (Confirmed 100% IP retention for Salman Al-Rajih; requested non-confidential Pitch Deck)",
+      "assigned_option": "Option C/D & Sovereign Pitch Deck Dispatch under 100% IP Ownership"
+    }
+  },
+  "auto_responder_shariah_and_security_rules": {
+    "RULE_01_SHARIAH_GREETING_PROTOCOL": {
+      "muslim_and_arab_entities": "تبدأ الرسالة بـ «بسم الله الرحمن الرحيم» متبوعة بـ «السلام عليكم ورحمة الله وبركاته».",
+      "international_non_muslim_entities": "تبدأ الرسالة بـ «بسم الله الرحمن الرحيم» متبوعة بـ «Greetings and best regards» (عدم ابتداء غير المسلمين بالسلام)."
+    },
+    "RULE_02_IP_AND_WEIGHTS_PROTECTION": "يُمنع منعاً باتاً إرفاق ملف الأوزان الخام (adapter_model.safetensors — 141MB) في أي بريد؛ يُشارك فقط رابط البوابة المحمية وبصمة SHA-256 وخيارات الترخيص الأربعة (A, B, C, D).",
+    "RULE_03_AUTO_BOUNCE_REROUTE": "عند رصد أي كود ارتداد 550 من مجموعة بريدية، يقوم المدير الآلي بإعادة توجيه الرسالة فوراً إلى عنوان دعم الشركاء المعتمد المسجل في جدول D1.",
+    "RULE_04_SLA_ESCALATION": "الرد الآلي الفوري خلال 5 دقائق بتأكيد الاستلام، ورفع ملخص تنفيذي للمشرف العام لجدولة اجتماع الـ 60 دقيقة."
+  },
+  "updated_at": "2026-11-17T05:17:44Z"
+}
