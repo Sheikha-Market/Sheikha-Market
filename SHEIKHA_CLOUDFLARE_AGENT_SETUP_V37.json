@@ -1,0 +1,22 @@
+{
+  "schema": "SHEIKHA_CLOUDFLARE_AGENT_SETUP_V37",
+  "version": "37.0.0",
+  "source_prompt_url": "https://developers.cloudflare.com/agent-setup/prompt.md",
+  "account_id": "a4e323681eb22a05dcc0680aed5e9bb0",
+  "account_email": "market@sheikha.top",
+  "wrangler_oauth_status": "AUTHENTICATED_ACTIVE",
+  "configured_bindings": {
+    "workers": [
+      "sheikha-dev-platform",
+      "sheikha-sovereign-admin"
+    ],
+    "d1_database": "sheikha-unified-db (094c8fe4-8588-4f5f-9bb0-a6d738159c7d)",
+    "kv_namespace": "SHEIKHA_KV (14e09179f8074666809df125e1f7a748)",
+    "r2_bucket": "sheikha-ads-storage",
+    "durable_object": "SheikhaSessionDO",
+    "workers_ai": "env.AI"
+  },
+  "mcp_server_registered": "/home/sheikha/Projects/sheikha/sheikha-main-portal/.vscode/mcp.json",
+  "nda_guard_verification": "10/10 ROUTES VERIFIED (ZERO_SECRET_DISCLOSURE)",
+  "configured_at": "2026-11-17T18:12:44.165550+00:00"
+}
