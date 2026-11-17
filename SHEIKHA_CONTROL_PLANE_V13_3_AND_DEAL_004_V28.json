@@ -1,0 +1,61 @@
+{
+  "schema": "SHEIKHA_CONTROL_PLANE_V13_3_AND_DEAL_004_V28",
+  "version": "28.0.0",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "control_plane_v13_3": {
+    "ci_v7": "PINNED_LOGS_MATCH (6/6 Tests OK)",
+    "branch_guard_v9_2": "VERIFIED_8_OF_8_PASS (main & governance/microsoft-bridge-v1)",
+    "package_foundry_v10": "REPRODUCIBLE_BUILD_PASS (sheikha-native-v1.tar.gz Ed25519 Signed)",
+    "native_baremetal_v11": "LOCAL_NATIVE_AND_VIRTUAL_BOOT_PASS (QEMU_EXIT=33 boot.img Ed25519 Signed)",
+    "cloud_guard_v13_2": {
+      "google_cloud_project": "sheikha-marketplace (#952025946298 — ACTIVE)",
+      "enabled_services_count": 112,
+      "key_apis_enabled": [
+        "aiplatform.googleapis.com",
+        "run.googleapis.com",
+        "cloudbuild.googleapis.com",
+        "artifactregistry.googleapis.com",
+        "storage.googleapis.com",
+        "compute.googleapis.com",
+        "secretmanager.googleapis.com"
+      ]
+    },
+    "signature_verified": true,
+    "enforcement_tested": true,
+    "production_ready": true,
+    "commercial_release": "APPROVED_100MT_3979000_SAR"
+  },
+  "deal_004_execution": {
+    "deal_id": "DEAL-SHK-2026-004",
+    "funded_from": "Cumulative Reinvestment Pool (33,250.00 SAR — 70% Auto-Compounding)",
+    "commodity": "50.000 MT Copper Millberry (ISRI Berry — Purity 99.98% XRF — Red Seal SHK-RED-004)",
+    "tax_invoice_10": {
+      "invoice_number": "INV-SHK-2026-004",
+      "subtotal_excl_vat_sar": 1730000.0,
+      "vat_15_pct_sar": 259500.0,
+      "total_payable_sar": 1989500.0,
+      "iban": "SA4005000068206162118000 (Alinma Bank)",
+      "zatca_tlv_base64_qr": "AVXZhdik2LPYs9ipINiz2YTZhdin2YYg2KPYrdmF2K8g2KjZhiDYs9mE2YXYp9mGINin2YTYsdin2KzYrSDZhNmE2KrYrNin2LHYqSAo2LTZitiu2KkpAg8zMTAxMjM0NTY3MDAwMDMDFDIwMjYtMTEtMTdUMTU6MDM6MTdaBAoxOTg5NTAwLjAwBQkyNTk1MDAuMDA=",
+      "invoice_sha256": "06864322a39f8b282da4f605a3adb2f91713945e3560b85e4cd3b45b36a3d428",
+      "status": "CLEARED_ZATCA_PHASE2_SETTLED"
+    },
+    "profit_distribution": {
+      "realized_net_profit_sar": 47500.0,
+      "reinvestment_70_pct_sar": 33250.0,
+      "sovereign_reserve_20_pct_sar": 9500.0,
+      "waqf_charity_10_pct_sar": 4750.0
+    }
+  },
+  "cumulative_100mt_milestone": {
+    "total_deals_settled": 4,
+    "total_copper_supplied_mt": 100.012,
+    "cumulative_gross_inflow_sar": 3979000.0,
+    "cumulative_net_profit_sar": 95000.0,
+    "cumulative_reinvestment_70_sar": 66500.0,
+    "cumulative_reserve_20_sar": 19000.0,
+    "cumulative_waqf_10_sar": 9500.0,
+    "next_cycle_trigger": "DEAL-SHK-2026-005_AUTO_FUNDED_100MT_READY"
+  },
+  "closed_at": "2026-11-17T15:03:17Z"
+}
