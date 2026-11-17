@@ -1,0 +1,52 @@
+{
+  "schema": "SHEIKHA_WEIGHTS_OWNERSHIP_OPTIONS_AND_PROPOSALS_V23",
+  "version": "23.0.0",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "sovereign_weights_asset": {
+    "model_id": "WGT-SHK-PROD-1.5B-V14",
+    "base_model": "Qwen/Qwen2.5-1.5B + LoRA 4-bit NF4",
+    "trainable_parameters": 36929536,
+    "tensors_count": 392,
+    "size_bytes": 147770496,
+    "size_mb": 140.92,
+    "sha256": "1155d3cf4398930274baa6a51dabc6aadbea78bed9bb4bc02f9507f73de7ce9f",
+    "unique_training_samples": 15080,
+    "release_gate_v17": "APPROVED",
+    "exclusive_ip_holder": "Salman Ahmed bin Salman Al-Rajih Trading Est. (100% Sovereign Ownership)"
+  },
+  "weights_ownership_and_licensing_options": {
+    "Option_A_Sovereign_API_Inference": {
+      "title_ar": "الخيار أ: الاستدلال السيادي كخدمة (Zero-Weight-Transfer API)",
+      "mechanism": "تبقى الأوزان الخام (.safetensors) مختومة داخل خزنة شيخة الثلاثية، ويُتاح الاستدلال عبر بوابة sheikha-sovereign-ai المحمية بمصادقة P0",
+      "ip_retention": "100% مملوكة ومحفوظة داخل خزنة شيخة",
+      "status": "AVAILABLE_NOW"
+    },
+    "Option_B_Cloud_Marketplace_BYOM": {
+      "title_ar": "الخيار ب: الحاويات السحابية المشفرة (Encrypted Cloud Marketplace BYOM)",
+      "mechanism": "نشر حاوية استدلال مشفرة على Google Vertex AI (me-central2 Dammam) وAzure AI Foundry بمفاتيح تشفير HSM يديرها مالك شيخة حصرياً",
+      "ip_retention": "100% مملوكة لشيخة مع تقاسم عوائد التشغيل السحابي",
+      "status": "AVAILABLE_NOW"
+    },
+    "Option_C_BareMetal_Foundry_Appliance": {
+      "title_ar": "الخيار ج: وحدة العتاد الصلب المدمجة للمصانع (Bare-Metal Sovereign Appliance)",
+      "mechanism": "تسليم خادم مادي محمل بنواة Sheikha UEFI/x86_64 Kernel + أوزان 141MB للعمل الداخلي المعزول (Air-Gapped) في المصانع والمسابك",
+      "ip_retention": "100% مملوكة لشيخة بترخيص تشغيلي سنوي موثق بالبصمة",
+      "status": "AVAILABLE_NOW"
+    },
+    "Option_D_Federated_Sector_Adapters": {
+      "title_ar": "الخيار د: الترخيص الاتحادي للمحولات القطاعية المشتركة (Co-Branded Domain LoRA Adapters)",
+      "mechanism": "تطوير محولات فرعية فوق أوزان شيخة لقطاعات (المعادن، المالية الإسلامية، اللوجستيات 3PL، وفوترة ZATCA) مع توزيع خوارزمي للعوائد (70% إعادة استثمار، 20% احتياطي، 10% وقف)",
+      "ip_retention": "الملكية الأساسية لشيخة مع ترخيص مشترك للمحول الفرعي",
+      "status": "AVAILABLE_NOW"
+    }
+  },
+  "new_strategic_proposals_v23": [
+    "1. [Google Cloud me-central2]: تأسيس مركز شيخة–قوقل للبورصة الصناعية والفحص الطيفي XRF بالدمام والخبر.",
+    "2. [Microsoft & GitHub]: نشر حزمة Sheikha-Native (shk-rustc + VS Code Sovereign Extension) في متجر GitHub وAzure Foundry.",
+    "3. [OpenAI Partner Network]: تفعيل الموجه الهجين (GPT-4o + أوزان شيخة 141MB) للأعمال التجارية المحكومة شرعياً ونظامياً.",
+    "4. [Cloudflare Sovereign Edge]: تعميم معمارية درع الحافة السيادي (P0 AI Gateway + 5m Telemetry Radar) عبر الـ 38 نطاقاً.",
+    "5. [Dark Factory Deal #002]: تشغيل الصفقة التجارية الثانية (DEAL-SHK-2026-002 — 15 طن نحاس Millberry بقيمة 596,850 ر.س) بتمويل ذاتي من أرباح الصفقة الأولى."
+  ],
+  "timestamp": "2026-11-17T04:08:10Z"
+}
