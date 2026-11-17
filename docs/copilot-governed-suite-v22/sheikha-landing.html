@@ -1,0 +1,490 @@
+<!-- GOVERNED BY SHEIKHA SOVEREIGN CORE v22.0.0 | BOUND_BY_QURAN_SUNNAH | CR: 2051263653 -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيخة - نظام تشغيل متقدم | Sheikha OS</title>
+    <meta name="description" content="نظام تشغيل متقدم للحوسبة الذكية | Bare Metal + Native + AI Computing">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .cta-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .cta-button:hover {
+            background: #ff5252;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .hero .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary:hover {
+            background: #ff5252;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f0f0;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #333;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: #f9f9f9;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #eee;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: #f9f9f9;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #eee;
+            transition: transform 0.3s, border-color 0.3s;
+            text-align: center;
+        }
+        
+        .pricing-card.featured {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .pricing-card:hover {
+            border-color: #667eea;
+        }
+        
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+        
+        .price small {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+            text-align: right;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+        
+        .features-list li:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                font-size: 14px;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">🔧 Sheikha OS</div>
+                <ul class="nav-links">
+                    <li><a href="#features">المميزات</a></li>
+                    <li><a href="#pricing">الأسعار</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+                <a href="#pricing" class="cta-button">ابدأ الآن</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>🚀 شيخة - نظام تشغيل متقدم</h1>
+            <p>حوسبة ذكية | Bare Metal Native | متقدمة الأداء</p>
+            <div class="buttons">
+                <button class="btn-primary" onclick="scrollToPrice()">ابدأ مجاناً</button>
+                <button class="btn-secondary" onclick="alert('سيتم التفعيل قريباً')">شاهد عرضاً توضيحياً</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">المميزات الرئيسية</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>أداء عالي جداً</h3>
+                    <p>تحسين الأداء بنسبة 300-400% مقارنة بالأنظمة التقليدية</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>ذكاء اصطناعي متقدم</h3>
+                    <p>دعم كامل لنماذج AI وتعلم الآلة بدون تأخير</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>أمان متقدم</h3>
+                    <p>حماية على مستوى البنية التحتية مع تشفير شامل</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Multi-Cloud Support</h3>
+                    <p>يعمل على أي بنية تحتية: Bare Metal + Cloud</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>مراقبة شاملة</h3>
+                    <p>لوحة معلومات مباشرة وتقارير تفصيلية في الوقت الفعلي</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>سهل التثبيت</h3>
+                    <p>تثبيت بضع دقائق مع دعم كامل من فريقنا</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">خطط الأسعار</h2>
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <h3>مبتدئ</h3>
+                    <div class="price">$29<small>/شهر</small></div>
+                    <ul class="features-list">
+                        <li>حتى 5 نوى معالج</li>
+                        <li>50 جيجابايت تخزين</li>
+                        <li>دعم أساسي</li>
+                        <li>لوحة معلومات مبسطة</li>
+                        <li>تحديثات شهرية</li>
+                    </ul>
+                    <button class="btn-primary" onclick="checkout('starter')">اختر هذه الخطة</button>
+                </div>
+                
+                <!-- Professional (Featured) -->
+                <div class="pricing-card featured">
+                    <h3>احترافي ⭐</h3>
+                    <div class="price">$99<small>/شهر</small></div>
+                    <ul class="features-list">
+                        <li>حتى 32 نوى معالج</li>
+                        <li>500 جيجابايت تخزين</li>
+                        <li>دعم أولوية 24/7</li>
+                        <li>لوحة معلومات متقدمة</li>
+                        <li>تحديثات أسبوعية</li>
+                        <li>API كامل</li>
+                    </ul>
+                    <button class="btn-primary" onclick="checkout('professional')">اختر هذه الخطة</button>
+                </div>
+                
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <h3>مؤسسة</h3>
+                    <div class="price">$299<small>/شهر</small></div>
+                    <ul class="features-list">
+                        <li>موارد غير محدودة</li>
+                        <li>تخزين غير محدود</li>
+                        <li>دعم مخصص 24/7</li>
+                        <li>مراقبة متقدمة وتحليلات</li>
+                        <li>أولويات في التطوير</li>
+                        <li>SLA مضمون 99.99%</li>
+                    </ul>
+                    <button class="btn-primary" onclick="checkout('enterprise')">اختر هذه الخطة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>جاهز لتحسين بيئتك؟</h2>
+            <p>انضم إلى الآلاف من الشركات والمطورين الذين يثقون بـ Sheikha OS</p>
+            <button class="btn-primary" onclick="scrollToPrice()">ابدأ مجاناً اليوم</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Sheikha OS. جميع الحقوق محفوظة.</p>
+            <div>
+                <a href="https://docs.sheikha.cloud">التوثيق</a>
+                <a href="https://github.com/sheikha">GitHub</a>
+                <a href="mailto:support@sheikha.cloud">الدعم</a>
+                <a href="https://twitter.com/sheikha">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToPrice() {
+            document.querySelector('#pricing').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function checkout(plan) {
+            const prices = {
+                'starter': 29,
+                'professional': 99,
+                'enterprise': 299
+            };
+            
+            // هنا يتم ربط Stripe
+            console.log(`Checkout for ${plan} plan at $${prices[plan]}/month`);
+            alert(`تم اختيار خطة ${plan}. سيتم التوجيه إلى Stripe قريباً`);
+            
+            // استبدل هذا برابط Stripe الحقيقي
+            // window.location.href = `https://stripe.com/checkout?plan=${plan}`;
+        }
+        
+        // Google Analytics tracking (استبدل بـ GA ID الخاص بك)
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXX'); // استبدل بـ GA ID
+    </script>
+</body>
+</html>
