@@ -1,0 +1,47 @@
+{
+  "schema": "SHEIKHA_DEAL_002_FULL_CLOSURE_AND_COMMS_BOT_V25",
+  "version": "25.0.0",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "deal_id": "DEAL-SHK-2026-002",
+  "funded_from": "DEAL-SHK-2026-001 Reinvestment Pool (6,650.00 SAR — 70% Auto-Compounding)",
+  "commodity": "15.004 MT Copper Millberry (ISRI Berry — Purity 99.97% XRF — Red Seal SHK-RED-002)",
+  "weighbridge_reconciliation": {
+    "origin_net_kg": 15006,
+    "factory_net_kg": 15004,
+    "variance_pct": 0.013,
+    "verdict": "APPROVED_AUTO_MATCH"
+  },
+  "tax_invoice_10": {
+    "invoice_number": "INV-SHK-2026-002",
+    "subtotal_excl_vat_sar": 519000.0,
+    "vat_15_pct_sar": 77850.0,
+    "total_payable_sar": 596850.0,
+    "iban": "SA4005000068206162118000 (Alinma Bank)",
+    "zatca_tlv_base64_qr": "AVXZhdik2LPYs9ipINiz2YTZhdin2YYg2KPYrdmF2K8g2KjZhiDYs9mE2YXYp9mGINin2YTYsdin2KzYrSDZhNmE2KrYrNin2LHYqSAo2LTZitiu2KkpAg8zMTAxMjM0NTY3MDAwMDMDFDIwMjYtMTEtMTdUMTM6MDE6NTJaBAk1OTY4NTAuMDAFCDc3ODUwLjAw",
+    "invoice_sha256": "0045a884de5d75221787d07418c5b795c4686e6c02f495055c27c79ab19a7e1f",
+    "status": "CLEARED_ZATCA_PHASE2_SETTLED"
+  },
+  "profit_distribution": {
+    "realized_net_profit_sar": 14250.0,
+    "reinvestment_70_pct_sar": 9975.0,
+    "sovereign_reserve_20_pct_sar": 2850.0,
+    "waqf_charity_10_pct_sar": 1425.0
+  },
+  "cumulative_ledger_summary": {
+    "deals_closed": [
+      "DEAL-SHK-2026-001 (10.003 MT)",
+      "DEAL-SHK-2026-002 (15.004 MT)"
+    ],
+    "total_copper_supplied_mt": 25.007,
+    "cumulative_gross_inflow_sar": 994750.0,
+    "cumulative_net_profit_sar": 23750.0,
+    "cumulative_reinvestment_70_sar": 16625.0,
+    "cumulative_reserve_20_sar": 4750.0,
+    "cumulative_waqf_10_sar": 2375.0,
+    "next_cycle_trigger": "DEAL-SHK-2026-003_AUTO_FUNDED_25MT_READY"
+  },
+  "comms_bot_daemon_endpoint": "http://127.0.0.1:8092",
+  "dtvc_pitch_deck_status": "DRAFTED_IN_GMAIL_WITH_100%_IP_RETENTION",
+  "closed_at": "2026-11-17T13:01:52Z"
+}
