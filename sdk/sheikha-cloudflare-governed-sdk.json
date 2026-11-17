@@ -1,0 +1,19 @@
+{
+  "sdk": "sheikha-cloudflare-governed-sdk",
+  "version": "40.0.0",
+  "guard": "V31_ENFORCED",
+  "mcp_url": "https://mcp.cloudflare.com/mcp",
+  "endpoints": [
+    "/api/health",
+    "/api/bridge/cloudflare",
+    "/api/capabilities/registry",
+    "/guard/v31-status",
+    "/comms-guard/auto-reply"
+  ],
+  "policies": [
+    "NO_UNAUTHORIZED_DEPLOY",
+    "NO_UNAUTHORIZED_PAYMENT",
+    "NO_SECRET_DISCLOSURE",
+    "NO_UNAUTHORIZED_DELETE"
+  ]
+}
