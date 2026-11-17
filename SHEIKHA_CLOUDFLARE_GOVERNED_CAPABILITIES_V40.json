@@ -1,0 +1,47 @@
+{
+  "schema": "SHEIKHA_CLOUDFLARE_GOVERNED_FULL_ACCESS_REGISTRY_V40",
+  "version": "40.0.0",
+  "guard_release": "SHEIKHA_GUARD_V31_ENFORCED",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
+  "governance_reference": "BOUND_BY_QURAN_SUNNAH — LA_DARAR_WA_LA_DIRAR",
+  "immutable_prohibitions": {
+    "NO_UNAUTHORIZED_DEPLOY": true,
+    "NO_UNAUTHORIZED_PAYMENT": true,
+    "NO_SECRET_DISCLOSURE": true,
+    "NO_UNAUTHORIZED_DELETE": true
+  },
+  "ip_and_weights_protection": {
+    "weights_ownership": "100% Exclusive Property of Salman Ahmed bin Salman Al-Rajih Trading Est.",
+    "weights_sha256": "1155d3cf4398930274baa6a51dabc6aadbea78bed9bb4bc02f9507f73de7ce9f",
+    "raw_weights_exposure_to_cloud": "ZERO (Sealed Locally in Triple Vault)"
+  },
+  "discovered_cloudflare_capabilities": {
+    "account_id": "a4e323681eb22a05dcc0680aed5e9bb0",
+    "account_identity": "market@sheikha.top",
+    "mcp_endpoint": "https://mcp.cloudflare.com/mcp",
+    "verified_scopes_count": 29,
+    "governed_resources": {
+      "workers": [
+        "sheikha-dev-platform",
+        "sheikha-sovereign-admin"
+      ],
+      "zero_trust": "connectivity (admin) + NDA Supervisor Key Enforcement",
+      "d1_database": "sheikha-unified-db (094c8fe4-8588-4f5f-9bb0-a6d738159c7d) — Append-Only Protected",
+      "r2_storage": "sheikha-ads-storage — Client-Side AES-256 Encrypted",
+      "kv_namespace": "SHEIKHA_KV (14e09179f8074666809df125e1f7a748)",
+      "durable_objects": "SheikhaSessionDO (Stateful Session Guard)",
+      "compute_and_containers": "containers (write) + cloudchamber (write) — Spend Locked ($0 Unauthorized)",
+      "workers_ai_and_memory": "ai (write) + ai-search (write/run) + agent-memory (write) + pipelines (write)"
+    }
+  },
+  "seven_pillar_system_binding": {
+    "1_Foundry": "يربط مخرجات البناء الأصلي (V10/V11 Ed25519 Signed) بفحص القواعد قبل أي نشر طرفي.",
+    "2_Guard_V31": "يحرس المسارات الـ 12، ويفرض HTTP 403 على المسارات الحساسة لغير المشرف، ويمنع تسريب الأسرار أو الحذف.",
+    "3_Watch": "يراقب نبض العمال (Workers)، وحالة الشهادات، والاتصالات الواردة على المنفذ :8092 وكل 6 ساعات.",
+    "4_Supervisor": "يتحقق من مفتاح المشرف (X-Sheikha-Supervisor-Key) ويدقق البصمات القبلية والبعدية.",
+    "5_SDK": "يوفر واجهات برمجية محكومة في sdk/sheikha-js و sdk/sheikha-python بدون كشف مفاتيح.",
+    "6_API": "يوحد نقاط النهاية العامة (/api/health, /api/bridge/cloudflare, /api/capabilities/registry) والخاصة.",
+    "7_MCP": "يربط خادم Cloudflare MCP الرسمي ببيئة VS Code / Codex تحت حوكمة الكتاب والسنة."
+  },
+  "verified_at": "2026-11-17T20:44:52Z"
+}
