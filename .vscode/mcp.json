@@ -1,16 +1,34 @@
 {
-	"servers": {
-		"github": {
-			"type": "http",
-			"url": "https://api.githubcopilot.com/mcp/"
-		}
-	},
-	"inputs": [
-		{
-			"id": "token",
-			"type": "promptString",
-			"description": "",
-			"password": true
-		}
-	]
+  "servers": {
+    "sheikha-readonly": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/mcp-servers/sheikha-mcp-readonly-federation.cjs"
+      ]
+    },
+    "cloudflare": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  },
+  "mcpServers": {
+    "cloudflare-sovereign-agent": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@cloudflare/mcp-server-cloudflare",
+        "run",
+        "a4e323681eb22a05dcc0680aed5e9bb0"
+      ],
+      "env": {
+        "CLOUDFLARE_ACCOUNT_ID": "a4e323681eb22a05dcc0680aed5e9bb0",
+        "SHEIKHA_GOVERNANCE": "BOUND_BY_QURAN_SUNNAH",
+        "SHEIKHA_NDA_SHIELD": "ENFORCED_ZERO_LEAKAGE"
+      }
+    },
+    "cloudflare": {
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  }
 }
