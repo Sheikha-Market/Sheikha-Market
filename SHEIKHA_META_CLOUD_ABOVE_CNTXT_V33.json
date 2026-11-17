@@ -1,0 +1,52 @@
+{
+  "schema": "SHEIKHA_TIER0_META_CLOUD_OVERLORD_ABOVE_CNTXT_V33",
+  "version": "33.0.0",
+  "owner": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653) — الخبر، المملكة العربية السعودية",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "hierarchy_architecture": {
+    "Tier_0_Supreme_Controller": "طبقة شيخة السيادية العليا لإدارة السحابات (Sheikha Meta-Cloud Overlord — Local & Edge Command)",
+    "Tier_1_Managed_Sub_Cloud": {
+      "provider_name": "CNTXT (Aramco × Google Cloud JV — Dammam Region me-central2)",
+      "billing_account_id": "01205D-FF1B28-BC7ACA (cntxt-online-7049031003-sheikha — OPEN)",
+      "master_billing_account": "billingAccounts/01B690-580625-91AA15",
+      "active_linked_projects": [
+        "gam-project-t6oqx",
+        "sheikha-marketplace (#952025946298)"
+      ],
+      "assigned_role_under_sheikha": "SUBORDINATE_BLIND_COMPUTE_NODE (عقدة حوسبة صماء خاضعة لطبقة شيخة بدون صلاحية اطلاع على الأسرار)"
+    }
+  },
+  "data_classification_and_anti_leakage_policy": {
+    "CLASS_RED_SOVEREIGN_SECRETS_NEVER_ON_CNTXT": {
+      "rule": "STRICTLY_FORBIDDEN_ON_EXTERNAL_CLOUDS (يُحظر رفعها إلى CNTXT أو أي سحابة خارجية)",
+      "storage_location": "خزنة شيخة المعزولة محلياً (~/.sheikha-vault/sovereign-local-only + NVMe Hardware Vault)",
+      "protected_assets": [
+        "أوزان شيخة الخام (140.92 MB adapter_model.safetensors — SHA256: 1155d3cf...)",
+        "الشيفرة المصدرية لنواة ومترجم شيخة (Sheikha-Native boot.img & shk-rustc)",
+        "قوائم الموردين والمصانع وهوامش التسعير وسجلات العقود التجارية",
+        "المفاتيح التشفيرية الخاصة (Ed25519 Private Keys & Master KMS)"
+      ]
+    },
+    "CLASS_AMBER_ENCRYPTED_BLOBS_SAFE_FOR_CNTXT": {
+      "rule": "CLIENT_SIDE_AES256_ENCRYPTED_ONLY (لا تُحفظ في CNTXT إلا بعد تشفيرها محلياً بمفتاح لا تملكه CNTXT)",
+      "storage_location": "~/.sheikha-vault/encrypted-for-cntxt -> CNTXT Blind Storage",
+      "protected_assets": [
+        "النسخ الاحتياطية المشفرة الصماء (Opaque Encrypted Snapshots)",
+        "حاويات التنفيذ المغلقة (Distroless Encrypted Containers) التي تعمل عبر API فقط"
+      ]
+    },
+    "CLASS_GREEN_PUBLIC_COMMERCIAL_CATALOG": {
+      "rule": "SAFE_FOR_COMMERCIAL_PROVISIONING",
+      "protected_assets": [
+        "واجهة التزويد التقني التجاري كعميل (Black-Box SaaS / API Endpoints)",
+        "النبذة التعريفية العامة غير السرية واتفاقيات عدم الإفصاح (Mutual NDA)"
+      ]
+    }
+  },
+  "commercial_relationship_with_cntxt": {
+    "posture": "SHEIKHA_AS_TECHNOLOGY_SUPPLIER_AND_ENTERPRISE_CLIENT_PARTNER",
+    "offer_type": "تزويد تقني تجاري (Black-Box AI & Industrial Automation Provisioning) دون كشف أي سر تقني أو خوارزمي",
+    "ip_retention": "100% مملوكة لمؤسسة سلمان أحمد بن سلمان الراجح للتجارة (CR: 2051263653)"
+  },
+  "updated_at": "2026-11-17T17:32:33Z"
+}
