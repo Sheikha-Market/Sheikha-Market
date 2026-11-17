@@ -1,0 +1,173 @@
+{
+  "schema": "SHEIKHA_GOOGLE_WORKSPACE_INTEGRATION_V15",
+  "version": "15.0.0",
+  "created_at": "2026-11-17T17:35:29.064243+00:00",
+  "workspace_account": {
+    "domain": "sheikha.top",
+    "admin_email": "admin@sheikha.top",
+    "business_email": "market@sheikha.top",
+    "partnerships_email": "partnerships@sheikha.top",
+    "workspace_id": "C0abcde123",
+    "status": "ACTIVE"
+  },
+  "gmail_integration": {
+    "service_account": "sheikha-workspace-service@sheikha.iam.gserviceaccount.com",
+    "oauth2_scopes": [
+      "https://www.googleapis.com/auth/gmail.send",
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/gmail.labels",
+      "https://www.googleapis.com/auth/gmail.settings.basic"
+    ],
+    "api_enabled": true,
+    "rate_limit": "1000_emails_per_day"
+  },
+  "automation_rules": {
+    "auto_send_emails": {
+      "enabled": true,
+      "emails_to_send": [
+        {
+          "id": "EMAIL_MICROSOFT_001",
+          "to": "partnerships@microsoft.com",
+          "template": "AUTO-REPLY-TEMPLATE-AR-01-ACKNOWLEDGMENT.txt",
+          "subject_ar": "شيخة نيتف v22.0.0 — فرصة شراكة واستثمار استراتيجية",
+          "subject_en": "Sheikha Native v22.0.0 — Strategic Partnership & Investment Opportunity",
+          "scheduled_send_time": "2026-11-17T20:00:00Z",
+          "priority": "HIGH",
+          "tracking": true,
+          "read_receipt": true
+        },
+        {
+          "id": "EMAIL_GOOGLE_001",
+          "to": "partners@google.com",
+          "template": "AUTO-REPLY-TEMPLATE-AR-01-ACKNOWLEDGMENT.txt",
+          "subject_ar": "شيخة نيتف v22.0.0 — فرصة شراكة واستثمار استراتيجية",
+          "subject_en": "Sheikha Native v22.0.0 — Strategic Partnership & Investment Opportunity",
+          "scheduled_send_time": "2026-11-17T20:00:30Z",
+          "priority": "HIGH",
+          "tracking": true,
+          "read_receipt": true
+        },
+        {
+          "id": "EMAIL_OPENAI_001",
+          "to": "partnerships@openai.com",
+          "template": "AUTO-REPLY-TEMPLATE-AR-01-ACKNOWLEDGMENT.txt",
+          "subject_ar": "شيخة نيتف v22.0.0 — تكامل شبكة شركاء OpenAI الاستراتيجية",
+          "subject_en": "Sheikha Native v22.0.0 — OpenAI Partner Network Strategic Integration",
+          "scheduled_send_time": "2026-11-17T20:01:00Z",
+          "priority": "HIGH",
+          "tracking": true,
+          "read_receipt": true
+        },
+        {
+          "id": "EMAIL_CLOUDFLARE_001",
+          "to": "partners@cloudflare.com",
+          "template": "AUTO-REPLY-TEMPLATE-AR-01-ACKNOWLEDGMENT.txt",
+          "subject_ar": "شيخة نيتف v22.0.0 — فرصة شراكة واستثمار استراتيجية",
+          "subject_en": "Sheikha Native v22.0.0 — Strategic Partnership & Investment Opportunity",
+          "scheduled_send_time": "2026-11-17T20:01:30Z",
+          "priority": "HIGH",
+          "tracking": true,
+          "read_receipt": true
+        },
+        {
+          "id": "EMAIL_SAUDI_INVESTORS_001",
+          "to": "investors@saudi-vc.fund",
+          "template": "AUTO-REPLY-TEMPLATE-AR-01-ACKNOWLEDGMENT.txt",
+          "subject_ar": "استثمار في تكنولوجيا سيادية — منصة شيخة نيتف v22.0.0",
+          "subject_en": "Investment in Sovereign Technology — Sheikha Native v22.0.0 Platform",
+          "scheduled_send_time": "2026-11-17T20:02:00Z",
+          "priority": "URGENT",
+          "tracking": true,
+          "read_receipt": true
+        }
+      ]
+    },
+    "auto_reply_rules": {
+      "enabled": true,
+      "rules": [
+        {
+          "id": "RULE_AUTO_ACK_001",
+          "trigger": "email_received_from_partners",
+          "condition": "from:(partnerships@microsoft.com OR partners@google.com OR partnerships@openai.com OR partners@cloudflare.com)",
+          "action": "send_acknowledgment",
+          "template": "AUTO-REPLY-TEMPLATE-AR-01-ACKNOWLEDGMENT.txt",
+          "delay_seconds": 300,
+          "priority": "HIGH"
+        },
+        {
+          "id": "RULE_LABEL_001",
+          "trigger": "email_received_from_partners",
+          "condition": "from:(partnerships@microsoft.com OR partners@google.com OR partnerships@openai.com OR partners@cloudflare.com)",
+          "action": "apply_labels",
+          "labels": [
+            "Partners/Microsoft",
+            "Partners/Google",
+            "Partners/OpenAI",
+            "Partners/Cloudflare",
+            "URGENT",
+            "Partnership"
+          ]
+        },
+        {
+          "id": "RULE_FORWARD_001",
+          "trigger": "email_received_from_partners",
+          "condition": "from:(partnerships@microsoft.com OR partners@google.com OR partnerships@openai.com OR partners@cloudflare.com)",
+          "action": "forward_to_admin",
+          "forward_to": "admin@sheikha.top",
+          "mark_as_important": true
+        }
+      ]
+    },
+    "monitoring_rules": {
+      "enabled": true,
+      "check_interval_minutes": 15,
+      "rules": [
+        {
+          "id": "MONITOR_RESPONSE_TIME",
+          "metric": "response_time_hours",
+          "threshold": 72,
+          "action": "send_escalation_alert"
+        },
+        {
+          "id": "MONITOR_OPEN_RATE",
+          "metric": "email_open_rate",
+          "threshold": 0.5,
+          "action": "send_follow_up"
+        },
+        {
+          "id": "MONITOR_CLICK_RATE",
+          "metric": "link_click_rate",
+          "threshold": 0.3,
+          "action": "prepare_meeting_schedule"
+        }
+      ]
+    }
+  },
+  "calendar_integration": {
+    "enabled": true,
+    "calendar_id": "partnerships@sheikha.top",
+    "auto_schedule_meetings": true,
+    "meeting_duration_minutes": 60,
+    "timezone": "Asia/Riyadh",
+    "available_slots": {
+      "saturday": "10:00-17:00",
+      "sunday": "10:00-17:00",
+      "monday": "10:00-17:00",
+      "tuesday": "10:00-17:00",
+      "wednesday": "10:00-17:00",
+      "thursday": "10:00-17:00",
+      "friday": "OFF"
+    }
+  },
+  "security": {
+    "tls_version": "1.3",
+    "encryption": "AES-256-GCM",
+    "dkim_enabled": true,
+    "spf_configured": true,
+    "dmarc_policy": "reject",
+    "nda_protection": "ENABLED",
+    "signature_verification": "Ed25519"
+  },
+  "deployment_status": "READY_FOR_ACTIVATION"
+}
