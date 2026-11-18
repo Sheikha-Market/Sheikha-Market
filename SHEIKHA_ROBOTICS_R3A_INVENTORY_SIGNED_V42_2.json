@@ -1,0 +1,212 @@
+{
+  "stage": "R3A_READ_ONLY_INVENTORY",
+  "utc": "2026-11-18T17:01:36.788895+00:00",
+  "decision": "HOLD_PHYSICAL_ACTUATION",
+  "physicalActuation": false,
+  "productionReady": false,
+  "device_nodes_opened": false,
+  "network_started": false,
+  "source_replay_hashes": {
+    "replay.csv": "9d76105124b18d2289c536636fcda7d80451147674bf3a4c378443611a6dccf3",
+    "replay.svg": "9cb3c75a1a359f2ad4eb470402a4cc3ac4b390147a1875b576ac25e9f1063876"
+  },
+  "inventory": {
+    "usb": [
+      {
+        "port": "3-1",
+        "vendor_id": "1462",
+        "product_id": "1603",
+        "device_class": "00"
+      },
+      {
+        "port": "3-10",
+        "vendor_id": "8087",
+        "product_id": "0033",
+        "device_class": "e0"
+      },
+      {
+        "port": "3-5",
+        "vendor_id": "04f2",
+        "product_id": "b802",
+        "device_class": "ef"
+      },
+      {
+        "port": "3-6",
+        "vendor_id": "046d",
+        "product_id": "c077",
+        "device_class": "00"
+      },
+      {
+        "port": "usb1",
+        "vendor_id": "1d6b",
+        "product_id": "0002",
+        "device_class": "09"
+      },
+      {
+        "port": "usb2",
+        "vendor_id": "1d6b",
+        "product_id": "0003",
+        "device_class": "09"
+      },
+      {
+        "port": "usb3",
+        "vendor_id": "1d6b",
+        "product_id": "0002",
+        "device_class": "09"
+      },
+      {
+        "port": "usb4",
+        "vendor_id": "1d6b",
+        "product_id": "0003",
+        "device_class": "09"
+      }
+    ],
+    "serial_candidates": [
+      {
+        "name": "ttyS0",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS1",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS10",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS11",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS12",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS13",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS14",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS15",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS16",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS17",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS18",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS19",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS2",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS20",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS21",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS22",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS23",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS24",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS25",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS26",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS27",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS28",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS29",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS3",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS30",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS31",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS4",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS5",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS6",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS7",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS8",
+        "driver": "port"
+      },
+      {
+        "name": "ttyS9",
+        "driver": "port"
+      }
+    ],
+    "can_candidates": [],
+    "gpiochips": [
+      "gpiochip512"
+    ]
+  },
+  "safety_requirements_unverified": [
+    "device_identity_and_manual",
+    "risk_assessment",
+    "independent_emergency_stop",
+    "safe_state_and_energy_isolation",
+    "limits_and_feedback",
+    "qualified_onsite_commissioning"
+  ],
+  "receipt_signed": true,
+  "signed_utc": "2026-11-18T17:08:12.649561+00:00",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "ed25519_signature_hex": "71b99c5d7138420a7f9ee534a0c3623fba8647209b744d3ce5a0b635b0deecde9b82a5563a4566fce8a057c54a227634ec10e0080e854e25c7e11e682f637b0d",
+  "receipt_sha256": "d9ce4c077d8e047ac09168d6ed9332b997ca0cea05ac65d9239bffcf89874d00"
+}
