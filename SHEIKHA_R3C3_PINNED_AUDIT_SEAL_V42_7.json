@@ -1,0 +1,22 @@
+{
+  "schema": "SHEIKHA_R3C3_PINNED_AUDIT_AND_DETACHED_VAULT_SEAL_V42_7",
+  "version": "42.7.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "r3c3_verification_matrix": {
+    "fix1_historical_source_review": "PASS_ORIGINAL_PINNED_AUDIT (reconstruction_used: false)",
+    "fix2_gazebo_snapshot": "PASS_HISTORICAL_BYTES_RECOVERED (12/12 files verified)",
+    "read_only_evidence_review": "PASS_PINNED_FIXTURE_AUDIT_HOLD_STOP_AND_HARDWARE",
+    "gazebo_controlled_hold": "PASS_SIMULATED_CONTROLLED_HOLD (207 samples, 4.02s hold)",
+    "anchor_sha256": "3296dd68c7f13ef405178c1742699a6b193e62cc2bea6b9db881e7ccc14b33a4"
+  },
+  "pinned_hashes_verified": {
+    "r3c1_source_receipt_sha256": "f10e1e984a4563858fa508e8c193143b0e78fee249c334318caf7385a98f411b",
+    "r3c1_source_database_sha256": "50f9880aa88ab4ea7e4575ae364a5f2b14fd53cc008653e487c56dbdeaecfadf",
+    "r3c2_signed_receipt_sha256": "d7baa456d768be6ee6e54ff36ce864b8da1ba9d4744f55ce86b259fc14655798",
+    "r3c2_gazebo_receipt_sha256": "9b9a38bd794888b399faf7cd358148da67bb81ffcdbe38adf9753a55864421d2"
+  },
+  "signature_architecture": "External Detached Ed25519 Vault (~/.sheikha-vault/robotics-detached-signatures/) — Zero Lab Mutation",
+  "physical_actuation": false,
+  "production_ready": false,
+  "sealed_at": "2026-11-18T18:19:22.839604+00:00"
+}
