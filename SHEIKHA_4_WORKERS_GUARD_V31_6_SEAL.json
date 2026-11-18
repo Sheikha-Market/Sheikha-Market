@@ -1,0 +1,26 @@
+{
+  "schema": "SHEIKHA_UNIFIED_4_WORKERS_GUARD_V31_6_SEAL",
+  "version": "40.4.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "status": "20_OF_20_ENDPOINTS_VERIFIED_ZERO_LEAKAGE",
+  "hardened_workers": {
+    "sheikha-dev-platform": "08f93970-4877-4dea-944e-4889292588df",
+    "sheikha-sovereign-admin": "62335ea6-d400-4161-bb59-43337cd157f6",
+    "sheikha-query": "624bd902-080c-4d01-9ca7-ab1a28bf857c",
+    "sheikha-ads-manager": "62e44084-0794-4f78-ab7c-06421a8c83c4"
+  },
+  "audit_matrix": {
+    "/api/health": "HTTP 200 across all 4 workers",
+    "/api/deals": "HTTP 403 across all 4 workers",
+    "/api/weights": "HTTP 403 across all 4 workers",
+    "/api/tables": "HTTP 403 across all 4 workers",
+    "/api/query": "HTTP 403 across all 4 workers (Raw SQL permanently disabled)"
+  },
+  "policies": [
+    "NO_UNAUTHORIZED_DEPLOY",
+    "NO_UNAUTHORIZED_PAYMENT",
+    "NO_SECRET_DISCLOSURE",
+    "NO_UNAUTHORIZED_DELETE"
+  ],
+  "sealed_at": "2026-11-18T13:47:06.795647+00:00"
+}
