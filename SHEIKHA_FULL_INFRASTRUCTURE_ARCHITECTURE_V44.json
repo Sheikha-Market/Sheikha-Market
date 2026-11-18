@@ -1,0 +1,225 @@
+{
+  "schema": "SHEIKHA_FULL_INFRASTRUCTURE_ARCHITECTURE_V44",
+  "version": "44.0.0",
+  "timestamp": "2026-11-18T19:00:13.082455+00:00",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "layer_1_frontend": {
+    "name": "Sheikha Pages — الواجهة الأمامية",
+    "provider": "Cloudflare Pages",
+    "project": "sheikha-main-portal",
+    "url": "sheikha-main-portal.pages.dev",
+    "domains": 38,
+    "files": [
+      "index.html",
+      "_headers",
+      "api/architecture-v43.json"
+    ],
+    "status": "DEPLOYED"
+  },
+  "layer_2_backend": {
+    "name": "Sheikha Workers — البنية الخلفية",
+    "count": 16,
+    "workers": {
+      "sheikha-dev-platform": {
+        "role": "منصة التطوير الرئيسية",
+        "url": "sheikha-dev-platform.market-a4e.workers.dev",
+        "bindings": [
+          "D1",
+          "KV",
+          "R2",
+          "AI",
+          "DO"
+        ],
+        "routes": [
+          "dev.sheikha.top/*",
+          "api.sheikha.top/*"
+        ]
+      },
+      "sheikha-sovereign-admin": {
+        "role": "منصة الإدارة السيادية",
+        "url": "sheikha-sovereign-admin.market-a4e.workers.dev",
+        "bindings": [
+          "D1",
+          "KV"
+        ],
+        "routes": [
+          "admin.sheikha.top/*"
+        ]
+      },
+      "sheikha-query": {
+        "role": "واجهة استعلام D1 المؤمّنة",
+        "url": "sheikha-query.market-a4e.workers.dev",
+        "bindings": [
+          "D1"
+        ],
+        "routes": [
+          "query.sheikha.top/*"
+        ]
+      },
+      "sheikha-sovereign-ai": {
+        "role": "بوابة الذكاء الاصطناعي",
+        "url": "sheikha-sovereign-ai.market-a4e.workers.dev",
+        "bindings": [
+          "AI"
+        ],
+        "routes": [
+          "ai.sheikha.top/*"
+        ]
+      },
+      "sheikha-sovereign-monitor": {
+        "role": "منصة المراقبة",
+        "url": "sheikha-sovereign-monitor.market-a4e.workers.dev",
+        "routes": [
+          "monitor.sheikha.top/*"
+        ]
+      },
+      "sheikha-edge-guardian": {
+        "role": "حارس الحافة",
+        "routes": [
+          "guard.sheikha.top/*"
+        ]
+      },
+      "sheikha-api-shield": {
+        "role": "درع API",
+        "routes": [
+          "shield.sheikha.top/*"
+        ]
+      },
+      "sheikha-health-checker": {
+        "role": "فاحص الصحة",
+        "schedule": "*/5 * * * *"
+      },
+      "sheikha-workflows": {
+        "role": "منسق المهام",
+        "bindings": [
+          "Queues"
+        ]
+      },
+      "sheikha-durable-objects": {
+        "role": "كائنات دائمة",
+        "bindings": [
+          "DO"
+        ]
+      },
+      "sheikha-mcp": {
+        "role": "بروتوكول سياق النموذج",
+        "routes": [
+          "mcp.sheikha.top/*"
+        ]
+      },
+      "sheikha-ai": {
+        "role": "محرك الذكاء الاصطناعي",
+        "bindings": [
+          "AI"
+        ]
+      },
+      "sheikha-ads-manager": {
+        "role": "مدير الإعلانات"
+      },
+      "sheikha-media-worker": {
+        "role": "معالج الوسائط"
+      },
+      "sheikha-email-router": {
+        "role": "موجّه البريد"
+      },
+      "sheikha-logpush": {
+        "role": "دفع السجلات"
+      }
+    }
+  },
+  "layer_3_storage": {
+    "d1_databases": {
+      "sheikha-unified-db": "قاعدة البيانات الموحدة (34 جدول)",
+      "sheikha-ads-db": "قاعدة بيانات الإعلانات",
+      "compute-db": "قاعدة بيانات الحوسبة",
+      "sheikha-compute-db": "قاعدة بيانات الحوسبة السيادية",
+      "sheikha-database": "قاعدة بيانات عامة",
+      "sheikha-db": "قاعدة بيانات إضافية"
+    },
+    "kv_namespaces": [
+      "ADS_KV",
+      "sheikha-kv",
+      "sheikha-compute-kv",
+      "compute-kv"
+    ],
+    "r2_buckets": {
+      "sheikha-ads-storage": "333 MB — أوزان + بيانات + سجلات"
+    }
+  },
+  "layer_4_network": {
+    "name": "Sheikha SDN — الشبكة المعرفة برمجياً",
+    "zones": 12,
+    "dns_records": 72,
+    "cdn": "Cloudflare Global Network (300+ locations)",
+    "edge_latency": "1-2ms",
+    "ssl": "Full Strict + Always Use HTTPS",
+    "dns_provider": "Cloudflare Authoritative DNS",
+    "ddos_protection": "Unmetered DDoS Mitigation"
+  },
+  "layer_5_security": {
+    "guard": "V31.7 — P0 Auth on all D1 endpoints",
+    "waf": "Cloudflare WAF + Custom Rules",
+    "nda_shield": "10/10 ZERO_SECRET_DISCLOSURE",
+    "ed25519": "16 receipts signed (Zero Lab Mutation)",
+    "policies": [
+      "NO_UNAUTHORIZED_DEPLOY",
+      "NO_UNAUTHORIZED_PAYMENT",
+      "NO_SECRET_DISCLOSURE",
+      "NO_UNAUTHORIZED_DELETE"
+    ]
+  },
+  "layer_6_ai": {
+    "workers_ai": "Cloudflare Workers AI",
+    "ai_gateway": "P0 Auth + Model Whitelist",
+    "sovereign_weights": {
+      "WGT-SHK-PROD-1.5B-V14": "Qwen2.5-1.5B — 141 MB — 392 tensors",
+      "WGT-SHK-PROD-V1": "Hybrid LoRA — 8.27 MB — 192 tensors"
+    },
+    "rag": "Vectorize + D1",
+    "status": "LOCKED 🔒"
+  },
+  "layer_7_integrations": {
+    "mcp": [
+      "ChatGPT",
+      "Codex",
+      "VS Code"
+    ],
+    "github": "Sheikha-Market/sheikha-main-portal + Sheikha-Market",
+    "google_cloud": "112 APIs ACTIVE (project #952025946298)",
+    "partnerships": [
+      "DTVC/KFUPM",
+      "Google Cloud",
+      "OpenAI",
+      "Microsoft",
+      "Cloudflare"
+    ]
+  },
+  "domain_mapping": {
+    "sheikha.top": "النطاق الرئيسي — Pages Portal (50 DNS records)",
+    "sheikha.app": "تطبيقات شيخة",
+    "sheikha.capital": "رأس المال والاستثمار",
+    "sheikha.click": "روابط قصيرة وتحويل",
+    "sheikha.cloud": "السحابة السيادية",
+    "sheikha.dev": "منصة التطوير",
+    "sheikha.digital": "التحول الرقمي",
+    "sheikha.market": "السوق التجاري",
+    "sheikha.me": "الهوية الشخصية",
+    "sheikha.money": "الخدمات المالية والوقف",
+    "sheikha.shop": "المتجر الإلكتروني",
+    "sheikha.site": "المواقع العامة"
+  },
+  "proposed_subdomains": {
+    "api.sheikha.top": "→ sheikha-dev-platform (API Gateway)",
+    "admin.sheikha.top": "→ sheikha-sovereign-admin",
+    "query.sheikha.top": "→ sheikha-query",
+    "ai.sheikha.top": "→ sheikha-sovereign-ai",
+    "monitor.sheikha.top": "→ sheikha-sovereign-monitor",
+    "guard.sheikha.top": "→ sheikha-edge-guardian",
+    "shield.sheikha.top": "→ sheikha-api-shield",
+    "mcp.sheikha.top": "→ sheikha-mcp",
+    "cloud.sheikha.cloud": "→ سحابة شيخة السيادية",
+    "dev.sheikha.dev": "→ بيئة التطوير",
+    "shop.sheikha.shop": "→ المتجر",
+    "pay.sheikha.money": "→ الدفع والوقف"
+  }
+}

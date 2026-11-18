@@ -3,60 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>منظومة شيخة السيادية — المعمارية الكاملة للنطاقات والصفحات v43.0.0</title>
+  <title>منظومة شيخة السيادية — 38 نطاقاً و 16 خادماً طرفياً و 25 مكوناً (v43.1.0)</title>
   <style>
-    :root { --bg: #070b19; --card: #10172a; --gold: #d4af37; --green: #10b981; --text: #f1f5f9; --muted: #94a3b8; --border: #1e293b; }
+    :root { --bg: #060a17; --card: #0f172a; --gold: #d4af37; --green: #10b981; --blue: #38bdf8; --text: #f8fafc; --muted: #94a3b8; --border: #1e293b; }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    header { background: linear-gradient(135deg, #0f172a, #1e1b4b); border-bottom: 2px solid var(--gold); padding: 28px 20px; text-align: center; }
-    header h1 { margin: 0; color: var(--gold); font-size: 26px; }
+    header { background: linear-gradient(135deg, #090d16, #1e1b4b); border-bottom: 2px solid var(--gold); padding: 30px 20px; text-align: center; }
+    header h1 { margin: 0; color: var(--gold); font-size: 27px; }
+    header .host-pill { display: inline-block; margin-top: 10px; padding: 4px 14px; border-radius: 20px; background: rgba(212,175,55,0.15); border: 1px solid var(--gold); color: var(--gold); font-weight: bold; font-size: 13px; }
     header p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
-    .container { max-width: 1240px; margin: 24px auto; padding: 0 16px; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .container { max-width: 1280px; margin: 24px auto; padding: 0 16px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 14px; margin-bottom: 24px; }
     .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
-    .stat .val { font-size: 28px; font-weight: bold; color: var(--gold); }
+    .stat .val { font-size: 27px; font-weight: bold; color: var(--gold); }
     .stat .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
     .panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; overflow-x: auto; }
     .panel h2 { margin-top: 0; color: var(--gold); font-size: 19px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .domains-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .dom-chip { background: #162038; border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+    .dom-chip span.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; }
     table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-    th, td { padding: 11px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+    th, td { padding: 10px; text-align: right; border-bottom: 1px solid var(--border); }
     th { color: var(--gold); background: rgba(212, 175, 55, 0.06); }
-    .badge { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 12px; font-weight: bold; background: rgba(16, 185, 129, 0.15); color: var(--green); }
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 11.5px; font-weight: bold; background: rgba(16, 185, 129, 0.15); color: var(--green); }
+    .badge-lock { background: rgba(56, 189, 248, 0.15); color: var(--blue); }
     footer { text-align: center; padding: 24px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
   </style>
 </head>
 <body>
   <header>
-    <h1>🏛️ منظومة شيخة السيادية — معمارية النطاقات والصفحات والحافة v43.0.0</h1>
+    <h1 id="portalTitle">🏛️ منظومة شيخة السيادية — معمارية النطاقات والصفحات الكاملة v43.1.0</h1>
+    <div class="host-pill" id="activeHost">النطاق النشط: sheikha-main-portal.pages.dev</div>
     <p>مؤسسة سلمان أحمد بن سلمان الراجح للتجارة — بالكتاب والسنة وبلا ضرر ولا ضرار 🛡️</p>
   </header>
   <div class="container">
     <div class="stats">
-      <div class="stat"><div class="val">12</div><div class="lbl">نطاق سيادي نشط (Zones)</div></div>
-      <div class="stat"><div class="val">16 / 16</div><div class="lbl">خادم طرفي محصن (Workers)</div></div>
-      <div class="stat"><div class="val">25 / 25</div><div class="lbl">مكون سيادي مفعل</div></div>
-      <div class="stat"><div class="val">Guard V31.7</div><div class="lbl">درع عدم الإفصاح (HTTP 403)</div></div>
+      <div class="stat"><div class="val">12 Zones</div><div class="lbl">نطاقات أساسية (Root Domains)</div></div>
+      <div class="stat"><div class="val">38 Domains</div><div class="lbl">إجمالي النطاقات المربوطة بـ Pages</div></div>
+      <div class="stat"><div class="val">16 / 16</div><div class="lbl">Workers محصنة (Guard V31.7)</div></div>
+      <div class="stat"><div class="val">25 / 25</div><div class="lbl">مكون سيادي مفعل بالكامل</div></div>
+      <div class="stat"><div class="val">400.012 MT</div><div class="lbl">نحاس Millberry (6 صفقات D1)</div></div>
       <div class="stat"><div class="val">16 / 16</div><div class="lbl">إيصال روبوتي موقع Ed25519</div></div>
     </div>
+
     <div class="panel">
-      <h2>🌐 مصفوفة توجيه النطاقات والصفحات والعمال (Domain & Pages Routing Matrix)</h2>
+      <h2>🌍 النطاقات الـ 38 المربوطة بمشروع الصفحات (Cloudflare Pages Active Custom Domains)</h2>
+      <div class="domains-grid" id="domainsContainer"></div>
+    </div>
+
+    <div class="panel">
+      <h2>⚡ مصفوفة الخوادم الطرفية الـ 16 وحالة الحماية (16 Cloudflare Edge Workers)</h2>
       <table>
         <thead>
-          <tr><th>النطاق / المسار</th><th>المحرك المشغل (Pages / Worker)</th><th>الوظيفة المعمارية</th><th>حالة الحماية</th></tr>
+          <tr><th>#</th><th>اسم العامل (Worker Name)</th><th>الدور المعماري</th><th>الارتباطات (Bindings)</th><th>حالة Guard V31.7</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>sheikha.top</strong></td><td>Cloudflare Pages (sheikha-main-portal)</td><td>البوابة السيادية الرئيسية وواجهة السوق</td><td><span class="badge">ACTIVE SSL</span></td></tr>
-          <tr><td><strong>api.sheikha.top</strong></td><td>sheikha-dev-platform</td><td>بوابة الـ API وسجل القدرات الـ 29</td><td><span class="badge">GUARD V31.7</span></td></tr>
-          <tr><td><strong>admin.sheikha.top</strong></td><td>sheikha-sovereign-admin</td><td>لوحة الإدارة السيادية والخزينة</td><td><span class="badge">P0 LOCKED</span></td></tr>
-          <tr><td><strong>query.sheikha.top</strong></td><td>sheikha-query</td><td>محرك الاستعلام الموثق لقاعدة D1</td><td><span class="badge">P0 LOCKED</span></td></tr>
-          <tr><td><strong>guardian.sheikha.top</strong></td><td>sheikha-edge-guardian</td><td>درع الحافة وعزل المتصفح وجدولة التدفقات</td><td><span class="badge">GUARD V31.7</span></td></tr>
-          <tr><td><strong>ai.sheikha.top</strong></td><td>sheikha-ai & sheikha-sovereign-ai</td><td>بوابة الذكاء الاصطناعي وربط AI Gateway</td><td><span class="badge">ACTIVE AI</span></td></tr>
-          <tr><td><strong>mcp.sheikha.top</strong></td><td>sheikha-mcp</td><td>خادم بروتوكول MCP لـ ChatGPT و Codex و VS Code</td><td><span class="badge">ACTIVE MCP</span></td></tr>
-          <tr><td><strong>monitor.sheikha.top</strong></td><td>sheikha-sovereign-monitor</td><td>رادار المراقبة وفحص النبض 24/7</td><td><span class="badge">WATCH 24/7</span></td></tr>
-          <tr><td><strong>ads.sheikha.top</strong></td><td>sheikha-ads-manager</td><td>إدارة الحملات وطوابير الرسائل Queues</td><td><span class="badge">GUARD V31.7</span></td></tr>
-          <tr><td><strong>media.sheikha.top</strong></td><td>sheikha-media-worker</td><td>بوابة الوسائط وخزنة R2 (333MB)</td><td><span class="badge">ACTIVE R2</span></td></tr>
-          <tr><td><strong>flow.sheikha.top</strong></td><td>sheikha-workflows & durable-objects</td><td>أوركسترا العمليات والجلسات المستديمة DO</td><td><span class="badge">ACTIVE DO</span></td></tr>
-          <tr><td><strong>mail.sheikha.top</strong></td><td>sheikha-email-router & logpush</td><td>توجيه المراسلات وأرشفة السجلات</td><td><span class="badge">ACTIVE NDA</span></td></tr>
+          <tr><td>1</td><td><strong>sheikha-dev-platform</strong></td><td>النواة المركزية وسجل القدرات الـ 29</td><td>D1 + KV + R2 + DO + AI</td><td><span class="badge">200 Health / 403 D1</span></td></tr>
+          <tr><td>2</td><td><strong>sheikha-sovereign-admin</strong></td><td>إدارة الخزينة والصفقات الست (15.916M SAR)</td><td>D1 + KV</td><td><span class="badge badge-lock">P0 Auth Locked (403)</span></td></tr>
+          <tr><td>3</td><td><strong>sheikha-query</strong></td><td>محرك الاستعلام الموثق (Raw SQL Disabled)</td><td>D1 + KV</td><td><span class="badge badge-lock">Guard V31.4 Locked (403)</span></td></tr>
+          <tr><td>4</td><td><strong>sheikha-ads-manager</strong></td><td>إدارة الحملات ومستهلك طوابير الرسائل</td><td>Queues + Guard V31.6</td><td><span class="badge">200 Health / 403 Data</span></td></tr>
+          <tr><td>5</td><td><strong>sheikha-edge-guardian</strong></td><td>حارس الحافة وعزل المتصفح وجدولة التدفقات</td><td>D1 + Cron (*/5)</td><td><span class="badge">200 Health / 403 D1</span></td></tr>
+          <tr><td>6</td><td><strong>sheikha-sovereign-monitor</strong></td><td>رادار المراقبة وفحص النبض 24/7</td><td>D1 + Observability</td><td><span class="badge">200 Health / 404 Data</span></td></tr>
+          <tr><td>7</td><td><strong>sheikha-health-checker</strong></td><td>فاحص الجاهزية التلقائي للنطاقات</td><td>Edge Health Probe</td><td><span class="badge">ACTIVE 24/7</span></td></tr>
+          <tr><td>8</td><td><strong>sheikha-ai</strong></td><td>بوابة الذكاء الاصطناعي والوكلاء</td><td>Workers AI + Gateway</td><td><span class="badge">P0 Auth Protected</span></td></tr>
+          <tr><td>9</td><td><strong>sheikha-sovereign-ai</strong></td><td>محرك الاستدلال السيادي المعزول</td><td>D1 + Workers AI</td><td><span class="badge">Zero Weights Leakage</span></td></tr>
+          <tr><td>10</td><td><strong>sheikha-api-shield</strong></td><td>درع فحص الترويسات ومنع الاستغلال</td><td>WAF + Rate Limiter</td><td><span class="badge">ACTIVE SHIELD</span></td></tr>
+          <tr><td>11</td><td><strong>sheikha-mcp</strong></td><td>جسر Model Context Protocol للمطورين</td><td>ChatGPT + Codex + VS Code</td><td><span class="badge">ACTIVE MCP</span></td></tr>
+          <tr><td>12</td><td><strong>sheikha-email-router</strong></td><td>موجه المراسلات والرد التلقائي المحكوم بـ NDA</td><td>Email Routing</td><td><span class="badge">NDA Auto-Responder</span></td></tr>
+          <tr><td>13</td><td><strong>sheikha-logpush</strong></td><td>أرشفة السجلات ومسارات التدقيق</td><td>R2 Log Storage</td><td><span class="badge">IMMUTABLE LOGS</span></td></tr>
+          <tr><td>14</td><td><strong>sheikha-media-worker</strong></td><td>خدمة الأصول الثابتة وخزنة R2 (333MB)</td><td>R2 Bucket Binding</td><td><span class="badge">ACTIVE R2</span></td></tr>
+          <tr><td>15</td><td><strong>sheikha-workflows</strong></td><td>أوركسترا العمليات التجارية المؤتمتة</td><td>Cloudflare Workflows</td><td><span class="badge">ACTIVE WORKFLOWS</span></td></tr>
+          <tr><td>16</td><td><strong>sheikha-durable-objects</strong></td><td>إدارة الجلسات الحية المتزامنة</td><td>Durable Objects</td><td><span class="badge">ACTIVE DO</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -64,5 +81,17 @@
   <footer>
     BOUND_BY_QURAN_SUNNAH — NO_UNAUTHORIZED_DEPLOY | NO_UNAUTHORIZED_PAYMENT | NO_SECRET_DISCLOSURE | NO_UNAUTHORIZED_DELETE
   </footer>
+  <script>
+    const domains = ["sheikha-main-portal.pages.dev", "sheikha.top", "www.sheikha.top", "sheikha.market", "www.sheikha.market", "market.sheikha.top", "sheikha.capital", "www.sheikha.capital", "capital.sheikha.top", "sheikha.money", "www.sheikha.money", "money.sheikha.top", "sheikha.cloud", "www.sheikha.cloud", "cloud.sheikha.top", "sheikha.dev", "www.sheikha.dev", "dev.sheikha.top", "sheikha.digital", "www.sheikha.digital", "digital.sheikha.top", "sheikha.app", "www.sheikha.app", "app.sheikha.top", "sheikha.shop", "www.sheikha.shop", "shop.sheikha.top", "shp.sheikha.top", "sheikha.site", "www.sheikha.site", "site.sheikha.top", "sheikha.me", "www.sheikha.me", "me.sheikha.top", "sheikha.click", "www.sheikha.click", "click.sheikha.top", "ariba.sheikha.top"];
+    const host = window.location.hostname || "sheikha-main-portal.pages.dev";
+    document.getElementById("activeHost").textContent = "النطاق النشط حالياً: " + host;
+    const container = document.getElementById("domainsContainer");
+    domains.forEach(d => {
+      const el = document.createElement("div");
+      el.className = "dom-chip";
+      el.innerHTML = `<span>${d}</span><span class="dot" title="Active on Cloudflare Pages"></span>`;
+      container.appendChild(el);
+    });
+  </script>
 </body>
 </html>
