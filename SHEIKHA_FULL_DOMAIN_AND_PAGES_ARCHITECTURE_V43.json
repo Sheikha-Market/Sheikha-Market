@@ -1,0 +1,114 @@
+{
+  "schema": "SHEIKHA_FULL_DOMAIN_AND_PAGES_ARCHITECTURE_V43",
+  "version": "43.0.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "legal_entity": "مؤسسة سلمان أحمد بن سلمان الراجح للتجارة (شيخة)",
+  "infrastructure_summary": {
+    "total_domains_zones": 12,
+    "total_workers": 16,
+    "total_kv_namespaces": 4,
+    "total_d1_databases": 6,
+    "total_r2_buckets": 1,
+    "activated_components": 25,
+    "guard_level": "SHEIKHA_GUARD_V31_7_STRICT_403"
+  },
+  "domain_routing_matrix": [
+    {
+      "subdomain": "sheikha.top",
+      "target": "Cloudflare Pages (sheikha-main-portal)",
+      "role": "البوابة السيادية الرئيسية وواجهة السوق",
+      "auth": "PUBLIC_SAFE_SSL"
+    },
+    {
+      "subdomain": "www.sheikha.top",
+      "target": "Cloudflare Pages (sheikha-main-portal)",
+      "role": "الواجهة الأمامية الموحدة (CDN Edge)",
+      "auth": "PUBLIC_SAFE_SSL"
+    },
+    {
+      "subdomain": "api.sheikha.top",
+      "target": "Worker: sheikha-dev-platform",
+      "role": "بوابة الـ API وسجل القدرات الـ 29",
+      "auth": "PUBLIC_200_PROTECTED_403"
+    },
+    {
+      "subdomain": "admin.sheikha.top",
+      "target": "Worker: sheikha-sovereign-admin",
+      "role": "لوحة الإدارة السيادية والخزينة (400.012 MT)",
+      "auth": "SUPERVISOR_KEY_REQUIRED"
+    },
+    {
+      "subdomain": "query.sheikha.top",
+      "target": "Worker: sheikha-query",
+      "role": "محرك الاستعلام الموثق لقاعدة D1",
+      "auth": "SUPERVISOR_KEY_REQUIRED"
+    },
+    {
+      "subdomain": "guardian.sheikha.top",
+      "target": "Worker: sheikha-edge-guardian",
+      "role": "درع الحافة وعزل المتصفح وجدولة التدفقات",
+      "auth": "GUARD_V31_7_ENFORCED"
+    },
+    {
+      "subdomain": "ai.sheikha.top",
+      "target": "Worker: sheikha-ai & sheikha-sovereign-ai",
+      "role": "بوابة الذكاء الاصطناعي وربط AI Gateway",
+      "auth": "GUARD_V31_7_ENFORCED"
+    },
+    {
+      "subdomain": "mcp.sheikha.top",
+      "target": "Worker: sheikha-mcp",
+      "role": "خادم بروتوكول MCP لـ ChatGPT و Codex و VS Code",
+      "auth": "PUBLIC_SCHEMA_ONLY"
+    },
+    {
+      "subdomain": "monitor.sheikha.top",
+      "target": "Worker: sheikha-sovereign-monitor & sheikha-health-checker",
+      "role": "رادار المراقبة وفحص النبض 24/7",
+      "auth": "PUBLIC_HEALTH_200"
+    },
+    {
+      "subdomain": "ads.sheikha.top",
+      "target": "Worker: sheikha-ads-manager",
+      "role": "إدارة الحملات وطوابير الرسائل Queues",
+      "auth": "GUARD_V31_7_ENFORCED"
+    },
+    {
+      "subdomain": "media.sheikha.top",
+      "target": "Worker: sheikha-media-worker",
+      "role": "بوابة الوسائط وخزنة R2 (333MB)",
+      "auth": "GUARD_V31_7_ENFORCED"
+    },
+    {
+      "subdomain": "flow.sheikha.top",
+      "target": "Worker: sheikha-workflows & sheikha-durable-objects",
+      "role": "أوركسترا العمليات والجلسات المستديمة DO",
+      "auth": "GUARD_V31_7_ENFORCED"
+    }
+  ],
+  "workers_production_endpoints": [
+    "https://sheikha-dev-platform.market-a4e.workers.dev",
+    "https://sheikha-sovereign-admin.market-a4e.workers.dev",
+    "https://sheikha-query.market-a4e.workers.dev",
+    "https://sheikha-ads-manager.market-a4e.workers.dev",
+    "https://sheikha-edge-guardian.market-a4e.workers.dev",
+    "https://sheikha-sovereign-monitor.market-a4e.workers.dev",
+    "https://sheikha-sovereign-ai.market-a4e.workers.dev",
+    "https://sheikha-ai.market-a4e.workers.dev",
+    "https://sheikha-api-shield.market-a4e.workers.dev",
+    "https://sheikha-health-checker.market-a4e.workers.dev",
+    "https://sheikha-mcp.market-a4e.workers.dev",
+    "https://sheikha-email-router.market-a4e.workers.dev",
+    "https://sheikha-logpush.market-a4e.workers.dev",
+    "https://sheikha-media-worker.market-a4e.workers.dev",
+    "https://sheikha-workflows.market-a4e.workers.dev",
+    "https://sheikha-durable-objects.market-a4e.workers.dev"
+  ],
+  "immutable_policies": [
+    "NO_UNAUTHORIZED_DEPLOY",
+    "NO_UNAUTHORIZED_PAYMENT",
+    "NO_SECRET_DISCLOSURE",
+    "NO_UNAUTHORIZED_DELETE"
+  ],
+  "generated_at": "2026-11-18T18:26:32.654923+00:00"
+}

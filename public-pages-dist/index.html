@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منظومة شيخة السيادية — المعمارية الكاملة للنطاقات والصفحات v43.0.0</title>
+  <style>
+    :root { --bg: #070b19; --card: #10172a; --gold: #d4af37; --green: #10b981; --text: #f1f5f9; --muted: #94a3b8; --border: #1e293b; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    header { background: linear-gradient(135deg, #0f172a, #1e1b4b); border-bottom: 2px solid var(--gold); padding: 28px 20px; text-align: center; }
+    header h1 { margin: 0; color: var(--gold); font-size: 26px; }
+    header p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .container { max-width: 1240px; margin: 24px auto; padding: 0 16px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+    .stat .val { font-size: 28px; font-weight: bold; color: var(--gold); }
+    .stat .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; overflow-x: auto; }
+    .panel h2 { margin-top: 0; color: var(--gold); font-size: 19px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    th, td { padding: 11px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+    th { color: var(--gold); background: rgba(212, 175, 55, 0.06); }
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 12px; font-weight: bold; background: rgba(16, 185, 129, 0.15); color: var(--green); }
+    footer { text-align: center; padding: 24px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏛️ منظومة شيخة السيادية — معمارية النطاقات والصفحات والحافة v43.0.0</h1>
+    <p>مؤسسة سلمان أحمد بن سلمان الراجح للتجارة — بالكتاب والسنة وبلا ضرر ولا ضرار 🛡️</p>
+  </header>
+  <div class="container">
+    <div class="stats">
+      <div class="stat"><div class="val">12</div><div class="lbl">نطاق سيادي نشط (Zones)</div></div>
+      <div class="stat"><div class="val">16 / 16</div><div class="lbl">خادم طرفي محصن (Workers)</div></div>
+      <div class="stat"><div class="val">25 / 25</div><div class="lbl">مكون سيادي مفعل</div></div>
+      <div class="stat"><div class="val">Guard V31.7</div><div class="lbl">درع عدم الإفصاح (HTTP 403)</div></div>
+      <div class="stat"><div class="val">16 / 16</div><div class="lbl">إيصال روبوتي موقع Ed25519</div></div>
+    </div>
+    <div class="panel">
+      <h2>🌐 مصفوفة توجيه النطاقات والصفحات والعمال (Domain & Pages Routing Matrix)</h2>
+      <table>
+        <thead>
+          <tr><th>النطاق / المسار</th><th>المحرك المشغل (Pages / Worker)</th><th>الوظيفة المعمارية</th><th>حالة الحماية</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>sheikha.top</strong></td><td>Cloudflare Pages (sheikha-main-portal)</td><td>البوابة السيادية الرئيسية وواجهة السوق</td><td><span class="badge">ACTIVE SSL</span></td></tr>
+          <tr><td><strong>api.sheikha.top</strong></td><td>sheikha-dev-platform</td><td>بوابة الـ API وسجل القدرات الـ 29</td><td><span class="badge">GUARD V31.7</span></td></tr>
+          <tr><td><strong>admin.sheikha.top</strong></td><td>sheikha-sovereign-admin</td><td>لوحة الإدارة السيادية والخزينة</td><td><span class="badge">P0 LOCKED</span></td></tr>
+          <tr><td><strong>query.sheikha.top</strong></td><td>sheikha-query</td><td>محرك الاستعلام الموثق لقاعدة D1</td><td><span class="badge">P0 LOCKED</span></td></tr>
+          <tr><td><strong>guardian.sheikha.top</strong></td><td>sheikha-edge-guardian</td><td>درع الحافة وعزل المتصفح وجدولة التدفقات</td><td><span class="badge">GUARD V31.7</span></td></tr>
+          <tr><td><strong>ai.sheikha.top</strong></td><td>sheikha-ai & sheikha-sovereign-ai</td><td>بوابة الذكاء الاصطناعي وربط AI Gateway</td><td><span class="badge">ACTIVE AI</span></td></tr>
+          <tr><td><strong>mcp.sheikha.top</strong></td><td>sheikha-mcp</td><td>خادم بروتوكول MCP لـ ChatGPT و Codex و VS Code</td><td><span class="badge">ACTIVE MCP</span></td></tr>
+          <tr><td><strong>monitor.sheikha.top</strong></td><td>sheikha-sovereign-monitor</td><td>رادار المراقبة وفحص النبض 24/7</td><td><span class="badge">WATCH 24/7</span></td></tr>
+          <tr><td><strong>ads.sheikha.top</strong></td><td>sheikha-ads-manager</td><td>إدارة الحملات وطوابير الرسائل Queues</td><td><span class="badge">GUARD V31.7</span></td></tr>
+          <tr><td><strong>media.sheikha.top</strong></td><td>sheikha-media-worker</td><td>بوابة الوسائط وخزنة R2 (333MB)</td><td><span class="badge">ACTIVE R2</span></td></tr>
+          <tr><td><strong>flow.sheikha.top</strong></td><td>sheikha-workflows & durable-objects</td><td>أوركسترا العمليات والجلسات المستديمة DO</td><td><span class="badge">ACTIVE DO</span></td></tr>
+          <tr><td><strong>mail.sheikha.top</strong></td><td>sheikha-email-router & logpush</td><td>توجيه المراسلات وأرشفة السجلات</td><td><span class="badge">ACTIVE NDA</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <footer>
+    BOUND_BY_QURAN_SUNNAH — NO_UNAUTHORIZED_DEPLOY | NO_UNAUTHORIZED_PAYMENT | NO_SECRET_DISCLOSURE | NO_UNAUTHORIZED_DELETE
+  </footer>
+</body>
+</html>
