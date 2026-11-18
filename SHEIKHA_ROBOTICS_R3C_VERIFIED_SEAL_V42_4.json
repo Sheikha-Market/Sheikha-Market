@@ -1,0 +1,147 @@
+{
+  "schema": "SHEIKHA_ROBOTICS_R3C_SIL_AND_PERSISTENT_LEDGER_SEAL_V42_4",
+  "version": "42.4.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "status": "R3C_9_OF_9_SIL_AND_R3C1_15_OF_15_LEDGER_VERIFIED_AND_SIGNED",
+  "physical_actuation": false,
+  "production_ready": false,
+  "scope": "SIM_ONLY",
+  "signed_receipts": {
+    "r3b.0bbxc1f1": {
+      "stage": "R3B_SOFTWARE_ONLY_LOGIC_VERIFIED",
+      "decision": "HOLD_PHYSICAL_ACTUATION",
+      "utc": "2026-11-18T17:07:07.076804+00:00",
+      "inventory_sha256": "88489d5a0b80514c8522e17d2e24a48dd0f6b7c9020ab78dbf3999eadb427d26",
+      "inventory_signature_verified": true,
+      "synthetic_event_count": 12,
+      "synthetic_final_state": "FAULT_LATCHED",
+      "hardware_backend_present": false,
+      "hil_executed": false,
+      "physicalActuation": false,
+      "productionReady": false,
+      "real_emergency_stop_verified": false,
+      "receipt_signed": true,
+      "outputs_sha256": {
+        "synthetic-events.json": "76ab07cdea68e69768b03a8bcc5a8c4b835edea6c42aa491bee7f1137ee896cb",
+        "hardware-profile-template.json": "469da3e7b012dc8c1c0af6b8964dff9f896526db6189e924f753371ec6d4176b"
+      },
+      "signed_utc": "2026-11-18T17:27:05.302344+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "e1798667b74a18d60f077d9b50c73530ffaf76c7c04d93c49fa32f8189e75e9592d8a5fa24c24ea931e39947e6ceb6bd90180351f578408267d1f51936d8400f",
+      "receipt_sha256": "c2d99f68025560868e7ca4ad36ae485ae0c72645ec2228ccd93200becfe5361c"
+    },
+    "r3b-offline.9pkhnie3": {
+      "stage": "R3B_OFFLINE_POLICY_V1",
+      "decision": "PASS_OFFLINE_POLICY_TESTS",
+      "utc": "2026-11-18T17:06:58.698970+00:00",
+      "tests_run": 15,
+      "tests_failed": 0,
+      "source_inventory_sha256": "bf4b2d398838ab4cdc6dc663b2e377bc1ba3f197552247fcb87b11780a61ff68",
+      "source_signature_verified": true,
+      "scope": "SIM_ONLY",
+      "physicalActuation": false,
+      "productionReady": false,
+      "device_nodes_opened": false,
+      "network_started": false,
+      "receipt_signed": true,
+      "limitations": [
+        "in-memory reference model; no real-time scheduling or physical safety validation",
+        "synthetic test flags and targets, not measured hardware signals",
+        "no hardware driver or authenticated authorization implementation",
+        "no persistent replay protection across restarts"
+      ],
+      "physical_gate": "HOLD_UNIDENTIFIED_HARDWARE_AND_UNVERIFIED_SAFETY",
+      "signed_utc": "2026-11-18T17:27:05.313570+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "837e22362acde4d81592ab037f139e0667172d57449de2095009d27ac5f66511af90aaedd71e241929955e35587a5f195a551b12de1a0b917fb0d013bb49f809",
+      "receipt_sha256": "e9aa340fa70cf7e01369e3d8b5e267165da151e326211313b31a56a8288a0ea0"
+    },
+    "r3c-sil.kgtul2me": {
+      "stage": "R3C_NUMERICAL_SIL_V1",
+      "decision": "PASS_NUMERICAL_SIL",
+      "utc": "2026-11-18T17:12:15.806515+00:00",
+      "source_hashes": {
+        "guard_manifest": "56c2214d914f75c316215cc2c69baee24f80e4d80fd64aaad44a59bc9edb8d54",
+        "sim_manifest": "95cdb74971224e170d5cd4a4f87514d7c3725b452c43129ff12ee306fac6d25a",
+        "guard_receipt": "68e232c0b17ef00a5db8c4bfa36cd01bc1da21603ad29c776be49c52fabed43a",
+        "sim_receipt": "3a5fd7cb20cd7633e2f023aba5d4bbd02e7e14a115c27b89ee41a221172b541e",
+        "guard_sha256": "5c429ff25ead1223f703389c088a8f291f274dde92f1305c06516c3c2395b4ad",
+        "model_reference_sha256": "f357d4bd15da4e0441655bd381bd8f9faf795bacd5131052f7fe7d2fe8c2ca35"
+      },
+      "source_signature_verified": true,
+      "scenario_count": 9,
+      "scenarios_passed": 9,
+      "virtual_dt_s": 0.01,
+      "nominal": {
+        "scenario": "nominal",
+        "pass": true,
+        "fault": null,
+        "final_error": [
+          1.4862180061636643e-07,
+          1.1296835314422715e-07
+        ],
+        "rmse": [
+          0.04972424526122121,
+          0.04013687111395047
+        ],
+        "settling_s": 1.3,
+        "peak_abs_virtual_command": 1.0
+      },
+      "scope": "SIM_ONLY",
+      "hardware_backend_present": false,
+      "gazebo_executed": false,
+      "hil_executed": false,
+      "physicalActuation": false,
+      "productionReady": false,
+      "receipt_signed": true,
+      "limitations": [
+        "normalized independent plants; no coupled arm dynamics or gravity",
+        "synthetic timing and fault flags; no real-time guarantees",
+        "zero virtual command is not proof of physical stopping",
+        "manifest integrity is not signature or identity verification",
+        "no physical safety certification"
+      ],
+      "signed_utc": "2026-11-18T17:27:05.323080+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "64e76ebb33dc79d447e46d6cb7270ba7baefdb775a84f7ce64a39864a7678b34b52f27ed5a41b890ea3b1d1d15b0bf5624719f058f5957f03a68289cb5904003",
+      "receipt_sha256": "9554c530ed77833301fc48556f0c840ba7ef2de777bb2d42daa584279520e89a"
+    },
+    "r3c1-ledger.g_1ly_vx": {
+      "stage": "R3C1_PERSISTENT_SIM_LEDGER_VERIFIED",
+      "utc": "2026-11-18T17:13:51.764902+00:00",
+      "source_receipt_sha256": "16bf34ea6ff3425bc9ea9936bfb2b160af3ca7715e2cad43fff4c8937445808c",
+      "source_signature_verified": true,
+      "tests_passed": 15,
+      "scope": "SIM_ONLY",
+      "probe_decisions": [
+        "RECORDED_SYNTHETIC_ONLY",
+        "DENY_REPLAY_NONCE",
+        "DENY_SEQUENCE",
+        "DENY_SCOPE",
+        "RECORDED_SYNTHETIC_ONLY"
+      ],
+      "chain": {
+        "count": 2,
+        "head": "33d88529b112f79080eed27413520b0d8dc0a53cbec418369b7afdd80ff3878e"
+      },
+      "database_sha256": "50f9880aa88ab4ea7e4575ae364a5f2b14fd53cc008653e487c56dbdeaecfadf",
+      "persistent_reopen_probe": true,
+      "physicalActuation": false,
+      "productionReady": false,
+      "hardware_backend_present": false,
+      "hil_executed": false,
+      "receipt_signed": true,
+      "limitations": [
+        "single local SQLite database only",
+        "no authenticated command issuer or physical controller",
+        "no protection against database rollback, deletion or privileged rewrite",
+        "no real-time guarantee, no certified safety function"
+      ],
+      "signed_utc": "2026-11-18T17:27:05.330978+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "4213a134ad2365002e79668d0cbbeb58bfa3d7d003bb50981c69555161d4cb163631370ac98b3d33bdd34fc6710609d1fae6ac91b3f836ea35ae6fbfb37baf06",
+      "receipt_sha256": "7af15aee69fdc1d66f545bd64ec710b0d0d48f11b44360be1816efb501fe3c90"
+    }
+  },
+  "sealed_at": "2026-11-18T17:27:05.338158+00:00"
+}
