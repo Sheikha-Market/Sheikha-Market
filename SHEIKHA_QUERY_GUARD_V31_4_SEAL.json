@@ -1,0 +1,23 @@
+{
+  "schema": "SHEIKHA_QUERY_VULNERABILITY_CLOSURE_SEAL_V40_2",
+  "version": "40.2.0",
+  "worker": "sheikha-query",
+  "deployed_version_id": "624bd902-080c-4d01-9ca7-ab1a28bf857c",
+  "guard_level": "SHEIKHA_GUARD_V31_4_LOCKED",
+  "verified_routes": {
+    "/api/health": "HTTP 200 (Public Safe Health Only)",
+    "/api/deals": "HTTP 403 (Blocked without Supervisor Key)",
+    "/api/weights": "HTTP 403 (Blocked without Supervisor Key)",
+    "/api/tables": "HTTP 403 (Blocked without Supervisor Key)",
+    "/api/query": "HTTP 403 (RAW_SQL_EXECUTION_PERMANENTLY_DISABLED)",
+    "/api/audit-log": "HTTP 403 (Blocked without Supervisor Key)"
+  },
+  "policies_enforced": [
+    "NO_UNAUTHORIZED_DEPLOY",
+    "NO_UNAUTHORIZED_PAYMENT",
+    "NO_SECRET_DISCLOSURE",
+    "NO_UNAUTHORIZED_DELETE",
+    "NO_ARBITRARY_SQL_EXECUTION"
+  ],
+  "sealed_at": "2026-11-18T12:15:08.325426+00:00"
+}
