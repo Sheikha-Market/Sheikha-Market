@@ -1,0 +1,42 @@
+{
+  "schema": "SHEIKHA_25_COMPONENTS_AND_R3C3_HOLD_VERIFIED_SEAL_V42_6",
+  "version": "42.6.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "activated_components_count": 25,
+  "cloudflare_live_telemetry_24h": {
+    "active_workers": 16,
+    "active_domains": 12,
+    "kv_namespaces": 4,
+    "d1_databases": 6,
+    "r2_buckets": "1 (333MB)",
+    "entitlements": 129,
+    "requests_24h": 3340,
+    "success_rate_pct": 99.8,
+    "p0_auth_blocks": 6
+  },
+  "robotics_r3c3_controlled_hold": {
+    "stage": "R3C3_GAZEBO_CONTROLLED_HOLD_V1",
+    "decision": "PASS_SIMULATED_CONTROLLED_HOLD",
+    "unit_tests": "9/9 PASSED (0.004s)",
+    "samples": 207,
+    "post_fault_duration_s": 4.02,
+    "normal_commands_after_fault": 0,
+    "detached_ed25519_signature": "VERIFIED_IMMUTABLE_SHA256"
+  },
+  "commerce_d1_summary": {
+    "settled_deals": 6,
+    "total_copper_mt": 400.012,
+    "cumulative_gross_inflow_sar": 15916000.0,
+    "cumulative_net_profit_sar": 380000.0,
+    "reinvestment_70_sar": 266000.0,
+    "reserve_20_sar": 76000.0,
+    "waqf_10_sar": 38000.0
+  },
+  "immutable_laws": [
+    "NO_UNAUTHORIZED_DEPLOY",
+    "NO_UNAUTHORIZED_PAYMENT",
+    "NO_SECRET_DISCLOSURE",
+    "NO_UNAUTHORIZED_DELETE"
+  ],
+  "sealed_at": "2026-11-18T18:11:47.006556+00:00"
+}
