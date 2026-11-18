@@ -1,0 +1,171 @@
+{
+  "schema": "SHEIKHA_ROBOTICS_FULL_CHAIN_R1_TO_R3C2_SEAL_V42_5",
+  "version": "42.5.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "status": "ALL_12_ROBOTICS_RECEIPTS_SIGNED_AND_VERIFIED_108_TESTS_PASS",
+  "physical_actuation": false,
+  "production_ready": false,
+  "scope": "SIM_ONLY",
+  "signed_receipts_batch_v42_5": {
+    "r2b3-fix3.Odrluk79": {
+      "stage": "R2B3_FIX3",
+      "decision": "PASS_SIMULATION_TELEMETRY",
+      "utc": "2026-11-18T16:56:00.710418+00:00",
+      "source_reference_sha256": "c5b796f8b9f5cd86dcfa738b2c0104ed57f10ac3db2b446b16d932931e4cf9c9",
+      "image_id": "sha256:54125e25ee2c0e83d44a2d417eb65df52f5ef45fcb0cc597dc6233113e2a4713",
+      "new_model_sha256": "f357d4bd15da4e0441655bd381bd8f9faf795bacd5131052f7fe7d2fe8c2ca35",
+      "sample_count": 120,
+      "sample_interval_min_ns": 10000000,
+      "both_joints_valid": true,
+      "joint_position_span_rad": {
+        "shoulder_pitch_joint": 1.499736513214279,
+        "elbow_pitch_joint": 2.0424676773632795
+      },
+      "both_joints_motion_observed": true,
+      "velocity_available": true,
+      "effort_available": true,
+      "rejected": 0,
+      "source_modified": false,
+      "runtime_requested_network": "none",
+      "physicalActuation": false,
+      "productionReady": false,
+      "receipt_signed": true,
+      "closure": "CLOSED_SIGNED_AND_VERIFIED_ED25519",
+      "sha256": {
+        "input/arm_world.sdf": "f357d4bd15da4e0441655bd381bd8f9faf795bacd5131052f7fe7d2fe8c2ca35",
+        "input/collect.py": "0b8278956851af8bcea70095f78a8599ac29bc0830a361b3292c458a0d6d634a",
+        "input/design.json": "c4176fd31d9af34e4202b0b707cc3827fb485f1a4b50a47574edfb82538e4af5",
+        "input/fix3-builder.sh": "2c492856a869975b3dc552c769f0819df1de626266771174292ade54f6efece1",
+        "input/image-id.txt": "5eb4db2c9e97283169a79786754c15c640ce93ac41d9f298225f005008ed01cd",
+        "input/joints.json": "ea29d9c6329e4bce2bf06dd413914b0633fa37aea5b6ac7b35a332f07ba56a40",
+        "input/r2b2-reference.sdf": "c5b796f8b9f5cd86dcfa738b2c0104ed57f10ac3db2b446b16d932931e4cf9c9",
+        "input/run.sh": "dba7ab9ffef5aa2080637691de2a48675a1bfe50ce04230df2fbbd35c25f0864",
+        "joint-positions.csv": "dc0cc9839baf91e31ac9fa397b2728fb0c99dc3974ea9885fb5d8b053ac1d7de",
+        "joint-samples.json": "1f8b494c4e879c8c339ea9815ee67e519aa958a771490e38ac071abe7153bf0f",
+        "joint-telemetry.svg": "a6422dae5d1dde2ab7132d7eb1acc9590362ee095de323e4751f08f7eb4e2d4e",
+        "runtime.log": "b91e95e34ab5a84172f6fc50542e7a9e01b7d35cc27dac2d354ee96f4c2dc925"
+      },
+      "signed_utc": "2026-11-18T17:40:49.362175+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "2544325d7d349a6992a0b975f361c9a56193cc62943c50965678692ced22b9a19d1018fe064d713713e60042f276fa7ef1276186b5e82c13288a0ef9ac0a5106",
+      "receipt_sha256": "71036bb2f2eaec1d97954beaa897cb93795474ac375f2278f23d81b917553e2e"
+    },
+    "r2c1.pd86vsqi": {
+      "stage": "R2C1_OFFLINE_REPLAY_VERIFIED",
+      "source_receipt_sha256": "3712309cdb61a4d23cd4e502592236050fc8a3e59ee604b8049ea311cd270ee0",
+      "source_hashes_verified": 11,
+      "source_sample_count": 120,
+      "source_runtime_payload_match": true,
+      "joint_span_rad": {
+        "shoulder_pitch_joint": 0.8802072352814877,
+        "elbow_pitch_joint": 0.399541538245441
+      },
+      "elapsed_sim_s": 0.238,
+      "tip_pose_source": "DERIVED_2R_KINEMATICS_NOT_MEASURED",
+      "source_authenticity_independently_verified": true,
+      "live_digital_twin": false,
+      "collision_safety_verified": false,
+      "controller_verified": false,
+      "physicalActuation": false,
+      "productionReady": false,
+      "receipt_signed": true,
+      "utc": "2026-11-18T16:56:41.481510+00:00",
+      "outputs_sha256": {
+        "replay.csv": "9d76105124b18d2289c536636fcda7d80451147674bf3a4c378443611a6dccf3",
+        "replay.svg": "9cb3c75a1a359f2ad4eb470402a4cc3ac4b390147a1875b576ac25e9f1063876"
+      },
+      "signed_utc": "2026-11-18T17:40:49.372979+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "f3ace6a2ffdc980cda5c0474a8f42061f8ab5ab9d7200168c8371f914b4c16ff08e0bca6dcb93d9ff28ddd8d10e5a5b00d38390584a47903a397315492ad2a0f",
+      "receipt_sha256": "e137a0e3ba033f5947572027ca5a7a939345f203c81d7764f0db7fdb7178935d"
+    },
+    "r3c2-gazebo.9922as0_": {
+      "stage": "R3C2_GAZEBO_SIL_V1",
+      "decision": "PASS_GAZEBO_TRACKING_AND_REFUSAL",
+      "utc": "2026-11-18T17:23:37.647170+00:00",
+      "source_manifests": {
+        "sil": "41dcc25ccf0b3b66084c082c35e6bd7fd0aecff437799ba03f7c30996c13db1a",
+        "sim": "95cdb74971224e170d5cd4a4f87514d7c3725b452c43129ff12ee306fac6d25a",
+        "guard": "56c2214d914f75c316215cc2c69baee24f80e4d80fd64aaad44a59bc9edb8d54"
+      },
+      "model_reference_sha256": "f357d4bd15da4e0441655bd381bd8f9faf795bacd5131052f7fe7d2fe8c2ca35",
+      "derived_model_sha256": "e4400e9a77f4c2710a710cb10620f074d3c739e7d7bf6afb1d56815e2d32cdc4",
+      "image_id": "54125e25ee2c0e83d44a2d417eb65df52f5ef45fcb0cc597dc6233113e2a4713",
+      "results": [
+        {
+          "scenario": "nominal",
+          "pass": true,
+          "samples": 601,
+          "tail_max_error_rad": [
+            0.007947038756891511,
+            0.0009041079302554433
+          ],
+          "tail_max_velocity_rad_s": [
+            0.002017865712559673,
+            0.0002316509126984621
+          ],
+          "duration_sim_s": 12.0
+        },
+        {
+          "scenario": "estop_fixture",
+          "pass": true,
+          "samples": 101,
+          "fault": "ESTOP",
+          "refused_without_publish": true,
+          "simulated_stop_proven": false
+        }
+      ],
+      "scope": "SIM_ONLY",
+      "physicalActuation": false,
+      "productionReady": false,
+      "hil_executed": false,
+      "receipt_signed": true,
+      "source_signature_verified": true,
+      "limitations": [
+        "PID gains and thresholds are prototype assumptions",
+        "guard gates publish only; Gazebo controller may retain target until container exit",
+        "injected estop fixture is not a physical or simulated stopping test",
+        "no hardware drivers, real-time or safety validation"
+      ],
+      "signed_utc": "2026-11-18T17:40:49.382140+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "87eed96deb5f0de700b284df088d402157feb10c3553d5a52cece4c76b107382528fc4b51be4e3f61836bb94221392f39bf2b6a5712b9d704a238bfdbeb8dd0d",
+      "receipt_sha256": "5912177f48f141d0c192da7f1337e0ade101ebf7898a67559987c23ed8c97bfc"
+    },
+    "r3c2-signed.9wzv9j16": {
+      "stage": "R3C2_SIGNED_SIM_FIXTURES_VERIFIED",
+      "utc": "2026-11-18T17:23:40.627512+00:00",
+      "tests_passed": 15,
+      "source_receipt_sha256": "f10e1e984a4563858fa508e8c193143b0e78fee249c334318caf7385a98f411b",
+      "source_database_sha256": "50f9880aa88ab4ea7e4575ae364a5f2b14fd53cc008653e487c56dbdeaecfadf",
+      "scope": "SIM_ONLY",
+      "fixture_public_key_sha256": "3fa9e68d4dcf7e37efbb9fb28a55d469464565d6bc787ca7611ec31ffce9aff7",
+      "signed_record_count": 2,
+      "checkpoint_verified": true,
+      "rollback_against_retained_checkpoint_rejected": true,
+      "source_signature_verified": true,
+      "productionReady": false,
+      "physicalActuation": false,
+      "hardware_backend_present": false,
+      "hil_executed": false,
+      "receipt_signed": true,
+      "limitations": [
+        "ephemeral locally generated fixture key; not an authenticated human or production issuer",
+        "checkpoint must be retained and trusted separately; coordinated rollback or replacement is not prevented",
+        "time checks use caller supplied local time; no trusted clock",
+        "no real-time or physical safety assurance"
+      ],
+      "outputs_sha256": {
+        "signed-control.sqlite": "d092f674e8227d2388aada828237d04647ef2bfda550d9b3c3f6619104f48765",
+        "fixture-public.pem": "3fa9e68d4dcf7e37efbb9fb28a55d469464565d6bc787ca7611ec31ffce9aff7",
+        "signed-checkpoint.json": "ac08390d24d2fad78b3490932385a5ae515c1486d76e00e99af7a828e5f0e3c8",
+        "signed-fixtures.json": "cc49febad4a4e256b14d24eb8815928bbdd0bab5a2eec3516ae277c83c737db3"
+      },
+      "signed_utc": "2026-11-18T17:40:49.390411+00:00",
+      "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+      "ed25519_signature_hex": "162e4a572b7ba68ac174579466412615dabead06cd6063f5444f8b2bf5b5849100e2fda2180e0694e3c547abf090cf63344bede6c89cb5c958d674de39166405",
+      "receipt_sha256": "91df409e1740f53885dc3d6033ea533711c24416cf385d43f1f080fed5b8a5c2"
+    }
+  },
+  "sealed_at": "2026-11-18T17:40:49.398772+00:00"
+}
