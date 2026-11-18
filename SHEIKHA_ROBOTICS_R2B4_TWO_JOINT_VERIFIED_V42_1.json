@@ -1,0 +1,51 @@
+{
+  "stage": "R2B4_TWO_JOINT_PASSIVE_MOTION_OBSERVED",
+  "model_scope": "NEW_SYNTHETIC_2R_BENCH",
+  "source_model_changed": false,
+  "motion_threshold_rad": 0.001,
+  "position_within_test_limits": true,
+  "collision_safety_verified": false,
+  "controller_verified": false,
+  "two_joint_motion_verified": true,
+  "observed_motion_by_joint": {
+    "shoulder_pitch_joint": true,
+    "elbow_pitch_joint": true
+  },
+  "joint_count": 2,
+  "joint_names": [
+    "shoulder_pitch_joint",
+    "elbow_pitch_joint"
+  ],
+  "sample_source": "simulated_joint_state",
+  "utc": "2026-11-18T16:50:26.821006+00:00",
+  "image_id": "sha256:54125e25ee2c0e83d44a2d417eb65df52f5ef45fcb0cc597dc6233113e2a4713",
+  "sample_count": 120,
+  "sample_gate_pass": true,
+  "monotonic_120": true,
+  "joint_position_span": {
+    "shoulder_pitch_joint": 0.8802072352814877,
+    "elbow_pitch_joint": 0.399541538245441
+  },
+  "velocity_available": true,
+  "effort_available": true,
+  "motion_observed": true,
+  "network_runtime": "none",
+  "physicalActuation": false,
+  "productionReady": false,
+  "receipt_signed": true,
+  "sha256": {
+    "runtime.log": "d9cf96378027a05b405adc5f70f77c08898ad52f62beadc4dd707f9a42149c48",
+    "joint-samples.json": "4f6ab593027f08c0bc15ac117490e8a10069443725fdf17ef455d5891ada01ff",
+    "input/bench.sdf": "6b8f101326556fec1e7853a388d6b663fd60c436874875e92da4b34ebbe62dd8",
+    "input/collect.py": "6bee42bfec2154cb1bb8db39dd00e478bf2f513620b3a6166b2ffeafb5bda9d0",
+    "input/image-identity.txt": "46677a678eb8d52c75989656f03dd19fe42f02100cd54fc3813ae9e8c8d9af23",
+    "input/joint-inventory.json": "6a47847538d3ee3da472b6264a1ae5ac55c7b0e8041323493fb25e1bab1aa421",
+    "input/joints.json": "207f2c21786329258fc4ff6104fb9899a4d5f89db30e029b6694283c1bed1054",
+    "input/original.sdf": "c5b796f8b9f5cd86dcfa738b2c0104ed57f10ac3db2b446b16d932931e4cf9c9",
+    "input/run.sh": "01a499df1b4667f6f64ffd7c939d119c1623a30af32a886c13166f0909f208ee",
+    "input/telemetry.sdf": "0a138097c42b574bca59b0a0c5694078687174c25c2d76ca0c60f456a6c4e01a",
+    "joint-telemetry.svg": "43a6f9ac6d4ac3269f1b5d8b879a48a31c89cb8f98199e566cca26b149063688"
+  },
+  "signed_utc": "2026-11-18T17:03:07.660611+00:00",
+  "ed25519_signature_hex": "4244f8b6204e4025c98be220e405f62afe3547bed683aedbc17e698eac672508ada1d3dc8c0c5e7554c4bf7aeb0abb1a44d449eb8039bbeda7501a53716fe206"
+}
