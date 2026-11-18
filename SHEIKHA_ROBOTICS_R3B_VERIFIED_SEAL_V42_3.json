@@ -1,0 +1,59 @@
+{
+  "schema": "SHEIKHA_ROBOTICS_R3B_CONTROL_AND_OFFLINE_POLICY_SEAL_V42_3",
+  "version": "42.3.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "total_r3b_unit_tests_passed": "29/29 (14 Control Logic + 15 Offline Guard)",
+  "physical_actuation": false,
+  "production_ready": false,
+  "physical_gate": "HOLD_PHYSICAL_ACTUATION",
+  "r3b_control_logic_receipt": {
+    "stage": "R3B_SOFTWARE_ONLY_LOGIC_VERIFIED",
+    "decision": "HOLD_PHYSICAL_ACTUATION",
+    "utc": "2026-11-18T17:05:38.129039+00:00",
+    "inventory_sha256": "88489d5a0b80514c8522e17d2e24a48dd0f6b7c9020ab78dbf3999eadb427d26",
+    "inventory_signature_verified": true,
+    "synthetic_event_count": 12,
+    "synthetic_final_state": "FAULT_LATCHED",
+    "hardware_backend_present": false,
+    "hil_executed": false,
+    "physicalActuation": false,
+    "productionReady": false,
+    "real_emergency_stop_verified": false,
+    "receipt_signed": true,
+    "outputs_sha256": {
+      "synthetic-events.json": "76ab07cdea68e69768b03a8bcc5a8c4b835edea6c42aa491bee7f1137ee896cb",
+      "hardware-profile-template.json": "469da3e7b012dc8c1c0af6b8964dff9f896526db6189e924f753371ec6d4176b"
+    },
+    "signed_utc": "2026-11-18T17:14:47.039630+00:00",
+    "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+    "ed25519_signature_hex": "610f1e671e7629c5f790ac3edb06a7d9cf3d5f8706027a36e47a74861eb225f9407142c35ecf98273ddbc9c5c7a430e4497eeedad255cf1142ddaaf25d5e9406",
+    "receipt_sha256": "c45205259e0042f61e96a33becc15a21b31ba8c4f4066294baa54bde31a6944a"
+  },
+  "r3b_offline_policy_receipt": {
+    "stage": "R3B_OFFLINE_POLICY_V1",
+    "decision": "PASS_OFFLINE_POLICY_TESTS",
+    "utc": "2026-11-18T17:06:01.145400+00:00",
+    "tests_run": 15,
+    "tests_failed": 0,
+    "source_inventory_sha256": "bf4b2d398838ab4cdc6dc663b2e377bc1ba3f197552247fcb87b11780a61ff68",
+    "source_signature_verified": true,
+    "scope": "SIM_ONLY",
+    "physicalActuation": false,
+    "productionReady": false,
+    "device_nodes_opened": false,
+    "network_started": false,
+    "receipt_signed": true,
+    "limitations": [
+      "in-memory reference model; no real-time scheduling or physical safety validation",
+      "synthetic test flags and targets, not measured hardware signals",
+      "no hardware driver or authenticated authorization implementation",
+      "no persistent replay protection across restarts"
+    ],
+    "physical_gate": "HOLD_UNIDENTIFIED_HARDWARE_AND_UNVERIFIED_SAFETY",
+    "signed_utc": "2026-11-18T17:14:47.047290+00:00",
+    "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+    "ed25519_signature_hex": "8a2b2d84050f9de9e9bb469fa87b564665451dc35b8d1a61d89555d182243dd7cb21145b56940f074ce2d64a2a004751ce68d3bb9e14b4207dac2a3981bae808",
+    "receipt_sha256": "503e670b77aa23cb9399ff8da72cae5decca7640c95e7817fa2491772ae3f248"
+  },
+  "sealed_at": "2026-11-18T17:14:47.056223+00:00"
+}
