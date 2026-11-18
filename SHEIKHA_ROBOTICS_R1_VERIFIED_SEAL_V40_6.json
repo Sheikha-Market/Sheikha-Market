@@ -1,0 +1,23 @@
+{
+  "schema": "SHEIKHA_ROBOTICS_R1_AND_5_WORKERS_SEAL_V40_6",
+  "version": "40.6.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "robotics_foundry_r1": {
+    "archive_path": "/home/sheikha/التنزيلات/sheikha-robotics-foundry-r1.zip",
+    "permanent_lab_path": "/home/sheikha/sheikha-robotics-lab/sheikha-robotics-foundry-r1",
+    "archive_sha256": "44f6965d7f4709df4e34f13c644c483c87972740b73554e99cd978561a9fc258",
+    "checksums_verified": "7/7 OK",
+    "unit_tests": "13/13 PASSED (0.001s)",
+    "mode": "R1_SIMULATION_ONLY",
+    "physical_actuation": false,
+    "production_ready": false,
+    "chain_valid": true,
+    "final_sequence_6_sha256": "ee1884bf7dd727b7467686a33e0b1dd99f72a8d9e810cc67ad5e341e9c9c7535"
+  },
+  "cloudflare_guard_v31_7": {
+    "sealed_workers_count": 5,
+    "verified_endpoints": "25/25 (HTTP 200 on /api/health | HTTP 403 on all D1/data routes)",
+    "edge_guardian_version_id": "e90262c3-7cf8-49cc-ae25-bfac94784926"
+  },
+  "verified_at": "2026-11-18T14:33:26.953433+00:00"
+}
