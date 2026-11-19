@@ -1,0 +1,23 @@
+{
+  "schema": "SHEIKHA_FULL_ECOSYSTEM_CLOSURE_SEAL_V44_4",
+  "version": "44.4.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "root_domain_resolution_fix": {
+    "root_cause_service": "sheikha-dns-failover.service (injected PRIMARY_IP=31.97.190.74 into /etc/hosts)",
+    "remediation": "systemctl stop & disable sheikha-dns-failover.service + purge 31.97.190.74 from /etc/hosts",
+    "verified_dns_ips": [
+      "172.67.192.111",
+      "104.21.76.95",
+      "2606:4700:3033::6815:4c5f"
+    ],
+    "https_root_check": "HTTP=200 TLS=0 IP=2606:4700:3033::6815:4c5f TIME=0.902002s"
+  },
+  "pillars_status": {
+    "cloudflare_pages_38_domains": "ACTIVE_HTTP_200_TLS_0",
+    "cloudflare_16_workers_guard_v31_7": "SECURED_16_OF_16_HTTP_403_ON_DATA",
+    "d1_commerce_ledger_6_deals": "400.012_MT_15916000_SAR_SETTLED",
+    "robotics_r1_to_r3c4_detached_vault": "16_ED25519_SIGNATURES_AND_SPKI_PIN_VERIFIED",
+    "security_foundry_v31_v41_rbac": "537_LOCAL_TESTS_PASSED_ZERO_REGRESSION"
+  },
+  "sealed_at": "2026-11-19T13:11:45.637019+00:00"
+}
