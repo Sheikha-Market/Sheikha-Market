@@ -1,0 +1,38 @@
+{
+  "schema": "SHEIKHA_V45_CUSTOM_DOMAINS_AND_CONTAINMENT_SEAL",
+  "version": "45.0.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "custom_worker_domains_verified_200": {
+    "admin.sheikha.top/api/health": "HTTP_200 (sheikha-sovereign-admin)",
+    "query.sheikha.top/api/health": "HTTP_200 (sheikha-query)",
+    "monitor.sheikha.top/api/health": "HTTP_200 (sheikha-sovereign-monitor)",
+    "sovereign-ai.sheikha.top/api/health": "HTTP_200 (sheikha-sovereign-ai — v44.12)",
+    "api.sheikha.top/api/health": "HTTP_200 (sheikha-dev-platform)"
+  },
+  "pages_portal_domains": {
+    "root": "https://sheikha.top/ (HTTP_200_TLS_0)",
+    "www": "https://www.sheikha.top/ (HTTP_200_TLS_0)",
+    "total_bound_domains": 38
+  },
+  "local_runtime_containment": {
+    "sheikha-main-portal.service": "ACTIVE_RUNNING (127.0.0.1:7788 -> HTTP 200)",
+    "sheikha-core.service": "ACTIVE_RUNNING (PID 211056)",
+    "sheikha-dns-watch-v44-7.service": "RESULT_SUCCESS_STATUS_0 (2026-11-19 21:59:10 +03)",
+    "quarantined_legacy_units": [
+      "sheikha-portal.service (disabled/inactive — stopped at 70,723 restarts)",
+      "sheikha-health-check.timer (disabled/inactive)",
+      "sheikha-dns-failover.service (disabled/inactive)"
+    ]
+  },
+  "commerce_d1_ledger": {
+    "settled_deals": 6,
+    "total_copper_mt": 400.012,
+    "cumulative_gross_inflow_sar": 15916000.0,
+    "cumulative_net_profit_sar": 380000.0
+  },
+  "robotics_r3c4": {
+    "detached_ed25519_signatures": 16,
+    "public_key_pin_matched": true
+  },
+  "sealed_at": "2026-11-19T19:02:39.468881+00:00"
+}
