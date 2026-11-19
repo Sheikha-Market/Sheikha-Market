@@ -1,41 +1,39 @@
 {
-  "schema": "SHEIKHA_SOVEREIGN_ECOSYSTEM_V44_2_MASTER_SEAL",
+  "schema": "SHEIKHA_MASTER_SEAL_V44_2",
   "version": "44.2.0",
-  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
-  "infrastructure_7_layers": {
-    "layer_1_frontend_pages": "sheikha-main-portal.pages.dev & sheikha.top (38 Custom Domains Active — HTTP 200 TLS=0)",
-    "layer_2_backend_workers": "16/16 Active Cloudflare Workers",
-    "layer_3_storage": "6 D1 Databases + 4 KV Namespaces + 1 R2 Bucket (333MB)",
-    "layer_4_network_sdn": "12 Zones + 72 DNS Records + Anycast CDN (1-2ms)",
-    "layer_5_security": "Guard V31.7 (HTTP 403 on D1 routes) + 16 Detached Ed25519 Signatures",
-    "layer_6_ai": "Workers AI + AI Gateway + Local Sovereign Weights (141MB + 8.27MB)",
-    "layer_7_integrations": "MCP (ChatGPT/Codex/VS Code) + GitHub Dual Sync + GCP (112 APIs)"
+  "timestamp": "2026-11-19T12:52:00.476578+00:00",
+  "governance": "BOUND_BY_QURAN_SUNNAH",
+  "r3c4_decision": "PASS_LOCAL_SIGNATURES_HOLD_EXTERNAL_WITNESS",
+  "r3c4_key_pin_matched": true,
+  "signature_count": 16,
+  "historical_pins_checked": 5,
+  "anchor_sha256": "b48211126ed431bb81f957977fac09a8a5d24d2fdcfaa6dec1bffe72a4259a6c",
+  "public_key_spki_sha256": "0026c46cde4398c39662128cbdac52f6dc9093cbd9adea47e4a1705338a5cce2",
+  "cloudflare": {
+    "workers": 16,
+    "zones": 12,
+    "pages": 1,
+    "kv": 4,
+    "d1": 6,
+    "r2": "333MB",
+    "entitlements": 129
   },
-  "commerce_d1_ledger": {
-    "settled_deals": 6,
-    "total_copper_mt": 400.012,
-    "cumulative_gross_inflow_sar": 15916000.0,
-    "cumulative_net_profit_sar": 380000.0,
-    "reinvestment_70_sar": 266000.0,
-    "reserve_20_sar": 76000.0,
-    "waqf_10_sar": 38000.0
+  "commerce": {
+    "deals": 6,
+    "total_mt": 400.012,
+    "total_sar": 15916000,
+    "profit_sar": 380000,
+    "waqf_sar": 38000
   },
-  "robotics_r3c4_key_pinned_review": {
-    "lab": "r3c4-witness.i3lqv78e",
-    "decision": "PASS_LOCAL_SIGNATURES_HOLD_EXTERNAL_WITNESS",
-    "anchor_sha256": "b48211126ed431bb81f957977fac09a8a5d24d2fdcfaa6dec1bffe72a4259a6c",
-    "public_key_spki_sha256": "0026c46cde4398c39662128cbdac52f6dc9093cbd9adea47e4a1705338a5cce2",
-    "public_key_pin_supplied_and_matched": true,
-    "signature_count": 16,
-    "historical_receipt_pins_checked": 5,
-    "witness_request_sha256": "72a56c89edd619e5a45fe6f33d0bc92f79e384f0f9df8e31a5eaca993c77cbfe"
+  "robotics": {
+    "stages": "R2A→R3C4",
+    "tests_passed": "44/44 + R3C3 207 samples",
+    "ed25519_signatures": 16
   },
-  "root_domain_edge_proof": {
-    "url": "https://sheikha.top/",
-    "cloudflare_edge_ip": "172.67.192.111",
-    "http_status": 200,
-    "tls_verify_result": 0,
-    "response_time_s": 0.478295
-  },
-  "sealed_at": "2026-11-19T12:50:51.232172+00:00"
+  "policies": [
+    "NO_UNAUTHORIZED_DEPLOY",
+    "NO_UNAUTHORIZED_PAYMENT",
+    "NO_SECRET_DISCLOSURE",
+    "NO_UNAUTHORIZED_DELETE"
+  ]
 }
