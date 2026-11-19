@@ -1,34 +1,32 @@
 {
   "schema": "SHEIKHA_MASTER_SEAL_V44_2",
   "version": "44.2.0",
-  "timestamp": "2026-11-19T12:57:24.095623+00:00",
+  "timestamp": "2026-11-19T13:19:20.510520+00:00",
   "governance": "BOUND_BY_QURAN_SUNNAH",
-  "r3c4_decision": "PASS_LOCAL_SIGNATURES_HOLD_EXTERNAL_WITNESS",
-  "r3c4_key_pin_matched": true,
-  "signature_count": 16,
-  "historical_pins_checked": 5,
-  "anchor_sha256": "b48211126ed431bb81f957977fac09a8a5d24d2fdcfaa6dec1bffe72a4259a6c",
-  "public_key_spki_sha256": "0026c46cde4398c39662128cbdac52f6dc9093cbd9adea47e4a1705338a5cce2",
+  "r3c4": {
+    "decision": "PASS_LOCAL_SIGNATURES_HOLD_EXTERNAL_WITNESS",
+    "signatures": 16,
+    "key_pin_matched": true
+  },
   "cloudflare": {
     "workers": 16,
     "zones": 12,
+    "worker_domains": 11,
     "pages": 1,
     "kv": 4,
     "d1": 6,
-    "r2": "333MB",
-    "entitlements": 129
+    "r2": "333MB"
   },
   "commerce": {
     "deals": 6,
     "total_mt": 400.012,
     "total_sar": 15916000,
-    "profit_sar": 380000,
     "waqf_sar": 38000
   },
   "robotics": {
-    "stages": "R2A→R3C4",
-    "tests_passed": "44/44 + R3C3 207 samples",
-    "ed25519_signatures": 16
+    "stages": "R2A-R3C4",
+    "tests": "44/44 PASS",
+    "ed25519": 16
   },
   "policies": [
     "NO_UNAUTHORIZED_DEPLOY",
