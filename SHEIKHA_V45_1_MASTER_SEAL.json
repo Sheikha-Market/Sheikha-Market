@@ -1,0 +1,35 @@
+{
+  "schema": "SHEIKHA_V45_1_MASTER_SEAL",
+  "version": "45.1.0",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "edge_hardening_status": {
+    "sheikha-sovereign-ai": {
+      "version_id": "472ec25e-393e-47f9-8165-548084c84c78",
+      "plaintext_vars_cleaned": true,
+      "binding_mode": "ENCRYPTED_CLOUDFLARE_BINDING",
+      "public_health_http": 200,
+      "unauth_chat_http": 401
+    },
+    "sheikha-sovereign-monitor": {
+      "version_id": "77d203b9-c9ad-4192-98a3-8ae50a40f59a",
+      "plaintext_vars_cleaned": true,
+      "binding_mode": "ENCRYPTED_CLOUDFLARE_BINDING",
+      "public_health_http": 200,
+      "unauth_probe_http": 401
+    }
+  },
+  "verified_pillars": {
+    "domains_and_pages": "38 Custom Domains + Root https://sheikha.top (HTTP 200 TLS=0)",
+    "custom_worker_routes": "admin, query, monitor, sovereign-ai, api (5/5 HTTP 200)",
+    "local_containment_v45": "PASS (EXIT=0, issues=[])",
+    "commerce_d1_ledger": "6 Deals | 400.012 MT Copper Millberry | 15,916,000 SAR | +380,000 SAR Profit",
+    "robotics_r3c4": "16/16 Detached Ed25519 Signatures + SPKI Key Pin Matched"
+  },
+  "immutable_policies": [
+    "NO_UNAUTHORIZED_DEPLOY",
+    "NO_UNAUTHORIZED_PAYMENT",
+    "NO_DISCLOSURE",
+    "NO_UNAUTHORIZED_DELETE"
+  ],
+  "sealed_at": "2026-11-20T20:49:14.330751+00:00"
+}
