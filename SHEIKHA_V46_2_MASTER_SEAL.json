@@ -1,0 +1,48 @@
+{
+  "schema": "SHEIKHA_V46_2_MASTER_SEAL",
+  "version": "46.2.0",
+  "entity": "Salman Alrajeh Trading Est. (CR: 2051263653)",
+  "governance": "BOUND_BY_QURAN_SUNNAH_LA_DARAR",
+  "sheikha_os_core": {
+    "worker": "sheikha-os-core",
+    "version_id": "0191cf23-19f2-4034-a31f-0e8ea1eba998",
+    "layers_verified": [
+      "L1_HARDWARE",
+      "L2_KERNEL",
+      "L3_NETWORK_SDN",
+      "L4_SERVICE_MESH",
+      "L5_APPLICATION",
+      "L6_MANAGEMENT"
+    ],
+    "commerce_models_8": [
+      "B2C",
+      "B2B",
+      "B2G",
+      "C2C",
+      "C2B",
+      "B2B2C",
+      "G2C",
+      "G2B"
+    ],
+    "public_health_and_arch": 200,
+    "fail_closed_guard": 401
+  },
+  "d1_comms_supervisor_ledger": {
+    "database": "sheikha-unified-db",
+    "active_threads_count": 6,
+    "threads": [
+      "TRD-CF-2026-01 (Cloudflare)",
+      "TRD-MS-2026-02 (Microsoft - Case 5-0000014906611)",
+      "TRD-OA-2026-03 (OpenAI Partner Support)",
+      "TRD-GG-2026-04 (Google Cloud)",
+      "TRD-DTVC-2026-05 (DTVC - KFUPM)",
+      "TRD-AR-2026-06 (Saudi Aramco - Doc229871638 / S11488084)"
+    ]
+  },
+  "cloudflare_footprint": {
+    "workers_live": 18,
+    "zones_active": 12,
+    "pages_domains": 38
+  },
+  "sealed_at": "2026-11-21T20:48:38.436122+00:00"
+}
