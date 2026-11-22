@@ -1,0 +1,25 @@
+{
+  "schema": "SHEIKHA_V66_0_EXECUTIVE_INBOX_CLI_AND_DECISION_ENGINE_SEAL",
+  "version": "66.0.0",
+  "intention_covenant": "خالصاً لوجه الله تعالى — BOUND_BY_QURAN_SUNNAH_SHURA_AMANAH_LA_DARAR",
+  "supreme_entity": "Salman Alrajeh Trading Est. — مؤسسة سلمان الراجح التجارية (CR: 2051263653)",
+  "cli_tool": {
+    "binary_path": "~/.local/bin/sheikha-inbox (mode 0700)",
+    "secret_protection": "Reads ~/.sheikha-vault/secrets/sheikha_admin_token.txt via stdin pipe (-H @-) — Zero ps/argv leak",
+    "commands": [
+      "stats",
+      "list",
+      "show <ID>",
+      "approve <ID>",
+      "hold <ID>",
+      "reject <ID>"
+    ]
+  },
+  "edge_endpoints": [
+    "POST /api/v65/visitor/submit (201 Created + SHA-256 Receipt)",
+    "GET  /api/v65/admin/inquiries (401 Fail-Closed / 200 Supervisor)",
+    "POST /api/v66/admin/inquiries/decide (401 Fail-Closed / 200 Atomic D1 Approval)"
+  ],
+  "radar_status": "27/27 GREEN (Cloud + Local 5m Watch)",
+  "sealed_at": "2026-11-22T22:45:51.842657+00:00"
+}
