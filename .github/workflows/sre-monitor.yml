@@ -1,152 +1,142 @@
-# بسم الله الرحمن الرحيم
-# SRE Monitor — فحص موثوقية الموقع الإنتاجي كل 10 دقائق
-name: 🔭 SRE Monitor — Sheikha Health Check
+name: "🔭 SRE Monitor — Sheikha Health Check"
 
 on:
   schedule:
-    # كل 10 دقائق
-    - cron: '*/10 * * * *'
+    - cron: "*/30 * * * *"
   workflow_dispatch:
-    inputs:
-      target_url:
-        description: 'رابط فحص الصحة (اختياري)'
-        required: false
-        default: 'https://sheikha.top/api/health'
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/**"
+      - "SHEIKHA_V*_SEAL.json"
 
 permissions:
   contents: read
 
+concurrency:
+  group: sheikha-sre-monitor-v61
+  cancel-in-progress: true
+
 jobs:
-  health-check:
-    name: 🏥 فحص الصحة الإنتاجي
+  sre-omni-radar-21:
+    name: "21/21 Sovereign Endpoints & Fail-Closed Guard"
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
     steps:
-      - name: 📡 فحص /api/health
-        id: health
+      - name: "🌐 Probe All 21 Sovereign Endpoints (12 Zones + 9 Subdomains) & V61 Portals"
+        shell: bash
         run: |
-          TARGET="${{ github.event.inputs.target_url || 'https://sheikha.top/api/health' }}"
-          echo "🌐 فحص: $TARGET"
+          set -euo pipefail
+          python3 - << 'EOF'
+          import concurrent.futures
+          import os
+          import subprocess
+          import sys
+          from datetime import datetime, timezone
 
-          HTTP_CODE=$(curl -s -o /tmp/health_body.json -w "%{http_code}" \
-            --max-time 10 --retry 2 --retry-delay 3 "$TARGET" || echo "000")
+          ENDPOINTS_21 = [
+              # 12 Sovereign Zones
+              "https://sheikha.top/",
+              "https://sheikha.dev/api/health",
+              "https://sheikha.cloud/api/health",
+              "https://sheikha.app/api/health",
+              "https://sheikha.digital/api/health",
+              "https://sheikha.market/api/v46/matrix",
+              "https://sheikha.shop/api/v46/matrix",
+              "https://sheikha.capital/api/v46/matrix",
+              "https://sheikha.money/api/v46/matrix",
+              "https://sheikha.me/",
+              "https://sheikha.site/",
+              "https://sheikha.click/",
+              # 9 Sovereign Subdomains
+              "https://os.sheikha.top/api/health",
+              "https://kernel.sheikha.top/api/health",
+              "https://comms.sheikha.top/api/v46/os-comms/status",
+              "https://commerce.sheikha.top/api/v46/matrix",
+              "https://sovereign-ai.sheikha.top/api/health",
+              "https://admin.sheikha.top/api/health",
+              "https://query.sheikha.top/api/health",
+              "https://monitor.sheikha.top/api/health",
+              "https://api.sheikha.top/api/health",
+          ]
 
-          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
+          PORTALS_V61 = [
+              "https://os.sheikha.top/meta-hub",
+              "https://sheikha.dev/vscoder-studio",
+              "https://os.sheikha.top/tawheed-nexus",
+              "https://sheikha.money/treasury-vaults",
+          ]
 
-          if [ -f /tmp/health_body.json ]; then
-            echo "body=$(cat /tmp/health_body.json | tr -d '\n')" >> $GITHUB_OUTPUT
-            cat /tmp/health_body.json
-          fi
+          FAIL_CLOSED_GATES = [
+              "https://os.sheikha.top/api/v61/meta/dispatch",
+              "https://sheikha.money/api/v58/treasury/transfer",
+              "https://os.sheikha.top/api/v55/nexus/execute",
+          ]
 
-          if [ "$HTTP_CODE" = "000" ]; then
-            echo "status=timeout" >> $GITHUB_OUTPUT
-          elif [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-            STATUS_OK=$(cat /tmp/health_body.json | python3 -c \
-              "import json,sys; d=json.load(sys.stdin); print('ok' if d.get('status')=='ok' else 'fail')" 2>/dev/null || echo "fail")
-            echo "status=$STATUS_OK" >> $GITHUB_OUTPUT
-          else
-            echo "status=fail" >> $GITHUB_OUTPUT
-          fi
+          def check_get(url: str) -> tuple[str, int, int, bool]:
+              p = subprocess.run(
+                  ["curl", "-4", "-sS", "-L", "-o", "/dev/null",
+                   "--connect-timeout", "10", "--max-time", "20",
+                   "--retry", "3", "--retry-delay", "2", "--retry-all-errors",
+                   "-w", "%{http_code}:%{ssl_verify_result}", url],
+                  capture_output=True, text=True
+              )
+              if p.returncode == 0 and ":" in p.stdout:
+                  h, t = p.stdout.strip().split(":", 1)
+                  http_code, tls_res = int(h), int(t)
+              else:
+                  http_code, tls_res = 0, 1
+              return (url, http_code, tls_res, http_code == 200 and tls_res == 0)
 
-      - name: 📊 قياس زمن الاستجابة
-        id: latency
-        run: |
-          TARGET="${{ github.event.inputs.target_url || 'https://sheikha.top/api/health' }}"
-          LATENCY=$(curl -o /dev/null -s -w "%{time_total}" --max-time 10 "$TARGET" || echo "-1")
-          echo "latency_s=$LATENCY" >> $GITHUB_OUTPUT
-          echo "⏱ زمن الاستجابة: ${LATENCY}s"
+          def check_gate_401(url: str) -> tuple[str, int, bool]:
+              p = subprocess.run(
+                  ["curl", "-4", "-sS", "-X", "POST", "-o", "/dev/null",
+                   "--connect-timeout", "10", "--max-time", "20",
+                   "--retry", "3", "--retry-delay", "2",
+                   "-w", "%{http_code}", url],
+                  capture_output=True, text=True
+              )
+              code = int(p.stdout.strip()) if p.returncode == 0 and p.stdout.strip().isdigit() else 0
+              return (url, code, code == 401)
 
-          # تحقق من تجاوز الحد (2 ثانية)
-          LATENCY_MS=$(echo "$LATENCY * 1000" | bc 2>/dev/null | cut -d. -f1 || echo "0")
-          if [ "${LATENCY_MS:-0}" -gt 2000 ] 2>/dev/null; then
-            echo "latency_warning=true" >> $GITHUB_OUTPUT
-          else
-            echo "latency_warning=false" >> $GITHUB_OUTPUT
-          fi
+          with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+              ep_results = list(pool.map(check_get, ENDPOINTS_21))
+              ui_results = list(pool.map(check_get, PORTALS_V61))
+              gate_results = list(pool.map(check_gate_401, FAIL_CLOSED_GATES))
 
-      - name: 📋 ملخص الفحص
-        if: always()
-        run: |
-          STATUS="${{ steps.health.outputs.status }}"
-          HTTP_CODE="${{ steps.health.outputs.http_code }}"
-          LATENCY="${{ steps.latency.outputs.latency_s }}"
-          TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          ep_pass = sum(1 for r in ep_results if r[3])
+          ui_pass = sum(1 for r in ui_results if r[3])
+          gate_pass = sum(1 for r in gate_results if r[2])
 
-          echo "## 🔭 Sheikha SRE Health Check" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| المؤشر | القيمة |" >> $GITHUB_STEP_SUMMARY
-          echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| 🕒 الوقت | $TS |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🌐 الحالة | $( [ "$STATUS" = "ok" ] && echo "✅ سليم" || echo "❌ يحتاج مراجعة" ) |" >> $GITHUB_STEP_SUMMARY
-          echo "| 📡 HTTP Code | $HTTP_CODE |" >> $GITHUB_STEP_SUMMARY
-          echo "| ⏱ زمن الاستجابة | ${LATENCY}s |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
+          lines = [
+              "## 🔭 Sheikha Sovereign SRE Radar V61.1",
+              f"- **UTC Timestamp:** `{datetime.now(timezone.utc).isoformat()}`",
+              f"- **Sovereign Endpoints:** `{ep_pass}/{len(ENDPOINTS_21)} GREEN`",
+              f"- **V61 Live Portals:** `{ui_pass}/{len(PORTALS_V61)} GREEN`",
+              f"- **Fail-Closed 401 Gates:** `{gate_pass}/{len(FAIL_CLOSED_GATES)} ENFORCED`",
+              "",
+              "| Endpoint / Gate | HTTP | TLS | Verdict |",
+              "|---|---|---|---|",
+          ]
 
-          if [ "$STATUS" = "ok" ]; then
-            echo "✅ **الموقع يعمل بشكل سليم**" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **تحذير: الموقع لا يستجيب بشكل صحيح**" >> $GITHUB_STEP_SUMMARY
-            echo "يُنصح بمراجعة السيرفر فوراً" >> $GITHUB_STEP_SUMMARY
-          fi
+          for url, h, t, ok in ep_results + ui_results:
+              verdict = "GREEN" if ok else "DEGRADED"
+              print(f"[{verdict}] {url} -> HTTP={h} TLS={t}")
+              lines.append(f"| `{url}` | `{h}` | `{t}` | **{verdict}** |")
 
-          echo "_﴿ إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ ﴾_" >> $GITHUB_STEP_SUMMARY
+          for url, code, ok in gate_results:
+              verdict = "LOCKED_401" if ok else "UNEXPECTED"
+              print(f"[{verdict}] {url} -> HTTP={code}")
+              lines.append(f"| `{url}` (POST Guard) | `{code}` | `0` | **{verdict}** |")
 
-      - name: ❌ فشل الفحص الصحي
-        if: steps.health.outputs.status != 'ok'
-        run: |
-          echo "❌ Health check FAILED"
-          echo "HTTP: ${{ steps.health.outputs.http_code }}"
-          echo "Status: ${{ steps.health.outputs.status }}"
-          echo "Body: ${{ steps.health.outputs.body }}"
-          exit 1
+          summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary_path:
+              with open(summary_path, "a", encoding="utf-8") as sf:
+                  sf.write("\n".join(lines) + "\n")
 
-  slo-compliance:
-    name: 🎯 فحص امتثال SLO
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: health-check
-    if: always()
+          if ep_pass != len(ENDPOINTS_21) or ui_pass != len(PORTALS_V61) or gate_pass != len(FAIL_CLOSED_GATES):
+              sys.exit(1)
 
-    steps:
-      - name: 📊 فحص /api/sre/status
-        id: sre
-        run: |
-          BASE_URL="${{ github.event.inputs.target_url || 'https://sheikha.top' }}"
-          BASE_URL="${BASE_URL%/api/health}"
-
-          HTTP_CODE=$(curl -s -o /tmp/sre_status.json -w "%{http_code}" \
-            --max-time 10 "$BASE_URL/api/sre/status" || echo "000")
-
-          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
-
-          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 400 ] 2>/dev/null; then
-            SRE_HEALTH=$(cat /tmp/sre_status.json | python3 -c \
-              "import json,sys; d=json.load(sys.stdin); print(d.get('data',{}).get('health','unknown'))" 2>/dev/null || echo "unknown")
-            SLO_COMPLIANT=$(cat /tmp/sre_status.json | python3 -c \
-              "import json,sys; d=json.load(sys.stdin); print(str(d.get('data',{}).get('sloCompliant',False)).lower())" 2>/dev/null || echo "false")
-            ALERTS=$(cat /tmp/sre_status.json | python3 -c \
-              "import json,sys; d=json.load(sys.stdin); print(d.get('data',{}).get('alertsCount',{}).get('total',0))" 2>/dev/null || echo "0")
-
-            echo "sre_health=$SRE_HEALTH" >> $GITHUB_OUTPUT
-            echo "slo_compliant=$SLO_COMPLIANT" >> $GITHUB_OUTPUT
-            echo "alerts=$ALERTS" >> $GITHUB_OUTPUT
-
-            echo "🎯 SRE Health: $SRE_HEALTH"
-            echo "📋 SLO Compliant: $SLO_COMPLIANT"
-            echo "🔔 Alerts: $ALERTS"
-          else
-            echo "sre_health=unknown" >> $GITHUB_OUTPUT
-            echo "⚠️ لا يمكن الوصول إلى /api/sre/status (HTTP $HTTP_CODE)"
-          fi
-
-      - name: 📋 ملخص SLO
-        if: always()
-        run: |
-          echo "## 🎯 SLO Compliance" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| المؤشر | القيمة |" >> $GITHUB_STEP_SUMMARY
-          echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| 🏥 صحة SRE | ${{ steps.sre.outputs.sre_health }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🎯 SLO محقق | $( [ '${{ steps.sre.outputs.slo_compliant }}' = 'true' ] && echo '✅ نعم' || echo '⚠️ لا' ) |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🔔 تنبيهات | ${{ steps.sre.outputs.alerts }} |" >> $GITHUB_STEP_SUMMARY
+          print("🏆 ALL 21 SOVEREIGN ENDPOINTS + 4 PORTALS + 3 FAIL-CLOSED GATES PASSED 100%!")
+          EOF
