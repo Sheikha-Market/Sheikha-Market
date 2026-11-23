@@ -1,0 +1,14 @@
+{
+  "schema": "SHEIKHA_V73_0_SQLITE_REVENUE_TRIGGER_BUY_ROUTES_AND_HMAC_WEBHOOK_SEAL",
+  "version": "73.0.0",
+  "intention_covenant": "خالصاً لوجه الله تعالى — BOUND_BY_QURAN_SUNNAH_HONEST_MIZAN_ZERO_RIBA",
+  "supreme_entity": "Salman Alrajeh Trading Est. — مؤسسة سلمان الراجح التجارية (CR: 2051263653)",
+  "accounting_integrity_guarantees": {
+    "sqlite_trigger": "trg_revenue_payment_only (Aborts any realized_revenue_sar mutation unless revenue_source == 'PAYMENT_WEBHOOK')",
+    "webhook_security": "HMAC-SHA256 Signature Verification (HTTP 401 on invalid signature) + Unique Idempotency Key in sheikha_payments",
+    "direct_buy_pages": "GET /buy/<PRD-VNT-ID> + POST /api/orders + POST /api/v72/storefront/instant-order",
+    "atomic_vault_split": "55% Master Treasury (VLT-01) / 35% Growth Capital (VLT-03) / 10% Smart Waqf (VLT-04) + Gross Receipt in VLT-02"
+  },
+  "radar_status": "27/27 GREEN",
+  "sealed_at": "2026-11-23T04:22:39.662231+00:00"
+}
