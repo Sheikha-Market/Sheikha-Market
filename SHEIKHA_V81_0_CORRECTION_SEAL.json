@@ -1,0 +1,134 @@
+{
+  "schema": "SHEIKHA_V81_0_CORRECTION_SEAL",
+  "version": "81.0.0",
+  "sealed_at": "2026-11-23T22:45:00Z",
+  "supersedes": "SHEIKHA_V80_0_PRODUCTION_READINESS_SEAL.json",
+  "supersede_reason": "V80.0 صدر قبل اكتشاف ثغرتين حاجزتين — يُصحَّح هنا التزاماً بمبدأ الصدق",
+  "governance": "BOUND_BY_QURAN_SUNNAH_SIDQ_AMANAH",
+  "owner": "Salman Ahmed Al-Rajih Trading Est. (CR: 2051263653)",
+  "weights_owner": "sheikha-sovereign-llm-v1",
+
+  "production_status": "READY_WITH_ONE_FUNCTIONAL_GAP",
+  "honest_assessment": "المنظومة تعمل وتحمي بياناتها، لكن تحصيل المدفوعات لم يُثبت بعد بتوقيع HMAC صالح على بيئة الإنتاج",
+
+  "defects_found_and_fixed": [
+    {
+      "id": "DEF-01",
+      "severity": "CRITICAL",
+      "found": "2026-11-23T15:00Z",
+      "component": "sheikha-treasury-engine",
+      "issue": "/api/v55/summary كان قبل بوابة المصادقة — يعرض 16,296,000 ر.س وأرصدة الخزائن للعامة",
+      "fix": "نُقلت الكتلة بعد authenticate()",
+      "verified": "401 بدون مفتاح / 200 بمفتاح",
+      "status": "CLOSED"
+    },
+    {
+      "id": "DEF-02",
+      "severity": "HIGH",
+      "found": "2026-11-23T15:15Z",
+      "component": "sheikha-os-core/wrangler.toml",
+      "issue": "[placement] أُدرج بعد compatibility_date فابتلع routes — النشر التالي كان سيفقد 22 route بصمت",
+      "fix": "نُقل [placement] إلى نهاية الملف",
+      "verified": "routes في السطر 6، [placement] في السطر 49، النشر أظهر كل الـ routes",
+      "status": "CLOSED"
+    },
+    {
+      "id": "DEF-03",
+      "severity": "HIGH",
+      "found": "2026-11-23T15:20Z",
+      "component": "5 workers",
+      "issue": "integration-hub, management-engine, infra-twin, business-engine, language-engine بلا SHEIKHA_ADMIN_TOKEN — رفض دائم حتى للمالك",
+      "fix": "رُفع السر لكل الخمسة",
+      "verified": "5/5 → secret_text موجود",
+      "status": "CLOSED"
+    },
+    {
+      "id": "DEF-04",
+      "severity": "MEDIUM",
+      "found": "2026-11-23T15:25Z",
+      "component": "sheikha-durable-objects",
+      "issue": "objects.sheikha.top أعاد 000000 — تبيّن أنه انقطاع شبكة عابر لا عطل",
+      "fix": "نُقل النطاق إلى sheikha-os-core للتوحيد",
+      "verified": "200",
+      "status": "CLOSED"
+    },
+    {
+      "id": "DEF-05",
+      "severity": "MEDIUM",
+      "found": "2026-11-23T15:30Z",
+      "component": "D1",
+      "issue": "7 قواعد (منها sheikha-restore-test) + ~20 مؤقت ميت",
+      "fix": "حُذفت قاعدة الاختبار، عُطّلت المؤقتات الميتة",
+      "verified": "6 قواعد | 1.11 MB / 5120 MB",
+      "status": "CLOSED"
+    }
+  ],
+
+  "open_items": [
+    {
+      "id": "OPEN-01",
+      "severity": "HIGH",
+      "component": "sheikha-commerce-models /api/payments/webhook",
+      "issue": "تسوية SHK-ORD-BA4C6EDA (257,600 ر.س) رُفضت بـ SIGNATURE_INVALID — الرفض صحيح أمنياً، لكن التحصيل لم يُثبت",
+      "required_action": "إرسال webhook بتوقيع HMAC-SHA256 صحيح والتحقق من إيداع المبلغ في VLT-02",
+      "blocks_production": true
+    },
+    {
+      "id": "OPEN-02",
+      "severity": "MEDIUM",
+      "component": "payment gateways",
+      "issue": "مفاتيح Moyasar/Tap/Tamara/Tabby الحية غير مربوطة",
+      "required_action": "رفع 4 مفاتيح كـ secrets",
+      "blocks_production": false
+    },
+    {
+      "id": "OPEN-03",
+      "severity": "LOW",
+      "component": "google-cloud",
+      "issue": "billingEnabled = false",
+      "required_action": "gcloud billing projects link",
+      "blocks_production": false
+    },
+    {
+      "id": "OPEN-04",
+      "severity": "LOW",
+      "component": "microsoft-azure",
+      "issue": "Azure CLI غير مثبت",
+      "required_action": "تثبيت + az login",
+      "blocks_production": false
+    }
+  ],
+
+  "verified_state": {
+    "workers": 29,
+    "custom_domains": 25,
+    "zones_active": 12,
+    "d1_databases": 6,
+    "d1_size_mb": 1.11,
+    "d1_limit_mb": 5120,
+    "kv_namespaces": 4,
+    "r2_buckets": 2,
+    "endpoints_green": "26/27 (business = انقطاع عابر مؤكد)",
+    "fail_closed": "10/10",
+    "financial_data_protected": true,
+    "secrets_all_secret_text": true,
+    "backup_verified": "328 KB | 433 INSERT | restore test passed",
+    "monitoring": "omni-watch-v75 كل 5 دقائق | 29/29",
+    "os_latency_avg_s": 0.85
+  },
+
+  "treasury_snapshot": {
+    "settlements_sar": 44384980,
+    "net_halal_wealth_sar": 1430718,
+    "vault_55pct_sar": 786896,
+    "vault_35pct_sar": 500751,
+    "waqf_10pct_sar": 143071,
+    "riba": 0,
+    "audit_sha256": "552db8ddfce85f4c264d105cb9976149407ef990967d8cc69d2a169bd883fd9d"
+  },
+
+  "production_gate": {
+    "decision": "HOLD_UNTIL_OPEN_01",
+    "condition": "لا تُعلن الجاهزية حتى تنجح تسوية دفع واحدة بتوقيع صحيح وتظهر في VLT-02"
+  }
+}
