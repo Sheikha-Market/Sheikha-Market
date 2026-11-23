@@ -26,5 +26,27 @@
     "https://sheikha.top/chat",
     "~/.local/bin/sheikha-gov"
   ],
-  "sealed_at": "2026-11-23T17:25:17.966452+00:00"
+  "sealed_at": "2026-11-23T17:25:17.966452+00:00",
+  "CORRECTION": {
+    "corrected_at": "2026-11-23T17:34:20.981160+00:00",
+    "reason": "الصك الأصلي سجّل 9 منصات كـ ACTIVE_INTEGRATED_V90 — الحقيقة أن ZATCA فقط متكامل فعلياً. تصحيح التزاماً بمبدأ SIDQ.",
+    "actual_status": {
+      "ZATCA_FATOORA": "INTEGRATED (6 فواتير مختومة)",
+      "WATHQ_CR": "AVAILABLE_NOT_SUBSCRIBED",
+      "NATIONAL_ADDRESS": "AVAILABLE_NOT_SUBSCRIBED",
+      "NAFATH": "REQUIRES_YESSER_REGISTRATION",
+      "BALADY": "REQUIRES_MOU",
+      "ABSHER": "REQUIRES_MOU",
+      "ETIMAD": "REQUIRES_MOU (التسجيل كمورد لا يحتاج API)",
+      "FASAH": "REQUIRES_MOU",
+      "SABER": "REQUIRES_MOU",
+      "QIWA_MUDAD_GOSI": "REQUIRES_MOU",
+      "NAJIZ": "REQUIRES_MOU",
+      "SEHHA": "REQUIRES_MOU",
+      "SAMA_OPEN_BANKING": "REQUIRES_LICENSE",
+      "NCA_ECC": "SELF_ASSESSED_ONLY"
+    },
+    "honest_completion": "1 من 18 = 5.6%",
+    "reference": "https://gov.sheikha.top/api/v90/gov/readiness"
+  }
 }
