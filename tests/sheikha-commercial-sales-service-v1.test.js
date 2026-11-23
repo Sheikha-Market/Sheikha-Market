@@ -19,13 +19,30 @@ test('reports commercial sales capabilities', () => {
   const result = sales.status();
 
   assert.equal(result.success, true);
-  assert.equal(result.offersCount, 4);
+  assert.equal(result.offersCount, 11);
   assert.equal(result.leadCaptureSupported, true);
   assert.equal(
     result.officialTaxInvoiceGenerationSupported,
     false
   );
   assert.equal(result.paymentCaptureSupported, false);
+});
+
+test('offers low-entry chat pilots without automatic renewal', () => {
+  const revenue = require('../runtime/commercial-revenue-closure/v1/sheikha-commercial-revenue-closure-v1');
+  const professional = revenue.getOffer('SHEIKHA_CHAT_PRO_PILOT_V1');
+  const business = revenue.getOffer('SHEIKHA_CHAT_BUSINESS_PILOT_V1');
+
+  assert.equal(professional.pricing.amountSar, 299);
+  assert.equal(business.pricing.amountSar, 1500);
+  assert.match(professional.paymentTerms, /NO_AUTOMATIC_RENEWAL/);
+  assert.match(business.paymentTerms, /NO_AUTOMATIC_RENEWAL/);
+});
+
+test('visual offers retain their governed license identifier', () => {
+  const offer = require('../runtime/commercial-revenue-closure/v1/sheikha-commercial-revenue-closure-v1')
+    .getOffer('SHEIKHA_VISUAL_PROVENANCE_PACK_V1');
+  assert.equal(offer.licenseId, 'SHEIKHA-VISUAL-GOVERNED-USE-1.0');
 });
 
 test('creates a valid website lead', () => {
@@ -39,7 +56,13 @@ test('creates a valid website lead', () => {
         'SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1',
       need:
         'نحتاج تشخيص اختناقات سلسلة الإمداد الحالية.',
-      consent: true
+      consent: true,
+      campaignSource: 'linkedin',
+      campaignMedium: 'outbound',
+      campaignName: 'first-10-customers',
+      referrer: 'https://www.linkedin.com/',
+      landingPage:
+        'https://www.sheikha.top/commercial/request.html'
     },
     {
       now: FIXED_NOW,
@@ -57,6 +80,31 @@ test('creates a valid website lead', () => {
     false
   );
   assert.equal(result.lead.cardDataCollected, false);
+  assert.equal(
+    result.lead.confidentiality.classification,
+    'CONFIDENTIAL_RESTRICTED'
+  );
+  assert.equal(
+    result.lead.confidentiality.modelTrainingAllowed,
+    false
+  );
+  assert.equal(
+    result.lead.confidentiality.externalDisclosureAllowed,
+    false
+  );
+  assert.equal(
+    result.lead.confidentiality.publicDisclosureAllowed,
+    false
+  );
+  assert.deepEqual(result.lead.attribution, {
+    campaignSource: 'linkedin',
+    campaignMedium: 'outbound',
+    campaignName: 'first-10-customers',
+    campaignContent: '',
+    referrer: 'https://www.linkedin.com/',
+    landingPage:
+      'https://www.sheikha.top/commercial/request.html'
+  });
 });
 
 test('rejects lead without contact or consent', () => {
@@ -278,6 +326,40 @@ test('creates proforma only after signed agreement', () => {
     result.document.revenueRecognized,
     false
   );
+});
+
+test('creates a self-service request without approving its commercial terms', () => {
+  const result = sales.createSelfServiceCheckout({
+    name: 'عميل ذاتي',
+    email: 'self@example.com',
+    offerId: 'SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1',
+    need: 'تشخيص سلسلة الإمداد ضمن النطاق المنشور.',
+    scopeAccepted: true,
+    termsAccepted: true,
+    privacyConsent: true,
+    paymentObligationAccepted: true,
+    offerDigest: sales.checkoutOffer('SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1').offerDigest
+  }, { now: FIXED_NOW, nonce: 'self-service' });
+
+  assert.equal(result.success, true);
+  assert.equal(result.checkout.quote.subtotalSar, 2500);
+  assert.equal(result.checkout.quote.totalSar, null);
+  assert.equal(result.checkout.order.ownerApproved, false);
+  assert.equal(result.checkout.payment.captured, false);
+  assert.equal(result.checkout.customerDataTrainingAllowed, false);
+});
+
+test('blocks self-service checkout for scoped offers and missing acceptance', () => {
+  const result = sales.createSelfServiceCheckout({
+    name: 'عميل ذاتي',
+    email: 'self@example.com',
+    offerId: 'SHEIKHA_ENTERPRISE_PILOT_30D_V1',
+    need: 'تجربة مؤسسية تحتاج إلى تحديد نطاق.',
+    privacyConsent: true
+  });
+  assert.equal(result.success, false);
+  assert.ok(result.errors.includes('OFFER_REQUIRES_SCOPE_REVIEW'));
+  assert.ok(result.errors.includes('TERMS_ACCEPTANCE_REQUIRED'));
 });
 
 test('public sales readiness denies incomplete setup', () => {

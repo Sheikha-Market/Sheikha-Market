@@ -9,15 +9,22 @@ The single target source of truth is
 targets: Windows 8, Linux 15, and macOS 4. VS Code Extension and Bare-Metal artifacts
 are auxiliary products outside that count.
 
-## Product Boundary
+## V2 Product Snapshot
+
+This section records the V2 catalog, not the current state of every product in the
+repository. Later native desktop source exists under
+`desktop/shell/tauri-v4`; source presence alone does not qualify an installer or
+update the historical V2 evidence. See the
+[modular app-pack architecture study](../docs/architecture/SHEIKHA-MODULAR-APP-PACK-DECISION.md)
+for the reviewed boundaries and staged qualification work.
 
 - Sheikha CLI: implemented; JavaScript launcher requiring Node.js 20, 22, or 25.
 - Sheikha Server Runtime: implemented as a Node.js source runtime; production
   dependencies are installed separately.
 - Sheikha VS Code Extension: implemented and packaged as VSIX 1.0.91.
 - Sheikha Bare-Metal OS Seed: implemented as x86_64 UEFI EFI and FAT/ESP image.
-- Sheikha Desktop: declared candidate only. No executable Desktop Runtime exists,
-  so the pipeline never fabricates Windows EXE or macOS DMG files.
+- Sheikha Desktop: declared candidate only in the V2 catalog. V2 has no qualified
+  desktop runtime and must not fabricate Windows EXE or macOS DMG files.
 
 ## Commands
 

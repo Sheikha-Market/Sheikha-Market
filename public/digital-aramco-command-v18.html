@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جسد شيخة وديجيتال أرامكو الموحد ومحاكي الحفر والمختبرات وPMT وOPEC+ | Sheikha V18</title>
+  <style>
+    :root { --bg: #03060c; --card: #0b1221; --card2: #111a2e; --border: rgba(212,175,55,0.35); --gold: #d4af37; --cyan: #38bdf8; --emerald: #10b981; --red: #ef4444; --text: #f8fafc; --muted: #94a3b8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); }
+    header { background: linear-gradient(135deg, #070d19 0%, #152238 100%); border-bottom: 2px solid var(--gold); padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge { padding: 5px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; border: 1px solid var(--gold); background: rgba(212,175,55,0.12); color: var(--gold); }
+    .badge.green { border-color: var(--emerald); background: rgba(16,185,129,0.15); color: var(--emerald); }
+    .badge.cyan { border-color: var(--cyan); background: rgba(56,189,248,0.15); color: var(--cyan); }
+    .container { max-width: 1580px; margin: 20px auto; padding: 0 20px; }
+    .tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; }
+    .tab-btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 10px 18px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: 0.2s; }
+    .tab-btn.active, .tab-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 18px; margin-bottom: 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    .card h3 { margin: 0 0 12px; color: var(--gold); font-size: 1.08rem; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 8px; }
+    .metric-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed rgba(255,255,255,0.07); font-size: 0.88rem; }
+    .metric-row strong { color: var(--cyan); }
+    .btn { background: var(--emerald); color: #04130c; border: none; padding: 9px 16px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
+    .btn.gold { background: var(--gold); color: #000; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 10px; }
+    th, td { border: 1px solid rgba(255,255,255,0.12); padding: 9px 10px; text-align: right; }
+    th { background: #162238; color: var(--gold); }
+    tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+    .log-console { background: #020408; border: 1px solid var(--cyan); border-radius: 10px; padding: 14px; font-family: monospace; font-size: 0.84rem; color: #10b981; height: 220px; overflow-y: auto; line-height: 1.6; direction: ltr; text-align: left; }
+    input, select { background: #070d19; color: #fff; border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; width: 100%; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 style="margin:0; font-size:1.38rem; color:var(--gold);">جسد شيخة وديجيتال أرامكو الموحد • مركز القرارات المتقن • PMT • OPEC+ • محاكي الحفر والمختبرات وSAP (V18)</h1>
+      <p style="margin:5px 0 0; font-size:0.84rem; color:var(--muted);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية (CR: 2051263653) | مورد أرامكو: S11488084 | شبكة SAP: AN11235091112 | بصمة الملكية الفكرية: SHA-512 VERIFIED</p>
+    </div>
+    <div class="badges">
+      <span class="badge green">● 35/35 SAP ONLINE + 175 MEDIA</span>
+      <span class="badge cyan">DIGITAL ARAMCO &amp; OSDU ACTIVE</span>
+      <span class="badge">IP SEAL: 39cd12f918e6e7d9...</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('tab-sim', this)">1. محاكي الحفر والمختبرات وSAP PunchOut الحي</button>
+      <button class="tab-btn" onclick="showTab('tab-decision', this)">2. مركز القرارات المتقن وOPEC+ ودراسات الجدوى</button>
+      <button class="tab-btn" onclick="showTab('tab-pmt', this)">3. إدارة المشاريع (PMT) والأنابيب والأسطول والموظفين</button>
+      <button class="tab-btn" onclick="showTab('tab-sap', this)">4. داتا شيت SAP (35 صنفاً) واستقطاب الموردين لشيخة</button>
+      <button class="tab-btn" onclick="showTab('tab-gov', this)">5. هيكلة الشركة والسياسات وحماية الملكية الفكرية</button>
+    </div>
+
+    <!-- TAB 1: LIVE DRILLING, LIMS & SAP PUNCHOUT SIMULATOR -->
+    <div id="tab-sim" class="panel active">
+      <div class="grid-3">
+        <div class="card">
+          <h3>🛢️ محاكي برج الحفر الآلي وقاع البئر (Live Rig &amp; Downhole WITSML)</h3>
+          <div class="metric-row"><span>الحقل والبرج النشط:</span><strong id="rig-name">Ghawar / Jafurah Rig #SHK-104 (HPHT)</strong></div>
+          <div class="metric-row"><span>العمق الحالي (Measured Depth):</span><strong id="rig-depth">14,280 ft</strong></div>
+          <div class="metric-row"><span>كثافة سائل الحفر (Mud Weight):</span><strong id="mud-sg">4.20 SG (API 13A Barite)</strong></div>
+          <div class="metric-row"><span>ضغط قاع البئر (BHP) ومانع الانفجار (BOP):</span><strong id="rig-bop">9,450 psi | BOP ARMED</strong></div>
+          <button class="btn" onclick="simulateDrillingStep()">⚡ تشغيل دورة حفر فورية + فحص استهلاك البئر</button>
+          <button class="btn gold" onclick="triggerAutoRequisition('SHK-ENG-BARITE-42', 50)">📦 طلب فوري: 50 طن بارايت 4.2 SG من كتالوج SAP</button>
+        </div>
+
+        <div class="card">
+          <h3>🔬 مختبر البترول والموائع والمحفزات الحي (Sheikha LIMS ISO-17025)</h3>
+          <div class="metric-row"><span>تحليل لباب الصخور (SCAL Porosity / Perm):</span><strong id="lims-scal">18.4% | 420 mD</strong></div>
+          <div class="metric-row"><span>تحليل موائع المكمن (PVT API Gravity / H2S):</span><strong id="lims-pvt">34.2° API | Sour H2S: 1.8%</strong></div>
+          <div class="metric-row"><span>نقاوة السيليكا الحرارية (Silica 100 Mesh):</span><strong>99.4% SiO2 (Approved)</strong></div>
+          <div class="metric-row"><span>استرداد معادن المحفزات (Spent Catalyst Pt/Pd):</span><strong id="lims-cat">1,420 g/Ton Recovered</strong></div>
+          <button class="btn" onclick="runLimsAssay()">🧪 إجراء فحص مخبري فوري وإصدار شهادة SGS/API</button>
+          <button class="btn gold" onclick="triggerAutoRequisition('SHK-STL-PIPES', 120)">📦 طلب أنابيب API 5L X65 المقاومة للكبريت</button>
+        </div>
+
+        <div class="card">
+          <h3>🔗 محرك أوامر الشراء الفورية (SAP Business Network cXML Bridge)</h3>
+          <div class="metric-row"><span>معرف مورد أرامكو / شبكة SAP:</span><strong>S11488084 / AN11235091112</strong></div>
+          <div class="metric-row"><span>حالة الكتالوج والميديا:</span><strong style="color:var(--emerald);">35/35 ONLINE (175 Views)</strong></div>
+          <div class="metric-row"><span>آخر أمر شراء آلي (cXML OrderRequest):</span><strong id="last-po">PO-ARAMCO-2026-8841</strong></div>
+          <div class="metric-row"><span>إجمالي قيمة الأوامر المولدة بالمحاكي:</span><strong id="total-po-val">1,450,000 SAR</strong></div>
+          <button class="btn" onclick="triggerAutoRequisition('SHK-ENG-VALVES-API', 15)">⚙️ توريد 15 صمام أنابيب API 6D</button>
+          <button class="btn gold" onclick="triggerAutoRequisition('SHK-CLD-SAP-COINV', 1)">☁️ تفعيل رخصة جسر SAP S/4HANA Oil &amp; Gas</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🖥️ شاشة القياس والتوريد اللحظي (Live WITSML / LIMS / SAP cXML Telemetry Console)</h3>
+        <div id="sim-console" class="log-console">
+          [SYSTEM READY] Sheikha Digital Aramco One-Body Simulator V18 Initialized...<br>
+          [SAP ARIBA] Connected to AN11235091112 | Vendor S11488084 | 35/35 Online Products &amp; 175 Media Views Active.<br>
+          [WITSML 2.1] Streaming live downhole telemetry from Ghawar/Jafurah Rig #SHK-104...<br>
+          [LIMS ISO-17025] PVT, SCAL &amp; Catalyst Recovery Labs Online.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: SUPREME DECISION CENTER, OPEC+ & FEASIBILITY -->
+    <div id="tab-decision" class="panel">
+      <div class="grid-3">
+        <div class="card">
+          <h3>🌍 محرك موازنة الإنتاج والطاقة المستدامة ومنظمة OPEC+</h3>
+          <div class="metric-row"><span>الطاقة الإنتاجية القصوى المستدامة (MSC):</span><strong>12.00 مليون برميل/يوم (MMBD)</strong></div>
+          <div class="metric-row"><span>الإنتاج المستهدف حسب حصة التوازن (OPEC+):</span><strong id="opec-prod">9.50 MMBD</strong></div>
+          <div class="metric-row"><span>الطاقة الفائضة الفورية للأمن الطاقي (Spare Capacity):</span><strong id="opec-spare">2.50 MMBD</strong></div>
+          <div class="metric-row"><span>إنتاج الغاز الطبيعي وسوائل الغاز (NGL):</span><strong>12.5 مليار قدم مكعب قياسي/يوم</strong></div>
+          <button class="btn gold" onclick="optimizeOpecBalance()">⚖️ موازنة التوزيع المثالي بين الحقول البرية والبحرية</button>
+        </div>
+
+        <div class="card">
+          <h3>📊 حاسبة دراسات الجدوى المالية والاقتصادية الآلية (Feasibility Engine)</h3>
+          <label>التكلفة الرأسمالية للمشروع (CAPEX - مليون ريال):</label>
+          <input type="number" id="f-capex" value="250" />
+          <label>العائد التشغيلي السنوي المتوقع (Annual Cashflow - مليون ريال):</label>
+          <input type="number" id="f-cf" value="95" />
+          <button class="btn" onclick="calcFeasibility()">📈 حساب صافي القيمة الحالية (NPV) والعائد الداخلي (IRR)</button>
+          <div id="f-result" style="margin-top:12px; font-weight:700; color:var(--emerald);">
+            NPV (5 Years @ 8%): +129.3M SAR | IRR: 26.1% | Payback: 2.63 Years (مجدٍ اقتصادياً بامتياز)
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🧠 مركز شيخة للقرارات المتقن والأحسن بالكون (Supreme Decision Matrix)</h3>
+          <div class="metric-row"><span>معامل الإتقان والجودة (Six Sigma / Lean):</span><strong>99.99966% (Zero Defect)</strong></div>
+          <div class="metric-row"><span>نسبة توطين المحتوى المحلي (IKTVA Score):</span><strong>72.4% (محقق لمستهدف الرؤية)</strong></div>
+          <div class="metric-row"><span>كفاءة خفض الانبعاثات الكربونية (Upstream CI):</span><strong>8.9 kg CO2e/boe (الأقل عالمياً)</strong></div>
+          <div class="metric-row"><span>التكامل مع إعمار شيخة للأرض:</span><strong>100% مرتبط بالأوقاف والاستدامة</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: PMT, PIPELINES, FLEET & WORKFORCE -->
+    <div id="tab-pmt" class="panel">
+      <div class="grid-3">
+        <div class="card">
+          <h3>🏗️ إدارة المشاريع الكبرى (Sheikha PMT — Project Management Team)</h3>
+          <div class="metric-row"><span>المرحلة الهندسية (Stage-Gate):</span><strong>FEL-1 &rarr; FEED &rarr; EPC &rarr; Commissioning</strong></div>
+          <div class="metric-row"><span>مؤشر أداء التكلفة والجدول (CPI / SPI):</span><strong>CPI: 1.06 | SPI: 1.04 (متقدم على الجدول)</strong></div>
+          <div class="metric-row"><span>مشاريع التوسعة البحرية والبرية (Marjan / Zuluf / Jafurah):</span><strong>مدعومة بأنابيب ودعامات شيخة</strong></div>
+        </div>
+        <div class="card">
+          <h3>🛣️ إدارة خطوط الأنابيب والأسطول واللوجستيات (Pipelines &amp; Fleet)</h3>
+          <div class="metric-row"><span>خط الأنابيب الرئيسي (East-West Pipeline Telemetry):</span><strong>الضغط والتدفق مستقر 100% | Zero Leak</strong></div>
+          <div class="metric-row"><span>أسطول النقل والحاويات (SHK-TRN-WASTE-FLT / ISO Skips):</span><strong>تتبع حي عبر الأقمار الصناعية IVMS</strong></div>
+          <div class="metric-row"><span>إدارة السكراب والمحفزات والنفايات الصناعية (MRF):</span><strong>استرداد وتدوير مغلق الحلقة 100%</strong></div>
+        </div>
+        <div class="card">
+          <h3>👷 إدارة الموارد البشرية والكفاءات الدقيقة (Workforce &amp; HSE)</h3>
+          <div class="metric-row"><span>ساعات العمل الآمنة بدون إصابات (LTI-Free Hours):</span><strong>48,500,000+ ساعة آمنة</strong></div>
+          <div class="metric-row"><span>التخصصات النادرة المفعلة:</span><strong>جيوفيزياء، ريولوجيا آبار HPHT، حوسبة OSDU، وتكرير معادن</strong></div>
+          <div class="metric-row"><span>برامج التدريب والتمكين الرقمي:</span><strong>مربوطة بأكاديمية شيخة وديجيتال أرامكو</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: SAP DATASHEETS (35 ITEMS) & VENDOR ONBOARDING -->
+    <div id="tab-sap" class="panel">
+      <div class="card" style="margin-bottom:18px;">
+        <h3>🤝 بوابة ضم وتحويل موردي SAP والمنصات العالمية ليصبحوا موردين في شيخة (Universal Vendor Onboarding)</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+          <input type="text" id="v-name" placeholder="اسم الشركة الموردة (Company Name)" />
+          <input type="text" id="v-sap" placeholder="معرف SAP ANID أو Aramco Vendor ID" />
+          <select id="v-plat">
+            <option value="SAP Business Network">SAP Business Network (Ariba)</option>
+            <option value="Digital Aramco Portal">Digital Aramco Supplier Portal</option>
+            <option value="AWS / Azure / GCP Partner">Global Cloud Marketplace</option>
+          </select>
+          <button class="btn gold" style="margin-top:0;" onclick="onboardVendor()">➕ ضم المورد فوراً إلى سحابة وسوق شيخة</button>
+        </div>
+        <div id="v-msg" style="color:var(--emerald); font-weight:700; margin-top:8px;"></div>
+      </div>
+
+      <div class="card">
+        <h3>📋 الداتا شيت الكاملة لمنتجات شيخة الـ 35 المنشورة على SAP Business Network (Online 35/35)</h3>
+        <div style="overflow-x:auto;">
+          <table id="datasheet-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>كود المنتج (Product ID)</th>
+                <th>اسم الصنف والخدمة</th>
+                <th>القطاع التخصصي</th>
+                <th>السعر (SAR)</th>
+                <th>الوحدة</th>
+                <th>UNSPSC</th>
+                <th>المعيار الهندسي (Datasheet Spec)</th>
+                <th>طلب فوري</th>
+              </tr>
+            </thead>
+            <tbody id="datasheet-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: CORPORATE HIERARCHY, GOVERNANCE & IP SEAL -->
+    <div id="tab-gov" class="panel">
+      <div class="card">
+        <h3>🛡️ شهادة حفظ الملكية الفكرية السيادية وهيكلة الحوكمة الشاملة (Sovereign IP &amp; Governance Seal)</h3>
+        <p style="line-height:1.8; color:var(--text);">
+          <strong>المالك الحصري للتصميم والمعمار والأنظمة:</strong> مؤسسة سلمان أحمد بن سلمان الراجح التجارية (شيخة للسحابات والاستضافات والطاقة وسوق شيخة)<br>
+          <strong>السجل التجاري:</strong> 2051263653 | <strong>الرقم الموحد:</strong> 7049031003 | <strong>معرف مورد أرامكو:</strong> S11488084 | <strong>معرف SAP:</strong> AN11235091112<br>
+          <strong>البصمة الرقمية المشفرة للمعمار (SHA-512 IP Watermark):</strong><br>
+          <code style="color:var(--gold); word-break:break-all;">39cd12f918e6e7d9b7c07ecaba0407d8139174636166bebc4e0c18982fb5705501ffda4884cfe69105cdb1e0fd6346b2d496048697b0d16963d05f39deee36fa</code>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const catalogData = [{"id": "SHK-CLD-HOST-SOV", "name": "Sovereign Cloud Hosting Tier-IV", "sector": "Digital Aramco Cloud", "price": 4500, "uom": "H87", "unspsc": "81112106", "spec": "SA-CCC-01 / NCA ECC"}, {"id": "SHK-CLD-META-MGR", "name": "Multi-Cloud & OSDU Metadata Manager", "sector": "Digital Aramco Cloud", "price": 9500, "uom": "H87", "unspsc": "43232408", "spec": "OSDU R3 / Hybrid Cloud"}, {"id": "SHK-CLD-OMNI-MESH", "name": "Zero-Trust Service Mesh & OT Security", "sector": "Digital Aramco Cloud", "price": 7500, "uom": "H87", "unspsc": "43233205", "spec": "Zero-Trust / mTLS"}, {"id": "SHK-CLD-SAP-COINV", "name": "SAP S/4HANA Oil & Gas Co-Innovation Bridge", "sector": "Digital Aramco Cloud", "price": 12000, "uom": "H87", "unspsc": "81111503", "spec": "IS-OIL / PRA / JVA / cXML"}, {"id": "SHK-CLD-EDGE-SEC", "name": "Industrial Edge AI & SCADA Gateway", "sector": "Digital Aramco Cloud", "price": 3500, "uom": "H87", "unspsc": "43222612", "spec": "OPC-UA / WITSML 2.1"}, {"id": "SHK-CLD-UNIV-ERP", "name": "Universal Enterprise Resource Planning Core", "sector": "Digital Aramco Cloud", "price": 8500, "uom": "H87", "unspsc": "43231601", "spec": "PMT / HR / Finance / Supply"}, {"id": "SHK-CLD-PAAS-HUB", "name": "Platform-as-a-Service & API Integration Hub", "sector": "Digital Aramco Cloud", "price": 6500, "uom": "H87", "unspsc": "81162000", "spec": "OpenAPI / GraphQL / EDI"}, {"id": "SHK-CLD-AI-VAL", "name": "Supreme AI Decision Center & Feasibility Engine", "sector": "Decision Center & AI", "price": 7800, "uom": "H87", "unspsc": "43232304", "spec": "NPV / IRR / OPEC+ Modeling"}, {"id": "SHK-CLD-ESG-ZATCA", "name": "Net-Zero ESG Carbon & ZATCA Phase-2 Suite", "sector": "Governance & ESG", "price": 4200, "uom": "H87", "unspsc": "43231602", "spec": "GHG Scope 1-3 / ZATCA XML"}, {"id": "SHK-ENG-PETRO-CHEM", "name": "Specialty Petrochemical & Refinery Demulsifiers", "sector": "Downstream & Labs", "price": 3200, "uom": "H87", "unspsc": "12352100", "spec": "ASTM D4052 / GOSP Grade"}, {"id": "SHK-ENG-BARITE-41", "name": "API 13A Drilling Fluid Barite Powder 4.1 SG", "sector": "Upstream Drilling", "price": 680, "uom": "H87", "unspsc": "11101500", "spec": "API Spec 13A Section 12"}, {"id": "SHK-ENG-BARITE-42", "name": "Ultra-High Density HPHT Barite 4.2 SG", "sector": "Upstream Drilling", "price": 790, "uom": "H87", "unspsc": "11101500", "spec": "API Spec 13A HPHT Wells"}, {"id": "SHK-ENG-SILICA-100", "name": "Thermal Well Cementing Silica Flour 100 Mesh", "sector": "Upstream Drilling", "price": 850, "uom": "H87", "unspsc": "11101700", "spec": "SiO2 > 99.2% HPHT Cement"}, {"id": "SHK-ENG-VALVES-API", "name": "High-Pressure Pipeline Gate & Ball Valves API 6D", "sector": "Pipelines & Flow", "price": 5400, "uom": "H87", "unspsc": "30101704", "spec": "API 6D / NACE MR0175 Sour"}, {"id": "SHK-ENG-SOLAR-H2", "name": "Solar-Thermal EOR & Green Hydrogen Skid", "sector": "New Energy & Hydrogen", "price": 15000, "uom": "H87", "unspsc": "26111600", "spec": "PEM Electrolyzer / CCUS"}, {"id": "SHK-MET-PRECIOUS", "name": "Refined Gold, Silver & Platinum Group Bullion", "sector": "Precious Metals", "price": 285000, "uom": "KGM", "unspsc": "11101800", "spec": "999.9 LBMA / Sovereign Vault"}, {"id": "SHK-MET-REE-CRIT", "name": "Critical Rare Earth Elements & Catalyst Oxides", "sector": "Rare Earths & Labs", "price": 1450, "uom": "KGM", "unspsc": "11101600", "spec": "NdPr / La / Ce 99.9%"}, {"id": "SHK-MET-SEMIRARE", "name": "Semiconductor Grade Silicon, Gallium & Germanium", "sector": "Advanced Materials", "price": 68000, "uom": "KGM", "unspsc": "32111500", "spec": "9N Electronic Purity"}, {"id": "SHK-MET-BASE-CUNI", "name": "Electrolytic Copper Cathodes & LME Grade Nickel", "sector": "Base Metals", "price": 36500, "uom": "KGM", "unspsc": "30101501", "spec": "ASTM B115 Grade A 99.99%"}, {"id": "SHK-MAA-8M8400A60", "name": "Primary Aluminium Extrusion Billet AA6060 8M", "sector": "Maaden & Metals", "price": 10800, "uom": "KGM", "unspsc": "30101501", "spec": "AA6060 Homogenized"}, {"id": "SHK-MAA-8M7000P6060", "name": "Primary Aluminium Extrusion Billet AA6060 7M", "sector": "Maaden & Metals", "price": 10800, "uom": "KGM", "unspsc": "30101501", "spec": "203x7000mm Ultrasonic Tested"}, {"id": "SHK-MAA-8M7000P63T", "name": "Structural Aluminium Alloy Billet AA6063-T6", "sector": "Maaden & Metals", "price": 10950, "uom": "KGM", "unspsc": "30101501", "spec": "EN AW-6063 Architectural"}, {"id": "SHK-MAA-8M5800R63", "name": "Precision Aluminium Billet AA6063 5.8M", "sector": "Maaden & Metals", "price": 10950, "uom": "KGM", "unspsc": "30101501", "spec": "Low-Carbon Smelter Cert"}, {"id": "SHK-STL-ZPILES", "name": "Hot Rolled Marine Sheet Piles EN 10248 S430GP", "sector": "Offshore & Marine PMT", "price": 4100, "uom": "KGM", "unspsc": "30102400", "spec": "EN 10248 Z-Section"}, {"id": "SHK-STL-PIPES", "name": "Seamless Carbon & Sour Service Line Pipes API 5L X65", "sector": "Pipelines & Drilling", "price": 4800, "uom": "KGM", "unspsc": "30101800", "spec": "API 5L PSL2 X65 / ASTM A106"}, {"id": "SHK-STL-STRUCT", "name": "Structural Steel Sections HEB/HEA/IPE & Rebar", "sector": "PMT Construction", "price": 3450, "uom": "KGM", "unspsc": "30101800", "spec": "ASTM A572 Gr.50 / SASO"}, {"id": "SHK-CNT-SKIP-ISO", "name": "Industrial Roll-Off Waste Skips & Offshore ISO Containers", "sector": "Logistics & Containers", "price": 14500, "uom": "H87", "unspsc": "24112900", "spec": "DNV 2.7-1 / ISO 1496"}, {"id": "SHK-TRN-WASTE-FLT", "name": "End-to-End Hazmat, Rig & Industrial Fleet Hauling", "sector": "Fleet & Logistics", "price": 2500, "uom": "H87", "unspsc": "78101801", "spec": "GPS / Aramco IVMS Compliant"}, {"id": "SHK-WST-MRF-E2E", "name": "Total Industrial Material Recovery Facility (MRF) Ops", "sector": "Circular Economy", "price": 18000, "uom": "H87", "unspsc": "76121501", "spec": "MWAN / ISO 14001 Zero-Waste"}, {"id": "SHK-SCR-FER-HMS", "name": "Recycled Heavy Melting Steel Scrap HMS 1&2", "sector": "Circular Metals", "price": 1650, "uom": "KGM", "unspsc": "11191502", "spec": "ISRI 200-206 Radiation Free"}, {"id": "SHK-SCR-STAINLESS", "name": "Recycled Austenitic & Duplex Stainless Scrap 316/2205", "sector": "Circular Metals", "price": 6200, "uom": "KGM", "unspsc": "11191501", "spec": "ISRI Sabot / PMI Verified"}, {"id": "SHK-SCR-CU-AL-NF", "name": "Non-Ferrous Copper Millberry & Aluminium Extrusion Scrap", "sector": "Circular Metals", "price": 28000, "uom": "KGM", "unspsc": "11191600", "spec": "ISRI Berry / Tata 99.9%"}, {"id": "SHK-SCR-PREC-CAT", "name": "Spent Refinery Catalyst Precious Metals Recovery", "sector": "Refinery Labs & Recovery", "price": 45000, "uom": "KGM", "unspsc": "11191600", "spec": "ICP-OES Pt/Pd/Rh Assay"}, {"id": "SHK-SEC-ELEC-AUTO", "name": "Explosion-Proof Transformers, Switchgear & PLC Panels", "sector": "Automation & Power", "price": 8900, "uom": "H87", "unspsc": "39121000", "spec": "ATEX / IECEx Zone-1"}, {"id": "SHK-SEC-MRO-HSE", "name": "Industrial MRO Rig Tools, H2S Detectors & FR PPE", "sector": "MRO & HSE Safety", "price": 1250, "uom": "H87", "unspsc": "27112703", "spec": "NFPA 2112 / ANSI Z87.1"}];
+    let totalPoValue = 1450000;
+    let rigDepth = 14280;
+
+    function showTab(id, btn) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function logMsg(msg) {
+      const c = document.getElementById('sim-console');
+      const ts = new Date().toLocaleTimeString();
+      c.innerHTML += `<br>[${ts}] ${msg}`;
+      c.scrollTop = c.scrollHeight;
+    }
+
+    function simulateDrillingStep() {
+      rigDepth += 45;
+      document.getElementById('rig-depth').innerText = rigDepth.toLocaleString() + ' ft';
+      logMsg(`[WITSML 2.1] Rig #SHK-104 drilled to ${rigDepth} ft | ROP: 62 ft/hr | Mud Density verified at 4.20 SG (SHK-ENG-BARITE-42).`);
+    }
+
+    function runLimsAssay() {
+      logMsg(`[LIMS ISO-17025] Sample analyzed: Core Porosity 18.6%, API Gravity 34.4°, Spent Catalyst Pt/Pd recovery yield 99.2% verified.`);
+    }
+
+    function triggerAutoRequisition(pid, qty) {
+      const item = catalogData.find(x => x.id === pid) || catalogData[0];
+      const lineTotal = item.price * qty;
+      totalPoValue += lineTotal;
+      const poNum = 'PO-ARAMCO-' + Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('last-po').innerText = poNum;
+      document.getElementById('total-po-val').innerText = totalPoValue.toLocaleString() + ' SAR';
+      logMsg(`[SAP cXML PUNCHOUT] Auto-Order ${poNum} dispatched | Item: ${item.id} (${item.name}) | Qty: ${qty} ${item.uom} | Total: ${lineTotal.toLocaleString()} SAR -> Status: CONFIRMED.`);
+    }
+
+    function optimizeOpecBalance() {
+      document.getElementById('opec-prod').innerText = '9.65 MMBD (Optimized across Ghawar, Safaniya, Shaybah & Khurais)';
+      document.getElementById('opec-spare').innerText = '2.35 MMBD Instant Cushion';
+    }
+
+    function calcFeasibility() {
+      const capex = parseFloat(document.getElementById('f-capex').value) || 250;
+      const cf = parseFloat(document.getElementById('f-cf').value) || 95;
+      const npv = (cf * 3.9927 - capex).toFixed(1);
+      const payback = (capex / cf).toFixed(2);
+      document.getElementById('f-result').innerText = `NPV (5 Years @ 8%): ${npv}M SAR | Payback Period: ${payback} Years | التوصية: اعتماد التنفيذ الفوري في PMT`;
+    }
+
+    function onboardVendor() {
+      const name = document.getElementById('v-name').value || 'Global Energy Partner';
+      const sap = document.getElementById('v-sap').value || 'AN-PARTNER';
+      const plat = document.getElementById('v-plat').value;
+      document.getElementById('v-msg').innerText = `✅ تم ضم المورد (${name} - ${sap}) من [${plat}] وتفعيله كمورد معتمد في سحابة وسوق شيخة الموحد!`;
+    }
+
+    // Populate Datasheet Table
+    const tbody = document.getElementById('datasheet-body');
+    catalogData.forEach((it, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${idx + 1}</td>
+        <td><strong style="color:var(--cyan);">${it.id}</strong></td>
+        <td>${it.name}</td>
+        <td>${it.sector}</td>
+        <td><strong>${it.price.toLocaleString()}</strong></td>
+        <td>${it.uom}</td>
+        <td>${it.unspsc}</td>
+        <td>${it.spec}</td>
+        <td><button class="btn" style="margin:0; padding:5px 10px;" onclick="showTab('tab-sim', document.querySelector('.tab-btn')); triggerAutoRequisition('${it.id}', 10);">توريد للحقل</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>

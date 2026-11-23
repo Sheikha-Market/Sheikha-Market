@@ -1,0 +1,164 @@
+{
+  "system_id": "SHEIKHA-DARK-FACTORY-OPEN-MARKET-V50000",
+  "ip_owner": "منظومة وسوق شيخة (SHEIKHA®) — مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سجل: 2051263653)",
+  "official_domain": "https://sheikha.top",
+  "settlement_iban": "SA4005000068206162118000",
+  "dark_factory_telemetry": {
+    "operation_mode": "LIGHTS_OUT_100%_AUTONOMOUS (مصنع مظلم كامل الأتمتة — صفر تدخل بشري)",
+    "human_intervention_pct": 0,
+    "oee_efficiency_pct": 99.4,
+    "active_agv_fleets": 18,
+    "active_robotic_cells": 12,
+    "dark_power_saving_pct": 42,
+    "live_throughput_tons_hr": 68.5,
+    "daily_autonomous_tons": 1669,
+    "monthly_autonomous_tons": 49320,
+    "annual_autonomous_tons": 600060
+  },
+  "autonomous_cells": [
+    {
+      "cell_id": "DARK-CELL-01",
+      "name": "بوابة القبان الليزري والرادار الذاتي (ANPR + 3D LiDAR Scale)",
+      "machine": "ميزان أوتوماتيكي 120 طن + ماسح ثلاثي الأبعاد",
+      "status": "LIGHTS_OUT_ACTIVE",
+      "speed_rate": "شاحنة / 18 ثانية",
+      "current_task": "وزن ومسح تريلا بدون إضاءة أو موظف بوابة"
+    },
+    {
+      "cell_id": "DARK-CELL-02",
+      "name": "خط الفرز الطيفي والمغناطيسي المظلم (XRF + Eddy-Current Line)",
+      "machine": "سير سرعة 4م/ث + 6 أذرع روبوتية + فواصل مغناطيسية",
+      "status": "LIGHTS_OUT_ACTIVE",
+      "speed_rate": "35 طن / ساعة",
+      "current_task": "عزل نحاس Berry وألمنيوم UBC عن حديد HMS بنقاوة 99.9%"
+    },
+    {
+      "cell_id": "DARK-CELL-03",
+      "name": "وحدة القص الهيدروليكي والكبس الذري (800T Shear & 320-Bar Baler)",
+      "machine": "مقص 800 طن + جاروشة 2000 حصان + مكبس بالات آلي",
+      "status": "LIGHTS_OUT_ACTIVE",
+      "speed_rate": "42 طن / ساعة",
+      "current_task": "كبس مكعبات ألمنيوم وقص جسور حديد بمقاس الفرن"
+    },
+    {
+      "cell_id": "DARK-CELL-04",
+      "name": "المستودع المظلم والمركبات الذاتية (AS/RS Silos & 18 AGVs)",
+      "machine": "18 عربة AGV ليزرية + رافعات جسرية آلية",
+      "status": "LIGHTS_OUT_ACTIVE",
+      "speed_rate": "تخزين واسترجاع فوري",
+      "current_task": "رص البالات حسب الرمز الجمركي HS Code وتحميل حاويات المصهر"
+    },
+    {
+      "cell_id": "DARK-CELL-05",
+      "name": "خلية إمداد المصهر والفوترة الزكوية (Smelter Auto-Dispatch & ZATCA)",
+      "machine": "عقل شيخة العصبي + بوابة مصرف الإنماء و ZATCA TLV",
+      "status": "LIGHTS_OUT_ACTIVE",
+      "speed_rate": "تسوية فورية 0.05s",
+      "current_task": "إصدار بوليصة شحن BOL وفاتورة زكوية وتحويل للمورد آلياً"
+    }
+  ],
+  "open_market_listings": [
+    {
+      "sku": "SHK-DARK-7404",
+      "hs_code": "7404.00.10",
+      "isri": "Berry / Candy",
+      "title": "نحاس أحمر نقي مفروز ومكبوس في المصنع المظلم (XRF 99.94%)",
+      "seller": "خلية الفرز الطيفي #02 — ساحة شيخة المركزية",
+      "available_tons": 85,
+      "price_sar": 31200,
+      "furnace_yield": 0.98,
+      "co2_saved": 3.8,
+      "auto_ready": "جاهز للشحن الآلي الفوري عبر AGV"
+    },
+    {
+      "sku": "SHK-DARK-7602A",
+      "hs_code": "7602.00.10",
+      "isri": "Taldon (UBC)",
+      "title": "بالات علب ألمنيوم مكبوسة آلياً لخطوط الإنتاج (UBC 320-Bar)",
+      "seller": "خط كبس الألمنيوم المظلم #03 — الخبر / الرياض",
+      "available_tons": 240,
+      "price_sar": 8950,
+      "furnace_yield": 0.94,
+      "co2_saved": 9.1,
+      "auto_ready": "توريد مجدول آلي لخطوط الإنتاج"
+    },
+    {
+      "sku": "SHK-DARK-7204A",
+      "hs_code": "7204.49.10",
+      "isri": "HMS 1 & HMS 2",
+      "title": "حديد فولاذي ثقيل مقصوص بالليزر والمقص الآلي 800 طن (HMS 1&2)",
+      "seller": "خلية القص الهيدروليكي #03 — الدمام / الميناء",
+      "available_tons": 620,
+      "price_sar": 1520,
+      "furnace_yield": 0.94,
+      "co2_saved": 1.58,
+      "auto_ready": "شحن مباشر لأفران القوس الكهربائي EAF"
+    },
+    {
+      "sku": "SHK-DARK-7204B",
+      "hs_code": "7204.21.00",
+      "isri": "Sabot 304/316",
+      "title": "فولاذ مقاوم للصدأ مفروز طيفياً (Stainless Steel Cr-Ni)",
+      "seller": "بوابة الجبيل الصناعية الآلية — شيخة",
+      "available_tons": 110,
+      "price_sar": 5800,
+      "furnace_yield": 0.95,
+      "co2_saved": 4.2,
+      "auto_ready": "مفحوص XRF وجاهز للصهر"
+    },
+    {
+      "sku": "SHK-DARK-7602B",
+      "hs_code": "7602.00.20",
+      "isri": "Tense / Tread",
+      "title": "قطاعات ومسبوكات وجنوط ألمنيوم نقية مفروزة بالتيار الدوامي",
+      "seller": "مجمع التشليح والمصنع المظلم — الشرقية",
+      "available_tons": 155,
+      "price_sar": 9400,
+      "furnace_yield": 0.96,
+      "co2_saved": 8.8,
+      "auto_ready": "جاهز للتسليم الفوري للمصاهر"
+    },
+    {
+      "sku": "SHK-DARK-PKG",
+      "hs_code": "9999.00.00",
+      "isri": "SHEIKHA-PASS",
+      "title": "باقة الربط الذاتي بالمصنع المظلم + دليل الـ 50 مصنعاً وعقد التوريد",
+      "seller": "نواة شيخة السيادية (Sheikha.top)",
+      "available_tons": 999,
+      "price_sar": 250,
+      "furnace_yield": 1,
+      "co2_saved": 1,
+      "auto_ready": "تفعيل فوري للصلاحيات والفوترة الزكوية"
+    }
+  ],
+  "autonomous_runs_log": [
+    {
+      "run_id": "DARK-RUN-9502",
+      "sku": "SHK-DARK-7404",
+      "hs_code": "7404.00.10",
+      "buyer_or_project": "مصهر الكاثود الوطني — أمر سوق مفتوح آلي",
+      "tons": 25,
+      "molten_yield_tons": 24.5,
+      "agv_assigned": "AGV-SWARM-17 -> XRF-CELL-02 -> BALER-03 -> SMELTER-BAY",
+      "bol_id": "BOL-DARK-8802",
+      "zatca_order_id": "ORD-SHK-2102",
+      "total_sar_with_vat": 897000,
+      "stage": "100% COMPLETED (LIGHTS-OUT TO SMELTER)",
+      "timestamp": "2026-11-11 19:29:22"
+    },
+    {
+      "run_id": "DARK-RUN-9501",
+      "sku": "SHK-DARK-7602A",
+      "hs_code": "7602.00.10",
+      "buyer_or_project": "مصنع الخليج لدرفلة الألمنيوم (خط إنتاج آلي)",
+      "tons": 50,
+      "molten_yield_tons": 47,
+      "agv_assigned": "AGV-FLEET-07 -> SILO-B4 -> TRUCK-BAY-02",
+      "bol_id": "BOL-DARK-8801",
+      "zatca_order_id": "ORD-SHK-2015",
+      "total_sar_with_vat": 514625,
+      "stage": "100% COMPLETED (LIGHTS-OUT TO SMELTER)",
+      "timestamp": "2026-11-11 22:29:19"
+    }
+  ]
+}

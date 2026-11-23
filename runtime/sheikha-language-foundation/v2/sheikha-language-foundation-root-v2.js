@@ -208,6 +208,11 @@ function buildFoundationStatus(options = {}) {
     'sheikha-sovereign-bare-metal-os-v2-phase2b-report.json',
     {}
   );
+  const physicalBoot = readJson(
+    'runtime/bare-metal/v2/evidence/' +
+    'physical-hardware-boot-verification.json',
+    {}
+  );
   const uefi = readJson(
     'runtime/bare-metal/v2/uefi-integration/v1/' +
     'sheikha-uefi-integration-v1-report.json',
@@ -393,7 +398,11 @@ function buildFoundationStatus(options = {}) {
         architecture: bareMetal.architecture || null,
         qemuBootVerified: bareMetal.phase2bVerified === true,
         physicalHardwareVerified:
-          bareMetal.physicalHardwareVerified === true,
+          bareMetal.physicalHardwareVerified === true ||
+          physicalBoot.verified === true ||
+          physicalBoot.status === 'VERIFIED',
+        physicalEvidenceClass:
+          physicalBoot.attestationClass || null,
         generalPurposeOperatingSystemComplete:
           bareMetal.generalPurposeOperatingSystemComplete === true,
         hostRuntimeRequiredAtKernelRuntime: false,
@@ -476,6 +485,9 @@ function buildFoundationStatus(options = {}) {
       bareMetal:
         'runtime/bare-metal/v2/' +
         'sheikha-sovereign-bare-metal-os-v2-phase2b-report.json',
+      physicalHardware:
+        'runtime/bare-metal/v2/evidence/' +
+        'physical-hardware-boot-verification.json',
       uefi:
         'runtime/bare-metal/v2/uefi-integration/v1/' +
         'sheikha-uefi-integration-v1-report.json',

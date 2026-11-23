@@ -1,0 +1,13 @@
+; === SHEIKHA SOVEREIGN DNS ZONE FILE FOR SHEIKHA.ME ===
+$ORIGIN sheikha.me.
+$TTL 300
+@       IN  A       31.97.190.74
+www     IN  CNAME   sheikha.me.
+*       IN  CNAME   sheikha.me.
+@       IN  MX  1   aspmx.l.google.com.
+@       IN  MX  5   alt1.aspmx.l.google.com.
+@       IN  MX  5   alt2.aspmx.l.google.com.
+@       IN  MX  10  alt3.aspmx.l.google.com.
+@       IN  MX  10  alt4.aspmx.l.google.com.
+@       IN  TXT     "v=spf1 include:_spf.google.com ip4:31.97.190.74 ~all"
+_dmarc  IN  TXT     "v=DMARC1; p=quarantine; rua=mailto:market@sheikha.top"

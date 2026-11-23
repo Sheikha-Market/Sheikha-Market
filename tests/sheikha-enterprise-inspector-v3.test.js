@@ -5,10 +5,14 @@ const path = require('path');
 const {
   collectEnterpriseInspector,
   compactInspectorContext,
+  getFreshEnterpriseInspectorSnapshot,
   getEnterpriseInspectorSnapshot,
   sanitizeExtensionContext,
   summarizeDiagnostics
 } = require('../core/enterprise/sheikha-enterprise-inspector-v3');
+const {
+  summarizeGitStatus
+} = require('../core/enterprise/sheikha-enterprise-control-tower-v1');
 const {
   executePipeline,
   classifyIntent,
@@ -69,8 +73,65 @@ describe('Sheikha Enterprise Inspector V3', () => {
     const second = getEnterpriseInspectorSnapshot();
 
     expect(second).toBe(first);
-    expect(controlTower).toContain("cp.execFile('git'");
+    expect(controlTower).toContain('cp.execFile(GIT_EXECUTABLE');
     expect(controlTower).not.toContain('execSync');
+  });
+
+  test('summarizes Git states and scopes without modifying the worktree', () => {
+    const summary = summarizeGitStatus([
+      ' M core/a.js',
+      '?? runtime/new.js',
+      'M  docs/release.md',
+      'MM server.js',
+      'UU routes/conflict.js'
+    ].join('\n'));
+
+    expect(summary.total).toBe(5);
+    expect(summary.byState).toEqual({
+      untracked: 1,
+      conflicted: 1,
+      staged: 1,
+      unstaged: 1,
+      stagedAndUnstaged: 1
+    });
+    expect(summary.topAreas[0]).toEqual({area: '(root)', count: 1});
+  });
+
+  test('awaits Git refresh before returning a fresh Inspector snapshot', async () => {
+    const snapshot = await getFreshEnterpriseInspectorSnapshot();
+    expect(snapshot.git.refreshStatus).toBe('READY');
+    expect(snapshot.git.stale).toBe(false);
+    expect(snapshot.git.changeSummary.total)
+      .toBe(snapshot.git.changedFileCount);
+  });
+
+  test('preserves the first index column across collection and retains evidence on Git failure', async () => {
+    const cp = require('node:child_process');
+    let failStatus = false;
+    const exec = jest.spyOn(cp, 'execFile').mockImplementation((file, args, options, callback) => {
+      if (args[0] === 'status') {
+        callback(failStatus ? new Error('git unavailable') : null, ' M core/a.js\n?? tests/new.js\n');
+      } else {
+        callback(null, 'test-branch\n');
+      }
+    });
+    try {
+      let collector;
+      jest.isolateModules(() => {
+        collector = require('../core/enterprise/sheikha-enterprise-control-tower-v1');
+      });
+      const first = await collector.refreshGitSnapshot({force: true});
+      expect(first.status).toBe(' M core/a.js\n?? tests/new.js');
+      expect(collector.summarizeGitStatus(first.status).byState.staged).toBe(0);
+      expect(exec.mock.calls.every(([file]) => require('node:path').isAbsolute(file))).toBe(true);
+      failStatus = true;
+      const failed = await collector.refreshGitSnapshot({force: true});
+      expect(failed.refreshStatus).toBe('DEGRADED');
+      expect(failed.status).toBe(first.status);
+      expect(failed.refreshedAt).toBe(first.refreshedAt);
+    } finally {
+      exec.mockRestore();
+    }
   });
 
   test('snapshot unifies runtime, governance, chat, extension, and architecture', () => {
@@ -211,8 +272,12 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(activation).toContain("registerWebviewProviderSafe(\n      context,\n      'sheikha.chatView'");
     expect(activation).not.toContain("'sheikha.advancedChatView'");
     expect(activation).not.toContain("'sheikha.ai.advancedChat'");
-    expect(extensionPackage.activationEvents).toContain('onView:sheikha.chatView');
-    expect(extensionPackage.activationEvents).toContain('onView:sheikha.inspectorView');
+    const views = Object.values(extensionPackage.contributes.views).flat();
+    expect(views.some((view) => view.id === 'sheikha.chatView')).toBe(true);
+    expect(views.some((view) => view.id === 'sheikha.inspectorView')).toBe(true);
+    expect(extensionPackage.activationEvents).toContain('onCommand:sheikha.chat.open');
+    expect(extensionPackage.activationEvents).not.toContain('onView:sheikha.chatView');
+    expect(extensionPackage.activationEvents).not.toContain('onView:sheikha.inspectorView');
     expect(extensionPackage.activationEvents).not.toContain('onView:sheikha.chatview');
     expect(inspector).toContain('getEnterpriseInspectorStatus');
     expect(inspectorTemplate).toContain('حلّل في الشات');

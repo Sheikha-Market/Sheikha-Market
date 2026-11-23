@@ -16,7 +16,10 @@ const {
   getStreamingChatApexStatus,
   getTechnicalCapabilityApexStatus,
   getVitalChatApexStatus,
-  sendExtensionChat
+  buildExtensionActivationEvidenceAnswer,
+  sendExtensionChat,
+  isInspectorRequest,
+  resolveRecentInspectorContinuation
 } = require('../sheikhaExtensionChatClient');
 const {
   createSafePreviewHtml,
@@ -24,6 +27,7 @@ const {
 } = require('../sheikhaArtifactPreview');
 const {
   CHAT_TOOL_COMMAND_IDS,
+  QUICK_ACTIONS,
   getChatTool,
   renderSheikhaChatTemplate
 } = require('../ui/sheikhaChatTemplate');
@@ -43,6 +47,11 @@ const {
   isGovernedReadOnlyScriptRequest,
   runGovernedReadOnlyScript
 } = require('./sheikhaGovernedReadOnlyScriptRunner');
+const {
+  buildGovernedCompletionContract
+} = require('./sheikhaGovernedCompletionContract');
+const { SheikhaChatWorkbench, localRequestAction } = require('./sheikhaChatWorkbench');
+const { LocalChat } = require('./sheikhaLocalChat');
 
 const CHAT_EXPERIENCE = Object.freeze({
   titleAr: 'شات شيخة المتدفق المتقدم',
@@ -68,6 +77,11 @@ const CHAT_SURFACE_LABELS = Object.freeze({
   streamingApex: 'Streaming Apex',
   conversationEngine: 'Conversation Engine'
 });
+
+function isSheikhaConsoleRequest(message) {
+  return /^(?:شغ[ّ]?ل[ي]?|افتح)?\s*(?:cli|cmd|terminal|الطرفية|وحدة\s+شيخة)\s*[.!؟?]*$/iu
+    .test(String(message || '').trim());
+}
 
 const STATUS_LOADERS = Object.freeze([
   {
@@ -222,19 +236,52 @@ class SheikhaChatProvider {
     this.pendingViews = new WeakSet();
     this.conversationId = crypto.randomUUID();
     this.history = [];
+    this.localChat = options.localChat || new LocalChat();
+    this.activeLocalChat = null;
     this.artifactPanel = null;
+    this.toolInFlight = false;
+    this.workbench = new SheikhaChatWorkbench({
+      vscode,
+      getHistory: () => this.history,
+      clearHistory: () => { this.history = []; this.localChat.clear(); this.conversationId = crypto.randomUUID(); },
+      publish: async (message) => {
+        for (const view of this.views) await view.webview.postMessage(message);
+      }
+    });
+    context.subscriptions?.push({ dispose: () => { this.activeLocalChat?.controller.abort(); this.workbench.opportunities.dispose(); this.workbench.cognition.dispose(); } });
+    if (vscode.workspace?.onDidChangeWorkspaceTrust) context.subscriptions?.push(vscode.workspace.onDidChangeWorkspaceTrust(() => {
+      if (vscode.workspace.isTrusted !== true) this.activeLocalChat?.controller.abort();
+    }));
+    if (vscode.workspace?.onDidChangeWorkspaceFolders) context.subscriptions?.push(vscode.workspace.onDidChangeWorkspaceFolders(() => {
+      this.activeLocalChat?.controller.abort(); this.localChat.clear(); this.localChat.selection = null;
+    }));
   }
 
   resolveWebviewView(webviewView) {
     this.views.add(webviewView);
     webviewView.webview.options = { enableScripts: true };
-    webviewView.onDidDispose(() => this.views.delete(webviewView));
+    webviewView.onDidDispose(() => {
+      if (this.activeLocalChat?.view === webviewView) this.activeLocalChat.controller.abort();
+      this.views.delete(webviewView);
+    });
 
     const baseUrl = this.getBaseUrl();
     webviewView.webview.onDidReceiveMessage(async (message) => {
       let requestAcquired = false;
       try {
         if (!message) return;
+        if (message.command === 'cancelChat') {
+          if (this.activeLocalChat?.view === webviewView) this.activeLocalChat.controller.abort();
+          return;
+        }
+        if (message.command === 'selectLocalModel') {
+          if (this.workbench.busy || this.toolInFlight || [...this.views].some(view => this.pendingViews.has(view))) return;
+          this.toolInFlight = true;
+          try {
+            if (await this.localChat.choose(vscode)) await webviewView.webview.postMessage({ command: 'localModel', model: this.localChat.selection.name });
+          } finally { this.toolInFlight = false; }
+          return;
+        }
         if (message.command === 'ready') {
           console.info('[Sheikha Chat] Webview ready', {
             version: String(message.version || 'unknown')
@@ -247,13 +294,33 @@ class SheikhaChatProvider {
             publishStatus(webviewView.webview, command, key, loader, baseUrl);
           }
           await publishToolAvailability(webviewView.webview);
+          await this.workbench.refresh();
+          return;
+        }
+        if (message.command === 'clearConversation') {
+          const pending = [...this.views].some(view => this.pendingViews.has(view));
+          if (!pending && !this.toolInFlight && await this.workbench.reset()) {
+            for (const view of this.views) await view.webview.postMessage({ command: 'conversationCleared' });
+          }
+          return;
+        }
+        if (message.command === 'workbench') {
+          const workflowControl = ['workflow.cancel', 'workflow.detail', 'watch.stop'].includes(message.action);
+          if (workflowControl || (!this.toolInFlight && ![...this.views].some(view => this.pendingViews.has(view)))) await this.workbench.handle(message);
           return;
         }
         if (message.command === 'tool') {
-          await executeGovernedChatTool(
-            webviewView.webview,
-            message.toolId
-          );
+          if (this.workbench.busy || this.toolInFlight || [...this.views].some(view => this.pendingViews.has(view))) return;
+          this.toolInFlight = true;
+          try {
+            await executeGovernedChatTool(
+              { postMessage: async (event) => {
+                await webviewView.webview.postMessage(event);
+                await this.workbench.recordTool(event);
+              } },
+              message.toolId
+            );
+          } finally { this.toolInFlight = false; }
           return;
         }
         if (message.command !== 'ask') return;
@@ -273,7 +340,37 @@ class SheikhaChatProvider {
           return;
         }
 
-        if (this.pendingViews.has(webviewView)) {
+        if (this.toolInFlight || this.workbench.busy || [...this.views].some(view => this.pendingViews.has(view))) {
+          await webviewView.webview.postMessage({ command: 'reply',
+            text: 'يوجد طلب قيد المعالجة. انتظر اكتماله قبل إرسال طلب آخر.', meta: { busy: true } });
+          return;
+        }
+
+        if (isSheikhaConsoleRequest(text)) {
+          await vscode.commands.executeCommand('sheikha.console.open');
+          const answer = [
+            'تم فتح «وحدة شيخة» داخل VS Code في مجلد المشروع.',
+            '',
+            'الوحدة تعرض حالة أدوات المطور المحلية، ولا تشغّل أمرًا إضافيًا من نص المحادثة تلقائيًا.'
+          ].join('\n');
+          this.workbench.recordConversation('وحدة شيخة', answer);
+          this.history.push(
+            { role: 'user', content: text },
+            { role: 'assistant', content: answer }
+          );
+          this.history = this.history.slice(-12);
+          webviewView.webview.postMessage({
+            command: 'reply',
+            text: answer,
+            meta: {
+              route: 'SHEIKHA_EXTENSION_CONSOLE_OPEN_V1',
+              highImpactActionExecuted: false
+            }
+          });
+          return;
+        }
+
+        if (this.pendingViews.has(webviewView) || this.workbench.busy) {
           webviewView.webview.postMessage({
             command: 'reply',
             text: 'يوجد طلب قيد المعالجة. انتظر اكتماله قبل إرسال طلب آخر.',
@@ -284,13 +381,80 @@ class SheikhaChatProvider {
 
         this.pendingViews.add(webviewView);
         requestAcquired = true;
+        const contextReply = this.workbench.contextReply(text, QUICK_ACTIONS);
+        if (contextReply) {
+          await webviewView.webview.postMessage({ command: 'reply', text: contextReply,
+            meta: { route: 'SHEIKHA_LOCAL_CONTEXT_REPORT', externalRequest: false, modelHistoryIncluded: false } });
+          return;
+        }
+        const localAction = localRequestAction(text);
+        if (localAction) {
+          const previousWorkflowId = this.workbench.workflow.run?.id;
+          const completed = await this.workbench.handle({ command: 'workbench', action: localAction });
+          const closedWorkflow = ['workflow.start', 'cognition.start'].includes(localAction) && this.workbench.workflow.run?.id !== previousWorkflowId && this.workbench.workflow.run?.finishedAt;
+          const answer = completed || closedWorkflow ? this.workbench.outputs.at(-1).content : 'تعذر الفحص المحلي؛ راجع سجل التقدم.';
+          if (!completed && !closedWorkflow) this.workbench.output('الطلب المحلي لم يكتمل', answer, { kind: 'LOCAL_REQUEST_INCOMPLETE' });
+          this.workbench.acceptConversationOutput(this.workbench.outputs.at(-1));
+          // Local evidence stays outside history passed to the model gateway.
+          await webviewView.webview.postMessage({ command: 'reply', text: answer,
+            meta: { route: 'SHEIKHA_LOCAL_WORKBENCH', error: !completed, externalRequest: false, modelHistoryIncluded: false } });
+          return;
+        }
+        const activationEvidence = buildExtensionActivationEvidenceAnswer(
+          text,
+          EXTENSION_TRANSPORT_VERSION
+        );
+        if (activationEvidence) {
+          this.workbench.recordConversation('مراجعة دليل الإضافة', activationEvidence.answer);
+          this.history.push(
+            { role: 'user', content: text },
+            { role: 'assistant', content: activationEvidence.answer }
+          );
+          this.history = this.history.slice(-12);
+          webviewView.webview.postMessage({
+            command: 'reply',
+            text: activationEvidence.answer,
+            meta: {
+              provider: 'Sheikha Local Evidence Reviewer',
+              route: 'SHEIKHA_EXTENSION_ACTIVATION_EVIDENCE_REVIEW_V1',
+              streaming: false,
+              evidenceAccepted: activationEvidence.accepted,
+              highImpactActionExecuted: false
+            }
+          });
+          return;
+        }
+        const completion = buildGovernedCompletionContract(text);
         webviewView.webview.postMessage({
           command: 'typing',
-          text: message.dialogueMode === 'constructive'
+          text: completion.requested
+            ? 'شيخة تكمل الخطوات الآمنة حتى الدليل النهائي...'
+            : message.dialogueMode === 'constructive'
             ? 'شيخة تبني حوارًا عادلًا وتراجع الدليل...'
             : 'شيخة تقرأ السياق وحالة المشروع...'
         });
         webviewView.webview.postMessage({ command: 'streamStart' });
+        if (message.mode === 'engineering') {
+          webviewView.webview.postMessage({
+            command: 'progress',
+            phase: 'DISCOVER',
+            text: 'اكتشاف البنية والقيود قبل التنفيذ المحدود'
+          });
+        }
+        if (message.mode === 'scientific') {
+          webviewView.webview.postMessage({
+            command: 'progress',
+            phase: 'DEFINE_QUESTION_AND_SCOPE',
+            text: 'تعريف المسألة والمتغيرات والوحدات والأدلة'
+          });
+        }
+        if (message.mode === 'editorial') {
+          webviewView.webview.postMessage({
+            command: 'progress',
+            phase: 'DEFINE_AUDIENCE_PURPOSE_AND_FORMAT',
+            text: 'فهرسة المادة والمصادر وبناء مخطط التحرير الموثق'
+          });
+        }
 
         if (isGovernedReadOnlyEvidenceCaptureRequest(text)) {
           webviewView.webview.postMessage({
@@ -311,6 +475,7 @@ class SheikhaChatProvider {
             }
           );
           this.history = this.history.slice(-12);
+          this.workbench.recordConversation('التقاط دليل القراءة', captureResult.answer);
           webviewView.webview.postMessage({
             command: 'reply',
             text: captureResult.answer,
@@ -359,6 +524,7 @@ class SheikhaChatProvider {
             }
           );
           this.history = this.history.slice(-12);
+          this.workbench.recordConversation('تقرير اختلاف الشروط', driftResult.answer);
           webviewView.webview.postMessage({
             command: 'reply',
             text: driftResult.answer,
@@ -404,6 +570,7 @@ class SheikhaChatProvider {
             }
           );
           this.history = this.history.slice(-12);
+          this.workbench.recordConversation('مراجعة الأدلة', evidenceResult.answer);
           webviewView.webview.postMessage({
             command: 'reply',
             text: evidenceResult.answer,
@@ -454,6 +621,7 @@ class SheikhaChatProvider {
             }
           );
           this.history = this.history.slice(-12);
+          this.workbench.recordConversation('نتيجة المسار المحلي', scriptResult.answer);
           webviewView.webview.postMessage({
             command: 'reply',
             text: scriptResult.answer,
@@ -504,6 +672,7 @@ class SheikhaChatProvider {
             }
           );
           this.history = this.history.slice(-12);
+          this.workbench.recordConversation('فحص ما قبل التشغيل', preflightResult.answer);
           webviewView.webview.postMessage({
             command: 'reply',
             text: preflightResult.answer,
@@ -533,10 +702,18 @@ class SheikhaChatProvider {
           return;
         }
 
+        const inspector = isInspectorRequest(text) || Boolean(resolveRecentInspectorContinuation(text, this.history));
+        if (message.chatRoute !== 'runtime' && !inspector) {
+          await this.runLocalChat(webviewView, text);
+          return;
+        }
         let streamedTokens = 0;
         const result = await sendExtensionChat(text, {
           baseUrl: this.getBaseUrl(),
           mode: message.mode || 'smart',
+          completionMode: message.mode === 'engineering'
+            ? 'SHEIKHA_GOVERNED_COMPLETION_CONTRACT_V1'
+            : null,
           dialogueMode: message.dialogueMode || null,
           audienceContext:
             message.audienceContext || 'GENERAL_PUBLIC',
@@ -590,6 +767,15 @@ class SheikhaChatProvider {
           audienceContext:
             message.audienceContext || null,
           streaming: result.raw?.streaming === true,
+          completion: {
+            contract: completion.contract,
+            requested: completion.requested,
+            safeContinuationAllowed: completion.safeContinuationAllowed,
+            requestIsNotHighImpactApproval:
+              completion.requestIsNotHighImpactApproval,
+            terminalEvidenceRequired:
+              completion.completionClaimRequiresTerminalEvidence
+          },
           layers: (result.raw?.layerStack?.layers || []).map((layer) => ({
             layer: layer.layer,
             name: layer.name,
@@ -597,6 +783,7 @@ class SheikhaChatProvider {
           }))
         };
 
+        this.workbench.recordConversation('رد شيخة', result.answer || 'لا يوجد رد', { kind: 'CHAT_RESPONSE_NOT_INDEPENDENT_EVIDENCE' });
         webviewView.webview.postMessage({
           command: streamedTokens > 0 ? 'streamDone' : 'reply',
           text: result.answer || 'ما الذي تحتاج إليه من مساعدة أو عون؟',
@@ -604,6 +791,7 @@ class SheikhaChatProvider {
         });
         this.showArtifactPreview(result.answer);
       } catch (error) {
+        if (requestAcquired) this.workbench.recordConversation('طلب الشات لم يكتمل', 'فشل الطلب الأخير؛ لا توجد نتيجة مكتملة يمكن اعتمادها. أعد تحديد الطلب أو افحص الاتصال المحلي.', { kind: 'CHAT_REQUEST_FAILED' });
         webviewView.webview.postMessage({
           command: 'reply',
           text: `حدث خطأ في شات شيخة.\n\n${String(error.message || error)}`,
@@ -611,6 +799,7 @@ class SheikhaChatProvider {
         });
       } finally {
         if (requestAcquired) this.pendingViews.delete(webviewView);
+        if (message?.command === 'ask') await this.workbench.emit();
       }
     });
 
@@ -618,6 +807,50 @@ class SheikhaChatProvider {
     console.info('[Sheikha Chat] Webview resolved', {
       version: EXTENSION_TRANSPORT_VERSION
     });
+  }
+
+  async runLocalChat(view, text) {
+    const post = event => view.webview.postMessage(event);
+    if (!this.localChat.selection) {
+      await post({ command: 'progress', text: 'اختر النموذج المحلي من قائمة VS Code' });
+      if (!await this.localChat.choose(vscode)) {
+        this.workbench.recordConversation('اختيار النموذج ألغي', 'لم يبدأ استدلال؛ لم يُختر نموذج محلي.');
+        await post({ command: 'reply', text: 'لم يبدأ الرد بالنموذج. يمكنك اختيار نموذج محلي ثم إعادة السؤال.' });
+        return;
+      }
+    }
+    if (!this.views.has(view)) return;
+    const controller = new AbortController();
+    const workspaceScope = () => JSON.stringify((vscode.workspace.workspaceFolders || []).map(folder => folder.uri.fsPath));
+    const scope = workspaceScope();
+    this.activeLocalChat = { controller, view };
+    const started = Date.now(); let partial = ''; let tokenSeen = false;
+    const progress = () => post({ command: 'progress', text: (tokenSeen ? 'يتدفق الرد المحلي' : 'بانتظار أول جزء من النموذج المحلي') + ' · ' + Math.floor((Date.now() - started) / 1000) + ' ث' });
+    // An absolute deadline covers inventory checks as well as generation.
+    const deadline = setTimeout(() => controller.abort(), 95000);
+    const pulse = setInterval(progress, 5000);
+    await post({ command: 'localModel', model: this.localChat.selection.name });
+    await post({ command: 'streamStart', cancellable: true });
+    try {
+      await progress();
+      const result = await this.localChat.reply(text, { signal: controller.signal,
+        allow: () => vscode.workspace.isTrusted === true && this.views.has(view) && scope === workspaceScope(),
+        onToken: token => { tokenSeen = true; partial += token; post({ command: 'streamToken', text: token }); } });
+      const answer = result.answer + (result.truncated ? '\n\nتوقف الرد عند حد الإخراج؛ لم يُعد الاستدعاء تلقائيًا.' : '');
+      this.history = [];
+      this.workbench.recordConversation('رد النموذج المحلي: ' + result.model, answer, { kind: result.truncated ? 'LOCAL_MODEL_PARTIAL' : 'LOCAL_MODEL_INFERENCE_NOT_VERIFIED_FACT' });
+      await post({ command: 'streamDone', text: answer, meta: { route: 'OLLAMA_LOCAL_STREAM', model: result.model,
+        metrics: result.metrics, truncated: result.truncated, toolsExecuted: false, trainingExecuted: false, webResearchExecuted: false } });
+    } catch (error) {
+      const cancelled = error.message === 'CANCELLED';
+      const timedOut = error.message === 'TIMED_OUT' || (cancelled && Date.now() - started >= 95000);
+      const reason = timedOut ? 'انتهت مهلة النموذج المحلي.' : cancelled ? 'أُوقف الرد.' : 'تعذر إكمال الرد من النموذج المحلي (' + String(error.message).replace(/[^A-Z0-9_]/g, '').slice(0, 80) + ').';
+      const answer = (partial ? partial + '\n\n[رد جزئي غير مكتمل]\n' : '') + reason + ' لم يُستخدم مزود بديل أو تُنفذ أدوات.';
+      this.workbench.recordConversation('الرد المحلي غير مكتمل', answer, { kind: 'LOCAL_MODEL_INCOMPLETE' });
+      await post({ command: 'streamDone', text: answer, meta: { error: !cancelled || timedOut, cancelled, incomplete: true } });
+    } finally {
+      clearTimeout(deadline); clearInterval(pulse); this.activeLocalChat = null;
+    }
   }
 
   showArtifactPreview(answer) {
@@ -680,4 +913,5 @@ module.exports = {
   getNonce,
   publishStatus,
   publishToolAvailability
+  ,isSheikhaConsoleRequest
 };

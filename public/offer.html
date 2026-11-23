@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منظومة شيخة | طلب عرض سعر فوري وتعاقد مباشر</title>
+  <style>
+    :root { --bg: #020617; --card: #0f172a; --gold: #eab308; --emerald: #10b981; --text: #f8fafc; --muted: #94a3b8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
+    .box { max-width: 680px; margin: 20px auto; background: var(--card); border: 2px solid var(--gold); border-radius: 14px; padding: 24px; }
+    h1 { margin: 0 0 8px; color: var(--gold); font-size: 1.35rem; }
+    p { margin: 0 0 18px; color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: #cbd5e1; font-weight: 700; }
+    input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #fff; margin-bottom: 14px; font-size: 0.95rem; }
+    .btn { background: var(--emerald); color: #022c22; border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: 900; font-size: 1rem; cursor: pointer; }
+    .result { margin-top: 18px; display: none; background: rgba(16,185,129,0.1); border: 1px solid var(--emerald); padding: 16px; border-radius: 10px; line-height: 1.8; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>⚡ طلب تسعيرة فورية وفاتورة مبدئية معتمدة</h1>
+    <p>منظومة شيخة للتوريد الصناعي والمعادن والحلول التقنية — الخبر / المنطقة الشرقية.<br>أدخل بياناتك لإصدار عرض سعر رسمي (PDF) فوراً.</p>
+
+    <label>اسم الشركة / المصنع / المؤسسة</label>
+    <input id="f-name" placeholder="مثال: شركة الرواد للمقاولات والمعادن" required />
+
+    <label>رقم الجوال (لإرسال الفاتورة المبدئية عبر واتساب)</label>
+    <input id="f-phone" placeholder="05XXXXXXXX" required />
+
+    <label>المدينة</label>
+    <input id="f-city" value="الدمام / الخبر" />
+
+    <label>المنتج أو الخدمة المطلوبة</label>
+    <select id="f-item">
+      <option value="CAT-01">توريد نحاس سكراب / سبائك نحاس نقية (28,500 ريال/طن)</option>
+      <option value="CAT-02">توريد ألمنيوم وحديد صناعي مفروز (7,200 ريال/طن)</option>
+      <option value="CAT-03">سيليكون حيوي ومواد خام صناعية (14,500 ريال/طن)</option>
+      <option value="CAT-04">عقد وساطة وتوريد صناعي مباشر B2B (5,000 ريال)</option>
+      <option value="CAT-05">ربط وأتمتة الفوترة الإلكترونية ZATCA Phase-2 (3,500 ريال)</option>
+    </select>
+
+    <label>الكمية المطلوبة</label>
+    <input id="f-qty" type="number" value="1" min="1" />
+
+    <button class="btn" onclick="submitOrder()">🧾 إصدار عرض السعر الرسمي وفتح الفاتورة (PDF)</button>
+
+    <div id="res-box" class="result"></div>
+  </div>
+
+  <script>
+    async function submitOrder() {
+      const payload = {
+        client_name: document.getElementById('f-name').value || 'عميل مباشر',
+        client_phone: document.getElementById('f-phone').value || '0500000000',
+        client_city: document.getElementById('f-city').value,
+        item_id: document.getElementById('f-item').value,
+        qty: document.getElementById('f-qty').value
+      };
+      const r = await fetch('/api/v61/auto-cashflow/instant-quote', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const out = await r.json();
+      const q = out.quote;
+      const box = document.getElementById('res-box');
+      box.style.display = 'block';
+      box.innerHTML =
+        '✅ <strong>تم إصدار عرض السعر رقم: ' + q.quote_id + '</strong><br>' +
+        '• الإجمالي شامل الضريبة: <strong>' + q.total_sar.toLocaleString() + ' ريال</strong><br>' +
+        '• الدفعة المقدمة للتنفيذ الفوري (50%): <strong style="color:#eab308;">' + q.advance_50_required_sar.toLocaleString() + ' ريال</strong><br>' +
+        '• آيبان مصرف الإنماء: <code>' + q.payment_iban + '</code><br><br>' +
+        '<a href="/api/v61/auto-cashflow/print/' + q.quote_id + '" target="_blank" style="display:inline-block;background:#eab308;color:#000;padding:10px 16px;border-radius:6px;text-decoration:none;font-weight:900;margin-left:8px;">🖨️ تحميل / طباعة عرض السعر الرسمي (PDF)</a>' +
+        '<a href="' + q.whatsapp_Trigger_url + '" target="_blank" style="display:inline-block;background:#10b981;color:#000;padding:10px 16px;border-radius:6px;text-decoration:none;font-weight:900;">📲 تأكيد وإرسال إيصال التحويل واتساب</a>';
+    }
+  </script>
+
+<!-- Sheikha Floating Autonomous Sales Bot -->
+<a href="/bot.html" style="position:fixed; bottom:22px; left:22px; z-index:9999; background:linear-gradient(135deg,#eab308,#10b981); color:#000; padding:14px 20px; border-radius:999px; font-weight:900; text-decoration:none; box-shadow:0 10px 25px rgba(0,0,0,0.5); border:2px solid #fff; font-size:0.92rem;">
+  🤖 اشتري وتعاقد أونلاين الآن (بوت الفوترة الفوري بدون اتصال)
+</a>
+
+</body>
+</html>

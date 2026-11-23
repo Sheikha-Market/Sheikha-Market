@@ -53,15 +53,17 @@
       "label": "🚀 Sheikha — تشغيل الخادم (dev)",
       "type": "shell",
       "command": "npm run dev",
-      "group": { "kind": "build", "isDefault": true },
+      "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated" },
       "problemMatcher": ["$node-sass", "$eslint-compact"]
     },
 
     {
       "label": "🔍 Sheikha — lint",
-      "type": "shell",
-      "command": "npm run lint 2>/dev/null || echo '⚠️ لا يوجد سكربت lint مُعرَّف'",
+      "type": "process",
+      "command": "npm",
+      "args": ["run", "lint"],
+      "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "shared" },
       "problemMatcher": ["$eslint-compact"]

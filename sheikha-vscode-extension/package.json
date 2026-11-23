@@ -2,7 +2,7 @@
   "name": "sheikha",
   "displayName": "Sheikha",
   "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
-  "version": "1.0.114",
+  "version": "1.0.141",
   "publisher": "sheikha",
   "engines": {
     "vscode": "^1.85.0"
@@ -338,7 +338,7 @@
       },
       {
         "command": "sheikha.awareness.scan",
-        "title": "Sheikha: Scan VS Code Awareness"
+        "title": "Sheikha: Workspace Center"
       },
       {
         "command": "sheikha.registry.unified",
@@ -389,6 +389,11 @@
     "configuration": {
       "title": "Sheikha",
       "properties": {
+        "sheikha.workspaceLocalTools": {
+          "type": "boolean",
+          "default": false,
+          "description": "فحص تلقائي عند بدء مساحة العمل وتغير الإضافات، وتفعيل أدوات اللغات المضمنة فقط بعد الثقة، مع سجل محلي وإمكانية الإيقاف؛ لا تشغيل للسحابة أو النشر"
+        },
         "sheikha.enable": {
           "type": "boolean",
           "default": true,
@@ -396,7 +401,7 @@
         },
         "sheikha.serverUrl": {
           "type": "string",
-          "default": "http://localhost:8080",
+          "default": "http://127.0.0.1:8080",
           "description": "عنوان خادم Sheikha"
         },
         "sheikha.enableInlineCompletions": {
@@ -656,10 +661,7 @@
     "url": "mailto:market@sheikha.top"
   },
   "activationEvents": [
-    "onCommand:sheikha.openChat",
     "onCommand:sheikha.chat.open",
-    "onStartupFinished",
-    "onView:sheikha.chatView",
-    "onView:sheikha.inspectorView"
+    "onStartupFinished"
   ]
 }

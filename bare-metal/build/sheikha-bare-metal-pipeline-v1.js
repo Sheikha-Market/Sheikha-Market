@@ -5,6 +5,7 @@ const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
+const { build: buildNativeLanguageObject } = require('../../tools/release/build-sheikha-native-object-v1');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const BARE_METAL_ROOT = path.join(ROOT, 'bare-metal');
@@ -26,6 +27,7 @@ const QEMU_RUN_REPORT_PATH = path.join(EVIDENCE_DIR, 'qemu-run-report.json');
 const VERIFICATION_PATH = path.join(EVIDENCE_DIR, 'boot-verification.json');
 const BOOT_MARKER = 'SHEIKHA_BARE_METAL_BOOT_OK';
 const POST_HANDOFF_MARKER = 'boot_services=EXITED';
+const LANGUAGE_NATIVE_MARKER = 'language_native_object=LINKED_AND_CALLED';
 
 const CONTRACTS = [
   ['SHEIKHA_BOOT_CONTRACT_ID', 'contracts/SHEIKHA-BOOT-CONTRACT-V1.json'],
@@ -198,7 +200,7 @@ function cleanGeneratedArtifacts() {
   ensureDirectory(EVIDENCE_DIR);
 }
 
-function generateContractHeader() {
+function generateContractHeader(nativeObjectSha256 = null) {
   const definitions = [];
   for (const item of CONTRACTS) {
     const macro = item[0];
@@ -209,6 +211,9 @@ function generateContractHeader() {
       throw new Error('Invalid contract id in ' + relative(absolutePath));
     }
     definitions.push('#define ' + macro + ' "' + contract.id + '"');
+  }
+  if (nativeObjectSha256 && /^[a-f0-9]{64}$/.test(nativeObjectSha256)) {
+    definitions.push('#define SHEIKHA_LANGUAGE_NATIVE_OBJECT_SHA256 "' + nativeObjectSha256 + '"');
   }
   const headerPath = path.join(GENERATED_DIR, 'sheikha_contracts.h');
   const header = [
@@ -340,7 +345,16 @@ function buildNativeArtifact() {
     throw new Error('Missing build requirements: ' + toolchain.missingBuildRequirements.join(', '));
   }
   cleanGeneratedArtifacts();
-  const contractHeader = generateContractHeader();
+  const nativeLanguageManifest = buildNativeLanguageObject();
+  const nativeLanguageObject = path.join(
+    ROOT,
+    'dist/sheikha-language-native/v1',
+    nativeLanguageManifest.artifacts.object.path
+  );
+  if (sha256(nativeLanguageObject) !== nativeLanguageManifest.artifacts.object.sha256) {
+    throw new Error('Native Sheikha language object digest mismatch before kernel link');
+  }
+  const contractHeader = generateContractHeader(nativeLanguageManifest.artifacts.object.sha256);
   const compileFlags = [
     '-std=c11',
     '-O2',
@@ -381,7 +395,8 @@ function buildNativeArtifact() {
     '-Ttext=0x401000',
     '-o',
     linkedElf,
-    elfObject
+    elfObject,
+    nativeLanguageObject
   ];
   runCommand(toolchain.tools.ld.path, linkFlags);
   const relocationInspection = runCommand(toolchain.tools.readelf.path, ['-r', linkedElf]).stdout;
@@ -429,9 +444,11 @@ function buildNativeArtifact() {
   const artifactBuffer = fs.readFileSync(EFI_ARTIFACT);
   if (
     !artifactBuffer.includes(Buffer.from(BOOT_MARKER, 'ascii')) ||
-    !artifactBuffer.includes(Buffer.from(POST_HANDOFF_MARKER, 'ascii'))
+    !artifactBuffer.includes(Buffer.from(POST_HANDOFF_MARKER, 'ascii')) ||
+    !artifactBuffer.includes(Buffer.from(LANGUAGE_NATIVE_MARKER, 'ascii')) ||
+    !artifactBuffer.includes(Buffer.from(nativeLanguageManifest.artifacts.object.sha256, 'ascii'))
   ) {
-    throw new Error('Compiled artifact does not contain the required serial markers');
+    throw new Error('Compiled artifact does not contain the required language identity and serial markers');
   }
   const buildReport = {
     system: 'SHEIKHA_BARE_METAL_BUILD_V1',
@@ -448,8 +465,22 @@ function buildNativeArtifact() {
     sourceModules: [
       'bare-metal/boot/uefi/sheikha_uefi_entry.c',
       'bare-metal/drivers/serial/sheikha_serial.c',
-      'bare-metal/kernel/entry/sheikha_kernel.c'
+      'bare-metal/kernel/entry/sheikha_kernel.c',
+      'dist/sheikha-language-native/v1/' + nativeLanguageManifest.artifacts.object.path
     ],
+    languageNativeObject: {
+      status: 'LINKED_INTO_KERNEL_IMAGE',
+      abi: 'SHEIKHA_LANGUAGE_NATIVE_ABI_V1',
+      sourceLanguage: nativeLanguageManifest.sourceLanguage,
+      backend: nativeLanguageManifest.nativeBackend,
+      source: nativeLanguageManifest.source,
+      kernelLogic: nativeLanguageManifest.kernelLogic,
+      objectSha256: nativeLanguageManifest.artifacts.object.sha256,
+      callSiteAfterExitBootServices: true,
+      runtimeCallVerified: false,
+      selfHostedCompiler: false,
+      completeKernelInSheikha: false
+    },
     positionIndependentElf: relative(linkedElf),
     runtimeRelocations: 0,
     peRelocationSection: 'ABSOLUTE-only relocation block; native code is position-independent',
@@ -665,6 +696,8 @@ function runQemuSmoke() {
   fs.writeFileSync(QEMU_SERIAL_PATH, serial || 'QEMU_EXECUTED_WITHOUT_SERIAL_OUTPUT\n', 'utf8');
   const markerVerified = serial.includes(BOOT_MARKER);
   const postFirmwareHandoffVerified = markerVerified && serial.includes(POST_HANDOFF_MARKER);
+  const languageNativeObjectCalled = postFirmwareHandoffVerified &&
+    serial.includes(LANGUAGE_NATIVE_MARKER);
   const qemuReport = {
     system: 'SHEIKHA_BARE_METAL_QEMU_RUN_V1',
     generatedAt: new Date().toISOString(),
@@ -676,9 +709,11 @@ function runQemuSmoke() {
     error: result.error ? { code: result.error.code, message: result.error.message } : null,
     markerVerified,
     postFirmwareHandoffVerified,
+    languageNativeObjectCalled,
     command: commandText,
     firmware: toolchain.firmware,
     image: relative(FAT_IMAGE),
+    imageSha256: sha256(FAT_IMAGE),
     serialEvidence: relative(QEMU_SERIAL_PATH),
     missingRequirements: []
   };
@@ -694,6 +729,7 @@ function verifyArtifacts() {
     executed: false,
     markerVerified: false,
     postFirmwareHandoffVerified: false,
+    languageNativeObjectCalled: false,
     missingRequirements: toolchain.missingBootRequirements
   });
   const contractChecks = {};
@@ -711,7 +747,9 @@ function verifyArtifacts() {
     const artifact = fs.readFileSync(EFI_ARTIFACT);
     artifactContainsMarkers =
       artifact.includes(Buffer.from(BOOT_MARKER, 'ascii')) &&
-      artifact.includes(Buffer.from(POST_HANDOFF_MARKER, 'ascii'));
+      artifact.includes(Buffer.from(POST_HANDOFF_MARKER, 'ascii')) &&
+      artifact.includes(Buffer.from(LANGUAGE_NATIVE_MARKER, 'ascii')) &&
+      artifact.includes(Buffer.from(buildReport.languageNativeObject?.objectSha256 || '', 'ascii'));
   }
   let imageShaMatches = false;
   let imageContainsArtifact = false;
@@ -734,8 +772,10 @@ function verifyArtifacts() {
     imageShaMatches,
     imageContainsArtifact,
     artifactContainsMarkers,
+    languageNativeObjectLinked: buildReport.languageNativeObject?.status === 'LINKED_INTO_KERNEL_IMAGE',
     serialMarkerVerified: qemuReport.markerVerified === true,
-    postFirmwareHandoffVerified: qemuReport.postFirmwareHandoffVerified === true
+    postFirmwareHandoffVerified: qemuReport.postFirmwareHandoffVerified === true,
+    languageNativeObjectCalled: qemuReport.languageNativeObjectCalled === true
   };
   const artifactChecksPassed = [
     checks.contractsValid,
@@ -749,13 +789,15 @@ function verifyArtifacts() {
     checks.artifactShaMatches,
     checks.imageShaMatches,
     checks.imageContainsArtifact,
-    checks.artifactContainsMarkers
+    checks.artifactContainsMarkers,
+    checks.languageNativeObjectLinked
   ].every(Boolean);
   const bootVerified =
     artifactChecksPassed &&
     qemuReport.executed === true &&
     checks.serialMarkerVerified &&
-    checks.postFirmwareHandoffVerified;
+    checks.postFirmwareHandoffVerified &&
+    checks.languageNativeObjectCalled;
   const verification = {
     system: 'SHEIKHA_BARE_METAL_BOOT_VERIFICATION_V1',
     generatedAt: new Date().toISOString(),
@@ -833,6 +875,17 @@ function writeFinalReport(buildReport = {}, qemuReport = {}, verification = null
     serialBootMarkerVerified,
     postFirmwareHandoffVerified,
     bareMetalFullyIndependentToday,
+    languageNativeIntegration: {
+      linkedIntoKernelImage:
+        buildReport.languageNativeObject?.status === 'LINKED_INTO_KERNEL_IMAGE',
+      callSiteAfterExitBootServices:
+        buildReport.languageNativeObject?.callSiteAfterExitBootServices === true,
+      runtimeCallVerified: qemuReport.languageNativeObjectCalled === true,
+      abi: buildReport.languageNativeObject?.abi || null,
+      objectSha256: buildReport.languageNativeObject?.objectSha256 || null,
+      selfHostedCompiler: false,
+      completeKernelInSheikha: false
+    },
     artifact: artifactCreated ? { efi: buildReport.artifact, image: buildReport.image || null } : null,
     contracts: CONTRACTS.map((item) => 'bare-metal/' + item[1]),
     evidence: {
@@ -921,6 +974,7 @@ if (require.main === module) {
 module.exports = {
   BOOT_MARKER,
   POST_HANDOFF_MARKER,
+  LANGUAGE_NATIVE_MARKER,
   buildNativeArtifact,
   buildToolchainReport,
   createBootImage,

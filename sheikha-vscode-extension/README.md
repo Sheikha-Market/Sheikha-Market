@@ -13,7 +13,7 @@
 
 - 🤖 **Inline Code Completions** — Real-time suggestions as you type
 - 💬 **Sheikha Chat** — Conversational AI for coding questions
-- 🦾 **Agent Mode** — Autonomous multi-step task execution
+- **Agent Mode**: bounded local inspection with optional, explicitly approved local model drafts
 - 🔮 **NES (Next Edit Suggestions)** — Predicts your next code change
 - 📝 **Inline Chat** — Edit mode with natural language instructions
 - ✅ **Sharia Guardrails** — Blocks forbidden practices (riba, fraud, hacking)
@@ -73,18 +73,14 @@ const adults = userData.filter(({ age }) => age > 18);
 
 ### 4. Agent Mode
 
-Press `Ctrl+Shift+A` and describe what you want:
+اختر «ابدأ مهمة منظمة» من مركز عمل الشات، أو «وكيل محكوم» أو «مهمة وكيل» من الأدوات.
+حدد وصف المهمة ومساحة العمل الموثوقة، ثم اختر الفحص المحلي وحده أو إضافة مسودتي التصميم والمراجعة.
+الخيار الثاني يتطلب اختيار نموذج مثبت في Ollama وموافقة مستقلة على تشغيله محليًا.
+تُرسل صيغة المهمة التي أدخلتها فقط، لا ملفات المشروع أو سجل المحادثة.
 
-```
-Task: "Create a REST API endpoint POST /api/users that validates email and saves to database"
-
-Sheikha Agent will:
-✓ Analyze requirements
-✓ Create route structure
-✓ Add input validation
-✓ Add error handling
-✓ Apply sharia checks
-```
+تعرض اللوحة حالات Inspecting وWorking وUpdated ثم النتيجة الفعلية، مع تفاصيل كل مهمة وأوقاتها وبصمة نتيجتها.
+يمكن إيقاف دورة المهام أثناء العمل وفتح التفاصيل. خطة JSON وتقرير الإغلاق متاحان للفتح والنسخ والتصدير اليدوي الخاص.
+الإلغاء يمنع اعتماد الردود المتأخرة؛ لا يثبت توقف الحساب فورًا داخل خدمة النموذج.
 
 ## Features
 
@@ -116,13 +112,17 @@ A: "Use try/catch with async/await..."
 
 ### Agent Mode
 
-Autonomous task execution:
+دورة محددة من أربع أدوات فحص: المحرر، الموصلات المحلية، مصادر التكامل، وأدلة التوزيع.
+يمكن إضافة وكيل تصميم متطلبات ووكيل مراجعة متطلبات عبر نموذج محلي. لا يقرأ الوكيلان الكود ولا يراجع الثاني مخرجات الأول.
+الحدود: ست مهام كحد أقصى، عاملان متزامنان للأدوات، واستدلال نموذج واحد في كل لحظة.
+لكل استدلال حد 512 رمز إخراج وسياق 4096 ومهلة 75 ثانية؛ مهلة المهمة الكلية 90 ثانية.
+المسودات تحتاج مراجعة. يُطلب جواب JSON محدود ويُرفض الرد المقطوع بالميزانية أو غير المطابق؛ صحة البنية لا تثبت صحة محتواه. لا تنفيذ كود مولد أو أوامر نظام أو تدريب أو نشر.
 
-- 🔨 Create entire API endpoints
-- 🧪 Generate test cases
-- 🐛 Fix bugs and compile errors
-- ✨ Refactor large code blocks
-- 📋 Monitor terminal output and iterate
+الموصل ثابت على `127.0.0.1:11434` ويستخدم فقط `/api/tags` و`/api/show` و`/api/chat`.
+يرفض النماذج السحابية، وتغير بصمة النموذج المختار، وطلبات الأدوات في الجواب. لا تنزيل أو تحويل سحابي احتياطي.
+فحص الخدمة 8142 مستقل عن استدلال النموذج. اتصال الخدمة لا يثبت جودة النموذج أو ملكية أوزانه أو جاهزية تجارية.
+بعض قوالب النماذج المخصصة لا تحترم `think: false`؛ إن نفدت الميزانية دون جواب نهائي تظهر حالة فشل صريحة، ولا يُعرض التفكير الداخلي بديلًا.
+مرجع بروتوكول الموصل: [Ollama Chat API](https://docs.ollama.com/api/chat).
 
 ### Sharia Guardrails
 

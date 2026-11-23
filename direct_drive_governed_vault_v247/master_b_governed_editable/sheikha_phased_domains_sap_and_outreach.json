@@ -1,0 +1,132 @@
+{
+  "phased_domains_engine": [
+    {
+      "domain_id": "DOM-01-MVP",
+      "name": "1. النطاق الأول (مفعّل الآن في السوق): المنتج الأولي وبورصة شيخة الفورية (Sheikha MVP & Spot Exchange)",
+      "stage": "🟢 LIVE NOW — مرحلة الدخول الفوري للسوق وتجربة المنتج",
+      "progress_pct": 100,
+      "input_trigger": "تفاعل التجار مع باقة الانطلاق (250 ريال) وطلبات تسعير الشحنات في البوت (/bot).",
+      "auto_action": "إصدار العقود والفواتير الضريبية فوراً وتغذية محركات المانيفست وبيرل ميتال بالبيانات."
+    },
+    {
+      "domain_id": "DOM-02-MANIFEST",
+      "name": "2. النطاق الثاني (تدريجي آلي): شيخة مانيفست للوجستيات والحاويات (Sheikha Manifest & Fleet Grid)",
+      "stage": "🟡 AUTO-TRIGGERED — يتفعل تلقائياً مع مدخلات الشحنات والحاويات",
+      "progress_pct": 85,
+      "input_trigger": "إدخال موقع مشروع مقاولات أو طلب حاوية 40 ياردة أو وزن شاحنة على القبان.",
+      "auto_action": "توليد مانيفست الشحن الإلكتروني، تصريح نقل النفايات (موان)، وربط الشاحنات والحاويات آلياً."
+    },
+    {
+      "domain_id": "DOM-03-PEARL",
+      "name": "3. النطاق الثالث (تدريجي آلي): شيخة بيرل ميتال للسبائك والصهر النقي (Sheikha Pearl Metal Alloys)",
+      "stage": "🟡 AUTO-TRIGGERED — يتفعل تلقائياً عند تجميع أوزان الصهر وطلبات المصاهر",
+      "progress_pct": 75,
+      "input_trigger": "وصول مدخلات السكراب المفروز إلى نصاب دفعة الفرن (20+ طن نحاس أو ألمنيوم) أو طلب مصنع لسبائك نقية.",
+      "auto_action": "تشغيل جدولة الصهر وإصدار شهادات النقاء الطيفي (Pearl Metal XRF COA 99.9%) للتوريد المحلي والتصدير."
+    },
+    {
+      "domain_id": "DOM-04-ROBOTICS",
+      "name": "4. النطاق الرابع (تدريجي آلي): روبوتات شيخة والسوفتوير الصناعي المتقدم (Sheikha Robotics & Enterprise SaaS)",
+      "stage": "🔵 INPUT-LEARNING — يتعلم ويتفعل تدريجياً من بيانات الفرز والقبان",
+      "progress_pct": 60,
+      "input_trigger": "تراكم قراءات نسب الشوائب وتذاكر القبان في الساحات المشتركة.",
+      "auto_action": "تفعيل أذرع الفرز البصري بالذكاء الاصطناعي (AI Optical Sorting Robots) وتوزيع رخص السوفتوير السحابي."
+    }
+  ],
+  "sap_enterprise_registry": {
+    "vendor_legal_name": "منظومة شيخة للتجارة والصناعة والمعادن (Sheikha Metals & Industrial Exchange)",
+    "hq_location": "الخبر — المنطقة الشرقية — المملكة العربية السعودية",
+    "settlement_iban": "SA4005000068206162118000 (مصرف الإنماء - Alinma Bank)",
+    "erp_compatibility": [
+      "SAP S/4HANA",
+      "SAP Ariba Network (CIF / cXML)",
+      "Oracle Fusion iSupplier",
+      "Etimad Portal",
+      "Maximo & Odoo Fleet"
+    ],
+    "registered_sap_materials": [
+      {
+        "sap_mat_no": "SAP-SHK-10001",
+        "unspsc": "76121501",
+        "title": "عقد أخضر وتوريد حاويات سكراب 40 ياردة للمصانع والمقاولات (Zero-Waste Contract)",
+        "uom": "EA / CONTRACT",
+        "price_sar": 250,
+        "erp_status": "✅ مسجل في كتالوج SAP Ariba"
+      },
+      {
+        "sap_mat_no": "SAP-SHK-10002",
+        "unspsc": "11101502",
+        "title": "نحاس أحمر نقي مفروز وسبائك بيرل ميتال (Sheikha Pearl Copper 99.9% XRF)",
+        "uom": "TON (طن متري)",
+        "price_sar": 31200,
+        "erp_status": "✅ مسجل في كتالوج SAP Ariba"
+      },
+      {
+        "sap_mat_no": "SAP-SHK-10003",
+        "unspsc": "11101507",
+        "title": "حديد سكراب ثقيل للمصاهر والمسابك (HMS 1&2 ISRI 200-206)",
+        "uom": "TON (طن متري)",
+        "price_sar": 1520,
+        "erp_status": "✅ مسجل في كتالوج SAP Ariba"
+      },
+      {
+        "sap_mat_no": "SAP-SHK-10004",
+        "unspsc": "81141601",
+        "title": "رخصة سوفتوير شيخة مانيفست والقبان الذكي والفوترة الزكوية (ZATCA Phase-2)",
+        "uom": "LICENSE / YR",
+        "price_sar": 950,
+        "erp_status": "✅ مسجل في كتالوج SAP Ariba"
+      }
+    ]
+  },
+  "b2b_channels_and_contacts": [
+    {
+      "id": "CNT-01",
+      "category": "🏭 المصاهر ومشترو السكراب الكبار",
+      "entity": "إدارة مشتريات الخردة والصلب — مصاهر الحديد والمسابك الكبرى (الدمام الصناعية 2 والجبيل)",
+      "erp_system": "SAP Ariba / S/4HANA",
+      "email": "procurement.metals@eastern-smelters-b2b.sa",
+      "whatsapp": "966500000101",
+      "portal_channel": "بوابة موردي المصاهر (SAP Ariba Supplier Portal)"
+    },
+    {
+      "id": "CNT-02",
+      "category": "🏭 المصاهر ومشترو النحاس والألمنيوم",
+      "entity": "مصانع الكابلات والتحويل والصهر غير الحديدي (الخبر / الدمام / الرياض)",
+      "erp_system": "Oracle iSupplier / SAP",
+      "email": "rawmaterials@cables-smelting-ksa.com",
+      "whatsapp": "966500000102",
+      "portal_channel": "نظام تسجيل عقود توريد النحاس والألمنيوم (LME Index)"
+    },
+    {
+      "id": "CNT-03",
+      "category": "🏗️ شركات المقاولات والمشاريع الكبرى",
+      "entity": "إدارات العقود والرجيع والاستدامة — مقاولو مشاريع الشرقية والرياض (EPC Contractors)",
+      "erp_system": "SAP Ariba / Oracle Primavera",
+      "email": "contracts.sustainability@epc-projects-ksa.com",
+      "whatsapp": "966500000103",
+      "portal_channel": "قسم العقود الخضراء وسحب مخلفات المعادن والرجيع"
+    },
+    {
+      "id": "CNT-04",
+      "category": "🚛 شركات الحاويات والأسطول الشاحن",
+      "entity": "مشغلو حاويات السكراب (Roll-off 40Yd) وأساطيل التريلات (ميناء الدمام والجبيل)",
+      "erp_system": "Odoo Fleet / Naql / Sheikha Manifest",
+      "email": "fleet.dispatch@containers-logistics-dmm.sa",
+      "whatsapp": "966500000104",
+      "portal_channel": "ربط شيخة مانيفست وبوالص الشحن الإلكترونية (/waybill)"
+    },
+    {
+      "id": "CNT-05",
+      "category": "♻️ ساحات السكراب والتشليح المعتمدة",
+      "entity": "تجمع الـ 50 ساحة ومصنع سكراب وتشليح (الدمام، الخبر، الجبيل، الرياض، جدة)",
+      "erp_system": "Sheikha ZATCA & Weighbridge ERP",
+      "email": "yards.network@scrap-exchange-ksa.com",
+      "whatsapp": "966500000105",
+      "portal_channel": "التعاقد الفوري عبر بوت شيخة (/bot)"
+    }
+  ],
+  "automated_b2b_templates": {
+    "green_contract_and_containers_msg": "بسم الله الرحمن الرحيم\nالسادة / إدارة المشتريات والعقود والاستدامة المحترمين،\nالسلام عليكم ورحمة الله وبركاته،\n\nتهديكم (منظومة وبورصة شيخة للتجارة والصناعة والمعادن — الخبر) أطيب التحيات.\nيسرنا إبلاغكم بتفعيل بوابة التعاقد المؤسسي المتكاملة والمتوافقة مع أنظمة (SAP Ariba / Oracle / ZATCA Phase-2) لخدمة مشاريعكم ومصانعكم في المنطقة الشرقية والمملكة عبر المسارات التالية:\n\n1️⃣ [توقيع العقود الخضراء وإدارة رجيع المشاريع - Zero-Landfill]:\nتوفير وإنزال حاويات سكراب صناعية (20 / 30 / 40 ياردة) لسحب كافة مخلفات المعادن، الكابلات، والحديد من مواقعكم، مع وزن إلكتروني دقيق (IoT Weighbridge)، سداد بنكي فوري، ومنح منشأتكم (الشهادة الخضراء المعتمدة وتقرير الوفر الكربوني tCO2e).\n\n2️⃣ [توريد المعادن المفروزة وسبائك شيخة بيرل ميتال للمصاهر]:\nتوريد نحاس أحمر نقي (Millberry 99.9%)، ألمنيوم، وحديد ثقيل (HMS 1&2) مفحوص مخبرياً (XRF) وموثق ببوالص شحن (شيخة مانيفست).\n\n3️⃣ [المنتج الأولي السريع لتفعيل الحساب المؤسسي والدليل - 250 ريال فقط]:\nفتح حساب منشأتكم في البورصة واستلام دليل الـ 50 مصنعاً وساحة معتمدة وعرض السعر الضريبي في 30 ثانية.\n\n👈 لإصدار العقد والفاتورة الضريبية أو طلب الحاويات أونلاين فوراً:\nhttps://advertisers-federation-attempt-formed.trycloudflare.com/bot\n\n👈 لاستعراض وثيقة الترخيص وحاسبة القيمة المضافة وكتالوج SAP:\nhttps://advertisers-federation-attempt-formed.trycloudflare.com/b2b-auto-outreach"
+  }
+}

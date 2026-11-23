@@ -246,7 +246,10 @@ describe('Sheikha Universal Delivery, Distribution and Installer Fabric V2', () 
       'runtime/distribution/v3.1/sheikha-native-desktop-v31-status.js',
       'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json',
       'runtime/snapshots/sheikha-snapshot-engine.js',
-      'tools/activation/sheikha-unified-apex-manifest-v1.json'
+      'tools/activation/sheikha-unified-apex-manifest-v1.json',
+      'tools/foundational-closure/sheikha-activation-inventory-v1.js',
+      'tools/sheikha-language-platform/sheikha-language-platform-v1.js',
+      'tools/system-builder-fabric/sheikha-system-builder-platform-hierarchy-v1.js'
     ]));
     expect(trackedRuntimeFiles).toEqual(expect.arrayContaining([
       'knowledge/quranic-atlas/sheikha-quranic-architectural-atlas.json',
@@ -260,7 +263,10 @@ describe('Sheikha Universal Delivery, Distribution and Installer Fabric V2', () 
       'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json',
       'runtime/snapshots/sheikha-snapshot-engine.js',
       'sheikha-language/compiler/lexer.js',
-      'tools/activation/sheikha-unified-apex-manifest-v1.json'
+      'tools/activation/sheikha-unified-apex-manifest-v1.json',
+      'tools/foundational-closure/sheikha-activation-inventory-v1.js',
+      'tools/sheikha-language-platform/sheikha-language-platform-v1.js',
+      'tools/system-builder-fabric/sheikha-system-builder-platform-hierarchy-v1.js'
     ]));
   });
 

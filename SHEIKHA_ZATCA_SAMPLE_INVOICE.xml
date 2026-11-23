@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
+  <cbc:ID>SHK-V123-3000</cbc:ID>
+  <cbc:UUID>f18f8146-3bb7-8535-sheikha</cbc:UUID>
+  <cbc:IssueDate>2026-10-28</cbc:IssueDate>
+  <cbc:InvoiceTypeCode name="0100000">388</cbc:InvoiceTypeCode>
+  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
+  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
+  <cac:AccountingSupplierParty>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeID="CRN">2051263653</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>310000000000003</cbc:CompanyID>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>شركة شيخة للمعادن — سلمان أحمد بن سلمان الراجح (sheikha.sa)</cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cac:Party>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>شركة شيخة للمعادن — الجبيل الصناعية (ISIC4: 24.44)</cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+    </cac:Party>
+  </cac:AccountingCustomerParty>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="SAR">15000.00</cbc:TaxAmount>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="SAR">100000.00</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="SAR">100000.00</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="SAR">115000.00</cbc:TaxInclusiveAmount>
+    <cbc:PayableAmount currencyID="SAR">115000.00</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <SheikhaShariahSplit>
+    <Transparency0_5 currencyID="SAR">500.00</Transparency0_5>
+    <Zakat2_5 currencyID="SAR">2500.00</Zakat2_5>
+    <Waqf10_FixedAsset currencyID="SAR">10000.00</Waqf10_FixedAsset>
+    <WaqfLogistics5 currencyID="SAR">5000.00</WaqfLogistics5>
+    <WaqfEducation5 currencyID="SAR">5000.00</WaqfEducation5>
+    <NetHalal87 currencyID="SAR">87000.00</NetHalal87>
+    <Hash>3bb78535cc9555ff</Hash>
+    <Seal>BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر — الحديد 25</Seal>
+  </SheikhaShariahSplit>
+</Invoice>

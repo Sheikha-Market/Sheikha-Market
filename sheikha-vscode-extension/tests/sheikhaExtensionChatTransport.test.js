@@ -11,6 +11,10 @@ const {
   buildEnterpriseInspectorArabicSummary,
   buildGovernedOperationalEvidenceFallbackAnswer,
   buildGovernedContextualReportFallbackAnswer,
+  buildContextualRepairFallbackAnswer,
+  buildContextualRepairResolutionAnswer,
+  buildExtensionActivationEvidenceAnswer,
+  buildGovernedEditorialDocument,
   buildGovernedShellReviewFallbackAnswer,
   buildLocalChatFallbackAnswer,
   isStructuredOperationalEvidenceReviewRequest,
@@ -23,11 +27,232 @@ const {
   sendExtensionChat,
   resolveRecentGovernedShellContext,
   resolveRecentContextualReportContext,
+  isInspectorContinuationRequest,
+  resolveRecentInspectorContinuation,
+  buildInspectorContinuationAnswer,
+  buildInspectorDiagnosticTriage,
+  buildInspectorGitTriage,
+  extractAnswerText,
+  isAmbiguousExecutionRequest,
+  isWebsiteRequest,
+  isSheikhaChatIdentityRequest,
+  isSheikhaCapabilitiesRequest,
+  isUsefulDiscoveryRequest,
+  isStandaloneReportRequest,
+  isCommercialReadinessRequest,
+  isChatLlmReadinessRequest,
+  resolveRecentContextualRepairContext,
   shouldUseGovernedLiveTransport,
   shouldUseUnifiedFallback
 } = require('../src/sheikhaExtensionChatClient');
 
 describe('Sheikha Extension Chat Transport', () => {
+  test('answers Sheikha chat identity as a governed product surface', async () => {
+    expect(isSheikhaChatIdentityRequest('الشات ؟')).toBe(true);
+    const result = await sendExtensionChat('الشات ؟', { streaming: true });
+    expect(result.answer).toContain('واجهة تشغيل محلية محكومة');
+    expect(result.raw.route).toBe('SHEIKHA_EXTENSION_CHAT_IDENTITY_V1');
+  });
+
+  test('answers product identity, capabilities and useful priorities locally', async () => {
+    expect(isSheikhaChatIdentityRequest('شيخة عرفي عن نفسك')).toBe(true);
+    expect(isSheikhaCapabilitiesRequest('ماذا يمكنك ان تفعل')).toBe(true);
+    expect(isUsefulDiscoveryRequest('ابحث لي عن ما هو مفيد')).toBe(true);
+
+    const identity = await sendExtensionChat('عرف شيخة', { streaming: true });
+    const capabilities = await sendExtensionChat('ماذا يمكنك ان تفعل', { streaming: true });
+    const useful = await sendExtensionChat('ابحث لي عن ما هو مفيد', { streaming: true });
+
+    expect(identity.answer).toContain('SHEIKHA UGIT-RP');
+    expect(identity.answer).not.toContain('شجرة');
+    expect(capabilities.answer).toContain('قدرات شات شيخة');
+    expect(useful.answer).toContain('أعلى الأعمال فائدة الآن');
+    expect(capabilities.raw.modelInvoked).toBe(false);
+  });
+
+  test('writes a complete standalone report from the latest diagnosis', async () => {
+    expect(isStandaloneReportRequest('اكتبي تقرير')).toBe(true);
+    const result = await sendExtensionChat('اكتبي تقرير', {
+      streaming: true,
+      history: [{
+        role: 'assistant',
+        content: 'حالة المنظومة: HEALTHY.\nالتشخيص: 0 أخطاء، 3 تحذيرات.\nالمخاطر: مساحة العمل غير نظيفة.'
+      }]
+    });
+    expect(result.answer).toContain('# تقرير:');
+    expect(result.answer).toContain('3 تحذيرات');
+    expect(result.answer).toContain('حدود النتيجة');
+    expect(result.raw.modelInvoked).toBe(false);
+  });
+
+  test('reports commercial readiness with evidence and explicit gaps', async () => {
+    expect(isCommercialReadinessRequest('ما يحتاجه الموقع للتشغيل التجاري')).toBe(true);
+    const result = await sendExtensionChat('ما يحتاجه الموقع للتشغيل التجاري', {
+      streaming: true,
+      siteStatusLoader: async () => ({ success: true, data: { status: 'ok' } })
+    });
+    expect(result.answer).toContain('42/42');
+    expect(result.answer).toContain('دورة الطلب والدفع');
+    expect(result.answer).toContain('لا تُعلن');
+    expect(result.raw.route).toBe('SHEIKHA_EXTENSION_COMMERCIAL_READINESS_V1');
+  });
+  test('reports governed chat and LLM readiness without waiting for a model', async () => {
+    expect(isChatLlmReadinessRequest(
+      'اصلح الشات واللغة LLM الضخمة والتكامل والوقت للانتاج التجاري'
+    )).toBe(true);
+    const result = await sendExtensionChat(
+      'اصلح الشات واللغة LLM الضخمة والتكامل والوقت للانتاج التجاري',
+      {
+        streaming: true,
+        llmIntegrationLoader: async () => ({
+          data: {
+            status: 'COMMERCIAL_INTEGRATION_BLOCKED',
+            progressPercent: 33.33,
+            trainingMode: 'LICENSED_BASE_MODEL_ADAPTATION',
+            modelClassClaim: 'UNVERIFIED',
+            modelIsLargeVerified: false,
+            estimatedCalendar: { minimumWeeks: 2, maximumWeeks: 8 },
+            blockers: ['MODEL_LICENSE_VERIFICATION_REQUIRED']
+          }
+        })
+      }
+    );
+    expect(result.answer).toContain('33.33%');
+    expect(result.answer).toContain('2–8 أسبوعًا');
+    expect(result.answer).toContain('MODEL_LICENSE_VERIFICATION_REQUIRED');
+    expect(result.raw.route).toBe('SHEIKHA_EXTENSION_CHAT_LLM_READINESS_V1');
+    expect(result.raw.modelInvoked).toBe(false);
+  });
+  test('routes website launch and domain requests without model refusal', async () => {
+    expect(isWebsiteRequest('شغلي الموقع')).toBe(true);
+    expect(isWebsiteRequest('www.sheikha.top')).toBe(true);
+    const result = await sendExtensionChat('شغلي الموقع', {
+      streaming: true,
+      siteStatusLoader: async () => ({ success: true, data: { status: 'ok' } })
+    });
+
+    expect(result.answer).toContain('موقع شيخة يعمل محليًا');
+    expect(result.answer).toContain('https://www.sheikha.top');
+    expect(result.raw.route).toBe('SHEIKHA_EXTENSION_WEBSITE_STATUS_V1');
+    expect(result.raw.modelInvoked).toBe(false);
+  });
+  test('answers an ambiguous run request locally without model timeout', async () => {
+    expect(isAmbiguousExecutionRequest('شغل')).toBe(true);
+    const startedAt = Date.now();
+    const result = await sendExtensionChat('شغل', {
+      streaming: true,
+      baseUrl: 'http://127.0.0.1:1'
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.answer).toContain('شغّل المشروع محليًا');
+    expect(result.raw.route)
+      .toBe('SHEIKHA_EXTENSION_GOVERNED_INTENT_CLARIFICATION_V1');
+    expect(result.raw.modelInvoked).toBe(false);
+    expect(Date.now() - startedAt).toBeLessThan(250);
+  });
+  test('renders structured model answers without object coercion', () => {
+    expect(extractAnswerText({ answer: { content: [{ text: 'شرح الكود كامل.' }] } }))
+      .toBe('شرح الكود كامل.');
+    expect(extractAnswerText({ files: 2, verified: true }))
+      .toContain('"verified": true');
+    expect(extractAnswerText({ files: 2, verified: true }))
+      .not.toContain('[object Object]');
+  });
+  test('produces a complete governed editorial document from inspector context', () => {
+    const document = buildGovernedEditorialDocument(
+      'حرر نتيجة بحث أو وثيقة أو ديوانًا برمجيًا ثم أخرج سجل تغييرات وبصمة مصدر.',
+      [{
+        role: 'assistant',
+        content: 'حالة المنظومة: HEALTHY.\nالتشخيص: 0 أخطاء، 20 تحذيرًا.\nالمخاطر: مساحة العمل غير نظيفة وبها 111 تغييرًا.'
+      }]
+    );
+
+    expect(document).toContain('# وثيقة مراجعة:');
+    expect(document).toContain('20 تحذيرًا');
+    expect(document).toContain('111 تغييرًا');
+    expect(document).not.toContain('مجموع عناصر الفرز المرصودة = 131');
+    expect(document).toContain('## سجل التحرير');
+    expect(document).toContain('## المصدر والنطاق');
+    expect(document).toContain('SHA-256');
+    expect(document).toContain('غير موثق');
+    expect(document).not.toContain('لا أستطيع مساعدتك');
+  });
+  test('reviews a pasted extension activation report without model timeout', () => {
+    const reviewed = buildExtensionActivationEvidenceAnswer([
+      'تم تفعيل مسار تحرير بحث ووثائق وبرمجيات.',
+      'الإصدار المثبت: 1.0.120',
+      'الاختبارات: 46/46 ناجحة',
+      'زر الإرسال: DOM_CLICK_VERIFIED',
+      `SHA-256: ${'a'.repeat(64)}`
+    ].join('\n'), '1.0.120');
+
+    expect(reviewed.accepted).toBe(true);
+    expect(reviewed.answer).toContain('EVIDENCE_FORMAT_ACCEPTED');
+    expect(reviewed.answer).toContain('46/46');
+    expect(reviewed.answer).not.toContain('timeout');
+  });
+  test('binds "اصلحها" to the latest inspector diagnosis', () => {
+    const context = resolveRecentContextualRepairContext('اصلحها', [
+      { role: 'user', content: 'حلل حالة المنظومة' },
+      {
+        role: 'assistant',
+        content: 'حالة المنظومة: HEALTHY.\nالتشخيص: 0 أخطاء، 7 تحذيرات.\nالمخاطر: مساحة العمل غير نظيفة وبها 109 تغييرًا.\nأفضل إجراء تالٍ: فرز التحذيرات.'
+      }
+    ]);
+
+    expect(context.source).toBe('assistant-diagnostic-history');
+    expect(context.repairMessage).toContain('7 تحذيرات');
+    expect(context.repairMessage).toContain('IMPLEMENT_SCOPED_PATCH');
+  });
+
+  test('returns an exact terminal blocker instead of asking for known context', () => {
+    const answer = buildContextualRepairFallbackAnswer(
+      'التشخيص: 0 أخطاء، 7 تحذيرات. المخاطر: بها 109 تغييرًا.',
+      'timeout'
+    );
+
+    expect(answer).toContain('7');
+    expect(answer).toContain('109');
+    expect(answer).toContain('BLOCKED_WITH_EXACT_REQUIREMENT');
+    expect(answer).not.toContain('أرسل نص الخطأ');
+  });
+
+  test('resolves contextual repair from a fresh Inspector snapshot', async () => {
+    const history = [{
+      role: 'assistant',
+      content: 'حالة المنظومة: ATTENTION.\nالتشخيص: خطأ واحد، 0 تحذيرات.\nالمخاطر: خطأ تشخيصي واحد، مساحة العمل غير نظيفة وبها 124 تغييرًا.'
+    }];
+    const snapshot = {
+      success: true,
+      status: 'ACTIVE',
+      health: {
+        overall: 'HEALTHY',
+        diagnostics: { errors: 0, warnings: 23 }
+      },
+      git: { changedFileCount: 124, stale: false }
+    };
+    const direct = buildContextualRepairResolutionAnswer(
+      history[0].content,
+      snapshot
+    );
+    expect(direct).toContain('الأخطاء السابقة: 1');
+    expect(direct).toContain('الأخطاء الحالية: 0');
+    expect(direct).toContain('لم يعد ظاهرًا');
+
+    const result = await sendExtensionChat('اصلح', {
+      history,
+      streaming: true,
+      inspectorStatusLoader: async () => snapshot,
+      sseTransport: async () => {
+        throw new Error('SSE must not run for direct contextual repair');
+      }
+    });
+    expect(result.raw.route)
+      .toBe('SHEIKHA_EXTENSION_INSPECTOR_REPAIR_RESOLUTION_V1');
+    expect(result.answer).toContain('التحذيرات الحالية: 23');
+    expect(result.answer).not.toContain('first token timeout');
+  });
   test('accepts valid conversation JSON without fallback', () => {
     const response = safeJsonParse('{"success":true,"answer":"جاهز"}', {
       statusCode: 200,
@@ -57,7 +282,7 @@ describe('Sheikha Extension Chat Transport', () => {
   });
 
   test('keeps package transport version aligned with the released extension', () => {
-    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.114');
+    expect(EXTENSION_TRANSPORT_VERSION).toBe(require('../package.json').version);
     expect(ORGANIZATION_CONTROL_STATUS_ENDPOINT)
       .toBe('/api/sheikha/organization-control/v1/status');
   });
@@ -281,6 +506,15 @@ describe('Sheikha Extension Chat Transport', () => {
     })).toBe(true);
   });
 
+  test('normalizes localhost to the IPv4 loopback used by the local runtime', () => {
+    const { normalizeLocalBaseUrl } = require('../src/sheikhaExtensionChatClient');
+
+    expect(normalizeLocalBaseUrl('http://localhost:8080/'))
+      .toBe('http://127.0.0.1:8080');
+    expect(normalizeLocalBaseUrl('https://runtime.example.test/api/'))
+      .toBe('https://runtime.example.test/api');
+  });
+
   test('recovers an Inspector report directly when SSE misses its first-token budget', async () => {
     const snapshot = {
       success: true,
@@ -315,7 +549,8 @@ describe('Sheikha Extension Chat Transport', () => {
           error.code = 'SHEIKHA_FIRST_TOKEN_TIMEOUT';
           throw error;
         },
-        inspectorStatusLoader: async () => snapshot
+        inspectorStatusLoader: async () => snapshot,
+        preferDirectInspector: false
       }
     );
 
@@ -327,6 +562,190 @@ describe('Sheikha Extension Chat Transport', () => {
     expect(result.answer).toContain('7 تحذيرات');
     expect(result.answer).toContain('3 تغييرات');
     expect(result.answer).toContain('لم يُنفذ أي إجراء عالي الأثر');
+  });
+
+  test('prefers authoritative Inspector status without waiting for model SSE', async () => {
+    let sseCalled = false;
+    const events = [];
+    const result = await sendExtensionChat(
+      'حلل حالة منظومة شيخة الحالية من Enterprise Inspector',
+      {
+        streaming: true,
+        sseTransport: async () => { sseCalled = true; },
+        inspectorStatusLoader: async () => ({
+          success: true,
+          status: 'ACTIVE',
+          health: {
+            overall: 'HEALTHY', runtime: 'ACTIVE', extension: 'CONNECTED',
+            diagnostics: { errors: 0, warnings: 3 }
+          },
+          runtime: {
+            cpuLoad1m: 1, ramUsedPercent: 40,
+            heapUsedMb: 50, heapTotalMb: 80
+          },
+          git: { clean: true, changedFileCount: 0 },
+          governance: {
+            status: 'ACTIVE', humanReviewForHighImpactActions: true
+          }
+        }),
+        onEvent: (event) => events.push(event.event)
+      }
+    );
+    expect(sseCalled).toBe(false);
+    expect(result.raw.route).toBe('SHEIKHA_EXTENSION_DIRECT_INSPECTOR_V2');
+    expect(result.answer).toContain('3 تحذيرات');
+    expect(events).toEqual(['ack', 'meta', 'token', 'done']);
+  });
+
+  test('continues from the latest Inspector result without generic fallback', async () => {
+    const history = [{
+      role: 'assistant',
+      content: [
+        'حالة المنظومة: HEALTHY.',
+        'التشخيص: 0 أخطاء، 39 تحذيرًا، الخادم ACTIVE، والإضافة CONNECTED.',
+        'المخاطر: 39 تحذيرًا يحتاج الفرز، التشغيل الحالي أحادي العقدة.',
+        'أفضل إجراء تالٍ دون أثر مرتفع: فرز التحذيرات قبل أي نشر.'
+      ].join('\n')
+    }];
+    expect(isInspectorContinuationRequest('اكمل')).toBe(true);
+    const context = resolveRecentInspectorContinuation('اكمل', history);
+    expect(context.context).toContain('39 تحذيرًا');
+    expect(buildInspectorContinuationAnswer(context.context))
+      .toContain('## متابعة تشخيص منظومة شيخة');
+    const result = await sendExtensionChat('اكمل', {
+      history,
+      streaming: true,
+      inspectorStatusLoader: async () => ({
+        success: true,
+        generatedAt: '2026-09-09T10:00:00.000Z',
+        status: 'ACTIVE',
+        health: {
+          overall: 'HEALTHY',
+          runtimeFabricV5: 'ACTIVE_SINGLE_NODE',
+          diagnostics: { errors: 0, warnings: 14 }
+        },
+        git: {
+          clean: false,
+          changedFileCount: 420,
+          stale: false,
+          changeSummary: {
+            total: 420,
+            byState: {
+              untracked: 231,
+              conflicted: 0,
+              staged: 0,
+              unstaged: 189,
+              stagedAndUnstaged: 0
+            },
+            topAreas: [
+              {area: 'runtime', count: 138},
+              {area: 'tests', count: 109}
+            ]
+          }
+        },
+        extension: {
+          diagnostics: [{
+            file: 'server.js',
+            diagnostics: [{
+              message: 'Unused local value',
+              severity: 1,
+              line: 27,
+              character: 5
+            }]
+          }]
+        }
+      })
+    });
+    expect(result.raw.route)
+      .toBe('SHEIKHA_EXTENSION_INSPECTOR_CONTEXT_CONTINUATION_V1');
+    expect(result.raw.inspectorRefreshSucceeded).toBe(true);
+    expect(result.answer).toContain('14 تحذيرًا');
+    expect(result.answer).toContain('server.js:27:5');
+    expect(result.answer).toContain('420 تغييرًا');
+    expect(result.answer).toContain('runtime=138');
+    expect(result.answer).not.toContain('39 تحذيرًا');
+    expect(result.answer).not.toContain('ترتيب الإكمال');
+    expect(result.answer).not.toContain('تجاوز ميزانية أول Token');
+  });
+
+  test('labels historical Inspector values when continuation refresh fails', async () => {
+    const history = [{
+      role: 'assistant',
+      content: 'حالة المنظومة: HEALTHY.\nالتشخيص: 0 أخطاء، 14 تحذيرًا.\nالمخاطر: بها 420 تغييرًا.'
+    }];
+    const result = await sendExtensionChat('اكمل', {
+      history,
+      streaming: true,
+      inspectorStatusLoader: async () => ({
+        success: false,
+        status: 'OFFLINE',
+        error: 'ECONNREFUSED'
+      })
+    });
+
+    expect(result.raw.inspectorRefreshSucceeded).toBe(false);
+    expect(result.answer).toContain('ليست قياسات حالية');
+    expect(result.answer).toContain('ECONNREFUSED');
+    expect(result.answer).toContain('لا يحمل الرد السابق أسماء ملفات التحذيرات');
+  });
+
+  test('triages detailed diagnostics and reports partial coverage', () => {
+    const lines = buildInspectorDiagnosticTriage({
+      health: { diagnostics: { errors: 0, warnings: 3 } },
+      extension: {
+        diagnostics: [{
+          file: 'app.js',
+          diagnostics: [{
+            message: 'Deprecated API',
+            severity: 1,
+            line: 12,
+            character: 3
+          }]
+        }]
+      }
+    });
+
+    expect(lines.join('\n')).toContain('app.js:12:3');
+    expect(lines.join('\n')).toContain('تغطية التفاصيل 1/3');
+  });
+
+  test('orders correctness and security diagnostics before style warnings', () => {
+    const lines = buildInspectorDiagnosticTriage({
+      health: { diagnostics: { errors: 0, warnings: 3 } },
+      extension: {
+        diagnostics: [{
+          file: 'runtime.js',
+          diagnostics: [
+            { message: 'Prefer using an optional chain expression.', severity: 1, line: 3 },
+            { message: 'Make sure the PATH variable only contains fixed directories.', severity: 1, line: 2 },
+            { message: 'The rest will execute unconditionally.', severity: 1, line: 1 }
+          ]
+        }]
+      }
+    }).join('\n');
+
+    expect(lines.indexOf('صحة منطق')).toBeLessThan(lines.indexOf('أمن'));
+    expect(lines.indexOf('أمن')).toBeLessThan(lines.indexOf('جودة كود'));
+  });
+
+  test('summarizes Git changes by state and largest scope', () => {
+    const lines = buildInspectorGitTriage({
+      git: {
+        changedFileCount: 420,
+        changeSummary: {
+          total: 420,
+          byState: {untracked: 231, unstaged: 189},
+          topAreas: [
+            {area: 'runtime', count: 138},
+            {area: 'tests', count: 109}
+          ]
+        }
+      }
+    }).join('\n');
+
+    expect(lines).toContain('غير متتبعة 231');
+    expect(lines).toContain('معدلة غير مرحّلة 189');
+    expect(lines).toContain('runtime=138');
   });
 
   test('formats a truthful Arabic Inspector summary without model output', () => {
@@ -354,6 +773,79 @@ describe('Sheikha Extension Chat Transport', () => {
 
     expect(answer).toContain('لا تظهر مخاطر تشغيلية حرجة');
     expect(answer).toContain('مراجعة بشرية: نعم');
+    expect(answer).not.toContain('فرز التحذيرات');
+  });
+
+  test('does not turn a truncated index column into a staged file', () => {
+    const answer = buildInspectorGitTriage({git: {
+      changedFileCount: 3,
+      status: 'M .env.example\n M core/a.js\n?? runtime/new.js'
+    }}).join('\n');
+    expect(answer).toContain('حالات غير محسومة: 1');
+    expect(answer).toContain('، مرحّلة 0');
+    expect(answer).toContain('معدلة غير مرحّلة 1');
+  });
+
+  test('does not report missing or stale Git evidence as a clean worktree', () => {
+    const missing = buildInspectorGitTriage({git: {changedFileCount: 424}}).join('\n');
+    expect(missing).toContain('424 تغييرًا');
+    expect(missing).toContain('غير متاحة');
+    expect(missing).not.toContain('لا توجد تغييرات');
+    expect(buildInspectorGitTriage({}).join('\n')).toContain('غير مثبتة');
+    expect(buildInspectorGitTriage({git: {stale: true, status: ''}}).join('\n'))
+      .toContain('قديمة');
+  });
+
+  test('does not recommend warning triage when warnings are zero but Git is dirty', () => {
+    const answer = buildEnterpriseInspectorArabicSummary({
+      health: {
+        overall: 'HEALTHY',
+        runtime: 'ACTIVE',
+        extension: 'CONNECTED',
+        diagnostics: { errors: 0, warnings: 0 }
+      },
+      runtime: {},
+      git: { clean: false, changedFileCount: 111 },
+      governance: {
+        status: 'ACTIVE',
+        humanReviewForHighImpactActions: true
+      }
+    });
+
+    expect(answer).toContain('111 تغييرًا');
+    expect(answer).toContain('تقسيم تغييرات مساحة العمل');
+    expect(answer).not.toContain('فرز التحذيرات');
+  });
+
+  test('derives the Git map from porcelain status for an older Inspector server', () => {
+    const answer = buildEnterpriseInspectorArabicSummary({
+      health: {
+        overall: 'HEALTHY',
+        runtime: 'ACTIVE',
+        extension: 'CONNECTED',
+        diagnostics: { errors: 0, warnings: 0 }
+      },
+      runtime: {},
+      git: {
+        clean: false,
+        changedFileCount: 4,
+        status: [
+          ' M core/provider.js',
+          '?? runtime/new-a.js',
+          '?? runtime/new-b.js',
+          ' M tests/provider.test.js'
+        ].join('\n')
+      },
+      governance: {
+        status: 'ACTIVE',
+        humanReviewForHighImpactActions: true
+      }
+    });
+
+    expect(answer).toContain('خريطة تغييرات Git:');
+    expect(answer).toContain('غير متتبعة 2');
+    expect(answer).toContain('معدلة غير مرحّلة 2');
+    expect(answer).toContain('runtime=2');
   });
 
   test('uses correct Arabic singular forms for Inspector counts', () => {
@@ -462,5 +954,30 @@ describe('Sheikha Extension Chat Transport', () => {
       .toBe('SHEIKHA_EXTENSION_LEGACY_LIVE_CHAT_FALLBACK_V1');
     expect(result.raw.endpoint).toBe('/api/sheikha/live-chat');
     expect(result.answer).toContain('استلمت طلبك');
+  });
+
+  test('sends the governed completion contract through the SSE transport', async () => {
+    let capturedPayload;
+    const result = await sendExtensionChat('أكمل إلى النهاية', {
+      streaming: true,
+      sseTransport: async (_endpoint, payload) => {
+        capturedPayload = payload;
+        return {
+          answer: 'اكتملت الخطوات الآمنة بالدليل.',
+          events: [{ event: 'done', data: { route: 'FULL_MODEL_STREAM' } }]
+        };
+      }
+    });
+
+    expect(result.success).toBe(true);
+    expect(capturedPayload.completion).toMatchObject({
+      contract: 'SHEIKHA_GOVERNED_COMPLETION_CONTRACT_V1',
+      requested: true,
+      safeContinuationAllowed: true,
+      requestIsNotHighImpactApproval: true,
+      defaultAuthorization: 'DENY',
+      completionClaimRequiresTerminalEvidence: true
+    });
+    expect(capturedPayload.completion.approvalRequired).toContain('EXTERNAL_PUBLISH');
   });
 });

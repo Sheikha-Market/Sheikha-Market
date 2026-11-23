@@ -1,0 +1,25 @@
+{
+  "gateway_id": "SHEIKHA-NATIVE-CLOUD-SAP-B2B-HUB-V1",
+  "legal_entity": "مؤسسة سلمان أحمد بن سلمان الراجح التجارية (CR: 2051263653)",
+  "sap_ariba_network_id": "AN11235091112",
+  "aramco_vendor_id": "S11488084",
+  "cloud_domain": "sheikha.cloud",
+  "settlement_bank": "Alinma Bank — SA4005000068206162118000",
+  "cloud_service_tiers": [
+    {
+      "tier": "Sheikha SaaS (Software-as-a-Service)",
+      "scope": "منصة سحابية لتأهيل ساحات المعادن والموردين وإصدار صحائف المواصفات (Datasheets) ومحاضر الفحص (GRN) والفواتير الضريبية (ZATCA)",
+      "commercial_model": "باقة تفعيل المورد المعتمد (250 ر.س) + اشتراك سنوي للربط السحابي"
+    },
+    {
+      "tier": "Sheikha PaaS (Platform-as-a-Service)",
+      "scope": "واجهات برمجية (REST & cXML APIs) لمزامنة كتالوجات المعادن (HS 7404 / 7602 / 7204) وأوامر الشراء مع شبكات المشتريات مثل SAP Ariba",
+      "commercial_model": "ربط B2B مباشر للشركات والمصاهر المتعاقدة بنظام SLA"
+    },
+    {
+      "tier": "Sheikha Bare-Metal Local Cloud (On-Premise Node)",
+      "scope": "تشغيل محلي آمن على محطة عمل المؤسسة (22 CPU Cores — Linux 7.2.15) لضمان سيادة البيانات وسرعة التوقيع الضريبي",
+      "commercial_model": "بنية تشغيلية خاصة بالمؤسسة وفروعها الـ 36"
+    }
+  ]
+}

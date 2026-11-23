@@ -15,7 +15,8 @@ test('activates Sheikha Studio runtime workbench layer', () => {
 
   expect(status.status).toBe('ACTIVE_STUDIO_RUNTIME_WORKBENCH');
   expect(status.layerRank).toBe('ABOVE_SHEIKHA_STUDIO_PLATFORM');
-  expect(status.productionReady).toBe(true);
+  expect(status.productionReady).toBe(false);
+  expect(status.commercialPilotReady).toBe(true);
   expect(status.governed).toBe(true);
   expect(status.audited).toBe(true);
 

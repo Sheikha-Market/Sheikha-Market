@@ -30,14 +30,15 @@ describe('Sheikha Scientific Methodology Engine V1', () => {
       text: 'Build a scientific method for commerce evaluation with evidence, measurement, validation, Quran and Sunnah reference.'
     });
 
-    expect(result.status).toBe('RECORDED');
+    expect(result.status).toBe('PROTOCOL_INCOMPLETE');
     expect(result.domain).toBe('commerce');
-    expect(result.record.evidenceScore).toBeGreaterThanOrEqual(60);
+    expect(result.record.evidenceScore).toBeNull();
+    expect(result.record.completenessScore).toBe(0);
     expect(result.steps).toContain('map-methodology');
     expect(result.record.quranSunnahReference).toBe(true);
-    expect(result.record.monitoringStatus).toBe('ACTIVE');
-    expect(result.record.measurementStatus).toBe('ACTIVE');
-    expect(result.record.knowledgeTransferStatus).toBe('READY');
+    expect(result.record.monitoringStatus).toBe('NOT_CONNECTED');
+    expect(result.record.measurementStatus).toBe('NOT_EXECUTED');
+    expect(result.record.knowledgeTransferStatus).toBe('DRAFT_INCOMPLETE');
     expect(result.record.scienceRenewalStatus).toBe('CONTROLLED_PROPOSAL_ONLY');
   });
 });

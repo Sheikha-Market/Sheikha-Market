@@ -1979,7 +1979,20 @@ function buildReport() {
       nativeLanguageArchitecture?.checks
         ?.priorAdvancedHostedArabicFoundationExecuted === true &&
       nativeLanguageArchitecture?.compiler?.selfHosted === false &&
-      nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === false &&
+      nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === true &&
+      nativeLanguageArchitecture?.compiler?.nativeTargetScope ===
+        'FREESTANDING_RELOCATABLE_METADATA_OBJECT_V1' &&
+      nativeLanguageArchitecture?.compiler?.nativeObjectEvidence?.verified === true &&
+      nativeLanguageArchitecture?.compiler?.nativeObjectEvidence
+        ?.linkedIntoKernelImage === true &&
+      nativeLanguageArchitecture?.compiler?.nativeObjectEvidence
+        ?.runtimeCallVerified === true &&
+      nativeLanguageArchitecture?.compiler?.nativeObjectEvidence?.kernelLogic
+        ?.uefiHandoffGuardGeneratedFromSheikha === true &&
+      nativeLanguageArchitecture?.compiler?.nativeObjectEvidence?.kernelLogic
+        ?.controlledHaltModeGeneratedFromSheikha === true &&
+      nativeLanguageArchitecture?.compiler?.nativeObjectEvidence?.kernelLogic
+        ?.completeKernelInSheikha === false &&
       nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === false &&
       nativeLanguageArchitecture?.completionGate?.allowedCompletionClaimToday === false &&
       nativeLanguageArchitecture?.currentImplementationBoundary
@@ -2384,6 +2397,9 @@ function buildReport() {
     },
     publicBenefitCapabilityRouting: {
       active: governanceGenerator?.checks?.publicBenefitRouterEnforcesBoundaries === true,
+      catalogCoverageCurrent:
+        governanceGenerator?.coverage?.registeredCapabilitiesCovered === components.length,
+      currentCatalogComponents: components.length,
       reportPath: governanceGeneratorReportPath,
       policyPath: publicBenefitPolicyPath,
       status: publicBenefitPolicy?.status || 'PENDING_REPORT_GENERATION',

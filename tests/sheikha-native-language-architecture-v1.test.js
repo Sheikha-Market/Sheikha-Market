@@ -105,7 +105,19 @@ describe('Sheikha Native Language Architecture V1', () => {
     expect(report.compiler).toMatchObject({
       bootstrapRuntime: 'Node.js',
       selfHosted: false,
-      nativeTargetAvailable: false,
+      nativeTargetAvailable: true,
+      nativeTargetScope: 'FREESTANDING_RELOCATABLE_METADATA_OBJECT_V1',
+      nativeObjectEvidence: {
+        verified: true,
+        linkedIntoKernelImage: true,
+        runtimeCallVerified: true,
+        source: 'sheikha-language/kernel/sheikha-native-kernel-v1.shk',
+        kernelLogic: {
+          uefiHandoffGuardGeneratedFromSheikha: true,
+          controlledHaltModeGeneratedFromSheikha: true,
+          completeKernelInSheikha: false
+        }
+      },
       typeCheckPassed: true,
       governanceViolations: 0
     });
@@ -131,6 +143,10 @@ describe('Sheikha Native Language Architecture V1', () => {
       .toBeGreaterThanOrEqual(60);
     expect(report.currentImplementationBoundary).toMatchObject({
       compilerRequiresNodeToday: true,
+      nativeRelocatableObjectVerifiedToday: true,
+      nativeObjectIsBootableKernel: false,
+      nativeObjectLinkedIntoKernelImageToday: true,
+      sheikhaGeneratedKernelLogicVerifiedToday: true,
       linuxRequiredForPortalRuntimeToday: true,
       completeArchitectureProgrammedInSheikhaToday: false,
       allSystemsPortedToSheikhaToday: false,
@@ -157,6 +173,9 @@ describe('Sheikha Native Language Architecture V1', () => {
 
     expect(stages.find((stage) => stage.id === 'SLA-05').status).toBe('NOT_IMPLEMENTED');
     expect(stages.find((stage) => stage.id === 'SLA-06').status).toBe('NOT_IMPLEMENTED');
+    expect(activation.buildMigrationStages(['freestanding-c11'], true)
+      .find((stage) => stage.id === 'SLA-06').status)
+      .toBe('PARTIAL_VERIFIED_RELOCATABLE_OBJECT');
     expect(stages.find((stage) => stage.id === 'SLA-01B').status).toBe('VERIFIED');
     expect(stages.find((stage) => stage.id === 'SLA-01C').status).toBe('VERIFIED');
     expect(stages.find((stage) => stage.id === 'SLA-04A').status)

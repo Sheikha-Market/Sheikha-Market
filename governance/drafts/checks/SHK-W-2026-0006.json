@@ -1,0 +1,87 @@
+{
+  "category": "Cloud & AI Exchange - 【entity-Microsoft¦canonical_name=Microsoft】/【entity-AWS¦canonical_name=AWS】/Google",
+  "base_weight": 80,
+  "custom_weights": {
+    "base": 40,
+    "criticality": 10,
+    "sharia": 15,
+    "tech": 15,
+    "total": 80,
+    "customized_total": 95
+  },
+  "agents": {
+    "id": "AGENT-SHK-W-2026-0006",
+    "name": "Cloud & AI Exchange - 【entity-Microsoft¦canonical_name=Microsoft】/【entity-AWS¦canonical_name=AWS】/Google Agent",
+    "prompt": "أنت وكيل Cloud & AI Exchange - 【entity-Microsoft¦canonical_name=Microsoft】/【entity-AWS¦canonical_name=AWS】/Google — تتحقق من برامج سحابية SHEIKHAaaS - موصلات محكومة — BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر",
+    "tools": [
+      "check_draft_sha",
+      "verify_weight",
+      "generate_kpi",
+      "zero_data_leakage"
+    ],
+    "memory": "governance/drafts/07_MICROSOFT_DRAFT.md"
+  },
+  "bots": {
+    "id": "BOT-SHK-W-2026-0006",
+    "port": "0006",
+    "status": "UP",
+    "function": "بوت تشغيلي لـ Cloud & AI Exchange - 【entity-Microsoft¦canonical_name=Microsoft】/【entity-AWS¦canonical_name=AWS】/Google — يفحص ويحرر ويوثق آلياً"
+  },
+  "checks": [
+    {
+      "check_id": 1,
+      "requirement": "ZATCA Phase 2 e-invoicing",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 80,
+      "eff_after": 82
+    },
+    {
+      "check_id": 2,
+      "requirement": "GOSI + نطاقات + ضريبة مضافة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 82,
+      "eff_after": 85
+    },
+    {
+      "check_id": 3,
+      "requirement": "التمييز الصادق بين استخدام السحابة وبين شارة الشريك الرسمي",
+      "learned": true,
+      "weight_delta": 4,
+      "eff_before": 85,
+      "eff_after": 89
+    },
+    {
+      "check_id": 4,
+      "requirement": "عزل الحاويات القياسي Podman OCI وضبط سقف التكلفة الصفرية",
+      "learned": true,
+      "weight_delta": 4,
+      "eff_before": 89,
+      "eff_after": 93
+    },
+    {
+      "check_id": 5,
+      "requirement": "حوكمة موصلات SHEIKHAaaS بقيادة 4 Argon المحلي",
+      "learned": true,
+      "weight_delta": 4,
+      "eff_before": 93,
+      "eff_after": 97
+    },
+    {
+      "check_id": 6,
+      "requirement": "تفعيل Cloud & AI Exchange — Microsoft AWS Google — SHEIKHAaaS Hybrid — بالكتاب والسنة",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 97,
+      "eff_after": 99,
+      "timestamp": "2026-10-28T10:55:04.899097"
+    }
+  ],
+  "current_efficiency": 99,
+  "target_efficiency": 90,
+  "efficiency_gap": 0,
+  "next_check": "مكتمل الجاهزية المحلية — بانتظار التوقيع اليدوي الشرعي للمالك السيادي",
+  "documentation": "governance/drafts/checks/SHK-W-2026-0006.json",
+  "sha_fingerprint": "bf73e50cffe2c6de"
+}

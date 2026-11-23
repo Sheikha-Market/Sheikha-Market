@@ -5,12 +5,17 @@ const router = express.Router();
 
 const {
   compactInspectorContext,
+  getFreshEnterpriseInspectorSnapshot,
   getEnterpriseInspectorSnapshot,
   updateExtensionHeartbeat
 } = require('../core/enterprise/sheikha-enterprise-inspector-v3');
 
-router.get('/api/sheikha/enterprise-inspector/v3/status', (_req, res) => {
-  res.json(getEnterpriseInspectorSnapshot());
+router.get('/api/sheikha/enterprise-inspector/v3/status', async (_req, res, next) => {
+  try {
+    res.json(await getFreshEnterpriseInspectorSnapshot());
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.post('/api/sheikha/enterprise-inspector/v3/context', express.json(), (req, res) => {
@@ -27,8 +32,13 @@ router.post('/api/sheikha/enterprise-inspector/v3/context', express.json(), (req
   });
 });
 
-router.get('/api/sheikha/enterprise-inspector/v3/context', (_req, res) => {
-  res.json(compactInspectorContext(getEnterpriseInspectorSnapshot()));
+router.get('/api/sheikha/enterprise-inspector/v3/context', async (_req, res, next) => {
+  try {
+    const snapshot = await getFreshEnterpriseInspectorSnapshot();
+    res.json(compactInspectorContext(snapshot));
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/api/sheikha/enterprise-inspector/v3/architecture', (_req, res) => {

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "platform": "SHEIKHA UGIT-RP",
+  "governanceReference": "docs/canonical/environment/SHEIKHA-ASSISTANT-GOVERNANCE.md",
+  "mode": "READ_ONLY_REFERENCE_FEDERATION",
+  "productionAdmission": "HOLD",
+  "automaticSync": false,
+  "sharedCredentials": false,
+  "providers": {
+    "google-cloud": { "projectId": "sheikha-marketplace", "projectNumber": "952025946298" },
+    "firebase": { "projectId": "sheikha-marketplace", "projectNumber": "952025946298" },
+    "google-workspace": { "domain": null, "customerId": null },
+    "cloudflare": { "accountId": "a4e323681eb22a05dcc0680aed5e9bb0", "mcpUrl": "https://mcp.cloudflare.com/mcp" },
+    "github": { "repository": "Sheikha-Market/sheikha-main-portal" },
+    "github-copilot": { "repository": "Sheikha-Market/sheikha-main-portal", "instructions": ".github/copilot-instructions.md" },
+    "chatgpt": { "instructions": "CHATGPT-INSTRUCTIONS.md", "bridge": "sheikha-readonly" },
+    "codex": { "instructions": "AGENTS.md", "bridge": "sheikha-readonly" }
+  },
+  "links": [
+    { "from": "firebase", "to": "google-cloud", "purpose": "SHARED_PROJECT_ID", "syncEnabled": false },
+    { "from": "google-workspace", "to": "google-cloud", "purpose": "IDENTITY_REVIEW_REQUIRED", "syncEnabled": false },
+    { "from": "github", "to": "google-cloud", "purpose": "OIDC_DEPLOYMENT_REVIEW_REQUIRED", "syncEnabled": false },
+    { "from": "cloudflare", "to": "google-cloud", "purpose": "PUBLIC_EDGE_REVIEW_REQUIRED", "syncEnabled": false },
+    { "from": "github-copilot", "to": "github", "purpose": "REPOSITORY_CONTEXT", "syncEnabled": false },
+    { "from": "chatgpt", "to": "codex", "purpose": "SHARED_GOVERNANCE_NOT_SHARED_AUTH", "syncEnabled": false },
+    { "from": "github-copilot", "to": "codex", "purpose": "SHARED_GOVERNANCE_NOT_SHARED_AUTH", "syncEnabled": false }
+  ]
+}

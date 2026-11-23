@@ -6,16 +6,23 @@ const path = require('node:path');
 const { privatePath, readPrivate } = require('./evaluate-shared-goals-v1');
 const { buildOperatingKit } = require('../../core/partnerships/operating-kit-v1');
 
-function run(args) {
+function parsePaths(args) {
   if (args.length !== 4 || args[0] !== '--input' || args[2] !== '--out') throw new Error('USAGE: --input PRIVATE_JSON --out NEW_PRIVATE_DIRECTORY');
-  const input = privatePath(args[1]), output = privatePath(args[3]);
+  return { input: privatePath(args[1]), output: privatePath(args[3]) };
+}
+
+function validateOutputPath(output) {
   if (fs.existsSync(output)) throw new Error('OUTPUT_ALREADY_EXISTS');
   if ((fs.statSync(path.dirname(output)).mode & 0o777) !== 0o700) throw new Error('OUTPUT_PARENT_MODE_700_REQUIRED');
-  const kit = buildOperatingKit(JSON.parse(readPrivate(input).toString('utf8')));
+}
+
+function createWriters(output) {
   fs.mkdirSync(output, { mode: 0o700 });
   const write = (file, data) => fs.writeFileSync(path.join(output, file), JSON.stringify(data, null, 2) + '\n', { mode: 0o600, flag: 'wx' });
-  write('operating-kit.json', kit);
-  for (const calendar of kit.partnerCalendars) write(`partner-${calendar.relationshipId}.json`, { classification: kit.classification, dataMode: kit.dataMode, calendar, sent: false });
+  return { write };
+}
+
+function writeOrganizations(write, output, kit) {
   for (const organization of kit.organizations) {
     write(`organization-${organization.organizationId}.json`, organization);
     const directory = `organization-${organization.organizationId}`;
@@ -25,7 +32,19 @@ function run(args) {
       department, sent: false, scopeNote: 'PRIVATE_INTERNAL_DRAFT_NOT_AUTHENTICATED_RECIPIENT_DELIVERY'
     });
   }
-  const escape = value => String(value).replace(/[&<>]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[char])).replace(/[\\`*_[\]{}()!|#]/g, '\\$&').replace(/[\r\n]+/g, ' ');
+}
+
+function createEscape() {
+  return value => String(value).replace(/[&<>]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[char])).replace(/[\\`*_[\]{}()!|#]/g, String.raw`\$&`).replace(/[\r\n]+/g, ' ');
+}
+
+function formatOverloadStatus(overloaded) {
+  if (overloaded === null) return 'غير معلوم';
+  return overloaded ? 'نعم' : 'لا بحسب السعة المعلنة';
+}
+
+function buildScheduleAndCurriculaMarkdown(kit) {
+  const escape = createEscape();
   const lines = ['# جداول الشركاء والتعليم والمراجعة', '', 'سري: مسودة، لا توقيع أو إرسال أو ترخيص نافذ.', `نوع البيانات: ${kit.dataMode}.`, ''];
   for (const calendar of kit.partnerCalendars) {
     lines.push(`## ${escape(calendar.displayName)}`, '| اليوم النسبي | الموعد المقترح UTC | العمل | المسؤول |', '|---:|---|---|---|');
@@ -39,13 +58,37 @@ function run(args) {
   }
   for (const org of kit.organizations) {
     lines.push(`## الهيكل: ${escape(org.displayName)}`, `الرؤية: ${escape(org.vision)}`, `الرسالة: ${escape(org.mission)}`, 'الحالة: متابعة وتخطيط محليان؛ لم تبدأ عمليات خارجية أو وكلاء دائمون.', '| الإدارة | الدور الرقمي | المسؤول | عدد المهام | حمل زائد |', '|---|---|---|---:|---|');
-    for (const dept of org.departments) lines.push(`| ${escape(dept.nameAr)} | ${escape(dept.manager.roleNameAr)} | ${escape(dept.manager.humanOwnerId)} | ${dept.tasks.length} | ${dept.capacity.overloaded === null ? 'غير معلوم' : dept.capacity.overloaded ? 'نعم' : 'لا بحسب السعة المعلنة'} |`);
+    for (const dept of org.departments) lines.push(`| ${escape(dept.nameAr)} | ${escape(dept.manager.roleNameAr)} | ${escape(dept.manager.humanOwnerId)} | ${dept.tasks.length} | ${formatOverloadStatus(dept.capacity.overloaded)} |`);
     lines.push('');
   }
   lines.push('## التوقيع والتراخيص', `طلبات توقيع للمراجعة: ${kit.signingReviews.length}. اتفاقيات موقعة: 0.`, `طلبات حقوق للمراجعة: ${kit.licenseReviews.length}. تراخيص ممنوحة: 0.`, 'المخرجات تتطلب تحقق هوية وصلاحية ومراجعة حقوق، ولا تغير أي قانون أو حقيقة علمية.', '');
+  return lines;
+}
+
+function summarizeCompletion(kit) {
+  return {
+    complete: true,
+    calendars: kit.partnerCalendars.length,
+    curricula: kit.methodologyUnits.length,
+    organizations: kit.organizations.length,
+    departments: kit.organizations.reduce((sum, org) => sum + org.departments.length, 0),
+    packSha256: kit.packSha256,
+    agreementsSigned: 0
+  };
+}
+
+function run(args) {
+  const { input, output } = parsePaths(args);
+  validateOutputPath(output);
+  const kit = buildOperatingKit(JSON.parse(readPrivate(input).toString('utf8')));
+  const { write } = createWriters(output);
+  write('operating-kit.json', kit);
+  for (const calendar of kit.partnerCalendars) write(`partner-${calendar.relationshipId}.json`, { classification: kit.classification, dataMode: kit.dataMode, calendar, sent: false });
+  writeOrganizations(write, output, kit);
+  const lines = buildScheduleAndCurriculaMarkdown(kit);
   fs.writeFileSync(path.join(output, 'schedules-and-curricula.ar.md'), lines.join('\n'), { mode: 0o600, flag: 'wx' });
   write('completion.json', { complete: true, packSha256: kit.packSha256, externalMessagesSent: 0, agreementsSigned: 0, licensesIssued: 0 });
-  return { complete: true, calendars: kit.partnerCalendars.length, curricula: kit.methodologyUnits.length, organizations: kit.organizations.length, departments: kit.organizations.reduce((sum, org) => sum + org.departments.length, 0), packSha256: kit.packSha256, agreementsSigned: 0 };
+  return summarizeCompletion(kit);
 }
 if (require.main === module) {
   try { console.log(JSON.stringify(run(process.argv.slice(2)), null, 2)); }

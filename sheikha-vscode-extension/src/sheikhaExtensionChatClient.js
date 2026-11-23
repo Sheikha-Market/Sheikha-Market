@@ -42,8 +42,233 @@ const LIVE_RESPONSE_MODE = 'FAST_THEN_DEEP_STREAM';
 const DEFAULT_EXTENSION_CHAT_LANGUAGE = 'ar';
 const EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT =
   '/api/sheikha/extension-streaming-artifact-apex/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.114';
+const EXTENSION_TRANSPORT_VERSION = require('../package.json').version;
 const DEFAULT_LIVE_FIRST_TOKEN_TIMEOUT_MS = 8000;
+const {
+  buildGovernedCompletionContract
+} = require('./chat/sheikhaGovernedCompletionContract');
+
+function normalizeLocalBaseUrl(value, fallback = LOCAL_BASE_URL) {
+  try {
+    const url = new URL(String(value || fallback).trim());
+    if (!['http:', 'https:'].includes(url.protocol)) return fallback;
+    if (url.hostname === 'localhost') url.hostname = '127.0.0.1';
+    return url.toString().replace(/\/+$/u, '');
+  } catch {
+    return fallback;
+  }
+}
+
+function extractAnswerText(value, seen = new Set()) {
+  if (value == null) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (typeof value !== 'object') return '';
+  if (seen.has(value)) return '';
+  seen.add(value);
+
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => extractAnswerText(item, seen))
+      .filter(Boolean)
+      .join('\n');
+  }
+
+  for (const key of ['answer', 'answerText', 'text', 'content', 'response', 'reply', 'message']) {
+    const text = extractAnswerText(value[key], seen);
+    if (text) return text;
+  }
+
+  try {
+    return JSON.stringify(value, null, 2);
+  } catch {
+    return '';
+  }
+}
+
+function isAmbiguousExecutionRequest(message) {
+  return /^(?:شغ[ّ]?ل|تشغيل|نف[ّ]?ذ|ابدأ|ابدا|run|start|execute)[.!؟?\s]*$/iu
+    .test(String(message || '').trim());
+}
+
+function buildAmbiguousExecutionAnswer() {
+  return [
+    'طلب التشغيل يحتاج هدفًا محددًا حتى لا أنفذ إجراءً غير مقصود.',
+    '',
+    'اختر أو اكتب أحد الخيارات:',
+    '1. شغّل المشروع محليًا.',
+    '2. شغّل اختبارات الإضافة.',
+    '3. افحص الخادم وEnterprise Inspector.',
+    '4. افحص الجاهزية الإنتاجية دون نشر.',
+    '5. شغّل أمرًا محددًا بعد مراجعته.',
+    '',
+    'لم يُنفذ أي أمر أو إجراء عالي الأثر.'
+  ].join('\n');
+}
+
+function isWebsiteRequest(message) {
+  const text = String(message || '').trim();
+  return /(?:شغ[ّ]?ل[ي]?(?:\s+لي)?\s+(?:الموقع|موقع\s+شيخة)|(?:افتح|حالة|رابط)\s+(?:الموقع|موقع\s+شيخة)|(?:https?:\/\/)?(?:www\.)?sheikha\.top(?:\/\S*)?)/iu
+    .test(text);
+}
+
+function buildWebsiteStatusAnswer(status = {}) {
+  const online = status?.success === true &&
+    (status?.data?.status === 'ok' || status?.status === 'ok');
+  const lines = online
+    ? [
+        'موقع شيخة يعمل محليًا والخدمة بحالة سليمة.',
+        '',
+        '- الموقع المحلي: http://127.0.0.1:8080/',
+        '- الموقع الرسمي: https://www.sheikha.top',
+        '- الصحة المحلية: http://127.0.0.1:8080/api/health'
+      ]
+    : [
+        'موقع شيخة غير متاح محليًا الآن أو تعذر التحقق من صحته.',
+        '',
+        'الإجراء المحكوم التالي: استخدم أداة «إعادة Runtime»؛ فهي تتطلب موافقة بشرية قبل إعادة التشغيل.',
+        'الموقع الرسمي: https://www.sheikha.top'
+      ];
+  lines.push('', 'لم يُنفذ نشر أو تعديل أو إجراء عالي الأثر.');
+  return lines.join('\n');
+}
+
+function isSheikhaChatIdentityRequest(message) {
+  return /^(?:(?:ما هو|ما هي|ما حالة)\s*)?(?:ال)?شات(?:\s+شيخة)?\s*[؟?!.]*$/iu
+    .test(String(message || '').trim()) ||
+    /^(?:عر[ّ]?ف(?:ي)?|من هي|ما هي)\s+(?:منظومة\s+)?شيخة(?:\s+عن\s+نفسك)?\s*[؟?!.]*$/iu
+      .test(String(message || '').trim()) ||
+    /^شيخة\s+عر[ّ]?ف(?:ي)?\s+(?:عن\s+)?نفسك\s*[؟?!.]*$/iu
+      .test(String(message || '').trim());
+}
+
+function buildSheikhaChatIdentityAnswer() {
+  return [
+    'شيخة هي منصة تشغيل عربية محكومة باسم SHEIKHA UGIT-RP للصناعة والتجارة وسلاسل الإمداد والتدوير والمدن الذكية.',
+    'وشات شيخة هو واجهة تشغيل محلية محكومة للمساعدة الهندسية والتشغيلية، وليس شاتًا عامًا أو اسم نبات أو شخص حقيقي.',
+    '',
+    'وظائفه المثبتة في الإضافة:',
+    '- قراءة حالة Runtime وEnterprise Inspector.',
+    '- تحرير الوثائق والكود مع أدلة وحدود واضحة.',
+    '- تشغيل 39 أداة مسجلة عبر أوامر VS Code محكومة.',
+    '- بث عربي، ومراجعة الأدلة، وفصل الإجراءات عالية الأثر خلف موافقة بشرية.',
+    '',
+    'لا أدّعي الوعي أو العصمة أو سلطة شرعية، ولا أنفذ أوامر النظام أو النشر أو التثبيت تلقائيًا دون مسار مصرح ومراجعة بشرية.'
+  ].join('\n');
+}
+
+function isSheikhaCapabilitiesRequest(message) {
+  return /^(?:ماذا|ما الذي|وش)\s+(?:يمكنك|تستطيع(?:ين)?|تقدر(?:ين)?)\s+(?:[أا]ن\s+)?تفعل(?:ين)?\s*[؟?!.]*$/iu
+    .test(String(message || '').trim()) ||
+    /^(?:ما|اذكر(?:ي)?)\s+(?:هي\s+)?(?:قدراتك|إمكاناتك|امكانياتك)\s*[؟?!.]*$/iu
+      .test(String(message || '').trim());
+}
+
+function buildSheikhaCapabilitiesAnswer() {
+  return [
+    '## قدرات شات شيخة',
+    '',
+    'أستطيع ضمن مساحة المشروع والصلاحيات المتاحة:',
+    '1. قراءة الملفات وفهم المعمارية وتتبع الأخطاء والمخاطر.',
+    '2. تحرير الوثائق والكود والاختبارات وإنتاج فرق قابل للمراجعة.',
+    '3. تحليل Enterprise Inspector وحالة Runtime وGit دون اختلاق نتائج.',
+    '4. تشغيل اختبارات وفحوص محلية وأوامر محكومة بعد تصنيف أثرها.',
+    '5. مراجعة الأدلة والبصمات والتراخيص وحدود الجاهزية الإنتاجية.',
+    '6. تحليل العلوم والحساب مع إظهار الفرضيات والوحدات وعدم اليقين.',
+    '',
+    'الحدود: لا أنفذ نشرًا أو تثبيتًا أو أمرًا عالي الأثر دون تفويض صريح، ولا أصدر فتوى أو ترخيصًا حكوميًا، ولا أصف نتيجة بأنها مكتملة بلا دليل تشغيلي.'
+  ].join('\n');
+}
+
+function isUsefulDiscoveryRequest(message) {
+  return /(?:ابحث|استخرج|اقترح).{0,20}(?:ما|شيئ(?:ًا|ا)?|أشياء).{0,15}(?:مفيد|نافع)|ما\s+المفيد\s+الآن/iu
+    .test(String(message || '').trim());
+}
+
+function buildUsefulDiscoveryAnswer() {
+  return [
+    '## أعلى الأعمال فائدة الآن',
+    '',
+    '1. تثبيت جودة الرد العربي ومنع انتقال الإجابات العامة أو تعريف شيخة تعريفًا خاطئًا.',
+    '2. فرز تغييرات مساحة العمل إلى نطاقات مستقلة قبل أي إصدار.',
+    '3. تشغيل اختبارات الشات وDOM وlint وفحص الأسرار ثم حفظ النتائج ببصمات.',
+    '4. اعتماد A100 أو B200 فقط بعد التحقق من السعر والمنطقة والتخصيص وسقف الميزانية؛ لم يتم شراء GPU خارجي.',
+    '5. إبقاء الإنتاج التجاري الموزع محجوبًا حتى اختبار الفشل والتعافي والمراجعة القانونية والتشغيلية.',
+    '',
+    'هذه أولويات عملية من حالة المشروع الحالية، وليست بحث ويب أو ادعاء تحقق مستقل جديد.'
+  ].join('\n');
+}
+
+function isStandaloneReportRequest(message) {
+  return /^(?:اكتب(?:ي)?|أنشئ|حرر)\s+(?:لي\s+)?تقرير(?:ًا|ا)?(?:\s+(?:كامل(?:ًا|ا)?|مفصل(?:ًا|ا)?|متكامل(?:ًا|ا)?))?\s*[؟?!.]*$/iu
+    .test(String(message || '').trim());
+}
+
+function buildStandaloneReportAnswer(history = []) {
+  const { reportMarkdown, historySource } = require('./chat/sheikhaContextReport');
+  return reportMarkdown(historySource(history));
+}
+
+function isCommercialReadinessRequest(message) {
+  return /(?:ما\s+يحتاجه|متطلبات|جاهزي(?:ة|ه)|تشغيل).{0,60}(?:الموقع|شيخة).{0,60}(?:تجار|بيع|إنتاج)|(?:تجار|بيع).{0,60}(?:جاهزي(?:ة|ه)|تشغيل)/iu
+    .test(String(message || '').trim());
+}
+
+function buildCommercialReadinessAnswer(siteStatus = {}) {
+  const online = siteStatus?.success === true &&
+    (siteStatus?.data?.status === 'ok' || siteStatus?.status === 'ok');
+  return [
+    '# جاهزية موقع شيخة للتشغيل التجاري',
+    '',
+    `- الخدمة المحلية الآن: ${online ? 'تعمل وحالتها سليمة' : 'غير متحقق منها الآن'}.`,
+    '- آخر دليل تجاري محفوظ بتاريخ 2026-08-28: 42/42 اختبارًا مستهدفًا ناجحًا.',
+    '- اختبار الاستمرارية القصير: 24/24 طلبًا ناجحًا، وP95 = 86.424ms.',
+    '- اختبار الاستعادة المحلية: ناجح خلال 2599ms.',
+    '- TLS، تحديد المعدل، رفض الجسم الكبير، ومنع تجاوز Forwarded-For: متحققة ضمن المسار الموثق.',
+    '',
+    '## ما يلزم قبل بيع واسع أو التزام تعاقدي',
+    '1. تحقق مستقل من دورة الطلب والدفع والفاتورة والاسترجاع والإلغاء كاملة.',
+    '2. سياسات خصوصية وشروط بيع وضريبة وحماية مستهلك مع مراجعة قانونية مختصة.',
+    '3. مراقبة وتنبيه ونسخ احتياطي واختبار استعادة دوري بأدلة حديثة.',
+    '4. اختبار تحميل وSoak أطول وفق حجم العملاء المتوقع.',
+    '5. تعريف SLA وRPO وRTO، ثم اختبار تعدد العقد والفشل الانتقالي إن كان مطلوبًا.',
+    '6. دعم عملاء، إدارة حوادث، وسجل تدقيق للعمليات المالية والتجارية.',
+    '',
+    'الحكم: المسار التجاري المحكوم للشات متحقق، لكن الجاهزية التجارية الكاملة للموقع لا تُعلن حتى تمر دورة التجارة والامتثال والتعافي بالاختبارات المستقلة المذكورة.',
+    'لم يُنفذ نشر أو دفع أو تعديل عالي الأثر.'
+  ].join('\n');
+}
+
+function isChatLlmReadinessRequest(message) {
+  return /(?:الشات|شات).{0,80}(?:LLM|النموذج|اللغة).{0,80}(?:تكامل|تدريب|إنتاج|تجار)|(?:LLM|نموذج\s+(?:لغوي\s+)?ضخم).{0,100}(?:زمن|وقت|تدريب|تكامل|إنتاج|تجار)/iu
+    .test(String(message || '').trim());
+}
+
+function buildChatLlmReadinessAnswer(response = {}) {
+  const plan = response?.data || response || {};
+  const blockers = Array.isArray(plan.blockers) ? plan.blockers : [];
+  const calendar = plan.estimatedCalendar || {};
+  return [
+    '## جاهزية تكامل شات شيخة وLLM',
+    '',
+    `- الحالة: ${plan.status || 'EVIDENCE_UNAVAILABLE'}.`,
+    `- التقدم المثبت: ${Number.isFinite(plan.progressPercent) ? `${plan.progressPercent}%` : 'غير مقاس'}.`,
+    `- نمط التدريب: ${plan.trainingMode || 'غير محدد'}.`,
+    `- فئة النموذج المعلنة: ${plan.modelClassClaim || 'غير مثبتة'}.`,
+    `- إثبات أنه نموذج كبير: ${plan.modelIsLargeVerified === true ? 'نعم' : 'لا'}.`,
+    `- الزمن التقديري المشروط: ${calendar.minimumWeeks ?? '?'}–${calendar.maximumWeeks ?? '?'} أسبوعًا.`,
+    '',
+    '### الموانع الحالية',
+    ...(blockers.length ? blockers.map((item) => `- ${item}`) : ['- لا موانع في عقد التخطيط؛ يلزم Canary قبل الترويج.']),
+    '',
+    '### حدود النتيجة',
+    '- توجيه عدة نماذج لا ينشئ أوزان نموذج ضخم جديدًا.',
+    '- التكييف أو LoRA ليس تدريبًا من الصفر.',
+    '- لا يُعتمد الإنتاج التجاري تلقائيًا؛ يلزم تقييم عربي وأمان وتحميل وتعافٍ وموافقة بشرية.',
+    '',
+    `الحالة النهائية: ${blockers.length ? 'COMMERCIAL_INTEGRATION_BLOCKED' : 'READY_FOR_CONTROLLED_COMMERCIAL_CANARY'}.`
+  ].join('\n');
+}
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -744,6 +969,469 @@ function resolveRecentContextualReportContext(message = '', history = []) {
   };
 }
 
+function isInspectorContinuationRequest(message = '') {
+  return /^\s*(?:اكمل|أكمل|استمر|تابع)(?:\s+(?:التحليل|التشخيص|من\s+هنا))?\s*[.!؟?]*\s*$/iu
+    .test(String(message || ''));
+}
+
+function resolveRecentInspectorContinuation(message = '', history = []) {
+  if (!isInspectorContinuationRequest(message) || !Array.isArray(history)) {
+    return null;
+  }
+  const selected = history.slice(-12).reverse().find((item) =>
+    String(item?.role || '').toLowerCase() === 'assistant' &&
+    /حالة المنظومة:|التشخيص:|المخاطر:|أفضل إجراء تالٍ/iu
+      .test(String(item?.content || ''))
+  );
+  if (!selected) return null;
+  return {
+    request: String(message || '').trim(),
+    context: String(selected.content || '').trim().slice(0, 8000),
+    source: 'assistant-inspector-history'
+  };
+}
+
+function collectInspectorDiagnosticItems(snapshot = {}) {
+  const groups = Array.isArray(snapshot?.extension?.diagnostics)
+    ? snapshot.extension.diagnostics
+    : [];
+  const seen = new Set();
+  const items = [];
+
+  groups.forEach((group) => {
+    const file = String(group?.file || 'ملف غير محدد').trim();
+    const diagnostics = Array.isArray(group?.diagnostics)
+      ? group.diagnostics
+      : [];
+    diagnostics.forEach((diagnostic) => {
+      const severity = Number(diagnostic?.severity);
+      const message = String(diagnostic?.message || 'رسالة غير متاحة')
+        .replace(/\s+/gu, ' ')
+        .trim()
+        .slice(0, 300);
+      const line = Math.max(0, Number(diagnostic?.line || 0));
+      const character = Math.max(0, Number(diagnostic?.character || 0));
+      const key = [severity, file, line, character, message].join('|');
+      if (seen.has(key)) return;
+      seen.add(key);
+      items.push({ severity, file, line, character, message });
+    });
+  });
+
+  return items.sort((left, right) => {
+    const leftPriority = getInspectorDiagnosticPriority(left);
+    const rightPriority = getInspectorDiagnosticPriority(right);
+    if (leftPriority !== rightPriority) {
+      return leftPriority - rightPriority;
+    }
+    return left.file.localeCompare(right.file, 'ar');
+  });
+}
+
+function getInspectorDiagnosticPriority(item = {}) {
+  if (Number(item.severity) === 0) return 0;
+  const message = String(item.message || '').toLowerCase();
+  if (/unconditionally|not be executed conditionally|unreachable|always execute/u.test(message)) {
+    return 10;
+  }
+  if (/\bpath\b.*(?:fixed|unwriteable)|security|secret|credential|injection/u.test(message)) {
+    return 20;
+  }
+  if (/exception|catch it|error handling/u.test(message)) return 30;
+  if (/cognitive complexity/u.test(message)) return 40;
+  return 50;
+}
+
+function getInspectorDiagnosticCategory(item = {}) {
+  const priority = getInspectorDiagnosticPriority(item);
+  if (priority === 0) return 'خلل';
+  if (priority === 10) return 'صحة منطق';
+  if (priority === 20) return 'أمن';
+  if (priority === 30) return 'معالجة أخطاء';
+  if (priority === 40) return 'قابلية صيانة';
+  return 'جودة كود';
+}
+
+function formatInspectorDiagnosticItem(item = {}) {
+  const severity = Number(item.severity) === 0
+    ? 'خطأ'
+    : Number(item.severity) === 1
+      ? 'تحذير'
+      : 'معلومة';
+  const location = item.line > 0
+    ? `${item.file}:${item.line}${item.character > 0 ? `:${item.character}` : ''}`
+    : item.file;
+  return `- ${severity} / ${getInspectorDiagnosticCategory(item)} | ${location} | ${item.message}`;
+}
+
+function buildInspectorDiagnosticTriage(snapshot = {}, limit = 20) {
+  const diagnostics = snapshot?.health?.diagnostics || {};
+  const expectedErrors = Math.max(0, Number(diagnostics.errors || 0));
+  const expectedWarnings = Math.max(0, Number(diagnostics.warnings || 0));
+  const items = collectInspectorDiagnosticItems(snapshot)
+    .filter((item) => item.severity === 0 || item.severity === 1);
+  const displayed = items.slice(0, Math.max(1, Number(limit || 8)));
+  const expectedTotal = expectedErrors + expectedWarnings;
+
+  if (expectedTotal === 0) {
+    return ['- لا توجد أخطاء أو تحذيرات في اللقطة الحديثة.'];
+  }
+  if (items.length === 0) {
+    return [
+      `- سجّل Inspector ${formatArabicDiagnosticCount(expectedErrors, 'error')} و${formatArabicDiagnosticCount(expectedWarnings, 'warning')}، لكن تفاصيل الملفات والأسطر غير موجودة في اللقطة.`,
+      '- يلزم تحديث heartbeat الإضافة الذي يحمل diagnostics قبل نسبة التحذيرات إلى ملفات أو اقتراح رقعة.'
+    ];
+  }
+
+  const lines = displayed.map(formatInspectorDiagnosticItem);
+  if (items.length > displayed.length) {
+    lines.push(`- عُرضت ${displayed.length} من ${items.length} نتيجة مفصلة؛ الباقي محفوظ في Inspector.`);
+  }
+  if (items.length < expectedTotal) {
+    lines.push(`- تغطية التفاصيل ${items.length}/${expectedTotal}؛ عدّاد Inspector أكبر من الحمولة التفصيلية المتاحة.`);
+  }
+  return lines;
+}
+
+function summarizeInspectorGitStatus(status = '') {
+  const lines = String(status || '').split('\n').filter(Boolean);
+  const byState = {
+    untracked: 0,
+    conflicted: 0,
+    staged: 0,
+    unstaged: 0,
+    stagedAndUnstaged: 0
+  };
+  const areaCounts = new Map();
+  let unclassified = 0;
+
+  lines.forEach((line) => {
+    // Older servers trimmed the first index column. Its state is then unknown.
+    if (!/^[ MADRCUT?!]{2} .+/u.test(line)) {
+      unclassified += 1;
+      return;
+    }
+    const code = line.slice(0, 2);
+    const rawPath = line.slice(3);
+    const selectedPath = rawPath.includes(' -> ')
+      ? rawPath.split(' -> ').at(-1)
+      : rawPath;
+    const normalizedPath = selectedPath.replace(/^"|"$/gu, '');
+    const area = normalizedPath.includes('/')
+      ? normalizedPath.split('/')[0]
+      : '(root)';
+    let state = 'unstaged';
+    if (code === '??') state = 'untracked';
+    else if (code.includes('U') || code === 'AA' || code === 'DD') {
+      state = 'conflicted';
+    } else if (code[0] !== ' ' && code[1] !== ' ') {
+      state = 'stagedAndUnstaged';
+    } else if (code[0] !== ' ') state = 'staged';
+    byState[state] += 1;
+    areaCounts.set(area, (areaCounts.get(area) || 0) + 1);
+  });
+
+  return {
+    total: lines.length,
+    unclassified,
+    byState,
+    topAreas: [...areaCounts.entries()]
+      .map(([area, count]) => ({area, count}))
+      .sort((left, right) =>
+        right.count - left.count || left.area.localeCompare(right.area)
+      )
+      .slice(0, 12)
+  };
+}
+
+function resolveInspectorGitSummary(snapshot = {}) {
+  const provided = snapshot?.git?.changeSummary;
+  if (provided?.byState && Array.isArray(provided.topAreas)) return provided;
+  if (typeof snapshot?.git?.status !== 'string') {
+    return {total: snapshot?.git?.changedFileCount};
+  }
+  return summarizeInspectorGitStatus(snapshot?.git?.status);
+}
+
+function buildInspectorGitTriage(snapshot = {}, limit = 8) {
+  const summary = resolveInspectorGitSummary(snapshot);
+  const byState = summary.byState || {};
+  const topAreas = Array.isArray(summary.topAreas)
+    ? summary.topAreas.slice(0, Math.max(1, Number(limit || 8)))
+    : [];
+  const total = Math.max(
+    0,
+    Number(summary.total || snapshot?.git?.changedFileCount || 0)
+  );
+
+  if (snapshot?.git?.stale || snapshot?.git?.refreshStatus === 'DEGRADED') {
+    return ['- لقطة Git قديمة أو تعذّر جمعها؛ يلزم تحديثها قبل اعتماد العدّادات.'];
+  }
+  if (total === 0 && typeof snapshot?.git?.status !== 'string' && !summary.byState) {
+    return ['- تفاصيل Git غير متاحة؛ نظافة مساحة العمل غير مثبتة.'];
+  }
+  if (total === 0) return ['- لا توجد تغييرات Git في اللقطة الحديثة.'];
+  if (!summary.byState || topAreas.length === 0) {
+    return [
+      `- العدد الكلي: ${formatArabicChangeCount(total)}.`,
+      '- تفاصيل الحالات والنطاقات غير متاحة في هذه اللقطة؛ لم يُجر أي تقسيم تخميني.'
+    ];
+  }
+
+  return [
+    `- الحالات: غير متتبعة ${Number(byState.untracked || 0)}، معدلة غير مرحّلة ${Number(byState.unstaged || 0)}، مرحّلة ${Number(byState.staged || 0)}، مرحّلة ومعدلة ${Number(byState.stagedAndUnstaged || 0)}، تعارضات ${Number(byState.conflicted || 0)}.`,
+    ...(summary.unclassified > 0
+      ? [`- حالات غير محسومة: ${summary.unclassified}؛ بيانات Git الواردة ناقصة التنسيق وتحتاج تحديث الخادم.`]
+      : []),
+    `- أكبر النطاقات: ${topAreas.map(({area, count}) => `${area}=${count}`).join('، ')}.`
+  ];
+}
+
+function buildInspectorNextAction({
+  firstDiagnostic,
+  errors,
+  warnings,
+  changedFiles,
+  topChangeArea
+}) {
+  if (firstDiagnostic) {
+    const location = firstDiagnostic.line > 0
+      ? `${firstDiagnostic.file}:${firstDiagnostic.line}`
+      : firstDiagnostic.file;
+    return `ابدأ بمراجعة ${location} ومعالجة السبب المثبت، ثم شغّل فحصًا مستهدفًا لهذا النطاق فقط.`;
+  }
+  if (errors + warnings > 0) {
+    return 'حدّث heartbeat الإضافة للحصول على تفاصيل diagnostics؛ لا تبدأ تعديلًا تخمينيًا من العدّاد وحده.';
+  }
+  if (changedFiles > 0 && topChangeArea) {
+    return `لا توجد diagnostics حالية؛ ابدأ بمراجعة نطاق ${topChangeArea.area} الذي يضم ${topChangeArea.count} تغييرًا، واربطه باختباراته دون staging أو commit تلقائي.`;
+  }
+  if (changedFiles > 0) {
+    return 'لا توجد diagnostics حالية؛ قسّم تغييرات مساحة العمل إلى نطاقات قابلة للمراجعة قبل بوابات الجودة.';
+  }
+  return 'ثبّت الحالة النظيفة بفحوص النطاق المستهدف وlint وفحص الأسرار.';
+}
+
+function buildInspectorContinuationAnswer(context = '', snapshot = null, refreshError = '') {
+  const lines = String(context || '')
+    .replace(/^\s*الحالة الموثقة الآن:\s*/iu, '')
+    .trim().split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const find = (...prefixes) => lines.find((line) =>
+    prefixes.some((prefix) => line.startsWith(prefix))
+  );
+  const refreshed = snapshot?.success === true;
+
+  if (!refreshed) {
+    return [
+      '## متابعة تشخيص منظومة شيخة',
+      '',
+      '### صلاحية الدليل',
+      'تعذر تحديث Enterprise Inspector الآن؛ القيم التالية من آخر رد في المحادثة وليست قياسات حالية.',
+      refreshError ? `سبب تعذر التحديث: ${String(refreshError).slice(0, 300)}.` : '',
+      '',
+      find('حالة المنظومة:') || 'حالة المنظومة غير متاحة في السياق السابق.',
+      find('التشخيص:') || 'لا توجد أرقام تشخيصية موثقة في السياق السابق.',
+      find('المخاطر:') || 'لم تُذكر مخاطر محددة في السياق السابق.',
+      '',
+      '### ما لم يكتمل',
+      '- لا يحمل الرد السابق أسماء ملفات التحذيرات أو أسطرها، لذلك لم أدّعِ فرزها أو إصلاحها.',
+      '- المتطلب المحدد: استعادة اتصال Runtime، ثم تحديث heartbeat الإضافة وقراءة diagnostics التفصيلية.',
+      '',
+      'لم يُنفذ أي تعديل أو نشر أو إجراء عالي الأثر.'
+    ].filter(Boolean).join('\n');
+  }
+
+  const diagnostics = snapshot?.health?.diagnostics || {};
+  const errors = Math.max(0, Number(diagnostics.errors || 0));
+  const warnings = Math.max(0, Number(diagnostics.warnings || 0));
+  const changedFiles = Math.max(0, Number(snapshot?.git?.changedFileCount || 0));
+  const gitStale = snapshot?.git?.stale === true;
+  const singleNode = String(snapshot?.health?.runtimeFabricV5 || '')
+    .includes('SINGLE_NODE');
+  const generatedAt = snapshot.generatedAt || 'غير متاح';
+  const topChangeArea = resolveInspectorGitSummary(snapshot).topAreas?.[0];
+  const firstDiagnostic = collectInspectorDiagnosticItems(snapshot)
+    .find((item) => item.severity === 0 || item.severity === 1);
+  const nextAction = buildInspectorNextAction({
+    firstDiagnostic,
+    errors,
+    warnings,
+    changedFiles,
+    topChangeArea
+  });
+
+  return [
+    '## متابعة تشخيص منظومة شيخة',
+    '',
+    '### اللقطة الحديثة',
+    `- وقت التوليد: ${generatedAt}.`,
+    `- الحالة: ${snapshot?.health?.overall || snapshot?.status || 'غير محددة'}.`,
+    `- التشخيص: ${formatArabicDiagnosticCount(errors, 'error')}، ${formatArabicDiagnosticCount(warnings, 'warning')}.`,
+    `- مساحة العمل: ${formatArabicChangeCount(changedFiles)}${snapshot?.git?.clean === false ? ' وغير نظيفة' : ''}${gitStale ? '؛ عدّاد Git قيد التحديث' : ''}.`,
+    `- نمط التشغيل: ${singleNode ? 'أحادي العقدة؛ خطر استمرارية عند الإطلاق الموزع' : 'لا يظهر قيد أحادي العقدة في اللقطة'}.`,
+    '',
+    '### الفرز الفعلي',
+    ...buildInspectorDiagnosticTriage(snapshot),
+    ...(changedFiles > 0
+      ? ['', '### خريطة تغييرات Git', ...buildInspectorGitTriage(snapshot)]
+      : []),
+    '',
+    '### الإجراء التالي المحدد',
+    nextAction,
+    '',
+    'لم يُنفذ أي تعديل أو نشر أو إجراء عالي الأثر من هذا الرد.'
+  ].join('\n');
+}
+
+function isContextualRepairFollowUpRequest(message = '') {
+  return /^\s*(?:أصلح(?:ها|ه|هم)?|اصلح(?:ها|ه|هم)?|عالج(?:ها|ه|هم)?|نف[ّ]?ذ\s+الإصلاح|fix\s+(?:it|them))\s*[.!؟?]*\s*$/iu
+    .test(String(message || ''));
+}
+
+function resolveRecentContextualRepairContext(message = '', history = []) {
+  if (
+    !isContextualRepairFollowUpRequest(message) ||
+    !Array.isArray(history)
+  ) return null;
+
+  const selected = history.slice(-12).reverse().find((item) =>
+    String(item?.role || '').toLowerCase() === 'assistant' &&
+    /حالة المنظومة:|التشخيص:|المخاطر:|أفضل إجراء تالٍ/iu
+      .test(String(item?.content || ''))
+  );
+  if (!selected) return null;
+
+  const context = String(selected.content || '').trim().slice(0, 8000);
+  return {
+    request: String(message || '').trim(),
+    context,
+    repairMessage: [
+      'نفذ إصلاحًا هندسيًا محكومًا إلى نهاية مثبتة بالدليل اعتمادًا على التشخيص السابق.',
+      'لا تطلب من المستخدم معلومات موجودة في السياق، ولا تنفذ إجراء عالي الأثر دون موافقة.',
+      'اتبع: DISCOVER ثم PLAN ثم IMPLEMENT_SCOPED_PATCH ثم VERIFY ثم REPORT_TERMINAL_STATE.',
+      '',
+      'التشخيص السابق:',
+      context
+    ].join('\n'),
+    source: 'assistant-diagnostic-history'
+  };
+}
+
+function buildContextualRepairFallbackAnswer(context = '', reason = '') {
+  const diagnosis = String(context || '').trim().slice(0, 8000);
+  const errorMatch = diagnosis.match(/(\d+)\s+أخطاء|خطأ\s+واحد|خطآن/iu);
+  const warningMatch = diagnosis.match(/(\d+)\s+تحذير/iu);
+  const dirtyMatch = diagnosis.match(/(?:بها|تضم)\s+(\d+)\s+تغيير/iu);
+  const errorCount = errorMatch?.[1]
+    ? Number(errorMatch[1])
+    : /خطأ\s+واحد/iu.test(diagnosis)
+      ? 1
+      : /خطآن/iu.test(diagnosis) ? 2 : 0;
+  return [
+    'تعذر إكمال مسار التنفيذ العميق، لكن سياق الإصلاح السابق محفوظ ولم يُفقد.',
+    '',
+    `- الأخطاء المرصودة: ${errorCount}.`,
+    `- التحذيرات المرصودة: ${warningMatch?.[1] || 'غير محددة'}.`,
+    `- تغييرات مساحة العمل: ${dirtyMatch?.[1] || 'غير محددة'}.`,
+    '- حالة التنفيذ: BLOCKED_WITH_EXACT_REQUIREMENT.',
+    '- المتطلب الدقيق: تحديث لقطة Enterprise Inspector وتحديد مصدر الخطأ الحالي قبل أي تعديل؛ لا يعتمد هذا التحقق على النموذج.',
+    '- لم يُنفذ تعديل أو نشر أو إجراء عالي الأثر.',
+    reason ? `- سبب التعطل: ${reason}.` : ''
+  ].filter(Boolean).join('\n');
+}
+
+function buildContextualRepairResolutionAnswer(previousContext = '', snapshot = {}) {
+  const previous = String(previousContext || '');
+  const priorErrorMatch = previous.match(/(\d+)\s+أخطاء|خطأ\s+واحد|خطآن/iu);
+  const priorErrors = priorErrorMatch?.[1]
+    ? Number(priorErrorMatch[1])
+    : /خطأ\s+واحد/iu.test(previous)
+      ? 1
+      : /خطآن/iu.test(previous) ? 2 : 0;
+  const currentErrors = Number(snapshot?.health?.diagnostics?.errors || 0);
+  const currentWarnings = Number(snapshot?.health?.diagnostics?.warnings || 0);
+  const changedFiles = Number(snapshot?.git?.changedFileCount || 0);
+  const stale = snapshot?.git?.stale === true;
+  const errorResolved = priorErrors > 0 && currentErrors === 0;
+  return [
+    '## نتيجة الإصلاح المحكوم',
+    '',
+    `- الحالة الحالية: ${snapshot?.health?.overall || snapshot?.status || 'غير محددة'}.`,
+    `- الأخطاء السابقة: ${priorErrors}.`,
+    `- الأخطاء الحالية: ${currentErrors}.`,
+    `- التحذيرات الحالية: ${currentWarnings}.`,
+    `- تغييرات مساحة العمل: ${changedFiles}.`,
+    `- الخطأ السابق: ${errorResolved ? 'لم يعد ظاهرًا في اللقطة الحالية' : 'ما زال يحتاج تحديد المصدر'}.`,
+    `- حداثة Git: ${stale ? 'REFRESHING؛ لا تعتمد نظافة الشجرة حتى يكتمل التحديث' : 'محدثة'}.`,
+    '',
+    '### الإجراء التالي',
+    currentErrors > 0
+      ? 'اقرأ تفاصيل الخطأ التشخيصي من Problems/Inspector وحدد الملف والسطر، ثم طبّق أصغر إصلاح واختبره.'
+      : currentWarnings > 0
+        ? 'لا يوجد خطأ حالي لإصلاحه؛ فرز التحذيرات حسب المصدر والأثر هو الخطوة التالية.'
+        : 'لا تظهر أخطاء أو تحذيرات حاليًا؛ ثبّت الحالة بالاختبارات المستهدفة وlint وفحص الأسرار.',
+    '',
+    'لم يُنفذ تعديل أو نشر أو إجراء عالي الأثر. النتيجة مبنية على مقارنة لقطة Inspector السابقة بالحالية.'
+  ].join('\n');
+}
+
+function parseExtensionActivationEvidence(message = '') {
+  const text = String(message || '');
+  const version = text.match(/(?:الإصدار المثبت|extensionVersion)\s*[:=]\s*`?([0-9]+(?:\.[0-9]+){2})/iu)?.[1] || null;
+  const tests = text.match(/(?:الاختبارات)\s*[:=]\s*`?(\d+)\s*\/\s*(\d+)/iu);
+  const sha256 = text.match(/(?:SHA-?256)\s*[:=]\s*`?([a-f0-9]{64})/iu)?.[1]?.toLowerCase() || null;
+  const domVerified = /DOM_CLICK_VERIFIED/iu.test(text);
+  const editorial = /تحرير بحث ووثائق وبرمجيات|تحرير موثق|مسار التحرير الموثق|وجود مسار التحرير/iu.test(text);
+  const looksLikeEvidence = Boolean(version && tests && sha256 && domVerified);
+  return {
+    looksLikeEvidence,
+    version,
+    testsPassed: tests ? Number(tests[1]) : null,
+    testsTotal: tests ? Number(tests[2]) : null,
+    sha256,
+    domVerified,
+    editorial
+  };
+}
+
+function buildExtensionActivationEvidenceAnswer(message = '', expectedVersion = '') {
+  const evidence = parseExtensionActivationEvidence(message);
+  if (!evidence.looksLikeEvidence) return null;
+  const versionMatches = !expectedVersion || evidence.version === expectedVersion;
+  const testsPass = evidence.testsPassed === evidence.testsTotal && evidence.testsTotal > 0;
+  const accepted = versionMatches && testsPass && evidence.domVerified;
+  return {
+    accepted,
+    evidence,
+    answer: [
+      '## مراجعة دليل تفعيل شات شيخة',
+      '',
+      `- الإصدار المعلن: ${evidence.version}${versionMatches ? '، مطابق للإضافة الحالية' : `، لا يطابق ${expectedVersion}`}.`,
+      `- الاختبارات المعلنة: ${evidence.testsPassed}/${evidence.testsTotal}${testsPass ? '، ناجحة حسابيًا' : '، غير مكتملة'}.`,
+      `- اختبار الواجهة: ${evidence.domVerified ? 'DOM_CLICK_VERIFIED' : 'غير مثبت'}.`,
+      `- SHA-256: ${evidence.sha256}.`,
+      `- مسار التحرير الموثق: ${evidence.editorial ? 'مذكور' : 'غير مذكور'}.`,
+      '',
+      `الحالة: ${accepted ? 'EVIDENCE_FORMAT_ACCEPTED' : 'EVIDENCE_REVIEW_BLOCKED'}.`,
+      '',
+      'الحدود: تحققت بنية الدليل واتساق أرقامه مع نسخة الإضافة، لكن النص وحده لا يعيد تشغيل الاختبارات ولا يعيد حساب بصمة ملف VSIX. التحقق المستقل يتطلب الوصول إلى الحزمة وتشغيل بواباتها المحلية.',
+      'لم يُنفذ أي إجراء عالي الأثر.'
+    ].join('\n')
+  };
+}
+
+function isGenericEditorialProductionRequest(message = '') {
+  const text = String(message || '');
+  return /حرر نتيجة بحث أو وثيقة أو ديوان(?:ًا|ا)? برمجي(?:ًا|ا)?/iu.test(text) &&
+    /سجل تغييرات|بصمة مصدر|provenance/iu.test(text);
+}
+
+function buildGovernedEditorialDocument(message = '', history = []) {
+  if (!isGenericEditorialProductionRequest(message)) return null;
+  const { reportMarkdown, historySource } = require('./chat/sheikhaContextReport');
+  return reportMarkdown(historySource(history), true);
+}
+
 function buildGovernedContextualReportFallbackAnswer(
   context = '',
   reason = ''
@@ -978,21 +1666,49 @@ function buildEnterpriseInspectorArabicSummary(snapshot = {}) {
   const riskText = risks.length
     ? risks.join('، ')
     : 'لا تظهر مخاطر تشغيلية حرجة في اللقطة الحالية';
+  const nextAction = errors > 0
+    ? 'معالجة الأخطاء التشخيصية أولًا، ثم تشغيل اختبارات الانحدار وlint وفحص الأسرار'
+    : warnings > 0
+      ? 'فرز التحذيرات، ثم تشغيل الاختبارات المستهدفة وlint وفحص الأسرار'
+      : git.clean === false || changedFileCount > 0
+        ? 'تقسيم تغييرات مساحة العمل غير المرتبطة إلى نطاقات مستقلة، ثم تشغيل الاختبارات المستهدفة وlint وفحص الأسرار'
+        : 'تشغيل الاختبارات المستهدفة وlint وفحص الأسرار لتثبيت اللقطة النظيفة';
 
-  return [
+  const summary = [
     `حالة المنظومة: ${health.overall || snapshot.status || 'غير محددة'}.`,
     `التشخيص: ${formatArabicDiagnosticCount(errors, 'error')}، ${formatArabicDiagnosticCount(warnings, 'warning')}، الخادم ${health.runtime || 'غير محدد'}، والإضافة ${health.extension || 'غير محددة'}.`,
     `الموارد: حمل الدقيقة ${runtime.cpuLoad1m ?? 'غير متاح'}، الذاكرة ${runtime.ramUsedPercent ?? 'غير متاح'}%، Heap ${runtime.heapUsedMb ?? 'غير متاح'}/${runtime.heapTotalMb ?? 'غير متاح'}MB.`,
     `المخاطر: ${riskText}.`,
     `الحوكمة: ${governance.status || 'غير محددة'}، والإجراءات عالية الأثر تتطلب مراجعة بشرية: ${governance.humanReviewForHighImpactActions === true ? 'نعم' : 'غير مثبت'}.`,
-    'أفضل إجراء تالٍ دون أثر مرتفع: فرز التحذيرات، وتقسيم التغييرات غير المرتبطة إلى نطاقات مستقلة، ثم تشغيل الاختبارات المستهدفة وlint وفحص الأسرار قبل أي نشر أو تثبيت.',
-    'لم يُنفذ أي إجراء عالي الأثر.'
-  ].join('\n');
+    `أفضل إجراء تالٍ دون أثر مرتفع: ${nextAction} قبل أي نشر أو تثبيت.`
+  ];
+  if (errors + warnings > 0) {
+    summary.push('', 'تفاصيل التشخيص:', ...buildInspectorDiagnosticTriage(snapshot, 5));
+  }
+  if (changedFileCount > 0) {
+    summary.push('', 'خريطة تغييرات Git:', ...buildInspectorGitTriage(snapshot, 5));
+  }
+  summary.push('', 'لم يُنفذ أي إجراء عالي الأثر.');
+  return summary.join('\n');
 }
 
 function buildLocalChatFallbackAnswer(message, reason = '') {
   const text = String(message || '');
   const reasonLine = reason ? `\n\nسبب التحويل الاحتياطي: ${reason}` : '';
+
+  if (/ECONNREFUSED|ECONNRESET|ENOTFOUND|EHOSTUNREACH/i.test(String(reason))) {
+    return [
+      'خادم شيخة المحلي غير متصل، ولذلك لم يصل طلبك إلى أي نموذج.',
+      '',
+      'الخطوات:',
+      '1. شغّل الخادم: npm start (المنفذ الافتراضي 8080).',
+      '2. تأكد أن إعداد sheikha.serverUrl يطابق منفذ الخادم الفعلي.',
+      '3. أعد إرسال الطلب.',
+      '',
+      'لم يُنفذ أي إجراء، ولم تُختلق إجابة بديلة.',
+      reasonLine
+    ].filter(Boolean).join('\n');
+  }
 
   if (isStructuredOperationalEvidenceReviewRequest(text)) {
     return buildGovernedOperationalEvidenceFallbackAnswer(text, reason);
@@ -1183,17 +1899,23 @@ async function sendExtensionChat(message, options = {}) {
       : getEnterpriseInspectorStatus;
   const smartRoute = decideSmartRoute(text, options.mode || 'smart');
   const liveMode = options.streaming !== false;
-  const diagnosticRequested = isInspectorRequest(text);
   const history = Array.isArray(options.history) ? options.history.slice(-12) : [];
+  const contextualRepairContext =
+    resolveRecentContextualRepairContext(text, history);
+  const diagnosticRequested =
+    isInspectorRequest(text) || Boolean(contextualRepairContext);
   const governedShellContext = resolveRecentGovernedShellContext(text, history);
   const governedShellReviewRequested = Boolean(governedShellContext);
   const governedEvidenceReviewRequested =
     isStructuredOperationalEvidenceReviewRequest(text);
   const contextualReportContext =
     resolveRecentContextualReportContext(text, history);
+  const inspectorContinuation =
+    resolveRecentInspectorContinuation(text, history);
   const governedContextualReportRequested =
     Boolean(contextualReportContext);
-  const governedLiveMessage = governedShellContext?.reviewMessage || text;
+  const governedLiveMessage = governedShellContext?.reviewMessage ||
+    contextualRepairContext?.repairMessage || text;
   const constructiveDialogueMode =
     options.dialogueMode === 'constructive' ||
     options.mode === 'constructive';
@@ -1213,6 +1935,148 @@ async function sendExtensionChat(message, options = {}) {
   let governedLiveError = null;
   let provisionalLiveReceived = false;
 
+  if (isSheikhaChatIdentityRequest(text)) {
+    return {
+      success: true,
+      answer: buildSheikhaChatIdentityAnswer(),
+      raw: {
+        success: true,
+        route: 'SHEIKHA_EXTENSION_CHAT_IDENTITY_V1',
+        modelInvoked: false,
+        highImpactActionExecuted: false
+      }
+    };
+  }
+
+  const localInformationalAnswer = isSheikhaCapabilitiesRequest(text)
+    ? buildSheikhaCapabilitiesAnswer()
+    : isUsefulDiscoveryRequest(text)
+      ? buildUsefulDiscoveryAnswer()
+      : isStandaloneReportRequest(text)
+        ? buildStandaloneReportAnswer(history)
+        : null;
+  if (localInformationalAnswer) {
+    return {
+      success: true,
+      answer: localInformationalAnswer,
+      raw: {
+        success: true,
+        route: 'SHEIKHA_EXTENSION_LOCAL_INFORMATIONAL_V1',
+        modelInvoked: false,
+        highImpactActionExecuted: false
+      }
+    };
+  }
+
+  if (isChatLlmReadinessRequest(text)) {
+    const integrationLoader = typeof options.llmIntegrationLoader === 'function'
+      ? options.llmIntegrationLoader
+      : ({ baseUrl }) => postJson(
+        '/api/sheikha/ai-governor/federation/v1/chat-llm/integration/plan',
+        {
+          chatContractVerified: true,
+          modelWeightsAvailable: false,
+          modelLicenseVerified: false,
+          datasetLicenseVerified: false,
+          arabicEvaluationPassed: false,
+          safetyEvaluationPassed: false,
+          loadAndRecoveryPassed: false,
+          observabilityEnabled: true,
+          humanCommercialApproval: false,
+          modelClassClaim: 'UNVERIFIED'
+        },
+        baseUrl
+      );
+    let integration = null;
+    try {
+      integration = await integrationLoader({ baseUrl: primaryBaseUrl });
+    } catch {}
+    return {
+      success: true,
+      answer: buildChatLlmReadinessAnswer(integration),
+      raw: {
+        success: true,
+        route: 'SHEIKHA_EXTENSION_CHAT_LLM_READINESS_V1',
+        modelInvoked: false,
+        highImpactActionExecuted: false
+      }
+    };
+  }
+
+  if (isCommercialReadinessRequest(text)) {
+    const siteStatusLoader = typeof options.siteStatusLoader === 'function'
+      ? options.siteStatusLoader
+      : ({ baseUrl }) => getJson('/api/health', baseUrl, 3000);
+    let siteStatus = null;
+    try {
+      siteStatus = await siteStatusLoader({ baseUrl: primaryBaseUrl });
+    } catch {}
+    return {
+      success: true,
+      answer: buildCommercialReadinessAnswer(siteStatus),
+      raw: {
+        success: true,
+        route: 'SHEIKHA_EXTENSION_COMMERCIAL_READINESS_V1',
+        modelInvoked: false,
+        highImpactActionExecuted: false
+      }
+    };
+  }
+
+  if (isWebsiteRequest(text)) {
+    const siteStatusLoader = typeof options.siteStatusLoader === 'function'
+      ? options.siteStatusLoader
+      : ({ baseUrl }) => getJson('/api/health', baseUrl, 3000);
+    let siteStatus = null;
+    try {
+      siteStatus = await siteStatusLoader({ baseUrl: primaryBaseUrl });
+    } catch {}
+    const answer = buildWebsiteStatusAnswer(siteStatus);
+    return {
+      success: true,
+      answer,
+      raw: {
+        success: true,
+        route: 'SHEIKHA_EXTENSION_WEBSITE_STATUS_V1',
+        websiteOnline: siteStatus?.success === true &&
+          (siteStatus?.data?.status === 'ok' || siteStatus?.status === 'ok'),
+        modelInvoked: false,
+        highImpactActionExecuted: false
+      }
+    };
+  }
+
+  if (isAmbiguousExecutionRequest(text)) {
+    const answer = buildAmbiguousExecutionAnswer();
+    if (typeof options.onEvent === 'function') {
+      options.onEvent({ event: 'ack', data: { success: true } });
+      options.onEvent({
+        event: 'token',
+        data: { text: answer, source: 'governed-intent-clarification' }
+      });
+      options.onEvent({
+        event: 'done',
+        data: {
+          success: true,
+          route: 'SHEIKHA_EXTENSION_GOVERNED_INTENT_CLARIFICATION_V1'
+        }
+      });
+    }
+    if (typeof options.onToken === 'function') {
+      options.onToken({ event: 'token', data: { text: answer }, text: answer });
+    }
+    return {
+      success: true,
+      answer,
+      raw: {
+        success: true,
+        route: 'SHEIKHA_EXTENSION_GOVERNED_INTENT_CLARIFICATION_V1',
+        modelInvoked: false,
+        highImpactActionExecuted: false
+      }
+    };
+  }
+
   // Live path must not wait for workspace/tool/inspector collection.
   const workspace = liveMode ? {} : collectWorkspaceContext();
   const vscodeTools = liveMode ? {} : collectVSCodeToolContext();
@@ -1224,7 +2088,13 @@ async function sendExtensionChat(message, options = {}) {
     message: text,
     mode: constructiveDialogueMode
       ? governedReasoningMode
-      : options.mode || smartRoute.mode ||
+      : options.mode === 'engineering'
+        ? 'agentic'
+        : options.mode === 'editorial'
+          ? 'agentic'
+        : options.mode === 'scientific'
+          ? 'pro'
+        : options.mode || smartRoute.mode ||
         (/كود|برمج|اصلح|fix|code|test|error|patch|دبق|debug/i.test(text)
           ? 'code'
           : 'chat'),
@@ -1242,19 +2112,152 @@ async function sendExtensionChat(message, options = {}) {
     channel: 'extension-chat',
     source: 'sheikha-vscode-extension',
     governanceProfile: 'SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1',
+    completion: buildGovernedCompletionContract(text),
     diagnosticRequested,
     inspectorSnapshot,
     route: smartRoute,
     workspace,
-    vscodeTools
-    ,
+    vscodeTools,
     conversationId: options.conversationId || null,
     history: history.slice(-8)
   };
   const greetingAllowed = options.greetingAllowed !== false;
+  const engineeringMode = ['engineering', 'editorial'].includes(options.mode);
   const intelligenceApexMode =
     ['standard', 'pro', 'ultra'].includes(payload.mode) ||
+    engineeringMode ||
     constructiveDialogueMode;
+
+  if (liveMode && contextualRepairContext) {
+    const repairSnapshot = await inspectorStatusLoader({
+      baseUrl: primaryBaseUrl,
+      timeout: Number(options.inspectorDirectTimeout || 6000)
+    });
+    if (repairSnapshot?.success === true) {
+      const answer = buildContextualRepairResolutionAnswer(
+        contextualRepairContext.context,
+        repairSnapshot
+      );
+      if (typeof options.onEvent === 'function') {
+        options.onEvent({ event: 'ack', data: { success: true } });
+        options.onEvent({
+          event: 'token',
+          data: { text: answer, source: 'inspector-repair-comparison' }
+        });
+        options.onEvent({
+          event: 'done',
+          data: {
+            success: true,
+            route: 'SHEIKHA_EXTENSION_INSPECTOR_REPAIR_RESOLUTION_V1'
+          }
+        });
+      }
+      if (typeof options.onToken === 'function') {
+        options.onToken({ event: 'token', data: { text: answer }, text: answer });
+      }
+      return {
+        success: true,
+        answer,
+        raw: {
+          success: true,
+          route: 'SHEIKHA_EXTENSION_INSPECTOR_REPAIR_RESOLUTION_V1',
+          contextSource: contextualRepairContext.source,
+          highImpactActionExecuted: false
+        }
+      };
+    }
+  }
+
+  if (inspectorContinuation) {
+    let continuationSnapshot = null;
+    let continuationRefreshError = '';
+    try {
+      continuationSnapshot = await inspectorStatusLoader({
+        baseUrl: primaryBaseUrl,
+        timeout: Number(options.inspectorDirectTimeout || 3000)
+      });
+      if (continuationSnapshot?.success !== true) {
+        continuationRefreshError = continuationSnapshot?.error ||
+          continuationSnapshot?.status || 'INSPECTOR_UNAVAILABLE';
+      }
+    } catch (error) {
+      continuationRefreshError = error?.message || 'INSPECTOR_UNAVAILABLE';
+    }
+    const answer = buildInspectorContinuationAnswer(
+      inspectorContinuation.context,
+      continuationSnapshot,
+      continuationRefreshError
+    );
+    if (typeof options.onEvent === 'function') {
+      options.onEvent({
+        event: 'token',
+        data: { text: answer, source: 'inspector-conversation-history' }
+      });
+      options.onEvent({
+        event: 'done',
+        data: {
+          success: true,
+          route: 'SHEIKHA_EXTENSION_INSPECTOR_CONTEXT_CONTINUATION_V1'
+        }
+      });
+    }
+    if (typeof options.onToken === 'function') {
+      options.onToken({ event: 'token', data: { text: answer }, text: answer });
+    }
+    return {
+      success: true,
+      answer,
+      raw: {
+        success: true,
+        route: 'SHEIKHA_EXTENSION_INSPECTOR_CONTEXT_CONTINUATION_V1',
+        contextSource: inspectorContinuation.source,
+        inspectorRefreshSucceeded: continuationSnapshot?.success === true,
+        highImpactActionExecuted: false
+      }
+    };
+  }
+
+  if (
+    liveMode && diagnosticRequested && !contextualRepairContext &&
+    options.preferDirectInspector !== false
+  ) {
+    const directSnapshot = await inspectorStatusLoader({
+      baseUrl: primaryBaseUrl,
+      timeout: Number(options.inspectorDirectTimeout || 6000)
+    });
+    if (directSnapshot?.success === true) {
+      const answer = buildEnterpriseInspectorArabicSummary(directSnapshot);
+      if (typeof options.onEvent === 'function') {
+        options.onEvent({ event: 'ack', data: { success: true } });
+        options.onEvent({
+          event: 'meta',
+          data: { route: 'SHEIKHA_EXTENSION_DIRECT_INSPECTOR_V2' }
+        });
+        options.onEvent({ event: 'token', data: { text: answer } });
+        options.onEvent({
+          event: 'done',
+          data: {
+            success: true,
+            route: 'SHEIKHA_EXTENSION_DIRECT_INSPECTOR_V2'
+          }
+        });
+      }
+      if (typeof options.onToken === 'function') {
+        options.onToken({ event: 'token', data: { text: answer }, text: answer });
+      }
+      return {
+        success: true,
+        answer,
+        raw: {
+          success: true,
+          route: 'SHEIKHA_EXTENSION_DIRECT_INSPECTOR_V2',
+          diagnosticRequested: true,
+          inspectorStatus: directSnapshot.status || null,
+          highImpactActionExecuted: false
+        }
+      };
+    }
+  }
 
   try {
     // SHEIKHA_EXTENSION_REAL_SSE_BINDING_L51_V1
@@ -1286,6 +2289,7 @@ async function sendExtensionChat(message, options = {}) {
             governedShellFollowUp: governedShellContext?.followUp === true,
             governedEvidenceReviewRequested,
             governedContextualReportRequested,
+            completion: payload.completion,
             reportContext: contextualReportContext?.context || null,
             reportContextSource: contextualReportContext?.source || null
           },
@@ -1361,8 +2365,9 @@ async function sendExtensionChat(message, options = {}) {
           });
         }
 
-        // Compatibility fallback for runtimes that only expose /api/sheikha/live-chat.
-        try {
+        // Inspector requests recover from authoritative local status first.
+        // The legacy chat endpoint is retained only for general conversation.
+        if (!diagnosticRequested) try {
           const legacyLive = await liveLegacyTransport({
             message: governedLiveMessage,
             mode: payload.mode || options.mode || 'smart',
@@ -1423,6 +2428,23 @@ async function sendExtensionChat(message, options = {}) {
           success: true,
           route: 'SHEIKHA_EXTENSION_LOCAL_CONTEXTUAL_REPORT_V1',
           contextSource: contextualReportContext.source,
+          highImpactActionExecuted: false
+        }
+      };
+    }
+
+    if (contextualRepairContext) {
+      return {
+        success: true,
+        answer: buildContextualRepairFallbackAnswer(
+          contextualRepairContext.context,
+          governedLiveError?.message || 'تعذر إكمال مسار الإصلاح العميق'
+        ),
+        raw: {
+          success: false,
+          route: 'SHEIKHA_EXTENSION_CONTEXTUAL_REPAIR_TERMINAL_FALLBACK_V1',
+          terminalState: 'BLOCKED_WITH_EXACT_REQUIREMENT',
+          contextSource: contextualRepairContext.source,
           highImpactActionExecuted: false
         }
       };
@@ -1522,7 +2544,7 @@ async function sendExtensionChat(message, options = {}) {
     // SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1
     // Primary deep governed path: Extension -> Autonomous Chat -> L35/L26 -> Model Router.
     if (
-      !intelligenceApexMode &&
+      (!intelligenceApexMode || engineeringMode) &&
       !provisionalLiveReceived &&
       options.autonomous !== false
     ) {
@@ -1546,16 +2568,14 @@ async function sendExtensionChat(message, options = {}) {
             channel: 'extension-chat',
             source: 'sheikha-vscode-extension',
             transport: 'AUTONOMOUS_L35_JSON',
+            completion: payload.completion,
             __timeoutMs: Number(options.timeout || 180000)
           },
           primaryBaseUrl
         );
 
-        const answerText = String(
-          autonomous?.answer ||
-          autonomous?.result?.answer ||
-          autonomous?.message ||
-          ''
+        const answerText = extractAnswerText(
+          autonomous?.answer ?? autonomous?.result?.answer ?? autonomous?.message
         );
 
         if (autonomous?.success === true && answerText) {
@@ -1578,13 +2598,12 @@ async function sendExtensionChat(message, options = {}) {
             options.onToken({ event: 'token', data: { text: dedupeSheikhaAnswer(answerText) }, text: dedupeSheikhaAnswer(answerText) });
           }
 
-          const fullAnswerText = String(
-            autonomous?.answer ||
-            autonomous?.result?.answer ||
-            autonomous?.result?.answerText ||
-            autonomous?.result?.response ||
-            answerText ||
-            ''
+          const fullAnswerText = extractAnswerText(
+            autonomous?.answer ??
+            autonomous?.result?.answer ??
+            autonomous?.result?.answerText ??
+            autonomous?.result?.response ??
+            answerText
           );
 
           return {
@@ -1701,7 +2720,7 @@ async function sendExtensionChat(message, options = {}) {
     return {
       success: true,
       answer: normalizeSheikhaReply(
-        data.answer || data.reply || data.message || '',
+        extractAnswerText(data.answer ?? data.reply ?? data.message ?? data.response ?? data.result),
         text,
         { greetingAllowed }
       ),
@@ -1719,7 +2738,9 @@ async function sendExtensionChat(message, options = {}) {
         return {
           success: true,
           answer: normalizeSheikhaReply(
-            fallback.answer || fallback.reply || fallback.message || '',
+            extractAnswerText(
+              fallback.answer ?? fallback.reply ?? fallback.message ?? fallback.response ?? fallback.result
+            ),
             text,
             { greetingAllowed }
           ),
@@ -1745,6 +2766,7 @@ module.exports = {
   DEFAULT_LIVE_FIRST_TOKEN_TIMEOUT_MS,
   DEFAULT_EXTENSION_CHAT_LANGUAGE,
   DEFAULT_BASE_URL,
+  normalizeLocalBaseUrl,
   LOCAL_BASE_URL,
   LIVE_RESPONSE_MODE,
   LEGACY_LIVE_CHAT_ENDPOINT,
@@ -1790,6 +2812,20 @@ module.exports = {
   resolveRecentGovernedShellContext,
   isContextualReportFollowUpRequest,
   resolveRecentContextualReportContext,
+  isInspectorContinuationRequest,
+  resolveRecentInspectorContinuation,
+  buildInspectorContinuationAnswer,
+  collectInspectorDiagnosticItems,
+  buildInspectorDiagnosticTriage,
+  buildInspectorGitTriage,
+  buildContextualRepairFallbackAnswer,
+  buildContextualRepairResolutionAnswer,
+  buildExtensionActivationEvidenceAnswer,
+  buildGovernedEditorialDocument,
+  isContextualRepairFollowUpRequest,
+  resolveRecentContextualRepairContext,
+  parseExtensionActivationEvidence,
+  isGenericEditorialProductionRequest,
   buildGovernedContextualReportFallbackAnswer,
   shouldUseGovernedLiveTransport,
   isLocalBaseUrl,
@@ -1798,4 +2834,21 @@ module.exports = {
   shouldCompleteLiveResponse,
   safeJsonParse,
   shouldUseUnifiedFallback
+  ,extractAnswerText
+  ,isAmbiguousExecutionRequest
+  ,buildAmbiguousExecutionAnswer
+  ,isWebsiteRequest
+  ,buildWebsiteStatusAnswer
+  ,isSheikhaChatIdentityRequest
+  ,buildSheikhaChatIdentityAnswer
+  ,isSheikhaCapabilitiesRequest
+  ,buildSheikhaCapabilitiesAnswer
+  ,isUsefulDiscoveryRequest
+  ,buildUsefulDiscoveryAnswer
+  ,isStandaloneReportRequest
+  ,buildStandaloneReportAnswer
+  ,isCommercialReadinessRequest
+  ,buildCommercialReadinessAnswer
+  ,isChatLlmReadinessRequest
+  ,buildChatLlmReadinessAnswer
 };

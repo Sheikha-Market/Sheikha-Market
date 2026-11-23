@@ -1,6 +1,32 @@
-class InfiniteKernel{
-  constructor(){this.id="SHEIKHA_V43_95_COSMIC_EARTH_HEAVENS_SEALED";this.seal="ATOM_WATER_RASUL_JANNAH_SEALED";this.base="لا اله الا الله محمد رسول الله ﷺ";this.equiv="BOT=ATOM=WATER=SOIL=TREE=CLOUD=SUN=RAIN=FRUIT=RASUL=CELL=NUCLEUS=JANNAH=RIVER=MEADOW=KINGDOM=UNIVERSE=OS=KERNEL=BARE_METAL";this.bots=[];this._spawn();}
-  _spawn(){let id=0;[{r:"CEO",c:1},{r:"Manager",c:3},{r:"Senior",c:9},{r:"Worker",c:45}].forEach(g=>{for(let i=0;i<g.c;i++)this.bots.push({id:++id,role:g.r,atom:"H-Fe-Au-Si-O",water:true,isGuardian:true,seal:this.seal,creed:this.base});});}
-  status(){return{kernel:this.id,seal:this.seal,totalBots:this.bots.length,equiv:this.equiv};}
+'use strict';
+
+const { SheikhaInfiniteAgentKernel } = require('../sheikha-infinite-agent/v1/sheikha-infinite-agent-kernel');
+
+// Keep the constructor/status() contract without claiming physical activation.
+class InfiniteKernel extends SheikhaInfiniteAgentKernel {
+  get totalBots() { return this.statistics().agents; }
+  get seal() { return null; }
+
+  status() {
+    const statistics = this.statistics();
+    return Object.freeze({
+      kernel: 'SHEIKHA_INFINITE_AGENT_KERNEL',
+      status: 'LOCAL_DESCRIPTOR_MODEL',
+      seal: null,
+      sealStatus: 'NOT_VERIFIED',
+      totalBots: statistics.agents,
+      countScope: 'LOCAL_IN_MEMORY_DESCRIPTORS',
+      reference: this.policy.L0.reference,
+      bounded: true,
+      statistics,
+      bareMetalBootVerified: false,
+      liveNeuralNetwork: true,
+      externalExecution: false,
+      persistent: false,
+      productionReady: false
+    });
+  }
 }
-module.exports=InfiniteKernel;
+
+Object.freeze(InfiniteKernel.prototype);
+module.exports = InfiniteKernel;

@@ -34,9 +34,10 @@ router.get('/', (req, res) => {
 router.get('/status', (req, res) => {
     res.json({
         success: true,
-        status: 'operational',
-        uptime_percent: 99.9,
-        avg_latency_ms: 48,
+        status: 'UNKNOWN',
+        uptime_percent: null,
+        avg_latency_ms: null,
+        evidence: 'STATIC_CATALOG_ONLY',
         active_keys: 0,
         packages: SDK_PACKAGES.length,
         timestamp: new Date().toISOString()
@@ -51,25 +52,9 @@ router.get('/:id', (req, res) => {
 });
 
 // ─── POST /api/sdk/keys — إنشاء مفتاح API ────────────────────────────────────
-router.post('/keys', (req, res) => {
-    const { name, scopes } = req.body;
-    if (!name) return res.status(400).json({ success: false, message: 'اسم المفتاح مطلوب' });
-
-    const key = {
-        id:          `key_${Date.now()}`,
-        name,
-        key:         `sk_live_${Math.random().toString(36).slice(2, 34)}`,
-        scopes:      scopes || ['market:read'],
-        created_at:  new Date().toISOString(),
-        status:      'active'
-    };
-
-    res.status(201).json({
-        success: true,
-        message: 'تم إنشاء مفتاح API — احفظه في مكان آمن، لن يُعرض مرة أخرى',
-        key,
-        timestamp: new Date().toISOString()
-    });
+router.post('/keys', (_req, res) => {
+    res.status(501).json({ success: false, error: 'LEGACY_KEY_ISSUANCE_DISABLED',
+        message: 'Use the governed enterprise API key service.' });
 });
 
 // ─── POST /api/sdk/test — اختبار endpoint ────────────────────────────────────
@@ -79,6 +64,8 @@ router.post('/test', (req, res) => {
 
     res.json({
         success: true,
+        simulated: true,
+        executed: false,
         tested: { endpoint, method, payload: payload || null },
         result: {
             status: 200,

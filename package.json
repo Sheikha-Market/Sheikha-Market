@@ -12,8 +12,9 @@
     "test": "node build-hostinger-dist.js",
     "dev": "node store-7788.js"
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "dd-trace": "^6.25.0"
+  },
   "publisher": "sheikha",
   "displayName": "Sheikha Operating System",
   "bin": {

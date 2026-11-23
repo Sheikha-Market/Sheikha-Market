@@ -1,0 +1,149 @@
+{
+  "containers_and_fleet": [
+    {
+      "id": "CNT-6121",
+      "type": "حاوية سكراب 40 ياردة",
+      "truck": "مرسيدس أكتروس - نقل ثقيل",
+      "driver": "سائق معتمد",
+      "location": "الدمام - الصناعية الثانية",
+      "load_type": "قصاصات نحاس وحديد HMS",
+      "status": "تم الإنزال في موقع العميل"
+    },
+    {
+      "id": "CNT-40Y-101",
+      "type": "حاوية سكراب 40 ياردة (Roll-off)",
+      "truck": "مرسيدس أكتروس - أ ب د 4820",
+      "driver": "فهد الدوسري",
+      "location": "الدمام - الصناعية الثانية (مصنع الكابلات)",
+      "load_type": "كابلات وقصاصات نحاس",
+      "status": "جاهزة للسحب (ممتلئة 95%)"
+    },
+    {
+      "id": "CNT-30Y-102",
+      "type": "حاوية سكراب 30 ياردة ثقيلة",
+      "truck": "فولفو FH16 - ر س ط 9912",
+      "driver": "سالم القحطاني",
+      "location": "الجبيل الصناعية - ساحة المساندة",
+      "load_type": "حديد صناعي ثقيل HMS 1&2",
+      "status": "في الطريق للمسبك"
+    },
+    {
+      "id": "CNT-20Y-103",
+      "type": "حاوية 20 ياردة (معادن غير حديدية)",
+      "truck": "مان TGX - ك م ن 3310",
+      "driver": "عبدالرحمن الشمري",
+      "location": "الخبر - موقع مشروع مقاولات",
+      "load_type": "ألمنيوم بروفيل وجنوط",
+      "status": "مرابطة في موقع العميل"
+    }
+  ],
+  "smelting_batches": [
+    {
+      "batch_id": "SMLT-5000",
+      "furnace": "فرن الصهر الحثي (Induction)",
+      "metal": "سبائك نحاس أحمر نقي 99.9%",
+      "input_scrap_tons": 15,
+      "slag_loss_pct": 3.5,
+      "output_ingots_tons": 14.47,
+      "temp_c": 1150,
+      "status": "مكتمل - صافي السبائك: 14.47 طن"
+    },
+    {
+      "batch_id": "SMLT-3473",
+      "furnace": "فرن الصهر الحثي (Induction)",
+      "metal": "سبائك نحاس أحمر نقي 99.9%",
+      "input_scrap_tons": 15,
+      "slag_loss_pct": 3.5,
+      "output_ingots_tons": 14.47,
+      "temp_c": 1150,
+      "status": "مكتمل - صافي السبائك: 14.47 طن"
+    },
+    {
+      "batch_id": "SMLT-2026-01",
+      "furnace": "فرن الصهر الحثي رقم 1 (Induction 5T)",
+      "metal": "سبائك نحاس أحمر نقي (99.9% Cu)",
+      "input_scrap_tons": 12.5,
+      "slag_loss_pct": 3.2,
+      "output_ingots_tons": 12.1,
+      "temp_c": 1150,
+      "status": "مكتمل - تم صب السبائك وفحص XRF"
+    },
+    {
+      "batch_id": "SMLT-2026-02",
+      "furnace": "فرن القوس الكهربائي (EAF Steel)",
+      "metal": "بيليت حديد تسليح وصناعي (Billets)",
+      "input_scrap_tons": 45,
+      "slag_loss_pct": 5,
+      "output_ingots_tons": 42.75,
+      "temp_c": 1620,
+      "status": "قيد الصهر والتنقية الحرارية"
+    },
+    {
+      "batch_id": "SMLT-2026-03",
+      "furnace": "فرن صهر الألمنيوم الدوار (Rotary)",
+      "metal": "سبائك ألمنيوم ثانوية (ADC12)",
+      "input_scrap_tons": 18,
+      "slag_loss_pct": 4.5,
+      "output_ingots_tons": 17.19,
+      "temp_c": 740,
+      "status": "مكتمل - جاهز للتوريد"
+    }
+  ],
+  "recycling_lines": [
+    {
+      "line_id": "REC-LINE-01",
+      "machine": "خط فرم وتقشير الكابلات الآلي (Granulator)",
+      "input_material": "كابلات نحاس معزولة (10 طن)",
+      "recovered_metal": "6.8 طن حبيبات نحاس نقي + 3.2 طن حبيبات PVC",
+      "efficiency": "99.4% عزل نقي"
+    },
+    {
+      "line_id": "REC-LINE-02",
+      "machine": "مكبس الهيدروليك العملاق (Hydraulic Baler 800T)",
+      "input_material": "هياكل حديد وصاج خفيف (50 طن)",
+      "recovered_metal": "49.2 طن مكعبات حديد مكبوسة جاهزة للفرن",
+      "efficiency": "كثافة عالية"
+    },
+    {
+      "line_id": "REC-LINE-03",
+      "machine": "مقص السكراب الهيدروليكي (Heavy Shear)",
+      "input_material": "جسور وأنابيب حديد ثقيلة (35 طن)",
+      "recovered_metal": "34.5 طن حديد HMS مقصوص بمقاس قياسي",
+      "efficiency": "مطابق لمواصفات سابك"
+    }
+  ],
+  "salvage_dismantling": [
+    {
+      "salvage_id": "SLV-0976",
+      "unit_type": "دفعة مركبات ومعدات رجيع",
+      "extracted_parts": "محركات + ضفائر نحاس + جنوط ألمنيوم + حديد",
+      "cat_converter_kg": 8.5,
+      "estimated_value_sar": 38000,
+      "status": "تم التفكيك وإدراج المعادن في المخزون"
+    },
+    {
+      "salvage_id": "SLV-0437",
+      "unit_type": "دفعة مركبات ومعدات رجيع",
+      "extracted_parts": "محركات + ضفائر نحاس + جنوط ألمنيوم + حديد",
+      "cat_converter_kg": 8.5,
+      "estimated_value_sar": 38000,
+      "status": "تم التفكيك وإدراج المعادن في المخزون"
+    },
+    {
+      "salvage_id": "SLV-9001",
+      "unit_type": "تشليح وتفكيك شاحنة ومعدة ثقيلة (كاتربيلر/أكتروس)",
+      "extracted_parts": "محرك ديزل + جيربوكس + 4.2 طن شاسيه حديد HMS + 85 كجم ضفائر ورديتر نحاس",
+      "cat_converter_kg": 12.5,
+      "estimated_value_sar": 48500,
+      "status": "تم التفكيك وفرز المعادن"
+    },
+    {
+      "salvage_id": "SLV-9002",
+      "unit_type": "دفعة مركبات تالفة ومصدومة (10 سيارات - تشليح معتمد)",
+      "extracted_parts": "40 جنط ألمنيوم + 10 بطاريات رصاص + 10 دبات تلوث (بلاتينيوم/بلاديوم) + 11 طن صاج مكبوس",
+      "cat_converter_kg": 18,
+      "estimated_value_sar": 92000,
+      "status": "جاهز للكبس والصهر"
+    }
+  ]
+}

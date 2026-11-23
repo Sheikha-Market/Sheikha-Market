@@ -1,0 +1,51 @@
+{
+  "project": "sheikha-marketplace",
+  "owner": "سلمان أحمد بن سلمان الراجح (CR: 2051263653 | Unified ID: 7049031003)",
+  "seal": "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED",
+  "version": "V62.3_GLOBAL_OMNI",
+  "global_load_balancer": {
+    "name": "sheikha-global-ingress-lb",
+    "cdn_enabled": true,
+    "regions": [
+      {
+        "continent": "Middle East / Saudi Arabia",
+        "region": "me-central1",
+        "service": "sheikha-main-portal",
+        "purpose": "المركز اللوجستي والتجاري السيادي (رؤية 2030)"
+      },
+      {
+        "continent": "Americas",
+        "region": "us-central1",
+        "service": "sheikha-main-portal",
+        "status": "LIVE_100_PERCENT",
+        "purpose": "البوابة القارية للأمريكتين"
+      },
+      {
+        "continent": "Europe",
+        "region": "europe-west1",
+        "service": "sheikha-main-portal",
+        "purpose": "بوابة التجارة والتعاقدات الأوروبية"
+      },
+      {
+        "continent": "Asia Pacific",
+        "region": "asia-southeast1",
+        "service": "sheikha-main-portal",
+        "purpose": "موانئ وشبكات آسيا وسلاسل الإمداد"
+      }
+    ]
+  },
+  "domains_mapping": {
+    "sheikha.shop": "Vercel Global Edge / Frontend",
+    "api.sheikha.shop": "Google Cloud Run Global Anycast LB",
+    "sheikha.top": "Sovereign Portal & Ecosystem Gateway",
+    "admin.sheikha.top": "Mission Control & Neural Governance",
+    "lawh.sheikha.top": "Decentralized Master Registry & Block Explorer",
+    "minds.sheikha.top": "Multi-Mind RAG Knowledge Matrix",
+    "robot.sheikha.top": "Digital Embodied Robotics φ=1.618 Hub",
+    "trade.sheikha.top": "Metals, HS Codes & SBC303 Trade Exchange",
+    "dev.sheikha.top": "Developer Platform, SDKs & APIs",
+    "static.sheikha.top": "Visual Assets & Digital Twins Cloud CDN",
+    "stage.sheikha.top": "Isolated Zero-Traffic Preview Gate",
+    "cdn.sheikha.top": "High-Speed Realtime Edge Delivery"
+  }
+}

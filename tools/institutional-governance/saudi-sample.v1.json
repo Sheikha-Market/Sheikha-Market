@@ -1,0 +1,1864 @@
+{
+  "schemaVersion": "SHEIKHA_INSTITUTIONAL_GOVERNANCE_V1",
+  "datasetId": "saudi.mc.sample.v1",
+  "title": "Saudi ministries directory sample with six public leadership examples and generic institutional assistants",
+  "scope": "country_sample",
+  "observedAt": "2026-10-24",
+  "policy": {
+    "mode": "advisory_only",
+    "humanAuthorityOnly": true,
+    "officialRepresentation": false,
+    "individualImpersonation": false,
+    "privateEmployeeIngestion": false,
+    "realActionsRequireExplicitApproval": true,
+    "automaticExecution": false,
+    "worldRosterComplete": false
+  },
+  "sources": [
+    {
+      "id": "src.mc.structure",
+      "title": "Ministry of Commerce organizational structure",
+      "url": "https://mc.gov.sa/ar/About/Departments/pages/default.aspx",
+      "publisher": "Saudi Ministry of Commerce",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.mc.vice-minister",
+      "title": "Vice Minister biography and dated royal appointment",
+      "url": "https://mc.gov.sa/en/about/cvs-ministry-officials/pages/vice-minister.aspx",
+      "publisher": "Saudi Ministry of Commerce",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": "2022-10-05"
+    },
+    {
+      "id": "src.sa.ministries",
+      "title": "Official Saudi government entities directory",
+      "url": "https://www.hrsd.gov.sa/دليل-الجهات-الحكومية",
+      "publisher": "Saudi Ministry of Human Resources and Social Development",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "fetched",
+      "lastUpdatedAt": "2026-08-11"
+    },
+    {
+      "id": "src.sa.momah",
+      "title": "Current Ministry of Municipalities and Housing name",
+      "url": "https://momah.gov.sa/ar/ar",
+      "publisher": "Official public institution",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "fetched",
+      "lastUpdatedAt": "2026-10-22"
+    },
+    {
+      "id": "src.sa.cabinet-law",
+      "title": "Council of Ministers Law — role and committee reference",
+      "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/93e87aa7-f344-4711-b97c-a9a700f1662b/1",
+      "publisher": "Saudi Bureau of Experts",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.mc.minister-history",
+      "title": "Commerce minister portfolio history",
+      "url": "https://mc.gov.sa/ar/About/Departments/MinisterOffice/pages/default.aspx",
+      "publisher": "Official public institution",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.mof.minister",
+      "title": "Finance minister official biography",
+      "url": "https://www.mof.gov.sa/about/Pages/ministercv.aspx",
+      "publisher": "Official public institution",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.mof.current",
+      "title": "Finance minister role observed in official news 2026-10-15",
+      "url": "https://www.mof.gov.sa/mediacenter/News/Pages/News_15102026.aspx",
+      "publisher": "Official public institution",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.dga.current",
+      "title": "DGA governor role observed at public event 2026-06-23",
+      "url": "https://www.spa.gov.sa/N2619291",
+      "publisher": "Saudi Press Agency",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.sdaia.current",
+      "title": "SDAIA president official news updated 2026-07-26",
+      "url": "https://sdaia.gov.sa/ar/MediaCenter/News/Pages/NewsDetails.aspx?NewsID=191",
+      "publisher": "Official public institution",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "index_observed",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.gcc.current",
+      "title": "GCC Secretary General official news 2026-10-14",
+      "url": "https://www.gcc-sg.org/ar/MediaCenter/News/Pages/news-2026-10-14-4.aspx",
+      "publisher": "Official public institution",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "fetched",
+      "lastUpdatedAt": null
+    },
+    {
+      "id": "src.gcc.structure",
+      "title": "GCC organization chart",
+      "url": "https://www.gcc-sg.org/ar/AboutUs/Pages/OrganizationalStructure.aspx",
+      "publisher": "Official public institution",
+      "observedAt": "2026-10-24",
+      "publishedAt": null,
+      "kind": "official_public",
+      "rights": {
+        "knowledgeUse": "unknown",
+        "trainingLicense": "unknown",
+        "licenseEvidenceUrls": []
+      },
+      "accessStatus": "fetched",
+      "lastUpdatedAt": "2026-09-13"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "country.sa",
+      "type": "country",
+      "name": {
+        "ar": "المملكة العربية السعودية",
+        "en": "Saudi Arabia"
+      },
+      "countryId": null,
+      "legalNature": "jurisdiction",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.mc",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة التجارة",
+        "en": "Ministry of Commerce"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.mc.structure"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://mc.gov.sa/"
+    },
+    {
+      "id": "sa.mc.governance",
+      "type": "department",
+      "name": {
+        "ar": "الإدارة العامة للحوكمة",
+        "en": "General Department of Governance"
+      },
+      "countryId": "country.sa",
+      "legalNature": "organizational_unit",
+      "sourceIds": [
+        "src.mc.structure"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.mc.minister-office",
+      "type": "office",
+      "name": {
+        "ar": "مكتب الوزير",
+        "en": "Minister Office"
+      },
+      "countryId": "country.sa",
+      "legalNature": "organizational_unit",
+      "sourceIds": [
+        "src.mc.structure"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.mc.vice-minister-office",
+      "type": "office",
+      "name": {
+        "ar": "منصب نائب وزير التجارة",
+        "en": "Office of Vice Minister of Commerce"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_office",
+      "sourceIds": [
+        "src.mc.vice-minister"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.person.eman-almutairi",
+      "type": "person",
+      "name": {
+        "ar": "د.إيمان بنت هباس بن سلطان المطيري",
+        "en": "Dr. Eman bint Habbas Al-Mutairi"
+      },
+      "countryId": "country.sa",
+      "legalNature": "natural_person",
+      "sourceIds": [
+        "src.mc.vice-minister",
+        "src.mc.structure"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.hrsd",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الموارد البشرية والتنمية الاجتماعية",
+        "en": "Ministry of Human Resources and Social Development"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.hrsd.gov.sa/"
+    },
+    {
+      "id": "sa.mcit",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الاتصالات وتقنية المعلومات",
+        "en": "Ministry of Communications and Information Technology"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://mcit.gov.sa/en"
+    },
+    {
+      "id": "sa.momah",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة البلديات والإسكان",
+        "en": "Ministry of Municipalities and Housing"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries",
+        "src.sa.momah"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://momah.gov.sa/ar/ar"
+    },
+    {
+      "id": "sa.mep",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الاقتصاد والتخطيط",
+        "en": "Ministry of Economy and Planning"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://mep.gov.sa/ar"
+    },
+    {
+      "id": "sa.mim",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الصناعة والثروة المعدنية",
+        "en": "Ministry of Industry and Mineral Resources"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.mim.gov.sa/"
+    },
+    {
+      "id": "sa.energy",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الطاقة",
+        "en": "Ministry of Energy"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.moenergy.gov.sa/"
+    },
+    {
+      "id": "sa.misa",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الاستثمار",
+        "en": "Ministry of Investment"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://misa.gov.sa/"
+    },
+    {
+      "id": "sa.moe",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة التعليم",
+        "en": "Ministry of Education"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.moe.gov.sa/"
+    },
+    {
+      "id": "sa.moc",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الثقافة",
+        "en": "Ministry of Culture"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.moc.gov.sa/"
+    },
+    {
+      "id": "sa.mewa",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة البيئة والمياه والزراعة",
+        "en": "Ministry of Environment, Water and Agriculture"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.mewa.gov.sa/"
+    },
+    {
+      "id": "sa.hajj",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الحج والعمرة",
+        "en": "Ministry of Hajj and Umrah"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://haj.gov.sa/ar"
+    },
+    {
+      "id": "sa.moia",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+        "en": "Ministry of Islamic Affairs, Dawah and Guidance"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.moia.gov.sa/"
+    },
+    {
+      "id": "sa.mos",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الرياضة",
+        "en": "Ministry of Sport"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.mos.gov.sa/"
+    },
+    {
+      "id": "sa.mofa",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الخارجية",
+        "en": "Ministry of Foreign Affairs"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.mofa.gov.sa/"
+    },
+    {
+      "id": "sa.mng",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الحرس الوطني",
+        "en": "Ministry of National Guard"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://sang.gov.sa/Pages/default.aspx"
+    },
+    {
+      "id": "sa.moi",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الداخلية",
+        "en": "Ministry of Interior"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.moi.gov.sa/"
+    },
+    {
+      "id": "sa.mod",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الدفاع",
+        "en": "Ministry of Defense"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.mod.gov.sa/"
+    },
+    {
+      "id": "sa.moh",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الصحة",
+        "en": "Ministry of Health"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.moh.gov.sa/pages/default.aspx"
+    },
+    {
+      "id": "sa.moj",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة العدل",
+        "en": "Ministry of Justice"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.moj.gov.sa/ar/pages/default.aspx"
+    },
+    {
+      "id": "sa.mof",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة المالية",
+        "en": "Ministry of Finance"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://www.mof.gov.sa/ar/home"
+    },
+    {
+      "id": "sa.mot",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة النقل والخدمات اللوجستية",
+        "en": "Ministry of Transport and Logistic Services"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://mot.gov.sa/ar/home"
+    },
+    {
+      "id": "sa.media",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة الإعلام",
+        "en": "Ministry of Media"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://media.gov.sa/"
+    },
+    {
+      "id": "sa.mt",
+      "type": "ministry",
+      "name": {
+        "ar": "وزارة السياحة",
+        "en": "Ministry of Tourism"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sa.ministries"
+      ],
+      "recordStatus": "public_sourced",
+      "officialUrl": "https://mt.gov.sa/"
+    },
+    {
+      "id": "sa.dga",
+      "type": "agency",
+      "name": {
+        "ar": "هيئة الحكومة الرقمية",
+        "en": "Digital Government Authority"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.dga.current"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.sdaia",
+      "type": "agency",
+      "name": {
+        "ar": "الهيئة السعودية للبيانات والذكاء الاصطناعي",
+        "en": "Saudi Data and Artificial Intelligence Authority"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.sdaia.current"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "org.gcc",
+      "type": "international_organization",
+      "name": {
+        "ar": "مجلس التعاون لدول الخليج العربية",
+        "en": "Gulf Cooperation Council"
+      },
+      "countryId": null,
+      "legalNature": "public_institution",
+      "sourceIds": [
+        "src.gcc.structure"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "person.majed-alqasabi",
+      "type": "person",
+      "name": {
+        "ar": "ماجد بن عبدالله القصبي",
+        "en": "Majed bin Abdullah Al-Qasabi"
+      },
+      "countryId": "country.sa",
+      "legalNature": "natural_person",
+      "sourceIds": [
+        "src.mc.minister-history"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.mc.office.minister",
+      "type": "office",
+      "name": {
+        "ar": "منصب وزير التجارة",
+        "en": "Office of Minister of Commerce"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_office",
+      "sourceIds": [
+        "src.mc.minister-history"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "person.mohammed-aljadaan",
+      "type": "person",
+      "name": {
+        "ar": "محمد بن عبدالله الجدعان",
+        "en": "Mohammed bin Abdullah Al-Jadaan"
+      },
+      "countryId": "country.sa",
+      "legalNature": "natural_person",
+      "sourceIds": [
+        "src.mof.minister"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.mof.office.minister",
+      "type": "office",
+      "name": {
+        "ar": "منصب وزير المالية",
+        "en": "Office of Minister of Finance"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_office",
+      "sourceIds": [
+        "src.mof.minister"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "person.ahmed-alsuwaiyan",
+      "type": "person",
+      "name": {
+        "ar": "أحمد بن محمد الصويان",
+        "en": "Ahmed bin Mohammed Al-Suwaiyan"
+      },
+      "countryId": "country.sa",
+      "legalNature": "natural_person",
+      "sourceIds": [
+        "src.dga.current"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.dga.office.governor",
+      "type": "office",
+      "name": {
+        "ar": "منصب محافظ هيئة الحكومة الرقمية",
+        "en": "Office of Governor of the Digital Government Authority"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_office",
+      "sourceIds": [
+        "src.dga.current"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "person.abdullah-alghamdi",
+      "type": "person",
+      "name": {
+        "ar": "عبدالله بن شرف الغامدي",
+        "en": "Abdullah bin Sharaf Al-Ghamdi"
+      },
+      "countryId": "country.sa",
+      "legalNature": "natural_person",
+      "sourceIds": [
+        "src.sdaia.current"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "sa.sdaia.office.president",
+      "type": "office",
+      "name": {
+        "ar": "منصب رئيس الهيئة السعودية للبيانات والذكاء الاصطناعي",
+        "en": "Office of President of SDAIA"
+      },
+      "countryId": "country.sa",
+      "legalNature": "public_office",
+      "sourceIds": [
+        "src.sdaia.current"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "person.jasem-albudaiwi",
+      "type": "person",
+      "name": {
+        "ar": "جاسم محمد البديوي",
+        "en": "Jasem Mohammed Al-Budaiwi"
+      },
+      "countryId": null,
+      "legalNature": "natural_person",
+      "sourceIds": [
+        "src.gcc.current"
+      ],
+      "recordStatus": "public_sourced"
+    },
+    {
+      "id": "org.gcc.office.secretary-general",
+      "type": "office",
+      "name": {
+        "ar": "منصب الأمين العام لمجلس التعاون لدول الخليج العربية",
+        "en": "Office of Secretary General of the GCC"
+      },
+      "countryId": null,
+      "legalNature": "public_office",
+      "sourceIds": [
+        "src.gcc.current"
+      ],
+      "recordStatus": "public_sourced"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "edge.1",
+      "type": "partOf",
+      "from": "sa.mc",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.mc.structure"
+      ]
+    },
+    {
+      "id": "edge.2",
+      "type": "partOf",
+      "from": "sa.mc.governance",
+      "to": "sa.mc",
+      "sourceIds": [
+        "src.mc.structure"
+      ]
+    },
+    {
+      "id": "edge.3",
+      "type": "partOf",
+      "from": "sa.mc.minister-office",
+      "to": "sa.mc",
+      "sourceIds": [
+        "src.mc.structure"
+      ]
+    },
+    {
+      "id": "edge.4",
+      "type": "partOf",
+      "from": "sa.mc.vice-minister-office",
+      "to": "sa.mc",
+      "sourceIds": [
+        "src.mc.structure"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.hrsd",
+      "type": "partOf",
+      "from": "sa.hrsd",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mcit",
+      "type": "partOf",
+      "from": "sa.mcit",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.momah",
+      "type": "partOf",
+      "from": "sa.momah",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mep",
+      "type": "partOf",
+      "from": "sa.mep",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mim",
+      "type": "partOf",
+      "from": "sa.mim",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.energy",
+      "type": "partOf",
+      "from": "sa.energy",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.misa",
+      "type": "partOf",
+      "from": "sa.misa",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.moe",
+      "type": "partOf",
+      "from": "sa.moe",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.moc",
+      "type": "partOf",
+      "from": "sa.moc",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mewa",
+      "type": "partOf",
+      "from": "sa.mewa",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.hajj",
+      "type": "partOf",
+      "from": "sa.hajj",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.moia",
+      "type": "partOf",
+      "from": "sa.moia",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mos",
+      "type": "partOf",
+      "from": "sa.mos",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mofa",
+      "type": "partOf",
+      "from": "sa.mofa",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mng",
+      "type": "partOf",
+      "from": "sa.mng",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.moi",
+      "type": "partOf",
+      "from": "sa.moi",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mod",
+      "type": "partOf",
+      "from": "sa.mod",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.moh",
+      "type": "partOf",
+      "from": "sa.moh",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.moj",
+      "type": "partOf",
+      "from": "sa.moj",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mof",
+      "type": "partOf",
+      "from": "sa.mof",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mot",
+      "type": "partOf",
+      "from": "sa.mot",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.media",
+      "type": "partOf",
+      "from": "sa.media",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mt",
+      "type": "partOf",
+      "from": "sa.mt",
+      "to": "country.sa",
+      "sourceIds": [
+        "src.sa.ministries"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mc.office.minister",
+      "type": "partOf",
+      "from": "sa.mc.office.minister",
+      "to": "sa.mc",
+      "sourceIds": [
+        "src.mc.minister-history"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.mof.office.minister",
+      "type": "partOf",
+      "from": "sa.mof.office.minister",
+      "to": "sa.mof",
+      "sourceIds": [
+        "src.mof.minister"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.dga.office.governor",
+      "type": "partOf",
+      "from": "sa.dga.office.governor",
+      "to": "sa.dga",
+      "sourceIds": [
+        "src.dga.current"
+      ]
+    },
+    {
+      "id": "hierarchy.sa.sdaia.office.president",
+      "type": "partOf",
+      "from": "sa.sdaia.office.president",
+      "to": "sa.sdaia",
+      "sourceIds": [
+        "src.sdaia.current"
+      ]
+    },
+    {
+      "id": "hierarchy.org.gcc.office.secretary-general",
+      "type": "partOf",
+      "from": "org.gcc.office.secretary-general",
+      "to": "org.gcc",
+      "sourceIds": [
+        "src.gcc.current"
+      ]
+    }
+  ],
+  "appointments": [
+    {
+      "id": "appointment.sa.mc.eman.2021",
+      "personId": "sa.person.eman-almutairi",
+      "officeId": "sa.mc.vice-minister-office",
+      "termStartDate": "2021-05-03",
+      "termEndDate": null,
+      "dateBasis": "official_appointment_notice",
+      "sourceIds": [
+        "src.mc.vice-minister",
+        "src.mc.structure"
+      ],
+      "dateSourceId": "src.mc.vice-minister",
+      "currentObservationSourceId": "src.mc.structure"
+    },
+    {
+      "id": "appointment.majed-alqasabi",
+      "personId": "person.majed-alqasabi",
+      "officeId": "sa.mc.office.minister",
+      "termStartDate": "2020-02-25",
+      "termEndDate": null,
+      "dateBasis": "official_history",
+      "sourceIds": [
+        "src.mc.minister-history"
+      ],
+      "dateSourceId": "src.mc.minister-history",
+      "currentObservationSourceId": null
+    },
+    {
+      "id": "appointment.mohammed-aljadaan",
+      "personId": "person.mohammed-aljadaan",
+      "officeId": "sa.mof.office.minister",
+      "termStartDate": "2016-11-01",
+      "termEndDate": null,
+      "dateBasis": "official_history",
+      "sourceIds": [
+        "src.mof.minister"
+      ],
+      "dateSourceId": "src.mof.minister",
+      "currentObservationSourceId": null
+    }
+  ],
+  "roles": [
+    {
+      "id": "role.sa.mc.analysis",
+      "name": "Institutional public-source analysis support",
+      "institutionId": "sa.mc",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.hrsd.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.hrsd",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mcit.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mcit",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.momah.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.momah",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mep.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mep",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mim.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mim",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.energy.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.energy",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.misa.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.misa",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.moe.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.moe",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.moc.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.moc",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mewa.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mewa",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.hajj.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.hajj",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.moia.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.moia",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mos.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mos",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mofa.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mofa",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mng.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mng",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.moi.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.moi",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mod.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mod",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.moh.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.moh",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.moj.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.moj",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mof.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mof",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mot.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mot",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.media.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.media",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    },
+    {
+      "id": "role.sa.mt.analysis",
+      "name": "Institutional analysis support template",
+      "institutionId": "sa.mt",
+      "roleType": "analysis_support",
+      "tasks": [
+        "summarize_public_sources",
+        "draft_policy_proposal"
+      ]
+    }
+  ],
+  "modelProfiles": [
+    {
+      "id": "model.institutional.placeholder",
+      "name": "Institutional assistant configuration placeholder",
+      "artifactType": "configuration_placeholder",
+      "training_artifact_status": "absent",
+      "weightsPresent": false,
+      "downloaded": false,
+      "rightsStatus": "unknown",
+      "trainingLicense": "unknown",
+      "licenseEvidenceSourceIds": []
+    }
+  ],
+  "assistantProfiles": [
+    {
+      "id": "assistant.sa.mc.analysis",
+      "name": "Institutional analysis assistant for Ministry of Commerce — advisory configuration",
+      "roleId": "role.sa.mc.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.hrsd.analysis",
+      "name": "Institutional analysis assistant for Ministry of Human Resources and Social Development — advisory configuration",
+      "roleId": "role.sa.hrsd.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mcit.analysis",
+      "name": "Institutional analysis assistant for Ministry of Communications and Information Technology — advisory configuration",
+      "roleId": "role.sa.mcit.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.momah.analysis",
+      "name": "Institutional analysis assistant for Ministry of Municipalities and Housing — advisory configuration",
+      "roleId": "role.sa.momah.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mep.analysis",
+      "name": "Institutional analysis assistant for Ministry of Economy and Planning — advisory configuration",
+      "roleId": "role.sa.mep.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mim.analysis",
+      "name": "Institutional analysis assistant for Ministry of Industry and Mineral Resources — advisory configuration",
+      "roleId": "role.sa.mim.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.energy.analysis",
+      "name": "Institutional analysis assistant for Ministry of Energy — advisory configuration",
+      "roleId": "role.sa.energy.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.misa.analysis",
+      "name": "Institutional analysis assistant for Ministry of Investment — advisory configuration",
+      "roleId": "role.sa.misa.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.moe.analysis",
+      "name": "Institutional analysis assistant for Ministry of Education — advisory configuration",
+      "roleId": "role.sa.moe.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.moc.analysis",
+      "name": "Institutional analysis assistant for Ministry of Culture — advisory configuration",
+      "roleId": "role.sa.moc.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mewa.analysis",
+      "name": "Institutional analysis assistant for Ministry of Environment, Water and Agriculture — advisory configuration",
+      "roleId": "role.sa.mewa.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.hajj.analysis",
+      "name": "Institutional analysis assistant for Ministry of Hajj and Umrah — advisory configuration",
+      "roleId": "role.sa.hajj.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.moia.analysis",
+      "name": "Institutional analysis assistant for Ministry of Islamic Affairs, Dawah and Guidance — advisory configuration",
+      "roleId": "role.sa.moia.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mos.analysis",
+      "name": "Institutional analysis assistant for Ministry of Sport — advisory configuration",
+      "roleId": "role.sa.mos.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mofa.analysis",
+      "name": "Institutional analysis assistant for Ministry of Foreign Affairs — advisory configuration",
+      "roleId": "role.sa.mofa.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mng.analysis",
+      "name": "Institutional analysis assistant for Ministry of National Guard — advisory configuration",
+      "roleId": "role.sa.mng.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.moi.analysis",
+      "name": "Institutional analysis assistant for Ministry of Interior — advisory configuration",
+      "roleId": "role.sa.moi.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mod.analysis",
+      "name": "Institutional analysis assistant for Ministry of Defense — advisory configuration",
+      "roleId": "role.sa.mod.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.moh.analysis",
+      "name": "Institutional analysis assistant for Ministry of Health — advisory configuration",
+      "roleId": "role.sa.moh.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.moj.analysis",
+      "name": "Institutional analysis assistant for Ministry of Justice — advisory configuration",
+      "roleId": "role.sa.moj.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mof.analysis",
+      "name": "Institutional analysis assistant for Ministry of Finance — advisory configuration",
+      "roleId": "role.sa.mof.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mot.analysis",
+      "name": "Institutional analysis assistant for Ministry of Transport and Logistic Services — advisory configuration",
+      "roleId": "role.sa.mot.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.media.analysis",
+      "name": "Institutional analysis assistant for Ministry of Media — advisory configuration",
+      "roleId": "role.sa.media.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    },
+    {
+      "id": "assistant.sa.mt.analysis",
+      "name": "Institutional analysis assistant for Ministry of Tourism — advisory configuration",
+      "roleId": "role.sa.mt.analysis",
+      "modelProfileId": "model.institutional.placeholder",
+      "mode": "advisory_only",
+      "officialMandate": false,
+      "impersonatesPerson": false,
+      "executionEnabled": false,
+      "realActionsRequireExplicitApproval": true
+    }
+  ],
+  "products": [
+    {
+      "id": "product.institutional.advisory",
+      "name": "Institutional advisory configuration product definition",
+      "kind": "institutional_assistant_configuration",
+      "assistantProfileIds": [
+        "assistant.sa.mc.analysis",
+        "assistant.sa.hrsd.analysis",
+        "assistant.sa.mcit.analysis",
+        "assistant.sa.momah.analysis",
+        "assistant.sa.mep.analysis",
+        "assistant.sa.mim.analysis",
+        "assistant.sa.energy.analysis",
+        "assistant.sa.misa.analysis",
+        "assistant.sa.moe.analysis",
+        "assistant.sa.moc.analysis",
+        "assistant.sa.mewa.analysis",
+        "assistant.sa.hajj.analysis",
+        "assistant.sa.moia.analysis",
+        "assistant.sa.mos.analysis",
+        "assistant.sa.mofa.analysis",
+        "assistant.sa.mng.analysis",
+        "assistant.sa.moi.analysis",
+        "assistant.sa.mod.analysis",
+        "assistant.sa.moh.analysis",
+        "assistant.sa.moj.analysis",
+        "assistant.sa.mof.analysis",
+        "assistant.sa.mot.analysis",
+        "assistant.sa.media.analysis",
+        "assistant.sa.mt.analysis"
+      ],
+      "licenseEvidenceStatus": "pending",
+      "licenseEvidenceSourceIds": [],
+      "commercialStatus": "license_review_required"
+    }
+  ],
+  "countryAdapters": [
+    {
+      "id": "adapter.sa.v1",
+      "countryId": "country.sa",
+      "labels": {
+        "ministry": "وزارة",
+        "agency": "هيئة",
+        "department": "إدارة",
+        "office": "مكتب أو منصب عام"
+      },
+      "reviewStatus": "human_review_required",
+      "jurisdictionNotes": "Sample taxonomy only. Legal personality and mandates need entity-specific official evidence; no comprehensive roster or integration is claimed."
+    }
+  ],
+  "roleObservations": [
+    {
+      "id": "observation.eman.mc",
+      "personId": "sa.person.eman-almutairi",
+      "officeId": "sa.mc.vice-minister-office",
+      "observedAt": "2026-10-24",
+      "sourceIds": [
+        "src.mc.structure"
+      ],
+      "appointmentDateStatus": "separately_sourced"
+    },
+    {
+      "id": "observation.majed-alqasabi",
+      "personId": "person.majed-alqasabi",
+      "officeId": "sa.mc.office.minister",
+      "observedAt": "2026-10-24",
+      "sourceIds": [
+        "src.mc.minister-history"
+      ],
+      "appointmentDateStatus": "separately_sourced"
+    },
+    {
+      "id": "observation.mohammed-aljadaan",
+      "personId": "person.mohammed-aljadaan",
+      "officeId": "sa.mof.office.minister",
+      "observedAt": "2026-10-15",
+      "sourceIds": [
+        "src.mof.current"
+      ],
+      "appointmentDateStatus": "separately_sourced"
+    },
+    {
+      "id": "observation.ahmed-alsuwaiyan",
+      "personId": "person.ahmed-alsuwaiyan",
+      "officeId": "sa.dga.office.governor",
+      "observedAt": "2026-06-23",
+      "sourceIds": [
+        "src.dga.current"
+      ],
+      "appointmentDateStatus": "unknown"
+    },
+    {
+      "id": "observation.abdullah-alghamdi",
+      "personId": "person.abdullah-alghamdi",
+      "officeId": "sa.sdaia.office.president",
+      "observedAt": "2026-07-26",
+      "sourceIds": [
+        "src.sdaia.current"
+      ],
+      "appointmentDateStatus": "unknown"
+    },
+    {
+      "id": "observation.jasem-albudaiwi",
+      "personId": "person.jasem-albudaiwi",
+      "officeId": "org.gcc.office.secretary-general",
+      "observedAt": "2026-10-14",
+      "sourceIds": [
+        "src.gcc.current"
+      ],
+      "appointmentDateStatus": "unknown"
+    }
+  ],
+  "officeTemplates": [
+    {
+      "id": "template.office.minister",
+      "name": "Minister role template",
+      "level": "minister",
+      "descriptiveDuties": [
+        "Review policy proposals through the competent authority; this template grants no authority."
+      ],
+      "templateOnly": true,
+      "legalAuthority": "not_assigned",
+      "appointmentRequired": true,
+      "sourceIds": [
+        "src.sa.cabinet-law"
+      ]
+    },
+    {
+      "id": "template.office.deputy_minister",
+      "name": "Deputy minister role template",
+      "level": "deputy_minister",
+      "descriptiveDuties": [
+        "Support coordination under a separately verified lawful delegation."
+      ],
+      "templateOnly": true,
+      "legalAuthority": "not_assigned",
+      "appointmentRequired": true,
+      "sourceIds": [
+        "src.sa.cabinet-law"
+      ]
+    },
+    {
+      "id": "template.office.undersecretary",
+      "name": "Undersecretary role template",
+      "level": "undersecretary",
+      "descriptiveDuties": [
+        "Coordinate a specified portfolio only after institution-specific role review."
+      ],
+      "templateOnly": true,
+      "legalAuthority": "not_assigned",
+      "appointmentRequired": true,
+      "sourceIds": [
+        "src.sa.cabinet-law"
+      ]
+    },
+    {
+      "id": "template.office.department_director",
+      "name": "Department director role template",
+      "level": "department_director",
+      "descriptiveDuties": [
+        "Prepare departmental plans and review service outcomes."
+      ],
+      "templateOnly": true,
+      "legalAuthority": "not_assigned",
+      "appointmentRequired": true,
+      "sourceIds": [
+        "src.sa.cabinet-law"
+      ]
+    },
+    {
+      "id": "template.office.committee_secretariat",
+      "name": "Committee secretariat role template",
+      "level": "committee_secretariat",
+      "descriptiveDuties": [
+        "Draft agendas and minutes for human review; membership and mandate require separate evidence."
+      ],
+      "templateOnly": true,
+      "legalAuthority": "not_assigned",
+      "appointmentRequired": true,
+      "sourceIds": [
+        "src.sa.cabinet-law"
+      ]
+    }
+  ]
+}

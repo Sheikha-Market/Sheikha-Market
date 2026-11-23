@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منظومة شيخة V24 | محرك توجيه النطاقات الـ 12 في Hostinger وNginx Reverse Proxy وCloudflare DNS</title>
+  <style>
+    :root { --bg: #02050b; --card: #0a1324; --gold: #d4af37; --emerald: #10b981; --cyan: #38bdf8; --text: #f8fafc; --muted: #94a3b8; --border: rgba(212,175,55,0.35); }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); }
+    header { background: linear-gradient(135deg, #060d1a 0%, #0d281d 50%, #152238 100%); border-bottom: 2px solid var(--gold); padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .badge { padding: 6px 12px; border-radius: 999px; font-size: 0.76rem; font-weight: 700; border: 1px solid var(--gold); background: rgba(212,175,55,0.12); color: var(--gold); margin-left: 6px; }
+    .badge.green { border-color: var(--emerald); background: rgba(16,185,129,0.15); color: var(--emerald); }
+    .container { max-width: 1580px; margin: 20px auto; padding: 0 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 20px; }
+    .card h3 { margin: 0 0 12px; color: var(--gold); font-size: 1.1rem; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { border: 1px solid rgba(255,255,255,0.12); padding: 9px 10px; text-align: right; }
+    th { background: #132038; color: var(--gold); }
+    .btn { background: var(--gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 800; cursor: pointer; font-size: 0.78rem; text-decoration: none; display: inline-block; }
+    pre.code-box { background: #030710; border: 1px solid var(--cyan); border-radius: 10px; padding: 14px; color: var(--emerald); font-size: 0.8rem; line-height: 1.6; overflow-x: auto; direction: ltr; text-align: left; margin: 0; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 18px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 style="margin:0; font-size:1.35rem; color:var(--gold);">منظومة شيخة V24 | لوحة توجيه النطاقات الـ 12 في Hostinger وملفات Nginx Reverse Proxy وDNS Zones</h1>
+      <p style="margin:5px 0 0; font-size:0.83rem; color:var(--muted);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية (CR: 2051263653) | خادم الإنتاج السحابي: 31.97.190.74 | أرامكو: S11488084 | SAP: AN11235091112</p>
+    </div>
+    <div>
+      <span class="badge green">● 12/12 HOSTINGER DOMAINS ACTIVE</span>
+      <span class="badge">AUTO-RENEW ENABLED</span>
+      <span class="badge">NGINX + SSL/TLS READY</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h3>🌐 جدول مطابقة محفظة الدومينات الـ 12 في Hostinger (صفحة 1 وصفحة 2) وتوجيهها المباشر</h3>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>اسم الدومين (Hostinger)</th>
+              <th>الحالة</th>
+              <th>تاريخ انتهاء الصلاحية</th>
+              <th>سجل A (IPv4)</th>
+              <th>الاختصاص التشغيلي والفرعي</th>
+              <th>فتح الواجهة المخصصة</th>
+            </tr>
+          </thead>
+          <tbody id="dom-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>⚙️ ملف إعدادات Nginx Reverse Proxy الموحد للنطاقات الـ 12 وفروعها</h3>
+        <pre class="code-box"># === SHEIKHA V24 UNIFIED NGINX REVERSE PROXY (12 HOSTINGER DOMAINS & SUB-BRANCHES) ===
+# Target Production Node: Hostinger KVM 4 VPS (31.97.190.74)
+# Unified SSL/TLS Command:
+# sudo certbot --nginx -d sheikha.dev -d www.sheikha.dev -d sheikha.app -d www.sheikha.app -d sheikha.click -d www.sheikha.click -d sheikha.cloud -d www.sheikha.cloud -d sheikha.money -d www.sheikha.money -d sheikha.digital -d www.sheikha.digital -d sheikha.me -d www.sheikha.me -d sheikha.site -d www.sheikha.site -d sheikha.market -d www.sheikha.market -d sheikha.capital -d www.sheikha.capital -d sheikha.shop -d www.sheikha.shop -d sheikha.top -d www.sheikha.top --non-interactive --agree-tos -m market@sheikha.top
+
+upstream sheikha_sovereign_backend {
+    server 127.0.0.1:8080;
+    keepalive 64;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name sheikha.dev *.sheikha.dev sheikha.app *.sheikha.app sheikha.click *.sheikha.click sheikha.cloud *.sheikha.cloud sheikha.money *.sheikha.money sheikha.digital *.sheikha.digital sheikha.me *.sheikha.me sheikha.site *.sheikha.site sheikha.market *.sheikha.market sheikha.capital *.sheikha.capital sheikha.shop *.sheikha.shop sheikha.top *.sheikha.top;
+
+    # خدمة الصور والوسائط مباشرة بصيغة image/jpeg حقيقية لـ SAP Business Network
+    location /media/ {
+        alias /home/sheikha/Projects/sheikha/sheikha-main-portal/public/media/;
+        default_type image/jpeg;
+        expires 365d;
+        add_header Cache-Control "public, no-transform";
+        add_header Access-Control-Allow-Origin "*";
+    }
+
+    location / {
+        proxy_pass http://sheikha_sovereign_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Sheikha-Domain $host;
+    }
+}
+</pre>
+      </div>
+      <div class="card">
+        <h3>📡 قالب سجلات DNS القياسي لـ Hostinger / Cloudflare (A, CNAME, MX, SPF)</h3>
+        <pre class="code-box">$TTL 300
+@       IN  A       31.97.190.74
+www     IN  CNAME   @
+*       IN  CNAME   @
+@       IN  MX  1   aspmx.l.google.com.
+@       IN  MX  5   alt1.aspmx.l.google.com.
+@       IN  MX  5   alt2.aspmx.l.google.com.
+@       IN  MX  10  alt3.aspmx.l.google.com.
+@       IN  MX  10  alt4.aspmx.l.google.com.
+@       IN  TXT     "v=spf1 include:_spf.google.com ip4:31.97.190.74 ~all"
+_dmarc  IN  TXT     "v=DMARC1; p=quarantine; rua=mailto:market@sheikha.top"</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const domains = [{"num": 1, "domain": "sheikha.dev", "expiry": "2027-10-20", "targetView": "sheikha-12purchased-domains-contracts-v23.html", "desc": "منصة المطورين، واجهات البرمجة (APIs)، وبوابة العقود الذكية"}, {"num": 2, "domain": "sheikha.app", "expiry": "2027-10-20", "targetView": "sheikha-saudi-market-omni-v21.html", "desc": "تطبيقات الجوال والويب، ورك سبيس، ونقاط البيع POS"}, {"num": 3, "domain": "sheikha.click", "expiry": "2027-10-20", "targetView": "sheikha-12domains-incubators-guardian-v22.html", "desc": "الأتمتة الفورية والرباعي الإداري (الحارس، الواتش، المراقب، المدير)"}, {"num": 4, "domain": "sheikha.cloud", "expiry": "2027-10-20", "targetView": "omni-cloud-v15.html", "desc": "المعمارية السحابية Tier-IV وبحيرة بيانات الطاقة OSDU"}, {"num": 5, "domain": "sheikha.money", "expiry": "2027-10-20", "targetView": "sheikha-national-master-v20.html", "desc": "المصرف الشرعي، الزكاة، الفوترة الزكوية ZATCA، والإنماء والرياض"}, {"num": 6, "domain": "sheikha.digital", "expiry": "2027-10-20", "targetView": "digital-aramco-command-v18.html", "desc": "ديجيتال أرامكو، التوائم الرقمية 3D، ومحاكي الحفر والمختبرات"}, {"num": 7, "domain": "sheikha.me", "expiry": "2027-10-20", "targetView": "sheikha-12purchased-domains-contracts-v23.html", "desc": "بوابة الهوية الموحدة (SSO) والملف الشخصي للمستخدم والمبرمج"}, {"num": 8, "domain": "sheikha.site", "expiry": "2029-10-20", "targetView": "sheikha-12domains-incubators-guardian-v22.html", "desc": "البوابة التعريفية الرسمية، منارة الأركان، وفهرس أهداف السوق السعودي"}, {"num": 9, "domain": "sheikha.market", "expiry": "2027-10-20", "targetView": "digital-aramco-command-v18.html", "desc": "بورصة المعادن والتجارة الحلال B2B/B2C وجسر SAP Business Network"}, {"num": 10, "domain": "sheikha.capital", "expiry": "2027-10-20", "targetView": "sheikha-nidlp-pif-sovereign-v19.html", "desc": "إدارة الأصول الوقفية، حاضنات الأعمال، وتكامل ندلب وPIF"}, {"num": 11, "domain": "sheikha.shop", "expiry": "2027-10-07", "targetView": "sheikha-saudi-market-omni-v21.html", "desc": "متجر التجزئة والجملة المباشر ومختبرات شيخة الشاملة (13 منطقة)"}, {"num": 12, "domain": "sheikha.top", "expiry": "2028-03-03", "targetView": "sheikha-national-master-v20.html", "desc": "البوابة السيادية الأم والتكامل الوطني الشامل ومستودع الصور /media/"}];
+    const tb = document.getElementById('dom-tbody');
+    domains.forEach(d => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${d.num}</td>
+        <td style="direction:ltr; text-align:left;"><strong style="color:var(--gold);">https://${d.domain}</strong></td>
+        <td><span style="color:var(--emerald); font-weight:700;">● نشط (تلقائي)</span></td>
+        <td style="direction:ltr; text-align:left;">${d.expiry}</td>
+        <td style="direction:ltr; text-align:left; color:var(--cyan);">31.97.190.74</td>
+        <td>${d.desc}</td>
+        <td><a class="btn" href="${d.targetView}" target="_blank">فتح البوابة</a></td>
+      `;
+      tb.appendChild(tr);
+    });
+  </script>
+</body>
+</html>

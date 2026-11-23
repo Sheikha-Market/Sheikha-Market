@@ -5,7 +5,7 @@
   "max_static_asset_bytes": 8388608,
   "max_files": 20000,
   "max_findings": 100,
-  "entrypoints": ["server.js", "tools/runtime/sheikha-agent-integration-plan.cjs"],
+  "entrypoints": ["server.js", "tools/runtime/sheikha-agent-integration-plan.cjs", "tools/runtime/sheikha-kernel-verify.cjs"],
   "root_files": ["server.js", "package.json", "package-lock.json", "Dockerfile", ".dockerignore", ".gcloudignore"],
   "code_roots": ["lib", "core", "routes", "middleware", "runtime", "tools", "sheikha-language", "kernel", "composite", "protocols", "sdk"],
   "asset_roots": ["public", "config", "openapi", ".well-known", "governance"],

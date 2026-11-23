@@ -2,6 +2,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 
 const { loadSourceProgram } = require('../../sheikha-language/compiler/source-loader');
 const { lowerToIR } = require('../../sheikha-language/compiler/ir');
@@ -35,6 +36,9 @@ const SOURCE_PATH = 'sheikha-language/system/sheikha-sovereign-architecture-v1.s
 const RUNTIME_DIR = 'runtime/sheikha-language-architecture/v1';
 const REPORT_PATH = `${RUNTIME_DIR}/sheikha-native-language-architecture-v1-report.json`;
 const EVIDENCE_DIR = `${RUNTIME_DIR}/evidence`;
+const NATIVE_OBJECT_MANIFEST_PATH = 'dist/sheikha-language-native/v1/manifest.json';
+const BARE_METAL_BUILD_REPORT_PATH = 'runtime/bare-metal/v1/evidence/build-report.json';
+const BARE_METAL_QEMU_REPORT_PATH = 'runtime/bare-metal/v1/evidence/qemu-run-report.json';
 
 const CODE_EXTENSIONS = new Set([
   '.c', '.cc', '.cjs', '.cpp', '.cs', '.go', '.h', '.java', '.js', '.jsx', '.kt',
@@ -302,9 +306,50 @@ function verifyAdvancedHostedArabicFoundation() {
   }
 }
 
-function buildMigrationStages(targets) {
-  const nativeTargetAvailable = targets.some((target) => (
-    ['elf', 'native', 'uefi', 'wasm'].includes(target)
+function verifyNativeObject() {
+  if (!exists(NATIVE_OBJECT_MANIFEST_PATH)) return {verified: false, reason: 'MANIFEST_NOT_FOUND'};
+  try {
+    const manifest = JSON.parse(fs.readFileSync(resolve(NATIVE_OBJECT_MANIFEST_PATH), 'utf8'));
+    const objectPath = path.join(path.dirname(NATIVE_OBJECT_MANIFEST_PATH), manifest.artifacts?.object?.path || '');
+    if (!manifest.artifacts?.object?.path || !exists(objectPath)) {
+      return {verified: false, reason: 'OBJECT_NOT_FOUND', manifest};
+    }
+    const actualSha256 = crypto.createHash('sha256').update(fs.readFileSync(resolve(objectPath))).digest('hex');
+    const verified = manifest.status === 'NATIVE_RELOCATABLE_OBJECT_BUILT' &&
+      manifest.nativeBackend === 'freestanding-c11' &&
+      actualSha256 === manifest.artifacts.object.sha256;
+    const kernelBuild = exists(BARE_METAL_BUILD_REPORT_PATH)
+      ? JSON.parse(fs.readFileSync(resolve(BARE_METAL_BUILD_REPORT_PATH), 'utf8'))
+      : null;
+    const linkedIntoKernelImage = verified &&
+      kernelBuild?.languageNativeObject?.status === 'LINKED_INTO_KERNEL_IMAGE' &&
+      kernelBuild.languageNativeObject.objectSha256 === actualSha256 &&
+      kernelBuild.artifactCreated === true;
+    const qemuRun = exists(BARE_METAL_QEMU_REPORT_PATH)
+      ? JSON.parse(fs.readFileSync(resolve(BARE_METAL_QEMU_REPORT_PATH), 'utf8'))
+      : null;
+    const runtimeCallVerified = linkedIntoKernelImage &&
+      qemuRun?.executed === true &&
+      qemuRun.languageNativeObjectCalled === true &&
+      qemuRun.image === kernelBuild?.image?.path &&
+      qemuRun.imageSha256 === kernelBuild?.image?.sha256;
+    return {
+      verified,
+      reason: verified ? null : 'OBJECT_DIGEST_OR_STATUS_MISMATCH',
+      manifest,
+      actualSha256,
+      linkedIntoKernelImage,
+      runtimeCallVerified,
+      kernelArtifactSha256: kernelBuild?.artifact?.sha256 || null
+    };
+  } catch (error) {
+    return {verified: false, reason: 'MANIFEST_INVALID', error: error.message};
+  }
+}
+
+function buildMigrationStages(targets, nativeObjectVerified = false) {
+  const nativeTargetAvailable = nativeObjectVerified || targets.some((target) => (
+    ['elf', 'native', 'uefi', 'wasm', 'freestanding-c11'].includes(target)
   ));
   return [
     { id: 'SLA-01', stage: 'canonical_sheikha_architecture_source', status: 'VERIFIED' },
@@ -330,7 +375,9 @@ function buildMigrationStages(targets) {
     {
       id: 'SLA-06',
       stage: 'native_machine_code_or_uefi_backend',
-      status: nativeTargetAvailable ? 'AVAILABLE_REQUIRES_QUALIFICATION' : 'NOT_IMPLEMENTED'
+      status: nativeObjectVerified
+        ? 'PARTIAL_VERIFIED_RELOCATABLE_OBJECT'
+        : (nativeTargetAvailable ? 'AVAILABLE_REQUIRES_QUALIFICATION' : 'NOT_IMPLEMENTED')
     },
     { id: 'SLA-07', stage: 'native_standard_library_and_hal', status: 'NOT_IMPLEMENTED' },
     { id: 'SLA-08', stage: 'kernel_and_driver_port_to_sheikha', status: 'NOT_IMPLEMENTED' },
@@ -354,7 +401,8 @@ function buildReport() {
   );
   const advancedHostedArabicFoundation = verifyAdvancedHostedArabicFoundation();
   const targets = listTargets();
-  const migrationStages = buildMigrationStages(targets);
+  const nativeObject = verifyNativeObject();
+  const migrationStages = buildMigrationStages(targets, nativeObject.verified);
   const islamicAiKernel = buildIslamicAIKernel();
   const entityNames = ast.body
     .filter((node) => node.type === 'EntityDeclaration')
@@ -444,9 +492,21 @@ function buildReport() {
       bootstrapRuntime: 'Node.js',
       supportedTargets: targets,
       selfHosted: false,
-      nativeTargetAvailable: targets.some((target) => (
-        ['elf', 'native', 'uefi', 'wasm'].includes(target)
-      )),
+      nativeTargetAvailable: nativeObject.verified,
+      nativeTargetScope: nativeObject.verified
+        ? 'FREESTANDING_RELOCATABLE_METADATA_OBJECT_V1'
+        : null,
+      nativeObjectEvidence: {
+        manifest: NATIVE_OBJECT_MANIFEST_PATH,
+        verified: nativeObject.verified,
+        reason: nativeObject.reason,
+        objectSha256: nativeObject.actualSha256 || null,
+        source: nativeObject.manifest?.source || null,
+        kernelLogic: nativeObject.manifest?.kernelLogic || null,
+        linkedIntoKernelImage: nativeObject.linkedIntoKernelImage === true,
+        kernelArtifactSha256: nativeObject.kernelArtifactSha256 || null,
+        runtimeCallVerified: nativeObject.runtimeCallVerified === true
+      },
       typeCheckPassed: typeCheck.ok,
       irSteps: ir.steps.length,
       bytecodeInstructions: bytecode.instructions.length,
@@ -472,6 +532,14 @@ function buildReport() {
       automatedFatwaAllowed: false,
       currentPortalRuntime: 'NODE_JS_EXPRESS_PM2',
       compilerRequiresNodeToday: true,
+      nativeRelocatableObjectVerifiedToday: nativeObject.verified,
+      nativeObjectLinkedIntoKernelImageToday: nativeObject.linkedIntoKernelImage === true,
+      sheikhaGeneratedKernelLogicVerifiedToday:
+        nativeObject.manifest?.kernelLogic?.uefiHandoffGuardGeneratedFromSheikha === true &&
+        nativeObject.manifest?.kernelLogic?.controlledHaltModeGeneratedFromSheikha === true &&
+        nativeObject.runtimeCallVerified === true,
+      nativeObjectIsBootableKernel: false,
+      nativeObjectIsFirmwareImage: false,
       bareMetalSeedImplementation: 'C_UEFI_X86_64',
       linuxRequiredForPortalRuntimeToday: true,
       completeArchitectureProgrammedInSheikhaToday: false,

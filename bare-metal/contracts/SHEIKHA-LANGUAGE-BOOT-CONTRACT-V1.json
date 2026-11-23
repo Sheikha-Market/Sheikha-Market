@@ -5,7 +5,15 @@
   "runtimeInterpreterRequired": false,
   "compiledContractIdentityEmbedded": true,
   "currentNativeSeedBackend": "freestanding-c11",
+  "nativeObjectBackend": "freestanding-c11",
+  "nativeRelocatableObjectVerified": true,
+  "nativeObjectLinkedIntoKernelImage": true,
+  "nativeObjectAbi": "SHEIKHA_LANGUAGE_NATIVE_ABI_V1",
+  "nativeObjectCallSiteAfterExitBootServices": true,
+  "nativeObjectRuntimeVerificationPolicy": "REQUIRE_QEMU_OR_PHYSICAL_SERIAL_EVIDENCE_BOUND_TO_EXACT_IMAGE_SHA256",
+  "nativeKernelComplete": false,
+  "selfHostedCompiler": false,
   "currentBoundary": "The V1 seed embeds and enforces the Sheikha boot contract identity; it does not claim that the complete Sheikha language compiler is self-hosted on bare metal.",
-  "futureTarget": "Generate verified native kernel objects directly from the Sheikha language toolchain.",
+  "futureTarget": "Link verified Sheikha-generated native objects through a defined ABI and HAL into a tested kernel image.",
   "hostRuntimeDependencies": []
 }

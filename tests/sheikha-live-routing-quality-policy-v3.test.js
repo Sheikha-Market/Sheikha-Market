@@ -77,7 +77,7 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     );
   });
 
-  test('uses the locally verified Arabic quality model for the extension', () => {
+  test('uses the configured Arabic deep model for general requests', () => {
     const base = runtime.resolveLiveProfile(
       'تحليل عميق',
       'general'
@@ -86,7 +86,7 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     const deep =
       router.__test.createDeepStreamingProfile(base);
 
-    expect(deep.model).toBe('qwen2.5-coder:7b');
+    expect(deep.model).toBe(base.deepArabicModel);
   });
 
   test('declares the first-token target as progress, not SLA', () => {
@@ -109,7 +109,7 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     ).toBe('NOT_CERTIFIED_CPU_VARIABLE');
   });
 
-  test('uses a contextual first token and keeps canned completion unreachable', () => {
+  test('streams a model answer after the initial Arabic token', () => {
     const defaultInline = routeSource.indexOf(
       'if (fastArabicDefault && !deepStreamRequested)'
     );
@@ -121,13 +121,13 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     expect(defaultInline).toBeGreaterThan(-1);
     expect(deepInline).toBeGreaterThan(defaultInline);
 
-    const afterDeepGate = routeSource.slice(deepInline);
+    const defaultBlock = routeSource.slice(defaultInline, deepInline);
 
-    expect(afterDeepGate).not.toContain(
-      'writeFastArabicCompletion(res, message)'
-    );
-    expect(afterDeepGate).toContain(
+    expect(defaultBlock).toContain(
       'writeFastArabicOpening(res, message)'
+    );
+    expect(defaultBlock).toContain(
+      'streamOllama({'
     );
 
     expect(runtimeSource).toContain(

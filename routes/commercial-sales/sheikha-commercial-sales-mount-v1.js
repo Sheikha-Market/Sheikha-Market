@@ -132,7 +132,7 @@ function mountCommercialSales(app, options = {}) {
       type: 'application/json'
     }),
     rejectFinancialSecrets,
-    buildRouter({ dataDir })
+    buildRouter({ dataDir, previewOnly: options.previewOnly === true })
   );
 
   app.use(

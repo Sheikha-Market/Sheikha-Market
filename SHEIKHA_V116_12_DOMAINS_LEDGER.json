@@ -1,0 +1,224 @@
+{
+  "schema": "SHEIKHA_V116_12_DOMAINS_36_BRANCHES_UNIVERSAL_HUB",
+  "timestamp": "2026-10-28T07:30:58.771326+00:00",
+  "owner": "سلمان أحمد بن سلمان الراجح (س.ت: 2051263653 | موحد: 7049031003)",
+  "seal": "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED",
+  "domains_count": 12,
+  "branches_count": 36,
+  "domain_bots_count": 12,
+  "average_domain_weight": 90.5,
+  "commercial_and_charitable_model": {
+    "commercial_halal_streams": [
+      "0.5% أجور شفافية",
+      "ترخيص أوزان الفوندري SHK-W",
+      "اشتراكات SHEIKHAaaS السحابية",
+      "أدوات التوأم الرقمي والفرز البصري"
+    ],
+    "charitable_waqf_streams": [
+      "2.5% زكاة شرعية مطهرة للمال",
+      "10% وقف ذري وخيري مستدام",
+      "وقف معرفي لتعليم الغير (SHK-Edu)",
+      "وقف لوجستي وإعمار الأرض"
+    ],
+    "sharia_guardrails": [
+      "لا ربا ولا غرر",
+      "سلع وخدمات حقيقية مملوكة",
+      "ZERO_DATA_LEAKAGE",
+      "PRODUCTION_HOLD ACTIVE حتى التوقيع اليدوي للمالك"
+    ]
+  },
+  "domains": [
+    {
+      "id": "DOM-01",
+      "domain": "sheikha.sa",
+      "title": "سوق شيخة السيادي — أساس التجارة",
+      "port": 18082,
+      "type": "تجاري ربحي + وقفي",
+      "weight": 95,
+      "sha": "ec252dd646167807",
+      "bot": "BOT-DOM-SA",
+      "branches": [
+        "market.sheikha.sa (سوق المعادن والسلع)",
+        "metals.sheikha.sa (بورصة الفرز القياسي)",
+        "verify.sheikha.sa (التحقق من السجل 2051263653)"
+      ],
+      "financial_model": "ربحي حلال (0.5% أجور شفافية) + خيري (2.5% زكاة + 10% وقف)"
+    },
+    {
+      "id": "DOM-02",
+      "domain": "sheikha.cloud",
+      "title": "سحابة شيخة السيادية (SHEIKHAaaS)",
+      "port": 18140,
+      "type": "تجاري سحابي",
+      "weight": 94,
+      "sha": "4d7ba5e3fe4f6d75",
+      "bot": "BOT-DOM-CLOUD",
+      "branches": [
+        "os.sheikha.cloud (سطح المكتب 18140)",
+        "saas.sheikha.cloud (المنصات المرخصة)",
+        "containers.sheikha.cloud (عزل Podman OCI)"
+      ],
+      "financial_model": "ترخيص أوزان سحابية للشركات مع عزل البيانات ZERO_DATA_LEAKAGE"
+    },
+    {
+      "id": "DOM-03",
+      "domain": "sheikha.ai",
+      "title": "محرك شيخة Argon للذكاء والوكلاء",
+      "port": 18156,
+      "type": "تقني بحثي وتعليمي",
+      "weight": 93,
+      "sha": "db793472a2015845",
+      "bot": "BOT-DOM-AI",
+      "branches": [
+        "argon.sheikha.ai (محرك 4 Argon + 3.8 + 3.6)",
+        "agents.sheikha.ai (الـ 17 وكيلاً متخصصاً)",
+        "bots.sheikha.ai (التنفيذ الآلي الفوري)"
+      ],
+      "financial_model": "ترخيص نماذج ووكلاء ذكية محكومة بالكتاب والسنة"
+    },
+    {
+      "id": "DOM-04",
+      "domain": "sheikha.logistics",
+      "title": "الشبكة اللوجستية العالمية والموانئ",
+      "port": 18155,
+      "type": "تجاري وخيري",
+      "weight": 86,
+      "sha": "9715cfab278e552e",
+      "bot": "BOT-DOM-LOG",
+      "branches": [
+        "ports.sheikha.logistics (ربط ساحات الموانئ)",
+        "bol.sheikha.logistics (بوليصات الشحن المحكومة)",
+        "green-fleet.sheikha.logistics (التتبع البيئي GoGreen)"
+      ],
+      "financial_model": "عائد خدمات لوجستية + وقف لوجستي خيري بلا غرر ولا ربا تأخير"
+    },
+    {
+      "id": "DOM-05",
+      "domain": "sheikha.education",
+      "title": "جامعة ومختبر شيخة للتعلموتعليم الغير",
+      "port": 18094,
+      "type": "تعليمي وقفي وبحثي",
+      "weight": 88,
+      "sha": "e9bbaf94aec52aea",
+      "bot": "BOT-DOM-EDU",
+      "branches": [
+        "riscv.sheikha.education (معمارية المعالجات)",
+        "ros2.sheikha.education (الأنظمة الروبوتية)",
+        "academy.sheikha.education (شهادات SHK-Edu لتعليم الغير)"
+      ],
+      "financial_model": "وقف معرفي لتعليم الباحثين والطلاب + أبحاث صناعية تطبيقية"
+    },
+    {
+      "id": "DOM-06",
+      "domain": "sheikha.gov",
+      "title": "بوابة الامتثال والحوكمة التنظيمية",
+      "port": 18125,
+      "type": "حكومي تنظيمي",
+      "weight": 94,
+      "sha": "85a4f9e37f244d9f",
+      "bot": "BOT-DOM-GOV",
+      "branches": [
+        "pdpl.sheikha.gov (حماية البيانات الشخصية SDAIA)",
+        "ccc.sheikha.gov (ضوابط السحابة CST)",
+        "monshaat.sheikha.gov (تأهيل المنشآت الوطنية)"
+      ],
+      "financial_model": "مسودات امتثال داخلية موثقة — ليست شراكة رسمية إلا بتوقيع المالك"
+    },
+    {
+      "id": "DOM-07",
+      "domain": "sheikha.industry",
+      "title": "استوديو الصناعة الرقمية والتوأم الرقمي",
+      "port": 18110,
+      "type": "ربحي صناعي",
+      "weight": 90,
+      "sha": "211fb9150b93b405",
+      "bot": "BOT-DOM-IND",
+      "branches": [
+        "twin.sheikha.industry (محاكاة Omniverse/CUDA)",
+        "vision.sheikha.industry (الفرز البصري للمعادن)",
+        "ariba.sheikha.industry (قوالب SAP JSON/CSV)"
+      ],
+      "financial_model": "منتج برمجي صناعي (Product-Based AI) بدون تحكم في آلات حقيقية"
+    },
+    {
+      "id": "DOM-08",
+      "domain": "sheikha.commerce",
+      "title": "منصة تطبيقات التجارة الحلال",
+      "port": 18151,
+      "type": "ربحي تجاري",
+      "weight": 85,
+      "sha": "0a0ad77716de8004",
+      "bot": "BOT-DOM-COM",
+      "branches": [
+        "merchants.sheikha.commerce (تطبيقات Shopify/Meta)",
+        "halal-filter.sheikha.commerce (منع الغرر والربا)",
+        "zakat-calc.sheikha.commerce (حاسبة الزكاة الآلية)"
+      ],
+      "financial_model": "عمولة شفافية 0.5% على السلع الحقيقية المملوكة فقط"
+    },
+    {
+      "id": "DOM-09",
+      "domain": "sheikha.supply",
+      "title": "بوابة سلاسل الإمداد وتأهيل الموردين",
+      "port": 18093,
+      "type": "ربحي إمداد",
+      "weight": 92,
+      "sha": "77cbaca046c05ff2",
+      "bot": "BOT-DOM-SUP",
+      "branches": [
+        "aramco-rfq.sheikha.supply (تأهيل موردي أرامكو)",
+        "sabic-ind.sheikha.supply (المورد الصناعي سابك)",
+        "isic4.sheikha.supply (تصنيف المعادن القياسي)"
+      ],
+      "financial_model": "تأهيل وفهرسة موردين (مع إقرار عدم ضمان أمر شراء آلي)"
+    },
+    {
+      "id": "DOM-10",
+      "domain": "sheikha.charity",
+      "title": "مؤسسة شيخة الوقفية والخيرية",
+      "port": 18126,
+      "type": "خيري وقفي خالص",
+      "weight": 90,
+      "sha": "4ee00685cb2541da",
+      "bot": "BOT-DOM-WAQF",
+      "branches": [
+        "waqf.sheikha.charity (صندوق الوقف 10%)",
+        "zakat.sheikha.charity (مصارف الزكاة الشرعية 2.5%)",
+        "circular.sheikha.charity (إعمار الأرض والاقتصاد الدائري)"
+      ],
+      "financial_model": "نموذج خيري وقفي مستدام ابتغاء مرضاة الله ونفع البشر"
+    },
+    {
+      "id": "DOM-11",
+      "domain": "sheikha.dev",
+      "title": "مصنع شيخة للمطورين وتراخيص الفوندري",
+      "port": 18157,
+      "type": "ربحي تقني",
+      "weight": 84,
+      "sha": "bc77bf12bf5cae6b",
+      "bot": "BOT-DOM-DEV",
+      "branches": [
+        "foundry.sheikha.dev (تراخيص SHK-W-2026)",
+        "sdk.sheikha.dev (حزم التكامل المحكومة)",
+        "verify-sha.sheikha.dev (فحص البصمات التشفيرية)"
+      ],
+      "financial_model": "ترخيص أوزان الفوندري (Built by Sheikha Foundry CR 2051263653)"
+    },
+    {
+      "id": "DOM-12",
+      "domain": "sheikha.world",
+      "title": "منصة شركاء الكون والبشر العالمية",
+      "port": 18120,
+      "type": "عالمي تجاري وخيري وتعليمي",
+      "weight": 95,
+      "sha": "86986f94742ba6a4",
+      "bot": "BOT-DOM-WORLD",
+      "branches": [
+        "alliances.sheikha.world (التحالفات الدولية)",
+        "assimilation.sheikha.world (استيعاب المهارات اللحظي)",
+        "humanity.sheikha.world (نفع البشرية والتعلم المتبادل)"
+      ],
+      "financial_model": "تكامل عالمي يجمع النموذج الربحي العادل والوقف الخيري والتعليم"
+    }
+  ]
+}

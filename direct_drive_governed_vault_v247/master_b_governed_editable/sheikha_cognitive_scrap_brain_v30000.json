@@ -1,0 +1,133 @@
+{
+  "system_id": "SHEIKHA-COGNITIVE-SCRAP-BRAIN-V30000",
+  "ip_owner": "منظومة وسوق شيخة (SHEIKHA®) — مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سجل: 2051263653)",
+  "official_domain": "https://sheikha.top",
+  "settlement_iban": "SA4005000068206162118000",
+  "execution_modes": [
+    "ZERO_CLICK_AUTO_SENSOR (تنفيذ ذاتي بلا ضغطة زر عبر حساسات الوزن والجدولة)",
+    "ONE_CLICK_HOME_END_TO_END (تنفيذ كامل من المنزل بضغطة زر واحدة حتى المصهر)"
+  ],
+  "yards_and_hubs": [
+    {
+      "yard_id": "YRD-KHOBAR-01",
+      "name": "ساحة شيخة المركزية الذكية — الخبر / الدمام",
+      "type": "ساحة فرز وكبس وتخزين رئيسية",
+      "auto_scale_live_tons": 412.5,
+      "max_storage_capacity_tons": 2500,
+      "available_storage_for_rent_tons": 2087.5,
+      "daily_yield_tons": 65,
+      "weekly_yield_tons": 455,
+      "monthly_yield_tons": 1950,
+      "annual_yield_tons": 23725,
+      "available_sorting_workers": 28,
+      "machines": [
+        {
+          "id": "MCH-BALER-01",
+          "name": "مكبس علب ألمنيوم وصاج هيدروليكي (320 Bar)",
+          "rate": "14 طن/ساعة",
+          "status": "ACTIVE"
+        },
+        {
+          "id": "MCH-SHEAR-02",
+          "name": "مقص جسور وحديد ثقيل أوتوماتيكي (800 Ton)",
+          "rate": "22 طن/ساعة",
+          "status": "ACTIVE"
+        },
+        {
+          "id": "MCH-SHRED-03",
+          "name": "فرامة وجاروشة معادن وكابلات (2000 HP)",
+          "rate": "18 طن/ساعة",
+          "status": "ACTIVE"
+        },
+        {
+          "id": "MCH-XRF-04",
+          "name": "بوابة الميزان الآلي وماسح النقاوة الطيفي XRF",
+          "rate": "قراءة لحظية 0.2s",
+          "status": "ONLINE"
+        }
+      ]
+    },
+    {
+      "yard_id": "HUB-PORT-DAMMAM-02",
+      "name": "محطة رصيف الميناء والمناقصات الحكومية — ميناء الملك عبدالعزيز بالدمام",
+      "type": "بوابة استيراد ومزادات حكومية وميناء",
+      "auto_scale_live_tons": 850.0,
+      "max_storage_capacity_tons": 5000,
+      "available_storage_for_rent_tons": 4150.0,
+      "daily_yield_tons": 120,
+      "weekly_yield_tons": 840,
+      "monthly_yield_tons": 3600,
+      "annual_yield_tons": 43800,
+      "available_sorting_workers": 45,
+      "machines": [
+        {
+          "id": "MCH-CRANE-01",
+          "name": "رافعة حاويات ومغناطيس رصيف الميناء",
+          "rate": "45 طن/ساعة",
+          "status": "ACTIVE"
+        },
+        {
+          "id": "MCH-SCALE-PORT",
+          "name": "ميزان محوري آلي للشاحنات والحاويات (100 Ton)",
+          "rate": "آلي بدون توقف",
+          "status": "ONLINE"
+        }
+      ]
+    },
+    {
+      "yard_id": "COL-RIYADH-03",
+      "name": "مركز التجميع وإمداد خطوط إنتاج الألمنيوم — الرياض الصناعية",
+      "type": "موقع تجميع وتوريد مجدول لخطوط الإنتاج",
+      "auto_scale_live_tons": 215.0,
+      "max_storage_capacity_tons": 1500,
+      "available_storage_for_rent_tons": 1285.0,
+      "daily_yield_tons": 38,
+      "weekly_yield_tons": 266,
+      "monthly_yield_tons": 1140,
+      "annual_yield_tons": 13870,
+      "available_sorting_workers": 19,
+      "machines": [
+        {
+          "id": "MCH-UBC-LINE",
+          "name": "خط فرز وكبس علب الألمنيوم (UBC Auto-Line)",
+          "rate": "9 طن/ساعة",
+          "status": "ACTIVE"
+        }
+      ]
+    }
+  ],
+  "smart_scrap_brains": [
+    {
+      "brain_id": "BRAIN-ALU-UBC-901",
+      "project_title": "عقد توريد مجدول لخط إنتاج علب وسبائك الألمنيوم (بلا ضغطة زر — حساس وزن آلي)",
+      "client_name": "مصنع الخليج لدرفلة وسبائك الألمنيوم",
+      "trigger_mode": "ZERO_CLICK_SENSOR (تفعيل ذاتي عند امتلاء الحاوية 15 طن)",
+      "material_dna": "علب ألمنيوم مفروزة ومكبوسة (UBC Purity 99.3%)",
+      "origin_node": "مواقع التجميع الآلي + ساحة الخبر المركزية",
+      "current_stage": "المرحلة 4/5: كبس هيدروليكي وتخزين مجدول للشحن إلى خط إنتاج المصنع",
+      "active_machine": "مكبس ألمنيوم هيدروليكي MCH-BALER-01 + ميزان آلي ذري",
+      "rented_storage_tons": 120,
+      "rented_workers_count": 8,
+      "net_tons": 45.0,
+      "smelter_destination": "فرن الصهر وخط الإنتاج رقم #2 لدى المصنع (تسليم مجدول كل ثلاثاء 08:00 ص)",
+      "total_contract_sar": 402750.0,
+      "status": "AUTONOMOUS_RUNNING_TO_SMELTER"
+    },
+    {
+      "brain_id": "BRAIN-PORT-GOV-902",
+      "project_title": "شحنة سكراب الميناء والمزاد الحكومي المجدولة (تخليص + فرز + تقطيع + مصهر)",
+      "client_name": "شركة اتحاد المصاهر الوطنية — الجبيل",
+      "trigger_mode": "SCHEDULED_PORT_ARRIVAL (ربط آلي بموعد وصول الباخرة والفسح)",
+      "material_dna": "حديد ثقيل HMS 1&2 + كابلات نحاس بحرية وصناعية",
+      "origin_node": "ميناء الملك عبدالعزيز بالدمام (رصيف الشحنات الثقيلة)",
+      "current_stage": "المرحلة 3/5: الفرز الطيفي XRF والقص الهيدروليكي بالمقاس (800T Shear)",
+      "active_machine": "مقص هيدروليكي MCH-SHEAR-02 + رافعة مغناطيسية",
+      "rented_storage_tons": 300,
+      "rented_workers_count": 14,
+      "net_tons": 160.0,
+      "smelter_destination": "مصهر الحديد والنحاس — الجبيل الصناعية",
+      "total_contract_sar": 279680.0,
+      "status": "AUTONOMOUS_RUNNING_TO_SMELTER"
+    }
+  ]
+}

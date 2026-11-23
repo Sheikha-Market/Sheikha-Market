@@ -1,0 +1,78 @@
+{
+  "category": "Governance & Licensing - Monshaat/CST/SDAIA",
+  "base_weight": 65,
+  "custom_weights": {
+    "base": 40,
+    "criticality": 10,
+    "sharia": 15,
+    "tech": 10,
+    "total": 65,
+    "customized_total": 80
+  },
+  "agents": {
+    "id": "AGENT-SHK-W-2026-0008",
+    "name": "Governance & Licensing - Monshaat/CST/SDAIA Agent",
+    "prompt": "أنت وكيل Governance & Licensing - Monshaat/CST/SDAIA — تتحقق من دعم وتأهيل - ليست شراكة رسمية - مسودة داخلية — BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر",
+    "tools": [
+      "check_draft_sha",
+      "verify_weight",
+      "generate_kpi",
+      "zero_data_leakage"
+    ],
+    "memory": "governance/drafts/01_MONSHAAT_DRAFT.md"
+  },
+  "bots": {
+    "id": "BOT-SHK-W-2026-0008",
+    "port": "0008",
+    "status": "UP",
+    "function": "بوت تشغيلي لـ Governance & Licensing - Monshaat/CST/SDAIA — يفحص ويحرر ويوثق آلياً"
+  },
+  "checks": [
+    {
+      "check_id": 1,
+      "requirement": "ZATCA Phase 2 e-invoicing",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 65,
+      "eff_after": 67
+    },
+    {
+      "check_id": 2,
+      "requirement": "GOSI + نطاقات + ضريبة مضافة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 67,
+      "eff_after": 70
+    },
+    {
+      "check_id": 3,
+      "requirement": "الامتثال لضوابط الحوسبة السحابية السيادية (CST CCC)",
+      "learned": true,
+      "weight_delta": 8,
+      "eff_before": 70,
+      "eff_after": 78
+    },
+    {
+      "check_id": 4,
+      "requirement": "تطبيق نظام حماية البيانات الشخصية (SDAIA PDPL)",
+      "learned": true,
+      "weight_delta": 8,
+      "eff_before": 78,
+      "eff_after": 86
+    },
+    {
+      "check_id": 5,
+      "requirement": "اعتماد المسودات كوثائق داخلية تتطلب التوقيع اليدوي للمالك السيادي",
+      "learned": true,
+      "weight_delta": 8,
+      "eff_before": 86,
+      "eff_after": 94
+    }
+  ],
+  "current_efficiency": 94,
+  "target_efficiency": 90,
+  "efficiency_gap": 0,
+  "next_check": "مكتمل الجاهزية المحلية — بانتظار التوقيع اليدوي الشرعي للمالك السيادي",
+  "documentation": "governance/drafts/checks/SHK-W-2026-0008.json",
+  "sha_fingerprint": "c638a16567e686ee"
+}

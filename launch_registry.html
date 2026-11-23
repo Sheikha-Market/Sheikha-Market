@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>بوابة العبور لمنصة الذكاءات V71</title>
+  <style>
+    body { background: #061F1A; color: #D9E8E0; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .box { background: #0A2A22; border: 1px solid #F0C477; border-radius: 12px; padding: 24px; text-align: center; max-width: 480px; }
+    .btn { background: #F0C477; color: #000; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3 style="color:#F0C477; margin-top:0;">🕌 بوابة العبور لمنصة الذكاءات V71</h3>
+    <p style="font-size:12px; color:#8DBFA3;">بيانات الاعتماد المصادق عليها برمجياً:</p>
+    <div style="background:#041410; padding:10px; border-radius:6px; font-size:12px; text-align:right;">
+      <div>المستخدم: <b style="color:#34D399;">admin</b></div>
+      <div style="margin-top:6px;">كود الدخول: <b style="color:#F0C477;">ZJeWnCKAijKYUKuXZSJFDGj4U_bQHQ2p0phRNQ</b></div>
+    </div>
+    <p style="font-size:11px; color:#aaa; margin-top:12px;">إذا ظهرت نافذة المتصفح المنبثقة، استخدم البيانات أعلاه لتسجيل الدخول.</p>
+    <button class="btn" onclick="openRegistry()">الدخول للمنصة الآن</button>
+  </div>
+  <script>
+    function openRegistry() {
+      fetch("http://127.0.0.1:18131/", {
+        headers: { "Authorization": "Basic YWRtaW46WkplV25DS0FpaktZVUt1WFpTSkZER2o0VV9iUUhRMnAwcGhSTlE=" }
+      }).then(() => {
+        window.location.href = "http://127.0.0.1:18131/";
+      }).catch(() => {
+        window.location.href = "http://127.0.0.1:18131/";
+      });
+    }
+  </script>
+</body>
+</html>

@@ -28,6 +28,46 @@
   },
   "offers": [
     {
+      "id": "SHEIKHA_CHAT_PRO_PILOT_V1",
+      "nameAr": "اشتراك شات شيخة المهني التجريبي",
+      "status": "OFFERABLE_AFTER_SCOPE_APPROVAL",
+      "customerType": ["PROFESSIONAL", "SME"],
+      "deliveryMode": "CONTROLLED_CHAT_SUBSCRIPTION_PILOT",
+      "deliveryDays": 30,
+      "pricing": {
+        "type": "FIXED",
+        "amountSar": 299
+      },
+      "paymentTerms": "100_PERCENT_BEFORE_DELIVERY_NO_AUTOMATIC_RENEWAL",
+      "deliverables": [
+        "وصول مستخدم واحد لمدة 30 يومًا",
+        "محادثة عربية محكومة ضمن حدود الخدمة",
+        "تقارير وتحرير وتحليل باستخدام الأدوات المتاحة",
+        "دعم عبر البريد خلال يومي عمل",
+        "تقرير ملاحظات وتحسين في نهاية التجربة"
+      ]
+    },
+    {
+      "id": "SHEIKHA_CHAT_BUSINESS_PILOT_V1",
+      "nameAr": "اشتراك شات شيخة للأعمال التجريبي",
+      "status": "OFFERABLE_AFTER_SCOPE_APPROVAL",
+      "customerType": ["SME", "ENTERPRISE"],
+      "deliveryMode": "CONTROLLED_BUSINESS_CHAT_SUBSCRIPTION_PILOT",
+      "deliveryDays": 30,
+      "pricing": {
+        "type": "FIXED",
+        "amountSar": 1500
+      },
+      "paymentTerms": "100_PERCENT_BEFORE_DELIVERY_NO_AUTOMATIC_RENEWAL",
+      "deliverables": [
+        "وصول حتى خمسة مستخدمين لمدة 30 يومًا",
+        "جلسة تهيئة نطاق الاستخدام",
+        "محادثة وتقارير عربية محكومة",
+        "قياس الاستخدام والجودة دون تدريب على بيانات العميل افتراضيًا",
+        "مراجعة نتائج وخطة توسع"
+      ]
+    },
+    {
       "id": "SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1",
       "nameAr": "تشخيص سلسلة الإمداد التنفيذي",
       "status": "OFFERABLE_NOW",
@@ -107,6 +147,66 @@
         "سجل إجراءات قابل للتدقيق",
         "إثبات إغلاق الصفقة"
       ]
+    },
+    {
+      "id": "SHEIKHA_360_MEASURED_TWIN_PILOT_V1",
+      "nameAr": "تجربة شيخة 360 للتوأم المقاس",
+      "status": "OFFERABLE_AFTER_SCOPE_APPROVAL",
+      "customerType": ["INDUSTRIAL", "AGRICULTURE", "REAL_ESTATE", "LOGISTICS"],
+      "deliveryMode": "CONTROLLED_MEASURED_DIGITAL_TWIN_PILOT",
+      "deliveryDays": 14,
+      "pricing": { "type": "FIXED", "amountSar": 15000 },
+      "paymentTerms": "50_PERCENT_ON_SIGNATURE_50_PERCENT_ON_ACCEPTANCE",
+      "licenseId": "SHEIKHA-360-MEASURED-MODEL-PILOT-1.0",
+      "deliverables": ["عقد نطاق وقياس", "سجل مصادر ووحدات وعدم يقين", "نموذج رقمي واحد", "درجة مطابقة واقعية", "تقرير فجوات وخطة تحسين"]
+    },
+    {
+      "id": "SHEIKHA_VISUAL_PROVENANCE_PACK_V1",
+      "nameAr": "حزمة شيخة لتوثيق الأصل المرئي",
+      "status": "OFFERABLE_NOW",
+      "customerType": ["SME", "ENTERPRISE", "CREATOR"],
+      "deliveryMode": "CONTROLLED_VISUAL_SERVICE",
+      "deliveryDays": 3,
+      "pricing": { "type": "FIXED", "amountSar": 1800 },
+      "paymentTerms": "100_PERCENT_BEFORE_DELIVERY",
+      "licenseId": "SHEIKHA-VISUAL-GOVERNED-USE-1.0",
+      "deliverables": ["فهرس الأصول", "بصمات SHA-256", "سجل المصدر والترخيص", "بطاقة استخدام ونشر", "مراجعة تسليم"]
+    },
+    {
+      "id": "SHEIKHA_PRODUCT_VISUAL_PACK_V1",
+      "nameAr": "حزمة شيخة لرسومات وصور المنتج",
+      "status": "OFFERABLE_NOW",
+      "customerType": ["SME", "INDUSTRIAL", "ECOMMERCE"],
+      "deliveryMode": "CONTROLLED_VISUAL_SERVICE",
+      "deliveryDays": 5,
+      "pricing": { "type": "FIXED", "amountSar": 3500 },
+      "paymentTerms": "50_PERCENT_ON_ORDER_50_PERCENT_BEFORE_FINAL_DELIVERY",
+      "licenseId": "SHEIKHA-VISUAL-GOVERNED-USE-1.0",
+      "deliverables": ["مخطط فني", "خمس مواد مرئية متفق عليها", "نسخ ويب عالية الكفاءة", "سجل المصدر والترخيص", "جولة مراجعة واحدة"]
+    },
+    {
+      "id": "SHEIKHA_MOTION_STORYBOARD_PACK_V1",
+      "nameAr": "حزمة شيخة للقصة والحركة المرئية",
+      "status": "OFFERABLE_NOW",
+      "customerType": ["SME", "ENTERPRISE", "EDUCATION"],
+      "deliveryMode": "CONTROLLED_MOTION_DESIGN_SERVICE",
+      "deliveryDays": 7,
+      "pricing": { "type": "FIXED", "amountSar": 5000 },
+      "paymentTerms": "50_PERCENT_ON_ORDER_50_PERCENT_BEFORE_FINAL_DELIVERY",
+      "licenseId": "SHEIKHA-VISUAL-GOVERNED-USE-1.0",
+      "deliverables": ["سيناريو", "Storyboard", "نموذج حركة HTML5", "تعليمات إنتاج الفيديو", "سجل المصدر والترخيص"]
+    },
+    {
+      "id": "SHEIKHA_INTERACTIVE_3D_PILOT_V1",
+      "nameAr": "تجربة شيخة للمشهد الثلاثي الأبعاد",
+      "status": "OFFERABLE_AFTER_SCOPE_APPROVAL",
+      "customerType": ["ENTERPRISE", "INDUSTRIAL", "REAL_ESTATE"],
+      "deliveryMode": "CONTROLLED_INTERACTIVE_3D_PILOT",
+      "deliveryDays": 14,
+      "pricing": { "type": "FIXED", "amountSar": 12000 },
+      "paymentTerms": "50_PERCENT_ON_SIGNATURE_50_PERCENT_ON_ACCEPTANCE",
+      "licenseId": "SHEIKHA-VISUAL-GOVERNED-USE-1.0",
+      "deliverables": ["مشهد WebGL واحد", "تفاعل متفق عليه", "اختبار سطح مكتب وهاتف", "قياس أداء", "سجل الأصول والتراخيص"]
     }
   ]
 }

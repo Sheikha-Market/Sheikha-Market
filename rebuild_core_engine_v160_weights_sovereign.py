@@ -1,0 +1,1 @@
+# DISABLED — V163 741 is source of truth — BOUND_BY_QURAN_SUNNAH

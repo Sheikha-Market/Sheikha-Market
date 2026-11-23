@@ -2,12 +2,16 @@
 
 const vscode = require('vscode');
 const { sendInspectorHeartbeat } = require('./sheikhaEnterpriseInspectorBridge');
-const { DEFAULT_BASE_URL } = require('./sheikhaExtensionChatClient');
+const {
+  DEFAULT_BASE_URL,
+  normalizeLocalBaseUrl
+} = require('./sheikhaExtensionChatClient');
 const { registerSheikhaCommandBridge } = require('./sheikhaCommandBridge');
 const { collectVsCodeAwareness } = require('./vscodeAwareness');
 const { collectUnifiedRegistry } = require('./sheikhaUnifiedRegistry');
 const { collectRegistryBroker } = require('./sheikhaRegistryBroker');
 const { collectGlobalRegistryFabric } = require('./sheikhaGlobalRegistryFabric');
+const { attachWorkspaceCenter } = require('./sheikhaWorkspaceCenter');
 
 async function openSheikhaChatView() {
   await vscode.commands.executeCommand('workbench.view.extension.sheikha');
@@ -20,12 +24,7 @@ function getConfiguredBaseUrl() {
   const configured = String(
     vscode.workspace.getConfiguration('sheikha').get('serverUrl', DEFAULT_BASE_URL)
   ).trim().replace(/\/+$/u, '');
-  try {
-    const url = new URL(configured);
-    return ['http:', 'https:'].includes(url.protocol) ? url.toString().replace(/\/+$/u, '') : DEFAULT_BASE_URL;
-  } catch {
-    return DEFAULT_BASE_URL;
-  }
+  return normalizeLocalBaseUrl(configured, DEFAULT_BASE_URL);
 }
 
 function registerCommandOnce(context, command, handler) {
@@ -45,6 +44,7 @@ function registerWebviewProviderSafe(context, viewId, provider, options = {}) {
 }
 
 function activate(context) {
+  const workspaceCenter = attachWorkspaceCenter(vscode, context, collectVsCodeAwareness);
   registerCommandOnce(context, 'sheikha.chat.open', openSheikhaChatView);
   registerCommandOnce(context, 'sheikha.openChat', openSheikhaChatView);
 
@@ -155,12 +155,7 @@ function activate(context) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('sheikha.awareness.scan', async () => {
-      const data = await collectVsCodeAwareness();
-      const doc = await vscode.workspace.openTextDocument({
-        content: JSON.stringify(data, null, 2),
-        language: 'json'
-      });
-      await vscode.window.showTextDocument(doc);
+      await workspaceCenter.open();
     })
   );
 
@@ -223,6 +218,7 @@ context.subscriptions.push(
     })
   );
 
+  return { workspaceCenter };
 }
 
 function deactivate() {}

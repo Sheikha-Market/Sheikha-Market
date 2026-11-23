@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "SHEIKHA_INSTITUTIONAL_GOVERNANCE_V1",
+  "datasetId": "country.template.v1",
+  "title": "Global country adapter template — no real country roster",
+  "scope": "country_template",
+  "observedAt": "2026-10-24",
+  "policy": {
+    "mode": "advisory_only",
+    "humanAuthorityOnly": true,
+    "officialRepresentation": false,
+    "individualImpersonation": false,
+    "privateEmployeeIngestion": false,
+    "realActionsRequireExplicitApproval": true,
+    "automaticExecution": false,
+    "worldRosterComplete": false
+  },
+  "sources": [],
+  "nodes": [
+    {
+      "id": "country.template",
+      "type": "country",
+      "name": {
+        "ar": "قالب دولة",
+        "en": "Country template"
+      },
+      "countryId": null,
+      "legalNature": "jurisdiction",
+      "sourceIds": [],
+      "recordStatus": "template_only"
+    }
+  ],
+  "relationships": [],
+  "appointments": [],
+  "roles": [],
+  "modelProfiles": [],
+  "assistantProfiles": [],
+  "products": [],
+  "countryAdapters": [
+    {
+      "id": "adapter.country.template",
+      "countryId": "country.template",
+      "labels": {
+        "ministry": "Ministry",
+        "agency": "Agency",
+        "department": "Department",
+        "office": "Office"
+      },
+      "reviewStatus": "human_review_required",
+      "jurisdictionNotes": "Replace with jurisdiction-specific sourced terminology. Do not infer another country’s legal hierarchy or approval authority."
+    }
+  ],
+  "officeTemplates": [],
+  "roleObservations": []
+}

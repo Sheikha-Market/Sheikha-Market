@@ -1,0 +1,78 @@
+{
+  "category": "Digital Industry - 【entity-NVIDIA¦canonical_name=NVIDIA】",
+  "base_weight": 70,
+  "custom_weights": {
+    "base": 40,
+    "criticality": 10,
+    "sharia": 15,
+    "tech": 5,
+    "total": 70,
+    "customized_total": 85
+  },
+  "agents": {
+    "id": "AGENT-SHK-W-2026-0007",
+    "name": "Digital Industry - 【entity-NVIDIA¦canonical_name=NVIDIA】 Agent",
+    "prompt": "أنت وكيل Digital Industry - 【entity-NVIDIA¦canonical_name=NVIDIA】 — تتحقق من توأم رقمي - ملاحظة: Inception يستثني مزودي السحابة — BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر",
+    "tools": [
+      "check_draft_sha",
+      "verify_weight",
+      "generate_kpi",
+      "zero_data_leakage"
+    ],
+    "memory": "governance/drafts/13_NVIDIA_DRAFT.md"
+  },
+  "bots": {
+    "id": "BOT-SHK-W-2026-0007",
+    "port": "0007",
+    "status": "UP",
+    "function": "بوت تشغيلي لـ Digital Industry - 【entity-NVIDIA¦canonical_name=NVIDIA】 — يفحص ويحرر ويوثق آلياً"
+  },
+  "checks": [
+    {
+      "check_id": 1,
+      "requirement": "ZATCA Phase 2 e-invoicing",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 70,
+      "eff_after": 72
+    },
+    {
+      "check_id": 2,
+      "requirement": "GOSI + نطاقات + ضريبة مضافة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 72,
+      "eff_after": 75
+    },
+    {
+      "check_id": 3,
+      "requirement": "توصيف المنتج كبرمجيات توأم رقمي (لتجاوز استثناء مزودي السحابة في Inception)",
+      "learned": true,
+      "weight_delta": 6,
+      "eff_before": 75,
+      "eff_after": 81
+    },
+    {
+      "check_id": 4,
+      "requirement": "محاكاة الفرز البصري للمعادن عبر CUDA / Omniverse",
+      "learned": true,
+      "weight_delta": 6,
+      "eff_before": 81,
+      "eff_after": 87
+    },
+    {
+      "check_id": 5,
+      "requirement": "الالتزام الصارم بعدم التحكم المباشر في آلات حقيقية",
+      "learned": true,
+      "weight_delta": 6,
+      "eff_before": 87,
+      "eff_after": 93
+    }
+  ],
+  "current_efficiency": 93,
+  "target_efficiency": 90,
+  "efficiency_gap": 0,
+  "next_check": "مكتمل الجاهزية المحلية — بانتظار التوقيع اليدوي الشرعي للمالك السيادي",
+  "documentation": "governance/drafts/checks/SHK-W-2026-0007.json",
+  "sha_fingerprint": "baaaf1d2cadf15bd"
+}

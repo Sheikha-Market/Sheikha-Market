@@ -1,8 +1,9 @@
 'use strict';
 
+const crypto = require('node:crypto');
 const path = require('node:path');
 
-const TARGETS = new Set(['php', 'javascript', 'python', 'json-ir', 'bytecode']);
+const TARGETS = new Set(['php', 'javascript', 'python', 'json-ir', 'bytecode', 'freestanding-c11']);
 
 function resolveTarget(target, outputPath) {
     const explicit = String(target || '').trim().toLowerCase();
@@ -46,7 +47,63 @@ function generateTarget(target, context) {
     if (target === 'bytecode') {
         return `${JSON.stringify(context.bytecode, null, 2)}\n`;
     }
+    if (target === 'freestanding-c11') {
+        return renderFreestandingC11(context);
+    }
     throw new Error(`Unsupported compile target: ${target}`);
+}
+
+function cString(value) {
+    return JSON.stringify(String(value)).replace(/\\u2028|\\u2029/g, '');
+}
+
+function renderFreestandingC11(context) {
+    const sourceSha256 = crypto.createHash('sha256')
+        .update(context.sourceProgram.source || '')
+        .digest('hex');
+    const entities = (context.ast.body || [])
+        .filter((node) => node.type === 'EntityDeclaration')
+        .map((node) => node.name);
+    const policies = (context.ast.body || [])
+        .filter((node) => node.type === 'GovernancePolicyDeclaration')
+        .map((node) => node.name);
+    const methodologies = (context.ast.body || [])
+        .filter((node) => node.type === 'ReasoningMethodologyDeclaration')
+        .map((node) => node.name);
+    const procedures = (context.ast.body || [])
+        .filter((node) => node.type === 'ProcedureDeclaration')
+        .map((node) => node.name);
+    const hasBootGuard = procedures.includes('حارس_تسليم_UEFI');
+    const hasKernelMode = procedures.includes('اختيار_وضع_النواة');
+    return `/* Generated from governed Arabic Sheikha source. */
+#include <stdint.h>
+
+#if defined(__GNUC__)
+#define SHEIKHA_USED __attribute__((used, section(".sheikha.meta")))
+#else
+#define SHEIKHA_USED
+#endif
+
+SHEIKHA_USED const char sheikha_language_contract[] = "SHEIKHA_LANGUAGE_BOOT_CONTRACT_V1";
+SHEIKHA_USED const char sheikha_source_sha256[] = "${sourceSha256}";
+SHEIKHA_USED const char sheikha_source_language[] = "sheikha-arabic";
+SHEIKHA_USED const char sheikha_values_boundary[] = "VALUES_REFERENCE_NON_EXECUTABLE";
+SHEIKHA_USED const char sheikha_fatwa_boundary[] = "AUTOMATED_FATWA_DENIED";
+SHEIKHA_USED const char sheikha_entities[] = ${cString(entities.join('|'))};
+SHEIKHA_USED const char sheikha_policies[] = ${cString(policies.join('|'))};
+SHEIKHA_USED const char sheikha_methodologies[] = ${cString(methodologies.join('|'))};
+
+uint32_t sheikha_native_contract_version(void) { return UINT32_C(1); }
+uint32_t sheikha_native_governance_ready(void) {
+    return UINT32_C(${policies.length > 0 && methodologies.length > 0 ? 1 : 0});
+}
+uint32_t sheikha_native_kernel_handoff_allowed(uint32_t boot_services_exited) {
+    return UINT32_C(${hasBootGuard ? 1 : 0}) && boot_services_exited == UINT32_C(1);
+}
+uint32_t sheikha_native_kernel_mode(void) {
+    return UINT32_C(${hasKernelMode ? 1 : 0});
+}
+`;
 }
 
 function buildPayload(context, target) {

@@ -1,0 +1,833 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sheikha.dev/schemas/institutional-governance-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "SHEIKHA_INSTITUTIONAL_GOVERNANCE_V1"
+    },
+    "datasetId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "scope": {
+      "enum": [
+        "country_sample",
+        "country_template",
+        "public_registry"
+      ]
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "const": "advisory_only"
+        },
+        "humanAuthorityOnly": {
+          "const": true
+        },
+        "officialRepresentation": {
+          "const": false
+        },
+        "individualImpersonation": {
+          "const": false
+        },
+        "privateEmployeeIngestion": {
+          "const": false
+        },
+        "realActionsRequireExplicitApproval": {
+          "const": true
+        },
+        "automaticExecution": {
+          "const": false
+        },
+        "worldRosterComplete": {
+          "const": false
+        }
+      },
+      "required": [
+        "mode",
+        "humanAuthorityOnly",
+        "officialRepresentation",
+        "individualImpersonation",
+        "privateEmployeeIngestion",
+        "realActionsRequireExplicitApproval",
+        "automaticExecution",
+        "worldRosterComplete"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/sources"
+      },
+      "maxItems": 10000
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/nodes"
+      },
+      "maxItems": 10000
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/relationships"
+      },
+      "maxItems": 10000
+    },
+    "appointments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/appointments"
+      },
+      "maxItems": 10000
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/roles"
+      },
+      "maxItems": 10000
+    },
+    "modelProfiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/modelProfiles"
+      },
+      "maxItems": 10000
+    },
+    "assistantProfiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/assistantProfiles"
+      },
+      "maxItems": 10000
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/products"
+      },
+      "maxItems": 10000
+    },
+    "countryAdapters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/countryAdapters"
+      },
+      "maxItems": 10000
+    },
+    "officeTemplates": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "#/definitions/officeTemplates"
+      }
+    },
+    "roleObservations": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "#/definitions/roleObservations"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "datasetId",
+    "title",
+    "scope",
+    "observedAt",
+    "policy",
+    "sources",
+    "nodes",
+    "relationships",
+    "appointments",
+    "roles",
+    "modelProfiles",
+    "assistantProfiles",
+    "products",
+    "countryAdapters",
+    "officeTemplates",
+    "roleObservations"
+  ],
+  "definitions": {
+    "sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://[^\\s]+$"
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "publishedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "kind": {
+          "enum": [
+            "official_public",
+            "template_reference"
+          ]
+        },
+        "rights": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "knowledgeUse": {
+              "enum": [
+                "unknown",
+                "licensed",
+                "public_domain"
+              ]
+            },
+            "trainingLicense": {
+              "enum": [
+                "unknown",
+                "documented"
+              ]
+            },
+            "licenseEvidenceUrls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https://[^\\s]+$"
+              },
+              "maxItems": 20
+            }
+          },
+          "required": [
+            "knowledgeUse",
+            "trainingLicense",
+            "licenseEvidenceUrls"
+          ]
+        },
+        "accessStatus": {
+          "enum": [
+            "fetched",
+            "index_observed"
+          ]
+        },
+        "lastUpdatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "url",
+        "publisher",
+        "observedAt",
+        "publishedAt",
+        "kind",
+        "rights",
+        "accessStatus",
+        "lastUpdatedAt"
+      ]
+    },
+    "nodes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "type": {
+          "enum": [
+            "country",
+            "ministry",
+            "agency",
+            "department",
+            "office",
+            "person",
+            "committee",
+            "international_organization"
+          ]
+        },
+        "name": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ar": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            }
+          },
+          "required": [
+            "ar",
+            "en"
+          ]
+        },
+        "countryId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "legalNature": {
+          "enum": [
+            "jurisdiction",
+            "public_institution",
+            "organizational_unit",
+            "public_office",
+            "natural_person",
+            "committee"
+          ]
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        },
+        "recordStatus": {
+          "enum": [
+            "public_sourced",
+            "template_only"
+          ]
+        },
+        "committeeScope": {
+          "enum": [
+            "internal",
+            "interagency",
+            "international"
+          ]
+        },
+        "hostInstitutionId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "officialUrl": {
+          "type": "string",
+          "pattern": "^https://[^\\s]+$"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "name",
+        "countryId",
+        "legalNature",
+        "sourceIds",
+        "recordStatus"
+      ]
+    },
+    "relationships": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "type": {
+          "enum": [
+            "partOf",
+            "memberOf",
+            "cooperatesWith"
+          ]
+        },
+        "from": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "from",
+        "to",
+        "sourceIds"
+      ]
+    },
+    "appointments": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "personId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "officeId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "termStartDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "termEndDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "dateBasis": {
+          "enum": [
+            "official_appointment_notice",
+            "official_history"
+          ]
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        },
+        "dateSourceId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "currentObservationSourceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "personId",
+        "officeId",
+        "termStartDate",
+        "termEndDate",
+        "dateBasis",
+        "sourceIds",
+        "dateSourceId",
+        "currentObservationSourceId"
+      ]
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "institutionId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "roleType": {
+          "enum": [
+            "analysis_support",
+            "secretariat_support",
+            "service_triage_support"
+          ]
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "summarize_public_sources",
+              "draft_policy_proposal",
+              "prepare_minutes_draft",
+              "route_service_request_proposal"
+            ]
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "institutionId",
+        "roleType",
+        "tasks"
+      ]
+    },
+    "modelProfiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "artifactType": {
+          "const": "configuration_placeholder"
+        },
+        "training_artifact_status": {
+          "const": "absent"
+        },
+        "weightsPresent": {
+          "const": false
+        },
+        "downloaded": {
+          "const": false
+        },
+        "rightsStatus": {
+          "const": "unknown"
+        },
+        "trainingLicense": {
+          "const": "unknown"
+        },
+        "licenseEvidenceSourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "artifactType",
+        "training_artifact_status",
+        "weightsPresent",
+        "downloaded",
+        "rightsStatus",
+        "trainingLicense",
+        "licenseEvidenceSourceIds"
+      ]
+    },
+    "assistantProfiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "roleId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "modelProfileId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "mode": {
+          "const": "advisory_only"
+        },
+        "officialMandate": {
+          "const": false
+        },
+        "impersonatesPerson": {
+          "const": false
+        },
+        "executionEnabled": {
+          "const": false
+        },
+        "realActionsRequireExplicitApproval": {
+          "const": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "roleId",
+        "modelProfileId",
+        "mode",
+        "officialMandate",
+        "impersonatesPerson",
+        "executionEnabled",
+        "realActionsRequireExplicitApproval"
+      ]
+    },
+    "products": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "kind": {
+          "const": "institutional_assistant_configuration"
+        },
+        "assistantProfileIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        },
+        "licenseEvidenceStatus": {
+          "enum": [
+            "pending",
+            "documented"
+          ]
+        },
+        "licenseEvidenceSourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        },
+        "commercialStatus": {
+          "enum": [
+            "definition_only",
+            "license_review_required"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "assistantProfileIds",
+        "licenseEvidenceStatus",
+        "licenseEvidenceSourceIds",
+        "commercialStatus"
+      ]
+    },
+    "countryAdapters": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "countryId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ministry": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            },
+            "agency": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            },
+            "department": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            },
+            "office": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            }
+          },
+          "required": [
+            "ministry",
+            "agency",
+            "department",
+            "office"
+          ]
+        },
+        "reviewStatus": {
+          "const": "human_review_required"
+        },
+        "jurisdictionNotes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "id",
+        "countryId",
+        "labels",
+        "reviewStatus",
+        "jurisdictionNotes"
+      ]
+    },
+    "officeTemplates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "level": {
+          "enum": [
+            "minister",
+            "deputy_minister",
+            "undersecretary",
+            "department_director",
+            "committee_secretariat"
+          ]
+        },
+        "descriptiveDuties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "maxItems": 20
+        },
+        "templateOnly": {
+          "const": true
+        },
+        "legalAuthority": {
+          "const": "not_assigned"
+        },
+        "appointmentRequired": {
+          "const": true
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "level",
+        "descriptiveDuties",
+        "templateOnly",
+        "legalAuthority",
+        "appointmentRequired",
+        "sourceIds"
+      ]
+    },
+    "roleObservations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "personId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "officeId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{1,95}$"
+          },
+          "maxItems": 100
+        },
+        "appointmentDateStatus": {
+          "enum": [
+            "unknown",
+            "separately_sourced"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "personId",
+        "officeId",
+        "observedAt",
+        "sourceIds",
+        "appointmentDateStatus"
+      ]
+    }
+  }
+}

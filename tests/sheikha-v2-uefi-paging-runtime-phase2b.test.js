@@ -157,10 +157,10 @@ describe('Sheikha V2 UEFI paging runtime Phase 2B', () => {
     ).toBe(false);
     expect(integration.governance.automatedFatwa).toBe(false);
     expect(program.claimComplete).toBe(false);
-    expect(
-      Object.values(program.completionGate).every(
-        (value) => value === false
-      )
-    ).toBe(true);
+    expect(program.completionGate.physicalHardwareBootVerified).toBe(true);
+    expect(program.completionGate.generalPurposeOperatingSystemComplete)
+      .toBe(false);
+    expect(program.completionGate.allDriversComplete).toBe(false);
+    expect(program.completionGate.secureBootVerified).toBe(false);
   });
 });

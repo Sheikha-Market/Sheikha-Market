@@ -15,7 +15,8 @@ const includeFiles = [
   'lib/sheikha-api-webhook-token-center.js',
   'scripts/release-gate.js',
   'scripts/sheikha-daily-report.sh',
-  'scripts/activate-root-neural-php.php'
+  'scripts/activate-root-neural-php.php',
+  'runtime/pm2-fabric/pm2-jlist.json'
 ];
 
 const riskyPatterns = [
@@ -25,7 +26,15 @@ const riskyPatterns = [
   { id: 'stripe_live', regex: /(sk_live_[A-Za-z0-9_]{20,})/ },
   { id: 'stripe_test', regex: /(sk_test_[A-Za-z0-9_]{20,})/ },
   { id: 'publishable_key', regex: /(pk_live_[A-Za-z0-9_]{20,}|pk_test_[A-Za-z0-9_]{20,})/ },
-  { id: 'webhook_secret', regex: /(whsec_[A-Za-z0-9_]{20,})/ }
+  { id: 'webhook_secret', regex: /(whsec_[A-Za-z0-9_]{20,})/ },
+  {
+    id: 'telegram_bot_token',
+    regex: /TELEGRAM_BOT_TOKEN["']?\s*[:=]\s*["']?([0-9]{6,}:[A-Za-z0-9_-]{20,})/
+  },
+  {
+    id: 'telegram_chat_id',
+    regex: /TELEGRAM_CHAT_ID["']?\s*[:=]\s*["']?([0-9-]{6,})/
+  }
 ];
 
 function isFalsePositive(line) {
@@ -62,7 +71,7 @@ for (const rel of includeFiles) {
           type: pattern.id,
           file: rel,
           line: index + 1,
-          redacted: line.replace(match[1], '[REDACTED_SECRET]')
+          evidence: '[REDACTED_SECRET_PRESENT]'
         });
       }
     }

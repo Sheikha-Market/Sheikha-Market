@@ -1,0 +1,31 @@
+tunnel: 1e82b6c7-fcbf-4ed8-b145-c11661d81516
+credentials-file: /home/sheikha/.cloudflared/1e82b6c7-fcbf-4ed8-b145-c11661d81516.json
+
+ingress:
+  - hostname: sheikha.top
+    service: http://127.0.0.1:7788
+  - hostname: "*.sheikha.top"
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.market
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.app
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.money
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.capital
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.shop
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.cloud
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.digital
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.dev
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.site
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.me
+    service: http://127.0.0.1:7788
+  - hostname: sheikha.click
+    service: http://127.0.0.1:7788
+  - service: http_status:404

@@ -1,0 +1,18 @@
+name = "sheikha-edge-guardian"
+main = "sheikha-edge-guardian-worker.js"
+compatibility_date = "2026-11-02"
+workers_dev = true
+
+[vars]
+SEAL = "BOUND_BY_QURAN_SUNNAH"
+REGISTRY = "edc795a408717e02ab5d06fc02b5b27925fb6e4a9b1e8d3c481edefbdc48e44b"
+ORIGIN_VPS = "https://api.sheikha.top"
+WORKER_SUBDOMAIN = "market-a4e.workers.dev"
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[[d1_databases]]
+binding = "UNIFIED_DB"
+database_name = "sheikha-unified-db"
+database_id = "094c8fe4-8588-4f5f-9bb0-a6d738159c7d"

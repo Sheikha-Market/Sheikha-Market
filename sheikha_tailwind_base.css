@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #040E0B;
+    color: #D9E8E0;
+    font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .badge-sovereign {
+    @apply px-3 py-1 rounded-full text-[11px] font-mono border border-sheikha-border bg-sheikha-card text-sheikha-gold;
+  }
+  .badge-alliance-meta {
+    @apply px-3 py-1 rounded-full text-[11px] font-mono border border-meta-blue/30 bg-meta-light text-[#6AAEFF];
+  }
+  .card-sovereign {
+    @apply rounded-[16px] bg-sheikha-card border border-sheikha-border p-5 shadow-lg;
+  }
+  .btn-gold {
+    @apply px-4 py-2 rounded-[8px] bg-sheikha-gold text-sheikha-bg font-bold hover:brightness-110 transition-all;
+  }
+}

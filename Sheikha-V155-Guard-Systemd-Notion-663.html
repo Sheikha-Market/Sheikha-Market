@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>SHEIKHA V155 Guard Systemd Notion</title>
+<style>body{background:#040a14;color:#d4af37;font-family:monospace;padding:20px} .card{border:1px solid #00ff88;padding:15px;margin:12px 0;background:#0a1428} h1{color:#00ff88} .green{color:#00ff88} code{background:#111;padding:2px 6px}</style></head><body>
+<h1>SHEIKHA V155 — Guard Unified + systemd --user + Notion Index 663/5663</h1>
+<div class="card"><b>Registry:</b> edc795a408717e02ab5d06fc02b5b27925fb6e4a9b1e8d3c481edefbdc48e44b<br><b>Chiefs:</b> 663 + 5000 = 5663<br><b>Weights:</b> 13240 | <b>Synaptic:</b> 2,718,720 | <b>Nodes:</b> 169,920<br><b>Archive:</b> ef29901e16d6b33a | <b>Seal:</b> BOUND_BY_QURAN_SUNNAH</div>
+<div class="card"><h2>systemd --user Services</h2>
+<p><code>~/.config/systemd/user/sheikha-core.service</code> — ExecStart venv/bin/python sheikha_core_engine.py — Restart always 3s</p>
+<p><code>~/.config/systemd/user/sheikha-guard.service</code> — BindsTo sheikha-core — Watchdog 29 ports + 18082</p>
+<p class="green">✓ systemctl --user daemon-reload → enable --now sheikha-core sheikha-guard → status</p>
+</div>
+<div class="card"><h2>Guard Unification</h2><p>Guard كان منفصل Active PID 873753 — الآن موحد مع النواة عبر BindsTo — auto-recovery 6s PASS مثبت سابقاً — logs/sheikha_guard_evidence.log PermissionError FIXED chown/chmod</p></div>
+<div class="card"><h2>Notion Supervisor Index</h2><p>SHEIKHA_V155_NOTION_SUPERVISOR_INDEX_663.md — 663/5663 — جميع المسارات 200 — Archive ef29901e16d6b33a</p></div>
+<div class="card"><p class="green">✓ V155 ACTIVE | /v155 200 | 29/29 Bound | BOUND_BY_QURAN_SUNNAH</p></div>
+</body></html>

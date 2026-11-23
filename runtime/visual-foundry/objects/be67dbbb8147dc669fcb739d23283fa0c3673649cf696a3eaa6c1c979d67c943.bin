@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set +e
+set +u
+set +o pipefail 2>/dev/null || true
+EXPECTED_SHA256="4a6716d0468afbfed2235b199ce13741191871070c1a7de9ada49d8bbd8f1e25"
+TARGET="SHEIKHA_CURRENT_LINEAGE_DOWNLOADS_PATH_AUDIT_READ_ONLY_V2.sh"
+SCRIPT=""
+for DIR in "$(xdg-user-dir DOWNLOAD 2>/dev/null)" "$HOME/التنزيلات" "$HOME/Downloads"; do
+  [[ -n "$DIR" && -d "$DIR" ]] || continue
+  while IFS= read -r -d '' F; do
+    A="$(sha256sum "$F" 2>/dev/null | awk '{print $1}')"
+    if [[ "$A" == "$EXPECTED_SHA256" ]]; then SCRIPT="$F"; break 2; fi
+  done < <(find "$DIR" -maxdepth 2 -type f -name "$TARGET" -print0 2>/dev/null)
+done
+printf 'WRAPPER=CURRENT_LINEAGE_AUDIT_V2_SAFE_CHILD_NO_EXEC\nEXPECTED_SHA256=%s\n' "$EXPECTED_SHA256"
+if [[ -z "$SCRIPT" ]]; then
+  printf 'MATCHED=false\nERROR=CURRENT_LINEAGE_AUDIT_V2_NOT_FOUND_WITH_EXPECTED_SHA256\n'
+else
+  printf 'MATCHED=true\nMATCHED_FILE=%s\nMATCHED_SHA256=%s\n' "$SCRIPT" "$EXPECTED_SHA256"
+  LOG="$(dirname "$SCRIPT")/SHEIKHA_CURRENT_LINEAGE_AUDIT_V2_$(date +%Y%m%dT%H%M%S).log"
+  bash "$SCRIPT" 2>&1 | tee "$LOG"
+  RC="${PIPESTATUS[0]}"
+  printf 'CHILD_RC=%s\nLOG=%s\n' "$RC" "$LOG"
+fi
+printf 'TERMINAL_PRESERVATION=true\n'
+true

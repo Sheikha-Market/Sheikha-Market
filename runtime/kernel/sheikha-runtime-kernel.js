@@ -71,8 +71,8 @@ class SheikhaRuntimeKernel extends EventEmitter {
 
                 this.paths.logs = this.fallbackPaths.logs;
                 fs.mkdirSync(this.paths.logs, { recursive: true });
-                console.warn(
-                    `Runtime log directory unavailable; using ${this.paths.logs}`
+                console.info(
+                    `Runtime log fallback active (${error.code}); using ${this.paths.logs}`
                 );
             }
         }

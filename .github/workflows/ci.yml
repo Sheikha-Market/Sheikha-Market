@@ -2,7 +2,7 @@ name: 🌟 Sheikha CI — Quality & Excellence
 
 on:
   push:
-    branches: [stable/runtime-baseline]
+    branches: [main, stable/runtime-baseline]
   pull_request:
   workflow_dispatch:
 
@@ -32,6 +32,8 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: Install (no scripts)
         run: npm ci --ignore-scripts
+      - name: Google Workspace Integration Governance
+        run: npx jest --config jest.config.js --runInBand --runTestsByPath tests/sheikha-google-workspace-governance.test.js
       - name: 🔍 Lint
         run: npm run lint --if-present
       - name: 🧪 Unit Tests

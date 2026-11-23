@@ -81,6 +81,11 @@ const outPath = options.outPath || replaceExtension(input, outputExtensions[targ
 const sourceProgram = loadSourceProgram(input);
 const ast = sourceProgram.ast;
 const typeCheck = typeCheckAst(ast);
+if (!typeCheck.ok) {
+    console.error('SHEIKHA_TYPECHECK=FAILED');
+    if (options.typesPath) writeJson(options.typesPath, typeCheck);
+    process.exit(2);
+}
 const ir = lowerToIR(ast);
 const bytecode = compileIRToBytecode(ir);
 const generated = generateTarget(target, {

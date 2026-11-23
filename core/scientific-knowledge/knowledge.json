@@ -1,0 +1,896 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "sheikha-physical-knowledge-weight-v1",
+  "nameAr": "وزن شيخة المعرفي الفيزيائي",
+  "artifactKind": "sourced_educational_knowledge_not_neural_checkpoint",
+  "governanceReference": "BOUND_BY_QURAN_SUNNAH",
+  "governanceCertification": "not_performed",
+  "dimensionOrder": [
+    "length",
+    "mass",
+    "time",
+    "electric_current",
+    "temperature",
+    "amount_of_substance",
+    "luminous_intensity"
+  ],
+  "sources": [
+    {
+      "id": "nist-codata",
+      "publisher": "NIST",
+      "title": "2022 CODATA recommended constants",
+      "url": "https://physics.nist.gov/cuu/pdf/all.pdf",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nist-si",
+      "publisher": "NIST",
+      "title": "SI Units",
+      "url": "https://www.nist.gov/pml/owm/metric-si/si-units",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "cern-model",
+      "publisher": "CERN",
+      "title": "The Standard Model",
+      "url": "https://home.cern/science/physics/standard-model/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "cern-composite",
+      "publisher": "CERN",
+      "title": "Compositeness",
+      "url": "https://home.cern/science/physics/compositeness/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nano-scale",
+      "publisher": "NNCO / nano.gov",
+      "title": "Just How Small Is Nano?",
+      "url": "https://www.nano.gov/about-nanotechnology/just-how-small-is-nano/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nano-definition",
+      "publisher": "NNI / nano.gov",
+      "title": "Nanoscale",
+      "url": "https://www.nano.gov/node/5774",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nih-atp",
+      "publisher": "NIH NIGMS",
+      "title": "Science Snippet: ATP’s Amazing Power",
+      "url": "https://nigms.nih.gov/biobeat/2022/11/science-snippet-atps-amazing-power",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nih-chemistry",
+      "publisher": "NIH NIGMS",
+      "title": "Glossary",
+      "url": "https://www.nigms.nih.gov/education/glossary",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nih-vision",
+      "publisher": "NIH NEI",
+      "title": "How the Eyes Work",
+      "url": "https://www.nei.nih.gov/eye-health-information/healthy-vision/how-eyes-work",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nih-digestion",
+      "publisher": "NIH NIDDK",
+      "title": "Your Digestive System and How It Works",
+      "url": "https://www.niddk.nih.gov/health-information/digestive-diseases/digestive-system-how-it-works",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nih-lungs",
+      "publisher": "NIH NHLBI",
+      "title": "How the Lungs Work",
+      "url": "https://www.nhlbi.nih.gov/health/lungs",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "usgs-water",
+      "publisher": "USGS",
+      "title": "Water cycle",
+      "url": "https://www.usgs.gov/special-topics/water-science-school/water-cycle",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nasa-carbon",
+      "publisher": "NASA",
+      "title": "The Carbon Cycle",
+      "url": "https://science.nasa.gov/earth/earth-observatory/the-carbon-cycle/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nasa-earth",
+      "publisher": "NASA",
+      "title": "Facts About Earth",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nasa-distance",
+      "publisher": "NASA",
+      "title": "What is a light-year?",
+      "url": "https://science.nasa.gov/exoplanets/what-is-a-light-year/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nasa-universe",
+      "publisher": "NASA",
+      "title": "Universe glossary",
+      "url": "https://science.nasa.gov/universe/glossary/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nasa-energy",
+      "publisher": "NASA Glenn",
+      "title": "First Law of Thermodynamics",
+      "url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/first-law-internal-energy/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "usgs-minerals",
+      "publisher": "USGS",
+      "title": "What is the difference between a rock and a mineral?",
+      "url": "https://www.usgs.gov/faqs/what-difference-between-a-rock-and-a-mineral",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "usgs-spatial",
+      "publisher": "USGS",
+      "title": "Mineral Resources Online Spatial Data Access Tool",
+      "url": "https://www.usgs.gov/tools/mineral-resources-online-spatial-data-access-tool",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    },
+    {
+      "id": "nist-metals",
+      "publisher": "NIST",
+      "title": "Materials Science and Engineering Division",
+      "url": "https://www.metallurgy.nist.gov/",
+      "observedAt": "2026-10-25",
+      "evidence": "official primary educational or metrology source; links, not downloaded source copies",
+      "sourceLicense": "not_assumed; check source-specific reuse terms"
+    }
+  ],
+  "units": {
+    "m": {
+      "siFactor": 1,
+      "dimension": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "nm": {
+      "siFactor": 1e-09,
+      "dimension": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "um": {
+      "siFactor": 1e-06,
+      "dimension": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "km": {
+      "siFactor": 1000,
+      "dimension": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "ly": {
+      "siFactor": 9460000000000000.0,
+      "dimension": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "precision": "approximate_educational_conversion"
+    },
+    "kg": {
+      "siFactor": 1,
+      "dimension": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "s": {
+      "siFactor": 1,
+      "dimension": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "K": {
+      "siFactor": 1,
+      "dimension": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    "mol": {
+      "siFactor": 1,
+      "dimension": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    "J": {
+      "siFactor": 1,
+      "dimension": [
+        2,
+        1,
+        -2,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "eV": {
+      "siFactor": 1.602176634e-19,
+      "dimension": [
+        2,
+        1,
+        -2,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "W": {
+      "siFactor": 1,
+      "dimension": [
+        2,
+        1,
+        -3,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "Hz": {
+      "siFactor": 1,
+      "dimension": [
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "J*s": {
+      "siFactor": 1,
+      "dimension": [
+        2,
+        1,
+        -1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "m/s": {
+      "siFactor": 1,
+      "dimension": [
+        1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "topics": [
+    {
+      "id": "scale",
+      "nameAr": "المقاييس والوحدات",
+      "epistemicStatus": "established_measurement_framework",
+      "mechanismAr": "المقارنة تتطلب تحديد الكمية والوحدة والبعد وطريقة القياس وعدم اليقين؛ المقياس النظري لا يصبح قياساً تجريبياً بمجرد إدراجه في برنامج.",
+      "inputs": [
+        "quantity",
+        "unit",
+        "uncertainty"
+      ],
+      "outputs": [
+        "dimension_checked_comparison"
+      ],
+      "sourceIds": [
+        "nist-si",
+        "nist-codata"
+      ]
+    },
+    {
+      "id": "planck",
+      "nameAr": "مقياس بلانك النظري",
+      "epistemicStatus": "theoretical_characteristic_scale_not_proven_minimum",
+      "mechanismAr": "طول بلانك تركيب من الثوابت hbar وG وc. قيمته التقريبية 1.616255×10^-35 متر؛ لا يثبت أصغر طول في الطبيعة ولا قابلية صنع روبوت بهذا الحجم.",
+      "inputs": [
+        "hbar",
+        "G",
+        "c"
+      ],
+      "outputs": [
+        "characteristic_length"
+      ],
+      "sourceIds": [
+        "nist-codata"
+      ]
+    },
+    {
+      "id": "matter",
+      "nameAr": "المادة والجسيمات",
+      "epistemicStatus": "established_model_with_open_questions",
+      "mechanismAr": "يمثل النموذج المعياري الكواركات واللبتونات كجسيمات أولية؛ لا تعني الصفة النقطية حجماً مصنعاً ولا قياساً بحجم بلانك. تركيب أعمق محتمل موضوع بحث تجريبي.",
+      "inputs": [
+        "particles",
+        "interactions"
+      ],
+      "outputs": [
+        "composite_matter"
+      ],
+      "sourceIds": [
+        "cern-model",
+        "cern-composite"
+      ]
+    },
+    {
+      "id": "chemistry",
+      "nameAr": "الذرات والجزيئات والكيمياء",
+      "epistemicStatus": "established_science",
+      "mechanismAr": "تنتج الروابط الكيميائية من تفاعلات إلكترونية بين الذرات. تعيد التفاعلات ترتيب الروابط؛ التحولات الكيميائية المعتادة تختلف عن تغيير النوى أو هوية العناصر.",
+      "inputs": [
+        "atoms",
+        "electrons",
+        "reactants"
+      ],
+      "outputs": [
+        "molecules",
+        "products",
+        "energy_transfer"
+      ],
+      "sourceIds": [
+        "nih-chemistry",
+        "cern-model"
+      ]
+    },
+    {
+      "id": "energy",
+      "nameAr": "الطاقة والتحويل والشغل والحرارة",
+      "epistemicStatus": "established_science",
+      "mechanismAr": "تنتقل الطاقة بين الأنظمة في صورة شغل أو حرارة وتتحول بين صور كيميائية وكهربائية وإشعاعية وحركية. لا تنشأ طاقة من اسم وزن أو بوت برمجي.",
+      "inputs": [
+        "system_boundary",
+        "heat",
+        "work"
+      ],
+      "outputs": [
+        "change_in_internal_energy"
+      ],
+      "sourceIds": [
+        "nasa-energy",
+        "nist-si"
+      ]
+    },
+    {
+      "id": "metabolism",
+      "nameAr": "الاستقلاب والطاقة الخلوية",
+      "epistemicStatus": "established_science",
+      "mechanismAr": "تفكك الخلايا المغذيات عبر مسارات مترابطة وتنقل الإلكترونات وتكوّن ATP؛ يقترن تحلله بتفاعلات تحتاج طاقة حرة. الميتوكوندريا تحول الطاقة ولا تخلقها من عدم.",
+      "inputs": [
+        "nutrients",
+        "oxygen_where_aerobic",
+        "ADP",
+        "phosphate"
+      ],
+      "outputs": [
+        "ATP_turnover",
+        "carbon_dioxide",
+        "heat",
+        "metabolic_products"
+      ],
+      "sourceIds": [
+        "nih-atp",
+        "nih-digestion",
+        "nasa-energy"
+      ]
+    },
+    {
+      "id": "body_boundary",
+      "nameAr": "الجسم من الداخل والخارج",
+      "epistemicStatus": "established_science",
+      "mechanismAr": "الجسم نظام مفتوح: الهضم والامتصاص يتيحان انتقال المغذيات والماء، وتبادل الغازات في الرئتين ينقل الأكسجين وثاني أكسيد الكربون. الحدود تشمل الجلد والأسطح الداخلية المتصلة بالبيئة؛ لا تختزل صحة الجسم في قيمة عددية واحدة.",
+      "inputs": [
+        "food",
+        "water",
+        "inhaled_air",
+        "environment"
+      ],
+      "outputs": [
+        "absorbed_nutrients",
+        "exhaled_air",
+        "waste",
+        "heat"
+      ],
+      "sourceIds": [
+        "nih-digestion",
+        "nih-lungs",
+        "nih-atp"
+      ]
+    },
+    {
+      "id": "vision",
+      "nameAr": "الرؤية والتحويل الحسي",
+      "epistemicStatus": "established_science",
+      "mechanismAr": "توجه القرنية والعدسة الضوء إلى الشبكية؛ تحول المستقبلات الضوئية المنبه إلى إشارات عصبية تصل إلى الدماغ. الاستدلال البصري البرمجي مهمة بيانات ونموذج وتقييم منفصلة عن هذا الجهاز الحيوي.",
+      "inputs": [
+        "light",
+        "optical_system",
+        "retina"
+      ],
+      "outputs": [
+        "neural_signals",
+        "visual_perception"
+      ],
+      "sourceIds": [
+        "nih-vision"
+      ]
+    },
+    {
+      "id": "water_cycle",
+      "nameAr": "دورة الماء",
+      "epistemicStatus": "established_science",
+      "mechanismAr": "تدفع الطاقة الشمسية والجاذبية انتقال الماء بين المخازن عبر التبخر والنتح والتكاثف والهطول والجريان والتسرب. يتغير الطور والموقع وتتأثر التدفقات بالأنشطة البشرية.",
+      "inputs": [
+        "solar_energy",
+        "water_pools",
+        "gravity"
+      ],
+      "outputs": [
+        "water_fluxes",
+        "phase_changes"
+      ],
+      "sourceIds": [
+        "usgs-water"
+      ]
+    },
+    {
+      "id": "carbon_cycle",
+      "nameAr": "دورة الكربون والترابط البيئي",
+      "epistemicStatus": "established_science",
+      "mechanismAr": "تثبت النباتات الكربون في البناء الضوئي؛ يعيده التنفس والتحلل إلى الوسط. تتبادل المحيطات والجو الكربون، وتنقله العمليات الجيولوجية والاحتراق على أزمنة مختلفة.",
+      "inputs": [
+        "carbon_dioxide",
+        "water",
+        "sunlight",
+        "biomass"
+      ],
+      "outputs": [
+        "organic_carbon",
+        "oxygen",
+        "respiration_flux",
+        "ocean_exchange"
+      ],
+      "sourceIds": [
+        "nasa-carbon"
+      ]
+    },
+    {
+      "id": "astronomy",
+      "nameAr": "الأرض والمقاييس الفلكية",
+      "epistemicStatus": "established_observational_science",
+      "mechanismAr": "تستخدم المقاييس الفلكية الكيلومتر والوحدة الفلكية والسنة الضوئية للمقارنة. الكون المرصود جزء يمكن رصده ولا يثبت الحجم الكلي للكون أو حداً أكبر مطلقاً.",
+      "inputs": [
+        "observations",
+        "distance_models"
+      ],
+      "outputs": [
+        "scale_estimates_with_scope"
+      ],
+      "sourceIds": [
+        "nasa-earth",
+        "nasa-distance",
+        "nasa-universe"
+      ]
+    },
+    {
+      "id": "nanoscience",
+      "nameAr": "النانو وحدود التصنيع",
+      "epistemicStatus": "established_definition_and_unimplemented_engineering",
+      "mechanismAr": "النطاق النانوي تقريبي بين 1 و100 نانومتر. تختلف خواص بعض المواد مع الحجم. أسماء بوتات النانو هنا تسميات برمجية؛ هذه الحزمة لا تصنع نانوروبوتات ولا تثبت وجودها أو أداءها.",
+      "inputs": [
+        "material",
+        "measured_dimensions",
+        "fabrication_evidence_required"
+      ],
+      "outputs": [
+        "nanoscale_description_only"
+      ],
+      "sourceIds": [
+        "nano-definition",
+        "nano-scale"
+      ]
+    },
+    {
+      "id": "geological_mining",
+      "nameAr": "المعادن والتعدين الجيولوجي",
+      "epistemicStatus": "source_based_research_proposal",
+      "mechanismAr": "المعدن جسم طبيعي له تركيب وبنية وخواص محددة، والصخر قد يضم عدة معادن. وصف مورد أو مكمن لا يثبت احتياطياً اقتصادياً أو ترخيص استخراج. المقترح يفهرس الأدلة والوحدات والتغطية الجغرافية فقط.",
+      "inputs": [
+        "licensed_sourced_data",
+        "units",
+        "measurement_conditions"
+      ],
+      "outputs": [
+        "proposed_evidence_catalogue"
+      ],
+      "sourceIds": [
+        "usgs-minerals",
+        "usgs-spatial"
+      ]
+    },
+    {
+      "id": "metals_foundry",
+      "nameAr": "المعادن المعدنية والمسابك",
+      "epistemicStatus": "source_based_research_proposal",
+      "mechanismAr": "يربط علم المواد بين التركيب والبنية والمعالجة والخواص. المقترح ينظم خواص المواد وشروط القياس ومراجعها؛ لا يشغّل مسبكاً أو يعطي تعليمات تنفيذ حراري أو كيميائي.",
+      "inputs": [
+        "licensed_sourced_data",
+        "units",
+        "measurement_conditions"
+      ],
+      "outputs": [
+        "proposed_evidence_catalogue"
+      ],
+      "sourceIds": [
+        "nist-metals",
+        "nih-chemistry"
+      ]
+    },
+    {
+      "id": "computational_mining",
+      "nameAr": "التعدين الحاسوبي للبيانات",
+      "epistemicStatus": "source_based_research_proposal",
+      "mechanismAr": "يعني هنا فهرسة وتحليل بيانات جيولوجية ومادية موثقة، مع تحديد نظام الإحداثيات والدقة ونقص التغطية. يختلف عن استخراج الخام وعن تعدين سلاسل الكتل؛ لا يصدر رموزاً ولا يشغل إثبات عمل.",
+      "inputs": [
+        "licensed_sourced_data",
+        "units",
+        "measurement_conditions"
+      ],
+      "outputs": [
+        "proposed_evidence_catalogue"
+      ],
+      "sourceIds": [
+        "usgs-spatial",
+        "nist-metals"
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "id": "planck_length",
+      "value": 1.616255e-35,
+      "unit": "m",
+      "scopeAr": "طول بلانك؛ قيمة CODATA تقريبية ذات عدم يقين",
+      "epistemicStatus": "theoretical_characteristic_scale_not_proven_minimum",
+      "sourceIds": [
+        "nist-codata"
+      ]
+    },
+    {
+      "id": "gold_atom",
+      "value": 0.33,
+      "unit": "nm",
+      "scopeAr": "قطر تقريبي لذرة ذهب في مثال تعليمي؛ ليس أصغر جسم مطلقاً",
+      "epistemicStatus": "approximate_educational_example",
+      "sourceIds": [
+        "nano-scale"
+      ]
+    },
+    {
+      "id": "dna_diameter",
+      "value": 2.5,
+      "unit": "nm",
+      "scopeAr": "قطر DNA تقريبي في المثال التعليمي",
+      "epistemicStatus": "approximate_educational_example",
+      "sourceIds": [
+        "nano-scale"
+      ]
+    },
+    {
+      "id": "human_hair",
+      "value": 90,
+      "unit": "um",
+      "range": [
+        80,
+        100
+      ],
+      "scopeAr": "عرض شعرة تقريبي متغير، ليس قياساً لكل شخص",
+      "epistemicStatus": "approximate_educational_example",
+      "sourceIds": [
+        "nano-scale"
+      ]
+    },
+    {
+      "id": "earth_equatorial_diameter",
+      "value": 12756,
+      "unit": "km",
+      "scopeAr": "قطر استوائي للأرض تقريبي، وليس نصف القطر",
+      "epistemicStatus": "approximate_observed_example",
+      "sourceIds": [
+        "nasa-earth"
+      ]
+    },
+    {
+      "id": "milky_way_diameter",
+      "value": 100000,
+      "unit": "ly",
+      "scopeAr": "عرض تقريبي لدرب التبانة؛ يعتمد على تعريف حدود المجرة",
+      "epistemicStatus": "approximate_observed_example",
+      "sourceIds": [
+        "nasa-distance"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "nano_to_meter",
+      "kind": "unit_conversion",
+      "from": {
+        "value": 1,
+        "unit": "nm"
+      },
+      "to": {
+        "value": 1e-09,
+        "unit": "m"
+      },
+      "sourceIds": [
+        "nist-si",
+        "nano-scale"
+      ]
+    },
+    {
+      "id": "ev_to_joule",
+      "kind": "unit_conversion",
+      "from": {
+        "value": 1,
+        "unit": "eV"
+      },
+      "to": {
+        "value": 1.602176634e-19,
+        "unit": "J"
+      },
+      "sourceIds": [
+        "nist-codata"
+      ]
+    },
+    {
+      "id": "earth_km_to_m",
+      "kind": "unit_conversion",
+      "from": {
+        "value": 12756,
+        "unit": "km"
+      },
+      "to": {
+        "value": 12756000,
+        "unit": "m"
+      },
+      "sourceIds": [
+        "nasa-earth",
+        "nist-si"
+      ]
+    },
+    {
+      "id": "photon_energy_dimensions",
+      "kind": "dimension_equation",
+      "equation": "E = h * frequency",
+      "resultUnit": "J",
+      "factors": [
+        {
+          "unit": "J*s",
+          "power": 1
+        },
+        {
+          "unit": "Hz",
+          "power": 1
+        }
+      ],
+      "sourceIds": [
+        "nist-codata"
+      ]
+    },
+    {
+      "id": "mass_energy_dimensions",
+      "kind": "dimension_equation",
+      "equation": "E = mass * c^2",
+      "resultUnit": "J",
+      "factors": [
+        {
+          "unit": "kg",
+          "power": 1
+        },
+        {
+          "unit": "m/s",
+          "power": 2
+        }
+      ],
+      "sourceIds": [
+        "nist-codata"
+      ]
+    },
+    {
+      "id": "power_dimensions",
+      "kind": "dimension_equation",
+      "equation": "power = energy / time",
+      "resultUnit": "W",
+      "factors": [
+        {
+          "unit": "J",
+          "power": 1
+        },
+        {
+          "unit": "s",
+          "power": -1
+        }
+      ],
+      "sourceIds": [
+        "nist-si"
+      ]
+    }
+  ],
+  "mechanismLinks": [
+    {
+      "from": "chemistry",
+      "to": "metabolism",
+      "relationship": "chemical_free_energy_coupling"
+    },
+    {
+      "from": "metabolism",
+      "to": "body_boundary",
+      "relationship": "matter_and_energy_exchange"
+    },
+    {
+      "from": "body_boundary",
+      "to": "water_cycle",
+      "relationship": "water_exchange"
+    },
+    {
+      "from": "metabolism",
+      "to": "carbon_cycle",
+      "relationship": "respiration_and_food_web"
+    },
+    {
+      "from": "vision",
+      "to": "energy",
+      "relationship": "light_signal_transduction"
+    }
+  ],
+  "softwareBots": [
+    {
+      "label": "nano-knowledge-bot",
+      "kind": "software_role_label",
+      "hardwareDevice": false,
+      "enabled": false
+    },
+    {
+      "label": "vision-evidence-bot",
+      "kind": "software_role_label",
+      "hardwareDevice": false,
+      "enabled": false
+    }
+  ],
+  "boundaries": {
+    "physicalNanorobotsFabricated": false,
+    "trainedModelProduced": false,
+    "medicalOrNutritionalPrescription": false,
+    "officialIPRegistration": false,
+    "ownershipOfPhysicalFactsClaimed": false,
+    "absoluteSmallestLargestStrongestClaimed": false,
+    "oreExtractionExecuted": false,
+    "furnaceOperated": false,
+    "tokenMinted": false
+  },
+  "authorship": {
+    "declaredAuthor": "مشروع شيخة — إعداد معرفي محلي بمساعدة Codex",
+    "status": "local_declaration_not_official_registration",
+    "scope": "Original local arrangement, code, and Arabic summaries only; physical facts and cited third-party works are not claimed as project property."
+  }
+}

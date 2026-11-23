@@ -131,5 +131,14 @@ printf 'IMAGE_SHA256=%s\n' "$IMAGE_SHA256"
 printf 'WRITE_SCOPE=ONE_APPROVED_REMOVABLE_USB_DISK\n'
 dd if="$IMAGE" of="$DEVICE" bs=4M conv=fsync status=progress
 sync
+READBACK_SHA256="$(head -c "$IMAGE_SIZE" "$DEVICE" | sha256sum | awk '{print $1}')"
+[[ "$READBACK_SHA256" == "$IMAGE_SHA256" ]] || {
+  printf 'ERROR=POST_WRITE_READBACK_HASH_MISMATCH\n' >&2
+  printf 'EXPECTED_SHA256=%s\n' "$IMAGE_SHA256" >&2
+  printf 'READBACK_SHA256=%s\n' "$READBACK_SHA256" >&2
+  exit 10
+}
+printf 'READBACK_SHA256=%s\n' "$READBACK_SHA256"
+printf 'POST_WRITE_READBACK_VERIFIED=true\n'
 printf 'SHEIKHA_MSI_USB_V1_WRITE_COMPLETED=true\n'
 printf 'NEXT=Use MSI F11 and choose the UEFI USB entry. Do not change the internal boot order.\n'

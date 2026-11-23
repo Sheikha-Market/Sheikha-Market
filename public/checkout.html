@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة المبيعات الفورية وعروض الأسعار المعتمدة | منظومة شيخة</title>
+  <style>
+    :root { --bg: #030712; --card: #0f172a; --gold: #eab308; --emerald: #10b981; --cyan: #06b6d4; --text: #f8fafc; --muted: #94a3b8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); }
+    header { background: #061e16; border-bottom: 2px solid var(--gold); padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .container { max-width: 1280px; margin: 20px auto; padding: 0 16px; }
+    .grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 18px; }
+    @media(max-width:900px){ .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid rgba(234,179,8,0.35); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    h3 { margin: 0 0 12px; color: var(--gold); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+    label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; }
+    input, select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: #020617; color: #fff; margin-bottom: 12px; font-family: inherit; }
+    .btn { background: var(--gold); color: #000; border: none; padding: 12px 18px; border-radius: 8px; font-weight: 900; cursor: pointer; width: 100%; font-size: 0.92rem; }
+    .btn.green { background: var(--emerald); color: #022c22; margin-top: 8px; }
+    .iban-box { background: rgba(16,185,129,0.1); border: 1px dashed var(--emerald); padding: 12px; border-radius: 8px; margin: 12px 0; font-size: 0.88rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th, td { border: 1px solid rgba(255,255,255,0.1); padding: 8px; text-align: right; }
+    th { background: #1e293b; color: var(--gold); }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 style="margin:0; font-size:1.25rem; color:var(--gold);">💰⚡ محرك المبيعات وعروض الأسعار والتحصيل النقدي المؤتمت | شيخة</h1>
+      <p style="margin:4px 0 0; font-size:0.8rem; color:var(--muted);">إصدار تسعيرة فورية • دفعة مقدمة 50% مباشرة لحساب مصرف الإنماء • إغلاق فوري عبر واتساب</p>
+    </div>
+    <a href="/" style="color:var(--cyan); text-decoration:none; font-weight:700;">&larr; العودة للوحة القيادة الشاملة</a>
+  </header>
+
+  <div class="container">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-bottom:18px;">
+      <div class="card" style="margin:0;"><div style="color:var(--muted);font-size:0.8rem;">إجمالي السيولة المحصلة فعلياً (Confirmed Cash)</div><div id="k-confirmed" style="font-size:1.5rem;font-weight:900;color:var(--emerald);">0 SAR</div></div>
+      <div class="card" style="margin:0;"><div style="color:var(--muted);font-size:0.8rem;">دفعات مقدمة قيد التحويل البنكي (50% Advance)</div><div id="k-pending" style="font-size:1.5rem;font-weight:900;color:var(--gold);">0 SAR</div></div>
+      <div class="card" style="margin:0;"><div style="color:var(--muted);font-size:0.8rem;">آيبان التحصيل المباشر (مصرف الإنماء)</div><div style="font-size:1.05rem;font-weight:900;color:var(--cyan);direction:ltr;text-align:right;">SA4005000068206162118000</div></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>📝 1. إصدار عرض سعر ومطالبة دفع فورية للعميل</h3>
+        <label>اسم العميل / الشركة / المصنع</label>
+        <input id="c-name" placeholder="مثال: مؤسسة الخليج للمقاولات والمعادن" />
+        <label>رقم جوال العميل (لواتساب المطالبة المالية)</label>
+        <input id="c-phone" placeholder="05XXXXXXXX" />
+        <label>المدينة / الموقع</label>
+        <input id="c-city" value="الخبر - المنطقة الشرقية" />
+        <label>اختر المنتج أو الخدمة الجاهزة للتسليم</label>
+        <select id="c-item"></select>
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1;"><label>الكمية</label><input id="c-qty" type="number" value="5" /></div>
+          <div style="flex:1;"><label>تعديل سعر الوحدة (اختياري SAR)</label><input id="c-price" type="number" placeholder="اتركه فارغاً للسعر القياسي" /></div>
+        </div>
+        <button class="btn" onclick="createAutomatedQuote()">⚡ إصدار عرض السعر الرسمي + رابط التحصيل الفوري</button>
+      </div>
+
+      <div class="card">
+        <h3>🧾 2. وثيقة عرض السعر وأمر التحويل البنكي الفوري</h3>
+        <div id="quote-preview" style="color:var(--muted); font-size:0.9rem;">قم بتعبئة بيانات العميل على اليمين لإصدار وثيقة التحصيل الفورية...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 سجل عروض الأسعار والمطالبات المالية والتحصيل النقدي الحي</h3>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>رقم العرض</th>
+              <th>العميل والجوال</th>
+              <th>الصنف والكمية</th>
+              <th>الإجمالي (شامل VAT)</th>
+              <th>الدفعة المقدمة (50%)</th>
+              <th>حالة التحصيل البنكي</th>
+              <th>إجراء الأتمتة</th>
+            </tr>
+          </thead>
+          <tbody id="quotes-tb"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function loadData() {
+      const res = await fetch('/api/v61/auto-cashflow/catalog');
+      const data = await res.json();
+      const sel = document.getElementById('c-item');
+      if (sel.options.length === 0) {
+        data.catalog.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.id;
+          opt.innerText = item.name + ' — (' + item.price_sar.toLocaleString() + ' SAR / ' + item.unit + ')';
+          sel.appendChild(opt);
+        });
+      }
+      document.getElementById('k-confirmed').innerText = (data.db.confirmed_transfers_sar || 0).toLocaleString() + ' SAR';
+      document.getElementById('k-pending').innerText = (data.db.pending_advance_payments_sar || 0).toLocaleString() + ' SAR';
+
+      const tb = document.getElementById('quotes-tb');
+      tb.innerHTML = '';
+      (data.db.real_quotes || []).forEach(q => {
+        const tr = document.createElement('tr');
+        const isPaid = q.payment_status === 'PAID_AND_CLEARED';
+        tr.innerHTML =
+          '<td><strong style="color:var(--gold);">' + q.quote_id + '</strong></td>' +
+          '<td>' + q.client_name + '<br><small style="color:var(--muted);">' + q.client_phone + '</small></td>' +
+          '<td>' + q.item_name + ' (' + q.qty + ' ' + q.unit + ')</td>' +
+          '<td><strong>' + q.total_sar.toLocaleString() + ' SAR</strong></td>' +
+          '<td style="color:var(--cyan);font-weight:800;">' + q.advance_50_required_sar.toLocaleString() + ' SAR</td>' +
+          '<td>' + (isPaid ? '<span style="color:var(--emerald);font-weight:900;">✅ تم التحصيل (' + q.bank_transfer_ref + ')</span>' : '<span style="color:var(--gold);">⏳ بانتظار التحويل</span>') + '</td>' +
+          '<td>' +
+            '<a href="' + q.whatsapp_Trigger_url + '" target="_blank" style="color:var(--emerald);margin-left:8px;font-weight:700;">إرسال واتساب</a>' + '<a href="/api/v61/auto-cashflow/print/' + q.quote_id + '" target="_blank" style="color:var(--gold);margin-left:8px;font-weight:700;">🖨️ وثيقة PDF</a>' +
+            (!isPaid ? '<button onclick="confirmCash('' + q.quote_id + '')" style="background:var(--emerald);border:none;padding:4px 8px;border-radius:4px;cursor:pointer;font-weight:700;">تأكيد الإيداع</button>' : '') +
+          '</td>';
+        tb.appendChild(tr);
+      });
+    }
+
+    async function createAutomatedQuote() {
+      const payload = {
+        client_name: document.getElementById('c-name').value,
+        client_phone: document.getElementById('c-phone').value,
+        client_city: document.getElementById('c-city').value,
+        item_id: document.getElementById('c-item').value,
+        qty: document.getElementById('c-qty').value,
+        custom_price: document.getElementById('c-price').value
+      };
+      const res = await fetch('/api/v61/auto-cashflow/instant-quote', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const out = await res.json();
+      const q = out.quote;
+      document.getElementById('quote-preview').innerHTML =
+        '<div class="iban-box">' +
+          '<strong style="color:var(--gold);font-size:1rem;">عرض سعر رسمي معتمد رقم: ' + q.quote_id + '</strong><br>' +
+          '• <b>العميل:</b> ' + q.client_name + ' (' + q.client_city + ')<br>' +
+          '• <b>البند:</b> ' + q.item_name + ' | <b>الكمية:</b> ' + q.qty + ' ' + q.unit + '<br>' +
+          '• <b>الإجمالي شامل الضريبة (15%):</b> ' + q.total_sar.toLocaleString() + ' ريال سعودي<br>' +
+          '• <b style="color:var(--emerald);">الدفعة المقدمة واجبة السداد للتنفيذ (50%): ' + q.advance_50_required_sar.toLocaleString() + ' ريال سعودي</b><br>' +
+          '• <b>التحويل المباشر إلى مصرف الإنماء (IBAN):</b> <code style="color:#fff;">SA4005000068206162118000</code>' +
+        '</div>' +
+        '<a class="btn green" style="display:block;text-align:center;text-decoration:none;" href="' + q.whatsapp_Trigger_url + '" target="_blank">📲 إرسال المطالبة المالية وعرض السعر للعميل عبر واتساب الآن</a>';
+      loadData();
+    }
+
+    async function confirmCash(quote_id) {
+      await fetch('/api/v61/auto-cashflow/confirm-payment', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ quote_id })
+      });
+      loadData();
+    }
+
+    loadData();
+  </script>
+
+<!-- Sheikha Floating Autonomous Sales Bot -->
+<a href="/bot.html" style="position:fixed; bottom:22px; left:22px; z-index:9999; background:linear-gradient(135deg,#eab308,#10b981); color:#000; padding:14px 20px; border-radius:999px; font-weight:900; text-decoration:none; box-shadow:0 10px 25px rgba(0,0,0,0.5); border:2px solid #fff; font-size:0.92rem;">
+  🤖 اشتري وتعاقد أونلاين الآن (بوت الفوترة الفوري بدون اتصال)
+</a>
+
+</body>
+</html>

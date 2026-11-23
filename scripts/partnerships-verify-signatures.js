@@ -42,8 +42,15 @@ function readManifest() {
     return JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
 }
 
-function verifyEntry(entry, manifestMeta, signingKey) {
-    const absolutePath = path.join(ROOT_DIR, entry.relativePath);
+function verifyEntry(entry, manifestMeta, signingKey, contractsDir = CONTRACTS_DIR) {
+    const fail = reason => ({ ok: false, reason, electronicAgreementSigned: false });
+    if (!entry || !manifestMeta || typeof entry.fileName !== 'string' || !/^spa-[a-zA-Z0-9_-]+\.json$/.test(entry.fileName)) return fail('invalid-entry');
+    if (!['hmac-sha256', 'sha256-audit-seal'].includes(entry.sealType)) return fail('unsupported-seal-type');
+    if (entry.sealType === 'hmac-sha256' && !signingKey) return fail('hmac-key-required');
+    if (entry.relativePath !== path.join('reports', 'partnerships', 'contracts', entry.fileName)) return fail('scope-mismatch');
+    if (typeof entry.fileSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(entry.fileSha256) || typeof entry.digitalSeal !== 'string' || !/^[a-f0-9]{64}$/.test(entry.digitalSeal)) return fail('invalid-digest');
+    const absolutePath = path.join(contractsDir, entry.fileName);
+    if (fs.existsSync(absolutePath) && fs.lstatSync(absolutePath).isSymbolicLink()) return fail('symlink-denied');
 
     if (!fs.existsSync(absolutePath)) {
         return {
@@ -69,11 +76,11 @@ function verifyEntry(entry, manifestMeta, signingKey) {
     }
 
     const message = `${entry.contractId}|${entry.fileName}|${entry.fileSha256}|${manifestMeta.signedAt}|${manifestMeta.signer}`;
-    const expectedSeal = entry.sealType === 'hmac-sha256' && signingKey
+    const expectedSeal = entry.sealType === 'hmac-sha256'
         ? hmacSha256(message, signingKey)
         : sha256(Buffer.from(message, 'utf8'));
 
-    if (expectedSeal !== entry.digitalSeal) {
+    if (!crypto.timingSafeEqual(Buffer.from(expectedSeal, 'hex'), Buffer.from(entry.digitalSeal, 'hex'))) {
         return {
             ok: false,
             fileName: entry.fileName,
@@ -84,6 +91,8 @@ function verifyEntry(entry, manifestMeta, signingKey) {
 
     return {
         ok: true,
+        assurance: 'FILE_INTEGRITY_ONLY',
+        electronicAgreementSigned: false,
         fileName: entry.fileName,
         contractId: entry.contractId
     };
@@ -103,10 +112,11 @@ function main() {
         const failedChecks = checks.filter((result) => !result.ok);
         const passedChecks = checks.filter((result) => result.ok).length;
 
-        const status = failedChecks.length === 0 && unsignedFiles.length === 0 ? 'PASS' : 'FAIL';
+        const status = checks.length > 0 && manifestFileSet.size === checks.length && failedChecks.length === 0 && unsignedFiles.length === 0 ? 'PASS' : 'FAIL';
 
         console.log('============================================================');
-        console.log('SHEIKHA PARTNERSHIP SIGNATURE VERIFICATION');
+        console.log('SHEIKHA PARTNERSHIP INTEGRITY VERIFICATION ONLY');
+        console.log('ELECTRONIC_AGREEMENT_SIGNATURE_VERIFIED=false');
         console.log('============================================================');
         console.log(`Status            : ${status}`);
         console.log(`Manifest Entries  : ${manifest.entries.length}`);
@@ -139,4 +149,5 @@ function main() {
     }
 }
 
-main();
+if (require.main === module) main();
+module.exports = { verifyEntry };

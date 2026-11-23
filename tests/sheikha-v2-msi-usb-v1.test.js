@@ -2,6 +2,7 @@
 
 const crypto = require('node:crypto');
 const fs = require('node:fs');
+const path = require('node:path');
 
 const {
   EFI_ARTIFACT,
@@ -24,6 +25,11 @@ function sha256(filePath) {
 }
 
 describe('Sheikha V2 MSI USB GPT boot trial', () => {
+  const writer = path.resolve(
+    __dirname,
+    '../scripts/bare-metal/v2/write-msi-usb-v1.sh'
+  );
+
   test('uses a FAT32 geometry valid for UEFI removable media', () => {
     const geometry = calculateFat32Geometry();
     expect(geometry.clusters).toBeGreaterThanOrEqual(65525);
@@ -59,5 +65,14 @@ describe('Sheikha V2 MSI USB GPT boot trial', () => {
     expect(qemu.imageSha256).toBe(sha256(IMAGE));
     expect(qemu.efiArtifactSha256).toBe(sha256(EFI_ARTIFACT));
     expect(qemu.networkEnabled).toBe(false);
+  });
+
+  test('keeps system-disk rejection and post-write readback mandatory', () => {
+    const source = fs.readFileSync(writer, 'utf8');
+    expect(source).toContain('ERROR=SYSTEM_DISK_REJECTED');
+    expect(source).toContain('ERROR=TARGET_OR_CHILD_PARTITION_IS_MOUNTED');
+    expect(source).toContain('POST_WRITE_READBACK_HASH_MISMATCH');
+    expect(source).toContain('POST_WRITE_READBACK_VERIFIED=true');
+    expect(source).toContain('READBACK_SHA256');
   });
 });

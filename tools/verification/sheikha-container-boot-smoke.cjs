@@ -27,7 +27,7 @@ async function main() {
     const adminToken = jwt.sign({ id: 'container-smoke-only', role: 'admin' }, jwtSecret,
         { algorithm: 'HS256', expiresIn: '5m' });
     const child = spawn(process.execPath, ['server.js'], {
-        env: { ...process.env, NODE_ENV: 'production', PORT: '8080', HOST: '127.0.0.1',
+        env: { ...process.env, NODE_ENV: 'production', PORT: '8080', HOST: '0.0.0.0',
             JWT_SECRET: jwtSecret, DATA_ENCRYPTION_KEY: randomBytes(32).toString('hex'),
             SESSION_SECRET: randomBytes(32).toString('hex'),
             PASSWORD_SALT: randomBytes(32).toString('hex'), SHEIKHA_ENABLE_ALL_ENGINES: allEngines,
@@ -101,6 +101,10 @@ async function main() {
             await sleep(500);
         }
         if (!healthy) throw new Error('HEALTH_CHECK_FAILED');
+        const sockets = fs.readFileSync('/proc/net/tcp', 'utf8');
+        const wildcardListener = /^\s*\d+:\s+00000000:1F90\s+[0-9A-F]{8}:[0-9A-F]{4}\s+0A\s/im.test(sockets);
+        report.checks.push({ check: 'ipv4-listener', address: '0.0.0.0:8080', passed: wildcardListener });
+        assert.ok(wildcardListener, 'EXPECTED_IPV4_WILDCARD_LISTENER');
         const optionalChecks = allEngines === 'true' ? [
             ...['status', 'evidence', 'cycle', 'experiments', 'curriculum']
                 .map(suffix => ['/api/research/agi-asi-science-fabric/' + suffix, 200]),
@@ -124,10 +128,36 @@ async function main() {
                     assert.equal(data.bounded, true);
                 } });
             }
-            for (const suffix of ['/design', '/full', '/spawn']) await check(base + suffix, 401);
+            for (const suffix of ['/design', '/full', '/spawn', '/manifest', '/self-test']) await check(base + suffix, 401);
             await check(base + '/spawn', 401, { method: 'POST', input: {} });
+            await check(base + '/self-test', 401, { method: 'POST', input: {} });
+            await check(base + '/manifest', 200, { authenticated: true, validate: data => {
+                assert.equal(data.data.schema, 'SHEIKHA_LOCAL_KERNEL_COMPOSITION_V1');
+                assert.equal(data.data.platform.evidence.bareMetalBootVerified, false);
+                assert.equal(data.data.platform.ai.providerConnected, false);
+                assert.equal(data.data.productionReady, false);
+            } });
+            await check(base + '/self-test', 405, { authenticated: true, validate: (_data, headers) => {
+                assert.equal(headers.allow, 'POST');
+            } });
+            await check(base + '/self-test', 200, { method: 'POST', authenticated: true, input: {}, validate: data => {
+                assert.equal(data.status, 'LOCAL_SELF_TEST_PASSED');
+                assert.equal(Object.values(data.checks).every(value => value === true), true);
+                assert.equal(data.descriptors.created, 3);
+                assert.equal(data.descriptors.persistent, false);
+                assert.equal(data.bootExecuted, false);
+                assert.equal(data.externalExecution, false);
+                assert.equal(data.productionReady, false);
+            } });
+            await check(base + '/self-test', 400, { method: 'POST', authenticated: true, input: { source: 'untrusted' } });
+            await check(base + '/self-test', 400, { method: 'POST', authenticated: true, input: JSON.parse('{"__proto__":{"live":true}}') });
+            await check(base + '/self-test?live=true', 400, { method: 'POST', authenticated: true, input: {} });
         }
         const before = await check('/api/infinite-agent/design', 200, { authenticated: true });
+        assert.equal(before.statistics.agents, 0);
+        assert.equal(before.totalBots, before.statistics.agents);
+        assert.equal(before.sealStatus, 'NOT_VERIFIED');
+        assert.equal(before.countScope, 'LOCAL_IN_MEMORY_DESCRIPTORS');
         await check('/api/infinite-agent/spawn', 405, { authenticated: true, validate: (_data, headers) => {
             assert.equal(headers.allow, 'POST');
         } });
@@ -156,6 +186,8 @@ async function main() {
         });
         await check('/api/sheikha-kernel/full', 200, { authenticated: true, validate: data => {
             assert.equal(data.statistics.agents, before.statistics.agents + 3);
+            assert.equal(data.totalBots, data.statistics.agents);
+            assert.equal(data.sealStatus, 'NOT_VERIFIED');
             assert.equal(data.liveNeuralNetwork, false);
             assert.equal(data.externalExecution, false);
             assert.equal(data.seal, null);
@@ -184,6 +216,45 @@ async function main() {
             });
             await check(base + '/simulate', 400, { method: 'POST', authenticated: true, input: { rainMm: -1 } });
         }
+        await check('/api/minds/status', 401);
+        await check('/api/minds/initialize', 401, { method: 'POST', input: {} });
+        await check('/api/minds/watch/command', 405, { authenticated: true });
+        await check('/api/minds/status', 200, { authenticated: true, validate: data => {
+            assert.equal(data.data.statistics.agents, 13);
+            assert.equal(data.data.storage.saved, false);
+            assert.equal(data.data.modelProviderConnected, false);
+        } });
+        await check('/api/minds/initialize', 200, { method: 'POST', authenticated: true, input: {}, validate: data => {
+            assert.equal(data.data.persisted, true);
+            assert.equal(data.data.totalBots, 13);
+        } });
+        await check('/api/minds/replicate', 200, { method: 'POST', authenticated: true,
+            input: { mind: 'engineer', count: 2 }, validate: data => assert.equal(data.data.totalBots, 15) });
+        await check('/api/minds/engineer/command', 200, { method: 'POST', authenticated: true,
+            input: { action: 'kernel-self-test' }, validate: data => {
+                assert.equal(data.data.result.success, true);
+                assert.equal(data.data.externalExecution, false);
+            } });
+        await check('/api/minds/governor/command', 200, { method: 'POST', authenticated: true,
+            input: { action: 'review-operation', input: { action: 'deploy' } }, validate: data => {
+                assert.equal(data.data.status, 'DENIED');
+                assert.equal(data.data.executed, false);
+            } });
+        await check('/api/minds/omni/command', 403, { method: 'POST', authenticated: true,
+            input: { action: 'kernel-self-test' } });
+        await check('/api/minds/status', 200, { authenticated: true, validate: data => {
+            assert.equal(data.data.statistics.agents, 15);
+            assert.equal(data.data.storage.saved, true);
+        } });
+        await check('/api/minds/journal', 200, { authenticated: true, validate: data => {
+            assert.equal(data.data.entries.length, 4);
+            assert.equal(data.data.containsCommandInputs, false);
+        } });
+        const Matrix = require('/app/runtime/minds/sheikha_multi_mind_matrix');
+        const reloaded = new Matrix({ stateRoot: '/app/runtime/private/minds' }).status();
+        assert.equal(reloaded.statistics.agents, 15);
+        assert.equal(reloaded.revision, 4);
+        report.mindsStateReloadedInSeparateProcess = true;
         if (missing.size) throw new Error('MODULE_NOT_FOUND_OBSERVED');
         report.status = 'PASS';
     } catch (error) {

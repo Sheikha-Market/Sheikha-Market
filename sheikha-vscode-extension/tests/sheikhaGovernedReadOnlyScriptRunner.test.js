@@ -282,4 +282,43 @@ describe('Sheikha governed read-only script sandbox', () => {
     expect(answer).toContain('دون I3 أو D6');
     expect(answer).not.toContain('غير متاح');
   });
+
+  test('summarizes periodic non-target drift without authorizing process mutation', () => {
+    const answer = buildReadOnlyScriptAnswer({
+      status: 'READ_ONLY_SCRIPT_EXECUTED',
+      scriptMatched: true,
+      scriptName: 'SHEIKHA_READ_ONLY_NON_TARGET_DELTA.sh',
+      actualSha256: 'b'.repeat(64),
+      matchedCount: 1,
+      exitCode: 0,
+      syntaxValid: true,
+      policyViolations: [],
+      parsedOutput: {
+        decision: 'STABLE_NON_TARGET_WORKSPACE_DELTA_IDENTIFIED_PERIODIC_WRITER_CORRELATION_REVIEW_REQUIRED',
+        current: {
+          statusEntryCount: 216,
+          trackedDiffPathCount: 87,
+          untrackedPathCount: 129,
+          stagedPathCount: 0,
+          stableDuringDeltaCapture: true
+        }
+      },
+      markers: {
+        STRUCTURAL_216_87_129_STATE_PRESERVED: 'true',
+        NON_TARGET_CHANGED_PATH_COUNT: '2',
+        ACTIVE_PERIODIC_MUTATION_RISK_PRESENT: 'true',
+        LIVE_WRITABLE_HANDLE_TO_CHANGED_PATH_OBSERVED: 'false',
+        PROCESS_STOP_AUTHORIZED: 'false',
+        PERIODIC_LOOP_DISABLE_AUTHORIZED: 'false',
+        I2_R3_R1_READ_ONLY_REBINDING_DESIGN_ELIGIBLE: 'false'
+      }
+    });
+
+    expect(answer).toContain('الحالة ثابتة أثناء الالتقاط: نعم');
+    expect(answer).toContain('المسارات المتغيرة خارج الهدف: 2');
+    expect(answer).toContain('مخاطرة كتابة دورية موجودة: نعم');
+    expect(answer).toContain('مقبض كتابة حي على المسار المتغير مرصود: لا');
+    expect(answer).toContain('تعطيل الحلقة الدورية مصرح: لا');
+    expect(answer).toContain('تعطيل الحلقات الدورية غير مصرح به');
+  });
 });

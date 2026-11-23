@@ -8,6 +8,7 @@
 - Usage Metering
 - Enterprise Auth
 - Multi-Model Router
+- AI Router Anywhere — التطبيقات + وكلاء البرمجة + IDEs + SDKs + MCP
 - GPU Scheduler
 - Local Vector Memory
 - Sheikha Cloud Node
@@ -27,6 +28,9 @@
 - `GET /api/sheikha/provider-keys/policy`
 - `GET /api/sheikha/usage-metering/status`
 - `POST /api/sheikha/usage-metering/event`
+- `GET /api/ai-core/router-anywhere/status`
+- `GET /api/ai-core/router-anywhere/guides`
+- `POST /api/ai-core/router-anywhere/plan` — خطة فقط بلا اتصال خارجي
 
 ## قواعد الذكاء الصناعي
 

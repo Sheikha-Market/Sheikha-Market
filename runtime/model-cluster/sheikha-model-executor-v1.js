@@ -5,6 +5,7 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const path = require('path');
+const { exactIntegerAnswer } = require('./sheikha-exact-integer-v1');
 
 const ROOT = process.env.SHEIKHA_ROOT || (
   fs.existsSync('/opt/sheikha/current') ? '/opt/sheikha/current' : process.cwd()
@@ -57,7 +58,7 @@ function listModels() {
 
 function chooseModelFromList(task, models = []) {
   const preferred = {
-    coding: ['qwen2.5-coder:14b', 'qwen3:8b', 'Sheikha-Core:latest'],
+    coding: ['qwen2.5-coder:14b', 'qwen2.5-coder:7b', 'qwen3:8b', 'Sheikha-Core:latest'],
     rag: ['qwen3:8b', 'Sheikha-Core:latest', 'llama3.1:8b'],
     report: ['qwen3:8b', 'Sheikha-Core:latest', 'llama3.1:8b'],
     reasoning: ['deepseek-r1:8b', 'qwen3:8b', 'Sheikha-Core:latest'],
@@ -230,6 +231,8 @@ function buildModelFallback(task, model, error) {
 }
 
 async function executeAsync(message, options = {}) {
+  const exact = exactIntegerAnswer(message);
+  if (exact) return exact;
   const check = guard(message);
   if (!check.allowed) {
     if (options.audit !== false) {
@@ -326,6 +329,8 @@ async function executeAsync(message, options = {}) {
 }
 
 function execute(message, options = {}) {
+  const exact = exactIntegerAnswer(message);
+  if (exact) return exact;
   const check = guard(message);
   if (!check.allowed) {
     audit({ action: 'blocked', message, reason: check.reason });

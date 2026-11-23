@@ -1,0 +1,97 @@
+{
+  "sheikhachain_ledger": {
+    "network_name": "SheikhaChain Mainnet (سلسلة كتل شيخة السيادية لتوثيق المعادن والعقود الخضراء)",
+    "consensus": "Proof-of-Physical-Assay & Weighbridge (PoPAW - إثبات الوزن والفحص المخبري)",
+    "blocks": [
+      {
+        "block_height": 3,
+        "tx_id": "SHK-TX-60713",
+        "asset_type": "صك ملكية شحنة قياسية وعقد ذكي (SheikhaChain Smart Lot)",
+        "details": "شحنة رقم SHK-LOT-01: 40 طن نحاس أحمر Millberry 99.9% + 100 طن حديد HMS — تسليم الخبر وميناء الدمام",
+        "prev_hash": "0xSHK282f9ce039bea867c6c8e9ba421bddb238e7040fa174efe648f0cdaa2d",
+        "block_hash": "0xSHK2a7e858609c81a37bdb44161c59b684a4fef21c78ee3b30581990d0c86",
+        "timestamp": "2026-11-11T04:27:40.713Z"
+      },
+      {
+        "block_height": 0,
+        "tx_id": "SHK-TX-GENESIS",
+        "asset_type": "كتلة التأسيس السيادية (Genesis Block)",
+        "details": "إطلاق بورصة وسوق شيخة للمعادن والسكراب — الخبر، المملكة العربية السعودية (ترخيص SHK-EXCH-LIC-2026-0001)",
+        "prev_hash": "0x00000000000000000000000000000000",
+        "block_hash": "0xSHK282f9ce039bea867c6c8e9ba421bddb238e7040fa174efe648f0cdaa2d",
+        "timestamp": "2026-11-11T07:00:00Z"
+      },
+      {
+        "block_height": 1,
+        "tx_id": "SHK-TOKEN-CU-001",
+        "asset_type": "صك ملكية معدن مادي موثق (Physical Metal Token)",
+        "details": "توثيق 25 طن نحاس أحمر نقي (Millberry 99.9%) في ساحة الخبر/الدمام — فحص XRF وتذكرة قبان إلكترونية",
+        "prev_hash": "0xSHK282f9ce039bea867c6c8e9ba421bddb238e7040fa174efe648f0cdaa2d",
+        "block_hash": "0xSHKc788769e5aa3e25c7a96f36a8f3cb9b2df6c0374d49ce7594bf70d6958",
+        "timestamp": "2026-11-11T07:02:00Z"
+      },
+      {
+        "block_height": 2,
+        "tx_id": "SHK-GREEN-NFT-901",
+        "asset_type": "رصيد كربوني وعقد أخضر مشفر (Green Carbon Credit Block)",
+        "details": "توثيق وفر كربوني بمقدار 612.5 طن CO2e وتحويل 250 طن سكراب عن المرادم (Zero-Landfill)",
+        "prev_hash": "0xSHKc788769e5aa3e25c7a96f36a8f3cb9b2df6c0374d49ce7594bf70d6958",
+        "block_hash": "0xSHK086dcf7a0d95350161bea7499dd70bc20803fc370111f0096dfc15f2ce",
+        "timestamp": "2026-11-11T07:04:00Z"
+      }
+    ]
+  },
+  "iot_satellite_telemetry": [
+    {
+      "sensor_id": "SAT-GPS-CNT-40Y",
+      "type": "قمر صناعي وتتبع حاويات (Satellite GNSS / Iridium)",
+      "location": "خط سريع الخبر ⬅ ميناء الملك عبدالعزيز بالدمام (26.4344° N, 50.1033° E)",
+      "reading": "السرعة: 78 كم/س | القفل الإلكتروني: محكم الإغلاق | الحمولة: 24.8 طن نحاس",
+      "status": "متصل فضائياً 🛰️"
+    },
+    {
+      "sensor_id": "IOT-WB-KHOBAR-01",
+      "type": "حساس قبان إلكتروني ذكي + بوابة فحص إشعاعي (IoT Weighbridge & Portal)",
+      "location": "ساحة شيخة المركزية — الخبر / طريق بقيق",
+      "reading": "دقة الميزان: ±0.005 طن | الإشعاع: 0.00 µSv/h (آمن ونقي 100%)",
+      "status": "نشط ومزامن ⚖️"
+    },
+    {
+      "sensor_id": "AI-OPTIC-SORT-02",
+      "type": "كاميرات الرؤية الحاسوبية والمطياف الليزري (AI Optical & LIBS/XRF Sorter)",
+      "location": "خط الفرز الآلي — الدمام الصناعية الثانية",
+      "reading": "نقاء النحاس المفروز: 99.92% | سرعة الفرز: 8.5 طن/ساعة",
+      "status": "فرز بصري آلي 👁️"
+    },
+    {
+      "sensor_id": "IOT-FURNACE-IND-01",
+      "type": "مستشعر حراري لفرن الصهر الحثي (Smart Foundry Telemetry)",
+      "location": "وحدة الصهر وإنتاج السبائك — الجبيل الصناعية",
+      "reading": "الحرارة: 1,155 °C | فاقد الخبث: 3.1% | حالة الصب: مثالية",
+      "status": "تحت المراقبة الحرارية 🔥"
+    },
+    {
+      "sensor_id": "SAT-SAR-YARD-SCAN",
+      "type": "تصوير ومسح فضائي لمخزون الساحات (Satellite SAR & Drone Volumetrics)",
+      "location": "تغطية ساحات الشرقية والرياض وجدة (50 ساحة)",
+      "reading": "إجمالي المخزون المرصود فضائياً: 1,845 طن متري جاهز للتوريد",
+      "status": "مسح فضائي محدث 🌍"
+    }
+  ],
+  "generated_videos_catalog": [
+    {
+      "video_id": "VID-SHK-0713",
+      "title": "فيديو ترويجي آلي (4K/HD): شحنة رقم SHK-LOT-01: 40 طن نحاس أحمر Millberry 99.9% + 100 طن حديد HMS — تسليم الخبر وميناء الدمام",
+      "specs": "توليد بصري سينمائي آلي • موثق بالهاش 0xSHK2a7e85860...",
+      "video_url": "/media/sheikha-promo.mp4",
+      "poster_url": "/media/sheikha-poster.svg"
+    },
+    {
+      "video_id": "VID-SHK-101",
+      "title": "فيديو ترويجي آلي (HD): شحنة 25 طن نحاس أحمر نقي Millberry — تسليم الخبر والدمام",
+      "specs": "1280x720 HD MP4 • هوية شيخة الذهبية والخضراء • موثق على شيخة شين",
+      "video_url": "/media/sheikha-promo.mp4",
+      "poster_url": "/media/sheikha-poster.svg"
+    }
+  ]
+}

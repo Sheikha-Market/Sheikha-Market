@@ -56,7 +56,10 @@ describe('Sheikha advanced VS Code templates', () => {
     expect(APEX_LAYERS).toHaveLength(8);
     expect(CHAT_MODES.length).toBeGreaterThanOrEqual(10);
     expect(DIALOGUE_AUDIENCES).toHaveLength(6);
-    expect(QUICK_ACTIONS).toHaveLength(6);
+    expect(QUICK_ACTIONS.length).toBeGreaterThanOrEqual(9);
+    expect(QUICK_ACTIONS.map((action) => action.label)).toEqual(
+      expect.arrayContaining(['تحرير موثق', 'علم وحساب', 'تنفيذ متقن'])
+    );
     expect(CHAT_TOOL_GROUPS).toHaveLength(6);
     expect(CHAT_TOOLS).toHaveLength(39);
     expect(new Set(CHAT_TOOL_COMMAND_IDS).size).toBe(39);

@@ -1,0 +1,174 @@
+{
+  "encyclopedia_id": "SHEIKHA-HSCODE-ISRI-METALLURGY-SCIENCE-V35000",
+  "ip_owner": "منظومة وسوق شيخة (SHEIKHA®) — مؤسسة سلمان أحمد بن سلمان الراجح التجارية",
+  "global_organizations": [
+    {
+      "code": "ISRI / ReMA",
+      "name": "معهد صناعات إعادة التدوير العالمي (المواصفات القياسية للسكراب Berry, Candy, HMS, Taldon)"
+    },
+    {
+      "code": "BIR",
+      "name": "المكتب الدولي لإعادة التدوير (قواعد التجارة الدولية للمعادن غير الحديدية والحديدية)"
+    },
+    {
+      "code": "WCO HS-2026",
+      "name": "منظمة الجمارك العالمية — النظام المنسق لتصنيف وتبويب السلع (الفصول 71 إلى 85)"
+    },
+    {
+      "code": "LME",
+      "name": "بورصة لندن للمعادن — التسعير المرجعي الفوري والعقود الآجلة"
+    },
+    {
+      "code": "ASTM / SAE",
+      "name": "الجمعية الأمريكية للاختبار والمواد — المواصفات الكيميائية والميكانيكية للسبائك"
+    },
+    {
+      "code": "ZATCA & MWAN",
+      "name": "هيئة الزكاة والضريبة والجمارك + المركز الوطني لإدارة النفايات بالمملكة العربية السعودية"
+    }
+  ],
+  "scientific_methodologies": [
+    {
+      "id": "SCI-XRF",
+      "title": "علم الفيزياء الطيفية والأشعة السينية (XRF & LIBS)",
+      "formula": "Moseley Law: v = A*(Z-b)^2",
+      "application": "تحديد النسب الذرية للعناصر وكشف الشوائب في 0.2 ثانية"
+    },
+    {
+      "id": "SCI-MET",
+      "title": "علم الميتالورجيا الحرارية وكفاءة الصهر (Pyrometallurgy)",
+      "formula": "W_rec = W_net * (Purity/100) * Furnace_Eff",
+      "application": "حساب الصافي المعدني القابل للصب بعد خصم الخبث والأكاسيد"
+    },
+    {
+      "id": "SCI-EDDY",
+      "title": "الفيزياء الكهرومغناطيسية والتيار الدوامي (Eddy-Current & Magnetic)",
+      "formula": "Lorentz Force: F = J x B",
+      "application": "الفصل الآلي للنحاس والألمنيوم عن الحديد والشوائب غير المعدنية"
+    },
+    {
+      "id": "SCI-MECH",
+      "title": "الهندسة الميكانيكية للقص والفرم والكبس (Shear, Shred & Bale)",
+      "formula": "Density = Mass / Compressed_Volume (320 Bar)",
+      "application": "رفع الكثافة الحجمية للسكراب لتقليل تكلفة النقل وتسريع الانصهار"
+    },
+    {
+      "id": "SCI-LCA",
+      "title": "علم تقييم دورة الحياة والائتمان الكربوني (ISO 14040 Green LCA)",
+      "formula": "CO2_Saved = Tons * Emission_Factor_Delta",
+      "application": "توثيق الوفر الطاقي (95% للألمنيوم، 85% للنحاس، 74% للحديد)"
+    }
+  ],
+  "hs_classifications": [
+    {
+      "hs_code": "7204.10.00",
+      "isri_code": "Auto Cast",
+      "metal_ar": "خردة حديد صب (زهر - Cast Iron)",
+      "sector": "التشليح والمخارط والمسابك",
+      "purity_min": "96.0%",
+      "furnace_yield": 0.92,
+      "co2_saved_per_ton": 1.45,
+      "ref_price_sar": 1480
+    },
+    {
+      "hs_code": "7204.21.00",
+      "isri_code": "Sabot / 304-316",
+      "metal_ar": "خردة فولاذ مقاوم للصدأ (Stainless Steel Cr-Ni)",
+      "sector": "البتروكيماويات والمصانع الغذائية",
+      "purity_min": "98.5%",
+      "furnace_yield": 0.95,
+      "co2_saved_per_ton": 4.2,
+      "ref_price_sar": 5800
+    },
+    {
+      "hs_code": "7204.41.00",
+      "isri_code": "Machine Turnings",
+      "metal_ar": "رايش وبرادة وخراطة حديد وفولاذ",
+      "sector": "خطوط الإنتاج والمخارط الصناعية",
+      "purity_min": "94.0%",
+      "furnace_yield": 0.88,
+      "co2_saved_per_ton": 1.35,
+      "ref_price_sar": 1150
+    },
+    {
+      "hs_code": "7204.49.10",
+      "isri_code": "HMS 1 & HMS 2 (200-206)",
+      "metal_ar": "حديد ثقيل مقصوص للانصهار (سماكة +6 ملم / +3 ملم)",
+      "sector": "هدم المباني، المقاولات، والجسور",
+      "purity_min": "98.0%",
+      "furnace_yield": 0.94,
+      "co2_saved_per_ton": 1.58,
+      "ref_price_sar": 1520
+    },
+    {
+      "hs_code": "7204.49.20",
+      "isri_code": "Shredded 211 / Bundles",
+      "metal_ar": "حديد مفروم بالجاروشة وصاج مكبوس",
+      "sector": "هياكل السيارات والأجهزة المنزلية",
+      "purity_min": "97.5%",
+      "furnace_yield": 0.93,
+      "co2_saved_per_ton": 1.55,
+      "ref_price_sar": 1560
+    },
+    {
+      "hs_code": "7404.00.10",
+      "isri_code": "Berry / Candy / Birch",
+      "metal_ar": "خردة نحاس أحمر نقي وكابلات ومواسير",
+      "sector": "الكهرباء، الاتصالات، والمقاولات",
+      "purity_min": "99.9%",
+      "furnace_yield": 0.98,
+      "co2_saved_per_ton": 3.8,
+      "ref_price_sar": 31200
+    },
+    {
+      "hs_code": "7404.00.20",
+      "isri_code": "Honey / Brass & Bronze",
+      "metal_ar": "خردة نحاس أصفر وبرونز (محابس وصمامات)",
+      "sector": "شبكات المياه، الموانئ، والسباكة",
+      "purity_min": "97.0%",
+      "furnace_yield": 0.95,
+      "co2_saved_per_ton": 3.1,
+      "ref_price_sar": 21400
+    },
+    {
+      "hs_code": "7602.00.10",
+      "isri_code": "Talc / Taldon (UBC)",
+      "metal_ar": "خردة علب المشروبات الألمنيوم المكبوسة (UBC)",
+      "sector": "مراكز التجميع، البلديات، وخطوط الإنتاج",
+      "purity_min": "99.1%",
+      "furnace_yield": 0.94,
+      "co2_saved_per_ton": 9.1,
+      "ref_price_sar": 8950
+    },
+    {
+      "hs_code": "7602.00.20",
+      "isri_code": "Tense / Tabor / Tread",
+      "metal_ar": "خردة قطاعات ألمنيوم ومسبوكات وجنوط",
+      "sector": "واجهات المباني، المصانع، والتشليح",
+      "purity_min": "98.8%",
+      "furnace_yield": 0.96,
+      "co2_saved_per_ton": 8.8,
+      "ref_price_sar": 9400
+    },
+    {
+      "hs_code": "7802.00.00",
+      "isri_code": "Rains / Radio",
+      "metal_ar": "خردة الرصاص والبطاريات المستعملة المعزولة",
+      "sector": "السيارات، الطاقة، والاتصالات",
+      "purity_min": "95.0%",
+      "furnace_yield": 0.91,
+      "co2_saved_per_ton": 2.1,
+      "ref_price_sar": 7200
+    },
+    {
+      "hs_code": "8549.11 / 7112",
+      "isri_code": "E-Scrap / Autocats",
+      "metal_ar": "ألواح إلكترونية ودبات بيئة (بلاتين/بلاديوم/ذهب)",
+      "sector": "التقنية، الاتصالات، وعوادم المركبات",
+      "purity_min": "Assay ICP",
+      "furnace_yield": 0.97,
+      "co2_saved_per_ton": 14.5,
+      "ref_price_sar": 48000
+    }
+  ]
+}

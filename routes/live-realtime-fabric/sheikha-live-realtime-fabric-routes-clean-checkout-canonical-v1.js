@@ -100,7 +100,22 @@ function resolveModelFirstTokenHardTimeoutMs(liveProfile = {}) {
 
 function shouldUseDeepExtensionStream(channel = '', responseMode = '') {
   return String(channel).toLowerCase() === 'extension-chat' &&
-    String(responseMode).toUpperCase() !== 'FAST_ONLY';
+    ['DEEP_STREAM', 'FAST_THEN_DEEP_STREAM'].includes(String(responseMode).toUpperCase());
+}
+
+function resolveGovernedCompletionContract(input = {}) {
+  const accepted = input?.contract === 'SHEIKHA_GOVERNED_COMPLETION_CONTRACT_V1' &&
+    input.requested === true && input.defaultAuthorization === 'DENY' &&
+    input.humanFinalDecision === true;
+  return {
+    requested: input?.requested === true,
+    accepted,
+    safeContinuationAllowed: accepted,
+    highImpactApprovalGranted: false,
+    defaultAuthorization: 'DENY',
+    humanFinalDecision: true,
+    terminalEvidenceRequired: true
+  };
 }
 
 function parseOllamaStreamLine(line = '') {
@@ -533,10 +548,11 @@ function streamOllama({
 }
 
 function createDeepStreamingProfile(profile = {}) {
-  // الـ deep streaming يستخدم نموذج الجودة المحلي المحدد (code model) دائماً
-  const model =
-    process.env.SHEIKHA_LIVE_CODE_MODEL ||
-    'qwen2.5-coder:7b';
+  const specialized = ['code', 'reasoning'].includes(profile.key);
+  const model = (specialized ? profile.model : profile.deepArabicModel) ||
+    profile.model ||
+    process.env.SHEIKHA_OLLAMA_MODEL ||
+    'Sheikha-Core:latest';
 
   return {
     ...profile,
@@ -549,7 +565,7 @@ function createDeepStreamingProfile(profile = {}) {
       process.env.SHEIKHA_EXTENSION_DEEP_TIMEOUT_MS || 120000
     ),
     numPredict: Number(
-      process.env.SHEIKHA_EXTENSION_DEEP_NUM_PREDICT || 64
+      process.env.SHEIKHA_EXTENSION_DEEP_NUM_PREDICT || 192
     ),
     numCtx: Number(
       process.env.SHEIKHA_EXTENSION_DEEP_NUM_CTX || 1024
@@ -563,7 +579,7 @@ function createDeepStreamingProfile(profile = {}) {
     modelFirstTokenHardTimeoutMs: Number(
       process.env
         .SHEIKHA_EXTENSION_DEEP_FIRST_MODEL_TOKEN_TIMEOUT_MS ||
-      75000
+      60000
     ),
     modelFirstTokenHardTimeoutAuthoritative: true,
     sameLanguageModel: profile.outputLanguage === 'ar' ||
@@ -684,7 +700,8 @@ function writeLivePrelude(
           ? 'contextual-arabic-opening-then-fast-model-stream'
           : 'ollama-stream'
       ),
-    deepLayerEscalationAvailable: profile.deepLayerEscalationAvailable
+    deepLayerEscalationAvailable: profile.deepLayerEscalationAvailable,
+    completion: options.completion || null
   });
 
   sendSse(res, 'heartbeat', {
@@ -862,7 +879,8 @@ function writeFastArabicCompletion(res, message = '') {
     ok: true,
     text: buildFastArabicReply(message),
     immediate: true,
-    modelWaitBlocked: false
+    modelWaitBlocked: false,
+    source: 'contextual-arabic-fast-completion'
   });
 
   sendSse(res, 'done', {
@@ -903,6 +921,7 @@ router.post('/api/sheikha/live/chat/v1', (req, res) => {
     : profile;
   const responseModel = responseProfile.model;
   const exactOutput = extractExactOutputContract(message);
+  const completion = resolveGovernedCompletionContract(req.body?.completion);
 
   res.writeHead(200, {
     'Content-Type': 'text/event-stream; charset=utf-8',
@@ -921,9 +940,10 @@ router.post('/api/sheikha/live/chat/v1', (req, res) => {
           mode: 'LIVE_FAST_THEN_DEEP_STREAM',
           profileName: 'arabic-fast-then-deep',
           deepModelMode: 'inline-stream',
-          source: 'extension-deep-stream'
+          source: 'extension-deep-stream',
+          completion
         }
-      : {}
+      : {completion}
   );
 
   if (exactOutput !== null) {
@@ -1025,6 +1045,7 @@ router.__test = {
   createDeepStreamingProfile,
   resolveModelFirstTokenHardTimeoutMs,
   shouldUseDeepExtensionStream,
+  resolveGovernedCompletionContract,
   warmLiveArabicModel,
   writeLivePrelude,
   parseOllamaStreamLine,

@@ -24,6 +24,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const governance = require('../core/security/sheikha-sdk-mcp-governance.cjs');
 
 const SDK_PORT = parseInt(process.env.SHEIKHA_SDK_PORT || '3001', 10);
 const MAIN_API = process.env.SHEIKHA_MAIN_URL || 'http://localhost:8080';
@@ -37,7 +38,7 @@ const MCP_DIR = __dirname;
 // ─── دوال مساعدة ─────────────────────────────────────────────────────────────
 
 function sendJSON(res, status, data) {
-    const body = JSON.stringify(data, null, 2);
+    const body = JSON.stringify(governance.redact(data), null, 2);
     res.writeHead(status, {
         'Content-Type': 'application/json; charset=utf-8',
         'Access-Control-Allow-Origin': '*',
@@ -52,7 +53,12 @@ function sendJSON(res, status, data) {
 function readBody(req) {
     return new Promise((resolve) => {
         let body = '';
-        req.on('data', (chunk) => { body += chunk; });
+        let bytes = 0;
+        req.on('data', (chunk) => {
+            bytes += chunk.length;
+            if (bytes > 262144) { req.destroy(); return resolve({}); }
+            body += chunk;
+        });
         req.on('end', () => {
             try { resolve(JSON.parse(body || '{}')); }
             catch (_) { resolve({}); }
@@ -281,6 +287,11 @@ const httpServer = http.createServer(async (req, res) => {
 
     const urlPath = (req.url || '/').split('?')[0].replace(/\/$/, '') || '/';
     const routeKey = `${req.method} ${urlPath}`;
+    try {
+        if (!governance.authenticateRequest(req)) {
+            return sendJSON(res, 401, { success: false, error: 'SCOPED_API_KEY_REQUIRED' });
+        }
+    } catch (_) { return sendJSON(res, 503, { success: false, error: 'AUTHENTICATION_UNAVAILABLE' }); }
 
     // مطابقة مسار بسيط (تجاهل query string)
     const handler = ROUTES[routeKey];
@@ -307,7 +318,7 @@ const httpServer = http.createServer(async (req, res) => {
     });
 });
 
-httpServer.listen(SDK_PORT, '0.0.0.0', () => {
+httpServer.listen(SDK_PORT, '127.0.0.1', () => {
     console.log(`
 ╔══════════════════════════════════════════════════════════════╗
 ║  🔧 SHEIKHA SDK SERVER — خادم SDK شيخة                      ║

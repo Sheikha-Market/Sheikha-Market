@@ -1,0 +1,37 @@
+{
+  "schema": "SHEIKHA_REGIONAL_TOPOLOGY_V1",
+  "status": "PLANNED_NOT_DEPLOYED",
+  "primaryRegion": "me-central2",
+  "dnsAuthority": "HOSTINGER",
+  "productionHold": true,
+  "zeroNewSpend": true,
+  "primary": {
+    "country": "SA",
+    "service": "sheikha-main-portal",
+    "minInstances": 0,
+    "maxInstances": 3,
+    "state": "EXTERNAL_SAUDI_STORE_REQUIRED",
+    "modelMount": "DISABLED_UNTIL_VERIFIED_READ_ONLY"
+  },
+  "privateData": {
+    "allowedRegions": ["me-central2"],
+    "internationalReplication": false,
+    "regionalFailover": "FAIL_CLOSED",
+    "logsBackupsSecrets": "SAUDI_LOCATION_VERIFICATION_REQUIRED"
+  },
+  "internationalCandidates": [
+    { "region": "europe-west1", "role": "REVIEWED_PUBLIC_ASSETS_ONLY", "enabled": false },
+    { "region": "asia-southeast1", "role": "REVIEWED_PUBLIC_ASSETS_ONLY", "enabled": false },
+    { "region": "us-east1", "role": "REVIEWED_PUBLIC_ASSETS_ONLY", "enabled": false }
+  ],
+  "hostinger": {
+    "role": "DNS_AND_OPTIONAL_PUBLIC_EDGE",
+    "location": "UNVERIFIED",
+    "privateDataAllowed": false
+  },
+  "saudiDisasterRecovery": {
+    "provider": null,
+    "location": null,
+    "status": "INDEPENDENT_SAUDI_SITE_REQUIRED"
+  }
+}

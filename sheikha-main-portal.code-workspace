@@ -2,14 +2,20 @@
 	"folders": [
 		{
 			"path": ".",
-			"name": "🚀 Sheikha: Enterprise AI Portal"
+			"name": "SHEIKHA"
 		},
 		{
 			"path": "sheikha-vscode-extension",
-			"name": "🔌 Sheikha: VS Code Extension"
+			"name": "SHEIKHA Extension"
 		}
 	],
 	"settings": {
+		"sheikha.workspaceLocalTools": true,
+		"typescript.disableAutomaticTypeAcquisition": true,
+		"json.schemaDownload.enable": false,
+		"terminal.integrated.env.linux": {
+			"PATH": "${env:HOME}/.cargo/bin:${env:PATH}"
+		},
 		"[javascript]": {
 			"editor.defaultFormatter": "esbenp.prettier-vscode",
 			"editor.formatOnSave": true,
@@ -36,13 +42,23 @@
 		"version": "2.0.0",
 		"tasks": [
 			{
+				"label": "Sheikha: Local Workspace Verification",
+				"type": "process",
+				"command": "node",
+				"args": ["${workspaceFolder:SHEIKHA}/sheikha-vscode-extension/scripts/verify-workspace-integration.js"],
+				"options": { "cwd": "${workspaceFolder:SHEIKHA}" },
+				"group": { "kind": "build", "isDefault": true },
+				"problemMatcher": []
+			},
+			{
 				"label": "📦 Install Dependencies",
 				"type": "shell",
 				"command": "npm",
 				"args": ["install"],
+				"options": { "cwd": "${workspaceFolder:SHEIKHA}" },
 				"group": {
 					"kind": "build",
-					"isDefault": true
+					"isDefault": false
 				}
 			},
 			{
@@ -50,6 +66,7 @@
 				"type": "shell",
 				"command": "npm",
 				"args": ["run", "dev"],
+				"options": { "cwd": "${workspaceFolder:SHEIKHA}" },
 				"isBackground": true,
 				"problemMatcher": {
 					"pattern": {
@@ -70,31 +87,29 @@
 				"type": "shell",
 				"command": "npm",
 				"args": ["run", "ops:readiness"],
+				"options": { "cwd": "${workspaceFolder:SHEIKHA}" },
 				"group": "test"
 			},
 			{
 				"label": "🎯 Run VSCode Doctor",
-				"type": "shell",
-				"command": "bash",
-				"args": [
-					"-lc",
-					"source \"$HOME/.nvm/nvm.sh\" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:doctor; else npm run dev:vscode:doctor; fi"
-				],
+				"type": "process",
+				"command": "npm",
+				"args": ["run", "dev:vscode:doctor"],
+				"options": { "cwd": "${workspaceFolder:SHEIKHA}" },
 				"group": "test"
 			},
 			{
 				"label": "🟢 Start Dev (No Cursor)",
-				"type": "shell",
-				"command": "bash",
-				"args": [
-					"-lc",
-					"source \"$HOME/.nvm/nvm.sh\" >/dev/null 2>&1 || true; export NODE_ENV=development SECURITY_STRICT_SECRETS=false; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm start || npm start; else npm start; fi"
-				],
+				"type": "process",
+				"command": "npm",
+				"args": ["start"],
+				"options": { "cwd": "${workspaceFolder:SHEIKHA}", "env": { "NODE_ENV": "development" } },
 				"isBackground": true,
 				"problemMatcher": []
 			},
 			{
 				"label": "🛡️ Full Secure Activate",
+				"options": { "cwd": "${workspaceFolder:SHEIKHA}" },
 				"type": "shell",
 				"command": "bash",
 				"args": [
@@ -107,6 +122,8 @@
 	},
 	"extensions": {
 		"recommendations": [
+			"sheikha.sheikha",
+			"hostinger-official.hostinger-connector",
 			"GitHub.Copilot",
 			"GitHub.Copilot-Chat",
 			"eamodio.gitlens",
@@ -139,11 +156,10 @@
 				"name": "🟢 Sheikha: Launch Dev (No Cursor)",
 				"type": "node",
 				"request": "launch",
-				"program": "${workspaceFolder}/server.js",
-				"cwd": "${workspaceFolder}",
+				"program": "${workspaceFolder:SHEIKHA}/server.js",
+				"cwd": "${workspaceFolder:SHEIKHA}",
 				"env": {
-					"NODE_ENV": "development",
-					"SECURITY_STRICT_SECRETS": "false"
+					"NODE_ENV": "development"
 				},
 				"console": "integratedTerminal"
 			},
@@ -151,8 +167,8 @@
 				"name": "🚀 Sheikha: Launch Server (NVIDIA-first)",
 				"type": "node",
 				"request": "launch",
-				"program": "${workspaceFolder}/server.js",
-				"cwd": "${workspaceFolder}",
+				"program": "${workspaceFolder:SHEIKHA}/server.js",
+				"cwd": "${workspaceFolder:SHEIKHA}",
 				"console": "integratedTerminal"
 			}
 		]

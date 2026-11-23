@@ -129,7 +129,15 @@ test('compiled VM registers governance declarations as metadata and blocks unsaf
     assert.ok(unsafeResult.state.governance.violations.some((entry) => (
         entry.rule === 'non-executable-values-reference'
     )));
-    assert.ok(unsafeResult.state.governance.violations.some((entry) => (
+    // Execution stops at the first violation; later declarations must not execute.
+    assert.equal(unsafeResult.state.reasoningMethodologies['منهج_غير_موثق'], undefined);
+    const unsafeMethodologySource = unsafeSource.slice(unsafeSource.indexOf('منهج منهج_غير_موثق:'));
+    const unsafeMethodologyResult = runBytecode(
+        compileIRToBytecode(lowerToIR(parse(lex(unsafeMethodologySource)))),
+        { profile: 'local', strictIsolation: true }
+    );
+    assert.equal(unsafeMethodologyResult.ok, false);
+    assert.ok(unsafeMethodologyResult.state.governance.violations.some((entry) => (
         entry.rule === 'arabic-science-reasoning-methodology'
     )));
 });

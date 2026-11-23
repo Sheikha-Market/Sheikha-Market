@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوت المبيعات والتعاقد الذاتي أونلاين (بدون اتصال بشري) | منظومة شيخة</title>
+  <style>
+    :root { --bg: #020617; --card: #0f172a; --gold: #eab308; --emerald: #10b981; --cyan: #06b6d4; --text: #f8fafc; --muted: #94a3b8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
+    header { background: linear-gradient(135deg, #041f18 0%, #0f172a 100%); border-bottom: 2px solid var(--gold); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .chat-wrap { max-width: 820px; width: 100%; margin: 18px auto; flex: 1; display: flex; flex-direction: column; background: var(--card); border: 1px solid rgba(234,179,8,0.4); border-radius: 16px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+    .chat-log { flex: 1; padding: 20px; overflow-y: auto; max-height: 62vh; display: flex; flex-direction: column; gap: 14px; }
+    .msg { max-width: 85%; padding: 14px 16px; border-radius: 14px; line-height: 1.7; font-size: 0.92rem; white-space: pre-line; }
+    .msg.bot { background: #1e293b; border-right: 4px solid var(--gold); align-self: flex-start; }
+    .msg.user { background: rgba(16,185,129,0.18); border: 1px solid var(--emerald); align-self: flex-end; color: #ecfdf5; }
+    .catalog-btns { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+    .item-btn { background: #020617; border: 1px solid var(--gold); color: var(--gold); padding: 11px 14px; border-radius: 10px; text-align: right; cursor: pointer; font-weight: 800; font-size: 0.88rem; transition: 0.2s; }
+    .item-btn:hover { background: var(--gold); color: #000; }
+    .controls { background: #020617; border-top: 1px solid rgba(255,255,255,0.1); padding: 16px; }
+    input { width: 100%; padding: 11px 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; margin-bottom: 10px; font-family: inherit; }
+    .btn { background: var(--emerald); color: #022c22; border: none; padding: 12px 18px; border-radius: 8px; font-weight: 900; width: 100%; cursor: pointer; font-size: 0.95rem; }
+    .btn.gold { background: var(--gold); color: #000; margin-top: 8px; display: inline-block; text-align: center; text-decoration: none; }
+    .copy-iban { background: rgba(6,182,212,0.12); border: 1px dashed var(--cyan); padding: 10px; border-radius: 8px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 style="margin:0; font-size:1.15rem; color:var(--gold);">🤖⚡ بوت المبيعات والتعاقد الذاتي أونلاين (Zero-Touch Sales Bot)</h1>
+      <p style="margin:3px 0 0; font-size:0.78rem; color:var(--muted);">تسعير فوري • إصدار فاتورة PDF • دفع بنكي مباشر • اعتماد آلي بدون اتصال أو زيارة</p>
+    </div>
+    <a href="/checkout.html" style="color:var(--cyan); text-decoration:none; font-size:0.85rem; font-weight:700;">لوحة التدفقات النقدية &larr;</a>
+  </header>
+
+  <div class="chat-wrap">
+    <div id="chat-log" class="chat-log"></div>
+    <div id="step-controls" class="controls"></div>
+  </div>
+
+  <script>
+    let selectedItem = null;
+    let activeQuote = null;
+    const chatLog = document.getElementById('chat-log');
+    const controls = document.getElementById('step-controls');
+
+    function addMsg(text, sender = 'bot', extraHtml = '') {
+      const div = document.createElement('div');
+      div.className = 'msg ' + sender;
+      div.innerText = text;
+      if (extraHtml) {
+        const extra = document.createElement('div');
+        extra.innerHTML = extraHtml;
+        div.appendChild(extra);
+      }
+      chatLog.appendChild(div);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    async function initBot() {
+      const res = await fetch('/api/v61/sales-bot/message', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'INIT' })
+      });
+      const data = await res.json();
+      let btnsHtml = '<div class="catalog-btns">';
+      data.items.forEach(it => {
+        btnsHtml += `<button class="item-btn" onclick='selectProduct(${JSON.stringify(it)})'>📦 ${it.title} — (${it.price.toLocaleString()} ريال / ${it.unit})</button>`;
+      });
+      btnsHtml += '</div>';
+      addMsg(data.reply, 'bot', btnsHtml);
+      controls.innerHTML = '<div style="color:var(--muted);font-size:0.85rem;text-align:center;">👆 اختر الصنف أو الخدمة من القائمة أعلاه لإصدار فاتورتك الفورية أونلاين</div>';
+    }
+
+    function selectProduct(it) {
+      selectedItem = it;
+      addMsg(`أرغب في شراء/التعاقد على: ${it.title}`, 'user');
+      addMsg(`اختيار ممتاز ✅ (${it.title} بسعر ${it.price.toLocaleString()} ريال لكل ${it.unit}).\nأدخل الآن الكمية المطلوبة واسم منشأتك لإصدار الفاتورة الرسمية وحساب الدفعة المقدمة فوراً:`, 'bot');
+
+      controls.innerHTML = `
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <input id="b-name" placeholder="اسم الشركة أو المشتري (للفاتورة)" value="شركة التوريد المباشر" />
+          <input id="b-city" placeholder="المدينة / عنوان التسليم" value="الدمام / الخبر" />
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <input id="b-qty" type="number" min="1" value="1" placeholder="الكمية (${it.unit})" />
+          <input id="b-phone" placeholder="البريد أو الجوال (لإشعار الفاتورة فقط)" value="online@client.sa" />
+        </div>
+        <button class="btn" onclick="generateBotInvoice()">🧾 إصدار الفاتورة الرسمية (PDF) وحساب مبلغ التحويل الآن</button>
+      `;
+    }
+
+    async function generateBotInvoice() {
+      const payload = {
+        item_id: selectedItem.id,
+        client_name: document.getElementById('b-name').value,
+        client_city: document.getElementById('b-city').value,
+        qty: document.getElementById('b-qty').value,
+        client_phone: document.getElementById('b-phone').value
+      };
+      addMsg(`الكمية: ${payload.qty} ${selectedItem.unit} | المنشأة: ${payload.client_name} (${payload.client_city})`, 'user');
+
+      const res = await fetch('/api/v61/sales-bot/message', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'CREATE_DEAL', payload })
+      });
+      const out = await res.json();
+      activeQuote = out.deal;
+
+      const extra = `
+        <div class="copy-iban">
+          <span>🏦 آيبان الإنماء: <strong id="iban-txt">SA4005000068206162118000</strong></span>
+          <button onclick="navigator.clipboard.writeText('SA4005000068206162118000');this.innerText='تم النسخ ✅';" style="background:var(--cyan);border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-weight:800;">نسخ الآيبان</button>
+        </div>
+        <a class="btn gold" href="${activeQuote.pdf_url}" target="_blank">🖨️ فتح وتحميل الفاتورة الرسمية المعتمدة (PDF)</a>
+      `;
+      addMsg(out.reply, 'bot', extra);
+
+      controls.innerHTML = `
+        <div style="background:#0f172a; border:1px solid var(--emerald); border-radius:10px; padding:12px; margin-bottom:10px;">
+          <div style="font-weight:900; color:var(--gold); margin-bottom:8px; font-size:0.88rem;">⚡ الخيار 1: الدفع الإلكتروني الفوري (خصم وتأكيد لحظي أونلاين):</div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
+            <button class="btn" style="background:#fff; color:#000;" onclick="payInstantCard('APPLE_PAY')"> الدفع عبر Apple Pay</button>
+            <button class="btn" style="background:#0ea5e9; color:#000;" onclick="payInstantCard('MADA_CARD')">💳 الدفع ببطاقة مدى / فيزا</button>
+          </div>
+        </div>
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:10px; padding:12px;">
+          <div style="font-weight:800; color:var(--muted); margin-bottom:6px; font-size:0.82rem;">🏦 الخيار 2: التحويل البنكي المباشر لآيبان مصرف الإنماء:</div>
+          <input id="b-ref" placeholder="أدخل رقم مرجع الحوالة البنكية بعد التحويل (مثال: FT263149982)" style="margin-bottom:6px;" />
+          <button class="btn" onclick="confirmBotTransfer()">✅ تأكيد رقم الحوالة البنكية واعتماد الطلب</button>
+        </div>
+      `;
+    }
+
+    async function confirmBotTransfer() {
+      const ref = document.getElementById('b-ref').value || ('ALINMA-ONLINE-' + Math.floor(10000 + Math.random()*90000));
+      addMsg(`تم تحويل الدفعة المقدمة لحساب مصرف الإنماء — رقم مرجع الحوالة: ${ref}`, 'user');
+
+      const res = await fetch('/api/v61/sales-bot/message', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'SUBMIT_TRANSFER_REF', payload: { quote_id: activeQuote.quote_id, transfer_ref: ref } })
+      });
+      const out = await res.json();
+      const extra = `<a class="btn gold" href="${activeQuote.pdf_url}" target="_blank">🖨️ تحميل الفاتورة المختومة بـ (مدفوع ومعتمد للتوريد)</a>`;
+      addMsg(out.reply, 'bot', extra);
+
+      controls.innerHTML = `<button class="btn" onclick="location.reload()">🔄 بدء طلب شراء جديد أونلاين</button>`;
+    }
+
+    
+    async function payInstantCard(method) {
+      addMsg(`أرغب في السداد الإلكتروني الفوري الآن عبر: ${method}`, 'user');
+      const res = await fetch('/api/v61/sales-bot/instant-card-pay', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ quote_id: activeQuote.quote_id, method: method, card_last4: '4829' })
+      });
+      const out = await res.json();
+      const extra = `<a class="btn gold" href="${activeQuote.pdf_url}" target="_blank">🖨️ تحميل الفاتورة المختومة (PDF)</a><a class="btn" style="background:#10b981;color:#000;margin-top:8px;display:inline-block;text-align:center;text-decoration:none;" href="/api/v61/digital-delivery/${activeQuote.quote_id}" target="_blank">📦 استلام وتحميل المنتج ومفتاح التفعيل الفوري الآن</a>`;
+      addMsg(out.reply, 'bot', extra);
+      controls.innerHTML = `<button class="btn" onclick="location.reload()">🔄 بدء طلب شراء جديد أونلاين</button>`;
+    }
+
+    initBot();
+  </script>
+</body>
+</html>

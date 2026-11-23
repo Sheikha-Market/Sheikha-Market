@@ -1,0 +1,49 @@
+﻿Weight_ID,Weight_Domain,Weight_Name_AR,Target_Contract_or_Engine,Weight_Score,Primary_Port,Governing_Chief,Shariah_Seal
+W-CORE-01,Core of Cores Weight,وزن التوحيد والختم القرآني والنبوي في نواة النوى,BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED,100%,18135,C-94 / CORE-C-01,BOUND_BY_QURAN_SUNNAH
+W-CORE-02,Core of Cores Weight,وزن جذر الحقيقة المرجعي (Root Source of Truth Weight),docs/canonical/registry/ROOT-SOURCE-OF-TRUTH.md,100%,18082,C-94 / CORE-C-02,BOUND_BY_QURAN_SUNNAH
+W-CORE-03,Core of Cores Weight,وزن نواة اللوح المحفوظ والتطابق الثلاثي (535 Assets),SHEIKHA-CORE/blockchain/registry.json (edc795a4),100%,18131,C-94 / CORE-C-03,BOUND_BY_QURAN_SUNNAH
+W-CORE-04,Core of Cores Weight,وزن الأوزان الذاتية السيادية الحاكمة (876 Self Weights),Self Sovereign Weights 94.75% (SHA 0c8ca22b),100%,18131,C-94 / CORE-C-04,BOUND_BY_QURAN_SUNNAH
+W-CORE-05,Sovereign Core Weight,وزن محرك النواة المركزي ووقت التشغيل (Core Engine 18082),sheikha_core_engine.py + lib/sheikha-core-runtime.js,100%,18082,C-95 / CORE-C-05,BOUND_BY_QURAN_SUNNAH
+W-CORE-06,Sovereign Core Weight,وزن نواة معمارية مزيج الخبراء (MoE Architecture Weight),SHEIKHA-CORE/families/weights/sheikha_moe_architecture.py,99.98%,18131,C-95 / CORE-C-06,BOUND_BY_QURAN_SUNNAH
+W-CORE-07,Sovereign Core Weight,وزن نواة الركائز الشاملة (Omni-Pillars Engine Weight),SHEIKHA-CORE/infrastructure/sheikha_omni_pillars_engine.py,99.98%,18094,C-95 / CORE-C-07,BOUND_BY_QURAN_SUNNAH
+W-CORE-08,Sovereign Core Weight,وزن نواة سلسلة شيخة (SheikhaChain Core Engine Weight),SHEIKHA-CORE/sheikhachain/core/sheikha_chain_engine.py,100%,18131,C-95 / CORE-C-08,BOUND_BY_QURAN_SUNNAH
+W-CORE-09,Sovereign Core Weight,وزن نواة الأساسات الذكية (Core AI Foundations Runtime),docs/architecture/SHEIKHA-CORE-AI-FOUNDATIONS-RUNTIME.md,99.97%,18156,C-95 / CORE-C-09,BOUND_BY_QURAN_SUNNAH
+W-CORE-10,Sovereign Core Weight,وزن نواة التسوية الذرية والوقف الثابت (SHA 0cf8bc3c),sheikha_settlement_18140.py + sheikha_waqf_ledger_18142.py,100%,18140,C-94 / CORE-C-10,BOUND_BY_QURAN_SUNNAH
+W-CORE-11,Sovereign Core Weight,وزن نواة التوجيه الصارم وعزل المسارات (Strict 404 & SO_REUSEADDR),ensure_all_29_sovereign_ports_v130.py,100%,18082,C-95 / CORE-C-11,BOUND_BY_QURAN_SUNNAH
+W-CORE-12,Sovereign Core Weight,وزن نواة الحارس الحيوي والاستعادة الفورية (6s Auto-Recovery),sheikha_24_7_watchdog_daemon.py,100%,9091,C-94 / CORE-C-12,BOUND_BY_QURAN_SUNNAH
+W-OS-01,Sheikha OS Weight,وزن حوكمة العتاد المجرد (Bare-Metal Governance Weight),bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json,100%,18125,C-87 / C-89,BOUND_BY_QURAN_SUNNAH
+W-OS-02,Sheikha OS Weight,وزن الإقلاع السيادي الموثوق (UEFI & Boot Contract Weight),bare-metal/contracts/SHEIKHA-BOOT-CONTRACT-V1.json + BOOTX64.EFI,100%,18125,C-87 / SWOS-C-01,BOUND_BY_QURAN_SUNNAH
+W-OS-03,Sheikha OS Weight,وزن الفيرموير وتصنيع اللوحات (Firmware OEM/ODM Weight),bare-metal/contracts/SHEIKHA-FIRMWARE-OEM-ODM-CONTRACT-V1.json,99.98%,18094,C-87 / C-90,BOUND_BY_QURAN_SUNNAH
+W-OS-04,Sheikha OS Weight,وزن طبقة تجريد العتاد (Hardware Abstraction Layer HAL Weight),bare-metal/contracts/SHEIKHA-HAL-CONTRACT-V1.json,99.96%,18125,C-87 / SWOS-C-03,BOUND_BY_QURAN_SUNNAH
+W-OS-05,Sheikha OS Weight,وزن نواة نظام التشغيل (Sheikha Kernel Core Weight 0476),bare-metal/contracts/SHEIKHA-KERNEL-CONTRACT-V1.json + sheikha_kernel.c,100%,18125,C-87 / C-88,BOUND_BY_QURAN_SUNNAH
+W-OS-06,Sheikha OS Weight,وزن إقلاع اللغة السيادية (Language Boot Contract Weight),bare-metal/contracts/SHEIKHA-LANGUAGE-BOOT-CONTRACT-V1.json,100%,18082,C-87 / SWOS-C-01,BOUND_BY_QURAN_SUNNAH
+W-OS-07,Sheikha OS Weight,وزن الواجهة الثنائية للتطبيقات (Language Native ABI Weight),bare-metal/contracts/SHEIKHA-LANGUAGE-NATIVE-ABI-V1.json,99.95%,18131,C-87 / C-86,BOUND_BY_QURAN_SUNNAH
+W-OS-08,Sheikha OS Weight,وزن استعادة اللوحات المسماة (Named Board Recovery Weight),bare-metal/contracts/SHEIKHA-NAMED-BOARD-RECOVERY-CONTRACT-V1.json,99.97%,18162,C-87 / C-48,BOUND_BY_QURAN_SUNNAH
+W-OS-09,Sheikha OS Weight,وزن قرار الحوكمة الموحد للنظام (Unified Governance Decision Weight),bare-metal/contracts/SHEIKHA-UNIFIED-GOVERNANCE-DECISION-CONTRACT-V1.json,100%,18162,C-87 / C-29,BOUND_BY_QURAN_SUNNAH
+W-OS-10,Sheikha OS Weight,وزن نواة البلوك شين (SheikhaChain OS Kernel Weight 0485),SHEIKHA-CORE/sheikhachain/core/sheikha_chain_engine.py,100%,18131,C-87 / C-76,BOUND_BY_QURAN_SUNNAH
+W-OS-11,Sheikha OS Weight,وزن حزم لينكس الأصلية (Linux Native Package V5 Weight),distribution/pipeline/sheikha-linux-package-native-verification-v5.js,99.94%,18158,C-87 / SWOS-C-04,BOUND_BY_QURAN_SUNNAH
+W-OS-12,Sheikha OS Weight,وزن حارس النظام والـ 29 منفذاً (Systemd 24/7 Watchdog & Podman OS Weight),sheikha-sovereign-guard.service + SO_REUSEADDR,100%,9091,C-87 / CMP-C-15,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-01,Systems Manufacturing Weight,وزن صناعة أنظمة التشغيل والنواة (OS & Kernel Systems Mfg Weight),bare-metal/build/sheikha-bare-metal-pipeline-v1.js,100%,18125,C-93 / SYSMFG-C-01,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-02,Systems Manufacturing Weight,وزن صناعة الأنظمة المدمجة والتحكم الصناعي (Embedded & PLC Systems Weight),sheikha_foundry_lab_18126.py (Furnace 1200C PLC/OPC-UA),99.96%,18126,C-93 / SYSMFG-C-02,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-03,Systems Manufacturing Weight,وزن صناعة الأنظمة المؤسسية والإدارية (Enterprise ERP Systems Weight),sheikha_microsoft_alliance.py (SAP S/4HANA & ERP),99.95%,18153,C-93 / SYSMFG-C-03,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-04,Systems Manufacturing Weight,وزن صناعة الأنظمة المالية والشرعية والزكوية (Halal Finance & ZATCA Systems Weight),sheikha_settlement_18140.py + sheikha_zatca_charity.py,100%,18140,C-93 / SYSMFG-C-04,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-05,Systems Manufacturing Weight,"وزن صناعة أنظمة الذكاء الاصطناعي وM2M (AI, MoE & Neural M2M Systems Weight)",SHEIKHA-CORE/families/weights/sheikha_moe_architecture.py,99.98%,18131,C-93 / SYSMFG-C-05,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-06,Systems Manufacturing Weight,وزن صناعة أنظمة التوائم الرقمية والمحاكاة (Digital Twins & Omniverse Systems Weight),sheikha_nvidia_alliance.py (128 Digital Twins USD),99.92%,18154,C-93 / SYSMFG-C-06,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-07,Systems Manufacturing Weight,"وزن صناعة أنظمة سلاسل الإمداد والمستودعات (WMS, BOL & Logistics Systems Weight)",sheikha_global_logistics.py (11-Col BOL & 20 WMS),99.90%,18155,C-93 / SYSMFG-C-07,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-08,Systems Manufacturing Weight,وزن صناعة أنظمة الأمن السيبراني والحوكمة (Cybersecurity & Watch Guard Systems Weight),"sheikha_governance_watch.py (62,954 Threats Blocked)",100%,18162,C-93 / SYSMFG-C-08,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-09,Systems Manufacturing Weight,وزن صناعة أنظمة الاتصالات وبروتوكولات MCP/SDK (Telecom & MCP/SDK Bus Systems Weight),mcp-servers/sheikha-mcp-server.js + sheikha-sdk-server.js,99.97%,18158,C-93 / C-30,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-10,Systems Manufacturing Weight,"وزن صناعة أنظمة التجارة والأسواق والـ POS (B2B Commerce, 18-Markets & 10-POS Weight)",sheikha_universe_18165.py + sheikha_ceo_buyer_engine.py,99.94%,18165,C-93 / C-55,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-11,Systems Manufacturing Weight,وزن صناعة أنظمة البلوك شين واللوح المحفوظ (SheikhaChain & Triple-Registry Weight),SHEIKHA-CORE/blockchain/registry.json (535 files edc795a4),100%,18131,C-93 / C-76,BOUND_BY_QURAN_SUNNAH
+W-SYS-MFG-12,Systems Manufacturing Weight,وزن صناعة المنصات الـ 8 السيادية الشاملة (8-Platforms Factory Master Weight),sheikha_8platforms_factory_server.py (Port 18157),100%,18157,C-93 Master Factory,BOUND_BY_QURAN_SUNNAH
+W-NAT-01,Sheikha Native Weight,وزن الواجهة الثنائية الأصلية للغة شيخة (Language Native ABI V1),bare-metal/contracts/SHEIKHA-LANGUAGE-NATIVE-ABI-V1.json,100%,18131,C-96 / NAT-C-01,BOUND_BY_QURAN_SUNNAH
+W-NAT-02,Sheikha Native Weight,وزن إقلاع اللغة السيادية الأصلية (Native Language Boot V1),bare-metal/contracts/SHEIKHA-LANGUAGE-BOOT-CONTRACT-V1.json,100%,18082,C-96 / NAT-C-02,BOUND_BY_QURAN_SUNNAH
+W-NAT-03,Sheikha Native Weight,وزن التحقق الأصلي لحزم النظام (Native Linux Package Verification V5),distribution/pipeline/sheikha-linux-package-native-verification-v5.js,100%,18158,C-96 / NAT-C-03,BOUND_BY_QURAN_SUNNAH
+W-NAT-04,Sheikha Native Weight,وزن تجهيز وبناء الشفرة المصدرية الأصلية (Native Source Staging),distribution/common/source-staging-engine.js,99.98%,18110,C-96 / NAT-C-04,BOUND_BY_QURAN_SUNNAH
+W-NAT-05,Sheikha Native Weight,وزن ثنائيات النواة الأصلية بلغة C (Native Kernel C Ring-0),bare-metal/kernel/entry/sheikha_kernel.c,100%,18125,C-96 / NAT-C-05,BOUND_BY_QURAN_SUNNAH
+W-NAT-06,Sheikha Native Weight,وزن ثنائيات الإقلاع الموحد الأصلية (Native UEFI BOOTX64.EFI),bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI,100%,18125,C-96 / NAT-C-06,BOUND_BY_QURAN_SUNNAH
+W-NAT-07,Sheikha Native Weight,وزن تعليمات معمارية RISC-V الأصلية (Native RISC-V ISA 0478),SHEIKHA_CORE_WEIGHT_0478_SILICON_CHIP_RISCV_FIRMWARE,99.99%,18094,C-96 / NAT-C-07,BOUND_BY_QURAN_SUNNAH
+W-NAT-08,Sheikha Native Weight,وزن الحساب المصفوفي والكمي الأصيل (Native Tensor & CUDA Compute),SHEIKHA-CORE/families/weights/sheikha_moe_architecture.py,99.98%,18154,C-96 / NAT-C-08,BOUND_BY_QURAN_SUNNAH
+W-NAT-09,Sheikha Native Weight,وزن المقابس الشبكية الأصلية (Native POSIX Sockets SO_REUSEADDR),ensure_all_29_sovereign_ports_v130.py,100%,18082,C-96 / NAT-C-09,BOUND_BY_QURAN_SUNNAH
+W-NAT-10,Sheikha Native Weight,وزن التخزين الأصيل عالي الموثوقية (Native SQLite WAL & Block I/O),SHEIKHA-CORE/blockchain/registry.json (535 Assets),100%,18131,C-96 / NAT-C-10,BOUND_BY_QURAN_SUNNAH
+W-NAT-11,Sheikha Native Weight,وزن البروتوكولات الثنائية الأصلية (Native Binary gRPC & OPC-UA),mcp-servers/sheikha-mcp-server.js + sheikha-sdk-server.js,99.97%,18158,C-96 / NAT-C-11,BOUND_BY_QURAN_SUNNAH
+W-NAT-12,Sheikha Native Weight,وزن التشفير الأصيل والبصمات الحتمية (Native SHA-256 & NCA ECC),"sheikha_governance_watch.py (62,954 Threats Blocked)",100%,18162,C-96 / NAT-C-12,BOUND_BY_QURAN_SUNNAH

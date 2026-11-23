@@ -36,10 +36,11 @@ router.get('/', (req, res) => {
 
     res.json({
         success: true,
-        status: 'operational',
+        status: 'UNKNOWN',
+        evidence: 'STATIC_CATALOG_ONLY',
         nodes:  { total: MCP_NODES.length, active: activeNodes },
         tools:  { total: MCP_TOOLS.length, active: activeTools },
-        uptime: 99.7,
+        uptime: null,
         timestamp: new Date().toISOString()
     });
 });
@@ -56,11 +57,12 @@ router.get('/health', (req, res) => {
 
     res.json({
         success: true,
-        overall: 'healthy',
+        overall: 'UNKNOWN',
+        simulated: true,
         nodes: health,
-        active_sessions: 847,
-        requests_per_sec: 1200,
-        error_rate: 0.003,
+        active_sessions: null,
+        requests_per_sec: null,
+        error_rate: null,
         timestamp: new Date().toISOString()
     });
 });
@@ -100,24 +102,9 @@ router.get('/nodes/:id', (req, res) => {
 });
 
 // ─── POST /api/mcp/execute — تنفيذ أداة ──────────────────────────────────────
-router.post('/execute', (req, res) => {
-    const { tool, params } = req.body;
-    if (!tool) return res.status(400).json({ success: false, message: 'اسم الأداة مطلوب' });
-
-    const found = MCP_TOOLS.find(t => t.id === tool || t.name === tool);
-    if (!found) return res.status(404).json({ success: false, message: 'الأداة غير موجودة أو غير مُسجَّلة' });
-    if (found.status !== 'active' && found.status !== 'beta') {
-        return res.status(403).json({ success: false, message: 'الأداة غير مفعلة' });
-    }
-
-    res.json({
-        success: true,
-        tool,
-        executed: true,
-        latency_ms: Math.floor(Math.random() * 60 + 20),
-        result: { status: 'ok', data: `[نتيجة تنفيذ ${tool}]` },
-        timestamp: new Date().toISOString()
-    });
+router.post('/execute', (_req, res) => {
+    res.status(501).json({ success: false, executed: false,
+        error: 'LEGACY_EXECUTION_DISABLED', message: 'Use the governed MCP server.' });
 });
 
 // ─── GET /api/mcp/stream — تدفق الأحداث (SSE) ────────────────────────────────

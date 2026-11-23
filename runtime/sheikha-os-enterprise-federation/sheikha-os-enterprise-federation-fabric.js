@@ -1,5 +1,8 @@
 'use strict';
 
+const { HostObserver, DISTRIBUTIONS, ARCHITECTURE } = require('./sheikha-host-observation');
+const { describePlatformIntegration, inspectPlatformEvidence } = require('./sheikha-platform-evidence');
+
 const {
   SheikhaGeneralEnterpriseInspectorFederation
 } = require('../enterprise-inspector-federation/sheikha-general-and-sub-inspector-federation');
@@ -29,9 +32,15 @@ const COMPUTE_DOMAINS = [
 ];
 
 class SheikhaOSEnterpriseFederationFabric {
-  constructor({ inspector } = {}) {
+  constructor({ inspector, hostObserver } = {}) {
     this.inspector = inspector || new SheikhaGeneralEnterpriseInspectorFederation();
+    this.hostObserver = hostObserver || new HostObserver();
   }
+
+  inspectLocalHost() { return this.hostObserver.sample(); }
+  observeLocalHost(options) { return this.hostObserver.watch(options); }
+  stopObservation() { this.hostObserver.stop(); }
+  inspectPlatformEvidence(options) { return inspectPlatformEvidence(options); }
 
   governPlatform(platform) {
     if (!platform || !platform.name || !platform.family) {
@@ -46,8 +55,8 @@ class SheikhaOSEnterpriseFederationFabric {
       system: 'SHEIKHA_OS_ENTERPRISE_FEDERATION_FABRIC_V1',
       platform: platform.name,
       family: platform.family,
-      status: 'GOVERNED_OS_FEDERATED',
-      productionReady: true,
+      status: 'OS_ARCHITECTURE_REGISTERED_NOT_RELEASED',
+      productionReady: false,
       layerRank: 'HIGH_OS_ENTERPRISE_GOVERNING_LAYER',
       domains: platform.domains || COMPUTE_DOMAINS,
       governance: {
@@ -56,7 +65,7 @@ class SheikhaOSEnterpriseFederationFabric {
         noUngovernedExecution: true,
         auditRequired: true,
         recoveryRequired: true,
-        inspectorVerified: true
+        inspectorVerified: false
       },
       capabilities: [
         'os-governance',
@@ -90,10 +99,16 @@ class SheikhaOSEnterpriseFederationFabric {
     return {
       system: 'SHEIKHA_OS_ENTERPRISE_FEDERATION_FABRIC_V1',
       arabicName: 'شيخة OS طبقة الاتحاد المؤسسي الحاكمة',
-      status: inspection.status === 'ACTIVE_VERIFIED' ? 'ACTIVE_GOVERNING' : 'ACTIVE_WITH_INSPECTION_WARNING',
+      status: 'ARCHITECTURE_REGISTERED_EVIDENCE_REQUIRED',
       layerRank: 'ABOVE_GENERAL_ENTERPRISE_INSPECTOR_AND_SOVEREIGN_FOUNDATION',
-      productionReady: true,
-      inspectorOnly: false,
+      productionReady: false,
+      inspectorOnly: true,
+      evidenceScope: 'CATALOG_NOT_OS_COMPATIBILITY_ATTESTATION',
+      architecture: ARCHITECTURE,
+      platformIntegration: describePlatformIntegration(),
+      linuxDistributions: DISTRIBUTIONS,
+      upstreamOwnershipTransferred: false,
+      system76HardwareVerified: false,
       governedOSFamilies: OS_FAMILIES,
       computeDomains: COMPUTE_DOMAINS,
       platforms: this.governAllPlatforms(),
@@ -102,10 +117,10 @@ class SheikhaOSEnterpriseFederationFabric {
         noSecretMutation: true,
         noUngovernedProductionExecution: true,
         noUnsafeRepair: true,
-        governedSelfHealing: true,
+        governedSelfHealing: false,
         auditRequired: true,
-        cloudSaasReady: true,
-        supercomputerReady: true
+        cloudSaasReady: false,
+        supercomputerReady: false
       }
     };
   }

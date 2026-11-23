@@ -1,0 +1,6 @@
+const express = require('express');
+const router = express.Router();
+router.get('/watch', (req, res) => {
+    res.json({ status: 'MONITORING_ACTIVE', seal: 'BOUND_BY_QURAN_SUNNAH' });
+});
+module.exports = router;

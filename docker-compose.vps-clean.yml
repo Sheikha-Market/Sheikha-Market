@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  sheikha_prometheus:
+    image: prom/prometheus:latest
+    container_name: sheikha_prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.listen-address=0.0.0.0:9090"
+    ports:
+      - "127.0.0.1:9092:9090"
+
+  sheikha_grafana:
+    image: grafana/grafana:latest
+    container_name: sheikha_grafana
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3005:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+  sheikha_ai_server:
+    image: python:3.10-slim
+    container_name: sheikha_ai_server
+    restart: unless-stopped
+    working_dir: /app
+    command: >
+      python3 -c "import http.server, socketserver, json;
+      class H(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+          self.send_response(200 if self.path in ('/','/health','/api/health') else 404);
+          self.send_header('Content-Type','application/json');
+          self.end_headers();
+          self.wfile.write(json.dumps({'status':'ok','container':'sheikha_ai_server','engine':'4 Argon Bridge','seal':'BOUND_BY_QURAN_SUNNAH'}).encode());
+        def log_message(self,*a): pass
+      socketserver.TCPServer(('0.0.0.0', 8080), H).serve_forever()"
+    ports:
+      - "127.0.0.1:18162:8080"

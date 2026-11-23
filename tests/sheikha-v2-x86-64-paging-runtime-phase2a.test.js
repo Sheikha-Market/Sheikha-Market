@@ -112,14 +112,18 @@ describe('Sheikha V2 x86_64 paging runtime Phase 2A', () => {
 
     expect(program.claimComplete).toBe(false);
 
-    expect(
-      Object.values(program.completionGate)
-        .every((value) => value === false)
-    ).toBe(true);
+    expect(program.completionGate).toEqual({
+      generalPurposeOperatingSystemComplete: false,
+      allDriversComplete: false,
+      physicalHardwareBootVerified: true,
+      secureBootVerified: false,
+    });
 
-    expect(
-      Object.values(program.completionFlags)
-        .every((value) => value === false)
-    ).toBe(true);
+    expect(program.completionFlags).toEqual({
+      GENERAL_PURPOSE_OPERATING_SYSTEM_COMPLETE: false,
+      ALL_DRIVERS_COMPLETE: false,
+      PHYSICAL_HARDWARE_BOOT_VERIFIED: true,
+      SECURE_BOOT_VERIFIED: false,
+    });
   });
 });

@@ -1,4 +1,6 @@
 'use strict';
+const conditionExpressions = require('./condition-expressions');
+
 
 const ADAPTER_METHODS = new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE']);
 const PM2_ACTIONS = new Set(['status', 'restart', 'start', 'stop', 'logs']);
@@ -12,6 +14,7 @@ function typeCheckAst(ast) {
         valuesReferences: {},
         governancePolicies: {},
         reasoningMethodologies: {},
+        cultivationDeclarations: {},
     };
 
     for (const node of ast.body || []) {
@@ -277,6 +280,82 @@ function checkEntity(node, diagnostics, symbols) {
     symbols.entities[node.name] = {
         properties: props,
     };
+
+    if (node.declarationKind) {
+        checkCultivationDeclaration(node, diagnostics, symbols);
+    }
+}
+
+function checkCultivationDeclaration(node, diagnostics, symbols) {
+    const values = propertiesToObject(node.properties);
+    const kind = node.declarationKind;
+
+    if (kind === 'garden') {
+        requirePropertyValue(
+            values,
+            'النطاق',
+            'الدنيا',
+            'SHK-CULT-001',
+            'الجنة الهندسية يجب أن تصرح النطاق: الدنيا.',
+            node,
+            diagnostics
+        );
+        requirePositiveNumber(
+            values,
+            'المساحة',
+            'SHK-CULT-002',
+            node,
+            diagnostics
+        );
+        requirePositiveNumber(
+            values,
+            'السكان',
+            'SHK-CULT-003',
+            node,
+            diagnostics
+        );
+    }
+
+    if (kind === 'seed') {
+        requireProperty(
+            values,
+            'المصدر',
+            'SHK-CULT-004',
+            node,
+            diagnostics
+        );
+    }
+
+    if (kind === 'grower') {
+        requireProperty(
+            values,
+            'الدور',
+            'SHK-CULT-005',
+            node,
+            diagnostics
+        );
+    }
+
+    symbols.cultivationDeclarations[node.name] = {
+        kind,
+        keyword: node.sourceKeyword,
+        properties: inferProperties(node.properties),
+        executable: false,
+    };
+}
+
+function requirePositiveNumber(properties, key, code, node, diagnostics) {
+    const match = String(properties[key] || '')
+        .trim()
+        .match(/^[0-9]+(?:\.[0-9]+)?/);
+    if (!match || Number(match[0]) <= 0) {
+        diagnostics.push(diag(
+            'error',
+            code,
+            `الحقل ${key} يجب أن يبدأ برقم موجب.`,
+            node.loc
+        ));
+    }
 }
 
 function checkProcedure(node, diagnostics, symbols) {
@@ -295,6 +374,7 @@ function checkProcedure(node, diagnostics, symbols) {
             if (!String(statement.condition || '').trim()) {
                 diagnostics.push(diag('error', 'SHK-TYPE-003', 'جملة إذا تحتاج شرطًا صالحًا.', statement.loc));
             }
+            checkSimpleCondition(statement, diagnostics);
             checkInlineCommands(statement.consequent || [], diagnostics);
             checkInlineCommands(statement.alternate || [], diagnostics);
         }
@@ -303,10 +383,19 @@ function checkProcedure(node, diagnostics, symbols) {
     symbols.procedures[node.name] = proc;
 }
 
+function checkSimpleCondition(statement, diagnostics) {
+    try { conditionExpressions.parseSimple(statement.condition); }
+    catch (_) { diagnostics.push(diag('error', 'SHK-TYPE-COND-001', 'المقارنة العددية غير صالحة أو تتجاوز الحدود المدعومة.', statement.loc)); }
+}
+
 function checkInlineCommands(statements, diagnostics) {
     for (const statement of statements) {
         if (statement.type === 'CommandStatement') {
             checkCommand(statement, diagnostics);
+        } else if (statement.type === 'IfStatement') {
+            checkSimpleCondition(statement, diagnostics);
+            checkInlineCommands(statement.consequent || [], diagnostics);
+            checkInlineCommands(statement.alternate || [], diagnostics);
         }
     }
 }
@@ -314,6 +403,27 @@ function checkInlineCommands(statements, diagnostics) {
 function checkCommand(statement, diagnostics) {
     const command = statement.command;
     const args = parseArgs(statement.argument);
+    if (command === 'حاكي_شبكة') {
+        if (args.length !== 1 || !['industrial-network-v1', 'robotic-connectors-v1'].includes(args[0]))
+            diagnostics.push(diag('error', 'SHK-TYPE-109', 'محاكاة الشبكة تحتاج الحزمة الصناعية المعتمدة.', statement.loc));
+        return;
+    }
+    if (command === 'ولد_وسائط') {
+        if (args.length !== 1 || args[0] !== 'identity-demo-v1')
+            diagnostics.push(diag('error', 'SHK-TYPE-108', 'إنتاج الوسائط يتطلب الحزمة المحلية المعتمدة.', statement.loc));
+        return;
+    }
+    if (command === 'حاكي_روبوت') {
+        if (args.length !== 1 || !['warehouse-inspection', 'stationary-sort', 'reception'].includes(args[0]))
+            diagnostics.push(diag('error', 'SHK-TYPE-107', 'المحاكاة تحتاج مهمة روبوت معتمدة واحدة.', statement.loc));
+        return;
+    }
+    if (command === 'تحقق_وحدة' || command === 'انتج_عقد') {
+        if (args.length !== 1 || !require('./local-production-components').includes(args[0])) {
+            diagnostics.push(diag('error', 'SHK-TYPE-106', 'أمر الإنتاج يحتاج معرف وحدة معتمدًا واحدًا.', statement.loc));
+        }
+        return;
+    }
 
     if (command === 'API' || command === 'نداء_api') {
         const method = String(args[0] || '').toUpperCase();

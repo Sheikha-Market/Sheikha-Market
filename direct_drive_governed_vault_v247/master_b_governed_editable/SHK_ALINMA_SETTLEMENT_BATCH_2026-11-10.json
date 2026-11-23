@@ -1,0 +1,35 @@
+{
+  "settlement_batch_id": "ALINMA-SETTLE-20261110-V328",
+  "timestamp": "2026-11-10T17:27:14.579623+00:00",
+  "standard": "ISO_20022_PAIN_001_001_03_ALINMA_B2B",
+  "originator_entity": "Sheikha Commercial & Industrial Corp (منظومة شيخة)",
+  "primary_collection_iban": "SA4005000068206162118000",
+  "bank_bic": "INMASARI",
+  "total_collected_gross_sar": 10240750.0,
+  "invoices_settled_count": 13,
+  "allocations": [
+    {
+      "tranche": "WAQF_ENDOWMENT_99_PERCENT",
+      "beneficiary": "حساب الوقف المؤبد - منظومة شيخة (Deed #30)",
+      "iban": "SA4005000068206162118000",
+      "amount_sar": 8815950.0,
+      "purpose_code": "CHAR/WAQF"
+    },
+    {
+      "tranche": "ZATCA_VAT_15_ESCROW",
+      "beneficiary": "حساب أمانات ضريبة القيمة المضافة (ZATCA Phase-2)",
+      "iban": "SA4005000068206162118000",
+      "amount_sar": 1335750.0,
+      "purpose_code": "TAXS/VAT15"
+    },
+    {
+      "tranche": "OPERATIONS_1_PERCENT",
+      "beneficiary": "حساب التشغيل والمصاريف الإدارية والميدانية",
+      "iban": "SA4005000068206162118000",
+      "amount_sar": 89050.0,
+      "purpose_code": "SALA/OPEX"
+    }
+  ],
+  "digital_signature_sha256": "c8b7cb325b2f1559c18977821dbeb833973419c679dbb2a0465ec3bc07ee6143",
+  "status": "SETTLEMENT_BATCH_SIGNED_AND_QUEUED"
+}

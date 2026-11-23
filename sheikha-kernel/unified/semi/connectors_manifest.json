@@ -1,0 +1,27 @@
+{
+  "bound": "BOUND_BY_QURAN_SUNNAH 741/5741/12464 - 99% وقف",
+  "registry": "edc795a408717e02ab5d06fc02b5b27925fb6e4a9b1e8d3c481edefbdc48e44b",
+  "laptop": "Pop!_OS Ultra 9 185H 22CPU 62Gi RTX 4060 Laptop 8GB CUDA 13.2 NPU 11 TOPS",
+  "connectors": {
+    "gpu": {"name": "RTX 4060 Laptop", "driver": "595.104.02", "cuda": "13.2", "cores": 3072, "tensor": true, "nvenc": true, "dri": "renderD128/129"},
+    "npu": {"name": "Intel AI Boost Ultra 9 185H", "tops": 11, "framework": "OpenVINO"},
+    "thunderbolt": {"version": "4", "speed": "40Gbps", "ports": 2, "auto": true},
+    "usb": {"version": "4", "speed": "40Gbps", "backward": "USB3.2/2.0"},
+    "nvme": {"pcie": "4.0", "speed": "7000MB/s", "auto": true},
+    "display": {"gop": true, "hdmi": "2.1", "dp": "1.4a", "cosmic": "AI Shell"},
+    "sensors_bus": {"i2c": true, "spi": true, "gpio": true, "uart": true},
+    "network": {"wifi6e": true, "bt": "5.3", "pxe": true, "http_boot": "market@sheikha.top"}
+  },
+  "ar_vr": {
+    "openxr": true, "webxr": true, "rtx": "4060", "dri": "renderD128",
+    "cosmic": "SHEIKHA AI SHELL - أفضل من سطح المكتب - مدمج AI + لوحة تحكم",
+    "hadith": "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه"
+  },
+  "optics_sensors": {
+    "lidar": "depth", "tof": true, "structured_light": true, "ir": "night_vision",
+    "spectral": true, "photonics": true,
+    "imu_9axis": true, "environmental": "temp humidity pressure",
+    "biometric": "pulse oximeter - صحة طوارئ", "zamzam_water": "طهارة - ماء زمزم",
+    "qibla": "compass", "adhan": "mic"
+  }
+}

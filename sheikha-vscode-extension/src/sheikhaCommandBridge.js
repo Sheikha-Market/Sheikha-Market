@@ -179,13 +179,11 @@ function registerSheikhaCommandBridge(context, options = {}) {
   });
 
   register('sheikha.startAgent', async () => {
-    const task = await vscode.window.showInputBox({ prompt: 'صف المهمة المحكومة لوكيل شيخة' });
-    if (task) await sendToChat(`وضع الوكيل المحكوم:\n${task}`);
+    await sendToChat('ابدأ مهمة منظمة');
   });
 
   register('sheikha.agent.run', async () => {
-    const task = await vscode.window.showInputBox({ prompt: 'ما المهمة التي تريد تشغيلها؟' });
-    if (task) await sendToChat(`نفّذ كمهمة وكيل مع خطة واختبارات وحدود أمان:\n${task}`);
+    await sendToChat('ابدأ مهمة منظمة');
   });
 
   register('sheikha.inlineChat', async () => {

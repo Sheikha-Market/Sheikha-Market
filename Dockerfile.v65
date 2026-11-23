@@ -1,0 +1,12 @@
+FROM node:20-slim
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --production
+COPY . .
+# تضمين السجل الموحد 492 وزن
+COPY SHEIKHA-CORE/blockchain/lawh_mahfuz/LAWH_MAHFUZ_MASTER_REGISTRY.json ./SHEIKHA-CORE/blockchain/lawh_mahfuz/
+COPY blockchain/lawh_mahfuz/LAWH_MAHFUZ_MASTER_REGISTRY.json ./blockchain/lawh_mahfuz/
+RUN rm -f .env && node --check server.js
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=8080
+EXPOSE 8080
+CMD ["node","server.js"]

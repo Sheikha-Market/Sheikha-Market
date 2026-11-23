@@ -53,6 +53,8 @@ function createSheikhaApiClient({
     hasToken: Boolean(token),
     hasApiKey: Boolean(apiKey),
     endpoints: [
+      '/api/sheikha/model-hub/v1/integrations/status',
+      '/api/sheikha/model-hub/v1/integrations/visual-health',
       '/api/health',
       '/api/runtime/introspection/routes',
       '/api/devops/ai-lab/status',
@@ -412,6 +414,27 @@ function createSheikhaApiClient({
     )
   };
 
+  client.repositoryIntegrations = {
+    status: () => request('/api/sheikha/model-hub/v1/integrations/status'),
+    visualHealth: () => request('/api/sheikha/model-hub/v1/integrations/visual-health')
+  };
+  client.robotics = {
+    status: () => request('/api/sheikha/robotics/v1/status'),
+    simulate: mission => request('/api/sheikha/robotics/v1/simulate', 'POST', { mission }),
+    hardwarePlan: () => request('/api/sheikha/robotics/v1/hardware-plan')
+  };
+  client.foundation = {
+    nativeEnvironmentStatus: () => request('/api/sheikha/foundation/managed/v1/native-environment/status'),
+    languageProductionStatus: () => request('/api/sheikha/foundation/managed/v1/language-production/status'),
+    status: () => request('/api/sheikha/foundation/managed/v1/status'),
+    inspect: component => request('/api/sheikha/foundation/managed/v1/components/' + encodeURIComponent(component)),
+    activationPlan: component => request('/api/sheikha/foundation/managed/v1/components/' + encodeURIComponent(component) + '/activation-plan', 'POST', { mode: 'local-foundation' })
+  };
+  client.language = {
+    status: () => request('/api/sheikha/language/managed/v1/status'),
+    compile: source => request('/api/sheikha/language/managed/v1/compile', 'POST', { source }),
+    run: source => request('/api/sheikha/language/managed/v1/run', 'POST', { source })
+  };
   return client;
 }
 

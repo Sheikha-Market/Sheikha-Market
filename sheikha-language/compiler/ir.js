@@ -111,27 +111,7 @@ function pushStatements(steps, statements, procedureName) {
 
 function mapInlineStatements(statements, procedureName) {
     const out = [];
-    for (const stmt of statements) {
-        if (stmt.type === 'CommandStatement') {
-            out.push({
-                op: 'COMMAND',
-                procedure: procedureName,
-                command: stmt.command,
-                argument: stmt.argument,
-                loc: stmt.loc,
-            });
-            continue;
-        }
-        if (stmt.type === 'PropertyAssignment') {
-            out.push({
-                op: 'PROCEDURE_PROPERTY',
-                procedure: procedureName,
-                key: stmt.key,
-                value: stmt.value,
-                loc: stmt.loc,
-            });
-        }
-    }
+    pushStatements(out, statements, procedureName);
     return out;
 }
 

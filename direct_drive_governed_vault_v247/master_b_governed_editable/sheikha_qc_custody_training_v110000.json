@@ -1,0 +1,126 @@
+{
+  "system_id": "SHEIKHA-QC-CUSTODY-REDSEAL-TRAINING-V110000",
+  "ip_owner": "منظومة وسوق شيخة (SHEIKHA®) — مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سجل: 2051263653)",
+  "official_domain": "https://sheikha.top",
+  "settlement_iban": "SA4005000068206162118000",
+  "operational_roles": [
+    {
+      "role_code": "QUALITY_MANAGER",
+      "title_ar": "مدير الجودة الشاملة (QA Manager)",
+      "authority": "اعتماد نهائي لشهادات النقاوة XRF ومطابقة مواصفات ISRI/HS-Code"
+    },
+    {
+      "role_code": "QC_INSPECTOR",
+      "title_ar": "منظم ومراقب الجودة الميداني (QC Inspector)",
+      "authority": "فحص الشوائب والزيوت والرطوبة وتحديد نسبة الخصم الفني"
+    },
+    {
+      "role_code": "WAREHOUSE_OFFICER",
+      "title_ar": "مسؤول المستودع والساحة (Warehouse & Custody)",
+      "authority": "توثيق تسليم العهد، فحص الختم الأحمر، وإصدار محضر الاستلام المخزني GRN"
+    },
+    {
+      "role_code": "FLEET_COORDINATOR",
+      "title_ar": "مراقب ومنسق الأسطول (Fleet & Container Coordinator)",
+      "authority": "تتبع الشاحنات والحاويات ومطابقة أرقام الأختام الحمراء عند البوابة"
+    },
+    {
+      "role_code": "SAFETY_OFFICER",
+      "title_ar": "مسؤول السلامة المهنية (HSE Safety Officer)",
+      "authority": "فحص خلو الشحنة من الإشعاع والمواد المغلقة أو القابلة للانفجار وتطبيق PPE"
+    },
+    {
+      "role_code": "SUPPLIER_QUALIFIER",
+      "title_ar": "مؤهل الموردين (Supplier KYC Qualifier)",
+      "authority": "التحقق من السجل التجاري ورخصة الهدم ومشروعية مصدر السكراب"
+    },
+    {
+      "role_code": "MASTER_TRAINER",
+      "title_ar": "المدرب الميداني المعتمد (Master Trainer)",
+      "authority": "تدريب واختبار فنيي الفرز ومشغلي المكابس والمقصات والسائقين"
+    },
+    {
+      "role_code": "AI_TRAINING_GEN",
+      "title_ar": "مولد المحتوى التدريبي الذكي (AI SOP Generator)",
+      "authority": "توليد مناهج التدريب وإجراءات التشغيل القياسية بـ 6 لغات"
+    }
+  ],
+  "custody_and_grn_records": [
+    {
+      "grn_id": "GRN-SHK-5002",
+      "custody_id": "CUST-SHK-302",
+      "container_no": "SHKU-991042-1",
+      "has_red_seal": true,
+      "red_seal_number": "RED-SEAL-KSA-99501",
+      "red_seal_status": "INTACT_VERIFIED (الختم الأحمر سليم ومطابق لبوليصة الشحن ✓)",
+      "supplier_name": "مصنع الخليج للكابلات والمعادن (مورد مؤهل KYC)",
+      "hs_code": "7404.00.10",
+      "metal_desc": "كابلات ونحاس أحمر نقي مفروز",
+      "scale_gross_tons": 40,
+      "scale_tare_tons": 14,
+      "scale_net_tons": 26,
+      "xrf_purity_pct": 99.5,
+      "impurity_pct": 0.5,
+      "impurity_notes": "تم الفحص المخبري والميداني — خالٍ من الشوائب الخطرة والمواد المغلقة",
+      "net_accepted_tons": 25.87,
+      "custody_items_handed": "حاوية 40 ياردة مختومة + جهاز XRF + قفل تتبع",
+      "qc_inspector_sign": "منظم ومدير الجودة QC/QA: معتمد ✓",
+      "warehouse_officer_sign": "مسؤول المستودع والعهد: مستلم وموثق ✓",
+      "safety_officer_sign": "مسؤول السلامة HSE: مطابق لمعايير الأمان ✓",
+      "final_decision": "ACCEPTED_AND_CLEARED_FOR_SMELTER",
+      "timestamp": "2026-11-11 20:01:59",
+      "sha256_seal": "36D5C0A8D5272F64EA2B"
+    },
+    {
+      "grn_id": "GRN-SHK-5001",
+      "custody_id": "CUST-SHK-301",
+      "container_no": "SHKU-409821-7 (حاوية 40 ياردة / ميناء الدمام)",
+      "has_red_seal": true,
+      "red_seal_number": "RED-SEAL-KSA-88412",
+      "red_seal_status": "INTACT_VERIFIED (الختم الأحمر سليم ومطابق لبوليصة الشحن ✓)",
+      "supplier_name": "شركة إعمار الخليج للمقاولات والهدم — مورد مؤهل (KYC-PASS)",
+      "hs_code": "7404.00.10",
+      "metal_desc": "نحاس أحمر نقي وكابلات مفروزة (Berry Bare Bright)",
+      "scale_gross_tons": 38.5,
+      "scale_tare_tons": 13.5,
+      "scale_net_tons": 25,
+      "xrf_purity_pct": 99.92,
+      "impurity_pct": 0.08,
+      "impurity_notes": "خالٍ تماماً من الزيوت والبلاستيك والمواد المغلقة — شوائب سطحية لا تتجاوز 0.08%",
+      "net_accepted_tons": 24.98,
+      "custody_items_handed": "حاوية 40 ياردة + قفل ذكي GPS + جهاز فحص XRF محمول رقم #04",
+      "qc_inspector_sign": "مراقب الجودة: م. عبدالله الدوسري ✓",
+      "warehouse_officer_sign": "مسؤول المستودع: أ. فهد القحطاني ✓",
+      "safety_officer_sign": "مسؤول السلامة HSE: تم الفحص الإشعاعي والميكانيكي (آمن 100%) ✓",
+      "final_decision": "ACCEPTED_AND_CLEARED_FOR_SMELTER",
+      "timestamp": "2026-11-11 23:01:56",
+      "sha256_seal": "E1ED8609AD9655F5A4E9"
+    }
+  ],
+  "training_curricula": [
+    {
+      "module_id": "TRN-SOP-101",
+      "target_role": "منظم الجودة QC + عمال الفرز",
+      "title": "منهج الفحص البصري والطيفي (XRF) وكشف الشوائب والغش في السكراب",
+      "content_ar": "1. فحص أعلى وأسفل ووسط الحمولة للتأكد من تجانس الصنف وعدم إخفاء أتربة أو خرسانة في قاع الحاوية.\n2. استخدام جهاز XRF في 5 نقاط عشوائية لتأكيد مطابقة السبيكة للرمز الجمركي (HS Code).\n3. عزل أي مواسير مغلقة أو طفايات حريق أو أسطوانات غاز فوراً قبل دخول المكبس.",
+      "content_ur": "1. کنٹینر کے اوپر، درمیان اور نیچے سے مال چیک کریں تاکہ مٹی یا کچرا نہ ہو۔\n2. XRF مشین سے 5 جگہوں پر تانبے اور لوہے کی خالصیت چیک کریں۔\n3. بند سلنڈر یا گیس پائپ کو پریس مشین میں جانے سے پہلے الگ کریں۔",
+      "content_en": "1. Inspect top, middle, and bottom layers of scrap load to prevent hidden dirt or concrete.\n2. Perform 5-point XRF spectral assay to verify HS-Code alloy grade.\n3. Immediately isolate closed cylinders or pressurized vessels before baling/shearing."
+    },
+    {
+      "module_id": "TRN-SOP-102",
+      "target_role": "مسؤول المستودع + منسق الأسطول",
+      "title": "بروتوكول توثيق العُهد وفحص «الختم الأحمر» (Red Seal Custody Protocol)",
+      "content_ar": "1. عند وصول الحاوية المختومة بالختم الأحمر، يمنع كسر الختم إلا بحضور مسؤول المستودع ومراقب الجودة وتصوير رقم الختم.\n2. مطابقة رقم الختم الأحمر الفعلي مع الرقم المسجل في إشعار الشحن وبوليصة الميناء.\n3. توثيق استلام وتسليم العهدة في النظام وإصدار محضر الاستلام الرسمي (GRN).",
+      "content_ur": "1. لال مہر (Red Seal) والے کنٹینر کو گودام انچارج اور کوالٹی انسپکٹر کی موجودگی کے بغیر نہ کھولیں۔\n2. مہر کا نمبر بل آف لیڈنگ سے ملائیں اور تصویر لیں۔\n3. سسٹم میں عہدہ اور رسید (GRN) درج کریں۔",
+      "content_en": "1. Do not break any Red Security Seal without Warehouse Officer & QC Inspector presence and photo logging.\n2. Match physical Red Seal serial number against Bill of Lading.\n3. Log custody handover and issue official GRN."
+    },
+    {
+      "module_id": "TRN-SOP-103",
+      "target_role": "مسؤول السلامة HSE + مؤهل الموردين",
+      "title": "دليل السلامة الصناعية في الساحات وتأهيل الموردين (KYC & Zero-Hazard)",
+      "content_ar": "1. التحقق من السجل التجاري، هوية الناقل، وتصريح مصدر السكراب (هدم/مصنع/ميناء) قبل فتح البوابة.\n2. إلزام جميع السائقين والعمال بارتداء الخوذة، الحذاء المقوى، والسترة العاكسة.\n3. فحص الشحنة ببوابة الكشف الإشعاعي والمغناطيسي لضمان سلامة أفران الصهر.",
+      "content_ur": "1. گیٹ کھولنے سے پہلے سپلائر کا تجارتی ریکارڈ اور مال کا اجازت نامہ چیک کریں۔\n2. تمام کارکنان ہیلمٹ، سیفٹی جوتے اور جیکٹ لازمی پہنیں۔\n3. تابکاری اور بند مواد کی جانچ کریں۔",
+      "content_en": "1. Verify supplier CR, driver ID, and scrap origin permit (KYC) prior to gate entry.\n2. Enforce full PPE (helmet, steel-toe boots, high-vis vest).\n3. Conduct radiation and closed-vessel safety sweep."
+    }
+  ]
+}

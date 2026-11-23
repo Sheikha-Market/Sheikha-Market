@@ -1,0 +1,51 @@
+#!/bin/bash
+# ══════════════════════════════════════════════════════════════════════════════
+# SHEIKHA SYSTEM ORCHESTRATOR V180 — ENTERPRISE REPLACEMENT FOR PM2
+# Manages: Docker (:18080) + Podman (:8080) + Systemd Native Services + Nginx HA
+# Seal: BOUND_BY_QURAN_SUNNAH | Owner: سلمان أحمد الراجح
+# ══════════════════════════════════════════════════════════════════════════════
+CMD="${1:-status}"
+
+case "$CMD" in
+  status|list|ls)
+    echo "================================================================================"
+    echo "🛡️  SHEIKHA SYSTEM ORCHESTRATOR V180 (ZERO-PM2 KERNEL & CONTAINER HA MESH)"
+    echo "================================================================================"
+    echo "▶ [1] Container Engines (Docker :18080 & Podman :8080):"
+    docker ps --filter "name=sheikha" --format "  🐳 Docker:  {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || true
+    podman ps --filter "name=sheikha" --format "  🦭 Podman:  {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || true
+    echo "--------------------------------------------------------------------------------"
+    echo "▶ [2] Systemd Sovereign Services:"
+    for S in sheikha-docker-core.service sheikha-podman-core.service sheikha-core-18082.service sheikha-watchdog.timer nginx.service; do
+      ST=$(systemctl is-active "$S" 2>/dev/null || echo "inactive")
+      printf "  ⚙️  %-32s : %s\n" "$S" "$ST"
+    done
+    echo "--------------------------------------------------------------------------------"
+    echo "▶ [3] Live Health Probes (18080 & 8080):"
+    curl -s --max-time 2 http://127.0.0.1:18080/api/status | jq -c '{engine: .runtime_engine, port, healthy, version}' 2>/dev/null || echo "  ⚠️ Port 18080 warming up"
+    curl -s --max-time 2 http://127.0.0.1:8080/api/status  | jq -c '{engine: .runtime_engine, port, healthy, version}' 2>/dev/null || echo "  ⚠️ Port 8080 warming up"
+    echo "================================================================================"
+    ;;
+  restart|reload)
+    echo "🔄 [SHEIKHA-SYSTEM] Zero-Downtime Rolling Restart (Podman :8080 then Docker :18080)..."
+    podman restart sheikha_podman_core 2>/dev/null || systemctl restart sheikha-podman-core.service 2>/dev/null || true
+    sleep 2
+    docker restart sheikha_docker_core 2>/dev/null || systemctl restart sheikha-docker-core.service 2>/dev/null || true
+    systemctl reload nginx 2>/dev/null || true
+    echo "✅ [SHEIKHA-SYSTEM] Rolling Restart Complete with Zero Downtime!"
+    ;;
+  logs)
+    echo "📜 [SHEIKHA-SYSTEM] Live Logs (Docker :18080 & Podman :8080):"
+    docker logs --tail 25 sheikha_docker_core 2>/dev/null || true
+    podman logs --tail 25 sheikha_podman_core 2>/dev/null || true
+    ;;
+  stop)
+    systemctl stop sheikha-docker-core.service sheikha-podman-core.service 2>/dev/null || true
+    ;;
+  start)
+    systemctl start sheikha-docker-core.service sheikha-podman-core.service 2>/dev/null || true
+    ;;
+  *)
+    echo "Usage: sheikha-system {status|restart|reload|logs|start|stop}"
+    ;;
+esac

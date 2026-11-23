@@ -1,0 +1,608 @@
+{
+  "updated_at": "2026-11-10T17:20:35.640Z",
+  "active_domains_count": 12,
+  "domains": [
+    {
+      "code": "DUHA-01",
+      "domain": "sheikha.top",
+      "role": "التعاقدات الاستراتيجية الكبرى (SBN Tier-0)",
+      "prod_line": "عقود التوريد السيادي والربط المؤسسي SAP/Aramco"
+    },
+    {
+      "code": "DUHA-02",
+      "domain": "sheikha.market",
+      "role": "بورصة المعادن والسبائك والكتالوج الموحد (35/35)",
+      "prod_line": "خط تسعير وتداول المعادن والسبائك للمصانع"
+    },
+    {
+      "code": "DUHA-03",
+      "domain": "sheikha.shop",
+      "role": "متجر الجملة والتجزئة والسيليكون الحيوي (Bio-Exchange)",
+      "prod_line": "خط تعبئة وتوريد السيليكون الحيوي ومواد المقاولين"
+    },
+    {
+      "code": "DUHA-04",
+      "domain": "sheikha.money",
+      "role": "محرك الفوترة الزكوية (ZATCA Phase-2) والتحصيل البنكي",
+      "prod_line": "خط المقاصة المالية والتسوية الفورية (مصرف الإنماء)"
+    },
+    {
+      "code": "DUHA-05",
+      "domain": "sheikha.capital",
+      "role": "الأوعية الاستثمارية الحلال والوقف الملياري (93B SAR)",
+      "prod_line": "إدارة السيولة الوقفية والصكوك الاستثمارية (DEED-30)"
+    },
+    {
+      "code": "DUHA-06",
+      "domain": "sheikha.cloud",
+      "role": "السيرفرات السحابية والحوسبة الفائقة (Cloud GPU)",
+      "prod_line": "تشغيل العناقيد السحابية واستضافة النماذج السيادية"
+    },
+    {
+      "code": "DUHA-07",
+      "domain": "sheikha.digital",
+      "role": "التوائم الصناعية ومختبرات الفحص (LIMS ISO 17025)",
+      "prod_line": "خط الفحص المخبري الرقمي وإصدار شهادات النقاء والجودة"
+    },
+    {
+      "code": "DUHA-08",
+      "domain": "sheikha.dev",
+      "role": "تراخيص الأنظمة والـ 38 أداة MCP للمطورين",
+      "prod_line": "توليد مفاتيح التراخيص البرمجية وواجهات الربط API"
+    },
+    {
+      "code": "DUHA-09",
+      "domain": "sheikha.app",
+      "role": "تطبيق نقاط البيع (POS) والتجارة المتنقلة باللغات الأربع",
+      "prod_line": "تشغيل محطات البيع الفوري للمندوبين والفروع"
+    },
+    {
+      "code": "DUHA-10",
+      "domain": "sheikha.click",
+      "role": "الاقتناص التجاري الخاطف والشحن اللوجستي الفوري",
+      "prod_line": "جدولة أساطيل الشحن وإصدار بوالص التوزيع الإقليمي"
+    },
+    {
+      "code": "DUHA-11",
+      "domain": "sheikha.me",
+      "role": "بوابة حسابات كبار العملاء والوكلاء في الـ 136 محافظة",
+      "prod_line": "إدارة علاقات الوكلاء المعتمدين والاعتمادات التجارية"
+    },
+    {
+      "code": "DUHA-12",
+      "domain": "sheikha.site",
+      "role": "إدارة المشاريع الإقليمية وشبكات الطاقة ومصانع التدوير MRF",
+      "prod_line": "خطوط الفرز والتدوير الصناعي وشبكات الطاقة (Micro-Grids)"
+    }
+  ],
+  "crm_partners": [
+    {
+      "partner_id": "SHK-PRT-2012-31",
+      "name": "المدن الصناعية ومصانع التدوير والطاقة",
+      "ref_id": "REF-DUHA-12",
+      "domain": "sheikha.site",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2011-36",
+      "name": "الوكلاء التجاريون في الـ 136 محافظة",
+      "ref_id": "REF-DUHA-11",
+      "domain": "sheikha.me",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2010-92",
+      "name": "أساطيل النقل والموانئ وسلاسل الإمداد",
+      "ref_id": "REF-DUHA-10",
+      "domain": "sheikha.click",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2009-52",
+      "name": "شبكة التجار والمندوبين (POS الأربع لغات)",
+      "ref_id": "REF-DUHA-09",
+      "domain": "sheikha.app",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2008-44",
+      "name": "مجتمع المطورين والشركات التقنية",
+      "ref_id": "REF-DUHA-08",
+      "domain": "sheikha.dev",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2007-75",
+      "name": "المجمعات الصناعية ومصافي التكرير",
+      "ref_id": "REF-DUHA-07",
+      "domain": "sheikha.digital",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2006-94",
+      "name": "مراكز البيانات والبنوك والجامعات",
+      "ref_id": "REF-DUHA-06",
+      "domain": "sheikha.cloud",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2005-28",
+      "name": "الصناديق الاستثمارية والأوقاف السيادية",
+      "ref_id": "REF-DUHA-05",
+      "domain": "sheikha.capital",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2004-16",
+      "name": "بوابة المقاصة والتحصيل الزكوي البنكي",
+      "ref_id": "REF-DUHA-04",
+      "domain": "sheikha.money",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2003-23",
+      "name": "اتحاد المقاولين والمتاجر (Bio-Exchange)",
+      "ref_id": "REF-DUHA-03",
+      "domain": "sheikha.shop",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2002-25",
+      "name": "تكتل مصانع البتروكيماويات والتعدين",
+      "ref_id": "REF-DUHA-02",
+      "domain": "sheikha.market",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-2001-31",
+      "name": "أرامكو السعودية وSAP - عقود Tier-0",
+      "ref_id": "REF-DUHA-01",
+      "domain": "sheikha.top",
+      "tier": "FULL_12_DOMAIN_CYCLE",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "partner_id": "SHK-PRT-8881",
+      "name": "الشركة الوطنية للصناعات المعدنية والتعدين",
+      "ref_id": "CR-1010998877",
+      "domain": "sheikha.top",
+      "tier": "STRATEGIC_TIER_0",
+      "contact": "موثق عبر بوابة العلاقات السيادية",
+      "status": "ACTIVE_RELATIONSHIP",
+      "created_at": "2026-11-10T17:18:01.009Z"
+    },
+    {
+      "partner_id": "SHK-PRT-1001",
+      "name": "أرامكو السعودية - بوابة الموردين",
+      "ref_id": "S11488084",
+      "domain": "sheikha.top",
+      "tier": "STRATEGIC_TIER_0",
+      "status": "ACTIVE_RELATIONSHIP"
+    },
+    {
+      "partner_id": "SHK-PRT-1002",
+      "name": "شبكة SAP للأعمال الموحدة",
+      "ref_id": "AN11235091112",
+      "domain": "sheikha.market",
+      "tier": "GLOBAL_NETWORK",
+      "status": "ACTIVE_RELATIONSHIP"
+    },
+    {
+      "partner_id": "SHK-PRT-1003",
+      "name": "ائتلاف المصانع والمقاولين والوكلاء (136 محافظة)",
+      "ref_id": "KSA-136-NET",
+      "domain": "sheikha.me",
+      "tier": "AUTHORIZED_DEALERS",
+      "status": "ACTIVE_RELATIONSHIP"
+    }
+  ],
+  "production_batches": [
+    {
+      "batch_id": "PROD-12D-DUHA-12",
+      "domain": "sheikha.site",
+      "product": "سبائك معاد تدويرها (MRF) ووحدات طاقة 20W",
+      "qty_units_or_tons": 90,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-11",
+      "domain": "sheikha.me",
+      "product": "اعتمادات وكالة وتوريد إقليمي شامل",
+      "qty_units_or_tons": 35,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-10",
+      "domain": "sheikha.click",
+      "product": "شحن لوجستي خاطف وتوزيع إقليمي ودولي",
+      "qty_units_or_tons": 45,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-09",
+      "domain": "sheikha.app",
+      "product": "محطات نقاط بيع وتجارة متنقلة فورية",
+      "qty_units_or_tons": 60,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-08",
+      "domain": "sheikha.dev",
+      "product": "تراخيص مؤسسية لحزمة الـ 38 أداة MCP",
+      "qty_units_or_tons": 40,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-07",
+      "domain": "sheikha.digital",
+      "product": "توائم رقمية وفحص مختبري (LIMS ISO 17025)",
+      "qty_units_or_tons": 30,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-06",
+      "domain": "sheikha.cloud",
+      "product": "عناقيد حوسبة فائقة السعة (Cloud GPU Nodes)",
+      "qty_units_or_tons": 15,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-05",
+      "domain": "sheikha.capital",
+      "product": "صكوك استثمارية وأوعية سيولة حلال (DEED-30)",
+      "qty_units_or_tons": 20,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-04",
+      "domain": "sheikha.money",
+      "product": "تسوية واعتماد محافظ فوترة ZATCA Phase-2",
+      "qty_units_or_tons": 10,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-03",
+      "domain": "sheikha.shop",
+      "product": "سيليكون حيوي نقي ومواد إنشائية",
+      "qty_units_or_tons": 80,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-02",
+      "domain": "sheikha.market",
+      "product": "سبائك نحاس وألمنيوم قياسية (Catalog 35/35)",
+      "qty_units_or_tons": 50,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-12D-DUHA-01",
+      "domain": "sheikha.top",
+      "product": "عقد توريد سبائك ومعادن استراتيجية سنوي",
+      "qty_units_or_tons": 100,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (12-Domain Fleet)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "batch_id": "PROD-081026",
+      "domain": "sheikha.market",
+      "product": "سبائك نحاس نقي وسيليكون حيوي (Catalog 35/35)",
+      "qty_units_or_tons": 40,
+      "lab_cert": "LIMS-ISO-17025-VERIFIED",
+      "logistics_channel": "sheikha.click (Instant Fleet Dispatch)",
+      "status": "PRODUCED_INSPECTED_AND_DISPATCHED",
+      "timestamp": "2026-11-10T17:18:01.026Z"
+    },
+    {
+      "batch_id": "PROD-2026-001",
+      "domain": "sheikha.market",
+      "product": "سبائك نحاس ومعادن نقية قياسية (Catalog 35/35)",
+      "qty_tons": 50,
+      "lab_cert": "ISO-17025-PASS",
+      "status": "IN_PRODUCTION_AND_READY_FOR_DISPATCH"
+    },
+    {
+      "batch_id": "PROD-2026-002",
+      "domain": "sheikha.shop",
+      "product": "سيليكون حيوي فائق النقاء (Bio-Silicon Exchange)",
+      "qty_tons": 25,
+      "lab_cert": "ISO-17025-PASS",
+      "status": "IN_PRODUCTION_AND_READY_FOR_DISPATCH"
+    },
+    {
+      "batch_id": "PROD-2026-003",
+      "domain": "sheikha.site",
+      "product": "مخرجات مصانع التدوير الذكية (MRF Recycled Alloys)",
+      "qty_tons": 120,
+      "lab_cert": "ISO-17025-PASS",
+      "status": "IN_PRODUCTION_AND_READY_FOR_DISPATCH"
+    }
+  ],
+  "commercial_orders": [
+    {
+      "order_id": "SHK-ORD-DUHA-12-5640",
+      "batch_id": "PROD-12D-DUHA-12",
+      "zatca_invoice_id": "ZATCA-DUHA-12-1933",
+      "domain": "sheikha.site",
+      "client": "المدن الصناعية ومصانع التدوير والطاقة",
+      "product": "سبائك معاد تدويرها (MRF) ووحدات طاقة 20W",
+      "qty": 90,
+      "unit_price_sar": 11000,
+      "subtotal_sar": 990000,
+      "vat_15_sar": 148500,
+      "total_sar": 1138500,
+      "waqf_99_sar": 980100,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "f5d5ac9accd94e55ffab582007ac29f6587b541b8bec82cebb6124fdb42d4077",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-11-5640",
+      "batch_id": "PROD-12D-DUHA-11",
+      "zatca_invoice_id": "ZATCA-DUHA-11-8366",
+      "domain": "sheikha.me",
+      "client": "الوكلاء التجاريون في الـ 136 محافظة",
+      "product": "اعتمادات وكالة وتوريد إقليمي شامل",
+      "qty": 35,
+      "unit_price_sar": 14000,
+      "subtotal_sar": 490000,
+      "vat_15_sar": 73500,
+      "total_sar": 563500,
+      "waqf_99_sar": 485100,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "41e961399f1759182f3de377d6fd7fc206edc06d971c0dc661ff9159c9412478",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-10-5640",
+      "batch_id": "PROD-12D-DUHA-10",
+      "zatca_invoice_id": "ZATCA-DUHA-10-4007",
+      "domain": "sheikha.click",
+      "client": "أساطيل النقل والموانئ وسلاسل الإمداد",
+      "product": "شحن لوجستي خاطف وتوزيع إقليمي ودولي",
+      "qty": 45,
+      "unit_price_sar": 8000,
+      "subtotal_sar": 360000,
+      "vat_15_sar": 54000,
+      "total_sar": 414000,
+      "waqf_99_sar": 356400,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "3421641d8386c3c5add4a8720670c00679ae09790fdadff908c4cbf3617d943a",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-09-5639",
+      "batch_id": "PROD-12D-DUHA-09",
+      "zatca_invoice_id": "ZATCA-DUHA-09-4904",
+      "domain": "sheikha.app",
+      "client": "شبكة التجار والمندوبين (POS الأربع لغات)",
+      "product": "محطات نقاط بيع وتجارة متنقلة فورية",
+      "qty": 60,
+      "unit_price_sar": 4500,
+      "subtotal_sar": 270000,
+      "vat_15_sar": 40500,
+      "total_sar": 310500,
+      "waqf_99_sar": 267300,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "6d124ee1d52f797da80e3558e8d47dafbeac8a28f555f8ae57b2462357263aa1",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-08-5639",
+      "batch_id": "PROD-12D-DUHA-08",
+      "zatca_invoice_id": "ZATCA-DUHA-08-8785",
+      "domain": "sheikha.dev",
+      "client": "مجتمع المطورين والشركات التقنية",
+      "product": "تراخيص مؤسسية لحزمة الـ 38 أداة MCP",
+      "qty": 40,
+      "unit_price_sar": 6500,
+      "subtotal_sar": 260000,
+      "vat_15_sar": 39000,
+      "total_sar": 299000,
+      "waqf_99_sar": 257400,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "56bbb25bab2c02bcdb162ad4b9605a328f622e86cb7cb6296cfb177ed577de46",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-07-5639",
+      "batch_id": "PROD-12D-DUHA-07",
+      "zatca_invoice_id": "ZATCA-DUHA-07-3685",
+      "domain": "sheikha.digital",
+      "client": "المجمعات الصناعية ومصافي التكرير",
+      "product": "توائم رقمية وفحص مختبري (LIMS ISO 17025)",
+      "qty": 30,
+      "unit_price_sar": 12000,
+      "subtotal_sar": 360000,
+      "vat_15_sar": 54000,
+      "total_sar": 414000,
+      "waqf_99_sar": 356400,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "c8d5ce3cb80599c1b681112457215ddc7b75d2033928fa7a69a21f47a6ecbb94",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-06-5639",
+      "batch_id": "PROD-12D-DUHA-06",
+      "zatca_invoice_id": "ZATCA-DUHA-06-6395",
+      "domain": "sheikha.cloud",
+      "client": "مراكز البيانات والبنوك والجامعات",
+      "product": "عناقيد حوسبة فائقة السعة (Cloud GPU Nodes)",
+      "qty": 15,
+      "unit_price_sar": 32000,
+      "subtotal_sar": 480000,
+      "vat_15_sar": 72000,
+      "total_sar": 552000,
+      "waqf_99_sar": 475200,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "6202be1fdb836ab4bb0ddfb9b39602019ff4478f06d3d62082ddef1d2da98d72",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-05-5639",
+      "batch_id": "PROD-12D-DUHA-05",
+      "zatca_invoice_id": "ZATCA-DUHA-05-8975",
+      "domain": "sheikha.capital",
+      "client": "الصناديق الاستثمارية والأوقاف السيادية",
+      "product": "صكوك استثمارية وأوعية سيولة حلال (DEED-30)",
+      "qty": 20,
+      "unit_price_sar": 50000,
+      "subtotal_sar": 1000000,
+      "vat_15_sar": 150000,
+      "total_sar": 1150000,
+      "waqf_99_sar": 990000,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "a70d4cc89f5f3ad8caa6165bed4a14999e40cae0fab2137ff0c438f43fcf8539",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-04-5639",
+      "batch_id": "PROD-12D-DUHA-04",
+      "zatca_invoice_id": "ZATCA-DUHA-04-7229",
+      "domain": "sheikha.money",
+      "client": "بوابة المقاصة والتحصيل الزكوي البنكي",
+      "product": "تسوية واعتماد محافظ فوترة ZATCA Phase-2",
+      "qty": 10,
+      "unit_price_sar": 15000,
+      "subtotal_sar": 150000,
+      "vat_15_sar": 22500,
+      "total_sar": 172500,
+      "waqf_99_sar": 148500,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "b1e0995c8043c9fe2f731379862b5625e40efd4490ec1577c48581b8706ee9fc",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-03-5639",
+      "batch_id": "PROD-12D-DUHA-03",
+      "zatca_invoice_id": "ZATCA-DUHA-03-6547",
+      "domain": "sheikha.shop",
+      "client": "اتحاد المقاولين والمتاجر (Bio-Exchange)",
+      "product": "سيليكون حيوي نقي ومواد إنشائية",
+      "qty": 80,
+      "unit_price_sar": 9500,
+      "subtotal_sar": 760000,
+      "vat_15_sar": 114000,
+      "total_sar": 874000,
+      "waqf_99_sar": 752400,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "b33a000e72d51b1e342cf47b73216e82be363c1849be9fc0ac5bc2e810da84ac",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-02-5639",
+      "batch_id": "PROD-12D-DUHA-02",
+      "zatca_invoice_id": "ZATCA-DUHA-02-1716",
+      "domain": "sheikha.market",
+      "client": "تكتل مصانع البتروكيماويات والتعدين",
+      "product": "سبائك نحاس وألمنيوم قياسية (Catalog 35/35)",
+      "qty": 50,
+      "unit_price_sar": 18500,
+      "subtotal_sar": 925000,
+      "vat_15_sar": 138750,
+      "total_sar": 1063750,
+      "waqf_99_sar": 915750,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "bcbd7578e3579fa72d18b8c03534e2707bd0284792ff96e9b602b627b513d5ef",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-DUHA-01-5639",
+      "batch_id": "PROD-12D-DUHA-01",
+      "zatca_invoice_id": "ZATCA-DUHA-01-2921",
+      "domain": "sheikha.top",
+      "client": "أرامكو السعودية وSAP - عقود Tier-0",
+      "product": "عقد توريد سبائك ومعادن استراتيجية سنوي",
+      "qty": 100,
+      "unit_price_sar": 22000,
+      "subtotal_sar": 2200000,
+      "vat_15_sar": 330000,
+      "total_sar": 2530000,
+      "waqf_99_sar": 2178000,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "31ff208ab52f253b27388ad1b1c245efede8b5208ddaef77ae08abbffa73fd0e",
+      "timestamp": "2026-11-10T17:20:35.639Z"
+    },
+    {
+      "order_id": "SHK-ORD-081026",
+      "batch_id": "PROD-081026",
+      "zatca_invoice_id": "ZATCA-INV-183390",
+      "domain": "sheikha.market",
+      "client": "الشركة الوطنية للصناعات المعدنية والتعدين",
+      "product": "سبائك نحاس نقي وسيليكون حيوي (Catalog 35/35)",
+      "qty": 40,
+      "unit_price_sar": 16500,
+      "subtotal_sar": 660000,
+      "vat_15_sar": 99000,
+      "total_sar": 759000,
+      "waqf_99_sar": 653400,
+      "iban": "SA4005000068206162118000",
+      "zatca_hash": "e42efe57ab5bde96822e7559814e1974dca4569a04aa3c52105bf7c139b7e9e6",
+      "timestamp": "2026-11-10T17:18:01.026Z"
+    }
+  ],
+  "metrics": {
+    "total_partners": 16,
+    "total_production_batches": 16,
+    "total_orders": 13,
+    "total_revenue_sar": 10240750,
+    "waqf_99_allocated_sar": 8815950
+  }
+}

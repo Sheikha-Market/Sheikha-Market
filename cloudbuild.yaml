@@ -1,13 +1,47 @@
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$COMMIT_SHA','-t','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:v44-20-omni','.']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$COMMIT_SHA']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:v44-20-omni']
-images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$COMMIT_SHA'
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:v44-20-omni'
+# SHEIKHA BuildKit / buildx (staging image only; does NOT deploy or redirect traffic)
+# Submit from a freshly generated, allowlisted, secret-free build context, NOT project root.
 timeout: 1200s
+substitutions:
+  _TARGET_IMAGE: 'us-central1-docker.pkg.dev/sheikha-marketplace/sheikha-apps/sheikha-main-portal:v62-3-buildkit-eval-20261026'
+steps:
+  - id: 'verify-source-and-toolchain'
+    name: 'docker:27-cli'
+    entrypoint: '/bin/sh'
+    args:
+      - '-ec'
+      - |
+        test -f server.js
+        test -f package-lock.json
+        test -f global-neural-governance-init.js
+        test -f sovereign-ledger-bridge.js
+        test -f runtime/sheikha-infinite-agent/v1/sheikha-infinite-agent-kernel.js
+        test -f SHEIKHA-CORE/blockchain/registry.json
+        test -f SHEIKHA-CORE/blockchain/lawh_mahfuz/LAWH_MAHFUZ_MASTER_REGISTRY.json
+        test -f blockchain/lawh_mahfuz/LAWH_MAHFUZ_MASTER_REGISTRY.json
+        if find . -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.key' -o -name '*service-account*.json' -o -name 'credentials.json' \) | grep -q .; then
+          echo 'ERROR: secret-shaped file in build context' >&2
+          exit 19
+        fi
+        docker version
+        docker buildx version
+  - id: 'build-with-buildkit'
+    name: 'docker:27-cli'
+    entrypoint: '/bin/sh'
+    args:
+      - '-ec'
+      - |
+        docker buildx create --name sheikha-buildkit-eval --driver docker-container --use
+        docker buildx inspect --bootstrap
+        docker buildx build --platform linux/amd64 --load --progress plain \
+          --tag '${_TARGET_IMAGE}' \
+          --file Dockerfile .
+    env:
+      - 'DOCKER_BUILDKIT=1'
+      - 'BUILDKIT_PROGRESS=plain'
+  - id: 'push-evaluation-image-only'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_TARGET_IMAGE}']
 options:
   logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+tags: ['sheikha-buildkit-evaluation', 'no-traffic-change']

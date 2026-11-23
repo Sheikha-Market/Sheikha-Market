@@ -16,7 +16,8 @@ test('activates Sheikha Studio platform above full IDE layer', () => {
 
   expect(status.status).toBe('ACTIVE_SHEIKHA_STUDIO_PLATFORM');
   expect(status.layerRank).toBe('ABOVE_FULL_IDE_OPERATING_LAYER');
-  expect(status.productionReady).toBe(true);
+  expect(status.productionReady).toBe(false);
+  expect(status.commercialPilotReady).toBe(true);
   expect(status.governed).toBe(true);
   expect(status.audited).toBe(true);
 

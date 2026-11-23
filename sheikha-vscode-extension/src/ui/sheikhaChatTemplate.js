@@ -1,34 +1,67 @@
 'use strict';
+const { workbenchCss, renderWorkbench, workbenchScript } = require('./sheikhaWorkbenchTemplate');
 
 const QUICK_ACTIONS = Object.freeze([
   {
+    label: 'تحرير موثق',
+    icon: 'DOC',
+    prompt:
+      'حرر نتيجة بحث أو وثيقة أو ديوانًا برمجيًا تحريرًا كاملًا قابلًا للمراجعة: حدد الجمهور والغرض، افهرس المادة، تتبع المصادر والتراخيص، ابن مخططًا منطقيًا، أدرج العلوم والحساب، راجع اللغة والمصطلحات، تحقق من الاستشهادات والكود والاختبارات، ثم أخرج سجل تغييرات وبصمة مصدر وحدود النتيجة.',
+    mode: 'editorial'
+  },
+  {
+    label: 'علم وحساب',
+    icon: 'SUM',
+    prompt:
+      'حلل المسألة بمنهج علمي وحسابي متقن: عرّف السؤال والمتغيرات والوحدات والافتراضات، افصل الحقائق عن الفرضيات، اذكر الأدلة، اعرض المعادلة أو الخوارزمية والحساب، تحقق بطريقة مستقلة، حلل عدم اليقين، ثم اذكر النتيجة وحدودها وقابلية تكرارها.',
+    mode: 'scientific'
+  },
+  {
+    label: 'تنفيذ متقن',
+    icon: 'RUN',
+    prompt:
+      'نفذ المهمة البرمجية إلى النهاية: اكتشف البنية، ضع خطة قصيرة، نفذ رقعة محدودة، شغل الاختبارات والتحقق، ثم اذكر الملفات والأدلة وحالة النهاية الصادقة. لا تنفذ إجراء عالي الأثر دون موافقة بشرية.',
+    mode: 'engineering'
+  },
+  {
     label: 'لوحة المالك',
+    icon: 'OWN',
     prompt:
       'اعرض حالة مركز المالك والأدوار والمهام الآلية وحدود الموافقات البشرية.'
   },
   {
     label: 'حالة المنظومة',
+    icon: 'SYS',
     prompt: 'حلل حالة منظومة شيخة الحالية من Enterprise Inspector وحدد أفضل إجراء تالٍ.'
   },
   {
     label: 'مراجعة المشروع',
+    icon: 'REV',
     prompt: 'حلل Workspace وGit الحاليين وحدد مخاطر الاختبار والدمج.'
   },
   {
     label: 'التشخيص',
+    icon: 'DIA',
     prompt: 'راجع أخطاء وتحذيرات VS Code الحالية واقترح خطة إصلاح مرتبة.'
   },
   {
     label: 'التوزيع V2',
+    icon: 'PKG',
     prompt: 'افحص حالة Universal Delivery V2 والحزم والأدلة المحلية دون نشر خارجي.'
   },
   {
     label: 'حوار الأفكار',
+    icon: 'IDEA',
     prompt:
       'قارن الليبرالية والاشتراكية في مفهوم العدالة بحوار بنّاء موثق.',
     mode: 'constructive'
   }
 ]);
+
+const QUICK_GLYPHS = Object.freeze({
+  DOC: '✎', SUM: 'Σ', RUN: '▶', OWN: '◈', SYS: '◉',
+  REV: '⌕', DIA: '⚕', PKG: '▣', IDEA: '✦'
+});
 
 const CHAT_TOOL_GROUPS = Object.freeze([
   Object.freeze({
@@ -67,7 +100,7 @@ const CHAT_TOOL_GROUPS = Object.freeze([
       { command: 'sheikha.debugger.run', label: 'الفحص الكامل', icon: 'D', description: 'فتح نتيجة Debugging Apex الحالية' },
       { command: 'sheikha.debugger.logs', label: 'سجلات التشغيل', icon: '≡', description: 'فتح سجلات PM2 المحلية في الطرفية' },
       { command: 'sheikha.openWorkspaceControl', label: 'تحكم مساحة العمل', icon: 'W', description: 'فتح لوحة Enterprise Inspector' },
-      { command: 'sheikha.awareness.scan', label: 'وعي VS Code', icon: '@', description: 'جمع لقطة وعي محلية وعرضها دون تعديل' }
+      { command: 'sheikha.awareness.scan', label: 'مركز مساحة العمل', icon: '@', description: 'القدرات والإضافات وأدوات التحرير المحلية' }
     ])
   }),
   Object.freeze({
@@ -121,6 +154,9 @@ function getChatTool(command) {
 
 const CHAT_MODES = Object.freeze([
   ['smart', 'ذكي'],
+  ['editorial', 'تحرير بحث ووثائق وبرمجيات'],
+  ['scientific', 'علوم وحساب موثقان'],
+  ['engineering', 'تنفيذ هندسي متقن'],
   ['constructive', 'حوار فكري محكوم'],
   ['standard', 'قياسي'],
   ['pro', 'احترافي متعدد النماذج'],
@@ -179,7 +215,7 @@ function renderSheikhaChatTemplate(options = {}) {
     )
   ).join('');
   const quickActions = QUICK_ACTIONS.map((action) => (
-    `<button class="quick-action" data-prompt="${esc(action.prompt)}" data-mode="${esc(action.mode || '')}" title="${esc(action.label)}">${esc(action.label)}</button>`
+    `<button class="quick-action" data-prompt="${esc(action.prompt)}" data-mode="${esc(action.mode || '')}" data-action="${esc(action.icon || '')}" title="${esc(action.label)}"><span class="quick-icon" aria-hidden="true">${esc(QUICK_GLYPHS[action.icon] || '•')}</span><span>${esc(action.label)}</span></button>`
   )).join('');
   const apexRows = APEX_LAYERS.map(([level, name]) => (
     `<li data-layer="${esc(level)}"><span><b>${esc(level)}</b> ${esc(name)}</span><em>جارٍ الفحص</em></li>`
@@ -234,10 +270,12 @@ select{min-width:0;width:100%;height:30px;border:1px solid var(--line);border-ra
 .layer-list{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;direction:ltr}
 .layer-list li{display:flex;justify-content:space-between;gap:8px;min-width:0;padding:4px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 55%,transparent);font-size:10px;color:var(--muted)}
 .layer-list span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.layer-list b{color:var(--text)}.layer-list em{color:var(--warn);font-style:normal;white-space:nowrap}.layer-list li[data-state="active"] em{color:var(--good)}.layer-list li[data-state="error"] em{color:var(--bad)}
-.quickbar{display:flex;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:thin}
+.quickbar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(124px,1fr);gap:6px;padding:8px 12px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:thin}
 button{height:30px;border:1px solid var(--line);border-radius:6px;background:var(--surface-raised);color:var(--text);padding:0 9px;cursor:pointer;white-space:nowrap}
 button:hover{border-color:var(--focus)}button:disabled{opacity:.55;cursor:wait}
-.quick-action{font-size:11px;color:var(--muted)}
+.quick-action{height:36px;min-width:124px;display:grid;grid-template-columns:28px minmax(0,1fr);align-items:center;gap:7px;padding:3px 8px;font-size:11px;color:var(--muted);text-align:start}
+.quick-icon{width:28px;height:26px;display:grid;place-items:center;border-inline-end:1px solid var(--line);color:var(--good);direction:ltr;font-size:15px;line-height:1}
+.quick-action:hover .quick-icon,.quick-action:focus-visible .quick-icon{color:var(--text)}
 .toolbox{border-bottom:1px solid var(--line);background:var(--surface)}
 .toolbox>summary{height:34px;padding:0 12px;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--text);font-size:11px}
 .toolbox>summary::-webkit-details-marker{display:none}.toolbox>summary::after{content:'⌄';color:var(--good);margin-inline-start:2px}.toolbox[open]>summary::after{content:'⌃'}
@@ -263,13 +301,18 @@ button:hover{border-color:var(--focus)}button:disabled{opacity:.55;cursor:wait}
 @keyframes pulse{50%{opacity:.35}}
 .trace{max-width:94%;align-self:flex-start;color:var(--muted);font-size:10px}.trace summary{cursor:pointer}.trace div{margin-top:5px;padding-inline-start:9px;border-inline-start:1px solid var(--line);unicode-bidi:plaintext}
 .composer{position:sticky;z-index:2;bottom:0;padding:9px 12px 11px;border-top:1px solid var(--line);background:var(--surface)}
-.compose-row{display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:7px;align-items:end;margin:0}
+.compose-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:end;margin:0}
+.model-route{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-top:8px}
+#localModel{overflow:hidden;text-overflow:ellipsis;direction:ltr}
+#stopChat{width:34px;height:34px;padding:0;color:var(--bad);font-size:20px}
+@media(prefers-reduced-motion:reduce){.typing::before{animation:none}}
 textarea{width:100%;max-height:180px;min-height:44px;resize:none;border:1px solid var(--line);border-radius:7px;background:var(--vscode-input-background,var(--surface-raised));color:var(--vscode-input-foreground,var(--text));padding:10px;line-height:1.5;overflow-y:auto}
 #send{position:relative;z-index:3;width:34px;height:34px;padding:0;display:grid;place-items:center;background:var(--accent);border-color:transparent;color:var(--accent-text);pointer-events:auto;touch-action:manipulation}
 #send svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .composer-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;color:var(--muted);font-size:9px}
 #clear{height:auto;border:0;background:transparent;padding:2px 0;color:var(--muted);font-size:10px}
-@media(max-width:420px){.app{grid-template-rows:auto auto auto minmax(240px,1fr) auto}.layer-list{grid-template-columns:1fr}.title p{max-width:210px}.message{max-width:100%}.tool-grid{grid-template-columns:1fr}.toolbox-body{max-height:52vh}}
+@media(max-width:420px){.app{grid-template-rows:auto auto auto minmax(240px,1fr) auto}.layer-list{grid-template-columns:1fr}.title p{max-width:210px}.message{max-width:100%}.tool-grid{grid-template-columns:1fr}.toolbox-body{max-height:52vh}.quickbar{grid-auto-columns:132px}}
+${workbenchCss}
 </style>
 </head>
 <body>
@@ -301,9 +344,12 @@ textarea{width:100%;max-height:180px;min-height:44px;resize:none;border:1px soli
       <div id="toolGroups">${toolGroups}</div>
     </div>
   </details>
+  <div class="workspace-shell">
   <section class="conversation" id="log" aria-live="polite">
     <div class="message assistant"><span class="role">شيخة</span>بسم الله الرحمن الرحيم\n\nما الذي تحتاج إليه من مساعدة أو عون؟</div>
   </section>
+  ${renderWorkbench()}
+  </div>
   <footer class="composer">
     <form class="compose-row" id="composerForm">
       <textarea id="input" rows="1" dir="auto" aria-label="رسالتك" placeholder="اكتب رسالتك..."></textarea>
@@ -313,8 +359,15 @@ textarea{width:100%;max-height:180px;min-height:44px;resize:none;border:1px soli
           <path d="M6 12h16"></path>
         </svg>
       </button>
+      <button id="stopChat" type="button" title="إيقاف الرد المحلي" aria-label="إيقاف الرد المحلي" hidden>&#9632;</button>
     </form>
-    <div class="composer-meta"><span id="activity">جارٍ تهيئة قناة الإرسال</span><span>Enter للإرسال · Shift+Enter لسطر جديد</span></div>
+    <div class="model-route">
+      <select id="chatRoute" aria-label="مسار الحوار" title="النموذج المحلي لا يتصفح الويب أو ينفذ أدوات؛ Runtime مسار مستقل">
+        <option value="local">نموذج محلي</option><option value="runtime">Runtime المحكوم</option>
+      </select>
+      <button id="localModel" type="button" title="اختيار نموذج مثبت؛ نص الحوار فقط إلى خدمة Ollama المحلية">اختيار النموذج</button>
+    </div>
+    <div class="composer-meta"><span id="activity" role="status">جارٍ تهيئة قناة الإرسال</span></div>
   </footer>
 </main>
 <script nonce="${nonce}">
@@ -324,6 +377,9 @@ const log = document.getElementById('log');
 const composerForm = document.getElementById('composerForm');
 const input = document.getElementById('input');
 const send = document.getElementById('send');
+const stopChat = document.getElementById('stopChat');
+const chatRoute = document.getElementById('chatRoute');
+const localModel = document.getElementById('localModel');
 const clear = document.getElementById('clear');
 const modeSelect = document.getElementById('mode');
 const audienceSelect = document.getElementById('audience');
@@ -336,6 +392,7 @@ const toolCount = document.getElementById('toolCount');
 const toolButtons = Array.from(document.querySelectorAll('[data-tool-command]'));
 const toolGroups = Array.from(document.querySelectorAll('[data-tool-group]'));
 let busy = false;
+let appliedQuickPrompt = '';
 let bridgeReady = false;
 let readyAttempts = 0;
 let readyTimer = null;
@@ -344,6 +401,17 @@ let typingMessage = null;
 let streamingMessage = null;
 let activeToolId = '';
 let availableToolIds = null;
+let cancellable = false;
+stopChat.addEventListener('click', function () {
+  if (!busy || !cancellable) return;
+  stopChat.disabled = true;
+  activity.textContent = 'إيقاف الطلب المحلي';
+  vscode.postMessage({ command: 'cancelChat' });
+});
+localModel.addEventListener('click', function () {
+  if (!busy && !wbRunning) vscode.postMessage({ command: 'selectLocalModel' });
+});
+chatRoute.addEventListener('change', function () { localModel.hidden = chatRoute.value !== 'local'; });
 const REQUEST_IDLE_TIMEOUT_MS = 100000;
 
 modeSelect.value = previousState.mode || 'smart';
@@ -367,7 +435,7 @@ function updateToolButtons() {
     const toolId = button.dataset.toolCommand || '';
     const available = availableToolIds === null || availableToolIds.has(toolId);
     button.dataset.available = String(available);
-    button.disabled = Boolean(activeToolId) || !available;
+    button.disabled = busy || Boolean(activeToolId) || !available;
     button.setAttribute('aria-busy', String(activeToolId === toolId));
   });
 }
@@ -378,7 +446,7 @@ function setToolStatus(text, state) {
 }
 
 function invokeTool(button) {
-  if (!button || activeToolId || button.dataset.available === 'false') return;
+  if (!button || busy || activeToolId || wbRunning || button.dataset.available === 'false') return;
   const toolId = String(button.dataset.toolCommand || '');
   if (!toolId) return;
   if (!bridgeReady) announceReady();
@@ -424,6 +492,10 @@ function setBusy(value, label) {
   send.disabled = busy;
   send.setAttribute('aria-busy', String(busy));
   clear.disabled = busy;
+  chatRoute.disabled = busy;
+  localModel.disabled = busy;
+  stopChat.hidden = !busy || !cancellable;
+  updateToolButtons();
   health.dataset.state = busy ? 'busy' : 'ready';
   health.textContent = busy ? 'يعمل' : 'متصل';
   activity.textContent = label || (busy ? 'جارٍ المعالجة' : 'جاهز');
@@ -432,6 +504,8 @@ function setBusy(value, label) {
 function finishRequest(label, errorState) {
   if (requestTimer) clearTimeout(requestTimer);
   requestTimer = null;
+  cancellable = false;
+  stopChat.disabled = false;
   setBusy(false, label);
   if (errorState) {
     health.dataset.state = 'error';
@@ -442,6 +516,7 @@ function finishRequest(label, errorState) {
 function armRequestTimeout() {
   if (requestTimer) clearTimeout(requestTimer);
   requestTimer = setTimeout(function () {
+    if (cancellable) vscode.postMessage({ command: 'cancelChat' });
     clearTransient();
     if (streamingMessage && !String(messageTextNode(streamingMessage)?.nodeValue || '').trim()) {
       streamingMessage.remove();
@@ -501,6 +576,18 @@ function addTrace(layers) {
   log.appendChild(details);
 }
 
+function addModelReceipt(meta) {
+  if (!meta || meta.route !== 'OLLAMA_LOCAL_STREAM') return;
+  const receipt = document.createElement('div');
+  receipt.className = 'trace';
+  const metrics = meta.metrics || {};
+  const seconds = value => Number.isFinite(value) ? (value / 1000).toFixed(1) + ' ث' : 'غير مقاس';
+  receipt.textContent = String(meta.model || '') + ' · أول جزء: ' + seconds(metrics.firstTokenMs) +
+    ' · الزمن: ' + seconds(metrics.elapsedMs) + ' · ' + (Number.isFinite(metrics.generatedTokens) ? metrics.generatedTokens : '?') +
+    ' توكن · استدلال محلي، بلا أدوات أو بحث ويب';
+  log.appendChild(receipt);
+}
+
 function clearTransient() {
   if (typingMessage) typingMessage.remove();
   typingMessage = null;
@@ -517,7 +604,7 @@ function ask(event) {
     announceReady();
     activity.textContent = 'إرسال مباشر مع إعادة مزامنة القناة';
   }
-  if (busy) return;
+  if (busy || wbRunning) return;
   const text = input.value.trim();
   if (!text) return;
   const requestedMode = modeSelect.value;
@@ -534,12 +621,14 @@ function ask(event) {
   }
   addMessage(text, 'user', 'user');
   input.value = '';
+  appliedQuickPrompt = '';
   resizeInput();
   saveState();
   setBusy(true, 'إرسال الطلب');
   armRequestTimeout();
   vscode.postMessage({
     command: 'ask',
+    chatRoute: chatRoute.value,
     text: text,
     mode: requestedMode === 'constructive'
       ? 'standard'
@@ -555,8 +644,14 @@ function ask(event) {
 }
 
 function resetConversation() {
-  if (busy) return;
+  if (busy || wbRunning || activeToolId) return;
+  vscode.postMessage({command:'clearConversation'});
+}
+
+function clearConversationView() {
   log.replaceChildren();
+  appliedQuickPrompt = '';
+  input.value = ''; saveState(); resizeInput();
   addMessage('بسم الله الرحمن الرحيم\\n\\nما الذي تحتاج إليه من مساعدة أو عون؟', 'assistant', 'assistant');
   input.focus();
 }
@@ -611,7 +706,15 @@ document.querySelectorAll('[data-prompt]').forEach(function (button) {
       modeSelect.value = button.dataset.mode;
       updateAudienceVisibility();
     }
-    input.value = button.dataset.prompt || '';
+    const prompt = button.dataset.prompt || '';
+    let draft = input.value.trim();
+    // Replace only the instruction this composer inserted, preserving the task.
+    if (appliedQuickPrompt && draft === appliedQuickPrompt) draft = '';
+    else if (appliedQuickPrompt && draft.startsWith(appliedQuickPrompt + '\\n\\n')) {
+      draft = draft.slice(appliedQuickPrompt.length + 2);
+    }
+    input.value = draft ? prompt + '\\n\\n' + draft : prompt;
+    appliedQuickPrompt = prompt;
     resizeInput();
     saveState();
     input.focus();
@@ -624,9 +727,14 @@ input.addEventListener('keydown', function (event) {
   }
 });
 
+${workbenchScript}
 window.addEventListener('message', function (event) {
   const msg = event.data || {};
-  if (msg.command === 'readyAck') {
+  if (msg.command === 'workbenchState') {
+    updateWorkbench(msg.data);
+  } else if (msg.command === 'conversationCleared') {
+    clearConversationView();
+  } else if (msg.command === 'readyAck') {
     bridgeReady = true;
     send.dataset.bridgeReady = 'true';
     if (readyTimer) clearInterval(readyTimer);
@@ -637,10 +745,10 @@ window.addEventListener('message', function (event) {
     availableToolIds = new Set(Array.isArray(msg.available) ? msg.available : []);
     updateToolButtons();
     const availableCount = availableToolIds.size;
-    toolCount.textContent = availableCount + '/${CHAT_TOOLS.length} أداة جاهزة';
+    toolCount.textContent = availableCount + '/${CHAT_TOOLS.length} أمر مسجل';
     setToolStatus(
       availableCount === ${CHAT_TOOLS.length}
-        ? 'كل الأدوات جاهزة'
+        ? 'الأوامر مسجلة'
         : availableCount + ' متاحة، ' + (${CHAT_TOOLS.length} - availableCount) + ' غير متاحة',
       availableCount === ${CHAT_TOOLS.length} ? 'success' : 'error'
     );
@@ -663,9 +771,13 @@ window.addEventListener('message', function (event) {
     log.appendChild(typingMessage);
     typingMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
     setBusy(true, 'قراءة السياق');
+  } else if (msg.command === 'localModel') {
+    localModel.textContent = String(msg.model || 'اختيار النموذج');
   } else if (msg.command === 'streamStart') {
     clearTransient();
-    streamingMessage = addMessage('', 'assistant', 'assistant streaming');
+    ensureStreamingMessage();
+    cancellable = msg.cancellable === true;
+    stopChat.disabled = false;
     setBusy(true, 'بث الاستجابة');
     armRequestTimeout();
   } else if (msg.command === 'progress') {
@@ -690,10 +802,11 @@ window.addEventListener('message', function (event) {
     streamingMessage.classList.remove('streaming');
     streamingMessage = null;
     addTrace(msg.meta && msg.meta.layers);
-    finishRequest('اكتمل الرد', false);
+    addModelReceipt(msg.meta);
+    finishRequest(msg.meta?.incomplete ? 'الرد غير مكتمل' : msg.meta?.truncated ? 'بلغ حد الإخراج' : 'اكتمل الرد', Boolean(msg.meta?.error));
   } else if (msg.command === 'reply') {
     if (msg.meta && msg.meta.busy) {
-      finishRequest('طلب سابق قيد التنفيذ', false);
+      activity.textContent = 'طلب سابق قيد التنفيذ';
       return;
     }
     clearTransient();

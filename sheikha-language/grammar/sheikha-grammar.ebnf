@@ -2,7 +2,10 @@ Program         = { TopLevel } ;
 
 TopLevel        = Directive
                 | EntityDecl
-                | ProcedureDecl ;
+                | ProcedureDecl
+                | ValuesReferenceDecl
+                | GovernancePolicyDecl
+                | ReasoningMethodologyDecl ;
 
 Directive       = "بسم_الله" NewLine ;
 
@@ -17,7 +20,7 @@ Statement       = IfStatement
 IfStatement     = "إذا" Condition ":" NewLine Indent { Statement } Dedent
                   [ "وإلا" ":" NewLine Indent { Statement } Dedent ] ;
 
-CommandStatement= ("اعرض" | "ارفض" | "أجز") Value NewLine ;
+CommandStatement= ("اعرض" | "ارفض" | "أجز" | "تحقق_وحدة" | "انتج_عقد" | "حاكي_روبوت") Value NewLine ;
 
 Property        = Key ":" Value NewLine ;
 
@@ -26,3 +29,21 @@ Key             = Text ;
 Value           = Text ;
 Condition       = Text ;
 Text            = { Token } ;
+
+(* Metadata declarations validated by the current type checker and VM. *)
+ValuesReferenceDecl = "مرجعية" Name ":" NewLine Indent { Property } Dedent ;
+GovernancePolicyDecl = "سياسة" Name ":" NewLine Indent { Property } Dedent ;
+ReasoningMethodologyDecl = "منهج" Name ":" NewLine Indent { Property } Dedent ;
+
+(* Native local subset; Condition = Text above preserves legacy descriptive syntax. *)
+NativeCondition = BooleanLiteral | IntegerExpr CompareOp IntegerExpr ;
+BooleanLiteral = "true" | "false" | "صحيح" | "خطأ" ;
+CompareOp = "==" | "!=" | "<" | ">" | "<=" | ">=" ;
+IntegerExpr = IntegerTerm { ("+" | "-") IntegerTerm } ;
+IntegerTerm = IntegerUnary { "*" IntegerUnary } ;
+IntegerUnary = ( "+" | "-" ) IntegerUnary | IntegerPrimary ;
+IntegerPrimary = DecimalInteger | "(" IntegerExpr ")" ;
+DecimalInteger = Digit { Digit } ;
+Digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+(* Integer values and all intermediate results within +/-1000000.
+   Expression token/node limit 64; nesting limit 16; condition length limit 128. *)

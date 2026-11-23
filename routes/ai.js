@@ -14,7 +14,39 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
 const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
+const { createSheikhaProvider } = require('../lib/sheikha-ai-router/index.js');
+const {
+    buildStatus: buildSheikhaAICapabilityStatus,
+    planCapabilityRoute
+} = require('../lib/sheikha-ai-capability-fabric');
+const {
+    buildIntegrationPlan: buildAiRouterAnywhereIntegrationPlan,
+    buildRouterAnywhereStatus,
+    listGuides: listAiRouterAnywhereGuides,
+} = require('../core/ai-router/sheikha-ai-router-anywhere-v1');
 const OLLAMA_BASE_URL = 'http://127.0.0.1:11434';
+const PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED = false;
+
+function requireTrustedInternalMutation(req, res, action) {
+    const authorization = req.sheikhaTrustedAuthorization;
+    const allowed = Boolean(
+        authorization &&
+        authorization.verified === true &&
+        authorization.action === action &&
+        authorization.noScopeExpansion === true
+    );
+
+    if (allowed) return true;
+
+    res.status(403).json({
+        success: false,
+        error: 'VERIFIED_SIGNED_WRITTEN_AUTHORIZATION_REQUIRED',
+        action,
+        executionPerformed: false,
+        message: 'يتطلب هذا الإجراء تفويضًا مكتوبًا وموقّعًا تتحقق منه بوابة خادمية موثوقة.'
+    });
+    return false;
+}
 
 // ─── استيراد المحركات الأساسية ───────────────────────────────────────────────
 let SheikaAIEngine = null;
@@ -55,6 +87,15 @@ let ragEngine = null;
 let agentOrchestrator = null;
 let productionMonitor = null;
 let islamicGuardrails = null;
+let sheikhaProvider = null;
+
+try {
+    sheikhaProvider = createSheikhaProvider();
+    console.log('✅ [Sheikha AI] Provider + Router + Native Upstream — مفعّل');
+} catch (e) {
+    console.warn('⚠️ [Sheikha AI] تعذر تهيئة Provider:', e.message);
+}
+
 const ollamaOrchestrator = new SheikhaOllamaOrchestrator({
     ollamaHost: OLLAMA_BASE_URL
 });
@@ -132,7 +173,14 @@ router.get('/status', (req, res) => {
     const ollamaRec = ollamaOrchestrator.recommendedModels(ollamaOrchestrator.detectResources());
     res.json({
         success: true,
+        provider: sheikhaProvider ? sheikhaProvider.status() : null,
         engines: {
+            sheikha: {
+                enabled: !!sheikhaProvider,
+                provider: 'sheikha',
+                upstream: sheikhaProvider ? sheikhaProvider.status().upstream : null,
+                native: sheikhaProvider ? sheikhaProvider.status().upstream === 'sheikha' : false
+            },
             ollama: {
                 enabled: !!config.ai?.ollama?.enabled,
                 host: OLLAMA_BASE_URL,
@@ -141,11 +189,15 @@ router.get('/status', (req, res) => {
                 bestModel: ollamaRec.bestModel
             },
             openai: {
-                enabled: !!config.ai.openai.apiKey,
+                enabled: false,
+                configured: !!config.ai.openai.apiKey,
+                authorizationRequired: true,
                 model: config.ai.openai.model
             },
             anthropic: {
-                enabled: !!config.ai.anthropic.apiKey,
+                enabled: false,
+                configured: !!config.ai.anthropic.apiKey,
+                authorizationRequired: true,
                 model: config.ai.anthropic.model,
                 version: config.ai.anthropic.version,
                 releaseDate: config.ai.anthropic.releaseDate,
@@ -182,7 +234,32 @@ router.get('/status', (req, res) => {
             }
         },
         routing: config.ai.routing,
-        mode: config.ai.mode
+        mode: 'local-confidential-default-deny',
+        confidentiality: {
+            classification: 'CONFIDENTIAL_RESTRICTED',
+            externalDisclosureAllowed: false,
+            trainingAllowed: false
+        }
+    });
+});
+
+router.get('/capability-fabric/status', (req, res) => {
+    res.json({
+        success: true,
+        data: buildSheikhaAICapabilityStatus(),
+        executionPerformed: false,
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/capability-fabric/plan', (req, res) => {
+    const plan = planCapabilityRoute(req.body || {});
+    const status = plan.ok ? 200 : plan.decision === 'REVIEW_REQUIRED' ? 409 : 400;
+    res.status(status).json({
+        success: plan.ok,
+        data: plan,
+        executionPerformed: false,
+        timestamp: new Date().toISOString()
     });
 });
 
@@ -211,7 +288,7 @@ router.get('/model-strategy', (req, res) => {
                 sharia: ['claude', 'localMind', 'ollama'],
                 development: ['claude', 'openai', 'ollama'],
                 marketAnalysis: ['openai', 'claude', 'ollama'],
-                privateData: ['ollama', 'localMind', 'claude'],
+                privateData: ['ollama', 'localMind'],
                 fallback: ['ollama', 'localMind']
             },
             policy: SheikhaOllamaOrchestrator.policy()
@@ -261,6 +338,18 @@ router.get('/ollama/models', (req, res) => {
 router.post('/ollama/sync', (req, res) => {
     const mode = String(req.body?.mode || 'plan');
     const dryRun = mode !== 'apply';
+
+    if (
+        !dryRun &&
+        !requireTrustedInternalMutation(
+            req,
+            res,
+            'SYNC_OLLAMA_MODELS'
+        )
+    ) {
+        return;
+    }
+
     const result = ollamaOrchestrator.syncModels({ dryRun });
     res.json({
         success: true,
@@ -280,8 +369,8 @@ router.post('/model-router/plan', (req, res) => {
         preferredModel,
         taskType,
         sensitivity,
-        hasClaude: !!config.ai.anthropic.apiKey,
-        hasOpenAI: !!config.ai.openai.apiKey,
+        hasClaude: false,
+        hasOpenAI: false,
         hasOllama: !!config.ai?.ollama?.enabled
     });
     res.json({
@@ -305,8 +394,12 @@ router.get('/model-router/status', (req, res) => {
         success: true,
         data: {
             cloud: {
-                claude: !!config.ai.anthropic.apiKey,
-                openai: !!config.ai.openai.apiKey
+                claude: false,
+                openai: false,
+                configuredButNotAuthorized: Boolean(
+                    config.ai.anthropic.apiKey ||
+                    config.ai.openai.apiKey
+                )
             },
             local: {
                 ollama: !!config.ai?.ollama?.enabled,
@@ -315,6 +408,37 @@ router.get('/model-router/status', (req, res) => {
             recommendation,
             policy: SheikhaOllamaOrchestrator.policy()
         },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── AI Router Anywhere — readiness & setup guides (read-only) ───────────────
+router.get('/router-anywhere/status', (_req, res) => {
+    res.json({
+        success: true,
+        data: buildRouterAnywhereStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.get('/router-anywhere/guides', (req, res) => {
+    res.json({
+        success: true,
+        data: listAiRouterAnywhereGuides({
+            surface: req.query.surface,
+            provider: req.query.provider
+        }),
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/router-anywhere/plan', (req, res) => {
+    const data = buildAiRouterAnywhereIntegrationPlan(req.body || {});
+    const status = data.ok === false ? 400 : 200;
+    res.status(status).json({
+        success: status === 200,
+        data,
+        executionPerformed: false,
         timestamp: new Date().toISOString()
     });
 });
@@ -422,6 +546,14 @@ router.get('/model-integrations', (req, res) => {
 });
 
 router.post('/model-integrations', (req, res) => {
+    if (!requireTrustedInternalMutation(
+        req,
+        res,
+        'CREATE_MODEL_INTEGRATION'
+    )) {
+        return;
+    }
+
     const {
         name,
         provider,
@@ -470,6 +602,14 @@ router.post('/model-integrations', (req, res) => {
 });
 
 router.patch('/model-integrations/:id', (req, res) => {
+    if (!requireTrustedInternalMutation(
+        req,
+        res,
+        'UPDATE_MODEL_INTEGRATION'
+    )) {
+        return;
+    }
+
     const id = String(req.params.id || '');
     const { active, autoUpgrade, model, llmLanguage, devLanguage, notes } = req.body || {};
     const registry = loadModelRegistry();
@@ -500,6 +640,14 @@ router.patch('/model-integrations/:id', (req, res) => {
 });
 
 router.post('/model-integrations/auto-refresh', (req, res) => {
+    if (!requireTrustedInternalMutation(
+        req,
+        res,
+        'AUTO_REFRESH_MODEL_INTEGRATIONS'
+    )) {
+        return;
+    }
+
     const registry = loadModelRegistry();
     const recommendations = buildModelRecommendations();
     let upgradedCount = 0;
@@ -594,13 +742,35 @@ router.post('/chat', async (req, res) => {
             preferredModel,
             taskType,
             sensitivity,
-            hasClaude: !!config.ai.anthropic.apiKey,
-            hasOpenAI: !!config.ai.openai.apiKey,
+            hasClaude: false,
+            hasOpenAI: false,
             hasOllama: !!config.ai?.ollama?.enabled
         });
 
-        // ─── 3. أولوية Claude Opus 4.6 مع سياق RAG ────────────────
-        if (config.ai.anthropic.apiKey && (preferredModel === 'claude' || preferredModel === 'anthropic')) {
+        // ─── 3. Sheikha AI Provider — المسار الأصلي والسيادي الافتراضي ───────
+        if (
+            !response &&
+            sheikhaProvider &&
+            (model === 'auto' || model === 'sheikha' || preferredModel === 'sheikha')
+        ) {
+            try {
+                const providerResult = await sheikhaProvider.chatCompletions({
+                    model: config.ai?.router?.model || 'SheikhaNeural-v1.0',
+                    messages: [
+                        ...(context ? [{ role: 'system', content: String(context) }] : []),
+                        { role: 'user', content: message }
+                    ],
+                    max_tokens: 4000
+                });
+                response = providerResult?.choices?.[0]?.message?.content || '';
+                provider = 'sheikha';
+            } catch (e) {
+                console.warn('[Sheikha AI Provider] خطأ:', e.message);
+            }
+        }
+
+        // ─── 4. المحولات الخارجية الاختيارية بعد مسار شيخة ─────────────────
+        if (PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED && config.ai.anthropic.apiKey && (preferredModel === 'claude' || preferredModel === 'anthropic')) {
             try {
                 const augmentedContext = ragContext
                     ? `${ragContext.systemPrompt}\n\n${context || ''}`
@@ -615,7 +785,7 @@ router.post('/chat', async (req, res) => {
         }
 
         // ─── 4. OpenAI GPT-5.2 كبديل ───────────────────────────────
-        if (!response && config.ai.openai.apiKey && (preferredModel === 'openai' || preferredModel === 'auto')) {
+        if (!response && PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED && config.ai.openai.apiKey && (preferredModel === 'openai' || preferredModel === 'auto')) {
             try {
                 response = await callOpenAI(message, context);
                 provider = 'openai-gpt-5.2';
@@ -637,8 +807,16 @@ router.post('/chat', async (req, res) => {
         // ─── 5. Ollama المحلي (تشغيل VPS/On-Prem) ────────────────────
         if (!response && config.ai?.ollama?.enabled && (preferredModel === 'ollama' || preferredModel === 'auto' || preferredModel === 'local')) {
             try {
-                const ollamaModel = resolveOllamaModel(taskType, req.body?.ollamaModel);
-                response = await callOllama(message, context, ollamaModel);
+                const ollamaModel = selectOllamaModel(
+                    taskType,
+                    sensitivity
+                );
+                response = await callOllama(
+                    message,
+                    context,
+                    taskType,
+                    sensitivity
+                );
                 provider = `ollama-${ollamaModel}`;
             } catch (e) {
                 console.warn('Ollama error:', e.message);
@@ -742,6 +920,15 @@ router.post('/chat/think', async (req, res) => {
         });
     }
 
+    if (!PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED) {
+        return res.status(403).json({
+            success: false,
+            error: 'EXTERNAL_DISCLOSURE_AUTHORIZATION_REQUIRED',
+            externalRequestPerformed: false,
+            message: 'استخدم مسار الدردشة المحلي، أو تفويضًا موقّعًا ومتحققًا منه عبر بوابة شيخة.'
+        });
+    }
+
     if (!config.ai.anthropic.apiKey) {
         return res.status(503).json({
             success: false,
@@ -794,19 +981,14 @@ router.post('/chat/compact', async (req, res) => {
         // ضغط السياق باستخدام Claude Opus 4.6
         const compacted = await compactContext(messages);
 
-        // تخزين السياق المضغوط
-        conversationContexts.set(conversationId, {
-            summary: compacted,
-            messageCount: messages.length,
-            compactedAt: new Date().toISOString()
-        });
-
         res.json({
             success: true,
             conversationId,
             originalMessages: messages.length,
             compactedSummary: compacted,
-            message: 'تم ضغط السياق بنجاح - يمكن الاستمرار في المحادثة بلا حدود'
+            retainedByServer: false,
+            classification: 'CONFIDENTIAL_RESTRICTED',
+            message: 'تم ضغط السياق محليًا دون حفظه في الخادم.'
         });
 
     } catch (error) {
@@ -997,16 +1179,17 @@ router.post('/rag/query', async (req, res) => {
 });
 
 router.post('/rag/ingest', async (req, res) => {
-    const { text, collection = 'custom', metadata = {} } = req.body;
+    const { text } = req.body;
     if (!text) return res.status(400).json({ success: false, message: 'يرجى إدخال نص' });
     if (!ragEngine) return res.status(503).json({ success: false, message: 'محرك RAG غير متوفر' });
 
-    try {
-        const result = ragEngine.ingest(text, collection, metadata);
-        res.json({ success: true, ...result });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
+    return res.status(403).json({
+        success: false,
+        error: 'SIGNED_WRITTEN_AUTHORIZATION_REQUIRED',
+        classification: 'CONFIDENTIAL_RESTRICTED',
+        stored: false,
+        message: 'إدخال معرفة في مخزن RAG المشترك محجوب حتى تفويض موقّع وفصل نطاق العميل.'
+    });
 });
 
 router.get('/rag/stats', (req, res) => {
@@ -1019,6 +1202,14 @@ router.get('/rag/stats', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 router.post('/agent/task', async (req, res) => {
+    if (!requireTrustedInternalMutation(
+        req,
+        res,
+        'EXECUTE_AI_AGENT_TASK'
+    )) {
+        return;
+    }
+
     const { task, userId } = req.body;
     if (!task) return res.status(400).json({ success: false, message: 'يرجى تحديد المهمة' });
     if (!agentOrchestrator) return res.status(503).json({ success: false, message: 'نظام الوكلاء غير متوفر' });
@@ -1042,6 +1233,14 @@ router.get('/agent/list', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 router.post('/tools/call', async (req, res) => {
+    if (!requireTrustedInternalMutation(
+        req,
+        res,
+        'EXECUTE_AI_TOOL'
+    )) {
+        return;
+    }
+
     const { tool, args = {}, userId } = req.body;
     if (!tool) return res.status(400).json({ success: false, message: 'يرجى تحديد الأداة' });
     if (!agentOrchestrator) return res.status(503).json({ success: false, message: 'نظام الأدوات غير متوفر' });
@@ -1082,8 +1281,12 @@ router.get('/production/health', (req, res) => {
             agents: agentOrchestrator ? 'active' : 'inactive',
             monitor: productionMonitor ? 'active' : 'inactive',
             guardrails: islamicGuardrails ? 'active' : 'inactive',
-            openai: config.ai.openai.apiKey ? 'configured' : 'missing',
-            anthropic: config.ai.anthropic.apiKey ? 'configured' : 'missing'
+            openai: config.ai.openai.apiKey
+                ? 'configured-not-authorized'
+                : 'missing',
+            anthropic: config.ai.anthropic.apiKey
+                ? 'configured-not-authorized'
+                : 'missing'
         },
         circuitBreaker: productionMonitor ? productionMonitor.circuitBreaker.state : 'unknown',
         timestamp: new Date().toISOString()
@@ -1159,6 +1362,14 @@ router.get('/capabilities', (req, res) => {
 // ─── دوال مساعدة ──────────────────────────────────────────────────────────────
 
 async function callOpenAI(message, context) {
+    if (!PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED) {
+        const error = new Error(
+            'EXTERNAL_DISCLOSURE_AUTHORIZATION_REQUIRED'
+        );
+        error.externalRequestPerformed = false;
+        throw error;
+    }
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -1224,6 +1435,14 @@ async function callOllama(message, context, taskType, sensitivity) {
  * ═══════════════════════════════════════════════════════════════════════════
  */
 async function callClaudeOpus46(message, context, conversationId, enableThinking) {
+    if (!PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED) {
+        const error = new Error(
+            'EXTERNAL_DISCLOSURE_AUTHORIZATION_REQUIRED'
+        );
+        error.externalRequestPerformed = false;
+        throw error;
+    }
+
     const systemPrompt = `أنت شيخة — مساعد ذكي متخصص في المعادن والسكراب والتجارة الإلكترونية.
 مبني على Claude Opus 4.6 — أقوى نموذج ذكاء اصطناعي في العالم.
 تعمل وفق الشريعة الإسلامية وتخدم السوق السعودي والخليجي.
@@ -1318,6 +1537,14 @@ async function callClaudeOpus46(message, context, conversationId, enableThinking
  * Claude Opus 4.6 مع التفكير التكيفي المتقدم
  */
 async function callClaudeWithThinking(message, context, thinkingBudget) {
+    if (!PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED) {
+        const error = new Error(
+            'EXTERNAL_DISCLOSURE_AUTHORIZATION_REQUIRED'
+        );
+        error.externalRequestPerformed = false;
+        throw error;
+    }
+
     const systemPrompt = `أنت شيخة — مساعد ذكي متخصص. استخدم التفكير العميق لتحليل السؤال بدقة.
 حلل المشكلة خطوة بخطوة قبل تقديم الإجابة النهائية.`;
 
@@ -1368,7 +1595,10 @@ async function callClaudeWithThinking(message, context, thinkingBudget) {
  * ضغط السياق — لمحادثات لا نهائية
  */
 async function compactContext(messages) {
-    if (config.ai.anthropic.apiKey) {
+    if (
+        PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED &&
+        config.ai.anthropic.apiKey
+    ) {
         try {
             const response = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
@@ -1571,7 +1801,10 @@ async function translateText(text, targetLanguage) {
     const prompt = `ترجم النص التالي من العربية إلى ${languageLabel} مع الحفاظ على المعنى التجاري والتقني:\n\n${text}`;
 
     try {
-        if (config.ai.openai.apiKey) {
+        if (
+            PUBLIC_EXTERNAL_AI_DISCLOSURE_ALLOWED &&
+            config.ai.openai.apiKey
+        ) {
             const translated = await callOpenAI(prompt);
             if (translated && typeof translated === 'string') {
                 return translated.trim();

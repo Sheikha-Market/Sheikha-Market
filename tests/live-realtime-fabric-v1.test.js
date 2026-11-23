@@ -6,6 +6,10 @@ const {
   buildGovernedLocalFallbackReply,
   buildGovernedShellReviewReply,
   buildGovernedOperationalEvidenceReply,
+  isCommercialChatReadinessRequest,
+  buildCommercialChatReadinessReply,
+  buildGovernedArithmeticReply,
+  buildGovernedOperationalKnowledgeReply,
   buildGovernedContextualReportReply,
   selectLiveModel,
   buildPrompt
@@ -30,6 +34,41 @@ function createFakeSseResponse() {
 }
 
 describe('Sheikha Live Realtime Fabric V1', () => {
+  test('answers commercial chat readiness with bounded local evidence', () => {
+    expect(isCommercialChatReadinessRequest(
+      'قدّم تقريرًا عن جاهزية شات شيخة التجارية'
+    )).toBe(true);
+    expect(isCommercialChatReadinessRequest(
+      'اكتب حالة الجاهزية التجارية وغير التجارية الموثقة باختصار'
+    )).toBe(true);
+
+    const reply = buildCommercialChatReadinessReply();
+    expect(reply).toContain('الحالة:');
+    expect(reply).toContain('الأدلة:');
+    expect(reply).toContain('النطاق:');
+    expect(reply).toContain('الحدود:');
+    expect(reply).toContain('لا يثبت الطلب المنفرد اتفاقية مستوى خدمة');
+    expect(reply).not.toContain('جميع الأجهزة');
+  });
+
+  test('answers governed operational knowledge without model inference', () => {
+    expect(buildGovernedOperationalKnowledgeReply('كيف نتحقق من نتيجة هندسية؟'))
+      .toContain('معيار القبول');
+    expect(buildGovernedOperationalKnowledgeReply('ما ضابط بيانات تدريب نموذج؟'))
+      .toContain('الترخيص');
+    expect(buildGovernedOperationalKnowledgeReply('كيف أحسب نسبة الإنجاز؟'))
+      .toContain('البسط');
+    expect(buildGovernedOperationalKnowledgeReply('أصلح خطأ برمجي'))
+      .toContain('إعادة الإنتاج');
+  });
+
+  test('calculates bounded arithmetic without a language-model round trip', () => {
+    expect(buildGovernedArithmeticReply('احسب 2 + 2')).toBe('الناتج هو 4.');
+    expect(buildGovernedArithmeticReply('احسب 9 ÷ 3')).toBe('الناتج هو 3.');
+    expect(buildGovernedArithmeticReply('احسب 1 / 0'))
+      .toBe('لا يمكن القسمة على صفر.');
+    expect(buildGovernedArithmeticReply('اشرح المشروع')).toBeNull();
+  });
   // SHEIKHA_LIVE_REALTIME_TEST_ALIGNED_WITH_ARABIC_FIRST_TOKEN_V3
   test('promotes live stream to L65 while keeping endpoint compatibility', () => {
     const result = status();
@@ -44,8 +83,9 @@ describe('Sheikha Live Realtime Fabric V1', () => {
     expect(result.performance.firstProgressSignalBeforeModel).toBe(false);
     expect(result.performance.firstArabicTokenWithoutModelWait).toBe(true);
     expect(result.performance.immediateContextualArabicOpening).toBe(true);
-    expect(result.performance.fastThenDeepStreaming).toBe(true);
-    expect(result.performance.fastModelInlineStreaming).toBe(true);
+    expect(result.performance.fastThenDeepStreaming).toBe(false);
+    expect(result.performance.explicitDeepStreamingAvailable).toBe(true);
+    expect(result.performance.fastModelInlineStreaming).toBe(false);
     expect(
       result.performance.modelFirstTokenHardTimeoutEnabled
     ).toBe(true);
@@ -53,10 +93,10 @@ describe('Sheikha Live Realtime Fabric V1', () => {
       result.performance.governedLocalFallbackOnBudgetExceeded
     ).toBe(true);
     expect(result.performance.progressSeparatedFromFinalAnswer).toBe(true);
-    expect(result.performance.backgroundDeepSingleFlight).toBe(false);
+    expect(result.performance.backgroundDeepSingleFlight).toBe(true);
     expect(
       result.performance.backgroundDeepDisabledByDefault
-    ).toBe(true);
+    ).toBe(false);
     expect(result.performance.noPlaceholderTokens).toBe(true);
   });
 
@@ -147,19 +187,60 @@ describe('Sheikha Live Realtime Fabric V1', () => {
       .toContain('Reply ONLY in Arabic');
   });
 
-  test('defaults extension requests to deep stream unless fast-only is explicit', () => {
+  test('uses deep extension stream only when explicitly requested', () => {
     expect(
       liveRealtimeRouter.__test.shouldUseDeepExtensionStream(
         'extension-chat',
         ''
       )
+    ).toBe(false);
+    expect(
+      liveRealtimeRouter.__test.shouldUseDeepExtensionStream(
+        'extension-chat',
+        'DEEP_STREAM'
+      )
     ).toBe(true);
     expect(
       liveRealtimeRouter.__test.shouldUseDeepExtensionStream(
         'extension-chat',
-        'FAST_ONLY'
+        'FAST_THEN_DEEP_STREAM'
+      )
+    ).toBe(true);
+    expect(
+      liveRealtimeRouter.__test.shouldUseDeepExtensionStream(
+        'website-chat',
+        'FAST_THEN_DEEP_STREAM'
       )
     ).toBe(false);
+  });
+
+  test('accepts only a fail-closed governed completion contract', () => {
+    expect(
+      liveRealtimeRouter.__test.resolveGovernedCompletionContract({
+        contract: 'SHEIKHA_GOVERNED_COMPLETION_CONTRACT_V1',
+        requested: true,
+        defaultAuthorization: 'DENY',
+        humanFinalDecision: true
+      })
+    ).toMatchObject({
+      requested: true,
+      accepted: true,
+      safeContinuationAllowed: true,
+      highImpactApprovalGranted: false,
+      terminalEvidenceRequired: true
+    });
+    expect(
+      liveRealtimeRouter.__test.resolveGovernedCompletionContract({
+        contract: 'SHEIKHA_GOVERNED_COMPLETION_CONTRACT_V1',
+        requested: true,
+        defaultAuthorization: 'ALLOW',
+        humanFinalDecision: true
+      })
+    ).toMatchObject({
+      accepted: false,
+      highImpactApprovalGranted: false,
+      defaultAuthorization: 'DENY'
+    });
   });
 
   test('keeps deep reasoning available when explicitly requested', () => {
@@ -203,7 +284,7 @@ describe('Sheikha Live Realtime Fabric V1', () => {
     expect(data).toContain('event: meta');
     expect(data).toContain('"profile":"arabic-fast-default"');
     expect(data).toContain(
-      'contextual-arabic-opening-then-fast-model-stream'
+      'contextual-arabic-fast-completion'
     );
     expect(data).toContain('event: token');
     expect(data).toContain('نتيجة الفحص المباشر:');
@@ -240,7 +321,7 @@ describe('Sheikha Live Realtime Fabric V1', () => {
 
     const data = res.body();
     expect(res.ended).toBe(false);
-    expect(deepProfile.model).toBe('qwen2.5-coder:7b');
+    expect(deepProfile.model).toBe(profile.deepArabicModel);
     expect(data).toContain('LIVE_FAST_THEN_DEEP_STREAM');
     expect(data).toContain('event: token');
     expect(data).toContain('"immediate":true');
@@ -249,7 +330,7 @@ describe('Sheikha Live Realtime Fabric V1', () => {
     expect(data).not.toContain('event: done');
   });
 
-  test('keeps the CPU deep stream alive long enough for a real model token', () => {
+  test('bounds the CPU deep stream before a governed local fallback', () => {
     const profile = resolveLiveProfile('اكتب تقريرًا موجزًا', 'chat', {
       channel: 'extension-chat',
       language: 'ar'
@@ -259,8 +340,9 @@ describe('Sheikha Live Realtime Fabric V1', () => {
 
     expect(deepProfile.timeoutMs).toBe(120000);
     expect(deepProfile.numCtx).toBe(1024);
+    expect(deepProfile.numPredict).toBe(192);
     expect(deepProfile.numThread).toBe(16);
-    expect(deepProfile.modelFirstTokenHardTimeoutMs).toBe(75000);
+    expect(deepProfile.modelFirstTokenHardTimeoutMs).toBe(60000);
     expect(deepProfile.modelFirstTokenHardTimeoutMs)
       .toBeGreaterThan(deepProfile.firstTokenTargetMs);
     expect(deepProfile.modelFirstTokenHardTimeoutAuthoritative).toBe(true);
@@ -281,7 +363,7 @@ describe('Sheikha Live Realtime Fabric V1', () => {
       const effectiveBudget = liveRealtimeRouter.__test
         .resolveModelFirstTokenHardTimeoutMs(deepProfile);
 
-      expect(effectiveBudget).toBe(75000);
+      expect(effectiveBudget).toBe(60000);
     } finally {
       if (previousBudget === undefined) {
         delete process.env.SHEIKHA_LIVE_MODEL_FIRST_TOKEN_HARD_TIMEOUT_MS;
@@ -305,7 +387,7 @@ describe('Sheikha Live Realtime Fabric V1', () => {
       .createDeepStreamingProfile(profile);
 
     expect(profile.key).toBe('reasoning');
-    expect(deepProfile.model).toBe('qwen2.5-coder:7b');
+    expect(deepProfile.model).toBe('deepseek-r1:8b');
   });
 
   test('reviews a shell launcher immediately without executing it', () => {

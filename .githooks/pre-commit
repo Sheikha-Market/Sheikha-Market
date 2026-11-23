@@ -5,7 +5,18 @@ echo "[SHEIKHA] Governance Verification"
 
 export SHEIKHA_GIT_STATUS_SCOPE=staged
 export SHEIKHA_GIT_STATUS_FILE="/tmp/sheikha-staged-status.$$"
-trap 'rm -f "$SHEIKHA_GIT_STATUS_FILE"' EXIT
+SHEIKHA_DELETION_GUARD_FILE="/tmp/sheikha-deletion-guard.$$"
+trap 'rm -f "$SHEIKHA_GIT_STATUS_FILE" "$SHEIKHA_DELETION_GUARD_FILE"' EXIT
+
+git diff HEAD --name-status --diff-filter=D > "$SHEIKHA_DELETION_GUARD_FILE"
+if [[ -s "$SHEIKHA_DELETION_GUARD_FILE" ]]; then
+  echo "[SHEIKHA] BLOCKED: tracked deletions require explicit recovery and review."
+  echo "[SHEIKHA] Deletions found (first 50):"
+  sed -n '1,50p' "$SHEIKHA_DELETION_GUARD_FILE"
+  echo "[SHEIKHA] See docs/canonical/environment/SHEIKHA-DELETION-GOVERNANCE.md"
+  exit 1
+fi
+
 git status --short --untracked-files=no \
   | awk 'substr($0,1,1) != " " && substr($0,1,1) != "?"' \
   > "$SHEIKHA_GIT_STATUS_FILE"

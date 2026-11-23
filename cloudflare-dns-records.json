@@ -1,0 +1,23 @@
+[
+  {
+    "Type": "TXT",
+    "Name": "_dmarc",
+    "Content": "v=DMARC1; p=quarantine; rua=mailto:market@sheikha.top; pct=100; adkim=s; aspf=s",
+    "TTL": "Auto",
+    "Proxy": "OFF - رمادي DNS only"
+  },
+  {
+    "Type": "TXT",
+    "Name": "google._domainkey",
+    "Content": "v=DKIM1; k=rsa; p=[STRIPPED 392 bytes]",
+    "TTL": "Auto",
+    "Proxy": "OFF"
+  },
+  {
+    "Type": "TXT",
+    "Name": "@",
+    "Content": "v=spf1 include:_spf.google.com ~all",
+    "TTL": "Auto",
+    "Proxy": "OFF"
+  }
+]

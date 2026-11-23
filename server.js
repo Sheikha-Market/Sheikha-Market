@@ -366,7 +366,6 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' });
     return res.end(fs.readFileSync(path.join(__dirname, '.well-known/mcp/server-card.json'), 'utf8'));
   }
-  const reqAccept = String((req.headers && req.headers.accept) || '').toLowerCase();
   if (rawUrlPath === '/' && reqAccept.includes('text/markdown')) {
     res.writeHead(200, { 'Content-Type': 'text/markdown; charset=utf-8', 'Cache-Control': 'no-store' });
     return res.end(fs.readFileSync(path.join(__dirname, 'llms.txt'), 'utf8'));

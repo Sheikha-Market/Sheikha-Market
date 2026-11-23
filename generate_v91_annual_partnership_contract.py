@@ -1,0 +1,58 @@
+import json, hashlib, datetime
+
+contract_v91 = {
+    "contract_title": "عقد الشراكة السنوي لتنمية التجارة الإلكترونية السحابية — شيخة & Google",
+    "version": "V91.0_ANNUAL_ALLIANCE_GOVERNANCE",
+    "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    "duration": {
+        "term": "سنة ميلادية واحدة (One Calendar Year)",
+        "renewal": "تجديد سنوي تلقائي بالتراضي الصريح والاتفاق المشترك",
+        "notice_period_days": 30
+    },
+    "parties": {
+        "first_party": {
+            "name": "سوق شيخة السيادية",
+            "owner": "سلمان أحمد بن سلمان الراجح",
+            "cr": "2051263653",
+            "unified_id": "7049031003",
+            "registry_sha256": "edc795a408717e02ab5d06fc02b5b27925fb6e4a9b1e8d3c481edefbdc48e44b",
+            "weights_count": 535
+        },
+        "second_party": {
+            "name": "Google LLC (Google Cloud & Workspace Enterprise)",
+            "programs": ["Partner Advantage", "ISV Co-Sell Track", "Colab Pro+ HPC"]
+        }
+    },
+    "branding_policy": {
+        "dual_brand_clause": "ظهور شعار شيخة السيادي وشعار Google الرسمي معاً بشكل متكافئ في كل المواد التسويقية والتقنية",
+        "alliance_brand": "شيخة ❖ Google"
+    },
+    "responsibilities_and_commitments": {
+        "first_party_commitments": [
+            "إدارة كتالوج السلع الحقيقية والمعادن النقية الخالية من الغرر والربا",
+            "تطبيق نظام الأجور الشفافة (0.5%) وتوجيه حصص الزكاة (2.5%) والوقف (10%) لوجه الله",
+            "التشغيل الذاتي المتواصل للمنافذ التسعة عبر الأوركسترا المستقل",
+            "الالتزام الدائم بالمناصحة، والأمر بالمعروف والنهي عن المنكر، وإعمار الأرض"
+        ],
+        "second_party_commitments": [
+            "توفير بيئات الحوسبة الفائقة A100/TPU وخوادم Google Cloud متعددة الأقاليم",
+            "الإعلان المشترك عن التحالف في منصات Google ومتاجر الحلول السحابية",
+            "حماية خصوصية بيانات المنظومة واللوح المحفوظ بحواجز Zero-Trust و DLP"
+        ]
+    },
+    "operating_status": "LOCAL LAB PASS — CLOUD PRODUCTION HOLD (حتى استكمال التراخيص)",
+    "seal": "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED"
+}
+
+raw_data = json.dumps(contract_v91, ensure_ascii=False, indent=2)
+contract_hash = hashlib.sha256(raw_data.encode('utf-8')).hexdigest()
+
+with open("SHEIKHA_GOOGLE_ANNUAL_CONTRACT_V91.json", "w", encoding="utf-8") as f:
+    f.write(raw_data)
+
+print("================== 📜 إيداع العقد السنوي المحدث V91.0 ==================")
+print(f"✓ تم توثيق العقد السنوي في: SHEIKHA_GOOGLE_ANNUAL_CONTRACT_V91.json")
+print(f"✓ بصمة الختم السيادي المعتمدة: {contract_hash}")
+print(f"✓ مدة العقد: سنة واحدة تتجدد سنوياً بالتراضي")
+print(f"✓ الشعار المشترك: [شعار شيخة + شعار Google معاً]")
+print("=========================================================================")

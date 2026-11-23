@@ -1,0 +1,40 @@
+# wrangler.toml — Sheikha ADS Manager
+name = "sheikha-ads-manager"
+main = "src/index.js"
+compatibility_date = "2026-11-13"
+compatibility_flags = ["nodejs_compat"]
+
+# النطاق المخصص
+[[routes]]
+pattern = "sheikha.digital"
+custom_domain = true
+
+# قاعدة البيانات D1
+[[d1_databases]]
+binding = "ADS_DB"
+database_name = "sheikha-ads-db"
+database_id = "ضع_هنا_المعرف_الحقيقي"
+
+# تخزين R2
+[[r2_buckets]]
+binding = "ADS_STORAGE"
+bucket_name = "sheikha-ads-storage"
+
+# مساحة KV
+[[kv_namespaces]]
+binding = "ADS_KV"
+id = "ضع_هنا_المعرف_الحقيقي"
+
+# طابور المهام
+[[queues.producers]]
+binding = "ADS_QUEUE"
+queue = "sheikha-ads-queue"
+
+[[queues.consumers]]
+queue = "sheikha-ads-queue"
+max_batch_size = 10
+max_concurrency = 2
+
+# الذكاء الاصطناعي
+[aiprovisioning]
+binding = "AI"

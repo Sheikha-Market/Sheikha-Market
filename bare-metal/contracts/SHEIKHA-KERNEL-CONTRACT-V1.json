@@ -2,7 +2,13 @@
   "id": "SHEIKHA_KERNEL_CONTRACT_V1",
   "version": "1.0.0",
   "kernel": "SHEIKHA_NATIVE_KERNEL_SEED_V1",
-  "implementationLanguage": "freestanding-c11",
+  "implementationLanguage": "hybrid-sheikha-generated-native-object-and-freestanding-c11",
+  "sheikhaImplementedLogic": [
+    "uefi_handoff_guard",
+    "controlled_halt_mode_selection",
+    "native_governance_readiness"
+  ],
+  "completeKernelImplementedInSheikha": false,
   "standardLibrary": false,
   "hostRuntimeDependencies": [],
   "entryPoint": "sheikha_kernel_entry",

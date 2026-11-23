@@ -120,7 +120,12 @@ describe('Sheikha Development Functions Fabric V1', () => {
     const docs = readText(
       'docs/development-functions-fabric/SHEIKHA-DEVELOPMENT-FUNCTIONS-FABRIC-V1.md'
     );
-    const extension = readText('sheikha-vscode-extension/extension.js');
+    const extensionTools = readJson(
+      'runtime/development-functions-fabric/v1/registries/extension-chat-tool-registry.json'
+    );
+    const chatTemplate = readText(
+      'sheikha-vscode-extension/src/ui/sheikhaChatTemplate.js'
+    );
 
     expect(packageJson.scripts['ops:development-functions-fabric:v1']).toBe(
       'node tools/development-functions-fabric/sheikha-development-functions-fabric-v1.js'
@@ -132,19 +137,13 @@ describe('Sheikha Development Functions Fabric V1', () => {
     }));
     expect(docs).toContain('/api/development/functions-fabric/status');
 
-    [
-      'Runtime',
-      'Registry',
-      'Tool',
-      'Route',
-      'Tests',
-      'Test',
-      'Lint',
-      'Drift',
-      'Commit',
-      'Push'
-    ].forEach((label) => expect(extension).toContain(`>${label}<`));
-    expect(extension).toContain('/api/development/functions-fabric/status');
+    expect(extensionTools.tools).toHaveLength(10);
+    extensionTools.tools.forEach((tool) => {
+      expect(tool.label).toBeTruthy();
+      expect(tool.prompt).toBeTruthy();
+    });
+    expect(chatTemplate).toContain('CHAT_TOOL_GROUPS');
+    expect(docs).toContain('/api/development/functions-fabric/status');
   });
 
   test('generated report is active with complete coverage', () => {

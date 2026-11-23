@@ -1,0 +1,78 @@
+{
+  "category": "Logistics Network - 【entity-Maersk¦canonical_name=Maersk】/【entity-DHL¦canonical_name=DHL】",
+  "base_weight": 70,
+  "custom_weights": {
+    "base": 40,
+    "criticality": 10,
+    "sharia": 15,
+    "tech": 5,
+    "total": 70,
+    "customized_total": 85
+  },
+  "agents": {
+    "id": "AGENT-SHK-W-2026-0003",
+    "name": "Logistics Network - 【entity-Maersk¦canonical_name=Maersk】/【entity-DHL¦canonical_name=DHL】 Agent",
+    "prompt": "أنت وكيل Logistics Network - 【entity-Maersk¦canonical_name=Maersk】/【entity-DHL¦canonical_name=DHL】 — تتحقق من لوجستيات - قاعدة موردين — BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر",
+    "tools": [
+      "check_draft_sha",
+      "verify_weight",
+      "generate_kpi",
+      "zero_data_leakage"
+    ],
+    "memory": "governance/drafts/04_MAERSK_DRAFT.md"
+  },
+  "bots": {
+    "id": "BOT-SHK-W-2026-0003",
+    "port": "0003",
+    "status": "UP",
+    "function": "بوت تشغيلي لـ Logistics Network - 【entity-Maersk¦canonical_name=Maersk】/【entity-DHL¦canonical_name=DHL】 — يفحص ويحرر ويوثق آلياً"
+  },
+  "checks": [
+    {
+      "check_id": 1,
+      "requirement": "ZATCA Phase 2 e-invoicing",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 70,
+      "eff_after": 72
+    },
+    {
+      "check_id": 2,
+      "requirement": "GOSI + نطاقات + ضريبة مضافة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 72,
+      "eff_after": 75
+    },
+    {
+      "check_id": 3,
+      "requirement": "بوليصة الشحن المحكومة (BOL) وربط ساحات الموانئ",
+      "learned": true,
+      "weight_delta": 6,
+      "eff_before": 75,
+      "eff_after": 81
+    },
+    {
+      "check_id": 4,
+      "requirement": "مدونة السلوك البيئي GoGreen (ميرسك / DHL)",
+      "learned": true,
+      "weight_delta": 5,
+      "eff_before": 81,
+      "eff_after": 86
+    },
+    {
+      "check_id": 5,
+      "requirement": "حوكمة الشفافية 0.5% + الزكاة 2.5% + الوقف 10% بلا ربا تأخير",
+      "learned": true,
+      "weight_delta": 6,
+      "eff_before": 86,
+      "eff_after": 92
+    }
+  ],
+  "current_efficiency": 92,
+  "target_efficiency": 90,
+  "efficiency_gap": 0,
+  "next_check": "مكتمل الجاهزية المحلية — بانتظار التوقيع اليدوي الشرعي للمالك السيادي",
+  "documentation": "governance/drafts/checks/SHK-W-2026-0003.json",
+  "sha_fingerprint": "2317b9d5b5652207"
+}

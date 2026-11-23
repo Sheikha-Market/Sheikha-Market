@@ -7,6 +7,7 @@ const path = require('node:path');
 const {
   BOOT_MARKER,
   POST_HANDOFF_MARKER,
+  LANGUAGE_NATIVE_MARKER,
   parsePeArtifact
 } = require('../bare-metal/build/sheikha-bare-metal-pipeline-v1');
 
@@ -85,22 +86,39 @@ describe('Sheikha Native Bare-Metal Seed V1', () => {
     expect(kernelSource).toContain('boot_info->boot_services_exited');
     expect(kernelSource).toContain(BOOT_MARKER);
     expect(kernelSource).toContain(POST_HANDOFF_MARKER);
+    expect(kernelSource).toContain(LANGUAGE_NATIVE_MARKER);
+    expect(kernelSource).toContain('sheikha_native_contract_version()');
+    expect(kernelSource).toContain('sheikha_native_kernel_handoff_allowed');
   });
 
   test('accepts bare-metal independence only with QEMU serial evidence', () => {
     const report = JSON.parse(fs.readFileSync(REPORT_PATH, 'utf8'));
     const verification = readJson('runtime/bare-metal/v1/evidence/boot-verification.json');
     const serial = fs.readFileSync(SERIAL_PATH, 'utf8');
+    const toolchain = readJson('runtime/bare-metal/v1/evidence/toolchain-report.json');
 
-    expect(report.status).toBe('VERIFIED_BARE_METAL_BOOT');
-    expect(report.qemuBootExecuted).toBe(true);
-    expect(report.serialBootMarkerVerified).toBe(true);
-    expect(report.postFirmwareHandoffVerified).toBe(true);
-    expect(report.bareMetalFullyIndependentToday).toBe(true);
-    expect(verification.bootVerified).toBe(true);
+    if (toolchain.qemuBootReady) {
+      expect(report.status).toBe('VERIFIED_BARE_METAL_BOOT');
+      expect(report.qemuBootExecuted).toBe(true);
+      expect(report.serialBootMarkerVerified).toBe(true);
+      expect(report.postFirmwareHandoffVerified).toBe(true);
+      expect(report.bareMetalFullyIndependentToday).toBe(true);
+      expect(verification.bootVerified).toBe(true);
+      expect(serial).toContain(BOOT_MARKER);
+      expect(serial).toContain(POST_HANDOFF_MARKER);
+      expect(serial).toContain(LANGUAGE_NATIVE_MARKER);
+      expect(serial).toContain('language_kernel_logic=GENERATED_FROM_SHEIKHA_SOURCE');
+      expect(verification.checks.languageNativeObjectCalled).toBe(true);
+      expect(report.languageNativeIntegration.runtimeCallVerified).toBe(true);
+    } else {
+      expect(report.status).toBe('BUILD_READY_BUT_BOOT_NOT_EXECUTED');
+      expect(report.qemuBootExecuted).toBe(false);
+      expect(report.bareMetalFullyIndependentToday).toBe(false);
+      expect(verification.bootVerified).toBe(false);
+      expect(toolchain.missingBootRequirements).toContain('OVMF_CODE.fd');
+    }
     expect(verification.claimGuardPassed).toBe(true);
-    expect(serial).toContain(BOOT_MARKER);
-    expect(serial).toContain(POST_HANDOFF_MARKER);
+    expect(verification.checks.languageNativeObjectLinked).toBe(true);
   });
 
   test('keeps AI and unsupported religious claims outside the boot path', () => {

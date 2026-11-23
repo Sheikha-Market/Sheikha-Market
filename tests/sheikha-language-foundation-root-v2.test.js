@@ -65,6 +65,10 @@ describe('Sheikha Language Foundation Root V2', () => {
     expect(status.passed).toBe(true);
     expect(status.failedChecks).toEqual([]);
     expect(status.nativeStack.bareMetal.qemuBootVerified).toBe(true);
+    expect(status.nativeStack.bareMetal.physicalHardwareVerified).toBe(true);
+    expect(status.nativeStack.bareMetal.physicalEvidenceClass).toBe(
+      'INTERNAL_OWNER_OPERATOR_OBSERVATION_NOT_EXTERNAL_CERTIFICATION'
+    );
     expect(
       status.nativeStack.languageBinding
         .contractIdentityEmbeddedInNativeArtifact

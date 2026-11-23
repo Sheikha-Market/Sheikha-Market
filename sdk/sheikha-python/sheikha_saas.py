@@ -89,3 +89,27 @@ class SheikhaSaaSClient:
 
     def audit(self, limit=100):
         return self._request(f"/api/saas/v2/audit?limit={parse.quote(str(limit))}")
+
+    def language_status(self):
+        return self._request("/api/sheikha/language/managed/v1/status")
+
+    def language_compile(self, source):
+        return self._request("/api/sheikha/language/managed/v1/compile", "POST", {"source": source})
+
+    def language_run(self, source):
+        return self._request("/api/sheikha/language/managed/v1/run", "POST", {"source": source})
+
+    def foundation_status(self):
+        return self._request("/api/sheikha/foundation/managed/v1/status")
+
+    def foundation_inspect(self, component):
+        return self._request("/api/sheikha/foundation/managed/v1/components/" + parse.quote(component, safe=""))
+
+    def foundation_activation_plan(self, component):
+        return self._request("/api/sheikha/foundation/managed/v1/components/" + parse.quote(component, safe="") + "/activation-plan", "POST", {"mode": "local-foundation"})
+
+    def language_production_status(self):
+        return self._request("/api/sheikha/foundation/managed/v1/language-production/status")
+
+    def native_environment_status(self):
+        return self._request("/api/sheikha/foundation/managed/v1/native-environment/status")

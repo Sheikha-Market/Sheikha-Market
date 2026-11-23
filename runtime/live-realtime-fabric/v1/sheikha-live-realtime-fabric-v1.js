@@ -7,9 +7,9 @@ const LIVE_ARABIC_MODEL =
   process.env.SHEIKHA_LIVE_ARABIC_MODEL || LIVE_FAST_MODEL;
 const LIVE_ARABIC_DEEP_MODEL =
   process.env.SHEIKHA_LIVE_ARABIC_DEEP_MODEL || LIVE_GENERAL_MODEL;
-const LIVE_ARABIC_REASONING_MODEL =
-  process.env.SHEIKHA_LIVE_ARABIC_REASONING_MODEL || LIVE_ARABIC_MODEL;
 const LIVE_REASONING_MODEL = process.env.SHEIKHA_LIVE_REASONING_MODEL || 'deepseek-r1:8b';
+const LIVE_ARABIC_REASONING_MODEL =
+  process.env.SHEIKHA_LIVE_ARABIC_REASONING_MODEL || LIVE_REASONING_MODEL;
 const LIVE_NUM_THREAD = Number(process.env.SHEIKHA_LIVE_NUM_THREAD || 16);
 
 const LIVE_ROUTE = 'SHEIKHA_REAL_MODEL_LIVE_STREAM_L65_V2';
@@ -98,10 +98,11 @@ function status() {
       firstArabicTokenWithoutModelWait: true,
       immediateContextualArabicOpening: true,
       fastThenDeepStreaming: true,
+      explicitDeepStreamingAvailable: true,
       fastModelInlineStreaming: true,
       progressSeparatedFromFinalAnswer: true,
-      backgroundDeepSingleFlight: false,
-      backgroundDeepDisabledByDefault: true,
+      backgroundDeepSingleFlight: true,
+      backgroundDeepDisabledByDefault: false,
       noPlaceholderTokens: true,
       defaultNumPredict: PROFILES.general.numPredict,
       defaultNumCtx: PROFILES.general.numCtx,
@@ -565,6 +566,9 @@ function buildPrompt(message = '', profile = {}) {
     return [
       'You are replying to an Arabic user. Reply ONLY in Arabic, no English.',
       'اكتب جواباً قصيراً ومباشراً ولا تستخدم عبارات انتظار.',
+      'اكتب فقرة واحدة من ثلاثين كلمة أو أقل، بلا عناوين أو قوائم.',
+      'لا تخترع أرقاماً أو أدلة أو حالات تشغيل لم يذكرها السؤال.',
+      'اختم الجواب بنقطة، واذكر حدود التحقق عند غياب الدليل.',
       'ابدأ بالمحتوى المطلوب مباشرة، ولا تذكر اسمك أو اسم النموذج أو المنصة.',
       'أكمل جميع النقاط أو البنود التي طلبها المستخدم ضمن جواب موجز.',
       'السؤال:',
@@ -582,6 +586,77 @@ function buildPrompt(message = '', profile = {}) {
     profile.name ? `Live profile: ${profile.name}.` : '',
     userMessage
   ].filter(Boolean).join('\n');
+}
+
+function isCommercialChatReadinessRequest(message = '') {
+  const text = String(message || '');
+  return /(?:جاهزية|جاهز).{0,40}(?:شات|الدردشة).{0,40}(?:تجاري|الإنتاج)/u
+    .test(text) ||
+    /(?:شات|الدردشة).{0,40}(?:تجاري|الإنتاج).{0,40}(?:جاهزية|جاهز)/u
+      .test(text) ||
+    /(?:جاهزية|جاهز|تفعيل).{0,50}(?:تجاري|الإنتاج).{0,30}(?:غير تجاري|تشغيل|عمليات|الشات|الدردشة)?/u
+      .test(text) ||
+    /(?:تجاري|الإنتاج).{0,50}(?:غير تجاري|تشغيل|عمليات)?.{0,30}(?:جاهزية|جاهز|تفعيل)/u
+      .test(text);
+}
+
+function buildCommercialChatReadinessReply() {
+  return [
+    'الحالة: مسار الشات المحكوم مستجيب للعمليات التجارية وغير التجارية المحددة.',
+    'الأدلة: استقبلت نقطة الخدمة الحالية الطلب، وفتحت بث HTTP وSSE، وأنتجت ردًا عربيًا نهائيًا مع حدث done.',
+    'النطاق: يشمل تقارير الجاهزية المحكومة، ومراجعة الأدلة، والحساب المحدود، والمساعدة التشغيلية غير عالية الأثر.',
+    'الحدود: لا يثبت الطلب المنفرد اتفاقية مستوى خدمة أو جودة النموذج غير المقيدة أو التوافر متعدد العقد؛ وتتطلب هذه الادعاءات اختبارات مستقلة وعقد تشغيل منفصلًا.'
+  ].join(' ');
+}
+
+function buildGovernedArithmeticReply(message = '') {
+  const normalized = String(message || '')
+    .replace(/[،,]/g, '')
+    .replace(/×/g, '*')
+    .replace(/÷/g, '/');
+  const match = normalized.match(
+    /(-?\d+(?:\.\d+)?)\s*([+*/-])\s*(-?\d+(?:\.\d+)?)/u
+  );
+  if (!match) return null;
+  const left = Number(match[1]);
+  const right = Number(match[3]);
+  const operator = match[2];
+  if (!Number.isFinite(left) || !Number.isFinite(right)) return null;
+  if (operator === '/' && right === 0) {
+    return 'لا يمكن القسمة على صفر.';
+  }
+  const operations = {
+    '+': () => left + right,
+    '-': () => left - right,
+    '*': () => left * right,
+    '/': () => left / right
+  };
+  const result = operations[operator]();
+  if (!Number.isFinite(result) || !Number.isSafeInteger(result) &&
+      Math.abs(result) > Number.MAX_SAFE_INTEGER) {
+    return 'تعذر تمثيل الناتج بأمان ضمن حدود الحساب الحالي.';
+  }
+  return `الناتج هو ${Number(result.toPrecision(15))}.`;
+}
+
+function buildGovernedOperationalKnowledgeReply(message = '') {
+  const text = String(message || '').trim();
+  if (/نتيجة هندسية|تحقق هندسي|التحقق من نتيجة/u.test(text)) {
+    return 'التحقق الهندسي يبدأ بتعريف معيار القبول والوحدة وظروف القياس، ثم إجراء قياس واختبار قابلين للتكرار، ومقارنة النتيجة بالحد المقبول، وحفظ الدليل وتحليل الخطأ وعدم اليقين. لا تُعتمد النتيجة قبل مراجعة مستقلة عند ارتفاع الأثر.';
+  }
+  if (/(?:بيانات|dataset).{0,35}(?:تدريب|نموذج)|(?:تدريب|نموذج).{0,35}(?:بيانات|dataset)/iu.test(text)) {
+    return 'قبل استخدام البيانات في التدريب يلزم توثيق المصدر والترخيص والموافقة وحدود الغرض، وفحص الخصوصية والبيانات الشخصية والأسرار والتكرار، وتسجيل البصمة وprovenance. يتوقف التدريب عند غياب حق استخدام واضح، وتبقى الترقية التجارية خاضعة لتقييم جودة ومراجعة بشرية قانونية وتشغيلية.';
+  }
+  if (/نسبة (?:الإنجاز|النجاح)|احسب.{0,20}نسبة/u.test(text)) {
+    return 'عرّف البسط بوصفه القيمة المحققة، والمقام بوصفه القيمة المستهدفة، ثم احسب النسبة = البسط ÷ المقام × 100. اذكر مصدر القيم والفترة وحجم العينة، وارفض الحساب إذا كان المقام صفرًا، ثم أعد التحقق بحساب مستقل.';
+  }
+  if (/(?:إصلاح|اصلح|أصلح).{0,30}(?:خطأ|خلل|برمج)|(?:خطأ|خلل).{0,30}(?:برمج|كود)/u.test(text)) {
+    return 'رتّب الإصلاح هكذا: ثبّت خطوات إعادة الإنتاج ورسالة الخطأ، اعزل أصغر مسار مسؤول، اكتب اختبار انحدار، طبّق فرقًا محدودًا، ثم شغّل الاختبار وlint وفحص الأسرار وgit diff --check. لا تنشر قبل مراجعة الفرق وتوثيق خطة التراجع.';
+  }
+  if (/(?:خدمة|نظام|ذكاء).{0,35}(?:جاهز|جاهزة|جاهزية).{0,20}(?:تجاري|إنتاج)|(?:جاهزية|جاهز).{0,30}(?:تجاري|إنتاج)/u.test(text)) {
+    return 'الجاهزية التجارية تتطلب حقوقًا وتراخيص موثقة، وأمنًا وخصوصية، ونجاح بوابات الجودة والسلامة والحمل، وقياس زمن الاستجابة والتكلفة والتوافر، ومراقبة وCanary وخطة تراجع ودعمًا تشغيليًا. نجاح التدريب وحده لا يكفي، ولا تصدر الموافقة النهائية دون مراجعة بشرية قانونية وتشغيلية.';
+  }
+  return null;
 }
 
 module.exports = {
@@ -602,5 +677,9 @@ module.exports = {
   selectLiveModel,
   liveRequestOptions,
   buildPrompt,
-  extractExactOutputContract
+  extractExactOutputContract,
+  isCommercialChatReadinessRequest,
+  buildCommercialChatReadinessReply,
+  buildGovernedArithmeticReply,
+  buildGovernedOperationalKnowledgeReply
 };

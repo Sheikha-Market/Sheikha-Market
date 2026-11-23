@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#03111c"/>
+      <stop offset="45%" stop-color="#0b2e3d"/>
+      <stop offset="75%" stop-color="#14532d"/>
+      <stop offset="100%" stop-color="#052e16"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="38%" r="45%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.85"/>
+      <stop offset="35%" stop-color="#d4af37" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#03111c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="waterG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#0d9488" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#064e3b" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#skyG)"/>
+  <rect width="1920" height="1080" fill="url(#sunGlow)"/>
+  <!-- أفق الحاضرة الساحلية الذكية والأبراج المضيئة -->
+  <g fill="#082032" stroke="#d4af37" stroke-width="1.5" opacity="0.9">
+    <rect x="180" y="290" width="55" height="260"/><rect x="250" y="240" width="65" height="310"/>
+    <rect x="330" y="310" width="50" height="240"/><rect x="420" y="210" width="75" height="340"/>
+    <rect x="1380" y="250" width="68" height="300"/><rect x="1470" y="290" width="58" height="260"/>
+    <rect x="1550" y="220" width="80" height="330"/><rect x="1650" y="320" width="60" height="230"/>
+  </g>
+  <!-- القبة الذهبية الإسلامية والواحة المركزية لشيخة -->
+  <path d="M 760 550 Q 960 310 1160 550 Z" fill="#0d3b2e" stroke="#fde047" stroke-width="4"/>
+  <rect x="680" y="550" width="560" height="120" fill="#092e24" stroke="#d4af37" stroke-width="3"/>
+  <!-- البحر والقنوات المائية والشلالات الجارية -->
+  <rect x="0" y="650" width="1920" height="430" fill="url(#waterG)"/>
+  <path d="M 650 670 L 1270 670 L 1520 1080 L 400 1080 Z" fill="#38bdf8" opacity="0.35"/>
+  <!-- انعكاسات الذهب والأنوار على سطح الماء -->
+  <g stroke="#fde047" stroke-width="3" opacity="0.65">
+    <line x1="780" y1="710" x2="1140" y2="710"/><line x1="720" y1="760" x2="1200" y2="760"/>
+    <line x1="660" y1="820" x2="1260" y2="820"/><line x1="600" y1="890" x2="1320" y2="890"/>
+  </g>
+</svg>

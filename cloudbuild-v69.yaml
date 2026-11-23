@@ -1,0 +1,14 @@
+# شيخة V131 — ملف البناء السحابي الموحد (مع بقاء PRODUCTION_HOLD=ACTIVE وعدم النشر التلقائي)
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--no-cache'
+      - '-t'
+      - 'me-central1-docker.pkg.dev/$PROJECT_ID/sheikha-repo/sheikha-portal:v131-unified'
+      - '.'
+options:
+  logging: CLOUD_LOGGING_ONLY
+substitutions:
+  _REGION: 'me-central1'
+  _GOVERNANCE_MODE: 'PRODUCTION_HOLD_ACTIVE_NO_DEPLOY'

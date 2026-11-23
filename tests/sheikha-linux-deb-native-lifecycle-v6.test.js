@@ -84,11 +84,11 @@ describe('Sheikha Linux DEB Native Lifecycle V6', () => {
     const evidence = [
       'runtime/distribution/v6/evidence/environment-inspection.json',
       'runtime/distribution/v6/evidence/lifecycle-result.json',
-      'runtime/distribution/v6/evidence/baseline-install.log',
-      'runtime/distribution/v6/evidence/upgrade.log',
-      'runtime/distribution/v6/evidence/remove.log',
-      'runtime/distribution/v6/evidence/purge.log',
-      'runtime/distribution/v6/evidence/rollback-downgrade.log',
+      'runtime/distribution/v6/evidence/baseline-installed-package.txt',
+      'runtime/distribution/v6/evidence/remove-verification.json',
+      'runtime/distribution/v6/evidence/purge-verification.json',
+      'runtime/distribution/v6/evidence/rollback-health.json',
+      'runtime/distribution/v6/evidence/version-comparison.txt',
       'runtime/distribution/v6/evidence/artifact-sha256.txt'
     ];
 

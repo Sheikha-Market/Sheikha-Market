@@ -1,17 +1,19 @@
 'use strict';
 
-const { status, buildCapability } = require('../core/foundry/sheikha-foundry-v1');
+const { buildSheikhaFoundryStatus } = require('../runtime/sheikha-studio/core/sheikha-foundry-v1');
 
-test('Sheikha Foundry V1 is active', () => {
-  const s = status();
-  expect(s.success).toBe(true);
-  expect(s.foundry).toBe('SHEIKHA_FOUNDRY_V1');
-  expect(s.layers.capabilityFactory).toBe('ACTIVE');
-});
-
-test('Sheikha Foundry builds governed capability plan', () => {
-  const r = buildCapability({ name: 'unified-chat' });
-  expect(r.success).toBe(true);
-  expect(r.lifecycle).toContain('Governance');
-  expect(r.lifecycle).toContain('Tests');
+describe('Sheikha Foundry V1', () => {
+  test('keeps Sheikha surfaces primary and external providers optional', () => {
+    const status = buildSheikhaFoundryStatus();
+    expect(status.core.sheikhaCliIsPrimary).toBe(true);
+    expect(status.core.sheikhaLanguageIsPrimary).toBe(true);
+    expect(status.core.microsoftOrAzureIsCore).toBe(false);
+    expect(status.optionalProviders.every((provider) => provider.optional)).toBe(true);
+    expect(status.providerPolicy.providerOutputsDoNotBecomeTrainingDataByDefault).toBe(true);
+    expect(status.executionStarted).toBe(false);
+    expect(status.trainingCells.automaticPromotion).toBe(false);
+    expect(status.trainingCells.distributedWorkerActivated).toBe(false);
+    expect(status.trainingCells.maxConcurrentSmokeWorkers).toBe(1);
+    expect(status.sha256).toMatch(/^[a-f0-9]{64}$/);
+  });
 });

@@ -1,0 +1,145 @@
+{
+  "schema": "SHEIKHA_V144_CORE_OF_CORES_SOVEREIGN_CORE_AND_SHEIKHA_NATIVE_GOVERNANCE",
+  "timestamp": "2026-10-29T04:37:56.160211",
+  "seal": "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED",
+  "operational_decision": "SCHEDULED_MONITORING_ACTIVE / FULL_LIVE_READINESS_HOLD",
+  "trinity_of_sovereign_cores_and_native": {
+    "1_C94_core_of_cores": {
+      "code": "C-94",
+      "title_ar": "كبير مدراء Core of Cores (نواة النوى وجوهرة السيادة وجذر الحقيقة)",
+      "port": 18082,
+      "weights": "W-CORE-01..04, W-CORE-10, W-CORE-12 (100% KPI)",
+      "role": "الحاكم الأعلى على كافة النوى والأوزان والسجلات الثلاثية (535 أصلاً — edc795a4)"
+    },
+    "2_C95_sovereign_core": {
+      "code": "C-95",
+      "title_ar": "كبير مدراء Core (النواة السيادية المركزية SHEIKHA-CORE ومحرك 18082)",
+      "port": 18082,
+      "weights": "W-CORE-05..09, W-CORE-11 (99.99% Avg)",
+      "role": "مشغل القلب النابض sheikha_core_engine.py ومعمارية MoE وOmni-Pillars وSheikhaChain"
+    },
+    "3_C96_sheikha_native": {
+      "code": "C-96",
+      "title_ar": "كبير مدراء Sheikha Native (الأصالة البرمجية والعتادية والواجهة الثنائية ABI V1 والتحقق الأصلي V5)",
+      "port": 18125,
+      "weights": "W-NAT-01..12 (99.99% Avg)",
+      "native_assets": [
+        "bare-metal/contracts/SHEIKHA-LANGUAGE-NATIVE-ABI-V1.json",
+        "bare-metal/contracts/SHEIKHA-LANGUAGE-BOOT-CONTRACT-V1.json",
+        "distribution/pipeline/sheikha-linux-package-native-verification-v5.js",
+        "distribution/common/source-staging-engine.js",
+        "bare-metal/kernel/entry/sheikha_kernel.c",
+        "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI"
+      ],
+      "native_layers_chiefs": [
+        {
+          "code": "NAT-C-01",
+          "title_ar": "كبير مدراء الواجهة الثنائية الأصلية للغة شيخة (Sheikha Language Native ABI V1 Chief — W-NAT-01)",
+          "next_handoff": "NAT-C-02 (إقلاع اللغة السيادية الأصلية)",
+          "weight": "100%",
+          "port": 18131
+        },
+        {
+          "code": "NAT-C-02",
+          "title_ar": "كبير مدراء إقلاع اللغة السيادية الأصلية (Sheikha Native Language Boot Chief — W-NAT-02)",
+          "next_handoff": "NAT-C-03 (التحقق الأصلي لحزم النظام V5)",
+          "weight": "100%",
+          "port": 18082
+        },
+        {
+          "code": "NAT-C-03",
+          "title_ar": "كبير مدراء التحقق الأصلي لحزم النظام (Sheikha Native Linux Package Verification V5 Chief — W-NAT-03)",
+          "next_handoff": "NAT-C-04 (بناء وتجهيز الشفرة المصدرية الأصلية)",
+          "weight": "100%",
+          "port": 18158
+        },
+        {
+          "code": "NAT-C-04",
+          "title_ar": "كبير مدراء تجهيز وبناء الشفرة المصدرية الأصلية (Sheikha Native Source Staging Chief — W-NAT-04)",
+          "next_handoff": "NAT-C-05 (ثنائيات الكيرنل الأصلية بلغة C)",
+          "weight": "99.98%",
+          "port": 18110
+        },
+        {
+          "code": "NAT-C-05",
+          "title_ar": "كبير مدراء ثنائيات النواة الأصلية بلغة C (Sheikha Native Kernel C Binary Chief — W-NAT-05)",
+          "next_handoff": "NAT-C-06 (ثنائيات الإقلاع الموحد BOOTX64.EFI)",
+          "weight": "100%",
+          "port": 18125
+        },
+        {
+          "code": "NAT-C-06",
+          "title_ar": "كبير مدراء ثنائيات الإقلاع الموحد الأصلية (Sheikha Native UEFI PE/COFF Binary Chief — W-NAT-06)",
+          "next_handoff": "NAT-C-07 (تعليمات معمارية RISC-V الأصلية)",
+          "weight": "100%",
+          "port": 18125
+        },
+        {
+          "code": "NAT-C-07",
+          "title_ar": "كبير مدراء تعليمات معمارية RISC-V الأصلية (Sheikha Native RISC-V ISA & Silicon Chief — W-NAT-07)",
+          "next_handoff": "NAT-C-08 (الحساب المصفوفي والكمي الأصيل)",
+          "weight": "99.99%",
+          "port": 18094
+        },
+        {
+          "code": "NAT-C-08",
+          "title_ar": "كبير مدراء الحساب المصفوفي والكمي الأصيل (Sheikha Native Tensor & CUDA Compute Chief — W-NAT-08)",
+          "next_handoff": "NAT-C-09 (المقابس الشبكية الأصلية SO_REUSEADDR)",
+          "weight": "99.98%",
+          "port": 18154
+        },
+        {
+          "code": "NAT-C-09",
+          "title_ar": "كبير مدراء المقابس الشبكية الأصلية (Sheikha Native POSIX Sockets & Zero TIME_WAIT Chief — W-NAT-09)",
+          "next_handoff": "NAT-C-10 (التخزين الأصيل عالي الموثوقية)",
+          "weight": "100%",
+          "port": 18082
+        },
+        {
+          "code": "NAT-C-10",
+          "title_ar": "كبير مدراء التخزين الأصيل عالي الموثوقية (Sheikha Native SQLite WAL & Block I/O Chief — W-NAT-10)",
+          "next_handoff": "NAT-C-11 (البروتوكولات الثنائية الأصلية)",
+          "weight": "100%",
+          "port": 18131
+        },
+        {
+          "code": "NAT-C-11",
+          "title_ar": "كبير مدراء البروتوكولات الثنائية الأصلية (Sheikha Native Binary IPC, gRPC & OPC-UA Chief — W-NAT-11)",
+          "next_handoff": "NAT-C-12 (التشفير الأصيل والبصمات الحتمية)",
+          "weight": "99.97%",
+          "port": 18158
+        },
+        {
+          "code": "NAT-C-12",
+          "title_ar": "كبير مدراء التشفير الأصيل والبصمات الحتمية (Sheikha Native SHA-256 & ECC Crypto Chief — W-NAT-12)",
+          "next_handoff": "NAT-C-01 (تغذية راجعة لمنظومة Sheikha Native — حلقة مغلقة)",
+          "weight": "100%",
+          "port": 18162
+        }
+      ]
+    }
+  },
+  "hierarchy_summary": {
+    "supreme_macro_chiefs_C01_to_C96": 96,
+    "specialized_layer_and_stage_chiefs": 137,
+    "total_structural_chiefs": 233,
+    "hs_code_product_chiefs": 5000,
+    "grand_total_all_chiefs": 5233,
+    "department_directors": 1398,
+    "specialized_staff_and_engineers": 5592,
+    "seed_m2m_agents_gen0": 3728,
+    "proliferated_m2m_neural_nodes": 65920,
+    "synaptic_neural_connections": 1054720,
+    "structural_licenses": 289,
+    "hs_product_licenses": 5000,
+    "foundational_weights_48": {
+      "core_of_cores_and_core": 12,
+      "sheikha_os": 12,
+      "systems_manufacturing": 12,
+      "sheikha_native": 12,
+      "total_foundational_weights": 48
+    },
+    "governed_weights_total": 10000
+  },
+  "manifest_sha256": "7cefd84a8074adc3033bb003b1afa13c6361d10a7d6ceec41deb489cb44cc23d"
+}

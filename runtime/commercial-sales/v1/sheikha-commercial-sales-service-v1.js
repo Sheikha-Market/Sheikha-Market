@@ -10,6 +10,11 @@ const revenue = require(
   'sheikha-commercial-revenue-closure-v1'
 );
 
+const confidentiality = require(
+  '../../confidentiality/v1/' +
+  'sheikha-confidentiality-gate-v1'
+);
+
 const DEFAULT_DATA_DIR = path.join(
   os.homedir(),
   '.local',
@@ -19,8 +24,15 @@ const DEFAULT_DATA_DIR = path.join(
 );
 
 function normalizeText(value, maxLength = 500) {
-  return String(value || '')
-    .replace(/[\u0000-\u001f\u007f]/g, ' ')
+  return Array.from(String(value || ''))
+    .map((character) => {
+      const code = character.charCodeAt(0);
+
+      return code <= 0x1f || code === 0x7f
+        ? ' '
+        : character;
+    })
+    .join('')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, maxLength);
@@ -139,6 +151,15 @@ function createLead(input = {}, options = {}) {
     offerNameAr: offer.nameAr
   };
 
+  const attribution = {
+    campaignSource: normalizeText(input.campaignSource, 100),
+    campaignMedium: normalizeText(input.campaignMedium, 100),
+    campaignName: normalizeText(input.campaignName, 160),
+    campaignContent: normalizeText(input.campaignContent, 160),
+    referrer: normalizeText(input.referrer, 500),
+    landingPage: normalizeText(input.landingPage, 500)
+  };
+
   return {
     success: true,
     lead: {
@@ -151,6 +172,7 @@ function createLead(input = {}, options = {}) {
         }
       ),
       ...base,
+      attribution,
       stage: 'NEW',
       consentRecorded: true,
       source: normalizeText(
@@ -160,7 +182,15 @@ function createLead(input = {}, options = {}) {
       createdAt: now.toISOString(),
       owner: 'Salman',
       paymentDataCollected: false,
-      cardDataCollected: false
+      cardDataCollected: false,
+      confidentiality: confidentiality.classifySubmission({
+        now,
+        rightsHolderId: normalizeText(
+          input.rightsHolderId ||
+          'SUBMITTING_CUSTOMER',
+          160
+        )
+      })
     }
   };
 }
@@ -204,6 +234,30 @@ function persistLead(lead, options = {}) {
     storedOutsideRepository:
       !file.startsWith(process.cwd() + path.sep)
   };
+}
+
+function persistPrivateRecord(record, fileName, options = {}) {
+  if (!record || typeof record !== 'object' || !record.checkoutId) {
+    throw new Error('VALID_CHECKOUT_RECORD_REQUIRED');
+  }
+
+  const dataDir = path.resolve(options.dataDir || DEFAULT_DATA_DIR);
+  fs.mkdirSync(dataDir, { recursive: true, mode: 0o700 });
+  fs.chmodSync(dataDir, 0o700);
+
+  const safeFileName = String(fileName || 'checkouts.jsonl');
+  if (!/^[a-z0-9-]+\.jsonl$/u.test(safeFileName)) {
+    throw new Error('SAFE_RECORD_FILE_NAME_REQUIRED');
+  }
+
+  const file = path.join(dataDir, safeFileName);
+  fs.appendFileSync(file, JSON.stringify(record) + '\n', {
+    encoding: 'utf8',
+    mode: 0o600
+  });
+  fs.chmodSync(file, 0o600);
+
+  return { success: true, path: file };
 }
 
 function createQuote(input = {}, options = {}) {
@@ -407,6 +461,125 @@ function createProformaPaymentRequest(
   };
 }
 
+function checkoutOffer(offerId) {
+  const offer = validateOffer(offerId);
+  if (offer.status !== 'OFFERABLE_NOW' || offer.pricing?.type !== 'FIXED') {
+    throw new Error('OFFER_REQUIRES_SCOPE_REVIEW');
+  }
+  if (typeof offer.pricing.amountSar !== 'number' || !Number.isFinite(offer.pricing.amountSar)
+      || offer.pricing.amountSar <= 0 || offer.pricing.amountSar > 1_000_000_000) {
+    throw new Error('INVALID_CATALOG_PRICE');
+  }
+  const policies = {};
+  for (const name of ['terms', 'privacy', 'refund']) {
+    const file = path.resolve(__dirname, '../../../public/commercial', `${name}.html`);
+    policies[name] = crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+  }
+  const snapshot = {
+    offerId: offer.id,
+    nameAr: offer.nameAr,
+    deliverables: offer.deliverables,
+    deliveryDays: offer.deliveryDays,
+    paymentTerms: offer.paymentTerms,
+    subtotalSar: offer.pricing.amountSar,
+    vatSar: null,
+    totalSar: null,
+    amountDueNowSar: 0,
+    currency: 'SAR',
+    pricingStatus: 'ESTIMATE_PENDING_SELLER_AND_TAX_REVIEW',
+    policies
+  };
+  return { ...snapshot, offerDigest: crypto.createHash('sha256')
+    .update(JSON.stringify(snapshot)).digest('hex') };
+}
+
+function createSelfServiceCheckout(input = {}, options = {}) {
+  const offerId = normalizeText(input.offerId, 120);
+  const offer = validateOffer(offerId);
+  const errors = [];
+
+  if (offer.status !== 'OFFERABLE_NOW') {
+    errors.push('OFFER_REQUIRES_SCOPE_REVIEW');
+  }
+  if (offer.pricing?.type !== 'FIXED') {
+    errors.push('SELF_SERVICE_REQUIRES_FIXED_PRICE');
+  }
+  if (input.termsAccepted !== true) errors.push('TERMS_ACCEPTANCE_REQUIRED');
+  if (input.privacyConsent !== true) errors.push('PRIVACY_CONSENT_REQUIRED');
+  if (input.scopeAccepted !== true) errors.push('SCOPE_ACCEPTANCE_REQUIRED');
+  if (input.paymentObligationAccepted !== true) {
+    errors.push('PAYMENT_OBLIGATION_ACCEPTANCE_REQUIRED');
+  }
+  const snapshot = offer.status === 'OFFERABLE_NOW' && offer.pricing?.type === 'FIXED'
+    ? checkoutOffer(offerId) : null;
+  if (!snapshot || input.offerDigest !== snapshot.offerDigest) {
+    errors.push('CURRENT_OFFER_AND_POLICIES_REQUIRED');
+  }
+  for (const field of ['vatApplicable', 'vatSar', 'totalSar', 'amount', 'ownerApproved',
+    'paymentVerified', 'paymentCaptured', 'signedAgreement', 'customerDataTrainingConsent']) {
+    if (Object.hasOwn(input, field)) errors.push('SERVER_CONTROLLED_FIELD_NOT_ALLOWED');
+  }
+
+  const leadResult = createLead({
+    ...input,
+    consent: input.privacyConsent,
+    source: 'WEBSITE_SELF_SERVICE_CHECKOUT_V1'
+  }, options);
+  if (!leadResult.success) errors.push(...leadResult.errors);
+
+  if (errors.length) {
+    return {
+      success: false,
+      checkoutCreated: false,
+      paymentCaptured: false,
+      errors: [...new Set(errors)]
+    };
+  }
+
+  const now = options.now instanceof Date ? options.now : new Date();
+  const checkout = {
+    checkoutId: createReference('CHECKOUT', {
+      leadId: leadResult.lead.leadId,
+      offerDigest: snapshot.offerDigest
+    }, options),
+    leadId: leadResult.lead.leadId,
+    quote: snapshot,
+    order: {
+      orderId: createReference('REQUEST', { leadId: leadResult.lead.leadId }, options),
+      status: 'REQUEST_RECORDED_AWAITING_SELLER_REVIEW',
+      ownerApproved: false,
+      signedAgreement: false,
+      fulfillmentAuthorized: false
+    },
+    acceptance: {
+      policyDigests: snapshot.policies,
+      offerDigest: snapshot.offerDigest,
+      termsAccepted: true,
+      privacyConsent: true,
+      scopeAccepted: true,
+      paymentObligationAccepted: true,
+      acceptedAt: now.toISOString()
+    },
+    payment: {
+      captureEnabled: false,
+      captured: false,
+      nextAction: 'SELLER_SCOPE_TAX_AND_PAYMENT_REVIEW',
+      cardDataRequested: false
+    },
+    customerDataTrainingAllowed: false,
+    externalDisclosureAllowed: false,
+    createdAt: now.toISOString()
+  };
+
+  return {
+    success: true,
+    checkoutCreated: true,
+    paymentCaptured: false,
+    lead: leadResult.lead,
+    checkout
+  };
+}
+
 function evaluateWebsiteSalesReadiness(input = {}) {
   const checks = {
     sellerIdentityConfigured:
@@ -473,6 +646,9 @@ function status() {
     officialTaxInvoiceGenerationSupported: false,
     paymentCaptureSupported: false,
     cardDataCollectionAllowed: false,
+    confidentialityDefaultDeny: true,
+    customerDataTrainingAllowedByDefault: false,
+    externalDisclosureAllowedByDefault: false,
     defaultDataDir: DEFAULT_DATA_DIR,
     humanApprovalRequired: true
   };
@@ -483,9 +659,12 @@ module.exports = {
   normalizeText,
   createLead,
   persistLead,
+  persistPrivateRecord,
   createQuote,
   createOrder,
   createProformaPaymentRequest,
+  createSelfServiceCheckout,
+  checkoutOffer,
   evaluateWebsiteSalesReadiness,
   status
 };

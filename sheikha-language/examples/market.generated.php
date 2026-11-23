@@ -21,6 +21,7 @@ final class SheikhaGeneratedRule
           "python",
           "json-ir",
           "bytecode",
+          "freestanding-c11",
       ],
       "ast_summary" => [
           "nodes" => 4,
@@ -28,6 +29,9 @@ final class SheikhaGeneratedRule
 
           ],
           "governance_policies" => [
+
+          ],
+          "reasoning_methodologies" => [
 
           ],
           "procedures" => [

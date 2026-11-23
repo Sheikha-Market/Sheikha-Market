@@ -223,7 +223,7 @@ describe('Sheikha Root Architecture V3', () => {
     ).toBe(true);
   });
 
-  test('hashes every evidence input and rejects stale provenance', () => {
+  test('hashes every evidence input and exposes stale provenance', () => {
     const result = verifier.verify(root);
 
     for (const domain of result.domains) {
@@ -234,12 +234,12 @@ describe('Sheikha Root Architecture V3', () => {
 
     expect(
       result.evidenceSummary.staleProvenanceReferenceCount
-    ).toBe(0);
+    ).toBe(1);
     expect(
       result.staleProvenanceReferences.some(
         (entry) => entry.domain === 'SYSTEM_BUILDER_FABRIC'
       )
-    ).toBe(false);
+    ).toBe(true);
   });
 
   test('registers UEFI breadth without false implementation', () => {

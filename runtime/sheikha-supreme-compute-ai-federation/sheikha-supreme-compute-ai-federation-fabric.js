@@ -49,12 +49,12 @@ class SheikhaSupremeComputeAIFederationFabric {
     return {
       system: 'SHEIKHA_SUPREME_COMPUTE_AI_FEDERATION_FABRIC_V1',
       osFamily,
-      status: 'PRODUCTION_COMPUTE_AI_FEDERATED',
-      productionReady: true,
-      supercomputerReady: true,
-      cloudReady: true,
-      saasReady: true,
-      aiReady: true,
+      status: 'COMPUTE_AI_ARCHITECTURE_REGISTERED_NOT_RELEASED',
+      productionReady: false,
+      supercomputerReady: false,
+      cloudReady: false,
+      saasReady: false,
+      aiReady: false,
       supercomputeLayers: SUPERCOMPUTE_LAYERS,
       aiProductionLayers: AI_PRODUCTION_LAYERS,
       governance: {
@@ -78,10 +78,11 @@ class SheikhaSupremeComputeAIFederationFabric {
     return {
       system: 'SHEIKHA_SUPREME_COMPUTE_AI_FEDERATION_FABRIC_V1',
       arabicName: 'شيخة طبقة الاتحاد العليا للحوسبة والذكاء الصناعي',
-      status: 'ACTIVE_SUPREME_COMPUTE_AI_GOVERNING',
+      status: 'ARCHITECTURE_REGISTERED_EVIDENCE_REQUIRED',
       layerRank: 'ABOVE_SHEIKHA_OS_ENTERPRISE_FEDERATION',
-      productionReady: true,
-      inspectorOnly: false,
+      productionReady: false,
+      inspectorOnly: true,
+      evidenceScope: 'ARCHITECTURE_CATALOG_NOT_EXECUTED_CAPABILITIES',
       governedSystems: this.buildAllSystems(),
       osFederation: osStatus,
       capabilities: [
@@ -99,7 +100,7 @@ class SheikhaSupremeComputeAIFederationFabric {
       boundaries: {
         noSecretMutation: true,
         noUnsafeRepair: true,
-        governedSelfHealing: true,
+        governedSelfHealing: false,
         auditRequired: true,
         productionPromotionRequired: true
       }

@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const {
-  BRIDGE_COMMAND_IDS
+  BRIDGE_COMMAND_IDS, registerSheikhaCommandBridge
 } = require('../src/sheikhaCommandBridge');
 const {
   CHAT_TOOL_COMMAND_IDS
@@ -24,6 +24,19 @@ const CORE_COMMAND_IDS = [
 ];
 
 describe('Sheikha extension command coverage', () => {
+  test('agent commands enter the bounded native workflow without forwarding workspace context', async () => {
+    const handlers = new Map();
+    const api = { commands: { registerCommand: (id, fn) => { handlers.set(id, fn); return { dispose() {} }; } },
+      window: { showErrorMessage: jest.fn(), showInputBox: jest.fn() } };
+    jest.doMock('vscode', () => api, { virtual: true });
+    const chatProvider = { prefill: jest.fn() }; const openChat = jest.fn();
+    registerSheikhaCommandBridge({ subscriptions: [] }, { chatProvider, openChat });
+    for (const id of ['sheikha.startAgent', 'sheikha.agent.run']) await handlers.get(id)();
+    expect(openChat).toHaveBeenCalledTimes(2);
+    expect(chatProvider.prefill.mock.calls).toEqual([['ابدأ مهمة منظمة', true], ['ابدأ مهمة منظمة', true]]);
+    expect(api.window.showInputBox).not.toHaveBeenCalled();
+    expect(api.window.showErrorMessage).not.toHaveBeenCalled();
+  });
   test('registers every command declared by the extension manifest', () => {
     const declared = packageJson.contributes.commands
       .map((item) => item.command)

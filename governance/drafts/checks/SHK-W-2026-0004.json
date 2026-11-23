@@ -1,0 +1,78 @@
+{
+  "category": "Commerce Apps - 【entity-Shopify¦canonical_name=Shopify】",
+  "base_weight": 60,
+  "custom_weights": {
+    "base": 40,
+    "criticality": 10,
+    "sharia": 15,
+    "tech": 10,
+    "total": 60,
+    "customized_total": 75
+  },
+  "agents": {
+    "id": "AGENT-SHK-W-2026-0004",
+    "name": "Commerce Apps - 【entity-Shopify¦canonical_name=Shopify】 Agent",
+    "prompt": "أنت وكيل Commerce Apps - 【entity-Shopify¦canonical_name=Shopify】 — تتحقق من تطبيقات تجار - مسار مطور بموافقة المستخدم — BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر",
+    "tools": [
+      "check_draft_sha",
+      "verify_weight",
+      "generate_kpi",
+      "zero_data_leakage"
+    ],
+    "memory": "governance/drafts/05_SHOPIFY_DRAFT.md"
+  },
+  "bots": {
+    "id": "BOT-SHK-W-2026-0004",
+    "port": "0004",
+    "status": "UP",
+    "function": "بوت تشغيلي لـ Commerce Apps - 【entity-Shopify¦canonical_name=Shopify】 — يفحص ويحرر ويوثق آلياً"
+  },
+  "checks": [
+    {
+      "check_id": 1,
+      "requirement": "ZATCA Phase 2 e-invoicing",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 60,
+      "eff_after": 62
+    },
+    {
+      "check_id": 2,
+      "requirement": "GOSI + نطاقات + ضريبة مضافة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 62,
+      "eff_after": 65
+    },
+    {
+      "check_id": 3,
+      "requirement": "تفويض OAuth المحدود بموافقة التاجر (Shopify / Meta)",
+      "learned": true,
+      "weight_delta": 8,
+      "eff_before": 65,
+      "eff_after": 73
+    },
+    {
+      "check_id": 4,
+      "requirement": "فلتر السلع الحقيقية المملوكة ومنع الغرر والربا",
+      "learned": true,
+      "weight_delta": 9,
+      "eff_before": 73,
+      "eff_after": 82
+    },
+    {
+      "check_id": 5,
+      "requirement": "توثيق الأعمال بالسجل التجاري 2051263653 وحاسبة الزكاة",
+      "learned": true,
+      "weight_delta": 10,
+      "eff_before": 82,
+      "eff_after": 92
+    }
+  ],
+  "current_efficiency": 92,
+  "target_efficiency": 90,
+  "efficiency_gap": 0,
+  "next_check": "مكتمل الجاهزية المحلية — بانتظار التوقيع اليدوي الشرعي للمالك السيادي",
+  "documentation": "governance/drafts/checks/SHK-W-2026-0004.json",
+  "sha_fingerprint": "1f9c1fc5db4ab4f8"
+}

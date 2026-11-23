@@ -1,0 +1,97 @@
+{
+  "category": "Supply Gateway - 【entity-Aramco¦canonical_name=Aramco】",
+  "base_weight": 75,
+  "custom_weights": {
+    "base": 40,
+    "criticality": 10,
+    "sharia": 15,
+    "tech": 10,
+    "total": 75,
+    "customized_total": 92
+  },
+  "agents": {
+    "id": "AGENT-SHK-W-2026-0001",
+    "name": "Supply Gateway - 【entity-Aramco¦canonical_name=Aramco】 Agent",
+    "prompt": "أنت وكيل Supply Gateway - 【entity-Aramco¦canonical_name=Aramco】 — تتحقق من مورد معادن/خدمات - التسجيل لا يضمن أمر شراء — BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر",
+    "tools": [
+      "check_draft_sha",
+      "verify_weight",
+      "generate_kpi",
+      "zero_data_leakage"
+    ],
+    "memory": "governance/drafts/02_ARAMCO_DRAFT.md"
+  },
+  "bots": {
+    "id": "BOT-SHK-W-2026-0001",
+    "port": "0001",
+    "status": "UP",
+    "function": "بوت تشغيلي لـ Supply Gateway - 【entity-Aramco¦canonical_name=Aramco】 — يفحص ويحرر ويوثق آلياً"
+  },
+  "checks": [
+    {
+      "check_id": 1,
+      "requirement": "ZATCA Phase 2 e-invoicing",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 75,
+      "eff_after": 77
+    },
+    {
+      "check_id": 2,
+      "requirement": "GOSI + نطاقات + ضريبة مضافة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 77,
+      "eff_after": 80
+    },
+    {
+      "check_id": 3,
+      "requirement": "تحقق نطاق الخدمة ISIC4 للمعادن والسكراب + شهادة ISO-9001",
+      "learned": true,
+      "weight_delta": 5,
+      "eff_before": 80,
+      "eff_after": 85
+    },
+    {
+      "check_id": 4,
+      "requirement": "مدونة سلوك موردي أرامكو + الأمن السيبراني CCC",
+      "learned": true,
+      "weight_delta": 5,
+      "eff_before": 85,
+      "eff_after": 90
+    },
+    {
+      "check_id": 5,
+      "requirement": "عزل طلبات العروض RFQ ببصمة SHA-256 ومنع التسويات الآلية",
+      "learned": true,
+      "weight_delta": 6,
+      "eff_before": 90,
+      "eff_after": 96
+    },
+    {
+      "check_id": 6,
+      "requirement": "التفعيل اللحظي لفحص المعادن بالذكاء البصري وتوليد شهادة مطابقة فورية",
+      "learned": true,
+      "activated_instantly": true,
+      "weight_delta": 2,
+      "eff_before": 96,
+      "eff_after": 98,
+      "timestamp": "2026-10-28T07:31:02.913936+00:00"
+    },
+    {
+      "check_id": 7,
+      "requirement": "تحقق نطاق الخدمة + مدونة سلوك موردين أرامكو — تعلم مباشر بالكتاب والسنة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 98,
+      "eff_after": 101,
+      "timestamp": "2026-10-28T10:44:29.664666"
+    }
+  ],
+  "current_efficiency": 100,
+  "target_efficiency": 95,
+  "efficiency_gap": 0,
+  "next_check": "مكتمل الجاهزية المحلية — بانتظار التوقيع اليدوي الشرعي للمالك السيادي",
+  "documentation": "governance/drafts/checks/SHK-W-2026-0001.json",
+  "sha_fingerprint": "e2e9fb8ef2d04874"
+}

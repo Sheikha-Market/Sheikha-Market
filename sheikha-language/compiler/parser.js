@@ -45,6 +45,11 @@ class TokenStream {
 }
 
 const COMMAND_KEYWORDS = new Set([
+    'حاكي_روبوت',
+    'ولد_وسائط',
+    'حاكي_شبكة',
+    'تحقق_وحدة',
+    'انتج_عقد',
     'اعرض',
     'ارفض',
     'أجز',
@@ -55,6 +60,24 @@ const COMMAND_KEYWORDS = new Set([
     'تحكم_pm2',
     'تحكم_docker',
 ]);
+
+const CULTIVATION_DECLARATIONS = Object.freeze({
+    'جنة': 'garden',
+    'مرعى': 'pasture',
+    'تربة': 'soil',
+    'بذرة': 'seed',
+    'فتيلة': 'sprout',
+    'مغرس': 'cultivation',
+    'زارع': 'grower',
+    'سقاية': 'irrigation',
+    'ثمرة': 'fruit',
+    'زراعة': 'agriculture',
+    'استزراع': 'transplant',
+    'نمو': 'growth',
+    'ازدهار': 'flourishing',
+    'أساس': 'foundation',
+    'قاعدة': 'rule',
+});
 
 function node(type, fields, startToken, endToken) {
     return {
@@ -104,6 +127,19 @@ function parseTopLevel(stream) {
         return parseEntity(stream);
     }
 
+    if (CULTIVATION_DECLARATIONS[current.value]) {
+        return parseNamedPropertyDeclaration(
+            stream,
+            current.value,
+            'EntityDeclaration',
+            {
+                declarationKind:
+                    CULTIVATION_DECLARATIONS[current.value],
+                sourceKeyword: current.value,
+            }
+        );
+    }
+
     if (current.value === 'مرجعية') {
         return parseNamedPropertyDeclaration(
             stream,
@@ -139,7 +175,12 @@ function parseEntity(stream) {
     return parseNamedPropertyDeclaration(stream, 'كيان', 'EntityDeclaration');
 }
 
-function parseNamedPropertyDeclaration(stream, keyword, declarationType) {
+function parseNamedPropertyDeclaration(
+    stream,
+    keyword,
+    declarationType,
+    extraFields = {}
+) {
     const start = stream.consume('IDENT', keyword);
     const name = collectTextUntil(stream, 'COLON');
     stream.consume('COLON');
@@ -154,7 +195,12 @@ function parseNamedPropertyDeclaration(stream, keyword, declarationType) {
     }
 
     const end = stream.consume('DEDENT');
-    return node(declarationType, { name, properties }, start, end);
+    return node(
+        declarationType,
+        { name, properties, ...extraFields },
+        start,
+        end
+    );
 }
 
 function parseProcedure(stream) {

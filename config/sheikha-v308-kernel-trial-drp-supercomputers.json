@@ -1,0 +1,185 @@
+{
+  "timestamp": "2026-11-09T17:10:42.161821+00:00",
+  "version": "SHEIKHA_V308_SURAH_AL_MUZZAMMIL_DOC73_SHEET_V79_172_DIWANS_KERNEL_BOOT_TRIAL_DRP_SUPERCOMPUTERS_ATLAS_1071136_TO_367T_61B_42_7T_WAQF_741",
+  "seal": "BOUND_BY_QURAN_SUNNAH_WAL_TAWHEED_WAL_ISLAH_WAL_BARAKAH",
+  "allah_al_mudabbir": "يا أيها المزمل قم الليل إلا قليلا — المزمل 1-2 • إن لك في النهار سبحا طويلا — المزمل 7",
+  "doc_73_url": "https://docs.google.com/document/d/16VLFRCwkaguiw8xT7F9BN9vtoUYYqyXUM8-N4ZYxPz0/edit?usp=drive_web",
+  "sheet_v79_url": "https://docs.google.com/spreadsheets/d/11NB88l2cQhlzHYbooVMD7R9KbIdCbg6-IXoTS_1yeoo/edit?usp=drive_web",
+  "doc_72_url": "https://docs.google.com/document/d/16Q2yFh4hq4S6hKomAs2H5-K6wHn9x9smKEZogOkvAT4/edit?usp=drive_web",
+  "ports_active": [
+    8080,
+    18080,
+    18082
+  ],
+  "unified_files_total": 172,
+  "workbooks": 99,
+  "docs": 73,
+  "weights_base_seed": 1071136,
+  "manager_weights": 535568,
+  "supervisor_weights": 535568,
+  "weights_multiplied_700x": 749795200,
+  "weights_multiplied_700_sq": 524856640000,
+  "weights_multiplied_700_cube": 367399648000000,
+  "waqf_pool_sar": 61000000000,
+  "waqf_pool_multiplied_700x_sar": 42700000000000,
+  "ksa_supercomputers_count": 15,
+  "ksa_datacenters_count": 88,
+  "ksa_servers_count": 485000,
+  "global_datacenters_count": 11883,
+  "global_supercomputers_count": 500,
+  "global_servers_count": 75000000,
+  "drp_5_tiers": [
+    {
+      "tier": "المستوى 1 (Tier-1: Local <-> Cloud Failover)",
+      "scenario": "انقطاع اتصال اللابتوب المحلي أو إعادة تشغيله أثناء التجارب",
+      "action": "يستمر خادم الإنتاج السحابي (31.97.190.74) ودرع الحافة في حمل النطاقات الـ 12 والـ APIs بنسبة 100%",
+      "rto": "RTO = 0 ms | RPO = 0"
+    },
+    {
+      "tier": "المستوى 2 (Tier-2: Multi-Port Self-Healing)",
+      "scenario": "ازدحام أو توقف عملية على أحد المنافذ (8080 أو 18080 أو 18082)",
+      "action": "يقوم الواتش (Al-Watch) بإعادة الإقلاع الذاتي وتوزيع الحمل عبر المنفذين الآخرين فوراً",
+      "rto": "RTO < 1 ms | RPO = 0"
+    },
+    {
+      "tier": "المستوى 3 (Tier-3: Multi-Cloud Escape Pod)",
+      "scenario": "عطل إقليمي في أحد مزودي الاستضافة أو مسارات الكابلات البحرية",
+      "action": "تحويل التوجيه تلقائياً عبر طبقة إدارة شيخة للسحابات بين الدمام والرياض وجدة ونيوم والعقد العالمية",
+      "rto": "RTO = 0 ms (Anycast)"
+    },
+    {
+      "tier": "المستوى 4 (Tier-4: Cyber & Sharia Quarantine)",
+      "scenario": "محاولة اختراق سيبراني أو إدخال معاملة ربوية أو غير مطابقة",
+      "action": "يقوم الحارس (Al-Haris) والـ 34 حارساً ذكياً بعزل الطلب فوراً وتجميد الوصول المشبوه",
+      "rto": "100% Blocked Instantly"
+    },
+    {
+      "tier": "المستوى 5 (Tier-5: Air-Gapped Triple Vault)",
+      "scenario": "حالات الطوارئ القصوى أو انقطاع الشبكات الخارجية بالكامل",
+      "action": "التشغيل المحلي المستقل بالكامل من الخزائن الثلاثية المشفرة (Pop!_OS + Ceph + Google Shared Drive)",
+      "rto": "100% Eternal Continuity"
+    }
+  ],
+  "dc_supercomputers_atlas": [
+    {
+      "id": "DC-ZONE-01",
+      "zone": "1. السعودية — المنطقة الشرقية (الخبر/الظهران/الدمام/الجبيل)",
+      "systems": "حواسيب أرامكو العملاقة (Dammam-7 55.4 PF + Ghawar-1 + Makman-3 + EXPEC ARC) + KFUPM HPC + Center3 & GCP Dammam + مقر شيخة بالخبر",
+      "dcs": 24,
+      "hpc": 6,
+      "servers": 165000,
+      "w_base": 89262,
+      "waqf_base": 6000000000
+    },
+    {
+      "id": "DC-ZONE-02",
+      "zone": "2. السعودية — منطقة الرياض والوسطى (الرياض/الدرعية/القدية/سدير)",
+      "systems": "سحابة الدولة سدايا (SDAIA Deem 230+ جهة حكومية) + حاسوب كاكست (KACST Sanam) + Center3 + Alibaba/STC + Oracle/Azure Riyadh",
+      "dcs": 34,
+      "hpc": 4,
+      "servers": 175000,
+      "w_base": 89262,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-03",
+      "zone": "3. السعودية — مكة والمدينة والبحر الأحمر (جدة/ثول/رابغ/ينبع)",
+      "systems": "حاسوب كاوست العملاق (KAUST Shaheen III ~100 PF Grace Hopper + Shaheen II) + محطة الكابلات البحرية بجدة وينبع",
+      "dcs": 18,
+      "hpc": 3,
+      "servers": 85000,
+      "w_base": 89262,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-04",
+      "zone": "4. السعودية — نيوم والشمال والجنوب (أوكساجون/تبوك/وعد الشمال/عسير/جازان)",
+      "systems": "مصنع الذكاء الاصطناعي الأخضر في نيوم أوكساجون (NEOM DataVolt 1.5GW Zero-Carbon AI) + مراكز وعد الشمال وجازان وخميس مشيط",
+      "dcs": 12,
+      "hpc": 2,
+      "servers": 60000,
+      "w_base": 89262,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-05",
+      "zone": "5. دول الخليج العربي وجزيرة العرب (أبوظبي/دبي/الكويت/الدوحة/مسقط/المنامة)",
+      "systems": "حواسيب G42 Condor Galaxy AI & Khazna + AWS Bahrain ME-South + GCP Doha + Equinix Muscat/Salalah + KPC Kuwait",
+      "dcs": 65,
+      "hpc": 8,
+      "servers": 420000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-06",
+      "zone": "6. المشرق العربي ووادي النيل (القاهرة/الإسكندرية/عمّان/بغداد/الخرطوم)",
+      "systems": "مراكز العاصمة الإدارية وممر قناة السويس للكابلات البحرية + مراكز عمّان وبغداد وبورتسودان",
+      "dcs": 95,
+      "hpc": 4,
+      "servers": 310000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-07",
+      "zone": "7. المغرب العربي وغرب المتوسط (الرباط/الدار البيضاء/الجزائر/تونس/نواكشوط)",
+      "systems": "حاسوب جامعة محمد السادس (UM6P Toubkal Supercomputer) + مراكز الدار البيضاء وطنجة والجزائر وتونس",
+      "dcs": 75,
+      "hpc": 3,
+      "servers": 240000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-08",
+      "zone": "8. آسيا الإسلامية وآسيا الوسطى (إسطنبول/جاكرتا/كوالالمبور/إسلام آباد/أستانا)",
+      "systems": "مركز TRUBA الفائق (تركيا) + مراكز جاكرتا وجوهور وكوالالمبور + حواسيب كازاخستان وأوزبكستان وباكستان",
+      "dcs": 245,
+      "hpc": 12,
+      "servers": 920000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-09",
+      "zone": "9. أفريقيا الإسلامية جنوب الصحراء (لاغوس/أبوجا/داكار/أبيدجان/كوناكري)",
+      "systems": "مراكز بيانات غرب ووسط وشرق أفريقيا الإسلامية ومحطات الكابلات البحرية الأطلسية والهندية",
+      "dcs": 65,
+      "hpc": 2,
+      "servers": 180000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-10",
+      "zone": "10. القارة الأوروبية والمملكة المتحدة (فرانكفورت/لندن/باريس/أمستردام/هلسنكي)",
+      "systems": "جسور الحواسيب العملاقة (LUMI + Leonardo + MareNostrum 5 + JUPITER) ومراكز Hetzner وOVHcloud وHostinger",
+      "dcs": 3100,
+      "hpc": 110,
+      "servers": 18500000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-11",
+      "zone": "11. إقليم الأمريكتين (فرجينيا الشمالية/وادي السيليكون/أوريغون/ساو باولو)",
+      "systems": "جسور الحواسيب العملاقة (Frontier + Aurora + El Capitan) ومناطق AWS وAzure وGCP وOracle OCI",
+      "dcs": 5400,
+      "hpc": 180,
+      "servers": 34000000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    },
+    {
+      "id": "DC-ZONE-12",
+      "zone": "12. شرق آسيا والمحيط الهادئ (طوكيو/سنغافورة/بكين/سيول/سيدني)",
+      "systems": "جسور الحواسيب العملاقة (Fugaku + Tianhe) ومراكز Alibaba وTencent وHuawei وInspur",
+      "dcs": 2750,
+      "hpc": 166,
+      "servers": 19945000,
+      "w_base": 89261,
+      "waqf_base": 5000000000
+    }
+  ]
+}

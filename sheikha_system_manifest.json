@@ -1,0 +1,37 @@
+{
+  "manifest_id": "SHEIKHA-PRODUCTION-MANIFEST-V1",
+  "entity_name": "مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة (Sheikha.top)",
+  "cr_number": "2051263653",
+  "aramco_vendor_id": "S11488084",
+  "sap_ariba_anid": "AN11235091112",
+  "official_iban": "SA4005000068206162118000",
+  "hardware_bare_metal": {
+    "os_node": "pop-os",
+    "os_system": "Linux 7.2.15-76070215-generic",
+    "architecture": "x86_64",
+    "logical_cpu_cores": 22,
+    "runtime_engine": "Node.js + Python3 Automation Scripts"
+  },
+  "software_bots_active": [
+    {
+      "bot_id": "BOT-01-PDF",
+      "name": "روبوت الطباعة والأرشفة الآلية (Headless Chrome PDF Bot)",
+      "status": "ACTIVE"
+    },
+    {
+      "bot_id": "BOT-02-ZATCA",
+      "name": "روبوت حساب الضريبة 15% وتوليد ختم ZATCA TLV Base64",
+      "status": "ACTIVE"
+    },
+    {
+      "bot_id": "BOT-03-TENDER",
+      "name": "روبوت تحليل جدوى المناقصات وحساب الضمان البنكي 5%",
+      "status": "ACTIVE"
+    },
+    {
+      "bot_id": "BOT-04-WATCHDOG",
+      "name": "روبوت المراقبة الذاتية واستمرارية المنفذ 7788 (Auto-Heal Bot)",
+      "status": "ACTIVE"
+    }
+  ]
+}

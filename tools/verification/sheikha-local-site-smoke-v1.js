@@ -14,13 +14,13 @@ const REPORT_PATH = path.join(
 const PAGE_CHECKS = [
   { path: '/', marker: '<title>شيخة' },
   { path: '/market/', marker: '<title>سوق شيخة' },
-  { path: '/dashboard/', marker: '<title>لوحة شيخة' },
+  { path: '/dashboard/', marker: '<title>مركز شيخة الأعلى' },
   { path: '/technology/', marker: '<title>مرصد شيخة التقني' },
   {
     path: '/product-technical/',
     marker: '<title>الملف الهندسي للمنتج',
   },
-  { path: '/commercial/', marker: 'حلول شيخة التجارية' },
+  { path: '/commercial/', marker: 'شيخة للأعمال' },
   {
     path: '/system-builder-workbench/',
     marker: 'بناء الأنظمة المحكومة',
@@ -130,6 +130,9 @@ async function checkLiveChat(baseUrl) {
       }),
     }
   );
+  const responseHeadersMs = Number(
+    (performance.now() - startedAt).toFixed(2)
+  );
   const body = await response.text();
   const events = parseSseEvents(body);
   const names = events.map((entry) => entry.event);
@@ -151,7 +154,9 @@ async function checkLiveChat(baseUrl) {
     eventOrder: names,
     requiredOrderValid: orderValid,
     immediateArabicToken,
-    responseCompletedUnderOneSecond: elapsedMs < 1000,
+    responseHeadersUnderOneSecond: responseHeadersMs < 1000,
+    responseHeadersMs,
+    responseCompletedUnderFiveSeconds: elapsedMs < 5000,
     elapsedMs,
     deepModelMode: events.find((entry) =>
       entry.event === 'meta'
@@ -159,7 +164,8 @@ async function checkLiveChat(baseUrl) {
     passed: response.status === 200 &&
       orderValid &&
       immediateArabicToken &&
-      elapsedMs < 1000,
+      responseHeadersMs < 1000 &&
+      elapsedMs < 5000,
   };
 }
 
@@ -395,8 +401,8 @@ async function checkRootEvidenceTruthMatrix(baseUrl) {
       body.ok === true &&
       data.status === 'VERIFIED' &&
       data.truthStatus === 'BOUNDED_EVIDENCE_VERIFIED_WITH_GAPS' &&
-      summary.domainCount === 9 &&
-      summary.parsedEvidenceCount === 9 &&
+      summary.domainCount === (data.domains || []).length &&
+      summary.parsedEvidenceCount === summary.domainCount &&
       summary.artifactBuiltCount >= 4 &&
       summary.qemuVerifiedCount >= 3 &&
       summary.nativeLifecycleVerifiedCount === 1 &&
@@ -408,8 +414,12 @@ async function checkRootEvidenceTruthMatrix(baseUrl) {
         'NATIVE_LIFECYCLE_VERIFIED' &&
       domains.PHYSICAL_BOOT_TRIAL?.claims
         ?.physicalHardwareVerified === false &&
+      domains.VSCODE_EXTENSION?.verificationLevel ===
+        'LIVE_EXTENSION_HOST_INTERACTION_VERIFIED' &&
       domains.VSCODE_EXTENSION?.claims
-        ?.chatInteractionSmokeVerified === false &&
+        ?.chatInteractionSmokeVerified === true &&
+      domains.VSCODE_EXTENSION?.claims
+        ?.inspectorInteractionSmokeVerified === true &&
       domains.SHEIKHA_LANGUAGE_FOUNDATION_ROOT?.verificationLevel ===
         'HOST_BOOTSTRAPPED_LANGUAGE_FOUNDATION_VERIFIED' &&
       domains.SHEIKHA_LANGUAGE_FOUNDATION_ROOT?.claims

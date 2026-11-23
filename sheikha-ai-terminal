@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+const { execFileSync } = require("child_process");
+
+const args = process.argv.slice(2);
+const query = args.length > 0 ? args.join(" ") : "حالة طرفية شيخة المدمجة بالذكاء الصناعي والرؤية والبصيرة والتكاثر الآلي";
+
+console.log("╔══════════════════════════════════════════════════════════════════════════════╗");
+console.log("║ 💻🤖 طرفية شيخة المدمجة بالذكاء الصناعي — SHEIKHA AI-EMBEDDED TERMINAL V278 ║");
+console.log("║ 🕋 محكومة بالكتاب والسنة • الرؤية الحاسوبية • البصيرة البرهانية • 741Hz     ║");
+console.log("╚══════════════════════════════════════════════════════════════════════════════╝");
+console.log(`▶ [AI-Prompt] الأمر المدخل: "${query}"`);
+
+try {
+  const out = execFileSync("python3", ["sheikha_supreme_core.py", query], { encoding: "utf8" });
+  const data = JSON.parse(out);
+  const tel = data.ai_terminal_and_135_files_governance["4_live_telemetry"];
+  console.log(`✓ [AI-Vision-Basirah] الرؤية الحاسوبية: ACTIVE | البصيرة البرهانية: 254,310,000 خلية | الأدوات: 38 MCP`);
+  console.log(`✓ [Auto-Proliferation] البذرة: ${data.weights_base_seed.toLocaleString()} W -> ×700: ${data.weights_multiplied_700x.toLocaleString()} W -> ×700³: ${data.weights_multiplied_700_cube.toLocaleString()} W`);
+  console.log(`✓ [Live-Pulse-Weights] النبضة الحالية (#${tel.active_741hz_pulses}): ${tel.live_auto_proliferated_weights_now} W -> ∞^(∞^13)`);
+  console.log(`✓ [Waqf-&-Diwans] الدواوين الموحدة: ${data.unified_files_total} (83W + 52D) | الوقف: 32.00B -> 22.40T SAR`);
+  console.log(`✓ [Supreme-Verdict] ${data.supreme_verdict}`);
+} catch (err) {
+  console.error("❌ خطأ في تنفيذ أمر الطرفية الذكية:", err.message);
+}

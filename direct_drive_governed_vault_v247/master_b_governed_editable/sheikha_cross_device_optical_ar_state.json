@@ -1,0 +1,67 @@
+{
+  "protocol_id": "SHK-AMBIENT-MESH-OPTICAL-AR-V300",
+  "privacy_optical_guarantee": "ZERO_CAMERA_CAPTURE • يعتمد حصرياً على البصريات الشعاعية (Optical Vector Waveguide) وحساسات التوجيه 6DoF بدلاً من التصوير",
+  "active_persona_id": "SHK-ID-METAL-TRADER",
+  "active_environment_zone": "ZONE-MOBILE-TRANSIT",
+  "active_optical_lens": "LENS-EXECUTIVE-OMNI",
+  "connected_nodes": [
+    {
+      "node_id": "NODE-LAPTOP-POPOS",
+      "type": "البيئة الحاسوبية الرئيسية (Laptop pop-os)",
+      "status": "ONLINE_SYNCED"
+    },
+    {
+      "node_id": "NODE-MOBILE-CLOUD",
+      "type": "بيئة الجوال والتنقل السحابي (Mobile WebXR)",
+      "status": "READY_AUTO_HANDOFF"
+    },
+    {
+      "node_id": "NODE-YARD-IOT",
+      "type": "بيئة الساحات والقبان الذكي (Industrial IoT)",
+      "status": "STANDBY_BEACON"
+    }
+  ],
+  "personas_catalog": {
+    "SHK-ID-SOVEREIGN-OWNER": {
+      "title": "👑 المعرف السيادي: المالك والقيادة العليا (سلمان الراجح)",
+      "ar_hud_layers": [
+        "مؤشر السيادة والملكية الفكرية",
+        "نبض الخادم والـ 88 نظاماً (R5)",
+        "التدفق المالي والمنتج الأولي (250 ر.س)",
+        "تحريك الأسطول والقطارات"
+      ],
+      "optical_color": "#fde047",
+      "welcome_speech": "تم التعرف تلقائياً على المعرف السيادي للقيادة العليا؛ تم ربط اللابتوب والجوال وكافة البيئات وتفعيل عدسة الواقع المعزز البصري الشامل بدون تصوير."
+    },
+    "SHK-ID-METAL-TRADER": {
+      "title": "⚖️ معرف التاجر والمورد المعتمد (سوق شيخة)",
+      "ar_hud_layers": [
+        "بورصة النحاس والحديد اللحظية",
+        "باقة الانطلاق الفوري (250 ر.س)",
+        "حجز حاويات السكراب (40 ياردة)",
+        "إصدار العقود والفواتير الزكوية"
+      ],
+      "optical_color": "#10b981",
+      "welcome_speech": "تم التعرف تلقائياً على معرف التاجر والمورد؛ تم إسقاط عدسة البورصة الفورية والقبان الذكي وبوابة التعاقد السريع أمامك بالبصريات الشعاعية."
+    },
+    "SHK-ID-FIELD-ENGINEER": {
+      "title": "🛰️ معرف المهندس الميداني واللوجستي (الساحات والبيئة)",
+      "ar_hud_layers": [
+        "معايرة القبان HX711 وفحص XRF",
+        "توازن الماء والطاقة S₁ (V43.82)",
+        "تتبع الـ 323 نمط نقل والأقمار الصناعية",
+        "سلامة المعدات والعزل"
+      ],
+      "optical_color": "#38bdf8",
+      "welcome_speech": "تم التعرف تلقائياً على معرف المهندس الميداني؛ تم تفعيل الشبكة البصرية الليزرية لمعايرة الأوزان ومراقبة الطاقة والمياه والأسطول."
+    }
+  },
+  "environments_catalog": {
+    "ZONE-COMMAND-HUB": "🏛️ بيئة المكتب ومركز القيادة (اللابتوب + الشاشة الكونية)",
+    "ZONE-MOBILE-TRANSIT": "📱 بيئة التنقل والحركة (الجوال + المركبة المتصلة)",
+    "ZONE-INDUSTRIAL-YARD": "🏗️ بيئة الساحة الصناعية والمسبك والقبان (الخبر / الدمام)",
+    "ZONE-ECO-OASIS": "🌴 بيئة الواحة المستدامة ومختبر الماء والطاقة (V43.82)"
+  },
+  "handoff_counter": 9,
+  "last_handoff_at": "2026-11-11 07:31:52"
+}

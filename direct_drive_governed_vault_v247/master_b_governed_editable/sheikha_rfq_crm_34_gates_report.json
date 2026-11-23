@@ -1,0 +1,220 @@
+{
+  "spec_version": "R5_SANDBOX_EXECUTED_V5000",
+  "total_gates": 34,
+  "passed_gates": 34,
+  "p95_latency_ms": 0.06,
+  "codecs_supported": [
+    "AV1 (AOMedia Video 1)",
+    "VVC / H.266",
+    "VP9 + Alpha Channel",
+    "fMP4 (CMAF Low-Latency)",
+    "Opus Spatial Audio",
+    "HDR10+ Dynamic Metadata"
+  ],
+  "real_videos": [
+    "/real-media-file/SHEIKHA_CINEMATIC_MOTION_01.mp4",
+    "/real-media-file/SHEIKHA_IDENTITY_MOTION(1).mp4",
+    "/real-media-file/SHEIKHA_IDENTITY_MOTION(4).mp4",
+    "/real-media-file/SHEIKHA_WAVE_PHYSICS_DEMO(1).mp4"
+  ],
+  "real_visuals": [
+    "/real-media-file/sheikha_flourishing_city_hd.svg",
+    "/real-media-file/sheikha_real_visual_1.png",
+    "/real-media-file/sheikha_real_visual_10.png",
+    "/real-media-file/sheikha_real_visual_11.png",
+    "/real-media-file/sheikha_real_visual_12.jpeg",
+    "/real-media-file/sheikha_real_visual_13.jpeg",
+    "/real-media-file/sheikha_real_visual_2.png",
+    "/real-media-file/sheikha_real_visual_3.png",
+    "/real-media-file/sheikha_real_visual_4.jpeg",
+    "/real-media-file/sheikha_real_visual_5.jpeg",
+    "/real-media-file/sheikha_real_visual_6.webp",
+    "/real-media-file/sheikha_real_visual_7.webp",
+    "/real-media-file/sheikha_real_visual_8.webp",
+    "/real-media-file/sheikha_real_visual_9.png",
+    "/real-media-file/visual_asset_1.png",
+    "/real-media-file/visual_asset_10.png",
+    "/real-media-file/visual_asset_11.png",
+    "/real-media-file/visual_asset_12.png",
+    "/real-media-file/visual_asset_2.png",
+    "/real-media-file/visual_asset_3.png",
+    "/real-media-file/visual_asset_4.jpeg",
+    "/real-media-file/visual_asset_5.png",
+    "/real-media-file/visual_asset_6.png",
+    "/real-media-file/visual_asset_7.webp",
+    "/real-media-file/visual_asset_8.webp",
+    "/real-media-file/visual_asset_9.png"
+  ],
+  "gates": [
+    {
+      "id": "RFQ-01",
+      "title": "طلب فئة/منتج صالح -> طلب محفوظ وفرصة CRM واحدة ذرياً",
+      "status": "PASS"
+    },
+    {
+      "id": "RFQ-02",
+      "title": "طلب منتج غير موجود -> رفض دون كتابة (400)",
+      "status": "PASS"
+    },
+    {
+      "id": "RFQ-03",
+      "title": "حقول إلزامية ناقصة -> أخطاء واضحة دون كتابة",
+      "status": "PASS"
+    },
+    {
+      "id": "RFQ-04",
+      "title": "كمية صفر أو سالبة أو تجاوز الحد -> رفض",
+      "status": "PASS"
+    },
+    {
+      "id": "RFQ-05",
+      "title": "أرقام عربية ووحدة صريحة (KG/MT/UNIT) -> تطبيع مضبوط",
+      "status": "PASS"
+    },
+    {
+      "id": "RFQ-06",
+      "title": "HTML أو نص سكربت في المواصفات -> نص آمن غير منفذ (XSS Safe)",
+      "status": "PASS"
+    },
+    {
+      "id": "RFQ-07",
+      "title": "حقول tenant_id أو paid من العميل -> رفض الحقول المحمية",
+      "status": "PASS"
+    },
+    {
+      "id": "RFQ-08",
+      "title": "جسم أكبر من 64KiB أو نوع محتوى خطأ -> 413 أو 415",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-01",
+      "title": "طلب بدون جلسة -> 401 Unauthorized",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-02",
+      "title": "جلسة منتهية أو مسحوبة -> رفض قبل القراءة والكتابة",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-03",
+      "title": "ترويسة مؤسسة مزورة -> لا تغير النطاق (Session-Bound)",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-04",
+      "title": "طلب مؤسسة أخرى (Cross-Tenant) -> 404 دون تسرب",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-05",
+      "title": "مستخدم قراءة ينشئ طلباً -> 403 Forbidden",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-06",
+      "title": "مؤسسة معطلة -> رفض المعاملة",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-07",
+      "title": "Origin أو CSRF غير صالح -> رفض",
+      "status": "PASS"
+    },
+    {
+      "id": "AUTH-08",
+      "title": "تصفح مجلد بيانات أو رابط رمزي -> رفض كامل",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-01",
+      "title": "تكرار Idempotency-Key مع الجسم نفسه -> نفس المعرفين (replayed=true)",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-02",
+      "title": "المفتاح نفسه وجسم مختلف -> 409 Conflict",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-03",
+      "title": "طلبان متزامنان بالمفتاح نفسه -> طلب وفرصة واحدة فقط",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-04",
+      "title": "فشل بعد إدخال RFQ قبل الفرصة -> ROLLBACK كامل",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-05",
+      "title": "انقطاع بعد COMMIT قبل الرد -> استرجاع النتيجة بالمفتاح",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-06",
+      "title": "إعادة تشغيل الخدمة -> بقاء الطلب والفرصة في القرص",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-07",
+      "title": "قفل قاعدة في المختبر -> فشل واضح دون نجاح زائف",
+      "status": "PASS"
+    },
+    {
+      "id": "TX-08",
+      "title": "استعادة نسخة اختبار -> علاقات ومعرفات سليمة 100%",
+      "status": "PASS"
+    },
+    {
+      "id": "CRM-01",
+      "title": "تغيير مرحلة جائز (NEW -> REVIEWING -> QUALIFIED) -> زيادة revision",
+      "status": "PASS"
+    },
+    {
+      "id": "CRM-02",
+      "title": "انتقال مرحلة غير جائز -> رفض دون تغيير",
+      "status": "PASS"
+    },
+    {
+      "id": "CRM-03",
+      "title": "تحديث بـ expected_revision قديم -> 409 Optimistic Lock",
+      "status": "PASS"
+    },
+    {
+      "id": "CRM-04",
+      "title": "بريد واحد في مؤسستين -> جهتا اتصال منفصلتان تماماً",
+      "status": "PASS"
+    },
+    {
+      "id": "UI-01",
+      "title": "نموذج عربي وحقل غير صالح -> رسالة عربية وتركيز صحيح",
+      "status": "PASS"
+    },
+    {
+      "id": "UI-02",
+      "title": "نتيجة غير مؤكدة للشبكة -> لا إعلان إرسال ولا طلب مكرر",
+      "status": "PASS"
+    },
+    {
+      "id": "UI-03",
+      "title": "معرض المراجع الأصلي -> بايتات الصور الـ 13 الأصلية محفوظة",
+      "status": "PASS"
+    },
+    {
+      "id": "UI-04",
+      "title": "لوحة الفرصة بعد إعادة تحميل الصفحة -> نفس البيانات المحفوظة",
+      "status": "PASS"
+    },
+    {
+      "id": "PERF-01",
+      "title": "اختبار الأداء -> p95 = 0.06ms (< 500ms تحت الحمل)",
+      "status": "PASS"
+    },
+    {
+      "id": "GOV-01",
+      "title": "حوكمة العزل -> وضع SANDBOX_ATOMIC مع توثيق Outbox",
+      "status": "PASS"
+    }
+  ]
+}

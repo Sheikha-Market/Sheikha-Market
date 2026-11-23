@@ -1,0 +1,336 @@
+{
+  "official_title": "بسم الله — مصفوفة شيخة الشاملة لطبقات اللوجستيات (1PL إلى 10PL) و الـ 323 نمط نقل عالمي ومحلي",
+  "total_modes_activated": 323,
+  "pl_tiers_summary": [
+    {
+      "tier": "1PL (الطرف الأول)",
+      "name": "نقل المالك والمصنع المباشر",
+      "modes_count": 54,
+      "systems": "قبان شيخة الذكي + تصريح دخول ساحة"
+    },
+    {
+      "tier": "2PL (الطرف الثاني)",
+      "name": "مشغلو الشاحنات والخطوط الملاحية والسككية",
+      "modes_count": 54,
+      "systems": "Trukker + منصة نقل (TGA) + سار (SAR) + البحري"
+    },
+    {
+      "tier": "3PL (الطرف الثالث)",
+      "name": "المستودعات، ساحات الإيداع، الكبس، والتخليص الجمركي",
+      "modes_count": 54,
+      "systems": "Odoo Fleet & WMS + منصة فسح (FASAH) + بوالص الشحن"
+    },
+    {
+      "tier": "4PL (الطرف الرابع)",
+      "name": "إدارة وهندسة سلاسل الإمداد والعقود الطويلة (End-to-End PMO)",
+      "modes_count": 54,
+      "systems": "IBM Maximo + SAP Ariba + جدولة المشاريع"
+    },
+    {
+      "tier": "5PL (الطرف الخامس)",
+      "name": "بورصة الشحن الرقمي وتجميع الحاويات والأساطيل",
+      "modes_count": 54,
+      "systems": "بورصة شيخة + محرك التسعير والمطابقة الفوري"
+    },
+    {
+      "tier": "6PL – 10PL (المستقبلية)",
+      "name": "اللوجستيات الذاتية، الخضراء، والفضائية (AI, Green & Satellite PL)",
+      "modes_count": 53,
+      "systems": "Iridium Satellite + SheikhaChain + الشهادات الخضراء"
+    }
+  ],
+  "major_transport_vectors": [
+    {
+      "vector": "🚛 1. النقل البرّي والأساطيل الثقيلة (Land & Heavy Fleet)",
+      "details": "تريلات، قلابات، لوابد، وحاويات سكراب Roll-off (20/30/40 ياردة) مربوطة بوثيقة نقل الإلكترونية."
+    },
+    {
+      "vector": "🚢 2. النقل البحري والشحن الدولي (Ocean & Maritime Freight)",
+      "details": "حاويات 20ft/40ft HC، حاويات Open-Top، وسفن صب (Bulk Vessels) عبر ميناء الملك عبدالعزيز بالدمام والجبيل وجدة (FOB / CIF)."
+    },
+    {
+      "vector": "🚆 3. النقل السككي الصناعي والتعديني (Rail Freight — SAR)",
+      "details": "شحن الحاويات والمعادن الثقيلة بالقطارات الصناعية بين الموانئ والمدن الصناعية (الدمام، الرياض، رأس الخير)."
+    },
+    {
+      "vector": "✈️ 4. النقل الجوي السريع والمؤمّن (Air Cargo & Precious Bullion)",
+      "details": "شحن سبائك الذهب والفضة والبلاتينيوم وعينات الفحص الطيفي العاجلة (XRF COA) عبر المطارات الدولية."
+    },
+    {
+      "vector": "🛰️ 5. النقل متعدد الوسائط والحاويات الذكية (Intermodal, Ro-Ro & Pipeline)",
+      "details": "دمج البرّي والسككي والبحري ببوليصة شحن موحدة (Sheikha Multimodal Bill of Lading) وأقفال فضائية ذكية."
+    }
+  ],
+  "sample_modes": [
+    {
+      "mode_id": "SHK-TRN-001",
+      "pl_tier": "1PL-DIRECT",
+      "pl_description": "1PL — النقل الذاتي المباشر للمصانع والساحات (First-Party Logistics)",
+      "transport_domain": "النقل البرّي الداخلي والميداني",
+      "mode_title": "نمط شيخة اللوجستي #1: قاطرة تريلا مسطحة (Flatbed 13.6m)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-002",
+      "pl_tier": "2PL-CARRIER",
+      "pl_description": "2PL — مشغلو الأساطيل والشاحنات والسفن (Second-Party Carriers)",
+      "transport_domain": "النقل البرّي الثقيل والبحري",
+      "mode_title": "نمط شيخة اللوجستي #2: حاوية سكراب هيدروليكية (Roll-off 40 Yard)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-003",
+      "pl_tier": "3PL-INTEGRATED",
+      "pl_description": "3PL — الخدمات اللوجستية المتكاملة، المستودعات، والتخليص (Third-Party 3PL)",
+      "transport_domain": "التخزين، الكبس، وميناء الدمام",
+      "mode_title": "نمط شيخة اللوجستي #3: حاوية شحن بحري دولي (40ft High Cube)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-004",
+      "pl_tier": "4PL-ORCHESTRATOR",
+      "pl_description": "4PL — قيادة وهندسة سلاسل الإمداد الشاملة (Fourth-Party Lead Logistics)",
+      "transport_domain": "إدارة مشاريع النقل End-to-End",
+      "mode_title": "نمط شيخة اللوجستي #4: حاوية سقف مفتوح للمعادن الثقيلة (Open-Top 20ft)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-005",
+      "pl_tier": "5PL-NETWORK",
+      "pl_description": "5PL — شبكات وبورصة الشحن الرقمي وتجميع الحمولات (Fifth-Party E-Logistics)",
+      "transport_domain": "النقل متعدد الوسائط Multimodal",
+      "mode_title": "نمط شيخة اللوجستي #5: سفينة بضائع سائبة للحديد والسبائك (Bulk Carrier Vessel)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-006",
+      "pl_tier": "6PL-10PL-SMART",
+      "pl_description": "6PL إلى 10PL — اللوجستيات الذكية، الخضراء، والفضائية (AI, Green & Space PL)",
+      "transport_domain": "الأقمار الصناعية، سار السككي، والجوي المؤمن",
+      "mode_title": "نمط شيخة اللوجستي #6: قطار شحن صناعي (خط سار SAR الدمام-الرياض-رأس الخير)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-007",
+      "pl_tier": "1PL-DIRECT",
+      "pl_description": "1PL — النقل الذاتي المباشر للمصانع والساحات (First-Party Logistics)",
+      "transport_domain": "النقل البرّي الداخلي والميداني",
+      "mode_title": "نمط شيخة اللوجستي #7: شاحنة لوبد للمعدات والمحولات الثقيلة (Heavy Lowbed 80T)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-008",
+      "pl_tier": "2PL-CARRIER",
+      "pl_description": "2PL — مشغلو الأساطيل والشاحنات والسفن (Second-Party Carriers)",
+      "transport_domain": "النقل البرّي الثقيل والبحري",
+      "mode_title": "نمط شيخة اللوجستي #8: شحن جوي مؤمن للمعادن الثمينة والذهب والبلاتينيوم (Secure Air Bullion)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-009",
+      "pl_tier": "3PL-INTEGRATED",
+      "pl_description": "3PL — الخدمات اللوجستية المتكاملة، المستودعات، والتخليص (Third-Party 3PL)",
+      "transport_domain": "التخزين، الكبس، وميناء الدمام",
+      "mode_title": "نمط شيخة اللوجستي #9: ناقلات دحرجة للمركبات والتشليح (Ro-Ro Carrier)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-010",
+      "pl_tier": "4PL-ORCHESTRATOR",
+      "pl_description": "4PL — قيادة وهندسة سلاسل الإمداد الشاملة (Fourth-Party Lead Logistics)",
+      "transport_domain": "إدارة مشاريع النقل End-to-End",
+      "mode_title": "نمط شيخة اللوجستي #10: حاوية ذكية مبردة ومؤمنة للبطاريات والإلكترونيات (Smart HazMat IoT Container)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-011",
+      "pl_tier": "5PL-NETWORK",
+      "pl_description": "5PL — شبكات وبورصة الشحن الرقمي وتجميع الحمولات (Fifth-Party E-Logistics)",
+      "transport_domain": "النقل متعدد الوسائط Multimodal",
+      "mode_title": "نمط شيخة اللوجستي #11: قاطرة تريلا مسطحة (Flatbed 13.6m)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-012",
+      "pl_tier": "6PL-10PL-SMART",
+      "pl_description": "6PL إلى 10PL — اللوجستيات الذكية، الخضراء، والفضائية (AI, Green & Space PL)",
+      "transport_domain": "الأقمار الصناعية، سار السككي، والجوي المؤمن",
+      "mode_title": "نمط شيخة اللوجستي #12: حاوية سكراب هيدروليكية (Roll-off 40 Yard)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-013",
+      "pl_tier": "1PL-DIRECT",
+      "pl_description": "1PL — النقل الذاتي المباشر للمصانع والساحات (First-Party Logistics)",
+      "transport_domain": "النقل البرّي الداخلي والميداني",
+      "mode_title": "نمط شيخة اللوجستي #13: حاوية شحن بحري دولي (40ft High Cube)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-014",
+      "pl_tier": "2PL-CARRIER",
+      "pl_description": "2PL — مشغلو الأساطيل والشاحنات والسفن (Second-Party Carriers)",
+      "transport_domain": "النقل البرّي الثقيل والبحري",
+      "mode_title": "نمط شيخة اللوجستي #14: حاوية سقف مفتوح للمعادن الثقيلة (Open-Top 20ft)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-015",
+      "pl_tier": "3PL-INTEGRATED",
+      "pl_description": "3PL — الخدمات اللوجستية المتكاملة، المستودعات، والتخليص (Third-Party 3PL)",
+      "transport_domain": "التخزين، الكبس، وميناء الدمام",
+      "mode_title": "نمط شيخة اللوجستي #15: سفينة بضائع سائبة للحديد والسبائك (Bulk Carrier Vessel)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-016",
+      "pl_tier": "4PL-ORCHESTRATOR",
+      "pl_description": "4PL — قيادة وهندسة سلاسل الإمداد الشاملة (Fourth-Party Lead Logistics)",
+      "transport_domain": "إدارة مشاريع النقل End-to-End",
+      "mode_title": "نمط شيخة اللوجستي #16: قطار شحن صناعي (خط سار SAR الدمام-الرياض-رأس الخير)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-017",
+      "pl_tier": "5PL-NETWORK",
+      "pl_description": "5PL — شبكات وبورصة الشحن الرقمي وتجميع الحمولات (Fifth-Party E-Logistics)",
+      "transport_domain": "النقل متعدد الوسائط Multimodal",
+      "mode_title": "نمط شيخة اللوجستي #17: شاحنة لوبد للمعدات والمحولات الثقيلة (Heavy Lowbed 80T)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-018",
+      "pl_tier": "6PL-10PL-SMART",
+      "pl_description": "6PL إلى 10PL — اللوجستيات الذكية، الخضراء، والفضائية (AI, Green & Space PL)",
+      "transport_domain": "الأقمار الصناعية، سار السككي، والجوي المؤمن",
+      "mode_title": "نمط شيخة اللوجستي #18: شحن جوي مؤمن للمعادن الثمينة والذهب والبلاتينيوم (Secure Air Bullion)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-019",
+      "pl_tier": "1PL-DIRECT",
+      "pl_description": "1PL — النقل الذاتي المباشر للمصانع والساحات (First-Party Logistics)",
+      "transport_domain": "النقل البرّي الداخلي والميداني",
+      "mode_title": "نمط شيخة اللوجستي #19: ناقلات دحرجة للمركبات والتشليح (Ro-Ro Carrier)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-020",
+      "pl_tier": "2PL-CARRIER",
+      "pl_description": "2PL — مشغلو الأساطيل والشاحنات والسفن (Second-Party Carriers)",
+      "transport_domain": "النقل البرّي الثقيل والبحري",
+      "mode_title": "نمط شيخة اللوجستي #20: حاوية ذكية مبردة ومؤمنة للبطاريات والإلكترونيات (Smart HazMat IoT Container)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-021",
+      "pl_tier": "3PL-INTEGRATED",
+      "pl_description": "3PL — الخدمات اللوجستية المتكاملة، المستودعات، والتخليص (Third-Party 3PL)",
+      "transport_domain": "التخزين، الكبس، وميناء الدمام",
+      "mode_title": "نمط شيخة اللوجستي #21: قاطرة تريلا مسطحة (Flatbed 13.6m)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-022",
+      "pl_tier": "4PL-ORCHESTRATOR",
+      "pl_description": "4PL — قيادة وهندسة سلاسل الإمداد الشاملة (Fourth-Party Lead Logistics)",
+      "transport_domain": "إدارة مشاريع النقل End-to-End",
+      "mode_title": "نمط شيخة اللوجستي #22: حاوية سكراب هيدروليكية (Roll-off 40 Yard)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-023",
+      "pl_tier": "5PL-NETWORK",
+      "pl_description": "5PL — شبكات وبورصة الشحن الرقمي وتجميع الحمولات (Fifth-Party E-Logistics)",
+      "transport_domain": "النقل متعدد الوسائط Multimodal",
+      "mode_title": "نمط شيخة اللوجستي #23: حاوية شحن بحري دولي (40ft High Cube)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-024",
+      "pl_tier": "6PL-10PL-SMART",
+      "pl_description": "6PL إلى 10PL — اللوجستيات الذكية، الخضراء، والفضائية (AI, Green & Space PL)",
+      "transport_domain": "الأقمار الصناعية، سار السككي، والجوي المؤمن",
+      "mode_title": "نمط شيخة اللوجستي #24: حاوية سقف مفتوح للمعادن الثقيلة (Open-Top 20ft)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-025",
+      "pl_tier": "1PL-DIRECT",
+      "pl_description": "1PL — النقل الذاتي المباشر للمصانع والساحات (First-Party Logistics)",
+      "transport_domain": "النقل البرّي الداخلي والميداني",
+      "mode_title": "نمط شيخة اللوجستي #25: سفينة بضائع سائبة للحديد والسبائك (Bulk Carrier Vessel)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-026",
+      "pl_tier": "2PL-CARRIER",
+      "pl_description": "2PL — مشغلو الأساطيل والشاحنات والسفن (Second-Party Carriers)",
+      "transport_domain": "النقل البرّي الثقيل والبحري",
+      "mode_title": "نمط شيخة اللوجستي #26: قطار شحن صناعي (خط سار SAR الدمام-الرياض-رأس الخير)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-027",
+      "pl_tier": "3PL-INTEGRATED",
+      "pl_description": "3PL — الخدمات اللوجستية المتكاملة، المستودعات، والتخليص (Third-Party 3PL)",
+      "transport_domain": "التخزين، الكبس، وميناء الدمام",
+      "mode_title": "نمط شيخة اللوجستي #27: شاحنة لوبد للمعدات والمحولات الثقيلة (Heavy Lowbed 80T)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-028",
+      "pl_tier": "4PL-ORCHESTRATOR",
+      "pl_description": "4PL — قيادة وهندسة سلاسل الإمداد الشاملة (Fourth-Party Lead Logistics)",
+      "transport_domain": "إدارة مشاريع النقل End-to-End",
+      "mode_title": "نمط شيخة اللوجستي #28: شحن جوي مؤمن للمعادن الثمينة والذهب والبلاتينيوم (Secure Air Bullion)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-029",
+      "pl_tier": "5PL-NETWORK",
+      "pl_description": "5PL — شبكات وبورصة الشحن الرقمي وتجميع الحمولات (Fifth-Party E-Logistics)",
+      "transport_domain": "النقل متعدد الوسائط Multimodal",
+      "mode_title": "نمط شيخة اللوجستي #29: ناقلات دحرجة للمركبات والتشليح (Ro-Ro Carrier)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    },
+    {
+      "mode_id": "SHK-TRN-030",
+      "pl_tier": "6PL-10PL-SMART",
+      "pl_description": "6PL إلى 10PL — اللوجستيات الذكية، الخضراء، والفضائية (AI, Green & Space PL)",
+      "transport_domain": "الأقمار الصناعية، سار السككي، والجوي المؤمن",
+      "mode_title": "نمط شيخة اللوجستي #30: حاوية ذكية مبردة ومؤمنة للبطاريات والإلكترونيات (Smart HazMat IoT Container)",
+      "erp_sync": "Odoo Fleet + Maximo + Trukker + Naql + FASAH + SheikhaChain",
+      "status": "مفعّل ومربوط بالبورصة"
+    }
+  ]
+}

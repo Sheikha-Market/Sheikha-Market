@@ -1,0 +1,55 @@
+{
+  "system_id": "SHEIKHA-TREASURY-AND-BANK-RECONCILIATION-LEDGER",
+  "entity_name": "مؤسسة سلمان أحمد بن سلمان الراجح التجارية — منظومة وسوق شيخة",
+  "cr_number": "2051263653",
+  "aramco_vendor_id": "S11488084",
+  "bank_name": "مصرف الإنماء (Alinma Bank)",
+  "official_iban": "SA4005000068206162118000",
+  "summary": {
+    "total_inflow_sar": 514875.0,
+    "total_outflow_sar": 425000.0,
+    "net_cashflow_sar": 89875.0,
+    "collected_vat_15_sar": 67157.61
+  },
+  "vouchers": [
+    {
+      "voucher_no": "RV-SHK-2026-101",
+      "type": "RECEIPT (سند قبض وتحصيل بنكي وارد)",
+      "counterparty": "مصنع الخليج لدرفلة وسبائك الألمنيوم — الدمام",
+      "reference_doc": "PO-SHK-2026-201 | GRN-SHK-5001",
+      "description": "تحصيل قيمة توريد 50 طن بالات علب ألمنيوم مكبوسة (UBC - HS 7602.00.10)",
+      "net_amount_sar": 447500.0,
+      "vat_15_sar": 67125.0,
+      "total_amount_sar": 514625.0,
+      "bank_channel": "حوالة سريعة / مصرف الإنماء (SA4005000068206162118000)",
+      "status": "SETTLED_AND_VERIFIED",
+      "timestamp": "2026-11-12 14:20:00"
+    },
+    {
+      "voucher_no": "PV-SHK-2026-102",
+      "type": "PAYMENT (سند صرف وتسوية لمورد مؤهل)",
+      "counterparty": "مؤسسة الصقر لتجارة المعادن والسكراب — الخبر",
+      "reference_doc": "GRN-SHK-5001 | RED-SEAL-KSA-88412",
+      "description": "سداد قيمة شراء 50 طن علب ألمنيوم خام بعد الفحص الطيفي XRF وخصم الشوائب",
+      "net_amount_sar": 369565.22,
+      "vat_15_sar": 55434.78,
+      "total_amount_sar": 425000.0,
+      "bank_channel": "تحويل بنكي صادر / مصرف الإنماء",
+      "status": "PAID_AND_CLEARED",
+      "timestamp": "2026-11-12 15:10:00"
+    },
+    {
+      "voucher_no": "RV-SHK-2026-103",
+      "type": "RECEIPT (سند قبض وتحصيل بنكي وارد)",
+      "counterparty": "شركة الرواد للمعادن والمقاولات — الرياض",
+      "reference_doc": "ORD-SHK-2019 | GTM-DEAL-1001",
+      "description": "رسوم تفعيل باقة المورد المؤهل ودليل الـ 50 مصنعاً وعقد التوريد",
+      "net_amount_sar": 217.39,
+      "vat_15_sar": 32.61,
+      "total_amount_sar": 250.0,
+      "bank_channel": "تحويل فوري / مصرف الإنماء",
+      "status": "SETTLED_AND_VERIFIED",
+      "timestamp": "2026-11-12 16:05:00"
+    }
+  ]
+}

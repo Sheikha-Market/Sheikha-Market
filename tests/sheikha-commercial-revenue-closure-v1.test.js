@@ -8,10 +8,15 @@ const revenue = require(
     'sheikha-commercial-revenue-closure-v1'
 );
 
-test('loads four controlled commercial offers', () => {
+test('loads controlled commercial and visual offers', () => {
   const catalog = revenue.loadCatalog();
 
-  assert.equal(catalog.offers.length, 4);
+  const ids = catalog.offers.map((offer) => offer.id);
+  assert.equal(new Set(ids).size, ids.length);
+  assert.ok(ids.includes('SHEIKHA_CHAT_PRO_PILOT_V1'));
+  assert.ok(ids.includes('SHEIKHA_CHAT_BUSINESS_PILOT_V1'));
+  assert.ok(ids.includes('SHEIKHA_360_MEASURED_TWIN_PILOT_V1'));
+  assert.ok(ids.includes('SHEIKHA_PRODUCT_VISUAL_PACK_V1'));
   assert.equal(catalog.currency, 'SAR');
   assert.equal(
     catalog.governance.noAutomaticRevenueRecognition,
@@ -111,9 +116,16 @@ test('reports service-led commercial readiness', () => {
   const result = revenue.status();
 
   assert.equal(result.success, true);
-  assert.equal(result.offersCount, 4);
+  assert.equal(result.offersCount, revenue.loadCatalog().offers.length);
   assert.equal(
     result.primaryRevenuePath,
     'SERVICE_LED_REVENUE_BEFORE_FULL_SAAS_SCALE'
   );
+});
+
+test('calculates the governed visual product pack quote', () => {
+  const quote = revenue.calculateQuote({ offerId: 'SHEIKHA_PRODUCT_VISUAL_PACK_V1' });
+  assert.equal(quote.success, true);
+  assert.equal(quote.subtotalSar, 3500);
+  assert.equal(quote.humanApprovalRequired, true);
 });

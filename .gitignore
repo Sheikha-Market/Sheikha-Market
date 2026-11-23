@@ -205,3 +205,14 @@ runtime/identity/sheikha-active-identity-v2-report.json
 .gitmodules
 .ripgreprc
 .mcp.json
+
+# Local LLM training environment and reproducible download intermediates
+/.venv-llm/
+/runtime/sheikha-ai-governor/v1/llm-training/cache/
+/runtime/sheikha-ai-governor/v1/llm-training/*/checkpoints/
+
+# Confidential designs and internal intellectual-property records (local only)
+private/
+**/private/**
+intellectual-property/
+**/intellectual-property/**

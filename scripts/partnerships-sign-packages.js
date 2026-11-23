@@ -2,7 +2,7 @@
 
 /**
  * Partnership packages digital sealing
- * Creates a signed audit manifest for generated contract packages.
+ * Creates an integrity manifest, never a counterparty agreement signature.
  */
 
 const fs = require('fs');
@@ -32,14 +32,17 @@ function listContractFiles() {
         .sort();
 }
 
-function buildManifest(files) {
-    const signedAt = new Date().toISOString();
-    const signer = process.env.SHEIKHA_SIGNER || 'Sheikha Partnership Office';
-    const owner = process.env.SHEIKHA_OWNER || 'Salman Ahmed bin Salman Al-Rajhi';
-    const signingKey = process.env.PARTNERSHIPS_SIGNING_KEY || '';
+function buildManifest(files, options = {}) {
+    const signedAt = options.createdAt || new Date().toISOString();
+    const signer = options.signer || process.env.SHEIKHA_SIGNER || 'UNVERIFIED_OPERATOR';
+    const owner = options.owner || process.env.SHEIKHA_OWNER || 'UNVERIFIED_OWNER';
+    const signingKey = options.signingKey ?? process.env.PARTNERSHIPS_SIGNING_KEY ?? '';
+    const contractsDir = options.contractsDir || CONTRACTS_DIR;
 
     const entries = files.map((fileName) => {
-        const absPath = path.join(CONTRACTS_DIR, fileName);
+        if (!/^spa-[a-zA-Z0-9_-]+\.json$/.test(fileName)) throw new Error('INVALID_CONTRACT_FILE_NAME');
+        const absPath = path.join(contractsDir, fileName);
+        if (fs.lstatSync(absPath).isSymbolicLink()) throw new Error('CONTRACT_SYMLINK_DENIED');
         const raw = fs.readFileSync(absPath);
         const fileSha256 = hashBuffer(raw);
         const parsed = JSON.parse(raw.toString('utf8'));
@@ -60,14 +63,19 @@ function buildManifest(files) {
 
     return {
         metadata: {
-            manifestType: 'Sheikha Partnership Signed Manifest',
+            manifestType: 'Sheikha Partnership Integrity Manifest',
+            assurance: 'INTEGRITY_ONLY_NOT_ELECTRONIC_AGREEMENT_SIGNATURE',
+            electronicAgreementSigned: false,
+            signerIdentityVerified: false,
+            legalEffectVerified: false,
+            legacySignedAtFieldMeaning: 'INTEGRITY_MANIFEST_CREATION_TIME',
             signedAt,
             signer,
             owner,
             contractsCount: entries.length,
             note: signingKey
-                ? 'HMAC signature enabled via PARTNERSHIPS_SIGNING_KEY'
-                : 'Audit seal mode (no private key). Set PARTNERSHIPS_SIGNING_KEY for HMAC signature.'
+                ? 'HMAC authenticates integrity under a shared key, not legal identity or agreement consent.'
+                : 'Unkeyed audit checksum only; does not authenticate a signer or conclude a contract.'
         },
         entries
     };
@@ -75,15 +83,16 @@ function buildManifest(files) {
 
 function saveManifest(manifest) {
     if (!fs.existsSync(SIGNED_DIR)) {
-        fs.mkdirSync(SIGNED_DIR, { recursive: true });
+        fs.mkdirSync(SIGNED_DIR, { recursive: true, mode: 0o700 });
     }
 
     const stamp = manifest.metadata.signedAt.replace(/[:.]/g, '-');
     const outputPath = path.join(SIGNED_DIR, `partnerships-signed-manifest-${stamp}.json`);
-    fs.writeFileSync(outputPath, JSON.stringify(manifest, null, 2));
+    fs.writeFileSync(outputPath, JSON.stringify(manifest, null, 2), { mode: 0o600, flag: 'wx' });
 
     const latestPath = path.join(SIGNED_DIR, 'partnerships-signed-manifest-latest.json');
-    fs.writeFileSync(latestPath, JSON.stringify(manifest, null, 2));
+    if (fs.existsSync(latestPath) && (fs.lstatSync(latestPath).isSymbolicLink() || (fs.statSync(latestPath).mode & 0o777) !== 0o600)) throw new Error('UNSAFE_EXISTING_MANIFEST');
+    fs.writeFileSync(latestPath, JSON.stringify(manifest, null, 2), { mode: 0o600 });
 
     return { outputPath, latestPath };
 }
@@ -100,7 +109,8 @@ function main() {
     const { outputPath, latestPath } = saveManifest(manifest);
 
     console.log('============================================================');
-    console.log('SHEIKHA PARTNERSHIP DIGITAL SIGNING COMPLETE');
+    console.log('SHEIKHA PARTNERSHIP INTEGRITY MANIFEST COMPLETE');
+    console.log('ELECTRONIC_AGREEMENT_SIGNED=false');
     console.log('============================================================');
     console.log(`Contracts Sealed : ${manifest.metadata.contractsCount}`);
     console.log(`Signer           : ${manifest.metadata.signer}`);
@@ -110,4 +120,5 @@ function main() {
     console.log('============================================================');
 }
 
-main();
+if (require.main === module) main();
+module.exports = { buildManifest };

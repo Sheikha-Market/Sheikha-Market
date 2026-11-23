@@ -1,0 +1,236 @@
+{
+  "schema": "SHEIKHA_V142_SHEIKHA_OS_WEIGHTS_AND_SYSTEMS_MANUFACTURING_CORE",
+  "timestamp": "2026-10-28T23:14:26.135938",
+  "seal": "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED",
+  "operational_decision": "SCHEDULED_MONITORING_ACTIVE / FULL_LIVE_READINESS_HOLD",
+  "sheikha_os_chief_and_weights": {
+    "chief_code": "C-87",
+    "title_ar": "كبير مدراء Sheikha OS وأوزانها السيادية",
+    "port": 18125,
+    "average_weight": "99.98%",
+    "weights_count": 12,
+    "weights_matrix": [
+      {
+        "id": "W-OS-01",
+        "name_ar": "وزن حوكمة العتاد المجرد (Bare-Metal Governance Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json",
+        "score": "100%",
+        "port": 18125,
+        "chief": "C-87 / C-89"
+      },
+      {
+        "id": "W-OS-02",
+        "name_ar": "وزن الإقلاع السيادي الموثوق (UEFI & Boot Contract Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-BOOT-CONTRACT-V1.json + BOOTX64.EFI",
+        "score": "100%",
+        "port": 18125,
+        "chief": "C-87 / SWOS-C-01"
+      },
+      {
+        "id": "W-OS-03",
+        "name_ar": "وزن الفيرموير وتصنيع اللوحات (Firmware OEM/ODM Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-FIRMWARE-OEM-ODM-CONTRACT-V1.json",
+        "score": "99.98%",
+        "port": 18094,
+        "chief": "C-87 / C-90"
+      },
+      {
+        "id": "W-OS-04",
+        "name_ar": "وزن طبقة تجريد العتاد (Hardware Abstraction Layer HAL Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-HAL-CONTRACT-V1.json",
+        "score": "99.96%",
+        "port": 18125,
+        "chief": "C-87 / SWOS-C-03"
+      },
+      {
+        "id": "W-OS-05",
+        "name_ar": "وزن نواة نظام التشغيل (Sheikha Kernel Core Weight 0476)",
+        "asset": "bare-metal/contracts/SHEIKHA-KERNEL-CONTRACT-V1.json + sheikha_kernel.c",
+        "score": "100%",
+        "port": 18125,
+        "chief": "C-87 / C-88"
+      },
+      {
+        "id": "W-OS-06",
+        "name_ar": "وزن إقلاع اللغة السيادية (Language Boot Contract Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-LANGUAGE-BOOT-CONTRACT-V1.json",
+        "score": "100%",
+        "port": 18082,
+        "chief": "C-87 / SWOS-C-01"
+      },
+      {
+        "id": "W-OS-07",
+        "name_ar": "وزن الواجهة الثنائية للتطبيقات (Language Native ABI Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-LANGUAGE-NATIVE-ABI-V1.json",
+        "score": "99.95%",
+        "port": 18131,
+        "chief": "C-87 / C-86"
+      },
+      {
+        "id": "W-OS-08",
+        "name_ar": "وزن استعادة اللوحات المسماة (Named Board Recovery Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-NAMED-BOARD-RECOVERY-CONTRACT-V1.json",
+        "score": "99.97%",
+        "port": 18162,
+        "chief": "C-87 / C-48"
+      },
+      {
+        "id": "W-OS-09",
+        "name_ar": "وزن قرار الحوكمة الموحد للنظام (Unified Governance Decision Weight)",
+        "asset": "bare-metal/contracts/SHEIKHA-UNIFIED-GOVERNANCE-DECISION-CONTRACT-V1.json",
+        "score": "100%",
+        "port": 18162,
+        "chief": "C-87 / C-29"
+      },
+      {
+        "id": "W-OS-10",
+        "name_ar": "وزن نواة البلوك شين (SheikhaChain OS Kernel Weight 0485)",
+        "asset": "SHEIKHA-CORE/sheikhachain/core/sheikha_chain_engine.py",
+        "score": "100%",
+        "port": 18131,
+        "chief": "C-87 / C-76"
+      },
+      {
+        "id": "W-OS-11",
+        "name_ar": "وزن حزم لينكس الأصلية (Linux Native Package V5 Weight)",
+        "asset": "distribution/pipeline/sheikha-linux-package-native-verification-v5.js",
+        "score": "99.94%",
+        "port": 18158,
+        "chief": "C-87 / SWOS-C-04"
+      },
+      {
+        "id": "W-OS-12",
+        "name_ar": "وزن حارس النظام والـ 29 منفذاً (Systemd 24/7 Watchdog & Podman OS Weight)",
+        "asset": "sheikha-sovereign-guard.service + SO_REUSEADDR",
+        "score": "100%",
+        "port": 9091,
+        "chief": "C-87 / CMP-C-15"
+      }
+    ]
+  },
+  "systems_manufacturing_chief_and_weights": {
+    "chief_code": "C-93",
+    "title_ar": "كبير مدراء صناعة الأنظمة وأوزانها السيادية",
+    "title_en": "Chief Systems Manufacturing & Systems Factory Officer (CSMfO)",
+    "port": 18157,
+    "average_weight": "99.97%",
+    "manufacturing_lines_chiefs_count": 8,
+    "weights_count": 12,
+    "weights_matrix": [
+      {
+        "id": "W-SYS-MFG-01",
+        "name_ar": "وزن صناعة أنظمة التشغيل والنواة (OS & Kernel Systems Mfg Weight)",
+        "engine": "bare-metal/build/sheikha-bare-metal-pipeline-v1.js",
+        "score": "100%",
+        "port": 18125,
+        "chief": "C-93 / SYSMFG-C-01"
+      },
+      {
+        "id": "W-SYS-MFG-02",
+        "name_ar": "وزن صناعة الأنظمة المدمجة والتحكم الصناعي (Embedded & PLC Systems Weight)",
+        "engine": "sheikha_foundry_lab_18126.py (Furnace 1200C PLC/OPC-UA)",
+        "score": "99.96%",
+        "port": 18126,
+        "chief": "C-93 / SYSMFG-C-02"
+      },
+      {
+        "id": "W-SYS-MFG-03",
+        "name_ar": "وزن صناعة الأنظمة المؤسسية والإدارية (Enterprise ERP Systems Weight)",
+        "engine": "sheikha_microsoft_alliance.py (SAP S/4HANA & ERP)",
+        "score": "99.95%",
+        "port": 18153,
+        "chief": "C-93 / SYSMFG-C-03"
+      },
+      {
+        "id": "W-SYS-MFG-04",
+        "name_ar": "وزن صناعة الأنظمة المالية والشرعية والزكوية (Halal Finance & ZATCA Systems Weight)",
+        "engine": "sheikha_settlement_18140.py + sheikha_zatca_charity.py",
+        "score": "100%",
+        "port": 18140,
+        "chief": "C-93 / SYSMFG-C-04"
+      },
+      {
+        "id": "W-SYS-MFG-05",
+        "name_ar": "وزن صناعة أنظمة الذكاء الاصطناعي وM2M (AI, MoE & Neural M2M Systems Weight)",
+        "engine": "SHEIKHA-CORE/families/weights/sheikha_moe_architecture.py",
+        "score": "99.98%",
+        "port": 18131,
+        "chief": "C-93 / SYSMFG-C-05"
+      },
+      {
+        "id": "W-SYS-MFG-06",
+        "name_ar": "وزن صناعة أنظمة التوائم الرقمية والمحاكاة (Digital Twins & Omniverse Systems Weight)",
+        "engine": "sheikha_nvidia_alliance.py (128 Digital Twins USD)",
+        "score": "99.92%",
+        "port": 18154,
+        "chief": "C-93 / SYSMFG-C-06"
+      },
+      {
+        "id": "W-SYS-MFG-07",
+        "name_ar": "وزن صناعة أنظمة سلاسل الإمداد والمستودعات (WMS, BOL & Logistics Systems Weight)",
+        "engine": "sheikha_global_logistics.py (11-Col BOL & 20 WMS)",
+        "score": "99.90%",
+        "port": 18155,
+        "chief": "C-93 / SYSMFG-C-07"
+      },
+      {
+        "id": "W-SYS-MFG-08",
+        "name_ar": "وزن صناعة أنظمة الأمن السيبراني والحوكمة (Cybersecurity & Watch Guard Systems Weight)",
+        "engine": "sheikha_governance_watch.py (62,954 Threats Blocked)",
+        "score": "100%",
+        "port": 18162,
+        "chief": "C-93 / SYSMFG-C-08"
+      },
+      {
+        "id": "W-SYS-MFG-09",
+        "name_ar": "وزن صناعة أنظمة الاتصالات وبروتوكولات MCP/SDK (Telecom & MCP/SDK Bus Systems Weight)",
+        "engine": "mcp-servers/sheikha-mcp-server.js + sheikha-sdk-server.js",
+        "score": "99.97%",
+        "port": 18158,
+        "chief": "C-93 / C-30"
+      },
+      {
+        "id": "W-SYS-MFG-10",
+        "name_ar": "وزن صناعة أنظمة التجارة والأسواق والـ POS (B2B Commerce, 18-Markets & 10-POS Weight)",
+        "engine": "sheikha_universe_18165.py + sheikha_ceo_buyer_engine.py",
+        "score": "99.94%",
+        "port": 18165,
+        "chief": "C-93 / C-55"
+      },
+      {
+        "id": "W-SYS-MFG-11",
+        "name_ar": "وزن صناعة أنظمة البلوك شين واللوح المحفوظ (SheikhaChain & Triple-Registry Weight)",
+        "engine": "SHEIKHA-CORE/blockchain/registry.json (535 files edc795a4)",
+        "score": "100%",
+        "port": 18131,
+        "chief": "C-93 / C-76"
+      },
+      {
+        "id": "W-SYS-MFG-12",
+        "name_ar": "وزن صناعة المنصات الـ 8 السيادية الشاملة (8-Platforms Factory Master Weight)",
+        "engine": "sheikha_8platforms_factory_server.py (Port 18157)",
+        "score": "100%",
+        "port": 18157,
+        "chief": "C-93 Master Factory"
+      }
+    ]
+  },
+  "hierarchy_summary": {
+    "supreme_macro_chiefs_C01_to_C93": 93,
+    "specialized_layer_and_stage_chiefs": 113,
+    "total_structural_chiefs": 206,
+    "hs_code_product_chiefs": 5000,
+    "grand_total_all_chiefs": 5206,
+    "department_directors": 1236,
+    "specialized_staff_and_engineers": 4944,
+    "seed_m2m_agents_gen0": 3296,
+    "proliferated_m2m_neural_nodes": 59440,
+    "synaptic_neural_connections": 951040,
+    "structural_licenses": 262,
+    "hs_product_licenses": 5000,
+    "sheikha_os_weights": 12,
+    "systems_manufacturing_weights": 12,
+    "governed_weights_total": 10000
+  },
+  "manifest_sha256": "02338c3a9fd2f1705f172b3fb4c03cec80ed836da453f8c68b5bf41363842e73"
+}

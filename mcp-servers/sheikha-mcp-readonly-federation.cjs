@@ -13,6 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const governance = require('../core/security/sheikha-sdk-mcp-governance.cjs');
+const providerFederation = require('../core/integrations/sheikha-provider-federation-v1.cjs');
 const { simulateFoundryTelecom } = require('../sdk/sheikha-js/foundry-telecom.cjs');
 const { processNaturalData, getNaturalDataInputSchema } = require('../core/natural-data/sheikha-natural-data-v1.cjs');
 const { interpretSensorBatch, getSensoryInputSchema } = require('../sdk/sheikha-js/sensory.cjs');
@@ -212,7 +213,8 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => ({
     { uri: 'sheikha://federation/audit', name: 'MCP/SDK federation audit', mimeType: 'application/json' },
     { uri: 'sheikha://jannat/p7', name: 'Jannat P7 acceptance receipt', mimeType: 'application/json' },
     { uri: 'sheikha://jannat/p8-admission', name: 'Jannat P8 launch admission review', mimeType: 'application/json' },
-    { uri: 'sheikha://catalog/read', name: 'Preserved catalog.read output', mimeType: 'application/json' }
+    { uri: 'sheikha://catalog/read', name: 'Preserved catalog.read output', mimeType: 'application/json' },
+    { uri: providerFederation.RESOURCE, name: 'Shared provider configuration (not live verification)', mimeType: 'application/json' }
   ].filter(resource => governance.resourceAllowed(resource.uri, 'federation'))
 }));
 
@@ -225,8 +227,9 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
     'sheikha://catalog/read': EVIDENCE.catalog
   };
   const file = mapping[request.params.uri];
-  if (!file) throw new Error('Unknown read-only resource');
-  const result = await gate.resource(request, () => asText(readJson(file)));
+  if (!file && request.params.uri !== providerFederation.RESOURCE) throw new Error('Unknown read-only resource');
+  const result = await gate.resource(request, () => asText(request.params.uri === providerFederation.RESOURCE
+    ? providerFederation.inspect() : readJson(file)));
   if (result.isError) throw Error('RESOURCE_READ_DENIED');
   return {
     contents: [{

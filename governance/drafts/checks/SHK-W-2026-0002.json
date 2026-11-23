@@ -1,0 +1,78 @@
+{
+  "category": "Supply Gateway - SABIC",
+  "base_weight": 75,
+  "custom_weights": {
+    "base": 40,
+    "criticality": 10,
+    "sharia": 15,
+    "tech": 10,
+    "total": 75,
+    "customized_total": 90
+  },
+  "agents": {
+    "id": "AGENT-SHK-W-2026-0002",
+    "name": "Supply Gateway - SABIC Agent",
+    "prompt": "أنت وكيل Supply Gateway - SABIC — تتحقق من مورد صناعي - العناية الواجبة — BOUND_BY_QURAN_SUNNAH — لا ربا لا غرر",
+    "tools": [
+      "check_draft_sha",
+      "verify_weight",
+      "generate_kpi",
+      "zero_data_leakage"
+    ],
+    "memory": "governance/drafts/03_SABIC_DRAFT.md"
+  },
+  "bots": {
+    "id": "BOT-SHK-W-2026-0002",
+    "port": "0002",
+    "status": "UP",
+    "function": "بوت تشغيلي لـ Supply Gateway - SABIC — يفحص ويحرر ويوثق آلياً"
+  },
+  "checks": [
+    {
+      "check_id": 1,
+      "requirement": "ZATCA Phase 2 e-invoicing",
+      "learned": true,
+      "weight_delta": 2,
+      "eff_before": 75,
+      "eff_after": 77
+    },
+    {
+      "check_id": 2,
+      "requirement": "GOSI + نطاقات + ضريبة مضافة",
+      "learned": true,
+      "weight_delta": 3,
+      "eff_before": 77,
+      "eff_after": 80
+    },
+    {
+      "check_id": 3,
+      "requirement": "العناية الواجبة للمورد الصناعي سابك + السلامة الكيميائية",
+      "learned": true,
+      "weight_delta": 5,
+      "eff_before": 80,
+      "eff_after": 85
+    },
+    {
+      "check_id": 4,
+      "requirement": "معايير الاقتصاد الدائري وتدوير المعادن وبدائل النفط",
+      "learned": true,
+      "weight_delta": 5,
+      "eff_before": 85,
+      "eff_after": 90
+    },
+    {
+      "check_id": 5,
+      "requirement": "تصدير قوالب SAP Ariba JSON/CSV القياسية بدون ربط حي",
+      "learned": true,
+      "weight_delta": 6,
+      "eff_before": 90,
+      "eff_after": 96
+    }
+  ],
+  "current_efficiency": 96,
+  "target_efficiency": 95,
+  "efficiency_gap": 0,
+  "next_check": "مكتمل الجاهزية المحلية — بانتظار التوقيع اليدوي الشرعي للمالك السيادي",
+  "documentation": "governance/drafts/checks/SHK-W-2026-0002.json",
+  "sha_fingerprint": "820b0676388073d3"
+}

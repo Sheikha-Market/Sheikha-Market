@@ -1,0 +1,180 @@
+#!/usr/bin/env bash
+set +e
+set +u
+set +o pipefail 2>/dev/null || true
+
+SYSTEM="SHEIKHA_CURRENT_LINEAGE_DOWNLOADS_PATH_AUDIT_READ_ONLY_V2"
+ROOT="$HOME/Projects/sheikha/sheikha-main-portal"
+PR31_ROOT="$HOME/Projects/sheikha/sheikha-main-portal.worktrees/sheikha-foundation-computing-platform-v1"
+
+EXPECTED_MAIN_HEAD="a97eb0c9e21808ea4ffdace5b437d33645a914e9"
+EXPECTED_MAIN_STATUS="02c16cd1df900ece56837cc1e36002cf96a647b73cb964d5479fef2b4e020185"
+EXPECTED_PR31_HEAD="cab463480bb3f45c1043b26abe169b37e5c7b0e5"
+EXPECTED_PR31_STATUS="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+printf 'SYSTEM=%s\nMODE=CURRENT_LINEAGE_STRICT_READ_ONLY_AUDIT\n' "$SYSTEM"
+printf 'NETWORK=false\nSOURCE_MUTATION=false\nGIT_MUTATION=false\nBUILD=false\nTEST_EXECUTION=false\nINSTALL=false\nCOMMIT=false\nPUSH=false\nMERGE=false\nDELETE=false\nMOVE=false\n'
+
+sha(){ sha256sum "$1" 2>/dev/null | awk '{print $1}'; }
+status_sha(){ git -C "$1" status --porcelain=v1 --untracked-files=all 2>/dev/null | sha256sum | awk '{print $1}'; }
+
+DIRS=()
+for x in "$(xdg-user-dir DOWNLOAD 2>/dev/null)" "$HOME/التنزيلات" "$HOME/Downloads"; do
+  [[ -n "$x" && -d "$x" ]] || continue
+  seen=false
+  for e in "${DIRS[@]}"; do [[ "$e" == "$x" ]] && seen=true; done
+  [[ "$seen" == false ]] && DIRS+=("$x")
+done
+printf 'DOWNLOAD_DIR_COUNT=%s\n' "${#DIRS[@]}"
+for x in "${DIRS[@]}"; do printf 'DOWNLOAD_DIR=%s\n' "$x"; done
+
+MAIN_OK=true
+MB="$(git -C "$ROOT" branch --show-current 2>/dev/null)"
+MH="$(git -C "$ROOT" rev-parse HEAD 2>/dev/null)"
+MS="$(status_sha "$ROOT")"
+[[ "$MB" == "main" ]] || MAIN_OK=false
+[[ "$MH" == "$EXPECTED_MAIN_HEAD" ]] || MAIN_OK=false
+[[ "$MS" == "$EXPECTED_MAIN_STATUS" ]] || MAIN_OK=false
+printf 'MAIN_ROOT=%s\nMAIN_BRANCH=%s\nMAIN_HEAD=%s\nMAIN_STATUS_SHA256=%s\nMAIN_BOUND_STATE_OK=%s\n' \
+  "$ROOT" "$MB" "$MH" "$MS" "$MAIN_OK"
+
+PR_OK=true
+PB="$(git -C "$PR31_ROOT" branch --show-current 2>/dev/null)"
+PH="$(git -C "$PR31_ROOT" rev-parse HEAD 2>/dev/null)"
+PS="$(status_sha "$PR31_ROOT")"
+[[ "$PB" == "feature/sheikha-foundation-computing-platform-v1" ]] || PR_OK=false
+[[ "$PH" == "$EXPECTED_PR31_HEAD" ]] || PR_OK=false
+[[ "$PS" == "$EXPECTED_PR31_STATUS" ]] || PR_OK=false
+printf 'PR31_ROOT=%s\nPR31_BRANCH=%s\nPR31_HEAD=%s\nPR31_STATUS_SHA256=%s\nPR31_BOUND_STATE_OK=%s\n' \
+  "$PR31_ROOT" "$PB" "$PH" "$PS" "$PR_OK"
+
+LINEAGE_ZIPS=(
+"SHEIKHA_MASTER_CONTINUATION_20260917_V2.zip"
+"SHEIKHA_I22R2_PR31_READ_ONLY_CONTINUATION_V1.zip"
+"SHEIKHA_I23_PR31_READ_ONLY_CONTINUATION_V1.zip"
+"SHEIKHA_MAROOJ_ANHAR_ARABIAN_INTEGRATION_READ_ONLY_V1.zip"
+"SHEIKHA_I24_PR31_NEXT_READ_ONLY_CONTINUATION_V1.zip"
+"SHEIKHA_I24R1_PR31_AUTHORIZATION_REVIEW_READ_ONLY_V1.zip"
+"SHEIKHA_I25_PR31_SHARED_ATOMIC_BACKEND_BINDING_READ_ONLY_V1.zip"
+"SHEIKHA_I26_PR31_BACKEND_SELECTION_READ_ONLY_V1.zip"
+"SHEIKHA_DOWNLOADS_REPO_INTEGRATION_AUDIT_READ_ONLY_V1.zip"
+)
+
+CANONICAL_MISSING=0
+DIVERGENT_DUPLICATES=0
+EXACT_DUPLICATES=0
+printf 'CURRENT_LINEAGE_PACKAGE_AUDIT_BEGIN\n'
+for base in "${LINEAGE_ZIPS[@]}"; do
+  stem="${base%.zip}"
+  canonical=""
+  for dir in "${DIRS[@]}"; do
+    if [[ -f "$dir/$base" ]]; then canonical="$dir/$base"; break; fi
+  done
+
+  if [[ -z "$canonical" ]]; then
+    printf 'LINEAGE_PACKAGE=%s CANONICAL_PRESENT=false\n' "$base"
+    CANONICAL_MISSING=$((CANONICAL_MISSING+1))
+    continue
+  fi
+
+  csha="$(sha "$canonical")"
+  printf 'LINEAGE_PACKAGE=%s CANONICAL_PRESENT=true CANONICAL_PATH=%s CANONICAL_SHA256=%s\n' \
+    "$base" "$canonical" "$csha"
+
+  for dir in "${DIRS[@]}"; do
+    while IFS= read -r -d '' f; do
+      [[ "$f" == "$canonical" ]] && continue
+      fsha="$(sha "$f")"
+      if [[ "$fsha" == "$csha" ]]; then
+        EXACT_DUPLICATES=$((EXACT_DUPLICATES+1))
+        printf 'LINEAGE_DUPLICATE=%s CLASS=EXACT_DUPLICATE_OF_CANONICAL SHA256=%s\n' "$f" "$fsha"
+      else
+        DIVERGENT_DUPLICATES=$((DIVERGENT_DUPLICATES+1))
+        printf 'LINEAGE_DUPLICATE=%s CLASS=DIVERGENT_DUPLICATE DO_NOT_USE=true SHA256=%s CANONICAL_SHA256=%s\n' \
+          "$f" "$fsha" "$csha"
+      fi
+    done < <(find "$dir" -maxdepth 1 -type f -name "$stem(*).zip" -print0 2>/dev/null)
+  done
+done
+printf 'CURRENT_LINEAGE_PACKAGE_AUDIT_END\n'
+printf 'CURRENT_LINEAGE_CANONICAL_MISSING_COUNT=%s\n' "$CANONICAL_MISSING"
+printf 'CURRENT_LINEAGE_EXACT_DUPLICATE_COUNT=%s\n' "$EXACT_DUPLICATES"
+printf 'CURRENT_LINEAGE_DIVERGENT_DUPLICATE_COUNT=%s\n' "$DIVERGENT_DUPLICATES"
+
+CURRENT_SCRIPTS=(
+"SHEIKHA_IMPLEMENTATION_I26_REQUIREMENTS_ENRICHMENT_EVIDENCE_CONTRACT_PLACEMENT_AUTHORIZATION_REVIEW_READ_ONLY_V1.sh"
+"SHEIKHA_IMPLEMENTATION_I26_REQUIREMENTS_ENRICHMENT_EVIDENCE_CONTRACT_PLACEMENT_AUTHORIZATION_REVIEW_READ_ONLY_V1_SHA_WRAPPER.sh"
+"SHEIKHA_PR31_P1_P2_SHARED_BACKEND_SELECTION_REVIEW_READ_ONLY_V1.sh"
+"SHEIKHA_PR31_P1_P2_SHARED_BACKEND_SELECTION_REVIEW_READ_ONLY_V1_SHA_WRAPPER.sh"
+)
+
+SCRIPT_PATH_OK=true
+printf 'CURRENT_SCRIPT_PATH_AUDIT_BEGIN\n'
+for base in "${CURRENT_SCRIPTS[@]}"; do
+  found=""
+  for dir in "${DIRS[@]}"; do
+    if [[ -f "$dir/$base" ]]; then found="$dir/$base"; break; fi
+  done
+  if [[ -z "$found" ]]; then
+    printf 'CURRENT_SCRIPT=%s CANONICAL_PRESENT=false\n' "$base"
+    continue
+  fi
+  printf 'CURRENT_SCRIPT=%s CANONICAL_PRESENT=true PATH=%s SHA256=%s\n' "$base" "$found" "$(sha "$found")"
+
+  # Explicitly reject known stale/alternate main checkout roots if present.
+  if grep -Eq '/home/sheikha/Projects/sheikha/[^[:space:]"]+/sheikha-main-portal' "$found" 2>/dev/null; then
+    SCRIPT_PATH_OK=false
+    printf 'CURRENT_SCRIPT_PATH_WARNING=%s REASON=ALTERNATE_MAIN_CHECKOUT_PATTERN\n' "$found"
+  fi
+done
+printf 'CURRENT_SCRIPT_PATH_AUDIT_END\n'
+printf 'CURRENT_LINEAGE_SCRIPT_PATHS_OK=%s\n' "$SCRIPT_PATH_OK"
+
+LATEST_I26="$(for x in "${DIRS[@]}"; do find "$x" -maxdepth 2 -type f -name 'SHEIKHA_I26_*.log' -printf '%T@|%p\n' 2>/dev/null; done | sort -t'|' -k1,1nr | head -1 | cut -d'|' -f2-)"
+LATEST_PR31="$(for x in "${DIRS[@]}"; do find "$x" -maxdepth 2 -type f -name 'SHEIKHA_PR31_BACKEND_SELECTION_*.log' -printf '%T@|%p\n' 2>/dev/null; done | sort -t'|' -k1,1nr | head -1 | cut -d'|' -f2-)"
+
+I26_OK=false
+if [[ -n "$LATEST_I26" ]]; then
+  printf 'LATEST_I26_LOG=%s\nLATEST_I26_LOG_SHA256=%s\n' "$LATEST_I26" "$(sha "$LATEST_I26")"
+  if grep -Fqx 'I26_CONSUMED=true' "$LATEST_I26" &&
+     grep -Fqx 'RERUN_ALLOWED=false' "$LATEST_I26"; then I26_OK=true; fi
+fi
+printf 'I26_CONSUMPTION_EVIDENCE_BOUND=%s\n' "$I26_OK"
+
+PRSEL_OK=false
+SEL="UNKNOWN"
+if [[ -n "$LATEST_PR31" ]]; then
+  printf 'LATEST_PR31_SELECTION_LOG=%s\nLATEST_PR31_SELECTION_LOG_SHA256=%s\n' "$LATEST_PR31" "$(sha "$LATEST_PR31")"
+  SEL="$(grep '^PR31_SHARED_BACKEND_SELECTION=' "$LATEST_PR31" | tail -1 | cut -d= -f2-)"
+  if grep -Fqx 'PR31_SHARED_BACKEND_SELECTION_REVIEW_COMPLETE=true' "$LATEST_PR31" &&
+     grep -Fqx 'RERUN_ALLOWED=false' "$LATEST_PR31"; then PRSEL_OK=true; fi
+fi
+printf 'PR31_SELECTION_EVIDENCE_BOUND=%s\nPR31_SHARED_BACKEND_SELECTION=%s\n' "$PRSEL_OK" "$SEL"
+
+printf 'CURRENT_MAIN_LAST_CONSUMED=I26\n'
+printf 'CURRENT_MAIN_NEXT_STAGE=SHEIKHA_IMPLEMENTATION_I27_REQUIREMENTS_ENRICHMENT_EVIDENCE_CONTRACT_EXACT_PLACEMENT_GATED_V1\n'
+printf 'I27_MUTATION_AUTHORIZED=false\n'
+printf 'CURRENT_PR31_LAST_CONSUMED=SHEIKHA_PR31_P1_P2_SHARED_BACKEND_SELECTION_REVIEW_READ_ONLY_V1\n'
+if [[ "$SEL" == "MULTIPLE_QUALIFIED_CANDIDATES" ]]; then
+  printf 'CURRENT_PR31_NEXT_STAGE=SHEIKHA_PR31_P1_P2_SHARED_BACKEND_DECISION_CONTRACT_READ_ONLY_V1\n'
+elif [[ "$SEL" == "REDIS" || "$SEL" == "POSTGRES" ]]; then
+  printf 'CURRENT_PR31_NEXT_STAGE=SHEIKHA_PR31_P1_P2_EXACT_PATCH_DESIGN_READ_ONLY_V1\n'
+else
+  printf 'CURRENT_PR31_NEXT_STAGE=SHEIKHA_PR31_P1_P2_SHARED_BACKEND_EVIDENCE_DEEP_TRACE_READ_ONLY_V1\n'
+fi
+printf 'PR31_SOURCE_MUTATION_AUTHORIZED=false\nPR31_COMMIT_AUTHORIZED=false\nPR31_PUSH_AUTHORIZED=false\nPR31_MERGE_AUTHORIZED=false\nPR31_UNFREEZE_ALLOWED=false\nDO_NOT_ADVANCE_PR31=true\n'
+
+CURRENT_OK=true
+[[ "$MAIN_OK" == true ]] || CURRENT_OK=false
+[[ "$PR_OK" == true ]] || CURRENT_OK=false
+[[ "$SCRIPT_PATH_OK" == true ]] || CURRENT_OK=false
+[[ "$DIVERGENT_DUPLICATES" -eq 0 ]] || CURRENT_OK=false
+[[ "$I26_OK" == true ]] || CURRENT_OK=false
+[[ "$PRSEL_OK" == true ]] || CURRENT_OK=false
+
+printf 'HISTORICAL_DOWNLOADS_SCRIPT_WARNING_COUNT_FROM_V1=626\n'
+printf 'HISTORICAL_WARNING_INTERPRETATION=OUT_OF_CURRENT_LINEAGE_REQUIRES_ARCHIVE_CURATION_NOT_MAIN_REPO_REPAIR\n'
+printf 'CURRENT_LINEAGE_DOWNLOADS_REPO_INTEGRATION_OK=%s\n' "$CURRENT_OK"
+printf 'CURRENT_LINEAGE_EXACT_DUPLICATES_SAFE_TO_ARCHIVE_COUNT=%s\n' "$EXACT_DUPLICATES"
+printf 'DELETE_OR_MOVE_AUTHORIZED=false\n'
+printf 'AUDIT_COMPLETE=true\nRERUN_ALLOWED=true\nTERMINAL_PRESERVATION=true\nSAFE_TO_RETURN_TO_PROMPT=true\n'

@@ -1,0 +1,22 @@
+# SHEIKHA NETWORK DEVICE MONITORING
+# STATUS: TEMPLATE ONLY - DO NOT DEPLOY
+# No real credentials in this file
+
+network_devices:
+  autodiscovery:
+    workers: 1
+    discovery_interval: 3600
+    loader: core
+    use_device_id_as_hostname: true
+    configs:
+      - network_address: "192.168.8.1/32"
+        snmp_version: 3
+        port: 161
+        user: "REPLACE_LOCALLY"
+        authProtocol: "SHA256"
+        authKey: "REPLACE_LOCALLY"
+        privProtocol: "AES"
+        privKey: "REPLACE_LOCALLY"
+        tags:
+          - "site:sheikha"
+          - "environment:lab"

@@ -1,6 +1,7 @@
 #include "sheikha_kernel.h"
 
 #include "sheikha_contracts.h"
+#include "sheikha_language_native_abi_v1.h"
 #include "sheikha_serial.h"
 
 __attribute__((noreturn)) void sheikha_halt_forever(void) {
@@ -11,8 +12,16 @@ __attribute__((noreturn)) void sheikha_halt_forever(void) {
 }
 
 __attribute__((noreturn)) void sheikha_kernel_entry(const SHEIKHA_BOOT_INFO *boot_info) {
-    if (boot_info == 0 || boot_info->boot_services_exited == 0U) {
+    if (boot_info == 0 ||
+        sheikha_native_kernel_handoff_allowed(boot_info->boot_services_exited) == 0U) {
         sheikha_serial_write_line("SHEIKHA_KERNEL_HANDOFF_REJECTED");
+        sheikha_halt_forever();
+    }
+
+    if (sheikha_native_contract_version() != 1U ||
+        sheikha_native_governance_ready() != 1U ||
+        sheikha_native_kernel_mode() != 1U) {
+        sheikha_serial_write_line("SHEIKHA_LANGUAGE_NATIVE_ABI_REJECTED");
         sheikha_halt_forever();
     }
 
@@ -30,6 +39,10 @@ __attribute__((noreturn)) void sheikha_kernel_entry(const SHEIKHA_BOOT_INFO *boo
     sheikha_serial_write_line("kernel_contract=" SHEIKHA_KERNEL_CONTRACT_ID);
     sheikha_serial_write_line("hal_contract=" SHEIKHA_HAL_CONTRACT_ID);
     sheikha_serial_write_line("language_contract=" SHEIKHA_LANGUAGE_BOOT_CONTRACT_ID);
+    sheikha_serial_write_line("language_native_object=LINKED_AND_CALLED");
+    sheikha_serial_write_line("language_native_abi=SHEIKHA_LANGUAGE_NATIVE_ABI_V1");
+    sheikha_serial_write_line("language_kernel_logic=GENERATED_FROM_SHEIKHA_SOURCE");
+    sheikha_serial_write_line("language_native_object_sha256=" SHEIKHA_LANGUAGE_NATIVE_OBJECT_SHA256);
     sheikha_serial_write_line("governance_contract=" SHEIKHA_GOVERNANCE_CONTRACT_ID);
     sheikha_serial_write_line("runtime_state=CONTROLLED_HALT");
     sheikha_halt_forever();

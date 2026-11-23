@@ -1,0 +1,518 @@
+{
+  "system_name": "بسم الله — مركز شيخة للتوأم الرقمي، المحاكاة الحية (Simulation)، شبكة المستشعرات والحساسات، واستوديو البصريات والفيديو",
+  "scientific_methodologies_active": [
+    {
+      "code": "METH-01",
+      "name": "محاكاة الأحداث المنفصلة ومونت كارلو (Discrete-Event & Monte Carlo Simulation)",
+      "purpose": "التنبؤ بأرباح الشحنات، أوقات دوران الحاويات، وعوائد الصهر تحت مختلف ظروف السوق."
+    },
+    {
+      "code": "METH-02",
+      "name": "الحيود السداسي الرشيق وضبط الجودة الإحصائي (Lean Six Sigma DMAIC & SPC)",
+      "purpose": "ضبط دقة القبان الإلكتروني ضمن (±0.005 طن) وتقليص فاقد خبث الأفران إلى أقل من 3.1%."
+    },
+    {
+      "code": "METH-03",
+      "name": "نظرية القيود وبحوث العمليات (Theory of Constraints & Operations Research)",
+      "purpose": "فك الاختناقات في 323 مسار نقل بين ساحات الخبر والدمام والجبيل وميناء التصدير."
+    },
+    {
+      "code": "METH-04",
+      "name": "التوثيق اللحظي غير القابل للتغيير (Event-Sourcing & SHA-256 Audit Ledger)",
+      "purpose": "تسجيل كل حركة ومستشعر وعقد في نفس الملي ثانية بختم زمني وتشفير سيادي."
+    }
+  ],
+  "sensors_matrix": [
+    {
+      "sensor_id": "SNS-WB-01",
+      "zone": "1. بوابة القبان الذكي — الخبر",
+      "type": "خلايا وزن رقمية (IoT Load Cells 100T)",
+      "metric": "54.80 طن قائم | 38.42 طن صافي",
+      "threshold": "دقة ±5 كجم",
+      "health": "100% مثالي 🟢"
+    },
+    {
+      "sensor_id": "SNS-RAD-02",
+      "zone": "2. بوابة الفحص الإشعاعي والأمني",
+      "type": "كاشف إشعاع جاما ونيوترون (Portal Monitor)",
+      "metric": "0.00 µSv/h (خالي تماماً من الإشعاع)",
+      "threshold": "< 0.20 µSv/h",
+      "health": "100% آمن 🛡️"
+    },
+    {
+      "sensor_id": "SNS-XRF-03",
+      "zone": "3. مختبر الفرز والبصريات (AI & XRF)",
+      "type": "مطياف الأشعة السينية + كاميرا ليزر LIBS",
+      "metric": "نقاء النحاس: 99.94% | الشوائب: 0.06%",
+      "threshold": "LME Grade A",
+      "health": "100% معاير 🔬"
+    },
+    {
+      "sensor_id": "SNS-FRN-04",
+      "zone": "4. فرن الصهر الحثي (Pearl Metal)",
+      "type": "حساس حراري مزدوج (Thermocouple Type-S)",
+      "metric": "الحرارة: 1,158 °C | الضغط: مستقر",
+      "threshold": "1100°C - 1200°C",
+      "health": "99.8% نشط 🔥"
+    },
+    {
+      "sensor_id": "SNS-BAL-05",
+      "zone": "5. مكبس الهيدروليك والفرم (800T Baler)",
+      "type": "حساس ضغط الزيت والاهتزاز (Maximo IoT)",
+      "metric": "الضغط: 285 Bar | الإنتاجية: 18 طن/س",
+      "threshold": "< 310 Bar",
+      "health": "99.5% نشط ⚙️"
+    },
+    {
+      "sensor_id": "SNS-SAT-06",
+      "zone": "6. أسطول الحاويات والشحن الدولي",
+      "type": "قمر صناعي Iridium GNSS + قفل إلكتروني",
+      "metric": "26.436°N, 50.105°E | السرعة: 76 كم/س",
+      "threshold": "قفل مشفر مغلق",
+      "health": "100% متصل 🛰️"
+    }
+  ],
+  "simulation_logs": [
+    {
+      "sim_id": "SIM-3456",
+      "scenario": "محاكاة 150 طن عند حرارة فرن 1160°C",
+      "net_yield_tons": 146.3,
+      "projected_revenue_sar": 4564560,
+      "projected_profit_sar": 821621,
+      "co2_saved_tons": 630,
+      "cycle_time_hours": 12,
+      "hash": "0xSIM-28A6CA6ADB44761A"
+    },
+    {
+      "sim_id": "SIM-0640",
+      "scenario": "محاكاة 150 طن عند حرارة فرن 1160°C",
+      "net_yield_tons": 146.3,
+      "projected_revenue_sar": 4564560,
+      "projected_profit_sar": 821621,
+      "co2_saved_tons": 630,
+      "cycle_time_hours": 12,
+      "hash": "0xSIM-B1FFABF32E962A2D"
+    },
+    {
+      "sim_id": "SIM-3051",
+      "scenario": "محاكاة 200 طن عند حرارة فرن 1165°C",
+      "net_yield_tons": 196,
+      "projected_revenue_sar": 6115200,
+      "projected_profit_sar": 1100736,
+      "co2_saved_tons": 840,
+      "cycle_time_hours": 12,
+      "hash": "0xSIM-7D1A47B96D471751"
+    },
+    {
+      "sim_id": "SIM-INIT-001",
+      "scenario": "محاكاة تشغيلية لـ 100 طن نحاس وحديد عبر 12 حاوية ذكية وصهر السبائك",
+      "net_yield_tons": 96.8,
+      "projected_revenue_sar": 1485000,
+      "projected_profit_sar": 267300,
+      "co2_saved_tons": 385,
+      "cycle_time_hours": 14.5,
+      "hash": "0xSIM-8F92A1C4E7B01293"
+    }
+  ],
+  "realtime_audit_ledger": [
+    {
+      "event_id": "EVT-70585",
+      "timestamp": "2026-11-11T06:42:50Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية المنظومة الآلية والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-08480665CE1321039779"
+    },
+    {
+      "event_id": "EVT-65234",
+      "timestamp": "2026-11-11T06:42:45Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية المنظومة الآلية والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-68D62C2053AACC8D7FBC"
+    },
+    {
+      "event_id": "EVT-80887",
+      "timestamp": "2026-11-11T06:41:20Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-5F93D60BAAAE5DDD76C8"
+    },
+    {
+      "event_id": "EVT-49926",
+      "timestamp": "2026-11-11T06:40:49Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: فعل",
+      "proof_hash": "0xSHK-AUD-75232D8D1B33D320C6F2"
+    },
+    {
+      "event_id": "EVT-39726",
+      "timestamp": "2026-11-11T06:40:39Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-81AC328D908222E5EC4C"
+    },
+    {
+      "event_id": "EVT-77380",
+      "timestamp": "2026-11-11T06:39:37Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-23AB4DFB1F35818B1D41"
+    },
+    {
+      "event_id": "EVT-74820",
+      "timestamp": "2026-11-11T06:39:34Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-D9D6EDD14FFBAC705BF4"
+    },
+    {
+      "event_id": "EVT-74620",
+      "timestamp": "2026-11-11T06:39:34Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-668A59EF89D95CA84972"
+    },
+    {
+      "event_id": "EVT-74428",
+      "timestamp": "2026-11-11T06:39:34Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-333907FB319C7558D5E9"
+    },
+    {
+      "event_id": "EVT-74252",
+      "timestamp": "2026-11-11T06:39:34Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-B1059EB3AF3AD64C86C1"
+    },
+    {
+      "event_id": "EVT-74084",
+      "timestamp": "2026-11-11T06:39:34Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-ECE09D846378C4A750B6"
+    },
+    {
+      "event_id": "EVT-73900",
+      "timestamp": "2026-11-11T06:39:33Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-0C6922A16E929262CF69"
+    },
+    {
+      "event_id": "EVT-73708",
+      "timestamp": "2026-11-11T06:39:33Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-4EEC98CED9521D335379"
+    },
+    {
+      "event_id": "EVT-73516",
+      "timestamp": "2026-11-11T06:39:33Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-DD1499ACB566CB602FA0"
+    },
+    {
+      "event_id": "EVT-73332",
+      "timestamp": "2026-11-11T06:39:33Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-1AFB9E43012282572B36"
+    },
+    {
+      "event_id": "EVT-73108",
+      "timestamp": "2026-11-11T06:39:33Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-5D897914BF8F886E37EB"
+    },
+    {
+      "event_id": "EVT-72612",
+      "timestamp": "2026-11-11T06:39:32Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-F56529BE0CC891F95CCC"
+    },
+    {
+      "event_id": "EVT-71341",
+      "timestamp": "2026-11-11T06:39:31Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-2CF129154447B2AE34F1"
+    },
+    {
+      "event_id": "EVT-70381",
+      "timestamp": "2026-11-11T06:39:30Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-33B6D3C2504BED6849E6"
+    },
+    {
+      "event_id": "EVT-14204",
+      "timestamp": "2026-11-11T06:36:54Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية سوق شيخة والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-171A46792869422109EA"
+    },
+    {
+      "event_id": "EVT-52066",
+      "timestamp": "2026-11-11T06:32:32Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: تأكيد عزل وإخفاء التصاميم الهندسية في المحركات الخلفية ومراجعة جاهزية السوق",
+      "proof_hash": "0xSHK-AUD-BD84C19BFAADB859D758"
+    },
+    {
+      "event_id": "EVT-36185",
+      "timestamp": "2026-11-11T06:30:36Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: التحقق من عزل المحركات الهندسية والتصاميم الخاصة في الخلفية وإخفائها عن الزوار",
+      "proof_hash": "0xSHK-AUD-38AA9749A89120EEEE5E"
+    },
+    {
+      "event_id": "EVT-35697",
+      "timestamp": "2026-11-11T06:30:35Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: تنسيق حركة الحاويات والأسطول اللوجستي وإصدار بوالص الشحن الموحدة",
+      "proof_hash": "0xSHK-AUD-FA66F914EA0CF7E62E4B"
+    },
+    {
+      "event_id": "EVT-35097",
+      "timestamp": "2026-11-11T06:30:35Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: إصدار إيجاز الأثر التنموي والاستدامة البيئية وموازنة الموارد وإعمار الأرض",
+      "proof_hash": "0xSHK-AUD-D410C181809FD15F2550"
+    },
+    {
+      "event_id": "EVT-33921",
+      "timestamp": "2026-11-11T06:30:33Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: تدقيق الامتثال الزكوي للفوترة الإلكترونية وتوثيق العقود في السجل المشفر",
+      "proof_hash": "0xSHK-AUD-58B65F5CEC3DF47DAE76"
+    },
+    {
+      "event_id": "EVT-31098",
+      "timestamp": "2026-11-11T06:30:31Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: ضبط مؤشرات تسعير النحاس والألمنيوم والحديد وفق الأسواق العالمية وتحديث القبان",
+      "proof_hash": "0xSHK-AUD-665B7DBD13FD78C424A3"
+    },
+    {
+      "event_id": "EVT-22997",
+      "timestamp": "2026-11-11T06:30:22Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: اعمل",
+      "proof_hash": "0xSHK-AUD-4B04567398901BD25419"
+    },
+    {
+      "event_id": "EVT-10810",
+      "timestamp": "2026-11-11T06:30:10Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مراجعة جاهزية السوق والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-686A8089E5A0F3AEA43B"
+    },
+    {
+      "event_id": "EVT-01617",
+      "timestamp": "2026-11-11T06:30:01Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: تأكيد عزل وإخفاء التصاميم الهندسية في المحركات الخلفية ومراجعة جاهزية السوق",
+      "proof_hash": "0xSHK-AUD-2273FB5DE8409F0A1877"
+    },
+    {
+      "event_id": "EVT-72395",
+      "timestamp": "2026-11-11T06:24:32Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: فحص معمارية R5 والمنتج الأولي",
+      "proof_hash": "0xSHK-AUD-A7D989FD798F3D80CD5A"
+    },
+    {
+      "event_id": "EVT-72771",
+      "timestamp": "2026-11-11T06:17:52Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: إصدار تقرير الإتقان والأمانة اللحظي ومؤشر تحقيق مستهدفات رؤية 2030",
+      "proof_hash": "0xSHK-AUD-311EC395B311B0E946E1"
+    },
+    {
+      "event_id": "EVT-69402",
+      "timestamp": "2026-11-11T06:17:49Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: تشخيص تقني للخادم 7788 وتدريب أوزان الشبكة العصبية وتحديث البلوك شين",
+      "proof_hash": "0xSHK-AUD-0C5E8B88A54A4EA00258"
+    },
+    {
+      "event_id": "EVT-67970",
+      "timestamp": "2026-11-11T06:17:47Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: تجهيز دفعة مراسلات SAP Ariba والعقود الخضراء للمصاهر والمقاولين",
+      "proof_hash": "0xSHK-AUD-6702FC335C2FDE64E403"
+    },
+    {
+      "event_id": "EVT-64995",
+      "timestamp": "2026-11-11T06:17:44Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: تحديث أسعار بورصة النحاس والحديد (LME) وضبط القبان وأفران بيرل ميتال",
+      "proof_hash": "0xSHK-AUD-E6B82FFE49E1E4446BC0"
+    },
+    {
+      "event_id": "EVT-64154",
+      "timestamp": "2026-11-11T06:17:44Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: فحص شامل للمنتج الأولي (باقة 250 ريال) وتوليد رابط الإغلاق السريع للعملاء",
+      "proof_hash": "0xSHK-AUD-997DE286272B91D8A916"
+    },
+    {
+      "event_id": "EVT-58339",
+      "timestamp": "2026-11-11T06:17:38Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مرحبا",
+      "proof_hash": "0xSHK-AUD-3BF35A7C0E641948D1B9"
+    },
+    {
+      "event_id": "EVT-37532",
+      "timestamp": "2026-11-11T06:17:17Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: مرحبا",
+      "proof_hash": "0xSHK-AUD-37EE300A0EA702590246"
+    },
+    {
+      "event_id": "EVT-21800",
+      "timestamp": "2026-11-11T06:17:01Z",
+      "module": "HUMANOID_AI_DIRECTOR",
+      "operation": "تنفيذ أمر قيادي آلي: استلام إدارة المنظومة وتفعيل المنتج الأولي (250 ريال) ومراقبة الخوادم والـ 323 نمط نقل",
+      "proof_hash": "0xSHK-AUD-786B2FEDB7FBC4B22A9B"
+    },
+    {
+      "event_id": "EVT-08054",
+      "timestamp": "2026-11-11T06:11:48Z",
+      "module": "OMNI_AI_WEIGHTS",
+      "operation": "تدريب وتحديث أوزان الذكاء الاصطناعي والجدول الزمني الآلي للمنتجات",
+      "proof_hash": "0xSHK-AUD-A5B8023DFCBCF15C1C5C"
+    },
+    {
+      "event_id": "EVT-43961",
+      "timestamp": "2026-11-11T05:50:43Z",
+      "module": "OMNI_AI_WEIGHTS",
+      "operation": "تدريب وتحديث أوزان الذكاء الاصطناعي والجدول الزمني الآلي للمنتجات",
+      "proof_hash": "0xSHK-AUD-6DBE75389D476A43455A"
+    },
+    {
+      "event_id": "EVT-23998",
+      "timestamp": "2026-11-11T05:48:43Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-C065B7DF9423AC19321D"
+    },
+    {
+      "event_id": "EVT-20238",
+      "timestamp": "2026-11-11T05:48:40Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-212760CB6D1547716ADA"
+    },
+    {
+      "event_id": "EVT-19806",
+      "timestamp": "2026-11-11T05:48:39Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-DD10D7A296A08640DADA"
+    },
+    {
+      "event_id": "EVT-18175",
+      "timestamp": "2026-11-11T05:48:38Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-703A50D80F28C9F24407"
+    },
+    {
+      "event_id": "EVT-14110",
+      "timestamp": "2026-11-11T05:48:34Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-F3820543991FEF4F354E"
+    },
+    {
+      "event_id": "EVT-13696",
+      "timestamp": "2026-11-11T05:48:33Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-3360B235C6A8A39227DC"
+    },
+    {
+      "event_id": "EVT-17071",
+      "timestamp": "2026-11-11T05:43:37Z",
+      "module": "DIGITAL_TWIN_VIEW",
+      "operation": "دخول ومراقبة مركز التوأم الرقمي والمحاكاة والمستشعرات الحية",
+      "proof_hash": "0xSHK-AUD-9A5A588D7553C2315C0C"
+    },
+    {
+      "event_id": "EVT-15865",
+      "timestamp": "2026-11-11T05:43:35Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-0B97CA6766FF2F5908EF"
+    },
+    {
+      "event_id": "EVT-15299",
+      "timestamp": "2026-11-11T05:43:35Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-44A9129B0CC489EC9771"
+    },
+    {
+      "event_id": "EVT-96274",
+      "timestamp": "2026-11-11T05:43:16Z",
+      "module": "MASTERY_AND_JOY_ENGINE",
+      "operation": "توثيق وسام إتقان وأمانة جديد لـ (فريق عمليات وساحات شيخة — الخبر)",
+      "proof_hash": "0xSHK-AUD-BB36D25C562B5F3DD928"
+    },
+    {
+      "event_id": "EVT-03456",
+      "timestamp": "2026-11-11T05:36:43Z",
+      "module": "SIMULATION_ENGINE",
+      "operation": "تنفيذ محاكاة رقمية (SIM-3456) لـ 150 طن بعائد متوقع 4564560 ريال",
+      "proof_hash": "0xSHK-AUD-6EA3A3324DD811D734EE"
+    },
+    {
+      "event_id": "EVT-99088",
+      "timestamp": "2026-11-11T05:36:39Z",
+      "module": "MANUAL_OPS_VERIFY",
+      "operation": "توثيق ومطابقة فورية لحساسات القبان والأفران والشحنات (150 طن)",
+      "proof_hash": "0xSHK-AUD-63ADCF219F40E888C672"
+    },
+    {
+      "event_id": "EVT-65624",
+      "timestamp": "2026-11-11T05:36:05Z",
+      "module": "MANUAL_OPS_VERIFY",
+      "operation": "توثيق ومطابقة فورية لحساسات القبان والأفران والشحنات (150 طن)",
+      "proof_hash": "0xSHK-AUD-E15FEC8A90304CA556A6"
+    },
+    {
+      "event_id": "EVT-60640",
+      "timestamp": "2026-11-11T05:36:00Z",
+      "module": "SIMULATION_ENGINE",
+      "operation": "تنفيذ محاكاة رقمية (SIM-0640) لـ 150 طن بعائد متوقع 4564560 ريال",
+      "proof_hash": "0xSHK-AUD-9DEDB4A9D438803E9176"
+    },
+    {
+      "event_id": "EVT-53410",
+      "timestamp": "2026-11-11T05:35:53Z",
+      "module": "DIGITAL_TWIN_VIEW",
+      "operation": "دخول ومراقبة مركز التوأم الرقمي والمحاكاة والمستشعرات الحية",
+      "proof_hash": "0xSHK-AUD-235E9166FCE645D67935"
+    },
+    {
+      "event_id": "EVT-53052",
+      "timestamp": "2026-11-11T05:35:53Z",
+      "module": "SIMULATION_ENGINE",
+      "operation": "تنفيذ محاكاة رقمية (SIM-3051) لـ 200 طن بعائد متوقع 6115200 ريال",
+      "proof_hash": "0xSHK-AUD-DA6E2B6A9A87FBAEC3CB"
+    },
+    {
+      "event_id": "EVT-9001",
+      "timestamp": "2026-11-11T05:35:51Z",
+      "module": "DIGITAL_TWIN_CORE",
+      "operation": "تفعيل التوأم الرقمي والمحاكاة وربط الـ 6 حساسات الصناعية والفضائية بالتوثيق اللحظي",
+      "proof_hash": "0xSHK-AUDIT-09076C94E2948D925046E473"
+    }
+  ]
+}

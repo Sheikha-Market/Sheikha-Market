@@ -1,0 +1,306 @@
+{
+  "schema": "SHEIKHA_GLOBAL_TOPOLOGY_V62_3",
+  "project": "sheikha-marketplace",
+  "version": "v62.3-design-audit-20261026",
+  "mode": "PLAN_ONLY_NO_RESOURCE_CREATION",
+  "reconciled_at": "2026-10-26",
+  "governance": {
+    "deny_by_default": true,
+    "traffic_change_allowed": false,
+    "dns_change_allowed": false,
+    "iam_public_binding_allowed": false,
+    "allow_create_global_load_balancer": false,
+    "create_cost_resources": false,
+    "model_weight_not_trained": true,
+    "shk_reward_not_verified_financial_asset": true
+  },
+  "service_name": "sheikha-main-portal",
+  "regional_origins": [
+    {
+      "region": "us-central1",
+      "country": "United States",
+      "continent": "North America",
+      "service": "sheikha-main-portal",
+      "revision": "sheikha-main-portal-00098-puh",
+      "state": "LIVE_100_PERCENT",
+      "eligible_for_neg_after_review": true
+    },
+    {
+      "region": "me-central1",
+      "country": "Qatar",
+      "continent": "Asia / GCC",
+      "service": "sheikha-main-portal",
+      "revision": "sheikha-main-portal-00004-q97",
+      "state": "HEALTH_CHECK_CONTAINER_ERROR",
+      "eligible_for_neg_after_review": false
+    },
+    {
+      "region": "europe-west1",
+      "country": "Belgium",
+      "continent": "Europe",
+      "service": "sheikha-main-portal",
+      "revision": "sheikha-main-portal-00002-f4n",
+      "state": "HEALTH_CHECK_CONTAINER_ERROR",
+      "eligible_for_neg_after_review": false
+    },
+    {
+      "region": "asia-southeast1",
+      "country": "Singapore",
+      "continent": "Asia Pacific",
+      "service": "sheikha-main-portal",
+      "revision": "sheikha-main-portal-00002-vs6",
+      "state": "HEALTH_CHECK_CONTAINER_ERROR",
+      "eligible_for_neg_after_review": false
+    },
+    {
+      "region": "me-central2",
+      "country": "Saudi Arabia (Dammam)",
+      "continent": "Asia / GCC",
+      "service": "sheikha-main-portal",
+      "revision": null,
+      "state": "LOCATION_POLICY_VIOLATED",
+      "eligible_for_neg_after_review": false
+    },
+    {
+      "region": "africa-south1",
+      "country": "South Africa",
+      "continent": "Africa",
+      "service": "sheikha-main-portal",
+      "revision": null,
+      "state": "PLANNED_ONLY",
+      "eligible_for_neg_after_review": false
+    },
+    {
+      "region": "southamerica-east1",
+      "country": "Brazil",
+      "continent": "South America",
+      "service": "sheikha-main-portal",
+      "revision": null,
+      "state": "PLANNED_ONLY",
+      "eligible_for_neg_after_review": false
+    },
+    {
+      "region": "australia-southeast1",
+      "country": "Australia",
+      "continent": "Oceania",
+      "service": "sheikha-main-portal",
+      "revision": null,
+      "state": "PLANNED_ONLY",
+      "eligible_for_neg_after_review": false
+    }
+  ],
+  "load_balancer": {
+    "name": "sheikha-global-ingress-lb",
+    "state": "PLANNED_NOT_CREATED",
+    "type": "global-external-application-load-balancer",
+    "tier": "PREMIUM",
+    "serverless_neg_per_ready_region": true,
+    "backends_created": 0,
+    "frontend_static_ip_reserved": false,
+    "https_certificate_created": false,
+    "cdn": {
+      "enabled": false,
+      "planned": true,
+      "cache_only": "PUBLIC_VERSIONED_STATIC_ASSETS",
+      "never_cache": [
+        "api/*",
+        "admin/*",
+        "mcp/*",
+        "users/*",
+        "private/*",
+        "health/*"
+      ],
+      "key_safety": "no secrets or user data"
+    },
+    "waf": "Cloud Armor planned; not configured",
+    "multi_region_failover_untested": true
+  },
+  "top_level_domains": [
+    {
+      "domain": "sheikha.top",
+      "role": "corporate",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.shop",
+      "role": "storefront",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.market",
+      "role": "rfq_market",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.capital",
+      "role": "investor_relations_not_financial_licence",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.app",
+      "role": "apps",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.dev",
+      "role": "developers",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.cloud",
+      "role": "cloud_services",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.digital",
+      "role": "identity",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.money",
+      "role": "regulated_finance_not_active",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.me",
+      "role": "user_workspace",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.site",
+      "role": "websites",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    },
+    {
+      "domain": "sheikha.click",
+      "role": "links",
+      "ownership_verified": false,
+      "dns_verified_for_target": false,
+      "certificate_provisioned": false,
+      "traffic_live_by_this_manifest": false
+    }
+  ],
+  "candidate_subdomain_routes": [
+    {
+      "hostname": "api.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "admin.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "mcp.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "robot.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "lawh.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "trade.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "minds.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "static.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "stage.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "cdn.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "dev.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    },
+    {
+      "hostname": "app.sheikha.top",
+      "mode": "DESIGN_ONLY",
+      "routing_status": "NOT_VERIFIED",
+      "tls_status": "NOT_VERIFIED"
+    }
+  ],
+  "deployment_gates": [
+    "signed_image_digest",
+    "container_startup_and_health",
+    "secrets_via_secret_manager",
+    "auth_and_organization_policy",
+    "no_sensitive_content_in_build_layers",
+    "test_canary_then_traffic_review",
+    "regional_data_residency_review",
+    "budget_and_quota_approval",
+    "certificate_and_domain_ownership_verification"
+  ],
+  "source_notes": [
+    "region states from direct gcloud read 2026-10-26 16:56+03",
+    "me-central1=Doha, not Saudi Arabia",
+    "me-central2=Dammam, blocked by LOCATION_POLICY_VIOLATED"
+  ]
+}

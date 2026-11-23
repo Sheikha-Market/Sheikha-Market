@@ -5,6 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { createRequire } = require('node:module');
 const express = require('express');
 const request = require('supertest');
 const jwt = require('jsonwebtoken');
@@ -35,15 +36,25 @@ function adminPost(api, endpoint) {
 
 function design(api) { return adminGet(api, '/api/infinite-agent/design'); }
 
-async function application(t, preparse = false) {
+async function application(t, preparse = false, localKernelOverride) {
   delete require.cache[routePath];
   const app = express();
   if (preparse) app.use(express.json({ limit: '1mb' }));
-  const router = require(routePath);
+  let router;
+  if (localKernelOverride) {
+    const module = { exports: {} };
+    const routeRequire = createRequire(routePath);
+    const load = id => id === '../../runtime/kernel/sheikha-kernel' ? localKernelOverride : routeRequire(id);
+    vm.runInThisContext('(function(require,module){' + fs.readFileSync(routePath, 'utf8') + '\n})')(load, module);
+    router = module.exports;
+  } else {
+    router = require(routePath);
+  }
   app.use('/api/infinite-agent', router);
   app.use('/api/sheikha-kernel', router);
   app.use('/api/cosmic-engineering', router.createNaturalRouter());
-  app.use('/api/cosmic', router.createNaturalRouter());
+  delete require.cache[require.resolve('../routes/cosmic')];
+  app.use('/api/cosmic', localKernelOverride ? router.createNaturalRouter() : require('../routes/cosmic'));
   app.use((_req, res) => res.status(404).json({ error: 'not_found' }));
   const server = await new Promise((resolve, reject) => {
     const listener = app.listen(0, '127.0.0.1', () => resolve(listener));
@@ -53,11 +64,11 @@ async function application(t, preparse = false) {
   return request(server);
 }
 
-test('the complete server parses without executing startup and keeps one authority route', () => {
+test('the complete server parses without executing startup and keeps one listener', () => {
   const source = fs.readFileSync(path.join(__dirname, '../server.js'), 'utf8');
   assert.doesNotThrow(() => new vm.Script(source, { filename: 'server.js' }));
-  assert.equal((source.match(/app\.get\(['"]\/api\/runtime\/authority['"]/g) || []).length, 1);
-  assert.ok(source.includes('server = app.listen(port, HOST,'));
+  assert.equal((source.match(/app\.listen\(/g) || []).length, 1);
+  assert.ok(source.includes('server = app.listen(PORT, HOST,'));
 });
 
 test('mount occurs once before the API catch-all and preserves the Cloud Run host', () => {
@@ -65,14 +76,32 @@ test('mount occurs once before the API catch-all and preserves the Cloud Run hos
   const marker = source.indexOf('// SHEIKHA_INFINITE_AGENT_BEFORE_404');
   assert.ok(marker > 0);
   assert.ok(marker < source.indexOf('app.use((req, res) => {', marker));
-  assert.equal((source.match(/['"]\/api\/infinite-agent['"]/g) || []).length, 1);
-  assert.equal((source.match(/['"]\/api\/sheikha-kernel['"]/g) || []).length, 1);
-  assert.equal((source.match(/['"]\/api\/cosmic-engineering['"]/g) || []).length, 1);
-  assert.equal((source.match(/['"]\/api\/cosmic['"]/g) || []).length, 1);
+  for (const prefix of ['/api/infinite-agent', '/api/sheikha-kernel', '/api/cosmic-engineering', '/api/cosmic']) {
+    assert.equal(source.split("app.use('" + prefix + "',").length, 2);
+  }
   assert.ok(source.indexOf("app.use('/api/cosmic-engineering'") < source.indexOf('app.use((req, res) => {', marker));
   assert.ok(source.indexOf("app.use('/api/cosmic'") < source.indexOf('app.use((req, res) => {', marker));
   assert.ok(source.includes("process.env.HOST || (process.env.K_SERVICE ? '0.0.0.0' : '127.0.0.1')"));
   assert.equal(source.includes('Infinite Agent V43.80 OMNI ACTIVE'), false);
+  assert.ok(marker < source.indexOf('app.use(express.json());'));
+  assert.ok(source.includes("app.use(['/api/infinite-agent', '/api/sheikha-kernel', '/api/cosmic-engineering', '/api/cosmic'], generalLimiter)"));
+  assert.ok(source.includes("app.use('/api/cosmic', require('./routes/cosmic'));"));
+});
+
+test('legacy infinite route imports the canonical router without a separate public registry', async t => {
+  const api = await application(t);
+  delete require.cache[require.resolve('../routes/infinite')];
+  assert.equal(require('../routes/infinite'), require(routePath));
+  const initial = await design(api);
+  assert.equal(initial.body.totalBots, 0);
+  assert.equal(initial.body.sealStatus, 'NOT_VERIFIED');
+  assert.equal(initial.body.countScope, 'LOCAL_IN_MEMORY_DESCRIPTORS');
+  assert.equal((await adminPost(api, '/api/infinite-agent/spawn').send({})).status, 201);
+  const current = await adminGet(api, '/api/sheikha-kernel/full');
+  assert.equal(current.body.totalBots, 1);
+  assert.equal(current.body.totalBots, current.body.statistics.agents);
+  assert.equal(current.body.seal, null);
+  assert.equal((await api.get('/api/infinite-agent/status')).body.totalBots, undefined);
 });
 
 test('public status allowlist contains service flags without disclosing design or state', async t => {
@@ -224,9 +253,11 @@ test('spawn remains forbidden when an explicit JWT key is unavailable', async t 
   assert.equal(result.body.error, 'ADMIN_AUTH_NOT_CONFIGURED');
   for (const endpoint of ['/api/infinite-agent/design', '/api/infinite-agent/full',
     '/api/sheikha-kernel/full', '/api/cosmic-engineering', '/api/cosmic/rasul',
-    '/api/cosmic/full', '/api/cosmic/water', '/api/cosmic/atoms']) {
+    '/api/cosmic/full', '/api/cosmic/water', '/api/cosmic/atoms',
+    '/api/sheikha-kernel/manifest', '/api/sheikha-kernel/self-test']) {
     assert.equal((await adminGet(api, endpoint)).status, 403);
   }
+  assert.equal((await adminPost(api, '/api/sheikha-kernel/self-test').send({})).status, 403);
   assert.equal((await api.get('/api/infinite-agent/status')).status, 200);
 });
 
@@ -281,4 +312,78 @@ test('atomic compatibility endpoint denies anonymous callers and reports no atom
     assert.equal(admin.headers['cache-control'], 'no-store');
   }
   assert.equal((await design(api)).body.statistics.agents, 0);
+});
+
+test('kernel manifest requires admin and does not imply hardware or AI activation', async t => {
+  const api = await application(t);
+  for (const prefix of ['/api/infinite-agent', '/api/sheikha-kernel']) {
+    assert.equal((await api.get(prefix + '/manifest')).status, 401);
+    assert.equal((await api.get(prefix + '/manifest')
+      .set('Authorization', 'Bearer ' + token('customer'))).status, 403);
+    const result = await adminGet(api, prefix + '/manifest');
+    assert.equal(result.status, 200);
+    assert.equal(result.headers['cache-control'], 'no-store');
+    assert.equal(result.body.data.schema, 'SHEIKHA_LOCAL_KERNEL_COMPOSITION_V1');
+    assert.equal(result.body.data.platform.evidence.bareMetalBootVerified, false);
+    assert.equal(result.body.data.platform.ai.providerConnected, false);
+    assert.equal(result.body.data.productionReady, false);
+    assert.equal((await adminGet(api, prefix + '/manifest?live=true')).status, 400);
+  }
+});
+
+test('fixed kernel self-test requires admin POST and cannot mutate the shared registry', async t => {
+  const api = await application(t);
+  assert.equal((await adminPost(api, '/api/infinite-agent/spawn').send({})).status, 201);
+  for (const prefix of ['/api/infinite-agent', '/api/sheikha-kernel']) {
+    assert.equal((await api.get(prefix + '/self-test')).status, 401);
+    assert.equal((await api.post(prefix + '/self-test').send({})).status, 401);
+    assert.equal((await api.post(prefix + '/self-test')
+      .set('Authorization', 'Bearer ' + token('customer')).send({})).status, 403);
+    const get = await adminGet(api, prefix + '/self-test');
+    assert.equal(get.status, 405);
+    assert.equal(get.headers.allow, 'POST');
+    const result = await adminPost(api, prefix + '/self-test').send({});
+    assert.equal(result.status, 200);
+    assert.equal(result.headers['cache-control'], 'no-store');
+    assert.equal(result.body.success, true);
+    assert.equal(result.body.status, 'LOCAL_SELF_TEST_PASSED');
+    assert.equal(Object.values(result.body.checks).every(value => value === true), true);
+    assert.equal(result.body.descriptors.created, 3);
+    assert.equal(result.body.descriptors.persistent, false);
+    assert.equal(result.body.bootExecuted, false);
+    assert.equal(result.body.externalExecution, false);
+    assert.equal(result.body.productionReady, false);
+    assert.equal((await design(api)).body.statistics.agents, 1);
+  }
+});
+
+test('kernel self-test accepts only an empty JSON object with no query overrides', async t => {
+  for (const preparse of [false, true]) {
+    const api = await application(t, preparse);
+    assert.equal((await adminPost(api, '/api/sheikha-kernel/self-test').send('{}')).status, 415);
+    for (const input of [[], { source: 'untrusted' }, { live: true }, { humanApproved: true },
+      { maxAgents: 1000000 }, JSON.parse('{"__proto__":{"live":true}}')]) {
+      const result = await adminPost(api, '/api/sheikha-kernel/self-test')
+        .set('Content-Type', 'application/json').send(JSON.stringify(input));
+      assert.equal(result.status, 400);
+      assert.equal(result.body.success, false);
+    }
+    assert.equal((await adminPost(api, '/api/sheikha-kernel/self-test?live=true').send({})).status, 400);
+    assert.equal((await adminPost(api, '/api/sheikha-kernel/self-test').send({ source: 'x'.repeat(17000) })).status, 413);
+    assert.equal((await design(api)).body.statistics.agents, 0);
+  }
+});
+
+test('kernel self-test failure is HTTP 503 without exposing internal exceptions', async t => {
+  for (const implementation of [
+    { verifyLocal: () => ({ success: false, status: 'LOCAL_SELF_TEST_FAILED' }) },
+    { verifyLocal: () => { throw new Error('private-test-marker'); } }
+  ]) {
+    const api = await application(t, false, implementation);
+    const result = await adminPost(api, '/api/sheikha-kernel/self-test').send({});
+    assert.equal(result.status, 503);
+    assert.equal(result.body.success, false);
+    assert.equal(JSON.stringify(result.body).includes('private-test-marker'), false);
+    assert.equal((await design(api)).body.statistics.agents, 0);
+  }
 });

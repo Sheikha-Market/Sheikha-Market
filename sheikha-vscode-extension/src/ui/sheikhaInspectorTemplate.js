@@ -92,6 +92,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:1px solid
 .flow{margin:0;padding:0;list-style:none;counter-reset:step}.flow li{counter-increment:step;display:grid;grid-template-columns:22px minmax(0,1fr);gap:7px;align-items:center;padding:5px 0}.flow li::before{content:counter(step);width:20px;height:20px;display:grid;place-items:center;border:1px solid #3a7250;border-radius:50%;color:var(--good);font-size:9px}
 .files,.editors{margin:0;padding:0;list-style:none}.files li,.editors li{padding:5px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 55%,transparent);overflow-wrap:anywhere}.files li:last-child,.editors li:last-child{border-bottom:0}.editor-language{color:var(--muted);font-size:9px;margin-inline-start:5px}
 .policy{border-inline-start:3px solid var(--good);padding:7px 9px;background:color-mix(in srgb,var(--good) 7%,transparent);unicode-bidi:plaintext}
+.offline{margin:12px 12px 0;border:1px solid var(--bad);border-inline-start-width:3px;border-radius:6px;padding:8px 10px;background:color-mix(in srgb,var(--bad) 9%,transparent)}.offline b{display:block;color:var(--bad);margin-bottom:2px}.offline code{direction:ltr;unicode-bidi:plaintext}
 .route-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;margin-bottom:8px}.route-tools input{min-width:0;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--raised);color:var(--text);padding:0 8px}.route-count{color:var(--muted);align-self:center}.routes{direction:ltr;text-align:left;border-top:1px solid var(--line)}.route{display:grid;grid-template-columns:minmax(110px,34%) minmax(0,1fr);gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}.route b{font-size:10px;overflow-wrap:anywhere}.route code{color:var(--muted);font-size:10px;overflow-wrap:anywhere;white-space:normal}
 details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}pre{direction:ltr;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:9px;color:var(--muted);font-size:9px}
 @media(max-width:430px){.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs{top:91px}.row,.route{grid-template-columns:1fr;gap:2px}.row b.ltr{text-align:right}.identity p{max-width:230px}.tab{font-size:9px}}
@@ -109,6 +110,8 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}pre{direction:
       <button class="primary" id="ask" title="تحليل الحالة في شات شيخة">حلّل في الشات</button>
     </div>
   </header>
+
+  ${remoteOnline ? '' : `<div class="offline" role="alert"><b>الخادم المحلي غير متصل</b>${esc(remote.error || 'ECONNREFUSED')}<br>شغّل <code>npm start</code> ثم اضغط تحديث، أو طابق إعداد <code>sheikha.serverUrl</code> مع منفذ الخادم.</div>`}
 
   <section class="summary" aria-label="الملخص التنفيذي">
     ${metric('Runtime', normalizeStatus(remoteHealth.runtime || (remoteOnline ? 'ACTIVE' : 'OFFLINE')), remoteOnline ? 'good' : 'bad')}

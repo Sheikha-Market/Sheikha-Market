@@ -61,14 +61,18 @@ class SheikhaGitLabFederation {
       throw new Error(`Unsupported Sheikha Git provider: ${provider}`);
     }
 
-    const liveConnected = Boolean(config.endpoint && config.credentials);
+    const configured = Boolean(config.endpoint && config.credentials);
+    const liveConnected = false;
 
     return {
       provider,
-      status: liveConnected ? 'GIT_PROVIDER_LIVE_CONNECTED' : 'GIT_PROVIDER_CONTRACT_READY',
+      status: configured ? 'GIT_PROVIDER_CONFIGURED_NOT_VERIFIED' : 'GIT_PROVIDER_CONTRACT_READY',
       governed: true,
       audited: true,
       liveConnected,
+      configured,
+      connectivityVerified: false,
+      connectionAttempted: false,
       capabilities: GIT_FABRIC_CAPABILITIES,
       boundaries: {
         noCredentialGuessing: true,
@@ -151,7 +155,8 @@ class SheikhaGitLabFederation {
       arabicName: 'شيخة اتحاد Git والمختبر',
       status: 'ACTIVE_SHEIKHA_GIT_LAB_FEDERATION',
       layerRank: 'ABOVE_UNIFIED_STUDIO_KERNEL',
-      productionReady: true,
+      productionReady: false,
+      contractOnly: true,
       governed: true,
       audited: true,
       kernelStatus,

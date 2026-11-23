@@ -1212,6 +1212,19 @@ async function main() {
 
 if (require.main === module) {
   main().catch((error) => {
+    if (error.packagedServerOutput) {
+      const output = String(error.packagedServerOutput);
+      const secretScan = scanTextForSecrets(output);
+      writeJsonAtomic(path.join(EVIDENCE_ROOT, 'native-tar-launch-failure.json'), {
+        schemaVersion: '5.0.0',
+        system: 'SHEIKHA_LINUX_TAR_NATIVE_LAUNCH_FAILURE_V5',
+        status: 'FAILED_CLOSED',
+        error: String(error.message || error),
+        outputSha256: sha256Text(output),
+        secretScan,
+        output: secretScan.passed ? output : '[REDACTED_SECRET_PRESENT]'
+      });
+    }
     process.stderr.write(`${error.stack || error.message}\n`);
     process.exitCode = 1;
   });

@@ -1,0 +1,170 @@
+{
+  "schema": "SHEIKHA_V143_CORE_OF_CORES_AND_SOVEREIGN_CORE_ENGINE_GOVERNANCE",
+  "timestamp": "2026-10-28T23:24:10.445344",
+  "seal": "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED",
+  "operational_decision": "SCHEDULED_MONITORING_ACTIVE / FULL_LIVE_READINESS_HOLD",
+  "core_of_cores_and_core_leadership": {
+    "C_94_chief_core_of_cores_officer": {
+      "code": "C-94",
+      "title_ar": "كبير مدراء Core of Cores (نواة النوى وجوهرة السيادة وجذر الحقيقة)",
+      "title_en": "Chief Core of Cores Sovereign Officer (CCCSO)",
+      "port": 18082,
+      "secondary_port": 18135,
+      "kpi": "100%",
+      "core_of_cores_anchors": [
+        "docs/canonical/registry/ROOT-SOURCE-OF-TRUTH.md",
+        "SHEIKHA-CORE/blockchain/registry.json (535 Assets — SHA edc795a4)",
+        "SHEIKHA-CORE/blockchain/lawh_mahfuz/LAWH_MAHFUZ_MASTER_REGISTRY.json",
+        "Self Sovereign Weights 876 (94.75% — SHA 0c8ca22b)",
+        "bare-metal/contracts/SHEIKHA-UNIFIED-GOVERNANCE-DECISION-CONTRACT-V1.json"
+      ],
+      "license": "SHK-M2M-2026-0094"
+    },
+    "C_95_chief_sovereign_core_officer": {
+      "code": "C-95",
+      "title_ar": "كبير مدراء Core (النواة السيادية SHEIKHA-CORE ومحرك 18082)",
+      "title_en": "Chief Sovereign Core Engine Officer (CSCEO)",
+      "port": 18082,
+      "secondary_port": 18131,
+      "kpi": "100%",
+      "core_engine_files": [
+        "sheikha_core_engine.py (Port 18082)",
+        "lib/sheikha-core-runtime.js",
+        "SHEIKHA-CORE/families/weights/sheikha_moe_architecture.py",
+        "SHEIKHA-CORE/infrastructure/sheikha_omni_pillars_engine.py",
+        "SHEIKHA-CORE/sheikhachain/core/sheikha_chain_engine.py",
+        "docs/architecture/SHEIKHA-CORE-AI-FOUNDATIONS-RUNTIME.md"
+      ],
+      "license": "SHK-M2M-2026-0095"
+    },
+    "core_weights_matrix_12": [
+      {
+        "id": "W-CORE-01",
+        "domain": "Core of Cores Weight",
+        "name_ar": "وزن التوحيد والختم القرآني والنبوي في نواة النوى",
+        "target": "BOUND_BY_QURAN_SUNNAH — ATOM_WATER_RASUL_JANNAH_SEALED",
+        "score": "100%",
+        "port": 18135,
+        "chief": "C-94 / CORE-C-01"
+      },
+      {
+        "id": "W-CORE-02",
+        "domain": "Core of Cores Weight",
+        "name_ar": "وزن جذر الحقيقة المرجعي (Root Source of Truth Weight)",
+        "target": "docs/canonical/registry/ROOT-SOURCE-OF-TRUTH.md",
+        "score": "100%",
+        "port": 18082,
+        "chief": "C-94 / CORE-C-02"
+      },
+      {
+        "id": "W-CORE-03",
+        "domain": "Core of Cores Weight",
+        "name_ar": "وزن نواة اللوح المحفوظ والتطابق الثلاثي (535 Assets)",
+        "target": "SHEIKHA-CORE/blockchain/registry.json (edc795a4)",
+        "score": "100%",
+        "port": 18131,
+        "chief": "C-94 / CORE-C-03"
+      },
+      {
+        "id": "W-CORE-04",
+        "domain": "Core of Cores Weight",
+        "name_ar": "وزن الأوزان الذاتية السيادية الحاكمة (876 Self Weights)",
+        "target": "Self Sovereign Weights 94.75% (SHA 0c8ca22b)",
+        "score": "100%",
+        "port": 18131,
+        "chief": "C-94 / CORE-C-04"
+      },
+      {
+        "id": "W-CORE-05",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن محرك النواة المركزي ووقت التشغيل (Core Engine 18082)",
+        "target": "sheikha_core_engine.py + lib/sheikha-core-runtime.js",
+        "score": "100%",
+        "port": 18082,
+        "chief": "C-95 / CORE-C-05"
+      },
+      {
+        "id": "W-CORE-06",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن نواة معمارية مزيج الخبراء (MoE Architecture Weight)",
+        "target": "SHEIKHA-CORE/families/weights/sheikha_moe_architecture.py",
+        "score": "99.98%",
+        "port": 18131,
+        "chief": "C-95 / CORE-C-06"
+      },
+      {
+        "id": "W-CORE-07",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن نواة الركائز الشاملة (Omni-Pillars Engine Weight)",
+        "target": "SHEIKHA-CORE/infrastructure/sheikha_omni_pillars_engine.py",
+        "score": "99.98%",
+        "port": 18094,
+        "chief": "C-95 / CORE-C-07"
+      },
+      {
+        "id": "W-CORE-08",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن نواة سلسلة شيخة (SheikhaChain Core Engine Weight)",
+        "target": "SHEIKHA-CORE/sheikhachain/core/sheikha_chain_engine.py",
+        "score": "100%",
+        "port": 18131,
+        "chief": "C-95 / CORE-C-08"
+      },
+      {
+        "id": "W-CORE-09",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن نواة الأساسات الذكية (Core AI Foundations Runtime)",
+        "target": "docs/architecture/SHEIKHA-CORE-AI-FOUNDATIONS-RUNTIME.md",
+        "score": "99.97%",
+        "port": 18156,
+        "chief": "C-95 / CORE-C-09"
+      },
+      {
+        "id": "W-CORE-10",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن نواة التسوية الذرية والوقف الثابت (SHA 0cf8bc3c)",
+        "target": "sheikha_settlement_18140.py + sheikha_waqf_ledger_18142.py",
+        "score": "100%",
+        "port": 18140,
+        "chief": "C-94 / CORE-C-10"
+      },
+      {
+        "id": "W-CORE-11",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن نواة التوجيه الصارم وعزل المسارات (Strict 404 & SO_REUSEADDR)",
+        "target": "ensure_all_29_sovereign_ports_v130.py",
+        "score": "100%",
+        "port": 18082,
+        "chief": "C-95 / CORE-C-11"
+      },
+      {
+        "id": "W-CORE-12",
+        "domain": "Sovereign Core Weight",
+        "name_ar": "وزن نواة الحارس الحيوي والاستعادة الفورية (6s Auto-Recovery)",
+        "target": "sheikha_24_7_watchdog_daemon.py",
+        "score": "100%",
+        "port": 9091,
+        "chief": "C-94 / CORE-C-12"
+      }
+    ]
+  },
+  "hierarchy_summary": {
+    "supreme_macro_chiefs_C01_to_C95": 95,
+    "specialized_layer_and_stage_chiefs": 125,
+    "total_structural_chiefs": 220,
+    "hs_code_product_chiefs": 5000,
+    "grand_total_all_chiefs": 5220,
+    "department_directors": 1320,
+    "specialized_staff_and_engineers": 5280,
+    "seed_m2m_agents_gen0": 3520,
+    "proliferated_m2m_neural_nodes": 62800,
+    "synaptic_neural_connections": 1004800,
+    "structural_licenses": 276,
+    "hs_product_licenses": 5000,
+    "core_of_cores_and_core_weights": 12,
+    "sheikha_os_weights": 12,
+    "systems_manufacturing_weights": 12,
+    "governed_weights_total": 10000
+  },
+  "manifest_sha256": "cbcf1b56a95858037af5b7570436ac9dd462830d79092e0d5d3d107b27cd109b"
+}

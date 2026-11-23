@@ -1,0 +1,5 @@
+FROM localhost/sheikha-portal:v62-omni-live
+WORKDIR /app
+COPY SHEIKHA-CORE/blockchain/lawh_mahfuz/LAWH_MAHFUZ_MASTER_REGISTRY.json ./SHEIKHA-CORE/blockchain/lawh_mahfuz/
+COPY blockchain/lawh_mahfuz/LAWH_MAHFUZ_MASTER_REGISTRY.json ./blockchain/lawh_mahfuz/
+CMD ["node", "server.js"]

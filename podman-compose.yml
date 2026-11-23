@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  sheikha-main-portal:
+    image: sheikha:741
+    container_name: sheikha-main-portal
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "18080:18080"
+    command: node server.js
+    networks:
+      - sheikha-ecosystem_default
+networks:
+  sheikha-ecosystem_default:
+    driver: bridge

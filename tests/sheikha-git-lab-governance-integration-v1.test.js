@@ -12,7 +12,8 @@ test('activates Git Lab governance integration above federation', () => {
 
   expect(status.status).toBe('ACTIVE_GIT_LAB_GOVERNANCE_INTEGRATION');
   expect(status.layerRank).toBe('ABOVE_SHEIKHA_GIT_LAB_FEDERATION');
-  expect(status.productionReady).toBe(true);
+  expect(status.productionReady).toBe(false);
+  expect(status.contractOnly).toBe(true);
   expect(status.governed).toBe(true);
   expect(status.audited).toBe(true);
 

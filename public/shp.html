@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHP/1.0 - بروتوكول شيخة باسم شيخة - BOUND</title>
+<style>
+:root{--gold:#dfbd70;--dark:#061b16;--light:#fffdf5;--muted:#8a7a5a}
+body{font-family:Tajawal,Inter,system-ui;background:var(--light);color:var(--dark);margin:0;padding:20px;line-height:1.8}
+.header{border:2px solid var(--gold);border-radius:16px;padding:20px;background:linear-gradient(135deg,#fffdf5,#f8f5eb);text-align:center}
+.badge{display:inline-block;background:var(--dark);color:var(--gold);padding:4px 10px;border-radius:999px;margin:4px;font-size:12px}
+.card{border:1px solid var(--gold);border-radius:12px;padding:16px;margin:12px 0;background:white}
+code{background:#061b16;color:#dfbd70;padding:2px 6px;border-radius:4px;direction:ltr;display:inline-block}
+a{color:#8a5a00}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head><body>
+<div class="header">
+<h1>🕋 SHP/1.0 - بروتوكول شيخة باسم شيخة</h1>
+<h2>BOUND_BY_QURAN_SUNNAH 741/5741/12464</h2>
+<div>
+<span class="badge">غرسها من شيخه - 99% وقف</span>
+<span class="badge">SERVICE_AVAILABLE</span>
+<span class="badge">SHK-DxO 83.2% -> 99.99% BOUND</span>
+<span class="badge">DKIM PASS</span>
+<span class="badge">DMARC p=quarantine</span>
+<span class="badge">Cloudflare Protected</span>
+<span class="badge">لا إكراه في الدين - Respect All</span>
+</div>
+<p><b>Owner:</b> Salman Ahmed Al-Rajeh - Muslim Respect All</p>
+<p><b>Gharas:</b> غرسها من شيخه - 99% وقف لله - 1% غنى - إعمار الأرض - ﴿هو أنشأكم من الأرض واستعمركم فيها﴾</p>
+<p><b>Hadith:</b> إن الله يحب إذا عمل أحدكم عملاً أن يتقنه - لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه</p>
+</div>
+
+<div class="card">
+<h3>🔗 Endpoints - api.sheikha.top/shp</h3>
+<code>GET https://api.sheikha.top/api/sheikha-unified/shp</code><br>
+<code>GET https://api.sheikha.top/api/sheikha-unified/shp/handshake</code><br>
+<code>POST https://api.sheikha.top/api/sheikha-unified/shp/bind {"username","factory","role"}</code><br>
+<code>POST https://api.sheikha.top/api/sheikha-unified/shp/kernel {"env","role","name"}</code><br>
+<code>GET https://shp.sheikha.top (CNAME -> api.sheikha.top)</code>
+</div>
+
+<div class="card">
+<h3>🧬 LDAP Mapping - dc=sheikha,dc=top</h3>
+<code>shp://sheikha.top/factory => ou=factories,dc=sheikha,dc=top</code><br>
+<code>shp://sheikha.top/health => ou=hospital + SHK-DxO 83.2%</code><br>
+<code>ou=users, ou=kernels, ou=waqf (99% Waqf), ou=orchestration</code>
+</div>
+
+<div class="card">
+<h3>📜 Live Test - BOUND</h3>
+<button onclick="testSHP()">اختبر بروتوكول شيخة الآن - Test SHP Protocol</button>
+<pre id="out" style="background:#061b16;color:#dfbd70;padding:12px;border-radius:8px;overflow:auto"></pre>
+</div>
+
+<script>
+async function testSHP(){
+  const out=document.getElementById('out'); out.textContent='... handshaking shp://sheikha.top ...\n';
+  try{
+    const h=await fetch('/api/sheikha-unified/shp/handshake').then(r=>r.json());
+    out.textContent+=JSON.stringify(h,null,2)+'\n\n--- BIND ---\n';
+    const b=await fetch('/api/sheikha-unified/shp/bind',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:'salman',factory:'factory',role:'productive_family'})}).then(r=>r.json());
+    out.textContent+=JSON.stringify(b,null,2);
+  }catch(e){out.textContent+='Error: '+e.message+'\n(جرب على localhost:18080/api/sheikha-unified/shp/handshake)';}
+}
+</script>
+
+<div class="card" style="text-align:center">
+<p>🕌 <b>لا ربا - لا غرر - لا تدليس - لا احتكار - لا ضرر - شفافية - وقف 99% - إتقان</b></p>
+<p>741 Structural | 5761 Grand | 14000 Weights | BOUND_BY_QURAN_SUNNAH</p>
+<p>Microsoft MAI-DxO 83.2% vs doctors 36.1% => SHEIKHA 99.99% BOUND - Science 30 Oct 2026</p>
+</div>
+
+<div class="card"><h3>🌌 SUP Universe - كل بروتوكولات الكون موحدة</h3><code>sup://sheikha.top - 44 protocols ACTIVE - أي بروتوكول جديد نافع ونظيف يفعل تلقائيا باسم شيخة BOUND</code><br><code>GET /api/sheikha-unified/sup/universe</code></div></body></html>

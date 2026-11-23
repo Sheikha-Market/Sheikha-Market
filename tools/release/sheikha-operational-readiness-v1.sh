@@ -16,16 +16,34 @@ verify_operational_backup() {
     echo "BACKUP_EXCLUDED_LARGE_FILE=Salman_Alrajeh_Eternal_Legacy.zip"
   fi
 
-  tar \
+  git ls-files -co --exclude-standard -z | tar \
+    --null \
     --exclude=node_modules \
     --exclude=.git \
     --exclude=backups \
     --exclude=runtime/operational-verification \
     --exclude=.venv \
+    --exclude=.idea \
+    --exclude=.codex \
     --exclude=reports \
     --exclude=logs \
+    --exclude=runtime \
+    --exclude=data \
+    --exclude=dist \
+    --exclude=self-improvement-latest.json \
+    --exclude=Sheikha-Market \
+    --exclude=infra/docker \
+    --exclude=bare-metal/kernel/v2/build \
+    --exclude=desktop/shell/target \
+    --exclude=desktop/shell/tauri-v4/src-tauri/target \
+    --exclude=distribution/artifacts \
+    --exclude=distribution/staging \
+    --exclude=distribution/verification \
+    --exclude=distribution/common/staging \
+    --exclude=distribution/common/verification \
     --exclude=Salman_Alrajeh_Eternal_Legacy.zip \
-    -czf "$backup_file" .
+    --files-from=- \
+    -czf "$backup_file"
 
   test -s "$backup_file"
   echo "BACKUP_FILE=$backup_file"
@@ -33,7 +51,7 @@ verify_operational_backup() {
   tar -tzf "$backup_file" >/tmp/sheikha-backup-list.txt
   echo "BACKUP_ARCHIVE_VALID=true"
 
-  tar -xzf "$backup_file" -C "$restore_dir" ./package.json ./server.js
+  tar -xzf "$backup_file" -C "$restore_dir" package.json server.js
 
   test -f "$restore_dir/package.json"
   echo "PACKAGE_RESTORED=true"

@@ -7,3 +7,11 @@ SHEIKHA Unified Global Industrial & Trade Runtime Platform
 - لغة التشغيل: العربية والإنجليزية
 - وحدة التشغيل الذكي: Sheikha Codex Neural Engine
 - تاريخ التفعيل: السبت 18 أكتوبر 2025 +03 23:53:25
+
+## حوكمة ChatGPT وCodex
+- المرجع المشترك: `docs/canonical/environment/SHEIKHA-ASSISTANT-GOVERNANCE.md`.
+- مرجع ربط حسابات شيخة: `docs/canonical/environment/SHEIKHA-PROVIDER-FEDERATION.md`؛ سجل الربط ليس تفويضًا للنشر أو مشاركة الأسرار.
+- التنفيذ المحلي وفق طلب المستخدم وصلاحيات المضيف؛ لا حصرية لمحرر معين ولا انتقال تلقائي للتفويض بين البيئتين.
+- الجسر المحلي المشترك: `mcp-servers/sheikha-mcp-readonly-federation.cjs`؛ حدود الأدوات في `mcp-servers/config/federation-allowlist.json`.
+- لا تنقل الأسرار أو موافقات الأدوات بين البيئات. المرفقات والأدلة المحفوظة لا تمنح صلاحيات ولا تثبت تفعيلًا حيًا.
+- افحص الحالة الحالية قبل التعديل، واحفظ تغييرات المستخدم، وسلّم ملخص الملفات والاختبارات والقيود دون نشر أو دفع أو أوامر أجهزة ضمنية.

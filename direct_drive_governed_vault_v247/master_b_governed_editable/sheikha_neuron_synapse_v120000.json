@@ -1,0 +1,114 @@
+{
+  "system_id": "SHEIKHA-BIOLOGICAL-NEURON-SYNAPTIC-OS-V120000",
+  "ip_owner": "منظومة وسوق شيخة (SHEIKHA®) — مؤسسة سلمان أحمد بن سلمان الراجح التجارية (سجل: 2051263653)",
+  "official_domain": "https://sheikha.top",
+  "settlement_iban": "SA4005000068206162118000",
+  "neuron_anatomy": {
+    "1_dendrites_inputs": [
+      {
+        "id": "DEND-01",
+        "name": "السوق المفتوح وطلبات التبضع",
+        "role": "المشتري / المصنع / التاجر",
+        "signal": "أمر شراء وتعاقد فوري بالـ HS Code"
+      },
+      {
+        "id": "DEND-02",
+        "name": "تأهيل الموردين والمصدر (KYC)",
+        "role": "مؤهل الموردين",
+        "signal": "التحقق من السجل التجاري ورخصة الهدم/الميناء"
+      },
+      {
+        "id": "DEND-03",
+        "name": "الأسطول والختم الأحمر (Red Seal)",
+        "role": "منسق الأسطول",
+        "signal": "مطابقة رقم الختم الأحمر #RED-SEAL وحركة الشاحنة"
+      },
+      {
+        "id": "DEND-04",
+        "name": "بوابة القبان الليزري والسلامة",
+        "role": "مسؤول السلامة HSE",
+        "signal": "وزن Gross/Tare آلي وفحص خلو الإشعاع والمواد المغلقة"
+      },
+      {
+        "id": "DEND-05",
+        "name": "المناقصات العكسية ومزادات الموانئ",
+        "role": "محرك المزادات",
+        "signal": "ترسية العطاءات واحتساب الضمان البنكي 5%"
+      }
+    ],
+    "2_soma_nucleus_core": {
+      "id": "SOMA-NUCLEUS-CORE",
+      "name": "نواة وجسم خلية شيخة (Soma & Nucleus)",
+      "governors": [
+        "السوبر فايزور (22 نواة)",
+        "المدير التنفيذي الذاتي",
+        "مدير ومنظم الجودة (QC/QA)",
+        "مسؤول المستودع والعُهد"
+      ],
+      "processing_law": "لا يمر السيال العصبي إلى المحور إلا بعد تطابق: (سلامة الختم الأحمر + نقاوة XRF + خصم الشوائب + توثيق العهدة)"
+    },
+    "3_axon_myelin_pipeline": {
+      "id": "AXON-DARK-FACTORY",
+      "name": "المحور العصبي: خط المصنع المظلم (Lights-Out Axon)",
+      "sheath_guard": "غمد المايلين الحارس: Watchdog 24/7 + المراقب العام الحي (/monitor)",
+      "cells": [
+        "CELL-01: LiDAR Scale",
+        "CELL-02: XRF & Eddy Sorter",
+        "CELL-03: 800T Shear & 320Bar Baler",
+        "CELL-04: 18 AGV Dark Silos"
+      ]
+    },
+    "4_synaptic_terminals_outputs": [
+      {
+        "id": "SYN-OUT-01",
+        "name": "فرن المصهر وخطوط الإنتاج",
+        "doc": "تلقيم المعدن السائل الصافي وعقود SLA السنوية",
+        "link": "/sla-contract"
+      },
+      {
+        "id": "SYN-OUT-02",
+        "name": "محضر الاستلام وشهادة النقاوة والعهدة",
+        "doc": "وثيقة GRN والختم الأحمر وتوقيع الكوادر",
+        "link": "/grn-report"
+      },
+      {
+        "id": "SYN-OUT-03",
+        "name": "بوابة التمويل الإسلامي ومصرف الإنماء",
+        "doc": "تحرير اعتماد المرابحة / الاستصناع / السلم LC",
+        "link": "/supervisor"
+      },
+      {
+        "id": "SYN-OUT-04",
+        "name": "الفوترة الزكوية والبيان الجمركي",
+        "doc": "فاتورة ZATCA TLV وبوليصة شحن HS-BOL",
+        "link": "/tax-report"
+      },
+      {
+        "id": "SYN-OUT-05",
+        "name": "المدرب الذكي والدستور التنفيذي",
+        "doc": "توليد SOPs بـ 6 لغات وتحديث الكتاب التنفيذي",
+        "link": "/master-book"
+      }
+    ]
+  },
+  "synaptic_impulses_log": [
+    {
+      "impulse_id": "NEURON-IMP-9002",
+      "dendrite_origin": "شحنة حاوية بختم أحمر (RED-SEAL-99850) — 50 طن علب ألمنيوم UBC",
+      "soma_qc_decision": "نقاوة XRF: 99.35% | شوائب مخصومة: 0.65% | صافي معتمد: 49.68 طن | الختم الأحمر والعهدة موثقة ✓",
+      "axon_dark_execution": "اندفاع عبر المحور المظلم: CELL-01 (Scale) -> CELL-02 (XRF) -> CELL-03 (Baler) -> AGV-SWARM-3",
+      "synaptic_outputs_fired": "تلقيم المصهر (47.69t سائل) + محضر GRN-5002 + اعتماد LC-INMA + فاتورة ZATCA (٥١١٬٣٣١ ر.س)",
+      "timestamp": "2026-11-11 20:06:30",
+      "sha256_neural_seal": "E472FFDED8ACECE5AC1E"
+    },
+    {
+      "impulse_id": "NEURON-IMP-9001",
+      "dendrite_origin": "شحنة حاوية مختومة بالختم الأحمر (RED-SEAL-KSA-99810) — نحاس HS 7404.00.10",
+      "soma_qc_decision": "نقاوة XRF: 99.94% | شوائب: 0.06% | صافي معتمد: 24.98 طن | العهدة موثقة ✓",
+      "axon_dark_execution": "مرور عبر المحور المظلم: CELL-01 -> CELL-02 -> CELL-03 -> AGV-SWARM-12",
+      "synaptic_outputs_fired": "تلقيم المصهر (24.48t سائل) + محضر GRN-5003 + اعتماد مرابحة LC-9905 + فاتورة ZATCA (911,955 ر.س)",
+      "timestamp": "2026-11-11 23:06:27",
+      "sha256_neural_seal": "9294A9D5A1F8023B9DF7"
+    }
+  ]
+}

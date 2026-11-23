@@ -30,6 +30,7 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const https = require('https');
+const governance = require('../core/security/sheikha-sdk-mcp-governance.cjs');
 
 // ─── مسارات البيانات ─────────────────────────────────────────────────────────
 const ROOT = path.join(__dirname, '..');
@@ -125,6 +126,8 @@ const server = new Server(
 server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
         tools: [
+            { name: 'sheikha_language_production_status', description: 'Compile and verify the local Sheikha language production source in memory and inspect persisted build status; no writes, deployment or device operations.', inputSchema: { type: 'object', properties: {}, additionalProperties: false } },
+            { name: 'sheikha_foundation_status', description: 'Read local foundation verification for Lab, Visual, Bare Metal, Firmware, UTF, Core and Studio; starts no services.', inputSchema: { type: 'object', properties: {}, additionalProperties: false } },
             // ─── ١. حالة المنظومة الشاملة ───────────────────────────────
             {
                 name: 'sheikha_status',
@@ -360,7 +363,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                 description: 'معمارية شيخة — منظومة، شبكة، سوق — أفضل من NVIDIA و CUDA — مرقمن بالكتاب والسنة',
                 inputSchema: { type: 'object', properties: {}, required: [] }
             }
-        ]
+        ].filter(tool => governance.decision(tool.name).allowed).map(tool => ({ ...tool, annotations: { readOnlyHint: true, destructiveHint: false } }))
     };
 });
 
@@ -368,18 +371,17 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 //  معالجة استدعاءات الأدوات
 // ═══════════════════════════════════════════════════════════════════════════════
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    const { name, arguments: args } = request.params;
-
-    // تسجيل التفاعل — تقوية الذكاء
-    learningMemory.interactions.push({
-        tool: name,
-        args: args,
-        at: new Date().toISOString()
-    });
+const toolGate = governance.createToolGate({ audit: receipt => {
+    learningMemory.interactions.push(receipt);
+    if (learningMemory.interactions.length > 1000) learningMemory.interactions.shift();
+} });
+server.setRequestHandler(CallToolRequestSchema, async request => toolGate(request, async () => {
+    const { name, arguments: args = {} } = request.params;
 
     try {
         switch (name) {
+            case 'sheikha_language_production_status': return { content: [{ type: 'text', text: JSON.stringify(require('../core/foundation/sheikha-language-production-v1.cjs').status()) }] };
+            case 'sheikha_foundation_status': return { content: [{ type: 'text', text: JSON.stringify(require('../core/foundation/sheikha-foundation-management-v1.cjs').status()) }] };
             case 'sheikha_status': return await toolStatus();
             case 'sheikha_engines': return await toolEngines(args.filter);
             case 'sheikha_sharia_check': return await toolShariaCheck(args.code, args.context);
@@ -416,7 +418,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     } catch (error) {
         return { content: [{ type: 'text', text: `خطأ: ${error.message}` }], isError: true };
     }
-});
+}));
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  تنفيذ الأدوات
@@ -1216,11 +1218,17 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
             { uri: 'sheikha://pilot/status', name: 'حالة الطيار', description: 'KPIs و SMI ومنظومة الطيار', mimeType: 'application/json' },
             { uri: 'sheikha://dev/vscode-config', name: 'إعدادات VS Code', description: 'إعدادات بيئة التطوير', mimeType: 'application/json' },
             { uri: 'sheikha://sdk/catalog', name: 'كتالوج SDK', description: 'وحدات وأدوات Sheikha SDK', mimeType: 'application/json' }
-        ]
+        ].filter(resource => governance.resourceAllowed(resource.uri))
     };
 });
 
-server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+server.setRequestHandler(ReadResourceRequestSchema, async request => {
+    if (!governance.resourceAllowed(request.params?.uri)) throw new Error('RESOURCE_NOT_ADMITTED');
+    const result = await toolGate.resource(request, () => readAdmittedResource(request));
+    if (result.isError) throw new Error('RESOURCE_READ_DENIED');
+    return result;
+});
+async function readAdmittedResource(request) {
     const { uri } = request.params;
 
     switch (uri) {
@@ -1291,7 +1299,7 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
         default:
             throw new Error(`مورد غير معروف: ${uri}`);
     }
-});
+}
 
 function getAPIDocumentation() {
     return `# توثيق API منظومة شيخة\n\n## الأساسية\n` +
@@ -1316,7 +1324,7 @@ function getAPIDocumentation() {
 async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.error('[Sheikha MCP v2.2] ✅ جسر شيخة–Cursor جاهز | 28 أداة | 11 مورد | SDK كامل | بالكتاب والسنة');
+    console.error('[Sheikha MCP v2.2] ✅ جسر شيخة–Cursor جاهز | أدوات قراءة محكومة | موارد محددة | بالكتاب والسنة');
     console.error('[Sheikha MCP v2.0] 🎯 الأهداف: تقوية الذكاء + تطوير المنظومة + نشر الخير + حماية الأمانة');
 }
 

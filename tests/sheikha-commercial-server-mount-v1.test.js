@@ -101,3 +101,27 @@ test(
     );
   }
 );
+
+test('commercial router exposes subscription-funded training policy', () => {
+  const routePath = path.resolve(
+    __dirname,
+    '../routes/commercial-sales/sheikha-commercial-sales-routes-v1.js'
+  );
+  const source = fs.readFileSync(routePath, 'utf8');
+
+  assert.match(source, /\/training-funding-policy/);
+  assert.match(source, /\/training-budget-preview/);
+  assert.match(source, /allocateCollectedCash/);
+});
+
+test('commercial router exposes confidentiality default-deny policy', () => {
+  const routePath = path.resolve(
+    __dirname,
+    '../routes/commercial-sales/sheikha-commercial-sales-routes-v1.js'
+  );
+  const source = fs.readFileSync(routePath, 'utf8');
+
+  assert.match(source, /\/confidentiality-policy/);
+  assert.match(source, /\/confidentiality\/decision/);
+  assert.match(source, /trustedAuthorizationVerification: false/);
+});

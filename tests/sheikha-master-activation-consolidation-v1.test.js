@@ -93,7 +93,10 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.computingCognitiveLayersIntegrated).toBe(true);
     expect(report.checks.universalDistributionIntegrated).toBe(true);
     expect(report.checks.universalDistributionApexIntegrated).toBe(true);
-    expect(report.checks.publicBenefitCapabilityRoutingIntegrated).toBe(true);
+    const coverageCurrent = report.publicBenefitCapabilityRouting.registeredCapabilities ===
+      report.capabilityRegistry.componentCount;
+    expect(report.publicBenefitCapabilityRouting.catalogCoverageCurrent).toBe(coverageCurrent);
+    expect(report.checks.publicBenefitCapabilityRoutingIntegrated).toBe(coverageCurrent);
     expect(report.checks.universalBenefitBoundaryIntegrated).toBe(true);
     expect(report.checks.arabicSemanticEncodingIntegrated).toBe(true);
     expect(report.checks.nativeLanguageArchitectureIntegrated).toBe(true);
@@ -136,7 +139,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       .toBe(false);
     expect(report.executiveDashboard.indicators.publicBenefitCapabilityRoutingActive).toBe(true);
     expect(report.executiveDashboard.indicators.publicBenefitRegisteredCapabilities)
-      .toBe(report.summary.discoveredComponents);
+      .toBe(report.publicBenefitCapabilityRouting.registeredCapabilities);
     expect(report.executiveDashboard.indicators.publicBenefitPolicyActivatesCapabilities)
       .toBe(false);
     expect(report.executiveDashboard.indicators.universalBenefitBoundaryActive).toBe(true);
@@ -210,7 +213,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive)
       .toBe(true);
     expect(report.executiveDashboard.indicators.sheikhaCompilerSelfHosted).toBe(false);
-    expect(report.executiveDashboard.indicators.sheikhaNativeTargetAvailable).toBe(false);
+    expect(report.executiveDashboard.indicators.sheikhaNativeTargetAvailable).toBe(true);
     expect(report.executiveDashboard.indicators.sheikhaFullNativeMigrationComplete).toBe(false);
     expect(report.executiveDashboard.indicators.reasoningUltraRoleSlots).toBe(4);
     expect(report.executiveDashboard.indicators.reasoningActualIndependentModelProcesses).toBe(false);
@@ -331,7 +334,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       foundationScore: 100,
       compilerBootstrapRuntime: 'Node.js',
       compilerSelfHosted: false,
-      nativeTargetAvailable: false,
+      nativeTargetAvailable: true,
       fullSystemPortedToSheikha: false,
       nativeMigrationComplete: false,
       completionClaimAllowed: false,

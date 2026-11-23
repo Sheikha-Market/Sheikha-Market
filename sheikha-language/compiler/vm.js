@@ -2,6 +2,7 @@
 
 const childProcess = require('node:child_process');
 const governance = require('./governance');
+const conditions = require('./condition-expressions');
 const sandboxPolicy = require('./sandbox-policy');
 
 function runIR(ir, options = {}) {
@@ -11,9 +12,11 @@ function runIR(ir, options = {}) {
     for (let i = 0; i < steps.length; i++) {
         const step = steps[i];
         governance.beforeStep(state, step);
+        if (state.governance.violations.length) { pushTrace(state, step, i); break; }
         const result = executeStep(state, step, options);
         governance.afterStep(state, step, result);
         pushTrace(state, step, i);
+        if (state.governance.violations.length) break;
     }
 
     const ok = state.governance.violations.length === 0;
@@ -114,7 +117,7 @@ function executeStep(state, step, options) {
         state.procedures[step.procedure].properties[step.key] = step.value;
         return null;
     case 'COMMAND':
-        return executeCommand(state, step);
+        return executeCommand(state, step, options);
     case 'IF':
         return executeIf(state, step, options);
     case 'PROCEDURE_END':
@@ -130,8 +133,10 @@ function executeIf(state, step, options) {
     const inlineSteps = isTrue ? step.thenSteps : step.elseSteps;
     for (const nestedStep of inlineSteps) {
         governance.beforeStep(state, nestedStep);
+        if (state.governance.violations.length) break;
         const result = executeStep(state, nestedStep, options);
         governance.afterStep(state, nestedStep, result);
+        if (state.governance.violations.length) break;
     }
     return { kind: 'if', condition: step.condition, branch: isTrue ? 'then' : 'else' };
 }
@@ -145,6 +150,9 @@ function evaluateCondition(condition, state, options) {
         return false;
     }
 
+    const parsedCondition = conditions.parseSimple(raw);
+    if (parsedCondition) return conditions.evaluate(parsedCondition);
+
     if (raw.includes('غش')) {
         const allEntityText = JSON.stringify(state.entities);
         return allEntityText.includes('غش');
@@ -153,7 +161,23 @@ function evaluateCondition(condition, state, options) {
     return raw.length > 0;
 }
 
-function executeCommand(state, step) {
+function executeCommand(state, step, options = {}) {
+    if (step.command === 'تحقق_وحدة' || step.command === 'انتج_عقد' || step.command === 'حاكي_روبوت' || step.command === 'ولد_وسائط' || step.command === 'حاكي_شبكة') {
+        const handlers = options.localProductionHandlers;
+        const handler = handlers && Object.hasOwn(handlers, step.command) ? handlers[step.command] : null;
+        try {
+            if (typeof handler !== 'function') throw new Error('LOCAL_PRODUCTION_HANDLER_REQUIRED');
+            const result = handler(step, state);
+            if (!result || result.ok !== true) throw new Error('LOCAL_PRODUCTION_DENIED');
+            state.output.push(result.marker);
+            return { kind: 'local-production', ok: true };
+        } catch (_) {
+            state.governance.violations.push({ rule: 'local-production-admission', severity: 'critical' });
+            state.output.push('LOCAL_PRODUCTION_DENIED');
+            return { kind: 'local-production', ok: false };
+        }
+    }
+
     state.procedures[step.procedure] = state.procedures[step.procedure] || { properties: {}, commands: [] };
     state.procedures[step.procedure].commands.push({
         command: step.command,

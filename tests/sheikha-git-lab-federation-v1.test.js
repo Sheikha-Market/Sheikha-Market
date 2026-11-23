@@ -14,7 +14,8 @@ test('activates Sheikha Git Lab federation above unified studio kernel', () => {
 
   expect(status.status).toBe('ACTIVE_SHEIKHA_GIT_LAB_FEDERATION');
   expect(status.layerRank).toBe('ABOVE_UNIFIED_STUDIO_KERNEL');
-  expect(status.productionReady).toBe(true);
+  expect(status.productionReady).toBe(false);
+  expect(status.contractOnly).toBe(true);
   expect(status.governed).toBe(true);
   expect(status.audited).toBe(true);
 
@@ -29,7 +30,7 @@ test('activates Sheikha Git Lab federation above unified studio kernel', () => {
   expect(status.boundaries.noProductionPromotionWithoutEvidence).toBe(true);
 });
 
-test('marks Git provider live only with endpoint and credentials', () => {
+test('does not mark a Git provider connected from endpoint and credentials alone', () => {
   const federation = new SheikhaGitLabFederation();
 
   const github = federation.activateGitProvider('github', {
@@ -39,8 +40,9 @@ test('marks Git provider live only with endpoint and credentials', () => {
 
   const local = federation.activateGitProvider('local-git');
 
-  expect(github.status).toBe('GIT_PROVIDER_LIVE_CONNECTED');
-  expect(github.liveConnected).toBe(true);
+  expect(github.status).toBe('GIT_PROVIDER_CONFIGURED_NOT_VERIFIED');
+  expect(github.liveConnected).toBe(false);
+  expect(github.connectionAttempted).toBe(false);
 
   expect(local.status).toBe('GIT_PROVIDER_CONTRACT_READY');
   expect(local.liveConnected).toBe(false);

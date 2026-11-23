@@ -330,6 +330,14 @@ function markerBoolean(markers, matchers) {
   return null;
 }
 
+function markerNumber(markers, names) {
+  for (const name of names) {
+    const value = Number(markers?.[name]);
+    if (Number.isFinite(value)) return value;
+  }
+  return null;
+}
+
 function firstBoolean(...values) {
   return values.find((value) => typeof value === 'boolean') ?? null;
 }
@@ -345,7 +353,15 @@ function buildGovernedInterpretation({ decision, stable, eligible, markers }) {
   );
   const writerStopAuthorized = markerBoolean(
     markers,
-    ['WORKTREE_WRITER_STOP_AUTHORIZED']
+    ['WORKTREE_WRITER_STOP_AUTHORIZED', 'PROCESS_STOP_AUTHORIZED']
+  );
+  const periodicMutationRisk = markerBoolean(
+    markers,
+    ['ACTIVE_PERIODIC_MUTATION_RISK_PRESENT']
+  );
+  const periodicLoopDisableAuthorized = markerBoolean(
+    markers,
+    ['PERIODIC_LOOP_DISABLE_AUTHORIZED']
   );
   const lines = [];
   if (stable === true && eligible === false) {
@@ -361,6 +377,12 @@ function buildGovernedInterpretation({ decision, stable, eligible, markers }) {
   }
   if (writerStopAuthorized === false) {
     lines.push('- إيقاف الكاتب غير مصرح به؛ لم يُوقف الشات أي عملية.');
+  }
+  if (periodicMutationRisk === true) {
+    lines.push('- توجد مخاطرة كتابة دورية مثبتة؛ يلزم إسناد المسارات إلى العملية المسؤولة قبل إعادة الربط.');
+  }
+  if (periodicLoopDisableAuthorized === false) {
+    lines.push('- تعطيل الحلقات الدورية غير مصرح به؛ بقيت العمليات كما هي.');
   }
   if (/DRIFT_REQUIRES_(?:FRESH_)?REVIEW/u.test(String(decision || ''))) {
     lines.push('- الإجراء الآمن التالي: مراجعة الانحراف الموثق فقط، دون I3 أو D6 أو تعديل لمساحة العمل.');
@@ -404,7 +426,11 @@ function buildReadOnlyScriptAnswer(result) {
   const stable = firstBoolean(
     current.stableDuringCapture,
     current.stableDuringDesign,
-    markerBoolean(result.markers, [/^CURRENT_.*_STATE_STABLE$/u])
+    current.stableDuringDeltaCapture,
+    markerBoolean(result.markers, [
+      /^CURRENT_.*_STATE_STABLE$/u,
+      'STRUCTURAL_216_87_129_STATE_PRESERVED'
+    ])
   );
   const eligible = firstBoolean(
     parsed.eligibleForNewReadOnlyPreI3RebindingDesign,
@@ -423,6 +449,13 @@ function buildReadOnlyScriptAnswer(result) {
     summaryFacts.push(
       `- Status/Tracked/Untracked/Staged: ${current.statusEntryCount}/${current.trackedDiffPathCount}/${current.untrackedPathCount}/${current.stagedPathCount}.`
     );
+  }
+  const nonTargetChangedPathCount = markerNumber(
+    result.markers,
+    ['NON_TARGET_CHANGED_PATH_COUNT']
+  );
+  if (nonTargetChangedPathCount !== null) {
+    summaryFacts.push(`- المسارات المتغيرة خارج الهدف: ${nonTargetChangedPathCount}.`);
   }
   const booleanFacts = [
     ['الحالة ثابتة أثناء الالتقاط', stable],
@@ -449,7 +482,19 @@ function buildReadOnlyScriptAnswer(result) {
     )],
     ['إيقاف كاتب مساحة العمل مصرح', markerBoolean(
       result.markers,
-      ['WORKTREE_WRITER_STOP_AUTHORIZED']
+      ['WORKTREE_WRITER_STOP_AUTHORIZED', 'PROCESS_STOP_AUTHORIZED']
+    )],
+    ['مخاطرة كتابة دورية موجودة', markerBoolean(
+      result.markers,
+      ['ACTIVE_PERIODIC_MUTATION_RISK_PRESENT']
+    )],
+    ['مقبض كتابة حي على المسار المتغير مرصود', markerBoolean(
+      result.markers,
+      ['LIVE_WRITABLE_HANDLE_TO_CHANGED_PATH_OBSERVED']
+    )],
+    ['تعطيل الحلقة الدورية مصرح', markerBoolean(
+      result.markers,
+      ['PERIODIC_LOOP_DISABLE_AUTHORIZED']
     )],
     ['تنفيذ معالجة I3 الآن مسموح', markerBoolean(
       result.markers,
@@ -647,6 +692,7 @@ module.exports = {
   inspectShellEnvelope,
   isGovernedReadOnlyScriptRequest,
   markerBoolean,
+  markerNumber,
   normalizeReadOnlyFilenamePattern,
   parseOutputMarkers,
   parseReadOnlyScriptRequest,

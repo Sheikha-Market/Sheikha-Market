@@ -16,15 +16,18 @@ describe('Sheikha Sovereign Bare-Metal OS V2 activation V3', () => {
     expect(program.completionGate).toEqual({
       generalPurposeOperatingSystemComplete: false,
       allDriversComplete: false,
-      physicalHardwareBootVerified: false,
+      physicalHardwareBootVerified: true,
       secureBootVerified: false
     });
     expect(Object.values(program.activationFlags).every(Boolean)).toBe(true);
   });
 
-  test('keeps all completion claims fail-closed', () => {
-    expect(Object.values(program.completionFlags).every((v) => v === false)).toBe(true);
-    expect(program.remainingCompletionGates).toBe(4);
+  test('keeps unsupported completion claims fail-closed', () => {
+    expect(program.completionFlags.PHYSICAL_HARDWARE_BOOT_VERIFIED).toBe(true);
+    expect(program.completionFlags.GENERAL_PURPOSE_OPERATING_SYSTEM_COMPLETE).toBe(false);
+    expect(program.completionFlags.ALL_DRIVERS_COMPLETE).toBe(false);
+    expect(program.completionFlags.SECURE_BOOT_VERIFIED).toBe(false);
+    expect(program.remainingCompletionGates).toBe(3);
     expect(program.truthPolicy.neverSetCompletionTrueWithoutEvidence).toBe(true);
   });
 
@@ -41,13 +44,16 @@ describe('Sheikha Sovereign Bare-Metal OS V2 activation V3', () => {
     const output = JSON.parse(execFileSync(process.execPath, [
       path.join(root, 'tools/bare-metal/v2/evaluate-v2-completion-gates.js')
     ], {cwd: root, encoding: 'utf8'}));
-    expect(output.remainingCompletionGates).toBe(4);
+    expect(output.completionFlags.PHYSICAL_HARDWARE_BOOT_VERIFIED).toBe(true);
+    expect(output.remainingCompletionGates).toBe(3);
     expect(output.allCompletionGatesPassed).toBe(false);
   });
 
-  test('does not claim physical hardware verification', () => {
+  test('limits physical verification to one named MSI machine', () => {
     const matrix = readJson('runtime/bare-metal/v2/hardware/sheikha-v2-hardware-verification-matrix.json');
-    expect(matrix.verifiedPhysicalMachines).toBe(0);
-    expect(matrix.physicalHardwareBootVerified).toBe(false);
+    expect(matrix.verifiedPhysicalMachines).toBe(1);
+    expect(matrix.physicalHardwareBootVerified).toBe(true);
+    expect(matrix.verifiedDevices[0].model).toBe('Pulse 16 AI C1VFKG');
+    expect(matrix.universalHardwareSupportClaimed).toBe(false);
   });
 });

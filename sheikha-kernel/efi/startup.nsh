@@ -1,0 +1,7 @@
+# SHEIKHA BOUND BOOT - 741/5741/12464
+echo -off
+echo SHEIKHA NATIVE BOOT BOUND_BY_QURAN_SUNNAH 741/5741/12464 FOR ALLAH
+echo 99% Waqf 1% Ghina
+fs0:
+cd \EFI\Sheikha
+BOOTX64.EFI --seal=BOUND_BY_QURAN_SUNNAH --registry=edc795a408717e02ab5d06fc02b5b27925fb6e4a9b1e8d3c481edefbdc48e44b --grand=5741 --weights=12464 --structural=741 --core=18082 --ai=18080

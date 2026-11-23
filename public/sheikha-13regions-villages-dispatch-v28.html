@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منظومة شيخة V28–V29 | محاكي التوزيع الجغرافي للمدن والقرى والهجر وبوابة الوكلاء والموزعين وأصحاب المستودعات والشاحنات</title>
+  <style>
+    :root { --bg: #02050b; --card: #0a1324; --gold: #d4af37; --emerald: #10b981; --cyan: #38bdf8; --text: #f8fafc; --muted: #94a3b8; --border: rgba(212,175,55,0.38); }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); }
+    header { background: linear-gradient(135deg, #04120c 0%, #0b2e1f 50%, #152238 100%); border-bottom: 2px solid var(--gold); padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .badge { padding: 6px 12px; border-radius: 999px; font-size: 0.76rem; font-weight: 700; border: 1px solid var(--gold); background: rgba(212,175,55,0.12); color: var(--gold); margin-left: 6px; }
+    .badge.green { border-color: var(--emerald); background: rgba(16,185,129,0.15); color: var(--emerald); }
+    .container { max-width: 1600px; margin: 20px auto; padding: 0 20px; }
+    .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+    .kpi .v { font-size: 1.4rem; font-weight: 800; color: var(--gold); }
+    .kpi .l { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+    @media (max-width: 1024px) { .sim-grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 18px; }
+    .card h3 { margin: 0 0 12px; color: var(--gold); font-size: 1.08rem; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 8px; }
+    label { display: block; font-size: 0.84rem; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
+    select, input { background: #050a14; color: #fff; border: 1px solid var(--border); padding: 9px 12px; border-radius: 8px; width: 100%; margin-bottom: 12px; font-size: 0.86rem; }
+    .btn { background: var(--emerald); color: #02120a; border: none; padding: 11px 16px; border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 0.88rem; width: 100%; margin-bottom: 8px; }
+    .btn.gold { background: var(--gold); color: #000; }
+    .console { background: #020409; border: 1px solid var(--cyan); border-radius: 10px; padding: 14px; font-family: monospace; font-size: 0.82rem; color: #10b981; height: 290px; overflow-y: auto; line-height: 1.65; }
+    .reg-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 14px; }
+    .reg-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(212,175,55,0.28); border-radius: 12px; padding: 14px; }
+    .reg-item h4 { margin: 0 0 6px; color: var(--gold); font-size: 0.98rem; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .tag { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.3); color: var(--cyan); padding: 2px 8px; border-radius: 6px; font-size: 0.74rem; }
+    .tag.hijra { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.35); color: var(--emerald); }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 style="margin:0; font-size:1.32rem; color:var(--gold);">🇸🇦 منظومة شيخة V28–V29 | محاكي التوزيع الجغرافي للمدن والقرى والهجر + بوابة الوكلاء والموزعين وأصحاب المستودعات والشاحنات</h1>
+      <p style="margin:5px 0 0; font-size:0.82rem; color:var(--muted);">مؤسسة سلمان أحمد بن سلمان الراجح التجارية (CR: 2051263653) | 13 منطقة • 136 محافظة • 1,397 مركزاً • 11,500+ مدينة وقرية وهجرة</p>
+    </div>
+    <div>
+      <span class="badge green">● 13,033 LOCAL AGENT NODES READY</span>
+      <span class="badge">IVMS + SAR RAIL + PORTS</span>
+      <span class="badge">BOUND_BY_QURAN_SUNNAH</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="kpi-row">
+      <div class="kpi"><div class="v">13 إمارة منطقة</div><div class="l">تغطية سيادية شاملة 100%</div></div>
+      <div class="kpi"><div class="v">136 محافظة</div><div class="l">وكلاء وموزعون رئيسيون (-12% / -8%)</div></div>
+      <div class="kpi"><div class="v">1,397 مركزاً</div><div class="l">مراكز إدارية ونقاط تجميع وتوزيع</div></div>
+      <div class="kpi"><div class="v">+11,500</div><div class="l">قرية وهجرة وحقل عمل ومجمع قروي</div></div>
+      <div class="kpi"><div class="v">4 مسارات وكالة</div><div class="l">موزع محافظة • وكيل هجرة • مستودع • شاحنة</div></div>
+      <div class="kpi"><div class="v">24/7 حي</div><div class="l">إشراف الحارس والواتش والمراقب والمدير</div></div>
+    </div>
+
+    <div class="sim-grid">
+      <!-- 1. محاكي التوزيع الجغرافي للقرى والهجر V28 -->
+      <div class="card">
+        <h3>🚚 1. غرفة توجيه الأسطول والطلبات لكل مدينة وقرية وهجرة (V28 Dispatch)</h3>
+        <label>اختر المنطقة الإدارية (Emirate / Region):</label>
+        <select id="sel-region" onchange="updateLocations()"></select>
+
+        <label>اختر المحافظة أو المدينة الرئيسية (Governorate / City):</label>
+        <select id="sel-gov"></select>
+
+        <label>اختر المركز أو القرية أو الهجرة أو حقل العمل الدقيق:</label>
+        <select id="sel-village"></select>
+
+        <label>اختر الصنف من كتالوج شيخة المعتمد (35/35 SAP Online):</label>
+        <select id="sel-product"></select>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <input type="number" id="inp-qty" value="25" min="1" />
+          <select id="sel-tier">
+            <option value="0.88">شريحة المقاولين والمصانع (-12%)</option>
+            <option value="0.92">شريحة الجملة والموزعين (-8%)</option>
+            <option value="1.00">شريحة المتاجر ونقاط البيع القياسية</option>
+          </select>
+        </div>
+
+        <button class="btn" onclick="dispatchSingleOrder()">⚡ إطلاق شحنة فورية وإصدار أمر توريد وفاتورة ZATCA للموقع</button>
+        <button class="btn gold" onclick="dispatchNationalWave()">🇸🇦 إطلاق موجة إمداد وطنية شاملة لجميع المناطق الـ 13 والقرى والهجر</button>
+      </div>
+
+      <!-- 2. بوابة الوكلاء والموزعين وأصحاب المستودعات والشاحنات V29 -->
+      <div class="card">
+        <h3>🤝 2. بوابة اعتماد الوكلاء والموزعين وأصحاب المستودعات والشاحنات (V29 Franchise &amp; Agents)</h3>
+        <label>اسم التاجر / المؤسسة / صاحب المستودع أو الشاحنة:</label>
+        <input type="text" id="ag-name" placeholder="مثال: مؤسسة البنيان للتوريد / الناقل الوطني" />
+
+        <label>رقم السجل التجاري / وثيقة العمل الحر / رخصة النقل:</label>
+        <input type="text" id="ag-cr" placeholder="205XXXXXXX / FL-XXXXXXXX" />
+
+        <label>فئة الشراكة والوكالة المحلية في شبكة شيخة:</label>
+        <select id="ag-type">
+          <option value="وكيل وموزع محافظة معتمد (خصم جملة ومقاولين -12% إلى -8% + نظام ERP)">1. وكيل وموزع محافظة معتمد (خصم -12% إلى -8% + نظام ERP)</option>
+          <option value="وكيل مركز / قرية / هجرة (نقطة استلام وتسليم محلية بعمولة 5% - 10%)">2. وكيل مركز / قرية / هجرة (نقطة تسليم محلية بعمولة 5% إلى 10%)</option>
+          <option value="شريك مستودع وساحة تجميع سكراب ومواد (عقد إجارة ومشاركة عوائد MRF)">3. شريك مستودع وساحة تجميع سكراب ومواد (عقد إجارة ومشاركة MRF)</option>
+          <option value="شريك شاحنات وناقلات مستقل (أوامر نقل فورية مدفوعة + تتبع IVMS)">4. شريك شاحنات وناقلات مستقل (أوامر نقل فورية مدفوعة + IVMS)</option>
+        </select>
+
+        <button class="btn gold" onclick="registerLocalAgent()">👑 اعتماد الوكيل المحلي وإصدار عقد الوكالة ومفتاح التوريد للموقع المختار</button>
+
+        <div id="dispatch-console" class="console" style="margin-top:10px;">
+          [SHEIKHA V28-V29 READY] تم تفعيل محاكي التوزيع الجغرافي وبوابة الوكلاء المحليين في 13 منطقة و136 محافظة و11,500+ قرية وهجرة...
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🗺️ دليل التغطية الميدانية التفصيلية للمحافظات والمراكز والقرى والهجر في مناطق المملكة الـ 13</h3>
+      <div class="reg-cards" id="regions-breakdown"></div>
+    </div>
+  </div>
+
+  <script>
+    const ksaData = [{"region": "المنطقة الشرقية", "hub": "محور الخبر / الجبيل الصناعية / رأس الخير التعدينية", "fleetMode": "شاحنات IVMS + قطار التعدين سار + موانئ الدمام والجبيل ورأس الخير", "governorates": ["الخبر", "الدمام", "الظهران", "الجبيل", "الأحساء", "حفر الباطن", "الخفجي", "رأس تنورة", "بقيق", "القطيف", "النعيرية", "قرية العليا", "العديد"], "villagesAndHijar": ["هجرة عين دار", "هجرة صلاصل", "هجرة يبرين", "مركز حرض", "حقل الشيبة", "حقل السفانية", "مركز تناجيب", "هجرة الصرار", "هجرة مليجة", "مركز السعيرة", "هجرة أم عقلا (الشملول)", "مركز سلوى", "منفذ البطحاء", "هجرة الفاضلي", "هجرة خريص الشرقية"]}, {"region": "منطقة الرياض", "hub": "محور الرياض اللوجستي / الميناء الجاف / مدينة سدير للصناعة والأعمال", "fleetMode": "قطار سار + أسطول النقل السريع IVMS + مستودعات الرياض المركزية", "governorates": ["الرياض", "الخرج", "الدرعية", "المجمعة", "القويعية", "الدوادمي", "وادي الدواسر", "الأفلاج", "الزلفي", "شقراء", "حوطة بني تميم", "عفيف", "السليل", "المزاحمية", "رماح", "ثادق", "حريملاء", "الحريق", "الغاط", "مرات", "الدلم"], "villagesAndHijar": ["هجرة حفر العتش", "هجرة شوية", "هجرة الحفيرة", "مركز الرين", "مركز حلبان", "مركز ساجر", "مركز نفي", "مركز الجمش", "مركز تمير", "مركز جلاجل", "قرية أشيقر", "مركز القصب", "هجرة برك", "مركز الهدار", "مركز تمرة", "هجرة سعد (خريص)"]}, {"region": "منطقة مكة المكرمة", "hub": "محور ميناء جدة الإسلامي / رابغ / مدينة الملك عبدالله الاقتصادية", "fleetMode": "ميناء جدة الإسلامي + ميناء الملك عبدالله + أسطول القطاع الغربي IVMS", "governorates": ["مكة المكرمة", "جدة", "الطائف", "رابغ", "القنفذة", "الليث", "خليص", "رنية", "تربة", "الجموم", "الكامل", "الخرمة", "المويه", "ميسان", "أضم", "العرضيات", "بحرة"], "villagesAndHijar": ["مركز ثول (كاوست)", "مركز ذهبان", "مركز عسفان", "مركز مدركة", "قرية رهاط", "مركز ظلم", "مركز عشيرة", "مركز السيل الكبير", "مركز مستورة", "قرية الأبواء", "مركز حجر", "مركز المظيلف", "مركز حلي", "مركز يلملم", "مركز الشعيبة"]}, {"region": "منطقة المدينة المنورة", "hub": "محور مدينة ينبع الصناعية / المدينة المنورة / مناجم مهد الذهب", "fleetMode": "ميناء الملك فهد الصناعي بينبع + أسطول المعادن والبتروكيماويات IVMS", "governorates": ["المدينة المنورة", "ينبع", "العلا", "مهد الذهب", "بدر", "خيبر", "الحناكية", "العيص", "وادي الفرع"], "villagesAndHijar": ["مركز ينبع النخل", "مركز الرايس", "مركز المسيجيد", "مركز الفريش", "مركز الصويدرة", "مركز النخيل", "مركز ثرب", "قرية الصلحانية", "مركز أبيار الماشي", "مركز المليليح", "قرية شجوى", "مركز العشاش"]}, {"region": "منطقة تبوك", "hub": "محور نيوم (أوكساجون) / ميناء ضباء / تبوك اللوجستي", "fleetMode": "ميناء نيوم (أوكساجون) + ميناء ضباء + أسطول الشمال الغربي والهيدروجين", "governorates": ["تبوك", "نيوم", "ضباء", "الوجه", "أملج", "تيماء", "حقل"], "villagesAndHijar": ["مركز شرما", "مركز البدع", "قرية قيال", "قرية الخريبة", "مركز المويلح", "قرية الديسة", "منفذ حالة عمار", "مركز بئر بن هرماس", "مركز القليبة", "مركز الشبحة", "قرية المنجور"]}, {"region": "منطقة القصيم", "hub": "محور بريدة الصناعي / مناجم البعيثة للبوكسايت", "fleetMode": "قطار التعدين والشمال (سار) + أسطول القصيم المركزي IVMS", "governorates": ["بريدة", "عنيزة", "الرس", "المذنب", "البكيرية", "البدائع", "الأسياح", "النبهانية", "عيون الجواء", "رياض الخبراء", "الشماسية", "عقلة الصقور", "ضرية"], "villagesAndHijar": ["مركز البعيثة (مناجم معادن)", "مركز قبة", "مركز الفوارة", "مركز دخنة", "مركز الخشيبي", "مركز الفويلق", "قرية كحلة", "مركز شري", "مركز المدرج", "قرى أبانات"]}, {"region": "منطقة عسير", "hub": "محور خميس مشيط الصناعي / أبها / بيشة التعديني", "fleetMode": "أسطول القطاع الجنوبي الثقيل IVMS + مستودعات خميس مشيط وبيشة", "governorates": ["أبها", "خميس مشيط", "بيشة", "النماص", "محايل عسير", "سراة عبيدة", "تثليث", "رجال ألمع", "أحد رفيدة", "ظهران الجنوب", "بلقرن", "المجاردة", "تنومة", "بارق", "طريب", "البرك", "الحرجة"], "villagesAndHijar": ["مركز السودة", "مركز وادي بن هشبل", "مركز يعرى", "مركز تبالة", "مركز صمخ", "مركز قنا", "مركز بحر أبو سكينة", "مركز الفرشة", "مركز العرين", "مركز الأمواه"]}, {"region": "منطقة حائل", "hub": "محور حائل اللوجستي والزراعي والصناعي", "fleetMode": "محطة قطار حائل (سار) + أسطول الشمال الأوسط IVMS", "governorates": ["حائل", "بقعاء", "الغزالة", "الشنان", "الحائط", "السليمي", "الشملي", "موقق", "سميراء"], "villagesAndHijar": ["مركز جبة", "مركز الخطة", "مركز تربة حائل", "هجرة الأجفر", "مركز الكهفة", "قرية فيد التاريخية", "مركز العظيم", "مركز الروضة", "قرية الحفير", "مركز بيضاء نثيل"]}, {"region": "منطقة الحدود الشمالية", "hub": "محور مدينة وعد الشمال بطريف / عرعر / حزم الجلاميد", "fleetMode": "قطار الفوسفات (سار) + أسطول التعدين والحقول الشمالية IVMS", "governorates": ["عرعر", "رفحاء", "طريف", "العويقيلة"], "villagesAndHijar": ["مدينة وعد الشمال للصناعات التعدينية", "منجم حزم الجلاميد", "قرية لينة التاريخية", "هجرة شعبة نصاب", "هجرة لوقة", "طلعة التمياط", "هجرة الهباس", "هجرة أم خنصر", "منفذ جديدة عرعر"]}, {"region": "منطقة جازان", "hub": "محور مدينة جازان للصناعات الأساسية والتحويلية (بيش) ومصفاة جازان", "fleetMode": "ميناء مدينة جازان الصناعي + أسطول الإمداد الساحلي والجبلي IVMS", "governorates": ["جازان", "صبيا", "أبو عريش", "صامطة", "بيش", "الدرب", "أحد المسارحة", "فرسان", "الداير", "الريث", "العارضة", "العيدابي", "فيفاء", "الطوال", "الحرث", "ضمد", "هروب"], "villagesAndHijar": ["مركز المضايا", "قرية الحكامية", "مركز الشقيق", "مركز القفل", "مركز السهي", "مركز الموسم", "مركز العالية", "مركز الحقو", "مركز الفطيحة", "قرى وادي جازان"]}, {"region": "منطقة نجران", "hub": "محور نجران الصناعي / مناجم المصانع / شرورة", "fleetMode": "أسطول التعدين والإمداد الجنوبي الشرقي IVMS", "governorates": ["نجران", "شرورة", "حبونا", "بدر الجنوب", "يدمة", "ثار", "خباش"], "villagesAndHijar": ["مناجم المصانع (النحاس والزنك والذهب)", "منفذ الوديعة", "مركز الحصينية", "مركز المشعلية", "مركز بئر عسكر", "هجرة سلطانة", "مركز الخرخير"]}, {"region": "منطقة الباحة", "hub": "محور المدينة الصناعية بالباحة / بلجرشي / المخواة", "fleetMode": "أسطول الإمداد الجبلي والتهامي المباشر IVMS", "governorates": ["الباحة", "بلجرشي", "المندق", "المخواة", "العقيق", "قلوة", "القرى", "بني حسن", "غامد الزناد", "الحجرة"], "villagesAndHijar": ["مركز ناوان", "مركز الشعراء", "مركز الجوة", "مركز جرب", "مركز كرا", "قرية معشوقة", "قرية بيدة", "قرى دوس", "مركز شدا"]}, {"region": "منطقة الجوف", "hub": "محور سكاكا للطاقة المتجددة / القريات / منفذ الحديثة", "fleetMode": "قطار الشمال (سار) + محور منفذ الحديثة الدولي وأسطول بسيطا", "governorates": ["سكاكا", "القريات", "دومة الجندل", "طبرجل"], "villagesAndHijar": ["منفذ الحديثة الدولي", "مركز صوير", "مركز زلوم", "قرية قارا", "مركز أبو عجرم", "هجرة ميقوع", "مركز النبك أبو قصر", "مركز الفياض", "مركز العيساوية", "منطقة بسيطا الزراعية"]}];
+    const products = [{"id": "SHK-ENG-BARITE-42", "name": "بارايت حفر الآبار العميقة API 13A (4.2 SG)", "price": 790, "uom": "Ton/Unit"}, {"id": "SHK-STL-PIPES", "name": "أنابيب خطوط غير ملحومة مقاومة للكبريت API 5L X65", "price": 4800, "uom": "Ton"}, {"id": "SHK-STL-STRUCT", "name": "مقاطع صلب إنشائي وحديد تسليح للمشاريع والمقاولين", "price": 3450, "uom": "Ton"}, {"id": "SHK-MAA-8M7000P63T", "name": "سبائك ألمنيوم معادن المعماري والصناعي AA6063-T6", "price": 10950, "uom": "Ton"}, {"id": "SHK-MET-BASE-CUNI", "name": "كاثودات النحاس النقي 99.99% والنيكل للكابلات والمصانع", "price": 36500, "uom": "Ton"}, {"id": "SHK-SEC-ELEC-AUTO", "name": "محولات ولوحات تحكم وأتمتة مقاومة للانفجار ATEX", "price": 8900, "uom": "Unit"}, {"id": "SHK-CNT-SKIP-ISO", "name": "حاويات سكيب صناعية وحاويات شحن بحرية وبري ISO", "price": 14500, "uom": "Unit"}, {"id": "SHK-CLD-UNIV-ERP", "name": "نظام شيخة السحابي الموحد ERP ونقاط البيع والفوترة ZATCA", "price": 8500, "uom": "License"}];
+
+    const selReg = document.getElementById('sel-region');
+    const selGov = document.getElementById('sel-gov');
+    const selVil = document.getElementById('sel-village');
+    const selProd = document.getElementById('sel-product');
+
+    ksaData.forEach((r, idx) => {
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = (idx + 1) + '. ' + r.region + ' (' + r.hub + ')';
+      selReg.appendChild(opt);
+    });
+
+    products.forEach((p, idx) => {
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = p.id + ' — ' + p.name + ' (' + p.price.toLocaleString() + ' SAR / ' + p.uom + ')';
+      selProd.appendChild(opt);
+    });
+
+    function updateLocations() {
+      const r = ksaData[selReg.value];
+      selGov.innerHTML = '';
+      selVil.innerHTML = '';
+      r.governorates.forEach(g => {
+        const o = document.createElement('option');
+        o.value = g;
+        o.textContent = 'محافظة / مدينة: ' + g;
+        selGov.appendChild(o);
+      });
+      r.villagesAndHijar.forEach(v => {
+        const o = document.createElement('option');
+        o.value = v;
+        o.textContent = 'مركز / قرية / هجرة / حقل: ' + v;
+        selVil.appendChild(o);
+      });
+    }
+    updateLocations();
+
+    function appendLog(html) {
+      const c = document.getElementById('dispatch-console');
+      const t = new Date().toLocaleTimeString();
+      c.innerHTML += '<br><span style="color:var(--gold);">[' + t + ']</span> ' + html;
+      c.scrollTop = c.scrollHeight;
+    }
+
+    function dispatchSingleOrder() {
+      const r = ksaData[selReg.value];
+      const gov = selGov.value;
+      const vil = selVil.value;
+      const prod = products[selProd.value];
+      const qty = parseFloat(document.getElementById('inp-qty').value) || 10;
+      const tier = parseFloat(document.getElementById('sel-tier').value) || 1.0;
+      const net = prod.price * qty * tier;
+      const vat = net * 0.15;
+      const total = net + vat;
+      const shipId = 'SHK-KSA-' + Math.floor(100000 + Math.random() * 900000);
+
+      appendLog(
+        '<strong>[إطلاق شحنة ' + shipId + ']</strong> من <u>' + r.hub + '</u> &rarr; إلى <strong>' + r.region + ' / ' + gov + ' / [' + vil + ']</strong><br>' +
+        '&nbsp;&nbsp;📦 الصنف: ' + prod.id + ' (' + prod.name + ') | الكمية: ' + qty + ' ' + prod.uom + ' | الإجمالي شامل ضريبة ZATCA: <strong>' + total.toLocaleString() + ' ريال</strong><br>' +
+        '&nbsp;&nbsp;🛰️ وسيلة النقل: ' + r.fleetMode + ' | الحالة: <span style="color:#38bdf8;">تم التوجيه عبر المدير والتدقيق عبر المراقب والحارس</span>.'
+      );
+    }
+
+    function dispatchNationalWave() {
+      appendLog('<strong style="color:#38bdf8;">=== بدء موجة الإمداد الوطنية الشاملة للمناطق الـ 13 والمحافظات والقرى والهجر ===</strong>');
+      ksaData.forEach(r => {
+        const sampleGov = r.governorates[0];
+        const sampleVil = r.villagesAndHijar[0];
+        appendLog('✅ [' + r.region + '] انطلاق الإمداد من (' + r.hub + ') إلى مدينة <strong>' + sampleGov + '</strong> و<strong>' + sampleVil + '</strong> وكافة المراكز والهجر التابعة.');
+      });
+    }
+
+    function registerLocalAgent() {
+      const r = ksaData[selReg.value];
+      const gov = selGov.value;
+      const vil = selVil.value;
+      const name = document.getElementById('ag-name').value || 'وكيل شيخة المحلي المعتمد';
+      const cr = document.getElementById('ag-cr').value || 'VERIFIED-CR';
+      const agType = document.getElementById('ag-type').value;
+      const agCode = 'SHK-AGENT-' + Math.floor(100000 + Math.random() * 900000);
+
+      appendLog(
+        '<strong style="color:var(--gold);">[اعتماد وكيل محلي جديد ' + agCode + ']</strong><br>' +
+        '&nbsp;&nbsp;👤 الوكيل: <strong>' + name + '</strong> (سجل/ترخيص: ' + cr + ')<br>' +
+        '&nbsp;&nbsp;📍 النطاق الجغرافي المعتمد: <strong>' + r.region + ' &rarr; ' + gov + ' &rarr; [' + vil + ']</strong><br>' +
+        '&nbsp;&nbsp;🤝 المسار: ' + agType + ' | تم التوثيق والتفعيل بإشراف [الحارس • الواتش • المراقب • المدير].'
+      );
+    }
+
+    const bd = document.getElementById('regions-breakdown');
+    ksaData.forEach((r, idx) => {
+      const card = document.createElement('div');
+      card.className = 'reg-item';
+      const govTags = r.governorates.map(g => '<span class="tag">' + g + '</span>').join('');
+      const vilTags = r.villagesAndHijar.map(v => '<span class="tag hijra">' + v + '</span>').join('');
+      card.innerHTML =
+        '<h4>' + (idx + 1) + '. ' + r.region + '</h4>' +
+        '<div style="font-size:0.78rem; color:var(--muted); margin-bottom:6px;">🚀 المنطلق: ' + r.hub + '</div>' +
+        '<div style="font-size:0.78rem; color:var(--gold);">المحافظات والمدن:</div>' +
+        '<div class="tag-list">' + govTags + '</div>' +
+        '<div style="font-size:0.78rem; color:var(--emerald); margin-top:8px;">نماذج المراكز والقرى والهجر وحقول العمل:</div>' +
+        '<div class="tag-list">' + vilTags + '</div>';
+      bd.appendChild(card);
+    });
+  </script>
+</body>
+</html>

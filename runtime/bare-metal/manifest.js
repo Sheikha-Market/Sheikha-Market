@@ -1,22 +1,66 @@
-module.exports={
-id:"SHEIKHA_BARE_METAL_V43_85",
-type:"BARE_METAL_OS",
-base:"لا اله الا الله محمد رسول الله",
-kernel:"ATOM_WATER_RASUL_JANNAH_SEALED",
-layers:{
-pop_os:{type:"linux",gov:"SHEIKHA_GOV",editable:true},
-【entity-microsoft¦canonical_name=Microsoft】:{type:"windows",gov:"SHEIKHA_GOV",editable:true},
-linux:{type:"kernel",gov:"L0_QURAN_SUNNAH",editable:true},
-【entity-apple¦canonical_name=Apple】:{type:"darwin",gov:"SHEIKHA_GOV",editable:true},
-ubuntu:{type:"linux",gov:"SHEIKHA_GOV",editable:true},
-bare_metal:{type:"bare_metal",direct:true,ai_integrated:true,governance:"QURAN_SUNNAH"}
-},
-programming:{
-ide:"Sheikha Codex",
-languages:["JS","TS","Python","Rust","Go"],
-editing:"bare_metal_direct",
-governance:{L0:"قران وسنة",L1:"انظمة KSA",L2:"قانون تشغيل"}
-},
-sciences:["فيزياء","كيمياء","احياء","فلك","طب","هندسة","حاسب","ذكاء","اقتصاد","فقه"],
-seal:"SHEIKHA_BARE_METAL_MANIFEST_SEALED"
-};
+'use strict';
+
+function freeze(value) {
+  for (const child of Object.values(value)) {
+    if (child && typeof child === 'object') freeze(child);
+  }
+  return Object.freeze(value);
+}
+
+function target(name, type) {
+  return {
+    name, type, status: 'TARGET_NOT_QUALIFIED',
+    fullOsSupportVerified: false, systemModificationAllowed: false,
+    editingScope: 'AUTHORIZED_PROJECT_FILES_ONLY'
+  };
+}
+
+module.exports = freeze({
+  id: 'SHEIKHA_BARE_METAL_MANIFEST_V1',
+  schemaVersion: '1.0',
+  type: 'PLATFORM_TARGET_MANIFEST',
+  base: 'لا إله إلا الله محمد رسول الله',
+  status: 'LOCAL_SOFTWARE_CONTRACT',
+  layers: {
+    pop_os: target('Pop!_OS', 'linux'),
+    microsoft: target('Windows', 'windows'),
+    linux: target('Linux', 'linux'),
+    apple: target('macOS', 'darwin'),
+    ubuntu: target('Ubuntu', 'linux'),
+    bare_metal: target('Native boot target', 'bare_metal')
+  },
+  programming: {
+    language: 'Sheikha managed language',
+    hostRuntime: 'Node.js',
+    pipeline: ['SOURCE', 'LEXER', 'PARSER_AST', 'TYPECHECK', 'IR', 'BYTECODE', 'GOVERNED_VM'],
+    mode: 'FIXED_LOCAL_SELF_TEST',
+    liveAdapters: false,
+    shellExecution: false,
+    arbitraryCodeExecution: false,
+    nativeSelfHostingVerified: false
+  },
+  ai: {
+    placement: 'SEPARATE_SERVICE_WITH_BOUNDED_KERNEL_INTERFACE',
+    mode: 'DESCRIPTOR_AND_RESEARCH_PLANNING_ONLY',
+    providerConnected: false, modelInferenceExecuted: false, trainingExecuted: false,
+    agiOrAsiVerified: false
+  },
+  governance: {
+    reference: 'QURAN_AND_SUNNAH',
+    values: ['JUSTICE', 'TRUST', 'BENEFIT', 'NO_HARM', 'TRUTHFUL_EVIDENCE'],
+    automatedReligiousCertification: false,
+    qualifiedHumanReviewRequired: true,
+    externalAuthorityGranted: false,
+    hardwareExecutionAllowed: false,
+    productionDeploymentAllowed: false
+  },
+  evidence: {
+    bootExecutedThisSession: false,
+    bareMetalBootVerified: false,
+    physicalHardwareQualified: false,
+    universalCompatibility: false,
+    allSciencesIntegrated: false,
+    productionReady: false
+  },
+  seal: null
+});
