@@ -20,11 +20,11 @@ concurrency:
 
 jobs:
   sre-omni-radar-21:
-    name: "27/27 Sovereign Endpoints & Fail-Closed Guard"
+    name: "29/29 Sovereign Endpoints & Fail-Closed Guard"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: "🌐 Probe All 27 Sovereign Endpoints (12 Zones + 15 Subdomains) & V61 Portals"
+      - name: "🌐 Probe All 29 Sovereign Endpoints (12 Zones + 17 Subdomains) & V61 Portals"
         shell: bash
         run: |
           set -euo pipefail
@@ -66,6 +66,8 @@ jobs:
               "https://management.sheikha.top/",
               "https://twin.sheikha.top/",
               "https://business.sheikha.top/",
+              "https://sellers.sheikha.top/api/health",
+              "https://ilm.sheikha.top/api/health",
           ]
 
           PORTALS_V61 = [
@@ -145,5 +147,5 @@ jobs:
           if ep_pass != len(ENDPOINTS_21) or ui_pass != len(PORTALS_V61) or gate_pass != len(FAIL_CLOSED_GATES):
               sys.exit(1)
 
-          print("🏆 ALL 27 SOVEREIGN ENDPOINTS + 4 PORTALS + 3 FAIL-CLOSED GATES PASSED 100%!")
+          print("🏆 ALL 29 SOVEREIGN ENDPOINTS + 4 PORTALS + 3 FAIL-CLOSED GATES PASSED 100%!")
           EOF
