@@ -1,0 +1,19 @@
+{
+  "schema": "SHEIKHA_V67_0_AUTO_QUOTATION_AND_ZATCA_PROFORMA_ENGINE_SEAL",
+  "version": "67.0.0",
+  "intention_covenant": "خالصاً لوجه الله تعالى — BOUND_BY_QURAN_SUNNAH_TARADI_ZERO_RIBA_ZATCA",
+  "supreme_entity": "Salman Alrajeh Trading Est. — مؤسسة سلمان الراجح التجارية (CR: 2051263653)",
+  "end_to_end_commercial_automation": {
+    "step_1_intake": "Visitor submits RFQ/Partnership on Civilization Portal -> SHK-REQ-XXXXXX in D1",
+    "step_2_review": "Supervisor runs ~/.local/bin/sheikha-inbox list (Zero-Leak Bearer Auth)",
+    "step_3_approve": "Supervisor runs ~/.local/bin/sheikha-inbox approve <ID>",
+    "step_4_zatca_proforma": "Edge Worker computes 15% VAT, encodes 5-tag ZATCA TLV Base64 QR & stores SHK-QTE / SHK-PRO in D1",
+    "step_5_audit": "Supervisor inspects issued contracts via ~/.local/bin/sheikha-inbox quotes"
+  },
+  "d1_tables": [
+    "sheikha_visitor_inquiries_v65",
+    "sheikha_quotations_and_contracts_v67"
+  ],
+  "radar_status": "27/27 GREEN",
+  "sealed_at": "2026-11-23T03:35:25.134135+00:00"
+}
