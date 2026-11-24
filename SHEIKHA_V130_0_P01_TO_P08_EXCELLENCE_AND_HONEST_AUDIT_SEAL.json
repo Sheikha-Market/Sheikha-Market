@@ -1,12 +1,12 @@
 {
   "schema": "SHEIKHA_V130_0_P01_TO_P08_EXCELLENCE_HONEST_AUDIT_AND_ACTIVE_GUARDIAN_SEAL",
-  "version": "130.0.0",
+  "version": "130.1.0",
   "intention_covenant": "بسم الله الرحمن الرحيم — بالكتاب والسنة ولا ضرر ولا ضرار — بالإتقان والإحسان والأمانة والصدق",
   "supreme_entity": "Salman Alrajeh Trading Est. — مؤسسة سلمان الراجح التجارية (CR: 2051263653)",
   "priorities_resolved_p01_to_p08": {
     "P01_active_service_health_probes": "Cron & API now measure real D1 R/W ms, R2 list, KV read & live HTTP 200",
     "P02_cloud_and_compute_finops": "sheikha-billing + sheikha_finops_resource_ledger_v130 with 3,000 SAR hard cap",
-    "P03_generation_engine_auth": "Unauth HTTP=200 (Blocked) | Auth HTTP=200 (Verified via SHA-256 KV hash)",
+    "P03_generation_engine_auth": "Unauth HTTP=401 (Blocked) | BadToken HTTP=403 (Forbidden) | ValidAuth HTTP=200 (Verified)",
     "P04_weights_provenance_and_ip": "Qwen2.5-1.5B attributed under Apache-2.0; 15 LoRA deltas 100% Proprietary (Transfer=DENY)",
     "P05_native_os_foundry_integration": "Installed sheikha-native, sheikha-kernel, sheikha-guardian, sheikha-billing & sheikha-map",
     "P06_science_charters_review": "20 Charters & 25 Sector Links audited across all 9 JSON pillars (TECHNICAL_SCHEMA_VERIFIED_V130)",
@@ -14,5 +14,5 @@
     "P08_continuous_kaizen_innovation": "sheikha_kaizen_innovation_engine_v130 active at /innovation-lab"
   },
   "live_verification_portal": "https://cockpit.sheikha.top/integrity-center",
-  "sealed_at": "2026-11-24T12:44:16.634024+00:00"
+  "sealed_at": "2026-11-24T12:47:49.791794+00:00"
 }
