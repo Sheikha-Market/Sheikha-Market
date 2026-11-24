@@ -1,0 +1,47 @@
+{
+  "schema": "SHEIKHA_V118_0_UNIVERSAL_OT_SENSORS_5TIER_GOVERNOR_SUPERCOMPUTER_AND_LORA9_SEAL",
+  "version": "118.0.0",
+  "intention_covenant": "بالكتاب والسنة ولا ضرر ولا ضرار ولا حول ولا قوة إلا بالله",
+  "supreme_entity": "Salman Alrajeh Trading Est. — مؤسسة سلمان الراجح التجارية (CR: 2051263653)",
+  "ot_oems_and_sensors_governed_6": [
+    "OT-VND-01: Honeywell (Experion PKS C300, Safety Manager SC SIL-3, Gas Detectors)",
+    "OT-VND-02: Yokogawa (CENTUM VP, ProSafe-RS, DPharp EJX Transmitters)",
+    "OT-VND-03: Emerson (DeltaV DCS, Micro Motion Coriolis Custody Meters, Fisher Valves)",
+    "OT-VND-04: Schneider Electric & AVEVA (Triconex TMR SIL-3, Foxboro, Modicon, PI)",
+    "OT-VND-05: SLB, Baker Hughes & Halliburton (PDHMS Downhole 25k psi, ESP, Bently Nevada 3500)",
+    "OT-VND-06: Siemens Energy, ABB & Endress+Hauser (SPPA-T3000 Turbines, 800xA, Radar Tank Gauging)"
+  ],
+  "energy_supercomputer_benchmark": {
+    "schema": "SHEIKHA_SOVEREIGN_ENERGY_HPC_RUN_V118",
+    "cluster_designation": "SHEIKHA-HPC-DAMMAM-PRIME",
+    "compute_accelerator": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "seismic_3d_rtm": {
+      "grid_voxels": "128x128x128 (2,097,152 cells)",
+      "timesteps": 60,
+      "elapsed_sec": 0.9589,
+      "sustained_stencil_gflops": 2.1,
+      "peak_wavefield_amplitude": 0.381825
+    },
+    "reservoir_darcy_3d": {
+      "grid_cells": "96x96x48 (442,368 reservoir blocks)",
+      "elapsed_sec": 0.1824,
+      "stabilized_reservoir_pressure_psi": 3333.52,
+      "reservoir_stewardship": "OPTIMAL_WATERFLOOD_BALANCE_ZERO_FORMATION_DAMAGE"
+    },
+    "metabrain_tensor_throughput": {
+      "precision": "bfloat16",
+      "measured_tflops": 3.56
+    },
+    "executed_at": "2026-11-24T01:42:58.730975+00:00",
+    "run_sha256": "2ac4a05560efe73271d109172291a8d873dbda670cd9c8e8e4ee296b40317dca"
+  },
+  "energy_petroleum_lora_adapter_9": "SHK-LORA-9B914FDA78",
+  "live_domains_and_endpoints": [
+    "https://hpc.sheikha.top",
+    "https://energy.sheikha.top",
+    "https://sheikha.top/ot-supercomputer",
+    "https://sheikha.top/api/v118/hpc-ot/matrix",
+    "~/.local/bin/sheikha-hpc"
+  ],
+  "sealed_at": "2026-11-24T01:44:29.647710+00:00"
+}
